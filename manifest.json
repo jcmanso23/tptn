@@ -1,0 +1,25 @@
+{
+  "name": "Topotino en Londres",
+  "short_name": "Topotino",
+  "description": "Operación: Reloj de la Niebla — Aventura espía por Londres",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#f8f4e6",
+  "theme_color": "#1c1008",
+  "lang": "es",
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Topotino">
+  <meta name="theme-color" content="#f8f4e6">
+  <title>Topotino — Operación Londres</title>
+  <link rel="manifest" href="manifest.json">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ══ SCREEN: AUTH ════════════════════════════════════════════ -->
+<div id="screen-auth" class="screen active">
+
+  <div class="auth-letterhead">
+    <div class="auth-letterhead-logo" id="topotino-tap">
+      <img src="images/topotino.png" alt="Topotino" onerror="this.style.display='none'">
+    </div>
+    <div class="auth-org">S E R V I C I O  T O P O T I N O</div>
+    <div class="auth-dept">Canal Cifrado de Campana — Seccion 7</div>
+  </div>
+
+  <hr class="paper-rule">
+
+  <!-- Step 1: Identity -->
+  <div id="auth-step-1" class="auth-step">
+    <p class="auth-question">Antes de continuar, necesito saber con quién estoy hablando. ¿Quiénes sois?</p>
+    <div class="auth-fields">
+      <div class="auth-field-wrap">
+        <label class="auth-label">Agente 1</label>
+        <input type="text" id="auth-agent1" class="auth-input" placeholder="__________" autocomplete="off" autocorrect="off" spellcheck="false">
+      </div>
+      <div class="auth-field-wrap">
+        <label class="auth-label">Agente 2</label>
+        <input type="text" id="auth-agent2" class="auth-input" placeholder="__________" autocomplete="off" autocorrect="off" spellcheck="false">
+      </div>
+    </div>
+    <div class="auth-error" id="auth-error-1" style="display:none">Identificación fallida. Intentadlo de nuevo.</div>
+    <button class="btn btn-primary btn-full" id="btn-auth-1">Confirmar identidad</button>
+  </div>
+
+  <!-- Step 2: Secret question -->
+  <div id="auth-step-2" class="auth-step" style="display:none">
+    <hr class="rule-thin">
+    <p class="auth-question">Bien. Una ultima verificacion. ¿En que ciudad vencimos juntos por ultima vez a los Oscurnos?</p>
+    <div class="auth-fields">
+      <div class="auth-field-wrap">
+        <label class="auth-label">Ciudad</label>
+        <input type="text" id="auth-city" class="auth-input" placeholder="__________" autocomplete="off" autocorrect="off" spellcheck="false">
+      </div>
+    </div>
+    <div class="auth-error" id="auth-error-2" style="display:none">Código incorrecto. Acceso denegado.</div>
+    <button class="btn btn-primary btn-full" id="btn-auth-2">Verificar código</button>
+  </div>
+
+</div>
+
+<!-- ══ SCREEN: CARTA ═══════════════════════════════════════════ -->
+<div id="screen-carta" class="screen">
+  <div class="screen-header">
+    <button class="btn-back" id="carta-back">← Volver</button>
+    <span class="label-secret">Correspondencia Cifrada</span>
+  </div>
+
+  <div class="carta-wrap">
+    <div class="carta-header-row">
+      <div class="carta-from">
+        T.<br>
+        Agente Topotino<br>
+        Canal Móvil #7
+      </div>
+      <div class="carta-date">
+        Londres, Abril 2026<br>
+        &nbsp;<br>
+        Ref: Expediente Reloj de la Niebla
+      </div>
+    </div>
+
+    <hr class="rule-thin">
+
+    <div class="carta-content">
+      <p class="no-indent">Queridos Paula y Hugo:</p>
+
+      <p>¡Por fin! Llevo meses intentando ponerme en contacto con vosotros… meses de verdad. Os he dejado un montón de cartas en lugares seguros, escondites de nivel topoexperto, incluso en sitios que solo vosotros conoceríais… y no habéis acudido a ninguna misión. Eso no es propio de vosotros.</p>
+
+      <p>He estado pensando mucho en esto, y hay algo que no encaja. Vosotros nunca rechazáis una misión. Nunca. Y mis otros informadores tampoco han oído que hayáis recibido nada ni que hayáis hablado de ello. Así que empiezo a sospechar que alguien está interceptando mis mensajes antes de que lleguen a vuestras manos. No quiero alarmaros, pero ya sabéis quién podría estar detrás de algo así.</p>
+
+      <p>Por eso he tenido que cambiar completamente de sistema. Después de varios intentos fallidos, por fin he conseguido una forma de comunicarme con vosotros a través del móvil. Es más segura, más rápida y, por ahora, parece que funciona. Y menos mal que lo hace, porque justo cuando lo he conseguido he recibido una información que lo cambia todo.</p>
+
+      <p class="no-indent">He oído que vais a viajar a Londres.</p>
+
+      <p class="no-indent">No sabéis lo importante que es eso.</p>
+
+      <p>Yo estuve allí hace unos días, siguiendo una pista muy antigua. Al principio parecía una misión sencilla, pero pronto entendí que no lo era en absoluto. Descubrí que alguien había preparado un desafío escondido por toda la ciudad. No eran objetos, ni mapas, ni códigos habituales. Era algo más elegante, más difícil de detectar.</p>
+
+      <p class="no-indent">Una frase.</p>
+
+      <p>Una frase formada por doce letras, escondidas en doce lugares distintos de Londres. Cada lugar guardaba una de esas letras, pero no estaban a la vista. Para encontrarlas, había que observar bien, fijarse en los detalles y resolver pequeñas pruebas que el propio lugar planteaba.</p>
+
+      <p>Intenté seguir el rastro. Pasé por una plaza llena de leones, crucé un puente sobre el río, encontré un gran arco de piedra, me moví entre luces que no se apagan nunca y entré en un edificio donde el pasado parece seguir vivo. Estuve muy cerca de comprenderlo todo, pero no me dio tiempo a terminar. La situación empezó a complicarse y tuve que retirarme antes de completar la frase.</p>
+
+      <p>Antes de marcharme, dejé preparado algo para vosotros. No podía arriesgarme a que desapareciera también, así que lo protegí dentro de este sistema. He guardado una pista para cada uno de los lugares y una pequeña prueba que tendréis que resolver cuando estéis allí. Si lo hacéis bien, conseguiréis una letra en cada sitio.</p>
+
+      <p class="no-indent">Esa es vuestra misión.</p>
+
+      <p>Tendréis que descubrir de qué lugar se trata en cada caso, ir hasta allí, observar con atención y superar las pruebas. Cada acierto os dará una letra. Cuando tengáis las doce, tendréis que pensar, ordenarlas y descubrir cuál es la frase completa. No es una frase cualquiera, os lo aseguro. Cuando la entendáis, todo encajará.</p>
+
+      <p class="no-indent">Pero hay algo más que debéis tener en cuenta.</p>
+
+      <p class="no-indent">El tiempo importa.</p>
+
+      <p>Tenéis hasta las diez de la mañana del 26 de abril. La cuenta atrás ya ha comenzado. No hace falta correr sin pensar, pero sí avanzar, fijaros bien y no dejar pasar las pistas.</p>
+
+      <p>Hay un último consejo que no puedo dejar de daros. En esta misión, lo más importante no es la rapidez, ni la fuerza, ni siquiera la suerte. Lo más importante es mirar bien. Mirar de verdad. Donde otros pasan deprisa, vosotros tendréis que deteneros. Donde parece que no hay nada, ahí es donde suele estar la clave.</p>
+
+      <p>Yo estaré con vosotros en cada paso, a través de este dispositivo. Puede que a veces la señal falle un poco, pero no os preocupéis, eso entra dentro de lo normal en este tipo de operaciones.</p>
+
+      <p class="no-indent">Confío en vosotros. Mucho.</p>
+
+      <p class="no-indent">Es bueno volver a trabajar juntos.</p>
+
+      <p class="no-indent">Buena suerte, amigos.</p>
+
+      <p class="carta-firma">Topotino</p>
+    </div>
+  </div>
+
+  <button class="btn btn-primary btn-full" id="btn-carta-to-map" style="margin-top:20px">Ver las misiones →</button>
+</div>
+
+<!-- ══ SCREEN: MAP ══════════════════════════════════════════════════ -->
+<div id="screen-map" class="screen">
+  <div class="map-header">
+    <div class="map-title-row">
+      <h2>Expediente: Reloj de la Niebla</h2>
+      <button class="btn-carta" id="btn-map-carta">Carta</button>
+    </div>
+    <div class="map-brief">Parte activo: localizar 12 claves ocultas en Londres antes del cierre de campana.</div>
+    <div class="map-stats-row">
+      <div class="letters-collected" id="map-letters-display">— — — — — — — — — — — —</div>
+      <div class="pieces-counter" id="map-pieces">0/12</div>
+    </div>
+    <div class="countdown-mini" id="countdown-map">⏱ --:--:--</div>
+  </div>
+  <div class="progress-bar-wrap">
+    <div class="progress-bar-fill" id="progress-bar" style="width:0%"></div>
+  </div>
+  <div class="missions-grid" id="missions-grid"></div>
+</div>
+
+<div id="image-lightbox" class="image-lightbox" aria-hidden="true">
+  <button id="image-lightbox-close" class="image-lightbox-close" type="button">×</button>
+  <img id="image-lightbox-img" src="" alt="">
+  <div id="image-lightbox-caption" class="image-lightbox-caption"></div>
+</div>
+
+<!-- ══ SCREEN: MISSION ══════════════════════════════════════════════ -->
+<div id="screen-mission" class="screen">
+  <div class="screen-header">
+    <button class="btn-back" id="mission-back">← Volver</button>
+    <span class="label-secret">Parte de Campo</span>
+  </div>
+  <div class="mission-codename" id="mission-codename">—</div>
+  <div class="topo-message-box">
+    <div class="topo-avatar-small">
+      <img src="images/topotino.png" alt="Topotino" onerror="this.parentElement.innerHTML='T'">
+    </div>
+    <div class="message-bubble" id="mission-pista">—</div>
+  </div>
+  <div class="mission-history-box" id="mission-history-box">
+    <div class="mission-history-title">Lo que Topotino te cuenta aqui</div>
+    <div class="mission-history-text" id="mission-historia">—</div>
+  </div>
+  <div class="mission-history-box mission-encaje-box" id="mission-encaje-box">
+    <div class="mission-history-title">Como encaja este lugar en el misterio</div>
+    <div class="mission-history-text" id="mission-encaje">—</div>
+  </div>
+  <div class="mission-letter-hint">
+    <span class="letter-hint-label">Clave oculta en este frente:</span>
+    <span class="letter-hint-box">□</span>
+  </div>
+  <div class="mission-action">
+    <p class="mission-prompt">¿Podeis identificar el objetivo?</p>
+    <button class="btn btn-primary btn-full" id="btn-reveal">Confirmar objetivo →</button>
+  </div>
+</div>
+
+<!-- ══ SCREEN: REVEAL ══════════════════════════════════════════════ -->
+<div id="screen-reveal" class="screen">
+  <div class="screen-header">
+    <button class="btn-back" id="reveal-back">← Pista</button>
+    <span class="label-secret">Objetivo Confirmado</span>
+  </div>
+  <div class="reveal-image-wrap">
+    <img id="reveal-image" src="" alt="" onerror="this.style.display='none';document.getElementById('reveal-emoji').style.display='flex'">
+    <div id="reveal-emoji" class="reveal-emoji-fallback"></div>
+  </div>
+  <div class="reveal-name" id="reveal-name">—</div>
+  <div class="reveal-piece-preview">
+    <span class="piece-label">Clave a descifrar:</span>
+    <span class="piece-name">□</span>
+  </div>
+  <div class="location-check-box">
+    <div class="location-check-title">Control de posicion</div>
+    <div class="location-check-status info" id="location-check-status">Confirmad vuestra posicion para desbloquear las pruebas de campo.</div>
+  </div>
+  <div class="topo-message-box small">
+    <div class="topo-avatar-small">
+      <img src="images/topotino.png" alt="Topotino" onerror="this.parentElement.innerHTML='T'">
+    </div>
+    <div class="message-bubble">
+      <p>Perfecto. Reconoced el terreno, validad posicion y resolved las 3 pruebas del parte.</p>
+    </div>
+  </div>
+  <button class="btn btn-primary btn-full" id="btn-start-questions">Validar posicion e iniciar pruebas →</button>
+</div>
+
+<!-- ══ SCREEN: QUESTIONS ═══════════════════════════════════════════ -->
+<div id="screen-questions" class="screen">
+  <div class="screen-header">
+    <button class="btn-back" id="questions-back">← Volver</button>
+    <div class="question-progress-dots" id="q-dots">
+      <span class="dot" data-q="0"></span>
+      <span class="dot" data-q="1"></span>
+      <span class="dot" data-q="2"></span>
+    </div>
+    <span class="q-counter" id="q-counter">1/3</span>
+  </div>
+  <div class="question-location" id="q-location">—</div>
+  <div class="question-box">
+    <div class="question-text" id="q-text">—</div>
+    <div class="options-list" id="q-options"></div>
+  </div>
+  <div class="feedback-box" id="q-feedback" style="display:none">
+    <div class="feedback-text" id="q-feedback-text"></div>
+    <button class="btn btn-primary" id="btn-next-question">Siguiente →</button>
+  </div>
+</div>
+
+<!-- ══ SCREEN: REWARD ══════════════════════════════════════════════ -->
+<div id="screen-reward" class="screen">
+  <div class="reward-top">
+    <div class="reward-glow">✓</div>
+    <h2 class="reward-title">Parte validado</h2>
+  </div>
+  <div class="reward-letter-reveal">
+    <div class="letter-reveal-label">Clave descifrada en este objetivo:</div>
+    <div class="letter-reveal-big" id="reward-letter">?</div>
+  </div>
+  <div class="reward-phrase-progress">
+    <div class="phrase-label">Mensaje interceptado hasta ahora:</div>
+    <div class="phrase-display" id="reward-phrase-display">— — — — — — — — — — — —</div>
+  </div>
+  <div class="badge-display">
+    <div class="badge-icon">✦</div>
+    <div class="badge-label">Insignia:</div>
+    <div class="badge-name" id="reward-badge">—</div>
+  </div>
+  <div class="topo-message-box small">
+    <div class="topo-avatar-small">
+      <img src="images/topotino.png" alt="Topotino" onerror="this.parentElement.innerHTML='T'">
+    </div>
+    <div class="message-bubble" id="reward-message">—</div>
+  </div>
+  <button class="btn btn-primary btn-full" id="btn-reward-to-map">← Volver al expediente</button>
+</div>
+
+<!-- ══ SCREEN: VICTORY ══════════════════════════════════════════════ -->
+<div id="screen-victory" class="screen">
+  <div class="victory-cinematic-bg"></div>
+  <div class="victory-celebration" id="victory-celebration"></div>
+  <div class="victory-stars">★ ★ ★</div>
+  <div class="victory-image">
+    <img src="images/topotino.png" alt="Topotino" onerror="this.style.display='none'">
+  </div>
+  <h2 class="victory-title">Campana completada</h2>
+  <div class="victory-phrase-reveal">
+    <div class="victory-phrase-label">Frase final descifrada:</div>
+    <div class="victory-phrase">LONDRES BRILLA</div>
+  </div>
+  <div class="victory-surprise" id="victory-surprise">—</div>
+  <div class="topo-message-box">
+    <div class="topo-avatar-small">
+      <img src="images/topotino.png" alt="Topotino" onerror="this.parentElement.innerHTML='T'">
+    </div>
+    <div class="message-bubble">
+      <p>Agentes Paula y Hugo: misión cumplida. Habéis hecho algo que los Oscurnos no soportan: <strong>mirar de verdad</strong>.</p>
+      <p>Mientras otros pasan deprisa, vosotros habéis descubierto Londres letra a letra. El Reloj de la Niebla se ha detenido.</p>
+      <p>El Doctor Topoloco ha escapado por poco… pero ya sabe que estáis ahí. <strong>Guardad bien este dispositivo. Muy pronto puede llegar una nueva misión.</strong></p>
+    </div>
+  </div>
+  <div class="diploma">
+    <div class="diploma-inner">
+      <div class="diploma-title">Agentes Superiores de Londres</div>
+      <div class="diploma-names">Paula &amp; Hugo</div>
+      <div class="diploma-text">Han descifrado el mensaje secreto de Londres y salvado la ciudad del Reloj de la Niebla</div>
+      <div class="diploma-sign">— Topotino, Agente Supremo —</div>
+    </div>
+  </div>
+  <button class="btn btn-secondary btn-full" id="btn-restart">Reiniciar operación</button>
+</div>
+
+<!-- ══ SCREEN: TIMEOUT ══════════════════════════════════════════════ -->
+<div id="screen-timeout" class="screen">
+  <div class="timeout-icon">⏰</div>
+  <h2 class="timeout-title">El Reloj de la Niebla<br>ha entrado en marcha</h2>
+  <div class="topo-message-box">
+    <div class="topo-avatar-small">
+      <img src="images/topotino.png" alt="Topotino" onerror="this.parentElement.innerHTML='T'">
+    </div>
+    <div class="message-bubble">
+      <p>El plazo oficial ha terminado, agentes. El Doctor Topoloco ha logrado activar el reloj, por ahora.</p>
+      <p>La campana no esta perdida. Podeis continuar el expediente y devolver claridad a la ciudad.</p>
+    </div>
+  </div>
+  <button class="btn btn-primary btn-full" id="btn-timeout-continue">Continuar en modo de resistencia →</button>
+</div>
+
+<script src="missions.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
