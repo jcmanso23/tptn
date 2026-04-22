@@ -373,6 +373,10 @@ body::after {
   align-items: center;
   margin-bottom: 8px;
 }
+.map-quick-actions {
+  display: flex;
+  gap: 6px;
+}
 .map-title-row h2 {
   font-size: 12px;
   letter-spacing: 3px;
@@ -429,6 +433,34 @@ body::after {
   height: 100%;
   background: var(--ink);
   transition: width .6s ease;
+}
+
+/* ── LONDON MAP SCREEN ────────────────────────────────────── */
+.londonmap-frame {
+  border: 1px solid var(--rule-dark);
+  background: var(--paper2);
+  min-height: 280px;
+  position: relative;
+  overflow: hidden;
+}
+.londonmap-frame img {
+  width: 100%;
+  height: auto;
+  display: block;
+  filter: sepia(.1);
+}
+.londonmap-fallback {
+  display: none;
+  position: absolute;
+  inset: 0;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: 3px;
+  font-size: 10px;
+  color: var(--ink-dim);
+}
+.londonmap-frame.no-image .londonmap-fallback {
+  display: flex;
 }
 
 /* ── MISSION CARDS ────────────────────────────────────────── */

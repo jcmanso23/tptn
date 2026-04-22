@@ -1,4 +1,4 @@
-const CACHE_NAME = 'topotino-v9';
+const CACHE_NAME = 'topotino-v10';
 
 const STATIC_ASSETS = [
   './index.html',
@@ -9,6 +9,7 @@ const STATIC_ASSETS = [
   './icons/icon-192.png',
   './icons/icon-512.png',
   './images/topotino.png',
+  './images/london.jpeg',
   './images/topotino_buckingham.png',
   './images/buckingham.jpg',
   './images/stjames.jpg',

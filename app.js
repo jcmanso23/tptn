@@ -34,6 +34,10 @@ let tapCount = 0;
 let tapTimer = null;
 let revealTapCount = 0;
 let revealTapTimer = null;
+let missionResetTapCount = 0;
+let missionResetTapTimer = null;
+let fullResetTapCount = 0;
+let fullResetTapTimer = null;
 let locationBypass = false;
 
 // ── INIT ─────────────────────────────────────────────────────
@@ -42,6 +46,8 @@ function initApp() {
   registerServiceWorker();
   bindStaticButtons();
   setupHiddenRestart();
+  setupHiddenFullReset();
+  setupHiddenMissionReset();
   setupHiddenLocationBypass();
   bindImageLightbox();
   startCountdownTick();
@@ -72,6 +78,51 @@ function setupHiddenRestart() {
       }
     }
   });
+}
+
+function setupHiddenFullReset() {
+  // Secret gesture for mobile: 6 taps in <= 2.4s on map telemetry labels
+  const secretTargets = ['countdown-map', 'map-letters-display'];
+  secretTargets.forEach((id) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.addEventListener('click', triggerHiddenFullReset);
+  });
+}
+
+function triggerHiddenFullReset() {
+  fullResetTapCount++;
+  clearTimeout(fullResetTapTimer);
+  fullResetTapTimer = setTimeout(() => { fullResetTapCount = 0; }, 2400);
+  if (fullResetTapCount >= 6) {
+    fullResetTapCount = 0;
+    if (confirm('Modo secreto: ¿reiniciar toda la operación desde cero?')) {
+      resetGame();
+    }
+  }
+}
+
+function setupHiddenMissionReset() {
+  // Secret gesture: 5 taps in <= 2.2s on mission-only labels
+  const secretTargets = ['mission-codename', 'reveal-name', 'q-counter'];
+  secretTargets.forEach((id) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.addEventListener('click', triggerHiddenMissionReset);
+  });
+}
+
+function triggerHiddenMissionReset() {
+  if (!currentMissionId) return;
+  missionResetTapCount++;
+  clearTimeout(missionResetTapTimer);
+  missionResetTapTimer = setTimeout(() => { missionResetTapCount = 0; }, 2200);
+  if (missionResetTapCount >= 5) {
+    missionResetTapCount = 0;
+    if (confirm('Modo secreto: ¿reiniciar esta misión desde cero?')) {
+      resetCurrentMission(currentMissionId);
+    }
+  }
 }
 
 // ── SCREENS ──────────────────────────────────────────────────
@@ -208,6 +259,21 @@ function bindStaticButtons() {
     prevScreen = 'map';
     showScreen('carta');
   });
+
+  const btnMapOverview = document.getElementById('btn-map-overview');
+  if (btnMapOverview) {
+    btnMapOverview.addEventListener('click', () => {
+      showScreen('londonmap');
+    });
+  }
+
+  const londonMapBack = document.getElementById('londonmap-back');
+  if (londonMapBack) {
+    londonMapBack.addEventListener('click', () => {
+      renderMap();
+      showScreen('map');
+    });
+  }
 
   // Carta → go to map
   const btnCartaToMap = document.getElementById('btn-carta-to-map');
@@ -705,6 +771,17 @@ function resetGame() {
   document.getElementById('auth-error-1').style.display = 'none';
   document.getElementById('auth-error-2').style.display = 'none';
   showScreen('auth');
+}
+
+function resetCurrentMission(missionId) {
+  const exists = MISSIONS.some(m => m.id === missionId);
+  if (!exists) return;
+  delete state.missions[missionId];
+  saveState();
+  currentQuestionIndex = 0;
+  questionAnswered = false;
+  renderMap();
+  openMission(missionId);
 }
 
 // ── COUNTDOWN ─────────────────────────────────────────────────

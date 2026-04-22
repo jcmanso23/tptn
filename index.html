@@ -138,7 +138,10 @@
   <div class="map-header">
     <div class="map-title-row">
       <h2>Expediente: Reloj de la Niebla</h2>
-      <button class="btn-carta" id="btn-map-carta">Carta</button>
+      <div class="map-quick-actions">
+        <button class="btn-carta" id="btn-map-carta">Carta</button>
+        <button class="btn-carta" id="btn-map-overview">Mapa</button>
+      </div>
     </div>
     <div class="map-brief">Parte activo: localizar 12 claves ocultas en Londres antes del cierre de campana.</div>
     <div class="map-stats-row">
@@ -151,6 +154,29 @@
     <div class="progress-bar-fill" id="progress-bar" style="width:0%"></div>
   </div>
   <div class="missions-grid" id="missions-grid"></div>
+</div>
+
+<!-- ══ SCREEN: LONDON MAP ══════════════════════════════════════════ -->
+<div id="screen-londonmap" class="screen">
+  <div class="screen-header">
+    <button class="btn-back" id="londonmap-back">← Misiones</button>
+    <span class="label-secret">Mapa Operativo</span>
+  </div>
+
+  <div class="topo-message-box">
+    <div class="topo-avatar-small">
+      <img src="images/topotino.png" alt="Topotino" onerror="this.parentElement.innerHTML='T'">
+    </div>
+    <div class="message-bubble">
+      <p>Agentes, os dejo aqui mi croquis de Londres para orientaros entre partes. No es un mapa oficial: es de campo, rapido y pensado para movernos bien.</p>
+      <p>Advertencia de Topotino: lo he dibujado yo, asi que puede no ser exacto al milimetro... pero <strong>si marca mas o menos donde estan los lugares clave</strong>.</p>
+    </div>
+  </div>
+
+  <div class="londonmap-frame">
+    <img src="images/london.jpeg" alt="Mapa de Londres con zonas de misión" onerror="this.style.display='none'; this.parentElement.classList.add('no-image')">
+    <div class="londonmap-fallback">MAPA NO DISPONIBLE</div>
+  </div>
 </div>
 
 <div id="image-lightbox" class="image-lightbox" aria-hidden="true">
