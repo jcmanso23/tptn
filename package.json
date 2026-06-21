@@ -1,0 +1,16 @@
+{
+  "name": "topotino-comunicador-subterraneo",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vercel dev",
+    "static": "python3 -m http.server 4173"
+  },
+  "dependencies": {
+    "openai": "^6.10.0"
+  },
+  "devDependencies": {
+    "vercel": "^48.8.2"
+  }
+}

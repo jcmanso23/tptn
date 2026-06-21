@@ -1,0 +1,18 @@
+[
+  {
+    "id": "001-reconexion",
+    "file": "content/episodes/001-reconexion.md"
+  },
+  {
+    "id": "002-luanco-primera-gota",
+    "file": "content/episodes/002-luanco-primera-gota.md"
+  },
+  {
+    "id": "003-eclipse",
+    "file": "content/episodes/003-eclipse.md"
+  },
+  {
+    "id": "004-guimaraes-origen",
+    "file": "content/episodes/004-guimaraes-origen.md"
+  }
+]

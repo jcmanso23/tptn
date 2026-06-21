@@ -1,12 +1,12 @@
 {
-  "name": "Topotino en Londres",
+  "name": "Comunicador Subterráneo",
   "short_name": "Topotino",
-  "description": "Operación: Reloj de la Niebla — Aventura espía por Londres",
+  "description": "Chat secreto de Topotino y la Fuente de la Noche Clara",
   "start_url": "./index.html",
   "display": "standalone",
   "orientation": "portrait",
-  "background_color": "#f8f4e6",
-  "theme_color": "#1c1008",
+  "background_color": "#031423",
+  "theme_color": "#031423",
   "lang": "es",
   "icons": [
     {

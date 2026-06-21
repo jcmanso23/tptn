@@ -1,544 +1,591 @@
-/* ═══════════════════════════════════════════════════════════
-   TOPOTINO — OPERACIÓN LONDRES
-   ═══════════════════════════════════════════════════════════ */
-
-const STORAGE_KEY = 'topotino_op_v2';
-const DEADLINE = new Date('2026-04-26T10:00:00+01:00'); // Europe/London BST
-
-// Agents (case-insensitive comparison)
-const AGENT1 = 'paula';
-const AGENT2 = 'hugo';
-const SECRET_CITY = ['carcasone', 'carcasona']; // accept both spellings
-const LOCATION_BYPASS_CODE = 'topotino1942';
-
-// The hidden phrase: LONDRESBRILLA
-// 12 missions → letters assigned in missions.js
-// Tower Bridge = "L", Covent Garden = "LA" (2 letters for the finale)
-const FULL_PHRASE = 'LONDRESBRILLA';
-
-// ── STATE ────────────────────────────────────────────────────
-let state = {
-  authenticated: false,
-  missions: {},
-  lettersCollected: [],  // array of collected letter strings, in order collected
-  timeoutAcknowledged: false
+const STORAGE_KEYS = {
+  auth: 'topotino_chat_auth_v1',
+  state: 'topotino_chat_state_v2'
 };
 
-let currentMissionId = null;
-let currentQuestionIndex = 0;
-let questionAnswered = false;
-let prevScreen = 'map';
+const LEGACY_STATE_KEY = 'topotino_chat_state_v1';
+const PASSPHRASE = 'londresbrilla';
+const EPISODES_MANIFEST = 'content/episodes.json?v=chat-v2';
+const ACTIVATION_TICK_MS = 60000;
 
-// Hidden restart: tap logo 7 times within 2s
-let tapCount = 0;
-let tapTimer = null;
-let revealTapCount = 0;
-let revealTapTimer = null;
-let missionResetTapCount = 0;
-let missionResetTapTimer = null;
-let fullResetTapCount = 0;
-let fullResetTapTimer = null;
-let locationBypass = false;
+const FORMULA_WORDS = [
+  'MIRO',
+  'COMIENZO',
+  'RIO',
+  'ESPERO',
+  'CONFIO',
+  'JUEGO',
+  'DESCUBRO',
+  'PREGUNTO',
+  'CUIDO',
+  'VUELO',
+  'ME ATREVO',
+  'AGRADEZCO'
+];
 
-// ── INIT ─────────────────────────────────────────────────────
-function initApp() {
-  loadState();
+const FORMULA_LABELS = {
+  MIRO: 'Miro',
+  COMIENZO: 'Comienzo',
+  RIO: 'Río',
+  ESPERO: 'Espero',
+  CONFIO: 'Confío',
+  JUEGO: 'Juego',
+  DESCUBRO: 'Descubro',
+  PREGUNTO: 'Pregunto',
+  CUIDO: 'Cuido',
+  VUELO: 'Vuelo',
+  'ME ATREVO': 'Me atrevo',
+  AGRADEZCO: 'Agradezco'
+};
+
+const state = {
+  unlocked: false,
+  activeEpisodeId: '001-reconexion',
+  unlockedEpisodeIds: [],
+  renderedEpisodes: [],
+  messages: [],
+  flags: [],
+  waters: [],
+  formulaWords: [],
+  softResponseCursor: {},
+  lastKnownPosition: null,
+  locationStatus: 'Sin posición actualizada.'
+};
+
+let manifest = [];
+let episodes = [];
+let busy = false;
+
+const els = {};
+const params = new URLSearchParams(window.location.search);
+
+document.addEventListener('DOMContentLoaded', init);
+
+async function init() {
+  bindElements();
+  bindEvents();
   registerServiceWorker();
-  bindStaticButtons();
-  setupHiddenRestart();
-  setupHiddenFullReset();
-  setupHiddenMissionReset();
-  setupHiddenLocationBypass();
-  bindImageLightbox();
-  startCountdownTick();
+  loadState();
+  applyTestingParams();
 
-  if (state.authenticated) {
-    renderMap();
-    if (isDeadlineExpired() && !state.timeoutAcknowledged && getCompletedCount() < MISSIONS.length) {
-      showScreen('timeout');
-    } else {
-      showScreen('map');
-    }
+  try {
+    manifest = await fetchJson(EPISODES_MANIFEST);
+    episodes = await Promise.all(manifest.map((item) => fetchEpisode(item.file)));
+    episodes.sort((a, b) => (a.meta.order || 0) - (b.meta.order || 0));
+  } catch (error) {
+    console.error(error);
+    showUnlockError('No se pudo cargar el comunicador. Revisad la conexión.');
+    return;
+  }
+
+  if (state.unlocked) {
+    await enterChat();
   } else {
-    showScreen('auth');
+    showScreen('unlock');
   }
 }
 
-function setupHiddenRestart() {
-  const logo = document.getElementById('topotino-tap');
-  if (!logo) return;
-  logo.addEventListener('click', () => {
-    tapCount++;
-    clearTimeout(tapTimer);
-    tapTimer = setTimeout(() => { tapCount = 0; }, 2000);
-    if (tapCount >= 7) {
-      tapCount = 0;
-      if (confirm('¿Reiniciar la operación completa? Se borrará todo el progreso.')) {
-        resetGame();
-      }
+function bindElements() {
+  els.unlockScreen = document.getElementById('screen-unlock');
+  els.chatScreen = document.getElementById('screen-chat');
+  els.unlockForm = document.getElementById('unlock-form');
+  els.unlockCode = document.getElementById('unlock-code');
+  els.unlockError = document.getElementById('unlock-error');
+  els.chatForm = document.getElementById('chat-form');
+  els.chatInput = document.getElementById('chat-input');
+  els.messages = document.getElementById('messages');
+  els.typing = document.getElementById('typing-indicator');
+  els.sendButton = document.querySelector('.send-button');
+  els.channelCode = document.getElementById('channel-code');
+  els.missionActive = document.getElementById('mission-active');
+  els.watersCount = document.getElementById('waters-count');
+  els.watersList = document.getElementById('waters-list');
+  els.formulaDisplay = document.getElementById('formula-display');
+  els.progressToggle = document.getElementById('progress-toggle');
+  els.progressBody = document.getElementById('progress-body');
+  els.locationButton = document.getElementById('location-refresh');
+  els.locationStatus = document.getElementById('location-status');
+}
+
+function bindEvents() {
+  els.unlockForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const code = normalizeText(els.unlockCode.value);
+    if (code !== PASSPHRASE) {
+      showUnlockError('Acceso denegado. Revisad la clave de Londres.');
+      return;
     }
-  });
-}
 
-function setupHiddenFullReset() {
-  // Secret gesture for mobile: 6 taps in <= 2.4s on map telemetry labels
-  const secretTargets = ['countdown-map', 'map-letters-display'];
-  secretTargets.forEach((id) => {
-    const el = document.getElementById(id);
-    if (!el) return;
-    el.addEventListener('click', triggerHiddenFullReset);
-  });
-}
-
-function triggerHiddenFullReset() {
-  fullResetTapCount++;
-  clearTimeout(fullResetTapTimer);
-  fullResetTapTimer = setTimeout(() => { fullResetTapCount = 0; }, 2400);
-  if (fullResetTapCount >= 6) {
-    fullResetTapCount = 0;
-    if (confirm('Modo secreto: ¿reiniciar toda la operación desde cero?')) {
-      resetGame();
-    }
-  }
-}
-
-function setupHiddenMissionReset() {
-  // Secret gesture: 5 taps in <= 2.2s on mission-only labels
-  const secretTargets = ['mission-codename', 'reveal-name', 'q-counter'];
-  secretTargets.forEach((id) => {
-    const el = document.getElementById(id);
-    if (!el) return;
-    el.addEventListener('click', triggerHiddenMissionReset);
-  });
-}
-
-function triggerHiddenMissionReset() {
-  if (!currentMissionId) return;
-  missionResetTapCount++;
-  clearTimeout(missionResetTapTimer);
-  missionResetTapTimer = setTimeout(() => { missionResetTapCount = 0; }, 2200);
-  if (missionResetTapCount >= 5) {
-    missionResetTapCount = 0;
-    if (confirm('Modo secreto: ¿reiniciar esta misión desde cero?')) {
-      resetCurrentMission(currentMissionId);
-    }
-  }
-}
-
-// ── SCREENS ──────────────────────────────────────────────────
-function showScreen(id) {
-  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
-  const el = document.getElementById('screen-' + id);
-  if (el) el.classList.add('active');
-}
-
-function maskLetters(letra) {
-  if (!letra) return '?';
-  return letra.length === 1 ? '□' : '□ '.repeat(letra.length).trim();
-}
-
-function setLocationStatus(text, tone) {
-  const el = document.getElementById('location-check-status');
-  if (!el) return;
-  el.textContent = text;
-  el.className = 'location-check-status ' + (tone || 'info');
-}
-
-function formatParagraphs(text) {
-  if (!text) return '<p>Sin informe disponible.</p>';
-  return text
-    .split(/\\n\\s*\\n/)
-    .map(block => block.trim())
-    .filter(Boolean)
-    .map(block => `<p>${block}</p>`)
-    .join('');
-}
-
-function typewriterInto(el, text, speed = 26) {
-  if (!el) return;
-  el.textContent = '';
-  let i = 0;
-  const timer = setInterval(() => {
-    i++;
-    el.textContent = text.slice(0, i);
-    if (i >= text.length) clearInterval(timer);
-  }, speed);
-}
-
-function launchVictoryParticles() {
-  const box = document.getElementById('victory-celebration');
-  if (!box) return;
-  box.innerHTML = '';
-  const colors = ['gold', 'ink', ''];
-  for (let i = 0; i < 34; i++) {
-    const p = document.createElement('span');
-    p.className = 'victory-particle ' + colors[i % colors.length];
-    p.style.left = `${Math.random() * 100}%`;
-    p.style.setProperty('--drift', `${(Math.random() * 120) - 60}px`);
-    p.style.animationDelay = `${Math.random() * 380}ms`;
-    p.style.animationDuration = `${1300 + Math.random() * 1400}ms`;
-    box.appendChild(p);
-  }
-}
-
-function playVictorySequence() {
-  const victoryScreen = document.getElementById('screen-victory');
-  const surprise = document.getElementById('victory-surprise');
-  if (!victoryScreen || !surprise) return;
-
-  victoryScreen.classList.remove('cinematic');
-  void victoryScreen.offsetWidth;
-  victoryScreen.classList.add('cinematic');
-
-  launchVictoryParticles();
-  const cinematicText = 'Agentes Paula y Hugo: otra vez lo habeis conseguido. Habeis salvado Londres una vez mas, letra a letra, mirada a mirada. Topotino no puede estar mas orgulloso de vosotros.';
-  typewriterInto(surprise, cinematicText, 20);
-}
-
-// ── AUTH ──────────────────────────────────────────────────────
-function bindStaticButtons() {
-
-  // AUTH STEP 1
-  document.getElementById('btn-auth-1').addEventListener('click', () => {
-    const a1 = document.getElementById('auth-agent1').value.trim().toLowerCase();
-    const a2 = document.getElementById('auth-agent2').value.trim().toLowerCase();
-    const err = document.getElementById('auth-error-1');
-
-    if (a1 === AGENT1 && a2 === AGENT2) {
-      err.style.display = 'none';
-      document.getElementById('auth-step-1').style.display = 'none';
-      document.getElementById('auth-step-2').style.display = 'flex';
-      document.getElementById('auth-city').focus();
-    } else {
-      err.style.display = 'block';
-      err.classList.remove('shake');
-      void err.offsetWidth;
-      err.classList.add('shake');
-    }
-  });
-
-  // Enter key on auth fields
-  ['auth-agent1','auth-agent2'].forEach(id => {
-    document.getElementById(id).addEventListener('keydown', e => {
-      if (e.key === 'Enter') document.getElementById('btn-auth-1').click();
-    });
-  });
-
-  // AUTH STEP 2
-  document.getElementById('btn-auth-2').addEventListener('click', () => {
-    const city = document.getElementById('auth-city').value.trim().toLowerCase();
-    const err = document.getElementById('auth-error-2');
-
-    if (SECRET_CITY.includes(city)) {
-      err.style.display = 'none';
-      state.authenticated = true;
-      saveState();
-      renderMap();
-      showScreen('carta');
-      // carta-back will go to map
-      prevScreen = 'map';
-    } else {
-      err.style.display = 'block';
-      err.classList.remove('shake');
-      void err.offsetWidth;
-      err.classList.add('shake');
-    }
-  });
-
-  document.getElementById('auth-city').addEventListener('keydown', e => {
-    if (e.key === 'Enter') document.getElementById('btn-auth-2').click();
-  });
-
-  // CARTA
-  document.getElementById('carta-back').addEventListener('click', () => {
-    showScreen(prevScreen || 'map');
-  });
-
-  // Open carta from map
-  document.getElementById('btn-map-carta').addEventListener('click', () => {
-    prevScreen = 'map';
-    showScreen('carta');
-  });
-
-  const btnMapOverview = document.getElementById('btn-map-overview');
-  if (btnMapOverview) {
-    btnMapOverview.addEventListener('click', () => {
-      showScreen('londonmap');
-    });
-  }
-
-  const londonMapBack = document.getElementById('londonmap-back');
-  if (londonMapBack) {
-    londonMapBack.addEventListener('click', () => {
-      renderMap();
-      showScreen('map');
-    });
-  }
-
-  // Carta → go to map
-  const btnCartaToMap = document.getElementById('btn-carta-to-map');
-  if (btnCartaToMap) {
-    btnCartaToMap.addEventListener('click', () => {
-      renderMap();
-      showScreen('map');
-    });
-  }
-
-  // MAP → MISSION
-  document.getElementById('mission-back').addEventListener('click', () => {
-    renderMap();
-    showScreen('map');
-  });
-
-  document.getElementById('reveal-back').addEventListener('click', () => {
-    showScreen('mission');
-  });
-
-  document.getElementById('questions-back').addEventListener('click', () => {
-    renderMap();
-    showScreen('map');
-  });
-
-  document.getElementById('btn-reveal').addEventListener('click', () => {
-    if (currentMissionId) showReveal(currentMissionId);
-  });
-
-  document.getElementById('btn-start-questions').addEventListener('click', () => {
-    if (currentMissionId) validateMissionLocationAndStart(currentMissionId);
-  });
-
-  document.getElementById('btn-reward-to-map').addEventListener('click', () => {
-    renderMap();
-    showScreen('map');
-    checkVictory();
-  });
-
-  document.getElementById('btn-restart').addEventListener('click', () => {
-    if (confirm('¿Reiniciar toda la operación? Se borrará el progreso.')) {
-      resetGame();
-    }
-  });
-
-  document.getElementById('btn-timeout-continue').addEventListener('click', () => {
-    state.timeoutAcknowledged = true;
+    els.unlockError.hidden = true;
+    state.unlocked = true;
     saveState();
-    renderMap();
-    showScreen('map');
+    await enterChat();
   });
 
-  document.getElementById('btn-next-question').addEventListener('click', () => {
-    nextQuestion();
+  els.chatForm.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const text = els.chatInput.value.trim();
+    if (!text || busy) return;
+    els.chatInput.value = '';
+    await handleUserMessage(text);
   });
-}
 
-function setupHiddenLocationBypass() {
-  const revealName = document.getElementById('reveal-name');
-  if (!revealName) return;
-  revealName.addEventListener('click', () => {
-    revealTapCount++;
-    clearTimeout(revealTapTimer);
-    revealTapTimer = setTimeout(() => { revealTapCount = 0; }, 2200);
-    if (revealTapCount >= 7) {
-      revealTapCount = 0;
-      const code = prompt('Codigo de mando para modo manual:');
-      if (code && code.trim().toLowerCase() === LOCATION_BYPASS_CODE) {
-        locationBypass = true;
-      }
-      if (locationBypass) {
-        setLocationStatus('Modo manual activo. Podeis iniciar pruebas sin control de posicion.', 'success');
-      } else {
-        setLocationStatus('Codigo invalido. Modo manual no activado.', 'error');
-      }
-    }
+  els.progressToggle.addEventListener('click', () => {
+    const isOpen = !els.progressBody.hidden;
+    els.progressBody.hidden = isOpen;
+    els.progressToggle.setAttribute('aria-expanded', String(!isOpen));
   });
+
+  els.locationButton.addEventListener('click', refreshLocation);
 }
 
-function bindImageLightbox() {
-  const lightbox = document.getElementById('image-lightbox');
-  const closeBtn = document.getElementById('image-lightbox-close');
-  if (!lightbox || !closeBtn) return;
-  closeBtn.addEventListener('click', closeImageLightbox);
-  lightbox.addEventListener('click', (e) => {
-    if (e.target === lightbox) closeImageLightbox();
-  });
+async function enterChat() {
+  showScreen('chat');
+  await evaluateActivations({ reason: 'enter' });
+  renderAll();
+  setInterval(() => evaluateActivations({ reason: 'tick' }), ACTIVATION_TICK_MS);
+  setTimeout(() => els.chatInput.focus(), 50);
 }
 
-function openImageLightbox(src, caption) {
-  const lightbox = document.getElementById('image-lightbox');
-  const img = document.getElementById('image-lightbox-img');
-  const cap = document.getElementById('image-lightbox-caption');
-  if (!lightbox || !img || !cap) return;
-  img.src = src;
-  img.alt = caption || '';
-  cap.textContent = caption || '';
-  lightbox.classList.add('active');
-  lightbox.setAttribute('aria-hidden', 'false');
+function showScreen(name) {
+  els.unlockScreen.classList.toggle('active', name === 'unlock');
+  els.chatScreen.classList.toggle('active', name === 'chat');
 }
 
-function closeImageLightbox() {
-  const lightbox = document.getElementById('image-lightbox');
-  if (!lightbox) return;
-  lightbox.classList.remove('active');
-  lightbox.setAttribute('aria-hidden', 'true');
-}
+async function evaluateActivations({ reason } = {}) {
+  let changed = false;
 
-// ── MAP ───────────────────────────────────────────────────────
-function renderMap() {
-  const grid = document.getElementById('missions-grid');
-  grid.innerHTML = '';
-
-  const completed = getCompletedCount();
-  document.getElementById('map-pieces').textContent = completed + '/12';
-  const pct = (completed / 12) * 100;
-  document.getElementById('progress-bar').style.width = pct + '%';
-
-  // Build letters display
-  const lettersDisplay = buildLettersDisplay();
-  document.getElementById('map-letters-display').textContent = lettersDisplay;
-
-  MISSIONS.forEach(m => {
-    const ms = state.missions[m.id] || { status: 'pending' };
-    const card = document.createElement('div');
-    card.className = 'mission-card ' + (ms.status === 'completed' ? 'completed' : '');
-
-    if (ms.status === 'completed') {
-      card.setAttribute('data-letra', m.letra);
-    }
-
-    const statusLabel = ms.status === 'completed' ? 'COMPLETADA'
-      : ms.status === 'in_progress' ? 'EN CURSO' : 'PENDIENTE';
-    const statusClass = ms.status === 'completed' ? 'status-completed'
-      : ms.status === 'in_progress' ? 'status-in-progress' : 'status-pending';
-
-    card.innerHTML = `
-      <div class="card-codename">${m.nombreClave}</div>
-      <span class="card-status ${statusClass}">${statusLabel}</span>
-    `;
-
-    if (m.imagen) {
-      const thumb = document.createElement('div');
-      thumb.className = 'card-thumb';
-      thumb.setAttribute('data-role', 'thumb');
-      card.prepend(thumb);
-
-      const imageEl = document.createElement('img');
-      imageEl.src = m.imagen;
-      imageEl.alt = m.nombreReal;
-      imageEl.onerror = () => {
-        thumb.remove();
-      };
-      thumb.appendChild(imageEl);
-      thumb.addEventListener('click', (event) => {
-        event.stopPropagation();
-        openImageLightbox(m.imagen, m.nombreReal);
-      });
-    }
-
-    card.addEventListener('click', () => openMission(m.id));
-    grid.appendChild(card);
-  });
-}
-
-// Build the collected letters display string
-function buildLettersDisplay() {
-  let display = '';
-  // Go through missions in order and collect letters for completed ones
-  MISSIONS.forEach(m => {
-    const ms = state.missions[m.id];
-    if (ms && ms.status === 'completed') {
-      display += m.letra + ' ';
-    } else {
-      // show a dash for each letter slot
-      for (let i = 0; i < m.letra.length; i++) {
-        display += '— ';
-      }
-    }
-  });
-  return display.trim();
-}
-
-// Build condensed collected letters (no spaces) for progress display
-function buildCollectedLetters() {
-  let letters = '';
-  MISSIONS.forEach(m => {
-    const ms = state.missions[m.id];
-    if (ms && ms.status === 'completed') {
-      letters += m.letra;
-    }
-  });
-  return letters;
-}
-
-// Build phrase progress showing collected vs unknown
-function buildPhraseProgress() {
-  let display = '';
-  let pos = 0;
-  MISSIONS.forEach(m => {
-    const ms = state.missions[m.id];
-    for (let i = 0; i < m.letra.length; i++) {
-      if (ms && ms.status === 'completed') {
-        display += m.letra[i] + ' ';
-      } else {
-        display += '— ';
-      }
-    }
-    pos += m.letra.length;
-  });
-  return display.trim();
-}
-
-function getCompletedCount() {
-  return Object.values(state.missions).filter(m => m.status === 'completed').length;
-}
-
-// ── MISSION ───────────────────────────────────────────────────
-function openMission(missionId) {
-  const m = MISSIONS.find(x => x.id === missionId);
-  if (!m) return;
-
-  currentMissionId = missionId;
-  currentQuestionIndex = 0;
-
-  if (!state.missions[missionId]) {
-    state.missions[missionId] = { status: 'in_progress' };
-    saveState();
+  for (const episode of episodes) {
+    if (isEpisodeUnlocked(episode.meta.id)) continue;
+    if (!episodeCanActivate(episode)) continue;
+    unlockEpisode(episode.meta.id);
+    appendMessages(episode.initialMessages || []);
+    changed = true;
   }
 
-  document.getElementById('mission-codename').textContent = m.nombreClave;
-  document.getElementById('mission-pista').innerHTML = `<p>${m.pista}</p>`;
-  document.getElementById('mission-historia').innerHTML = formatParagraphs(m.historia);
-  document.getElementById('mission-encaje').innerHTML = formatParagraphs(m.encajeEnMisterio);
-  document.querySelector('.letter-hint-box').textContent = maskLetters(m.letra);
-  document.querySelector('.piece-name').textContent = maskLetters(m.letra);
-
-  showScreen('mission');
+  if (changed) {
+    saveState();
+    renderAll();
+  }
 }
 
-function showReveal(missionId) {
-  const m = MISSIONS.find(x => x.id === missionId);
-  if (!m) return;
+function episodeCanActivate(episode) {
+  if (!state.unlocked) return false;
+  if (episode.meta.startsUnlocked) return true;
 
-  const img = document.getElementById('reveal-image');
-  const emoji = document.getElementById('reveal-emoji');
+  const activation = episode.meta.activation || {};
+  const checks = [];
 
-  img.src = m.imagen || '';
-  img.style.display = 'block';
-  emoji.style.display = 'none';
-  emoji.textContent = m.emoji;
+  const requiredFlags = activation.required || activation.flags || [];
+  if (requiredFlags.length) {
+    checks.push(requiredFlags.every((flag) => state.flags.includes(flag)));
+  }
 
-  img.onerror = () => {
-    img.style.display = 'none';
-    emoji.style.display = 'flex';
+  if (activation.anyFlags && activation.anyFlags.length) {
+    checks.push(activation.anyFlags.some((flag) => state.flags.includes(flag)));
+  }
+
+  if (activation.date) {
+    checks.push(dateMatches(activation.date, getRuntimeNow()));
+  }
+
+  if (activation.time) {
+    checks.push(timeMatches(activation.time, getRuntimeNow()));
+  }
+
+  if (activation.location) {
+    checks.push(locationMatches(activation.location));
+  }
+
+  if (!checks.length) return false;
+  return activation.mode === 'any' ? checks.some(Boolean) : checks.every(Boolean);
+}
+
+function unlockEpisode(episodeId) {
+  if (!state.unlockedEpisodeIds.includes(episodeId)) {
+    state.unlockedEpisodeIds.push(episodeId);
+  }
+  if (!state.renderedEpisodes.includes(episodeId)) {
+    state.renderedEpisodes.push(episodeId);
+  }
+  state.activeEpisodeId = episodeId;
+}
+
+async function handleUserMessage(text) {
+  appendMessage({ from: 'user', time: nowTime(), text });
+  saveState();
+  renderAll();
+
+  const guided = findGuidedResponse(text);
+  if (guided) {
+    await applyGuidedResponse(guided.response, guided.episode);
+    return;
+  }
+
+  const activeEpisode = getActiveEpisode();
+  if (activeEpisode && activeEpisode.softResponses.length) {
+    appendMessage({
+      from: 'topotino',
+      time: nowTime(),
+      text: nextSoftResponse(activeEpisode)
+    });
+    saveState();
+    renderAll();
+    return;
+  }
+
+  await askAiFallback(text);
+}
+
+async function applyGuidedResponse(guided, sourceEpisode) {
+  appendMessages(guided.messages || []);
+  addUniqueMany(state.flags, guided.setFlags || []);
+
+  if (guided.water) addWater(guided.water);
+  if (guided.formulaWord) addFormulaWord(guided.formulaWord);
+
+  if (guided.nextEpisode) {
+    const nextEpisode = getEpisode(guided.nextEpisode);
+    if (nextEpisode) {
+      const wasRendered = state.renderedEpisodes.includes(nextEpisode.meta.id);
+      unlockEpisode(nextEpisode.meta.id);
+      if (!wasRendered) appendMessages(nextEpisode.initialMessages || []);
+    }
+  }
+
+  await evaluateActivations({ reason: 'guided' });
+  saveState();
+  renderAll();
+}
+
+async function askAiFallback(text) {
+  const activeEpisode = getActiveEpisode();
+  if (!activeEpisode || activeEpisode.meta.ai?.enabled === false) {
+    appendMessage({
+      from: 'topotino',
+      time: nowTime(),
+      text: 'La señal tiembla un poco. Probad con una pista más concreta, agentes.'
+    });
+    saveState();
+    renderAll();
+    return;
+  }
+
+  setBusy(true);
+  try {
+    const response = await fetch('/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        message: text,
+        activeEpisodeId: activeEpisode.meta.id,
+        activeEpisodeTitle: activeEpisode.meta.title,
+        activeEpisodes: getUnlockedEpisodes().map((episode) => ({
+          id: episode.meta.id,
+          title: episode.meta.title,
+          mission: episode.meta.mission,
+          narrativeContext: episode.narrativeContext,
+          aiContext: episode.aiContext
+        })),
+        runtime: getRuntimeContext(),
+        flags: state.flags,
+        waters: state.waters,
+        formulaWords: state.formulaWords,
+        recentMessages: state.messages.slice(-14)
+      })
+    });
+
+    if (!response.ok) throw new Error('AI request failed');
+    const data = await response.json();
+    appendMessage({
+      from: 'topotino',
+      time: nowTime(),
+      text: data.reply || 'He recibido interferencias. Repetidlo más despacio, agentes.'
+    });
+  } catch (error) {
+    appendMessage({
+      from: 'topotino',
+      time: nowTime(),
+      text: 'No tengo señal suficiente para consultar los túneles ahora mismo. El historial queda guardado; probad otra vez cuando vuelva internet.'
+    });
+  } finally {
+    setBusy(false);
+    saveState();
+    renderAll();
+  }
+}
+
+function findGuidedResponse(text) {
+  const normalized = normalizeText(text);
+  const available = getUnlockedEpisodes().slice().reverse();
+
+  for (const episode of available) {
+    const response = (episode.guidedResponses || []).find((candidate) =>
+      (candidate.match || []).some((match) => normalizeText(match) === normalized)
+    );
+    if (response) return { episode, response };
+  }
+
+  return null;
+}
+
+function nextSoftResponse(episode) {
+  const key = episode.meta.id;
+  const cursor = state.softResponseCursor[key] || 0;
+  const response = episode.softResponses[cursor % episode.softResponses.length];
+  state.softResponseCursor[key] = cursor + 1;
+  return response;
+}
+
+async function refreshLocation() {
+  if (!navigator.geolocation) {
+    state.locationStatus = 'Este navegador no permite actualizar ubicación.';
+    renderProgress();
+    return;
+  }
+
+  els.locationButton.disabled = true;
+  state.locationStatus = 'Buscando señal de posición...';
+  renderProgress();
+
+  try {
+    const position = await getCurrentPosition({
+      enableHighAccuracy: true,
+      timeout: 15000,
+      maximumAge: 30000
+    });
+    state.lastKnownPosition = {
+      lat: position.coords.latitude,
+      lng: position.coords.longitude,
+      accuracy: Math.round(position.coords.accuracy || 0),
+      capturedAt: new Date().toISOString(),
+      source: 'device'
+    };
+    state.locationStatus = `Señal actualizada (${state.lastKnownPosition.accuracy || '?'} m).`;
+    await evaluateActivations({ reason: 'location' });
+    saveState();
+  } catch (error) {
+    state.locationStatus = locationErrorMessage(error);
+  } finally {
+    els.locationButton.disabled = false;
+    renderAll();
+  }
+}
+
+function getCurrentPosition(options) {
+  return new Promise((resolve, reject) => {
+    navigator.geolocation.getCurrentPosition(resolve, reject, options);
+  });
+}
+
+function renderAll() {
+  renderMessages();
+  renderProgress();
+}
+
+function renderMessages() {
+  els.messages.innerHTML = '';
+  const fragment = document.createDocumentFragment();
+
+  state.messages.forEach((message) => {
+    const row = document.createElement('article');
+    row.className = `message-row ${message.from === 'user' ? 'user' : 'topotino'}`;
+
+    if (message.from !== 'user') {
+      const avatar = document.createElement('div');
+      avatar.className = 'message-avatar';
+      avatar.innerHTML = '<img src="images/topotino.png" alt="Topotino" onerror="this.style.display=\'none\'">';
+      row.appendChild(avatar);
+    }
+
+    const bubble = document.createElement('div');
+    bubble.className = 'message-bubble';
+
+    const text = document.createElement('div');
+    text.className = 'message-text';
+    text.textContent = message.text;
+    bubble.appendChild(text);
+
+    const meta = document.createElement('div');
+    meta.className = 'message-meta';
+    meta.textContent = `${message.time || nowTime()} ${message.from === 'user' ? '✓✓' : '▣'}`;
+    bubble.appendChild(meta);
+
+    row.appendChild(bubble);
+    fragment.appendChild(row);
+  });
+
+  els.messages.appendChild(fragment);
+  els.messages.scrollTop = els.messages.scrollHeight;
+}
+
+function renderProgress() {
+  const activeEpisode = getActiveEpisode();
+  const meta = activeEpisode ? activeEpisode.meta : {};
+  els.channelCode.textContent = meta.channelCode || 'T-12A7';
+  els.missionActive.textContent = meta.mission || meta.title || 'Reconexión';
+  els.watersCount.textContent = `${state.waters.length}/12`;
+  els.locationStatus.textContent = state.locationStatus;
+  els.formulaDisplay.textContent = FORMULA_WORDS
+    .map((word) => state.formulaWords.includes(word) ? FORMULA_LABELS[word] : '???')
+    .join(', ');
+
+  els.watersList.innerHTML = '';
+  state.waters.forEach((water) => {
+    const pill = document.createElement('span');
+    pill.className = 'water-pill';
+    pill.textContent = water;
+    els.watersList.appendChild(pill);
+  });
+}
+
+async function fetchEpisode(file) {
+  const response = await fetch(file);
+  if (!response.ok) throw new Error(`Could not load episode ${file}`);
+  const markdown = await response.text();
+  return parseEpisode(markdown);
+}
+
+function parseEpisode(markdown) {
+  const frontmatterMatch = markdown.match(/^---\s*([\s\S]*?)\s*---/);
+  if (!frontmatterMatch) throw new Error('Episode missing frontmatter');
+  const meta = JSON.parse(frontmatterMatch[1]);
+  const body = markdown.slice(frontmatterMatch[0].length);
+
+  return {
+    meta,
+    narrativeContext: sectionText(body, 'Contexto narrativo'),
+    aiContext: sectionText(body, 'Contexto para IA'),
+    initialMessages: sectionJson(body, 'Mensajes iniciales', []),
+    guidedResponses: sectionJson(body, 'Respuestas guiadas', []),
+    softResponses: sectionJson(body, 'Respuestas suaves si fallan', [])
   };
+}
 
-  document.getElementById('reveal-name').textContent = m.nombreReal;
-  document.querySelector('.piece-name').textContent = maskLetters(m.letra);
-  if (locationBypass) {
-    setLocationStatus('Modo manual activo. Podeis iniciar pruebas sin control de posicion.', 'success');
-  } else {
-    setLocationStatus('Confirmad vuestra posicion para desbloquear las pruebas de campo.', 'info');
+function sectionText(markdown, heading) {
+  const start = markdown.indexOf(`## ${heading}`);
+  if (start === -1) return '';
+  const afterHeading = markdown.slice(start).replace(/^## .+\n?/, '');
+  const next = afterHeading.search(/\n## /);
+  const raw = next === -1 ? afterHeading : afterHeading.slice(0, next);
+  return raw.replace(/```json[\s\S]*?```/g, '').trim();
+}
+
+function sectionJson(markdown, heading, fallback) {
+  const start = markdown.indexOf(`## ${heading}`);
+  if (start === -1) return fallback;
+  const afterHeading = markdown.slice(start);
+  const match = afterHeading.match(/```json\s*([\s\S]*?)\s*```/);
+  if (!match) return fallback;
+  try {
+    return JSON.parse(match[1]);
+  } catch (error) {
+    console.warn(`Invalid JSON in ${heading}`, error);
+    return fallback;
   }
-  showScreen('reveal');
+}
+
+async function fetchJson(url) {
+  const response = await fetch(url);
+  if (!response.ok) throw new Error(`Could not load ${url}`);
+  return response.json();
+}
+
+function appendMessages(messages) {
+  messages.forEach((message) => appendMessage(message));
+}
+
+function appendMessage(message) {
+  state.messages.push({
+    from: message.from || 'topotino',
+    time: message.time === 'auto' || !message.time ? nowTime() : message.time,
+    text: message.text || ''
+  });
+}
+
+function getEpisode(episodeId) {
+  return episodes.find((episode) => episode.meta.id === episodeId);
+}
+
+function getActiveEpisode() {
+  const unlocked = getUnlockedEpisodes();
+  return getEpisode(state.activeEpisodeId) || unlocked[unlocked.length - 1] || episodes[0];
+}
+
+function getUnlockedEpisodes() {
+  return episodes.filter((episode) => isEpisodeUnlocked(episode.meta.id));
+}
+
+function isEpisodeUnlocked(episodeId) {
+  return state.unlockedEpisodeIds.includes(episodeId);
+}
+
+function addWater(water) {
+  if (!state.waters.includes(water)) state.waters.push(water);
+}
+
+function addFormulaWord(word) {
+  const normalized = normalizeFormulaWord(word);
+  if (!state.formulaWords.includes(normalized)) state.formulaWords.push(normalized);
+}
+
+function addUniqueMany(target, values) {
+  values.forEach((value) => {
+    if (!target.includes(value)) target.push(value);
+  });
+}
+
+function dateMatches(rule, now) {
+  const current = formatDate(now);
+  if (rule.on) return current === rule.on;
+  if (rule.from && current < rule.from) return false;
+  if (rule.to && current > rule.to) return false;
+  return true;
+}
+
+function timeMatches(rule, now) {
+  const current = formatTime(now);
+  if (rule.from && rule.to && rule.from > rule.to) {
+    return current >= rule.from || current <= rule.to;
+  }
+  if (rule.from && current < rule.from) return false;
+  if (rule.to && current > rule.to) return false;
+  return true;
+}
+
+function locationMatches(rule) {
+  const pos = state.lastKnownPosition;
+  if (!pos || typeof pos.lat !== 'number' || typeof pos.lng !== 'number') return false;
+  const distance = haversineDistanceMeters(pos.lat, pos.lng, rule.lat, rule.lng);
+  return distance <= (rule.radiusMeters || 300);
+}
+
+function getRuntimeContext() {
+  const now = getRuntimeNow();
+  return {
+    nowIso: now.toISOString(),
+    date: formatDate(now),
+    time: formatTime(now),
+    position: state.lastKnownPosition,
+    locationStatus: state.locationStatus
+  };
+}
+
+function getRuntimeNow() {
+  const override = params.get('testNow');
+  if (override) {
+    const date = new Date(override);
+    if (!Number.isNaN(date.getTime())) return date;
+  }
+  return new Date();
+}
+
+function formatDate(date) {
+  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
+}
+
+function formatTime(date) {
+  return `${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
 }
 
 function haversineDistanceMeters(lat1, lng1, lat2, lng2) {
@@ -547,294 +594,122 @@ function haversineDistanceMeters(lat1, lng1, lat2, lng2) {
   const dLat = toRad(lat2 - lat1);
   const dLng = toRad(lng2 - lng1);
   const a =
-    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.sin(dLat / 2) ** 2 +
     Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
-    Math.sin(dLng / 2) * Math.sin(dLng / 2);
-  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-  return R * c;
+    Math.sin(dLng / 2) ** 2;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 }
 
-function getCurrentPositionPromise(options) {
-  return new Promise((resolve, reject) => {
-    navigator.geolocation.getCurrentPosition(resolve, reject, options);
-  });
+function locationErrorMessage(error) {
+  if (error && error.code === 1) return 'Permiso de ubicación denegado.';
+  if (error && error.code === 2) return 'No se pudo calcular la ubicación.';
+  if (error && error.code === 3) return 'La búsqueda de ubicación tardó demasiado.';
+  return 'No se pudo actualizar la señal de posición.';
 }
 
-async function validateMissionLocationAndStart(missionId) {
-  const m = MISSIONS.find(x => x.id === missionId);
-  if (!m) return;
-
-  const triggerBtn = document.getElementById('btn-start-questions');
-  triggerBtn.disabled = true;
-
-  try {
-    if (locationBypass) {
-      setLocationStatus('Modo manual activo. Entrando al bloque de preguntas.', 'success');
-      startQuestions(missionId);
-      return;
-    }
-
-    if (typeof m.lat !== 'number' || typeof m.lng !== 'number') {
-      setLocationStatus('Objetivo sin coordenadas validas. Bloqueo de seguridad activo.', 'error');
-      return;
-    }
-
-    if (!navigator.geolocation) {
-      setLocationStatus('Este dispositivo no permite geolocalizacion. No es posible validar posicion.', 'error');
-      return;
-    }
-
-    setLocationStatus('Comprobando posicion segura... manteneos quietos unos segundos.', 'info');
-    const pos = await getCurrentPositionPromise({
-      enableHighAccuracy: true,
-      timeout: 15000,
-      maximumAge: 10000
-    });
-
-    const distance = haversineDistanceMeters(
-      pos.coords.latitude,
-      pos.coords.longitude,
-      m.lat,
-      m.lng
-    );
-    const radius = typeof m.radioMetros === 'number' ? m.radioMetros : 250;
-
-    if (distance <= radius) {
-      setLocationStatus(`Posicion validada (${Math.round(distance)} m del objetivo). Acceso concedido.`, 'success');
-      startQuestions(missionId);
-      return;
-    }
-
-    setLocationStatus(`Fuera de zona segura (${Math.round(distance)} m). Acercaos mas al objetivo (radio ${radius} m).`, 'error');
-  } catch (err) {
-    if (err && err.code === 1) {
-      setLocationStatus('Permiso de ubicacion denegado. Activadlo en el navegador para continuar.', 'error');
-    } else if (err && err.code === 2) {
-      setLocationStatus('No se pudo determinar la ubicacion. Revisad GPS o conexion e intentad de nuevo.', 'error');
-    } else if (err && err.code === 3) {
-      setLocationStatus('Tiempo de espera agotado al obtener ubicacion. Reintentad en unos segundos.', 'error');
-    } else {
-      setLocationStatus('Error al validar la ubicacion. Reintentad en unos segundos.', 'error');
-    }
-  } finally {
-    triggerBtn.disabled = false;
-  }
+function normalizeFormulaWord(word) {
+  return normalizeText(word).replace(/\s+/g, ' ').toUpperCase();
 }
 
-// ── QUESTIONS ─────────────────────────────────────────────────
-function startQuestions(missionId) {
-  currentMissionId = missionId;
-  currentQuestionIndex = 0;
-  showQuestion();
+function normalizeText(text) {
+  return String(text || '')
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toLowerCase()
+    .trim()
+    .replace(/\s+/g, ' ');
 }
 
-function showQuestion() {
-  const m = MISSIONS.find(x => x.id === currentMissionId);
-  if (!m) return;
-
-  const q = m.preguntas[currentQuestionIndex];
-  questionAnswered = false;
-
-  document.getElementById('q-location').textContent = '// ' + m.nombreReal + ' //';
-  document.getElementById('q-text').textContent = q.texto;
-  document.getElementById('q-counter').textContent = (currentQuestionIndex + 1) + '/3';
-  document.getElementById('q-feedback').style.display = 'none';
-
-  // Update dots
-  const ms = state.missions[currentMissionId];
-  document.querySelectorAll('.dot').forEach((dot, i) => {
-    dot.className = 'dot';
-    if (ms && ms.answeredQuestions && ms.answeredQuestions[i]) dot.classList.add('answered');
-    else if (i === currentQuestionIndex) dot.classList.add('current');
-  });
-
-  // Render options
-  const optionsEl = document.getElementById('q-options');
-  optionsEl.innerHTML = '';
-  q.opciones.forEach((opt, idx) => {
-    const btn = document.createElement('button');
-    btn.className = 'option-btn';
-    btn.textContent = opt;
-    btn.addEventListener('click', () => answerQuestion(idx));
-    optionsEl.appendChild(btn);
-  });
-
-  showScreen('questions');
+function nowTime() {
+  return new Intl.DateTimeFormat('es-ES', {
+    hour: '2-digit',
+    minute: '2-digit'
+  }).format(getRuntimeNow());
 }
 
-function answerQuestion(selectedIndex) {
-  if (questionAnswered) return;
-  questionAnswered = true;
-
-  const m = MISSIONS.find(x => x.id === currentMissionId);
-  const q = m.preguntas[currentQuestionIndex];
-  const isCorrect = selectedIndex === q.correcta;
-
-  document.querySelectorAll('.option-btn').forEach((btn, i) => {
-    btn.disabled = true;
-    if (i === q.correcta) btn.classList.add('correct');
-    else if (i === selectedIndex && !isCorrect) btn.classList.add('wrong');
-  });
-
-  const feedback = document.getElementById('q-feedback');
-  const feedbackText = document.getElementById('q-feedback-text');
-  feedback.style.display = 'block';
-
-  if (isCorrect) {
-    feedbackText.className = 'feedback-text correct';
-    feedbackText.textContent = '✓ PARTE VALIDADO — OBSERVACION IMPECABLE, AGENTES';
-
-    if (!state.missions[currentMissionId]) state.missions[currentMissionId] = { status: 'in_progress' };
-    if (!state.missions[currentMissionId].answeredQuestions) {
-      state.missions[currentMissionId].answeredQuestions = [false, false, false];
-    }
-    state.missions[currentMissionId].answeredQuestions[currentQuestionIndex] = true;
-    saveState();
-
-    const isLast = currentQuestionIndex >= 2;
-    document.getElementById('btn-next-question').textContent = isLast ? 'VER PARTE FINAL ➜' : 'SIGUIENTE PARTE ➜';
-  } else {
-    feedbackText.className = 'feedback-text wrong';
-    feedbackText.textContent = '✗ PARTE RECHAZADO — REVISAD EL ENTORNO Y REPETID';
-    document.getElementById('btn-next-question').textContent = 'REPETIR PARTE ↩';
-  }
+function setBusy(nextBusy) {
+  busy = nextBusy;
+  els.typing.hidden = !nextBusy;
+  els.sendButton.disabled = nextBusy;
+  els.chatInput.disabled = nextBusy;
 }
 
-function nextQuestion() {
-  const ms = state.missions[currentMissionId];
-  const wasCorrect = ms && ms.answeredQuestions && ms.answeredQuestions[currentQuestionIndex];
-
-  if (!wasCorrect) {
-    // retry same question
-    questionAnswered = false;
-    document.getElementById('q-feedback').style.display = 'none';
-    document.querySelectorAll('.option-btn').forEach(btn => {
-      btn.disabled = false;
-      btn.classList.remove('correct', 'wrong');
-    });
-    document.querySelectorAll('.dot').forEach((dot, i) => {
-      dot.className = 'dot';
-      if (i === currentQuestionIndex) dot.classList.add('current');
-      else if (ms && ms.answeredQuestions && ms.answeredQuestions[i]) dot.classList.add('answered');
-    });
-    return;
-  }
-
-  if (currentQuestionIndex < 2) {
-    currentQuestionIndex++;
-    showQuestion();
-  } else {
-    completeMission(currentMissionId);
-  }
+function showUnlockError(text) {
+  els.unlockError.textContent = text;
+  els.unlockError.hidden = false;
 }
 
-// ── COMPLETE MISSION ──────────────────────────────────────────
-function completeMission(missionId) {
-  const m = MISSIONS.find(x => x.id === missionId);
-  state.missions[missionId].status = 'completed';
-  saveState();
-
-  // Show reward
-  document.getElementById('reward-letter').textContent = m.letra;
-  document.getElementById('reward-badge').textContent = m.insignia;
-  document.getElementById('reward-message').innerHTML = `<p>${m.mensajeRecompensa}</p>`;
-
-  // Build phrase progress for reward screen
-  const phraseProgress = buildPhraseProgress();
-  document.getElementById('reward-phrase-display').textContent = phraseProgress;
-
-  showScreen('reward');
-}
-
-// ── VICTORY CHECK ─────────────────────────────────────────────
-function checkVictory() {
-  const completedLetters = buildCollectedLetters();
-  if (getCompletedCount() >= MISSIONS.length && completedLetters === FULL_PHRASE) {
-    setTimeout(() => {
-      showScreen('victory');
-      playVictorySequence();
-    }, 400);
-  }
-}
-
-// ── RESET ─────────────────────────────────────────────────────
-function resetGame() {
-  state = { authenticated: false, missions: {}, lettersCollected: [], timeoutAcknowledged: false };
-  locationBypass = false;
-  saveState();
-  // Show auth again from the start
-  document.getElementById('auth-step-1').style.display = 'flex';
-  document.getElementById('auth-step-2').style.display = 'none';
-  document.getElementById('auth-agent1').value = '';
-  document.getElementById('auth-agent2').value = '';
-  document.getElementById('auth-city').value = '';
-  document.getElementById('auth-error-1').style.display = 'none';
-  document.getElementById('auth-error-2').style.display = 'none';
-  showScreen('auth');
-}
-
-function resetCurrentMission(missionId) {
-  const exists = MISSIONS.some(m => m.id === missionId);
-  if (!exists) return;
-  delete state.missions[missionId];
-  saveState();
-  currentQuestionIndex = 0;
-  questionAnswered = false;
-  renderMap();
-  openMission(missionId);
-}
-
-// ── COUNTDOWN ─────────────────────────────────────────────────
-function pad(n) { return String(n).padStart(2, '0'); }
-function isDeadlineExpired() { return Date.now() >= DEADLINE.getTime(); }
-
-function formatCountdown(ms) {
-  if (ms <= 0) return '00:00:00';
-  const totalSec = Math.floor(ms / 1000);
-  const d = Math.floor(totalSec / 86400);
-  const h = Math.floor((totalSec % 86400) / 3600);
-  const mn = Math.floor((totalSec % 3600) / 60);
-  const s = totalSec % 60;
-  if (d > 0) return `${d}D ${pad(h)}:${pad(mn)}:${pad(s)}`;
-  return `${pad(h)}:${pad(mn)}:${pad(s)}`;
-}
-
-function startCountdownTick() {
-  function tick() {
-    const remaining = DEADLINE - Date.now();
-    const text = formatCountdown(remaining);
-    const el = document.getElementById('countdown-map');
-    if (el) el.textContent = '⏱ ' + text;
-
-    if (remaining <= 0 && !state.timeoutAcknowledged && getCompletedCount() < MISSIONS.length) {
-      const active = document.querySelector('.screen.active');
-      if (active && active.id !== 'screen-auth' && active.id !== 'screen-victory' && active.id !== 'screen-timeout') {
-        showScreen('timeout');
-      }
-    }
-  }
-  tick();
-  setInterval(tick, 1000);
-}
-
-// ── PERSISTENCE ───────────────────────────────────────────────
 function saveState() {
-  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e) {}
+  try {
+    localStorage.setItem(STORAGE_KEYS.auth, state.unlocked ? '1' : '0');
+    localStorage.setItem(STORAGE_KEYS.state, JSON.stringify({
+      activeEpisodeId: state.activeEpisodeId,
+      unlockedEpisodeIds: state.unlockedEpisodeIds,
+      renderedEpisodes: state.renderedEpisodes,
+      messages: state.messages,
+      flags: state.flags,
+      waters: state.waters,
+      formulaWords: state.formulaWords,
+      softResponseCursor: state.softResponseCursor,
+      lastKnownPosition: state.lastKnownPosition,
+      locationStatus: state.locationStatus
+    }));
+  } catch (error) {
+    console.warn('Could not save state', error);
+  }
 }
+
 function loadState() {
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (raw) state = Object.assign(state, JSON.parse(raw));
-    if (typeof state.timeoutAcknowledged !== 'boolean') state.timeoutAcknowledged = false;
-  } catch(e) {}
+    if (params.get('reset') === '1') {
+      localStorage.removeItem(STORAGE_KEYS.auth);
+      localStorage.removeItem(STORAGE_KEYS.state);
+      localStorage.removeItem(LEGACY_STATE_KEY);
+      params.delete('reset');
+      const nextQuery = params.toString();
+      const nextUrl = `${window.location.pathname}${nextQuery ? `?${nextQuery}` : ''}${window.location.hash}`;
+      window.history.replaceState(null, '', nextUrl);
+    }
+
+    state.unlocked = localStorage.getItem(STORAGE_KEYS.auth) === '1';
+    const raw = localStorage.getItem(STORAGE_KEYS.state) || localStorage.getItem(LEGACY_STATE_KEY);
+    if (!raw) return;
+    const saved = JSON.parse(raw);
+    const fallbackUnlocked = saved.unlockedEpisodeIds || [saved.activeEpisodeId || state.activeEpisodeId].filter(Boolean);
+    Object.assign(state, {
+      activeEpisodeId: saved.activeEpisodeId || state.activeEpisodeId,
+      unlockedEpisodeIds: fallbackUnlocked,
+      renderedEpisodes: saved.renderedEpisodes || [],
+      messages: saved.messages || [],
+      flags: saved.flags || [],
+      waters: saved.waters || [],
+      formulaWords: (saved.formulaWords || []).map(normalizeFormulaWord),
+      softResponseCursor: saved.softResponseCursor || {},
+      lastKnownPosition: saved.lastKnownPosition || state.lastKnownPosition,
+      locationStatus: saved.locationStatus || state.locationStatus
+    });
+  } catch (error) {
+    console.warn('Could not load state', error);
+  }
 }
 
-// ── SERVICE WORKER ────────────────────────────────────────────
+function applyTestingParams() {
+  const testLat = Number(params.get('testLat'));
+  const testLng = Number(params.get('testLng'));
+  if (Number.isFinite(testLat) && Number.isFinite(testLng)) {
+    state.lastKnownPosition = {
+      lat: testLat,
+      lng: testLng,
+      accuracy: 1,
+      capturedAt: new Date().toISOString(),
+      source: 'test-url'
+    };
+    state.locationStatus = `Señal simulada: ${testLat.toFixed(5)}, ${testLng.toFixed(5)}.`;
+  }
+}
+
 function registerServiceWorker() {
   if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('service-worker.js').catch(() => {});
   }
 }
-
-// ── BOOT ──────────────────────────────────────────────────────
-document.addEventListener('DOMContentLoaded', initApp);

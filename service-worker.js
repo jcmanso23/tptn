@@ -1,66 +1,53 @@
-const CACHE_NAME = 'topotino-v10';
+const CACHE_NAME = 'topotino-chat-v3';
 
 const STATIC_ASSETS = [
+  './',
   './index.html',
   './styles.css',
   './app.js',
-  './missions.js',
   './manifest.json',
+  './icons/icon.svg',
   './icons/icon-192.png',
   './icons/icon-512.png',
   './images/topotino.png',
-  './images/london.jpeg',
-  './images/topotino_buckingham.png',
-  './images/buckingham.jpg',
-  './images/stjames.jpg',
-  './images/marblearch.jpg',
-  './images/piccadilly.jpg',
-  './images/trafalgar.jpg',
-  './images/bigben.jpg',
-  './images/westminster.jpg',
-  './images/londoneye.jpg',
-  './images/nhm.jpg',
-  './images/leadenhall.jpg',
-  './images/towerbridge.jpg',
-  './images/coventgarden.jpg'
+  './content/episodes.json',
+  './content/README.md',
+  './content/episodes/001-reconexion.md',
+  './content/episodes/002-luanco-primera-gota.md',
+  './content/episodes/003-eclipse.md',
+  './content/episodes/004-guimaraes-origen.md',
+  './content/episodes/_TEMPLATE.md'
 ];
 
-self.addEventListener('install', event => {
+self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME).then(cache => {
-      // Cache core files; ignore missing optional images
-      return Promise.allSettled(
-        STATIC_ASSETS.map(url =>
-          cache.add(url).catch(() => {})
-        )
-      );
-    }).then(() => self.skipWaiting())
+    caches.open(CACHE_NAME)
+      .then((cache) => Promise.allSettled(STATIC_ASSETS.map((url) => cache.add(url))))
+      .then(() => self.skipWaiting())
   );
 });
 
-self.addEventListener('activate', event => {
+self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then(keys =>
-      Promise.all(
-        keys.filter(k => k !== CACHE_NAME).map(k => caches.delete(k))
-      )
-    ).then(() => self.clients.claim())
+    caches.keys()
+      .then((keys) => Promise.all(keys.filter((key) => key !== CACHE_NAME).map((key) => caches.delete(key))))
+      .then(() => self.clients.claim())
   );
 });
 
-self.addEventListener('fetch', event => {
+self.addEventListener('fetch', (event) => {
   if (event.request.method !== 'GET') return;
+  if (new URL(event.request.url).pathname.startsWith('/api/')) return;
+
   event.respondWith(
-    caches.match(event.request).then(cached => {
+    caches.match(event.request).then((cached) => {
       if (cached) return cached;
-      return fetch(event.request).then(response => {
+      return fetch(event.request).then((response) => {
         if (response && response.status === 200) {
           const clone = response.clone();
-          caches.open(CACHE_NAME).then(cache => cache.put(event.request, clone));
+          caches.open(CACHE_NAME).then((cache) => cache.put(event.request, clone));
         }
         return response;
-      }).catch(() => {
-        // If offline and not cached, return nothing (graceful fail)
       });
     })
   );
