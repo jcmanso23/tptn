@@ -622,8 +622,28 @@ input {
   margin-top: 10px;
 }
 
+.adult-lock {
+  padding-top: 2px;
+}
+
+.adult-launch {
+  margin-top: 12px;
+  padding-top: 10px;
+  border-top: 1px solid rgba(97, 255, 184, .14);
+}
+
+.adult-launch label {
+  display: block;
+  color: #7d94a7;
+  font-size: 12px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .08em;
+}
+
 .adult-panel button,
-.adult-panel input {
+.adult-panel input,
+.adult-panel select {
   min-height: 36px;
   border: 1px solid rgba(97, 255, 184, .45);
   border-radius: 8px;
@@ -640,7 +660,8 @@ input {
   letter-spacing: .05em;
 }
 
-.adult-panel input {
+.adult-panel input,
+.adult-panel select {
   flex: 1;
   min-width: 170px;
 }

@@ -11,7 +11,7 @@
   <link rel="manifest" href="manifest.json">
   <link rel="apple-touch-icon" href="icons/icon-192.png">
   <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=chat-v10">
+  <link rel="stylesheet" href="styles.css?v=chat-v11">
 </head>
 <body>
   <main class="app-shell" aria-live="polite">
@@ -101,24 +101,41 @@
         <strong>Panel adulto</strong>
         <span id="adult-sync-status">Copia local</span>
       </div>
-      <p>Código de recuperación: <code id="adult-recovery-code">Sin crear</code></p>
-      <p id="adult-last-sync">Última copia: pendiente</p>
-      <div class="adult-actions">
-        <button id="adult-copy-code" type="button">Copiar código</button>
-        <button id="adult-force-sync" type="button">Sincronizar</button>
-        <button id="adult-export" type="button">Exportar JSON</button>
-        <button id="adult-import" type="button">Importar JSON</button>
+      <div id="adult-lock" class="adult-lock">
+        <p>Introduce el PIN adulto para ver herramientas de prueba y recuperación.</p>
+        <div class="adult-restore">
+          <input id="adult-pin" type="password" inputmode="numeric" autocomplete="off" placeholder="PIN adulto">
+          <button id="adult-unlock" type="button">Abrir</button>
+        </div>
       </div>
-      <div class="adult-restore">
-        <input id="adult-restore-code" type="text" autocomplete="off" spellcheck="false" placeholder="TOPO-XXXX-XXXX">
-        <button id="adult-restore" type="button">Restaurar</button>
+      <div id="adult-tools" hidden>
+        <p>Código de recuperación: <code id="adult-recovery-code">Sin crear</code></p>
+        <p id="adult-last-sync">Última copia: pendiente</p>
+        <div class="adult-actions">
+          <button id="adult-copy-code" type="button">Copiar código</button>
+          <button id="adult-force-sync" type="button">Probar copia segura</button>
+          <button id="adult-export" type="button">Exportar JSON</button>
+          <button id="adult-import" type="button">Importar JSON</button>
+        </div>
+        <div class="adult-launch">
+          <label for="adult-phase-select">Lanzar fase manualmente</label>
+          <div class="adult-restore">
+            <select id="adult-phase-select"></select>
+            <button id="adult-schedule-phase" type="button">Lanzar en 5 min</button>
+          </div>
+          <p id="adult-phase-status">Sin lanzamientos pendientes.</p>
+        </div>
+        <div class="adult-restore">
+          <input id="adult-restore-code" type="text" autocomplete="off" spellcheck="false" placeholder="TOPO-XXXX-XXXX">
+          <button id="adult-restore" type="button">Restaurar</button>
+        </div>
+        <button id="adult-clear-local" class="adult-danger" type="button">Borrar solo este móvil</button>
+        <input id="adult-import-file" type="file" accept="application/json" hidden>
       </div>
-      <button id="adult-clear-local" class="adult-danger" type="button">Borrar solo este móvil</button>
-      <input id="adult-import-file" type="file" accept="application/json" hidden>
       <p id="adult-message" class="adult-message" aria-live="polite"></p>
     </aside>
   </main>
 
-  <script src="app.js?v=chat-v14" type="module"></script>
+  <script src="app.js?v=chat-v15" type="module"></script>
 </body>
 </html>

@@ -37,11 +37,11 @@ No revelar la lista completa de aguas ni destinos futuros.
 ```json
 [
   { "from": "topotino", "time": "auto", "text": "Amigos, acabo de recibir respuesta de los topos vigía." },
-  { "from": "topotino", "time": "auto", "text": "Venía en un papel húmedo, doblado en forma de ola. Eso, en lenguaje topo, significa: asunto importante." },
-  { "from": "topotino", "time": "auto", "text": "La señal de anoche no era una pista suelta. Era el borde de algo mucho más raro: una pócima de aguas." },
-  { "from": "topotino", "time": "auto", "text": "Por eso Topoloco está rondando. Quiere encontrar el brillo antes que vosotros y guardárselo, como si la belleza cupiera en un bolsillo." },
+  { "from": "topotino", "time": "auto", "text": "Venía en un papel húmedo, doblado en forma de ola. Eso, en lenguaje topo, significa asunto importante." },
+  { "from": "topotino", "time": "auto", "text": "La señal de anoche no era una pista suelta. Era el borde de algo mucho más raro, de una pócima de aguas." },
+  { "from": "topotino", "time": "auto", "text": "Por eso Topoloco está por aquí. Quiere encontrar el brillo antes que vosotros y guardárselo, como si la belleza cupiera en un bolsillo." },
   { "from": "topotino", "time": "auto", "text": "Necesito que cojáis solo un poquito de agua. Tres gotas bastan. Las aguas importantes no pesan por cantidad, pesan por recuerdo." },
-  { "from": "topotino", "time": "auto", "text": "Ponedle una pegatina o una etiqueta que diga: Agua del Norte. Así sabremos que esta fue la primera que aprendió a mirar." },
+  { "from": "topotino", "time": "auto", "text": "Ponedle una pegatina o una etiqueta que diga: Agua del Norte. Así nos acordaremos más adelante de cuál cogimos." },
   { "from": "topotino", "time": "auto", "text": "Cuando esté guardada, contádmelo por aquí. Sin gritar. Las gotas escuchan mejor en voz baja." }
 ]
 ```
@@ -61,9 +61,11 @@ No revelar la lista completa de aguas ni destinos futuros.
     "messages": [
       { "from": "topotino", "time": "auto", "text": "Buena misión, amigos. Muy buena." },
       { "from": "topotino", "time": "auto", "text": "Agua del Norte guardada. No es mucha, pero tiene memoria de mar, de noche blanca y de ojos atentos." },
-      { "from": "topotino", "time": "auto", "text": "Primera palabra que se despierta en mi mapa: MIRO." },
-      { "from": "topotino", "time": "auto", "text": "Y ahora escuchad esto, porque la siguiente señal no se abre en una calle." },
-      { "from": "topotino", "time": "auto", "text": "Se abrirá cuando el día haga algo rarísimo: cuando parezca noche sin ser noche, y la luna se ponga delante del sol como si quisiera taparle un secreto." },
+      { "from": "topotino", "time": "auto", "text": "Es importante que no la perdáis." },
+      { "from": "topotino", "time": "auto", "text": "Escuchad... me llega una primera palabra... es MIRO." },
+      { "from": "topotino", "time": "auto", "text": "¿Para qué servirá?" },
+      { "from": "topotino", "time": "auto", "text": "La siguiente señal no se abre en una calle." },
+      { "from": "topotino", "time": "auto", "text": "Se abrirá cuando el día parezca noche sin ser noche, y la luna se ponga delante del sol como si quisiera taparle un secreto." },
       { "from": "topotino", "time": "auto", "text": "Ese día llevad preparada una maleta para muchos días. No sé explicarlo todavía, pero mis mapas tiemblan como cuando empieza una aventura larga." },
       { "from": "topotino", "time": "auto", "text": "No puedo decir más. Corto comunicación hasta entonces. Y recordad: el sol nunca se mira directamente. Ni por juego, ni por misión, ni por curiosidad." }
     ]
@@ -75,7 +77,7 @@ No revelar la lista completa de aguas ni destinos futuros.
 
 ```json
 [
-  "Todavía no marco el Agua del Norte como guardada. Recordad: solo tres gotas y una etiqueta.",
+  "Todavía no marco el Agua del Norte como guardada. Recordad coger tres gotas de agua del mar.",
   "No hace falta mucha agua. Hace falta cuidarla y recordar de dónde viene.",
   "Cuando la tengáis en el botecito con su pegatina, decidme que está hecho."
 ]

@@ -5,8 +5,11 @@ const STORAGE_KEYS = {
 
 const LEGACY_STATE_KEY = 'topotino_chat_state_v1';
 const PASSPHRASE_HASH = 'a64716bd9f4e8added1bf47f80b97c3fc7b70a15b8043cdab083e1ddf85f3794';
-const EPISODES_MANIFEST = 'content/episodes.json?v=chat-v14';
+const EPISODES_MANIFEST = 'content/episodes.json?v=chat-v15';
 const ACTIVATION_TICK_MS = 60000;
+const ADULT_PHASE_DELAY_MS = 5 * 60 * 1000;
+const ADULT_PIN_HASH = '5010c493958a86e59cdc3b94179856b6c2fea01c7e1b293ff115706c4ff4d6dc';
+const ADULT_SESSION_KEY = 'topotino_adult_unlocked_v1';
 const TOPOTINO_IMAGE = 'images/topotino.png?v=marco-v1';
 const CHATTER_LIMIT_CHARS = 180;
 const CHATTER_LIMIT_MESSAGES = 4;
@@ -92,6 +95,8 @@ const state = {
   runtimeNowOverride: null,
   lastKnownPosition: null,
   locationStatus: 'Sin posición actualizada.',
+  locationNoticeShown: false,
+  scheduledAdultLaunches: [],
   channelId: null,
   recoveryCode: null,
   revision: 0,
@@ -105,10 +110,12 @@ let episodes = [];
 let busy = false;
 let syncTimer = null;
 let syncInFlight = false;
+let activationInterval = null;
+let adultLaunchTimer = null;
 
 const els = {};
 const params = new URLSearchParams(window.location.search);
-const isAdultMode = params.get('adult') === '1';
+const isAdultMode = params.get('topoadulto') === '1' || params.get('adult') === '1';
 
 document.addEventListener('DOMContentLoaded', init);
 
@@ -161,9 +168,16 @@ function bindElements() {
   els.locationStatus = document.getElementById('location-status');
   els.typingText = document.getElementById('typing-text');
   els.adultPanel = document.getElementById('adult-panel');
+  els.adultLock = document.getElementById('adult-lock');
+  els.adultTools = document.getElementById('adult-tools');
+  els.adultPin = document.getElementById('adult-pin');
+  els.adultUnlock = document.getElementById('adult-unlock');
   els.adultRecoveryCode = document.getElementById('adult-recovery-code');
   els.adultSyncStatus = document.getElementById('adult-sync-status');
   els.adultLastSync = document.getElementById('adult-last-sync');
+  els.adultPhaseSelect = document.getElementById('adult-phase-select');
+  els.adultSchedulePhase = document.getElementById('adult-schedule-phase');
+  els.adultPhaseStatus = document.getElementById('adult-phase-status');
   els.adultRestoreCode = document.getElementById('adult-restore-code');
   els.adultFileInput = document.getElementById('adult-import-file');
   els.adultMessage = document.getElementById('adult-message');
@@ -207,8 +221,15 @@ function bindEvents() {
   els.locationButton.addEventListener('click', refreshLocation);
   window.addEventListener('online', () => syncStateNow({ force: true }));
 
+  if (els.adultUnlock) els.adultUnlock.addEventListener('click', unlockAdultTools);
+  if (els.adultPin) {
+    els.adultPin.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter') unlockAdultTools();
+    });
+  }
   if (els.adultCopy) els.adultCopy.addEventListener('click', copyRecoveryCode);
   if (els.adultSync) els.adultSync.addEventListener('click', () => syncStateNow({ force: true }));
+  if (els.adultSchedulePhase) els.adultSchedulePhase.addEventListener('click', scheduleAdultPhaseLaunch);
   if (els.adultRestore) els.adultRestore.addEventListener('click', restoreFromAdultCode);
   if (els.adultExport) els.adultExport.addEventListener('click', exportAdultBackup);
   if (els.adultImport) els.adultImport.addEventListener('click', () => els.adultFileInput.click());
@@ -225,12 +246,22 @@ async function enterChat() {
   await refreshLocationForPendingActivations();
   const activationMessages = await evaluateActivations({ reason: 'enter', collectMessages: true });
   renderAll();
-  setInterval(() => evaluateActivations({ reason: 'tick' }), ACTIVATION_TICK_MS);
+  if (!activationInterval) {
+    activationInterval = setInterval(() => runActivationCheck('tick'), ACTIVATION_TICK_MS);
+  }
+  scheduleNextAdultLaunchTimer();
   if (activationMessages.length) {
     await deliverTopotinoMessages(activationMessages, { mode: 'activation' });
   }
   window.setTimeout(() => syncStateNow({ force: state.syncStatus !== 'synced' }), 1000);
   setTimeout(() => els.chatInput.focus(), 50);
+}
+
+async function runActivationCheck(reason) {
+  const activationMessages = await evaluateActivations({ reason, collectMessages: true });
+  if (activationMessages.length) {
+    await deliverTopotinoMessages(activationMessages, { mode: 'activation' });
+  }
 }
 
 function showScreen(name) {
@@ -241,6 +272,21 @@ function showScreen(name) {
 async function evaluateActivations({ reason, collectMessages = false } = {}) {
   let changed = false;
   const queuedMessages = [];
+  const dueLaunches = collectDueAdultLaunches();
+  if (dueLaunches.length) changed = true;
+
+  dueLaunches.forEach((launch) => {
+    if (isEpisodeUnlocked(launch.episodeId)) return;
+    const episode = getEpisode(launch.episodeId);
+    if (!episode) return;
+    unlockEpisode(episode.meta.id);
+    if (collectMessages) {
+      queuedMessages.push(...(episode.initialMessages || []));
+    } else {
+      appendMessages(episode.initialMessages || []);
+    }
+    changed = true;
+  });
 
   for (const episode of episodes) {
     if (isEpisodeUnlocked(episode.meta.id)) continue;
@@ -257,6 +303,7 @@ async function evaluateActivations({ reason, collectMessages = false } = {}) {
   if (changed) {
     saveState();
     renderAll();
+    scheduleNextAdultLaunchTimer();
   }
 
   return queuedMessages;
@@ -294,6 +341,46 @@ function episodeCanActivate(episode) {
   return activation.mode === 'any' ? checks.some(Boolean) : checks.every(Boolean);
 }
 
+function collectDueAdultLaunches() {
+  if (!Array.isArray(state.scheduledAdultLaunches) || !state.scheduledAdultLaunches.length) {
+    state.scheduledAdultLaunches = [];
+    return [];
+  }
+
+  const now = Date.now();
+  const due = [];
+  const pending = [];
+
+  state.scheduledAdultLaunches.forEach((launch) => {
+    if (!launch || !launch.episodeId || !launch.unlockAt) return;
+    if (Number(launch.unlockAt) <= now) {
+      due.push(launch);
+    } else {
+      pending.push(launch);
+    }
+  });
+
+  if (pending.length !== state.scheduledAdultLaunches.length) {
+    state.scheduledAdultLaunches = pending;
+  }
+
+  return due;
+}
+
+function scheduleNextAdultLaunchTimer() {
+  window.clearTimeout(adultLaunchTimer);
+  adultLaunchTimer = null;
+  if (!state.unlocked || !Array.isArray(state.scheduledAdultLaunches)) return;
+
+  const nextLaunch = state.scheduledAdultLaunches
+    .filter((launch) => launch && launch.unlockAt)
+    .sort((a, b) => Number(a.unlockAt) - Number(b.unlockAt))[0];
+
+  if (!nextLaunch) return;
+  const delay = Math.max(0, Number(nextLaunch.unlockAt) - Date.now());
+  adultLaunchTimer = window.setTimeout(() => runActivationCheck('adult-launch'), delay);
+}
+
 function episodeCanActivateExceptLocation(episode) {
   if (!state.unlocked || isEpisodeUnlocked(episode.meta.id)) return false;
   const activation = episode.meta.activation || {};
@@ -323,6 +410,15 @@ async function refreshLocationForPendingActivations() {
   if (!episodes.some((episode) => episodeCanActivateExceptLocation(episode))) return;
 
   try {
+    if (!state.locationNoticeShown) {
+      state.locationNoticeShown = true;
+      saveState();
+      await deliverTopotinoMessages([{
+        from: 'topotino',
+        time: nowTime(),
+        text: 'El comunicador quizá os pida permiso para mirar una señal del mapa. No es una prueba: es solo para saber si mis bigotes apuntan al sitio correcto.'
+      }], { mode: 'activation' });
+    }
     const position = await getCurrentPosition({
       enableHighAccuracy: true,
       timeout: 8000,
@@ -423,7 +519,7 @@ async function askAiFallback(text) {
     await deliverTopotinoMessages([{
       from: 'topotino',
       time: nowTime(),
-      text: 'La señal tiembla un poco. Probad con una pista más concreta, agentes.'
+      text: 'La señal tiembla un poco, como una linterna dentro de una ola. Probad con una pista más concreta, agentes.'
     }]);
     saveState();
     renderAll();
@@ -467,7 +563,7 @@ async function askAiFallback(text) {
     return [{
       from: 'topotino',
       time: nowTime(),
-      text: soft || 'No tengo señal suficiente para consultar los túneles ahora mismo. El historial queda guardado; probad otra vez cuando vuelva internet.'
+      text: soft || 'La señal se me ha escondido debajo de una piedra mojada. No os preocupéis: probad dentro de un ratito con un mensaje cortito.'
     }];
   });
 
@@ -1053,6 +1149,11 @@ function showUnlockError(text) {
 function setupAdultPanel() {
   if (!els.adultPanel) return;
   els.adultPanel.hidden = !isAdultMode;
+  if (isAdultMode && isAdultUnlocked()) {
+    showAdultTools(true);
+  } else {
+    showAdultTools(false);
+  }
   renderAdultPanel();
   if (isAdultMode && state.unlocked) {
     scheduleStateSync();
@@ -1062,11 +1163,17 @@ function setupAdultPanel() {
 function renderAdultPanel() {
   if (!isAdultMode || !els.adultPanel) return;
 
+  if (els.adultSyncStatus) {
+    els.adultSyncStatus.textContent = adultSyncLabel();
+  }
+  if (!isAdultUnlocked()) return;
+
   els.adultRecoveryCode.textContent = state.recoveryCode || 'Sin crear';
   els.adultSyncStatus.textContent = adultSyncLabel();
   els.adultLastSync.textContent = state.lastSyncedAt
     ? `Última copia: ${formatDateTime(new Date(state.lastSyncedAt))}`
     : 'Última copia: pendiente';
+  renderAdultPhaseLauncher();
 }
 
 function adultSyncLabel() {
@@ -1075,6 +1182,92 @@ function adultSyncLabel() {
   if (state.syncStatus === 'pending') return 'Pendiente de copia';
   if (state.syncStatus === 'offline') return 'Solo local';
   return 'Copia local';
+}
+
+function isAdultUnlocked() {
+  return sessionStorage.getItem(ADULT_SESSION_KEY) === '1';
+}
+
+function showAdultTools(show) {
+  if (els.adultLock) els.adultLock.hidden = show;
+  if (els.adultTools) els.adultTools.hidden = !show;
+}
+
+async function unlockAdultTools() {
+  const hash = await sha256Hex(String(els.adultPin?.value || '').trim());
+  if (hash !== ADULT_PIN_HASH) {
+    showAdultMessage('PIN adulto incorrecto.');
+    return;
+  }
+  sessionStorage.setItem(ADULT_SESSION_KEY, '1');
+  if (els.adultPin) els.adultPin.value = '';
+  showAdultTools(true);
+  renderAdultPanel();
+  showAdultMessage('Panel adulto abierto.');
+}
+
+function renderAdultPhaseLauncher() {
+  if (!els.adultPhaseSelect || !els.adultPhaseStatus) return;
+
+  const selected = els.adultPhaseSelect.value;
+  els.adultPhaseSelect.innerHTML = '';
+
+  episodes
+    .filter((episode) => !episode.meta.startsUnlocked)
+    .forEach((episode) => {
+      const option = document.createElement('option');
+      option.value = episode.meta.id;
+      const status = isEpisodeUnlocked(episode.meta.id) ? 'activa' : 'bloqueada';
+      option.textContent = `${episode.meta.order || ''}. ${episode.meta.title || episode.meta.id} (${status})`;
+      els.adultPhaseSelect.appendChild(option);
+    });
+
+  if ([...els.adultPhaseSelect.options].some((option) => option.value === selected)) {
+    els.adultPhaseSelect.value = selected;
+  }
+
+  const pending = (state.scheduledAdultLaunches || [])
+    .filter((launch) => launch && launch.episodeId)
+    .sort((a, b) => Number(a.unlockAt) - Number(b.unlockAt));
+
+  els.adultPhaseStatus.textContent = pending.length
+    ? `Pendiente: ${pending.map((launch) => `${launch.episodeId} a las ${formatDateTime(new Date(launch.unlockAt))}`).join(' · ')}`
+    : 'Sin lanzamientos pendientes.';
+}
+
+function scheduleAdultPhaseLaunch() {
+  if (!isAdultUnlocked()) return;
+  const episodeId = els.adultPhaseSelect?.value;
+  const episode = getEpisode(episodeId);
+  if (!episode) {
+    showAdultMessage('Elige una fase válida.');
+    return;
+  }
+  if (isEpisodeUnlocked(episodeId)) {
+    showAdultMessage('Esa fase ya está activa en este móvil.');
+    return;
+  }
+
+  const launchDelay = getAdultLaunchDelay();
+  const unlockAt = Date.now() + launchDelay;
+  state.scheduledAdultLaunches = (state.scheduledAdultLaunches || [])
+    .filter((launch) => launch.episodeId !== episodeId);
+  state.scheduledAdultLaunches.push({
+    episodeId,
+    unlockAt,
+    createdAt: Date.now()
+  });
+
+  saveState();
+  scheduleNextAdultLaunchTimer();
+  renderAdultPanel();
+  showAdultMessage(`${episode.meta.title || episodeId} se lanzará a las ${formatDateTime(new Date(unlockAt))}.`);
+}
+
+function getAdultLaunchDelay() {
+  const customDelay = Number(params.get('launchDelayMs'));
+  if (isAdultMode && Number.isFinite(customDelay) && customDelay >= 0) return customDelay;
+  return ADULT_PHASE_DELAY_MS;
 }
 
 async function copyRecoveryCode() {
@@ -1142,10 +1335,11 @@ async function importAdultBackup(event) {
 function clearLocalAdultState() {
   const confirmed = window.confirm('Esto borra solo los datos de este móvil. Conserva el código de recuperación antes de hacerlo.');
   if (!confirmed) return;
+  sessionStorage.removeItem(ADULT_SESSION_KEY);
   localStorage.removeItem(STORAGE_KEYS.auth);
   localStorage.removeItem(STORAGE_KEYS.state);
   localStorage.removeItem(LEGACY_STATE_KEY);
-  window.location.href = `${window.location.pathname}?adult=1`;
+  window.location.href = `${window.location.pathname}?topoadulto=1`;
 }
 
 function showAdultMessage(text) {
@@ -1170,6 +1364,8 @@ function buildLocalState() {
     runtimeNowOverride: state.runtimeNowOverride,
     lastKnownPosition: state.lastKnownPosition,
     locationStatus: state.locationStatus,
+    locationNoticeShown: state.locationNoticeShown,
+    scheduledAdultLaunches: state.scheduledAdultLaunches,
     channelId: state.channelId,
     recoveryCode: state.recoveryCode,
     revision: state.revision,
@@ -1203,6 +1399,8 @@ function applyRestoredState(remoteState, recoveryCode) {
     runtimeNowOverride: remoteState.runtimeNowOverride || null,
     lastKnownPosition: remoteState.lastKnownPosition || null,
     locationStatus: remoteState.locationStatus || 'Sin posición actualizada.',
+    locationNoticeShown: Boolean(remoteState.locationNoticeShown),
+    scheduledAdultLaunches: remoteState.scheduledAdultLaunches || [],
     channelId: remoteState.channelId || state.channelId,
     recoveryCode: recoveryCode || state.recoveryCode,
     revision: Number(remoteState.revision) || state.revision,
@@ -1350,6 +1548,7 @@ function saveState(options = {}) {
     }
     localStorage.setItem(STORAGE_KEYS.auth, state.unlocked ? '1' : '0');
     localStorage.setItem(STORAGE_KEYS.state, JSON.stringify(buildLocalState()));
+    scheduleNextAdultLaunchTimer();
     if (options.sync !== false) {
       scheduleStateSync();
     }
@@ -1394,6 +1593,8 @@ function loadState() {
       runtimeNowOverride: saved.runtimeNowOverride || null,
       lastKnownPosition: saved.lastKnownPosition || state.lastKnownPosition,
       locationStatus: saved.locationStatus || state.locationStatus,
+      locationNoticeShown: Boolean(saved.locationNoticeShown),
+      scheduledAdultLaunches: saved.scheduledAdultLaunches || [],
       channelId: saved.channelId || null,
       recoveryCode: saved.recoveryCode || null,
       revision: Number(saved.revision) || 0,

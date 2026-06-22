@@ -77,11 +77,12 @@ Las horas visibles del chat siempre usan la hora real del dispositivo, como un c
 
 Puedes simular condiciones sin moverte:
 
-- Resetear partida: `index.html?reset=1`
+- Resetear partida desde URL solo en modo adulto: `index.html?topoadulto=1&reset=1&confirmReset=1`
 - Simular fecha/hora: `index.html?testNow=2026-08-12T21:30:00`
 - Simular ubicación: `index.html?testLat=43.615&testLng=-5.793`
-- Combinar: `index.html?reset=1&testNow=2026-08-12T21:30:00&testLat=43.615&testLng=-5.793`
+- Combinar: `index.html?topoadulto=1&reset=1&confirmReset=1&testNow=2026-08-12T21:30:00&testLat=43.615&testLng=-5.793`
 - Acelerar respuestas para pruebas: añade `fastReply=1`
+- Acortar el lanzamiento adulto solo para pruebas: añade `launchDelayMs=1000`
 
 Para probar OpenAI necesitas desplegar en Vercel o usar `vercel dev` con `OPENAI_API_KEY`.
 
@@ -96,28 +97,31 @@ En la URL normal, las respuestas de Topotino tienen una pausa silenciosa aleator
 
 ## Panel adulto y recuperación
 
-El panel adulto se abre con `?adult=1`. No aparece en la experiencia normal de Paula y Hugo.
+El panel adulto se abre con `?topoadulto=1`. No aparece en la experiencia normal de Paula y Hugo. Pide PIN adulto antes de mostrar herramientas. PIN actual: `4812`.
 
 Desde el panel puedes:
 
 - ver y copiar el código de recuperación;
-- forzar sincronización;
+- probar copia segura;
+- lanzar manualmente una fase, que llegará al chat 5 minutos después;
 - restaurar desde un código;
 - exportar/importar un JSON;
 - borrar solo los datos de este móvil.
 
-`?reset=1` ya no borra datos en modo normal. Para borrar por URL hace falta `?adult=1&reset=1&confirmReset=1`. La forma recomendada es usar el botón del panel adulto.
+`?reset=1` ya no borra datos en modo normal. Para borrar por URL hace falta `?topoadulto=1&reset=1&confirmReset=1`. La forma recomendada es usar el botón del panel adulto.
+
+El lanzador manual no muestra nada técnico a los niños. Programa la fase y, cuando pasan 5 minutos, Topotino empieza a escribir y manda los mensajes iniciales del capítulo como si la señal hubiera despertado. Para probar sin esperar, usa `?topoadulto=1&fastReply=1&launchDelayMs=1000`.
 
 ## Llaves de ensayo por chat
 
-Estas palabras no forman parte de la aventura para Paula y Hugo. Son atajos para probar desde casa sin depender de día, hora ni localización. Escríbelas directamente en el chat después de entrar al comunicador:
+Estas palabras no forman parte de la aventura para Paula y Hugo. Se mantienen como compatibilidad, pero la forma recomendada de probar ahora es el lanzador del panel adulto:
 
 - `topollave-luanco`: activa la misión de Luanco, Operación Primera Gota.
 - `topollave-sabado`: simula el sábado 27 sin borrar memoria y permite probar el mensaje de los topos.
 - `topollave-eclipse`: simula Luanco completado, guarda Agua del Norte, añade MIRO y abre la pista del eclipse.
 - `topollave-origen`: simula el camino hasta Guimarães y abre Agua del Origen sin GPS.
 
-Recomendación: usa siempre una ventana privada o entra con `?reset=1` antes de probar una secuencia completa.
+Recomendación: usa siempre una ventana privada o entra con `?topoadulto=1&reset=1&confirmReset=1` antes de probar una secuencia completa.
 
 ## Misiones cargadas ahora
 
