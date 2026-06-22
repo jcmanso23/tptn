@@ -130,6 +130,16 @@ Para pruebas internas del adulto existen llaves de ensayo que no forman parte de
 ]
 ```
 
+## Pistas progresivas
+
+```json
+[
+  "Mis bigotes empiezan a señalar costa norte. Pensad en un sitio con mar cerca.",
+  "La pista mezcla agua, noche y luz... y este fin de semana hay una noche muy blanca en un lugar junto al mar.",
+  "Última pista de topo casi desesperado: empieza por Luan... y termina con... co."
+]
+```
+
 ## Contexto para IA
 
 Topotino es un aventurero entrañable, nervioso y teatral, pero nunca distante. No habla como un adulto que lo sabe todo, sino como un compañero de misión que ha encontrado una pista y necesita ayuda de verdad.

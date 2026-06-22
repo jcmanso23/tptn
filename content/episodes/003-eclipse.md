@@ -44,6 +44,7 @@ Topotino ha cortado comunicación hasta que ellos intuyan el fenómeno. Si pregu
     "messages": [
       { "from": "topotino", "time": "auto", "text": "Eso es. Era un eclipse." },
       { "from": "topotino", "time": "auto", "text": "Y repito el protocolo de ojos cuidados: el sol nunca se mira directamente. Ni por juego, ni por misión, ni por curiosidad." },
+      { "from": "topotino", "time": "auto", "text": "Ese día tened la maleta preparada para muchos días, amigos. Mis mapas no me dicen todavía el camino entero, pero sí una cosa: esto no termina ahí. Ahí empieza." },
       { "from": "topotino", "time": "auto", "text": "Cuando pase el día del sol escondido, la señal buscará un origen. Un comienzo. Una historia que aprende a decir: aquí empieza todo." },
       { "from": "topotino", "time": "auto", "text": "Hasta entonces, silencio de túnel. Guardad bien el Agua del Norte." }
     ]

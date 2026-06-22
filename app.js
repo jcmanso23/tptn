@@ -5,7 +5,7 @@ const STORAGE_KEYS = {
 
 const LEGACY_STATE_KEY = 'topotino_chat_state_v1';
 const PASSPHRASE_HASH = 'a64716bd9f4e8added1bf47f80b97c3fc7b70a15b8043cdab083e1ddf85f3794';
-const EPISODES_MANIFEST = 'content/episodes.json?v=chat-v13';
+const EPISODES_MANIFEST = 'content/episodes.json?v=chat-v14';
 const ACTIVATION_TICK_MS = 60000;
 const TOPOTINO_IMAGE = 'images/topotino.png?v=marco-v1';
 const CHATTER_LIMIT_CHARS = 180;
@@ -85,6 +85,7 @@ const state = {
   waters: [],
   formulaWords: [],
   softResponseCursor: {},
+  hintMissCursor: {},
   chatterWarningCursor: 0,
   lastChatterWarningAt: 0,
   typingMessageCursor: 0,
@@ -362,6 +363,18 @@ async function handleUserMessage(text) {
     return;
   }
 
+  const progressiveHint = nextProgressiveHint();
+  if (progressiveHint) {
+    await deliverTopotinoMessages([{
+      from: 'topotino',
+      time: nowTime(),
+      text: progressiveHint
+    }]);
+    saveState();
+    renderAll();
+    return;
+  }
+
   if (shouldWarnAboutChatter(text)) {
     await deliverTopotinoMessages([{
       from: 'topotino',
@@ -378,6 +391,7 @@ async function handleUserMessage(text) {
 
 async function applyGuidedResponse(guided, sourceEpisode) {
   const outboundMessages = [...(guided.messages || [])];
+  state.hintMissCursor[sourceEpisode.meta.id] = 0;
   addUniqueMany(state.flags, guided.setFlags || []);
 
   if (guided.setLocation) setSimulatedLocation(guided.setLocation);
@@ -516,6 +530,19 @@ function nextSoftResponse(episode) {
   const response = episode.softResponses[cursor % episode.softResponses.length];
   state.softResponseCursor[key] = cursor + 1;
   return response;
+}
+
+function nextProgressiveHint() {
+  const activeEpisode = getActiveEpisode();
+  const hints = activeEpisode?.progressiveHints || [];
+  if (!hints.length) return null;
+
+  const key = activeEpisode.meta.id;
+  const misses = (state.hintMissCursor[key] || 0) + 1;
+  state.hintMissCursor[key] = misses;
+
+  if (misses < 3) return null;
+  return hints[(misses - 3) % hints.length];
 }
 
 function shouldWarnAboutChatter(text) {
@@ -671,8 +698,19 @@ function renderAll() {
 function renderMessages() {
   els.messages.innerHTML = '';
   const fragment = document.createDocumentFragment();
+  let lastDateKey = '';
 
   state.messages.forEach((message) => {
+    const messageDate = message.createdAt ? new Date(message.createdAt) : new Date();
+    const dateKey = formatDate(messageDate);
+    if (dateKey !== lastDateKey) {
+      const separator = document.createElement('div');
+      separator.className = 'date-separator';
+      separator.textContent = formatChatDate(messageDate);
+      fragment.appendChild(separator);
+      lastDateKey = dateKey;
+    }
+
     const row = document.createElement('article');
     row.className = `message-row ${message.from === 'user' ? 'user' : 'topotino'}`;
 
@@ -693,7 +731,7 @@ function renderMessages() {
 
     const meta = document.createElement('div');
     meta.className = 'message-meta';
-    meta.textContent = `${message.time || nowTime()} ${message.from === 'user' ? '✓✓' : '▣'}`;
+    meta.textContent = `${formatMessageTime(message)} ${message.from === 'user' ? '✓✓' : '▣'}`;
     bubble.appendChild(meta);
 
     row.appendChild(bubble);
@@ -743,7 +781,8 @@ function parseEpisode(markdown) {
     aiContext: sectionText(body, 'Contexto para IA'),
     initialMessages: sectionJson(body, 'Mensajes iniciales', []),
     guidedResponses: sectionJson(body, 'Respuestas guiadas', []),
-    softResponses: sectionJson(body, 'Respuestas suaves si fallan', [])
+    softResponses: sectionJson(body, 'Respuestas suaves si fallan', []),
+    progressiveHints: sectionJson(body, 'Pistas progresivas', [])
   };
 }
 
@@ -781,11 +820,12 @@ function appendMessages(messages) {
 }
 
 function appendMessage(message) {
+  const createdAt = message.createdAt || Date.now();
   state.messages.push({
     from: message.from || 'topotino',
-    time: message.time === 'auto' || !message.time ? nowTime() : message.time,
+    time: formatRealTime(new Date(createdAt)),
     text: message.text || '',
-    createdAt: message.createdAt || Date.now()
+    createdAt
   });
 }
 
@@ -901,6 +941,21 @@ function formatDate(date) {
   return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
 }
 
+function formatChatDate(date) {
+  const today = new Date();
+  const yesterday = new Date();
+  yesterday.setDate(today.getDate() - 1);
+
+  if (formatDate(date) === formatDate(today)) return 'Hoy';
+  if (formatDate(date) === formatDate(yesterday)) return 'Ayer';
+
+  return new Intl.DateTimeFormat('es-ES', {
+    weekday: 'long',
+    day: '2-digit',
+    month: 'long'
+  }).format(date);
+}
+
 function formatDateTime(date) {
   if (Number.isNaN(date.getTime())) return 'pendiente';
   return new Intl.DateTimeFormat('es-ES', {
@@ -913,6 +968,21 @@ function formatDateTime(date) {
 
 function formatTime(date) {
   return `${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
+}
+
+function formatRealTime(date) {
+  return new Intl.DateTimeFormat('es-ES', {
+    hour: '2-digit',
+    minute: '2-digit'
+  }).format(date);
+}
+
+function formatMessageTime(message) {
+  if (message.createdAt) {
+    const date = new Date(message.createdAt);
+    if (!Number.isNaN(date.getTime())) return formatRealTime(date);
+  }
+  return message.time || nowTime();
 }
 
 function haversineDistanceMeters(lat1, lng1, lat2, lng2) {
@@ -956,10 +1026,7 @@ async function sha256Hex(text) {
 }
 
 function nowTime() {
-  return new Intl.DateTimeFormat('es-ES', {
-    hour: '2-digit',
-    minute: '2-digit'
-  }).format(getRuntimeNow());
+  return formatRealTime(new Date());
 }
 
 function setBusy(nextBusy, showTyping = nextBusy) {
@@ -1096,6 +1163,7 @@ function buildLocalState() {
     waters: state.waters,
     formulaWords: state.formulaWords,
     softResponseCursor: state.softResponseCursor,
+    hintMissCursor: state.hintMissCursor,
     chatterWarningCursor: state.chatterWarningCursor,
     lastChatterWarningAt: state.lastChatterWarningAt,
     typingMessageCursor: state.typingMessageCursor,
@@ -1319,6 +1387,7 @@ function loadState() {
       waters: saved.waters || [],
       formulaWords: (saved.formulaWords || []).map(normalizeFormulaWord),
       softResponseCursor: saved.softResponseCursor || {},
+      hintMissCursor: saved.hintMissCursor || {},
       chatterWarningCursor: saved.chatterWarningCursor || 0,
       lastChatterWarningAt: saved.lastChatterWarningAt || 0,
       typingMessageCursor: saved.typingMessageCursor || 0,

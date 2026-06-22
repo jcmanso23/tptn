@@ -64,6 +64,7 @@ No revelar la lista completa de aguas ni destinos futuros.
       { "from": "topotino", "time": "auto", "text": "Primera palabra que se despierta en mi mapa: MIRO." },
       { "from": "topotino", "time": "auto", "text": "Y ahora escuchad esto, porque la siguiente señal no se abre en una calle." },
       { "from": "topotino", "time": "auto", "text": "Se abrirá cuando el día haga algo rarísimo: cuando parezca noche sin ser noche, y la luna se ponga delante del sol como si quisiera taparle un secreto." },
+      { "from": "topotino", "time": "auto", "text": "Ese día llevad preparada una maleta para muchos días. No sé explicarlo todavía, pero mis mapas tiemblan como cuando empieza una aventura larga." },
       { "from": "topotino", "time": "auto", "text": "No puedo decir más. Corto comunicación hasta entonces. Y recordad: el sol nunca se mira directamente. Ni por juego, ni por misión, ni por curiosidad." }
     ]
   }

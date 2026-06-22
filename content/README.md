@@ -56,6 +56,7 @@ Usa siempre estos encabezados:
 - `## Mensajes iniciales`: JSON con mensajes que llegan al activarse.
 - `## Respuestas guiadas`: JSON con respuestas exactas o respuestas abiertas controladas que desbloquean flags, aguas, palabras o capítulos.
 - `## Respuestas suaves si fallan`: JSON con pistas cuando no hay acierto guiado.
+- `## Pistas progresivas`: JSON con pistas que empiezan a salir tras tres intentos fallidos en un episodio.
 - `## Contexto para IA`: límites y tono para el fallback de OpenAI.
 
 En respuestas guiadas puedes usar:
@@ -69,6 +70,8 @@ En respuestas guiadas puedes usar:
 - `setFlags`: activa submisiones posteriores.
 - `setLocation`: simula una ubicación desde el chat para pruebas.
 - `setRuntimeNow`: simula fecha/hora desde el chat para pruebas.
+
+Las horas visibles del chat siempre usan la hora real del dispositivo, como un chat normal. `testNow` y `setRuntimeNow` solo afectan a las activaciones internas de capítulos.
 
 ## Pruebas rápidas por URL
 
