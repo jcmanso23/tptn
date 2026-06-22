@@ -5,7 +5,7 @@ const STORAGE_KEYS = {
 
 const LEGACY_STATE_KEY = 'topotino_chat_state_v1';
 const PASSPHRASE_HASH = 'a64716bd9f4e8added1bf47f80b97c3fc7b70a15b8043cdab083e1ddf85f3794';
-const EPISODES_MANIFEST = 'content/episodes.json?v=chat-v10';
+const EPISODES_MANIFEST = 'content/episodes.json?v=chat-v12';
 const ACTIVATION_TICK_MS = 60000;
 const TOPOTINO_IMAGE = 'images/topotino.png?v=marco-v1';
 const CHATTER_LIMIT_CHARS = 180;
@@ -18,6 +18,12 @@ const REPLY_TYPING_MIN_MS = 5000;
 const REPLY_TYPING_MAX_MS = 10000;
 const REPLY_STAGGER_MIN_MS = 700;
 const REPLY_STAGGER_MAX_MS = 1600;
+const REPLY_NEXT_TYPING_MIN_MS = 3000;
+const REPLY_NEXT_TYPING_MAX_MS = 8000;
+const ACTIVATION_SILENCE_MIN_MS = 700;
+const ACTIVATION_SILENCE_MAX_MS = 1800;
+const ACTIVATION_TYPING_MIN_MS = 1200;
+const ACTIVATION_TYPING_MAX_MS = 2600;
 
 const CHATTER_WARNINGS = [
   'Chsss... mensajes cortitos, agentes. Si Topoloco oye tanto tecleo, va a sacar la libreta de sospechas.',
@@ -68,6 +74,7 @@ const state = {
   softResponseCursor: {},
   chatterWarningCursor: 0,
   lastChatterWarningAt: 0,
+  runtimeNowOverride: null,
   lastKnownPosition: null,
   locationStatus: 'Sin posición actualizada.'
 };
@@ -166,9 +173,13 @@ async function enterChat() {
     els.internalProgress.hidden = false;
     els.internalProgress.setAttribute('aria-hidden', 'false');
   }
-  await evaluateActivations({ reason: 'enter' });
+  await refreshLocationForPendingActivations();
+  const activationMessages = await evaluateActivations({ reason: 'enter', collectMessages: true });
   renderAll();
   setInterval(() => evaluateActivations({ reason: 'tick' }), ACTIVATION_TICK_MS);
+  if (activationMessages.length) {
+    await deliverTopotinoMessages(activationMessages, { mode: 'activation' });
+  }
   setTimeout(() => els.chatInput.focus(), 50);
 }
 
@@ -233,6 +244,54 @@ function episodeCanActivate(episode) {
   return activation.mode === 'any' ? checks.some(Boolean) : checks.every(Boolean);
 }
 
+function episodeCanActivateExceptLocation(episode) {
+  if (!state.unlocked || isEpisodeUnlocked(episode.meta.id)) return false;
+  const activation = episode.meta.activation || {};
+  if (!activation.location) return false;
+
+  const checks = [];
+  const requiredFlags = activation.required || activation.flags || [];
+  if (requiredFlags.length) {
+    checks.push(requiredFlags.every((flag) => state.flags.includes(flag)));
+  }
+  if (activation.anyFlags && activation.anyFlags.length) {
+    checks.push(activation.anyFlags.some((flag) => state.flags.includes(flag)));
+  }
+  if (activation.date) {
+    checks.push(dateMatches(activation.date, getRuntimeNow()));
+  }
+  if (activation.time) {
+    checks.push(timeMatches(activation.time, getRuntimeNow()));
+  }
+
+  if (!checks.length) return true;
+  return activation.mode === 'any' ? checks.some(Boolean) : checks.every(Boolean);
+}
+
+async function refreshLocationForPendingActivations() {
+  if (!navigator.geolocation) return;
+  if (!episodes.some((episode) => episodeCanActivateExceptLocation(episode))) return;
+
+  try {
+    const position = await getCurrentPosition({
+      enableHighAccuracy: true,
+      timeout: 8000,
+      maximumAge: 60000
+    });
+    state.lastKnownPosition = {
+      lat: position.coords.latitude,
+      lng: position.coords.longitude,
+      accuracy: Math.round(position.coords.accuracy || 0),
+      capturedAt: new Date().toISOString(),
+      source: 'device-auto'
+    };
+    state.locationStatus = `Señal actualizada (${state.lastKnownPosition.accuracy || '?'} m).`;
+    saveState();
+  } catch (error) {
+    state.locationStatus = locationErrorMessage(error);
+  }
+}
+
 function unlockEpisode(episodeId) {
   if (!state.unlockedEpisodeIds.includes(episodeId)) {
     state.unlockedEpisodeIds.push(episodeId);
@@ -272,6 +331,9 @@ async function applyGuidedResponse(guided, sourceEpisode) {
   const outboundMessages = [...(guided.messages || [])];
   addUniqueMany(state.flags, guided.setFlags || []);
 
+  if (guided.setLocation) setSimulatedLocation(guided.setLocation);
+  if (guided.setRuntimeNow) setSimulatedRuntime(guided.setRuntimeNow);
+  if (guided.clearRuntimeNow) clearSimulatedRuntime();
   if (guided.water) addWater(guided.water);
   if (guided.formulaWord) addFormulaWord(guided.formulaWord);
 
@@ -357,12 +419,46 @@ function findGuidedResponse(text) {
 
   for (const episode of available) {
     const response = (episode.guidedResponses || []).find((candidate) =>
-      (candidate.match || []).some((match) => normalizeText(match) === normalized)
+      responseMatches(candidate, normalized)
     );
     if (response) return { episode, response };
   }
 
   return null;
+}
+
+function responseMatches(candidate, normalizedText) {
+  const requiredFlags = candidate.requiredFlags || [];
+  if (requiredFlags.length && !requiredFlags.every((flag) => state.flags.includes(flag))) {
+    return false;
+  }
+
+  const rejected = candidate.rejectContainsAny || [];
+  if (rejected.some((term) => normalizedText.includes(normalizeText(term)))) {
+    return false;
+  }
+
+  if ((candidate.match || []).some((match) => normalizeText(match) === normalizedText)) {
+    return true;
+  }
+
+  const words = normalizedText.split(' ').filter(Boolean);
+  if (candidate.minWords && words.length < candidate.minWords) return false;
+  if (candidate.minLength && normalizedText.length < candidate.minLength) return false;
+
+  const containsAll = candidate.containsAll || [];
+  if (containsAll.length && !containsAll.every((term) => normalizedText.includes(normalizeText(term)))) {
+    return false;
+  }
+
+  const containsAny = candidate.containsAny || [];
+  if (containsAny.length) {
+    return containsAny.some((term) => normalizedText.includes(normalizeText(term)));
+  }
+
+  if (containsAll.length) return true;
+
+  return Boolean(candidate.openAnswer);
 }
 
 function nextSoftResponse(episode) {
@@ -395,12 +491,12 @@ function nextChatterWarning() {
   return response;
 }
 
-async function deliverTopotinoMessages(messagesOrPromise) {
+async function deliverTopotinoMessages(messagesOrPromise, options = {}) {
   setBusy(true, false);
 
   try {
     const messagesPromise = Promise.resolve(messagesOrPromise);
-    const timing = getReplyTiming();
+    const timing = getReplyTiming(options.mode);
     await wait(randomInt(timing.silenceMin, timing.silenceMax));
     setBusy(true, true);
 
@@ -415,7 +511,10 @@ async function deliverTopotinoMessages(messagesOrPromise) {
       saveState();
       renderAll();
       if (index < normalizedMessages.length - 1) {
+        setBusy(true, false);
         await wait(randomInt(timing.staggerMin, timing.staggerMax));
+        setBusy(true, true);
+        await wait(randomInt(timing.nextTypingMin, timing.nextTypingMax));
       }
     }
   } finally {
@@ -423,7 +522,7 @@ async function deliverTopotinoMessages(messagesOrPromise) {
   }
 }
 
-function getReplyTiming() {
+function getReplyTiming(mode) {
   if (params.get('fastReply') === '1') {
     return {
       silenceMin: 250,
@@ -431,7 +530,22 @@ function getReplyTiming() {
       typingMin: 300,
       typingMax: 700,
       staggerMin: 80,
-      staggerMax: 180
+      staggerMax: 180,
+      nextTypingMin: 140,
+      nextTypingMax: 360
+    };
+  }
+
+  if (mode === 'activation') {
+    return {
+      silenceMin: ACTIVATION_SILENCE_MIN_MS,
+      silenceMax: ACTIVATION_SILENCE_MAX_MS,
+      typingMin: ACTIVATION_TYPING_MIN_MS,
+      typingMax: ACTIVATION_TYPING_MAX_MS,
+      staggerMin: REPLY_STAGGER_MIN_MS,
+      staggerMax: REPLY_STAGGER_MAX_MS,
+      nextTypingMin: ACTIVATION_TYPING_MIN_MS,
+      nextTypingMax: ACTIVATION_TYPING_MAX_MS
     };
   }
 
@@ -441,7 +555,9 @@ function getReplyTiming() {
     typingMin: REPLY_TYPING_MIN_MS,
     typingMax: REPLY_TYPING_MAX_MS,
     staggerMin: REPLY_STAGGER_MIN_MS,
-    staggerMax: REPLY_STAGGER_MAX_MS
+    staggerMax: REPLY_STAGGER_MAX_MS,
+    nextTypingMin: REPLY_NEXT_TYPING_MIN_MS,
+    nextTypingMax: REPLY_NEXT_TYPING_MAX_MS
   };
 }
 
@@ -478,8 +594,11 @@ async function refreshLocation() {
       source: 'device'
     };
     state.locationStatus = `Señal actualizada (${state.lastKnownPosition.accuracy || '?'} m).`;
-    await evaluateActivations({ reason: 'location' });
+    const activationMessages = await evaluateActivations({ reason: 'location', collectMessages: true });
     saveState();
+    if (activationMessages.length) {
+      await deliverTopotinoMessages(activationMessages, { mode: 'activation' });
+    }
   } catch (error) {
     state.locationStatus = locationErrorMessage(error);
   } finally {
@@ -646,6 +765,33 @@ function addFormulaWord(word) {
   if (!state.formulaWords.includes(normalized)) state.formulaWords.push(normalized);
 }
 
+function setSimulatedLocation(location) {
+  const lat = Number(location.lat);
+  const lng = Number(location.lng);
+  if (!Number.isFinite(lat) || !Number.isFinite(lng)) return;
+
+  state.lastKnownPosition = {
+    lat,
+    lng,
+    accuracy: Number(location.accuracy) || 1,
+    capturedAt: new Date().toISOString(),
+    source: location.source || 'chat-simulation'
+  };
+  state.locationStatus = location.label
+    ? `Señal simulada: ${location.label}.`
+    : `Señal simulada: ${lat.toFixed(5)}, ${lng.toFixed(5)}.`;
+}
+
+function setSimulatedRuntime(value) {
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return;
+  state.runtimeNowOverride = date.toISOString();
+}
+
+function clearSimulatedRuntime() {
+  state.runtimeNowOverride = null;
+}
+
 function addUniqueMany(target, values) {
   values.forEach((value) => {
     if (!target.includes(value)) target.push(value);
@@ -692,6 +838,10 @@ function getRuntimeNow() {
   const override = params.get('testNow');
   if (override) {
     const date = new Date(override);
+    if (!Number.isNaN(date.getTime())) return date;
+  }
+  if (state.runtimeNowOverride) {
+    const date = new Date(state.runtimeNowOverride);
     if (!Number.isNaN(date.getTime())) return date;
   }
   return new Date();
@@ -778,6 +928,7 @@ function saveState() {
       softResponseCursor: state.softResponseCursor,
       chatterWarningCursor: state.chatterWarningCursor,
       lastChatterWarningAt: state.lastChatterWarningAt,
+      runtimeNowOverride: state.runtimeNowOverride,
       lastKnownPosition: state.lastKnownPosition,
       locationStatus: state.locationStatus
     }));
@@ -814,6 +965,7 @@ function loadState() {
       softResponseCursor: saved.softResponseCursor || {},
       chatterWarningCursor: saved.chatterWarningCursor || 0,
       lastChatterWarningAt: saved.lastChatterWarningAt || 0,
+      runtimeNowOverride: saved.runtimeNowOverride || null,
       lastKnownPosition: saved.lastKnownPosition || state.lastKnownPosition,
       locationStatus: saved.locationStatus || state.locationStatus
     });

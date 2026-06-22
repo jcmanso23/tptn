@@ -26,19 +26,19 @@ Topotino ha detectado la leyenda de la Fuente de la Noche Clara, relacionada con
 
 No revelar Granada, la Alhambra, los 12 leones ni la lista completa de aguas.
 
-El primer objetivo del chat es confirmar que son Paula y Hugo. Hasta que respondan algo como "somos nosotros", Topotino debe mantenerse en modo reconexión: alegre, nervioso y prudente.
+El primer objetivo del chat es confirmar que son Paula y Hugo, pero Topotino no debe decirles exactamente qué escribir. Debe preguntar quiénes son y dejar que ellos respondan con sus nombres.
 
-Para pruebas internas del adulto existen llaves de ensayo que no forman parte de la historia: topollave-luanco, topollave-eclipse y topollave-origen. Si aparecen, se usan solo para simular desbloqueos.
+Para pruebas internas del adulto existen llaves de ensayo que no forman parte de la historia: topollave-luanco, topollave-sabado, topollave-eclipse y topollave-origen. Si aparecen, se usan solo para simular desbloqueos, ubicación o fecha.
 
 ## Mensajes iniciales
 
 ```json
 [
-  { "from": "topotino", "time": "21:37", "text": "¿Paula? ¿Hugo? ¿Me recibís? Ay, qué alegría poder contactar por fin con vosotros. He dado tres vueltas al mapa, dos golpes al comunicador y medio susto a un topo vigía." },
+  { "from": "topotino", "time": "21:37", "text": "¿Hola? ¿Me recibís? Ay, qué alegría... creo que por fin he conseguido abrir el canal." },
   { "from": "topotino", "time": "21:38", "text": "He construido este chat secreto para que podamos hablar rápido cuando aparezcan señales raras, pistas húmedas o mensajes que huelan a aventura." },
   { "from": "topotino", "time": "21:38", "text": "No siempre podré responder al instante. A veces estaré en túneles, debajo de mapas o intentando que Topoloco no meta el bigote donde no debe." },
   { "from": "topotino", "time": "21:39", "text": "Pero si necesitáis algo, escribidme aquí. La señal queda guardada en el comunicador, aunque yo tarde un poquito en contestar." },
-  { "from": "topotino", "time": "21:39", "text": "Antes de seguir necesito confirmar una cosa importantísima: ¿sois vosotros de verdad? Si sois Paula y Hugo, escribid: SOMOS NOSOTROS." }
+  { "from": "topotino", "time": "21:39", "text": "Antes de seguir necesito comprobar una cosa importantísima: ¿quiénes sois?" }
 ]
 ```
 
@@ -48,10 +48,10 @@ Para pruebas internas del adulto existen llaves de ensayo que no forman parte de
 [
   {
     "id": "identidad-confirmada",
-    "match": ["somos nosotros", "somos paula y hugo", "paula y hugo", "si somos nosotros", "sí somos nosotros"],
+    "match": ["paula y hugo", "hugo y paula", "soy paula y hugo", "somos paula y hugo", "somos hugo y paula"],
     "setFlags": ["identidad_confirmada"],
     "messages": [
-      { "from": "topotino", "time": "auto", "text": "¡Confirmado! Mis bigotes de seguridad vibran en verde. Sois vosotros." },
+      { "from": "topotino", "time": "auto", "text": "¡Lo sabía! Mis bigotes de seguridad vibran en verde. Sois mis amigos." },
       { "from": "topotino", "time": "auto", "text": "La misión de Londres fue un éxito, pero ha pasado algo raro. Mucho más raro de lo que pensaba." },
       { "from": "topotino", "time": "auto", "text": "Desde que encontrasteis aquella pista junto al agua y la luz, mis túneles no han dejado de recibir señales. Todas hablan de una antigua leyenda: la Fuente de la Noche Clara." },
       { "from": "topotino", "time": "auto", "text": "No sé muy bien qué significa todavía. Solo sé tres cosas: agua, noche y luz." },
@@ -64,30 +64,43 @@ Para pruebas internas del adulto existen llaves de ensayo que no forman parte de
     "id": "luanco-correcto",
     "match": ["luanco", "lluanco"],
     "setFlags": ["luanco_identificado"],
-    "nextEpisode": "002-luanco-primera-gota",
     "messages": [
-      { "from": "topotino", "time": "auto", "text": "Confirmado." },
-      { "from": "topotino", "time": "auto", "text": "Era Luanco." },
+      { "from": "topotino", "time": "auto", "text": "Quietos los bigotes..." },
+      { "from": "topotino", "time": "auto", "text": "Efectivamente. Todo encaja con Luanco." },
       { "from": "topotino", "time": "auto", "text": "Mis topos vigía han encontrado restos de sal, arena y una mancha blanca en una de las patas de Topoloco." },
-      { "from": "topotino", "time": "auto", "text": "Nueva misión desbloqueada: Operación Primera Gota." }
+      { "from": "topotino", "time": "auto", "text": "Tenéis que estar allí lo antes posible, amigos. No corriendo, no empujando, no con cara de susto. Solo con los ojos muy abiertos." },
+      { "from": "topotino", "time": "auto", "text": "Cuando el comunicador note que estáis cerca, intentaré mandar la siguiente señal." }
     ]
   },
   {
     "id": "ensayo-luanco",
     "match": ["topollave-luanco"],
     "setFlags": ["identidad_confirmada", "luanco_identificado"],
-    "nextEpisode": "002-luanco-primera-gota",
+    "setLocation": {
+      "lat": 43.6157,
+      "lng": -5.7933,
+      "label": "Luanco"
+    },
     "messages": [
-      { "from": "topotino", "time": "auto", "text": "Modo ensayo activado. Simulo señal de Luanco sin pedir ubicación. Chsss... esto queda entre mapas." }
+      { "from": "topotino", "time": "auto", "text": "Modo ensayo muy secreto: simulo señal de Luanco sin borrar nada. El mapa hace clin, clin... y mis bigotes apuntan al norte." }
+    ]
+  },
+  {
+    "id": "ensayo-sabado",
+    "match": ["topollave-sabado"],
+    "setFlags": ["luanco_observado"],
+    "setRuntimeNow": "2026-06-27T10:00:00+02:00",
+    "messages": [
+      { "from": "topotino", "time": "auto", "text": "Modo ensayo de sábado activado. Los topos han adelantado el reloj del túnel con muchísima seriedad y una cucharilla." }
     ]
   },
   {
     "id": "ensayo-eclipse",
     "match": ["topollave-eclipse"],
-    "setFlags": ["identidad_confirmada", "luanco_identificado", "completado_luanco"],
+    "setFlags": ["identidad_confirmada", "luanco_identificado", "luanco_observado", "agua_norte_recogida"],
     "water": "Agua del Norte",
     "formulaWord": "MIRO",
-    "nextEpisode": "003-eclipse",
+    "nextEpisode": "004-eclipse",
     "messages": [
       { "from": "topotino", "time": "auto", "text": "Modo ensayo activado. Doy por guardada el Agua del Norte y abro la pista del cielo. Ni una palabra a Topoloco." }
     ]
@@ -95,7 +108,7 @@ Para pruebas internas del adulto existen llaves de ensayo que no forman parte de
   {
     "id": "ensayo-origen",
     "match": ["topollave-origen"],
-    "setFlags": ["identidad_confirmada", "luanco_identificado", "completado_luanco", "eclipse_identificado"],
+    "setFlags": ["identidad_confirmada", "luanco_identificado", "luanco_observado", "agua_norte_recogida", "eclipse_identificado"],
     "water": "Agua del Norte",
     "formulaWord": "MIRO",
     "nextEpisode": "004-guimaraes-origen",
@@ -111,7 +124,7 @@ Para pruebas internas del adulto existen llaves de ensayo que no forman parte de
 ```json
 [
   "Mis topos dicen que ese lugar tiene algo interesante, pero no huele suficiente a sal.",
-  "Cerca, cerca… pensad en agua, noche y luz.",
+  "Cerca, cerca... pensad en agua, noche y luz.",
   "Recordad: Topoloco vino por mar. Mirad hacia el norte.",
   "Ese sitio no parece la primera pista. Seguid investigando."
 ]

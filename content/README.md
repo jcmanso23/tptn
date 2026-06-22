@@ -1,8 +1,10 @@
 # Cómo escribir capítulos de Topotino
 
-Cada capítulo es un archivo `.md` en `content/episodes/` y debe estar listado en `content/episodes.json`.
+Cada capítulo o submisión es un archivo `.md` en `content/episodes/` y debe estar listado en `content/episodes.json`.
 
 La app carga todos los MD, pero solo muestra los mensajes de un capítulo cuando su `activation` se cumple. Las condiciones no se pisan entre sí: puedes combinar respuesta, flags, fecha, hora y ubicación. Por defecto deben cumplirse todas; usa `"mode": "any"` si basta con que se cumpla una.
+
+Para misiones grandes, divide la historia en varios MD pequeños. Ejemplo: descubrir Luanco, llegar a Luanco, observar la Noche Blanca, recoger el Agua del Norte y abrir la pista del cielo son submisiones distintas.
 
 ## Frontmatter recomendado
 
@@ -52,9 +54,21 @@ Usa siempre estos encabezados:
 
 - `# Contexto narrativo`: lo que sabe Topotino y lo que no debe revelar.
 - `## Mensajes iniciales`: JSON con mensajes que llegan al activarse.
-- `## Respuestas guiadas`: JSON con respuestas exactas que desbloquean flags, aguas, palabras o capítulos.
+- `## Respuestas guiadas`: JSON con respuestas exactas o respuestas abiertas controladas que desbloquean flags, aguas, palabras o capítulos.
 - `## Respuestas suaves si fallan`: JSON con pistas cuando no hay acierto guiado.
 - `## Contexto para IA`: límites y tono para el fallback de OpenAI.
+
+En respuestas guiadas puedes usar:
+
+- `match`: textos exactos.
+- `containsAny`: basta con que el mensaje contenga una de esas palabras.
+- `containsAll`: deben aparecer todas esas palabras.
+- `openAnswer: true`: acepta una respuesta abierta si pasa los filtros.
+- `minLength` / `minWords`: evita respuestas demasiado vacías.
+- `rejectContainsAny`: bloquea bromas o tonterías evidentes.
+- `setFlags`: activa submisiones posteriores.
+- `setLocation`: simula una ubicación desde el chat para pruebas.
+- `setRuntimeNow`: simula fecha/hora desde el chat para pruebas.
 
 ## Pruebas rápidas por URL
 
@@ -75,6 +89,7 @@ En la URL normal, las respuestas de Topotino tienen una pausa silenciosa aleator
 Estas palabras no forman parte de la aventura para Paula y Hugo. Son atajos para probar desde casa sin depender de día, hora ni localización. Escríbelas directamente en el chat después de entrar al comunicador:
 
 - `topollave-luanco`: activa la misión de Luanco, Operación Primera Gota.
+- `topollave-sabado`: simula el sábado 27 sin borrar memoria y permite probar el mensaje de los topos.
 - `topollave-eclipse`: simula Luanco completado, guarda Agua del Norte, añade MIRO y abre la pista del eclipse.
 - `topollave-origen`: simula el camino hasta Guimarães y abre Agua del Origen sin GPS.
 
@@ -83,8 +98,9 @@ Recomendación: usa siempre una ventana privada o entra con `?reset=1` antes de 
 ## Misiones cargadas ahora
 
 - `001-reconexion`: se activa al entrar con la clave. Solo confirma identidad y abre el misterio.
-- `002-luanco-primera-gota`: primera misión de este fin de semana. Normalmente se abre al acertar `Luanco`.
-- `003-eclipse`: se abre al completar Luanco. Sirve como pista posterior, no como destino físico inmediato.
+- `002-luanco-llegada`: se abre al acertar `Luanco` y estar cerca de Luanco, o con `topollave-luanco`.
+- `003-luanco-agua-norte`: se abre el sábado 27 tras haber observado Luanco, o con `topollave-sabado`.
+- `004-eclipse`: se abre al guardar el Agua del Norte. Sirve como pista posterior, no como destino físico inmediato.
 - `004-guimaraes-origen`: queda preparada para más adelante. Normalmente requiere haber identificado el eclipse y estar cerca de Guimarães, salvo con llave de ensayo.
 
-Para este fin de semana, la misión jugable principal es `002-luanco-primera-gota`. `003-eclipse` se puede probar después para reproducir la continuación narrativa.
+Para este fin de semana, las submisiones jugables son Luanco llegada/observación y Agua del Norte el sábado 27. La pista del eclipse se puede probar después para reproducir la continuación narrativa.

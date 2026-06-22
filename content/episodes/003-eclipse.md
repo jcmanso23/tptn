@@ -1,15 +1,15 @@
 ---
 {
-  "id": "003-eclipse",
-  "order": 3,
+  "id": "004-eclipse",
+  "order": 4,
   "title": "El día del sol escondido",
   "channelCode": "T-12A7",
   "startsUnlocked": false,
   "activation": {
     "type": "flag",
-    "required": ["completado_luanco"]
+    "required": ["agua_norte_recogida"]
   },
-  "mission": "El día del sol escondido",
+  "mission": null,
   "formulaWord": null,
   "water": null,
   "ai": {
@@ -21,21 +21,16 @@
 
 # Contexto narrativo
 
-Después de Luanco, Topotino deja pistas sobre un fenómeno en el que el día se oscurece sin ser de noche y la luna se coloca delante del sol. Los niños deben descubrir la palabra ECLIPSE.
+Después de guardar el Agua del Norte, Topotino ya ha dejado pistas sobre un fenómeno en el que el día se oscurece sin ser de noche y la luna se coloca delante del sol. Este episodio queda activo en silencio para que los niños puedan descubrir la palabra ECLIPSE cuando la escriban.
 
 Es obligatorio recordar seguridad solar. No se debe animar nunca a mirar al sol directamente. No revelar todavía el final en Granada ni los 12 leones.
+
+Topotino ha cortado comunicación hasta que ellos intuyan el fenómeno. Si preguntan mucho, debe contestar con interferencias suaves y seguridad.
 
 ## Mensajes iniciales
 
 ```json
-[
-  { "from": "topotino", "time": "auto", "text": "Os dejo tres pistas antes de que la segunda agua despierte." },
-  { "from": "topotino", "time": "auto", "text": "Primera: pasa cuando el día se pone oscuro sin que haya llegado la noche." },
-  { "from": "topotino", "time": "auto", "text": "Segunda: pasa cuando la luna se coloca justo delante del sol, como si quisiera taparle un secreto." },
-  { "from": "topotino", "time": "auto", "text": "Tercera: después de ese día, tendréis que buscar un lugar donde un reino empezó a decir: aquí comienza mi historia." },
-  { "from": "topotino", "time": "auto", "text": "No busquéis antes de tiempo. La segunda agua todavía está dormida. Cuando sepáis qué fenómeno es, escribid su nombre." },
-  { "from": "topotino", "time": "auto", "text": "Mensaje de seguridad de Topotino: El sol nunca se mira directamente. Ni por juego, ni por misión, ni por curiosidad. Los buenos exploradores cuidan sus ojos." }
-]
+[]
 ```
 
 ## Respuestas guiadas
@@ -44,12 +39,13 @@ Es obligatorio recordar seguridad solar. No se debe animar nunca a mirar al sol 
 [
   {
     "id": "eclipse-correcto",
-    "match": ["eclipse", "un eclipse"],
+    "match": ["eclipse", "un eclipse", "el eclipse"],
     "setFlags": ["eclipse_identificado"],
     "messages": [
-      { "from": "topotino", "time": "auto", "text": "Correcto. Era un eclipse." },
-      { "from": "topotino", "time": "auto", "text": "Y repito el protocolo de seguridad: el sol nunca se mira directamente. Ni por juego, ni por misión, ni por curiosidad. Los buenos exploradores cuidan sus ojos." },
-      { "from": "topotino", "time": "auto", "text": "Cuando pase el día del sol escondido, la siguiente ruta empezará a despertar. Buscaremos un origen, un comienzo, una historia que aprende a decir: aquí empieza todo." }
+      { "from": "topotino", "time": "auto", "text": "Eso es. Era un eclipse." },
+      { "from": "topotino", "time": "auto", "text": "Y repito el protocolo de ojos cuidados: el sol nunca se mira directamente. Ni por juego, ni por misión, ni por curiosidad." },
+      { "from": "topotino", "time": "auto", "text": "Cuando pase el día del sol escondido, la señal buscará un origen. Un comienzo. Una historia que aprende a decir: aquí empieza todo." },
+      { "from": "topotino", "time": "auto", "text": "Hasta entonces, silencio de túnel. Guardad bien el Agua del Norte." }
     ]
   }
 ]
