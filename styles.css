@@ -327,6 +327,7 @@ input {
 }
 
 .progress-strip {
+  display: none !important;
   padding: 22px 30px 0;
 }
 

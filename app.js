@@ -5,7 +5,7 @@ const STORAGE_KEYS = {
 
 const LEGACY_STATE_KEY = 'topotino_chat_state_v1';
 const PASSPHRASE_HASH = 'a64716bd9f4e8added1bf47f80b97c3fc7b70a15b8043cdab083e1ddf85f3794';
-const EPISODES_MANIFEST = 'content/episodes.json?v=chat-v4';
+const EPISODES_MANIFEST = 'content/episodes.json?v=chat-v5';
 const ACTIVATION_TICK_MS = 60000;
 const TOPOTINO_IMAGE = 'images/topotino.png?v=marco-v1';
 
