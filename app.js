@@ -8,7 +8,7 @@ const PASSPHRASE_HASH = 'a64716bd9f4e8added1bf47f80b97c3fc7b70a15b8043cdab083e1d
 const EPISODES_MANIFEST = 'content/episodes.json?v=chat-v15';
 const ACTIVATION_TICK_MS = 60000;
 const ADULT_PHASE_DELAY_MS = 5 * 60 * 1000;
-const ADULT_PIN_HASH = '5010c493958a86e59cdc3b94179856b6c2fea01c7e1b293ff115706c4ff4d6dc';
+const ADULT_PIN_HASH = '0f8eb4b72b6e0c9e88b388eb967b49e067ef1004bf07bffc22c3acb13b43580a';
 const ADULT_SESSION_KEY = 'topotino_adult_unlocked_v1';
 const TOPOTINO_IMAGE = 'images/topotino.png?v=marco-v1';
 const CHATTER_LIMIT_CHARS = 180;

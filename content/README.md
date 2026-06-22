@@ -97,7 +97,7 @@ En la URL normal, las respuestas de Topotino tienen una pausa silenciosa aleator
 
 ## Panel adulto y recuperación
 
-El panel adulto se abre con `?topoadulto=1`. No aparece en la experiencia normal de Paula y Hugo. Pide PIN adulto antes de mostrar herramientas. PIN actual: `4812`.
+El panel adulto se abre con `?topoadulto=1`. No aparece en la experiencia normal de Paula y Hugo. Pide PIN adulto antes de mostrar herramientas. PIN actual: `5000`.
 
 Desde el panel puedes:
 
