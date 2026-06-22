@@ -1,7 +1,10 @@
 import crypto from 'node:crypto';
+import { createClient } from 'redis';
 
 const CHANNEL_PREFIX = 'topotino:channel:';
 const RECOVERY_PREFIX = 'topotino:recovery:';
+
+let redisClientPromise = null;
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -9,7 +12,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  if (!process.env.KV_REST_API_URL || !process.env.KV_REST_API_TOKEN) {
+  if (!hasRedisStorage()) {
     return res.status(503).json({ error: 'STATE_STORAGE_NOT_CONFIGURED' });
   }
 
@@ -115,6 +118,14 @@ async function getChannel(channelId) {
 }
 
 async function redisCommand(command, ...args) {
+  if (process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN) {
+    return redisRestCommand(command, ...args);
+  }
+
+  return redisUrlCommand(command, ...args);
+}
+
+async function redisRestCommand(command, ...args) {
   const response = await fetch(process.env.KV_REST_API_URL, {
     method: 'POST',
     headers: {
@@ -131,6 +142,30 @@ async function redisCommand(command, ...args) {
   const data = await response.json();
   if (data.error) throw new Error(data.error);
   return data.result;
+}
+
+async function redisUrlCommand(command, ...args) {
+  const client = await getRedisClient();
+  return client.sendCommand([command, ...args.map(String)]);
+}
+
+async function getRedisClient() {
+  if (!redisClientPromise) {
+    const client = createClient({ url: process.env.REDIS_URL });
+    client.on('error', (error) => {
+      console.error('Redis client error', error);
+    });
+    redisClientPromise = client.connect().then(() => client);
+  }
+
+  return redisClientPromise;
+}
+
+function hasRedisStorage() {
+  return Boolean(
+    (process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN) ||
+    process.env.REDIS_URL
+  );
 }
 
 function publicRecord(record) {
