@@ -5,7 +5,7 @@ const STORAGE_KEYS = {
 
 const LEGACY_STATE_KEY = 'topotino_chat_state_v1';
 const PASSPHRASE = 'londresbrilla';
-const EPISODES_MANIFEST = 'content/episodes.json?v=chat-v2';
+const EPISODES_MANIFEST = 'content/episodes.json?v=chat-v3';
 const ACTIVATION_TICK_MS = 60000;
 
 const FORMULA_WORDS = [
@@ -103,6 +103,7 @@ function bindElements() {
   els.formulaDisplay = document.getElementById('formula-display');
   els.progressToggle = document.getElementById('progress-toggle');
   els.progressBody = document.getElementById('progress-body');
+  els.internalProgress = document.getElementById('internal-progress');
   els.locationButton = document.getElementById('location-refresh');
   els.locationStatus = document.getElementById('location-status');
 }
@@ -141,6 +142,10 @@ function bindEvents() {
 
 async function enterChat() {
   showScreen('chat');
+  if (params.get('debug') === '1') {
+    els.internalProgress.hidden = false;
+    els.internalProgress.setAttribute('aria-hidden', 'false');
+  }
   await evaluateActivations({ reason: 'enter' });
   renderAll();
   setInterval(() => evaluateActivations({ reason: 'tick' }), ACTIVATION_TICK_MS);
@@ -222,18 +227,6 @@ async function handleUserMessage(text) {
     return;
   }
 
-  const activeEpisode = getActiveEpisode();
-  if (activeEpisode && activeEpisode.softResponses.length) {
-    appendMessage({
-      from: 'topotino',
-      time: nowTime(),
-      text: nextSoftResponse(activeEpisode)
-    });
-    saveState();
-    renderAll();
-    return;
-  }
-
   await askAiFallback(text);
 }
 
@@ -303,10 +296,13 @@ async function askAiFallback(text) {
       text: data.reply || 'He recibido interferencias. Repetidlo más despacio, agentes.'
     });
   } catch (error) {
+    const soft = activeEpisode && activeEpisode.softResponses.length
+      ? nextSoftResponse(activeEpisode)
+      : null;
     appendMessage({
       from: 'topotino',
       time: nowTime(),
-      text: 'No tengo señal suficiente para consultar los túneles ahora mismo. El historial queda guardado; probad otra vez cuando vuelva internet.'
+      text: soft || 'No tengo señal suficiente para consultar los túneles ahora mismo. El historial queda guardado; probad otra vez cuando vuelva internet.'
     });
   } finally {
     setBusy(false);

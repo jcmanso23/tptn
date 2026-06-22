@@ -1,4 +1,4 @@
-const CACHE_NAME = 'topotino-chat-v3';
+const CACHE_NAME = 'topotino-chat-v4';
 
 const STATIC_ASSETS = [
   './',

@@ -11,7 +11,7 @@
   <link rel="manifest" href="manifest.json">
   <link rel="apple-touch-icon" href="icons/icon-192.png">
   <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=chat-v5">
+  <link rel="stylesheet" href="styles.css?v=chat-v6">
 </head>
 <body>
   <main class="app-shell" aria-live="polite">
@@ -52,7 +52,7 @@
           </div>
         </header>
 
-        <section class="progress-strip" aria-label="Progreso de la aventura">
+        <section id="internal-progress" class="progress-strip" aria-label="Progreso interno de la aventura" hidden aria-hidden="true">
           <button id="progress-toggle" class="progress-toggle" type="button" aria-expanded="false">Progreso de misión</button>
           <div id="progress-body" class="progress-body" hidden>
             <div>
@@ -96,6 +96,6 @@
     </section>
   </main>
 
-  <script src="app.js?v=chat-v5" type="module"></script>
+  <script src="app.js?v=chat-v6" type="module"></script>
 </body>
 </html>
