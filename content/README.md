@@ -66,3 +66,22 @@ Puedes simular condiciones sin moverte:
 - Combinar: `index.html?reset=1&testNow=2026-08-12T21:30:00&testLat=43.615&testLng=-5.793`
 
 Para probar OpenAI necesitas desplegar en Vercel o usar `vercel dev` con `OPENAI_API_KEY`.
+
+## Llaves de ensayo por chat
+
+Estas palabras no forman parte de la aventura para Paula y Hugo. Son atajos para probar desde casa sin depender de día, hora ni localización. Escríbelas directamente en el chat después de entrar al comunicador:
+
+- `topollave-luanco`: activa la misión de Luanco, Operación Primera Gota.
+- `topollave-eclipse`: simula Luanco completado, guarda Agua del Norte, añade MIRO y abre la pista del eclipse.
+- `topollave-origen`: simula el camino hasta Guimarães y abre Agua del Origen sin GPS.
+
+Recomendación: usa siempre una ventana privada o entra con `?reset=1` antes de probar una secuencia completa.
+
+## Misiones cargadas ahora
+
+- `001-reconexion`: se activa al entrar con la clave. Solo confirma identidad y abre el misterio.
+- `002-luanco-primera-gota`: primera misión de este fin de semana. Normalmente se abre al acertar `Luanco`.
+- `003-eclipse`: se abre al completar Luanco. Sirve como pista posterior, no como destino físico inmediato.
+- `004-guimaraes-origen`: queda preparada para más adelante. Normalmente requiere haber identificado el eclipse y estar cerca de Guimarães, salvo con llave de ensayo.
+
+Para este fin de semana, la misión jugable principal es `002-luanco-primera-gota`. `003-eclipse` se puede probar después para reproducir la continuación narrativa.

@@ -36,6 +36,7 @@ export default async function handler(req, res) {
     'No reveles Granada, la Alhambra, los 12 leones ni la lista completa de aguas.',
     'Si no puedes responder porque falta una pista, inventa una excusa narrativa amable: interferencias, topos vigía revisando túneles, mapa mojado o señal dormida.',
     'Si piden pista, da una pista suave basada solo en el contexto permitido.',
+    'Si escriben mensajes largos o muchos mensajes seguidos, pídeles con humor que usen mensajes cortos para no saturar la señal ni llamar la atención de Topoloco.',
     'Si preguntan por el sol o eclipses, recuerda siempre que nunca se mira el sol directamente.',
     'Responde en 1 a 3 párrafos cortos como burbujas de chat; no uses listas largas.'
   ].join('\n');

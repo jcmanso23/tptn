@@ -5,9 +5,20 @@ const STORAGE_KEYS = {
 
 const LEGACY_STATE_KEY = 'topotino_chat_state_v1';
 const PASSPHRASE_HASH = 'a64716bd9f4e8added1bf47f80b97c3fc7b70a15b8043cdab083e1ddf85f3794';
-const EPISODES_MANIFEST = 'content/episodes.json?v=chat-v5';
+const EPISODES_MANIFEST = 'content/episodes.json?v=chat-v6';
 const ACTIVATION_TICK_MS = 60000;
 const TOPOTINO_IMAGE = 'images/topotino.png?v=marco-v1';
+const CHATTER_LIMIT_CHARS = 180;
+const CHATTER_LIMIT_MESSAGES = 4;
+const CHATTER_WINDOW_MS = 2 * 60 * 1000;
+const CHATTER_WARNING_COOLDOWN_MS = 90 * 1000;
+
+const CHATTER_WARNINGS = [
+  'Chsss... mensajes cortitos, agentes. Si Topoloco oye tanto tecleo, va a sacar la libreta de sospechas.',
+  'Toposeñal un poco saturada. Decidme solo lo imprescindible, como buenos espías de bolsillo.',
+  'Alerta de bigotes: demasiadas palabras hacen cosquillas en los túneles. Resumid, resumid.',
+  'Modo sigilo, por favor. Topoloco se despista fácil, pero no le regalemos una novela entera.'
+];
 
 const FORMULA_WORDS = [
   'MIRO',
@@ -49,6 +60,8 @@ const state = {
   waters: [],
   formulaWords: [],
   softResponseCursor: {},
+  chatterWarningCursor: 0,
+  lastChatterWarningAt: 0,
   lastKnownPosition: null,
   locationStatus: 'Sin posición actualizada.'
 };
@@ -228,6 +241,17 @@ async function handleUserMessage(text) {
     return;
   }
 
+  if (shouldWarnAboutChatter(text)) {
+    appendMessage({
+      from: 'topotino',
+      time: nowTime(),
+      text: nextChatterWarning()
+    });
+    saveState();
+    renderAll();
+    return;
+  }
+
   await askAiFallback(text);
 }
 
@@ -331,6 +355,28 @@ function nextSoftResponse(episode) {
   const cursor = state.softResponseCursor[key] || 0;
   const response = episode.softResponses[cursor % episode.softResponses.length];
   state.softResponseCursor[key] = cursor + 1;
+  return response;
+}
+
+function shouldWarnAboutChatter(text) {
+  const now = Date.now();
+  if (now - state.lastChatterWarningAt < CHATTER_WARNING_COOLDOWN_MS) return false;
+
+  if (text.length >= CHATTER_LIMIT_CHARS) return true;
+
+  const recentUserMessages = state.messages.filter((message) =>
+    message.from === 'user' &&
+    typeof message.createdAt === 'number' &&
+    now - message.createdAt <= CHATTER_WINDOW_MS
+  );
+
+  return recentUserMessages.length >= CHATTER_LIMIT_MESSAGES;
+}
+
+function nextChatterWarning() {
+  const response = CHATTER_WARNINGS[state.chatterWarningCursor % CHATTER_WARNINGS.length];
+  state.chatterWarningCursor += 1;
+  state.lastChatterWarningAt = Date.now();
   return response;
 }
 
@@ -496,7 +542,8 @@ function appendMessage(message) {
   state.messages.push({
     from: message.from || 'topotino',
     time: message.time === 'auto' || !message.time ? nowTime() : message.time,
-    text: message.text || ''
+    text: message.text || '',
+    createdAt: message.createdAt || Date.now()
   });
 }
 
@@ -656,6 +703,8 @@ function saveState() {
       waters: state.waters,
       formulaWords: state.formulaWords,
       softResponseCursor: state.softResponseCursor,
+      chatterWarningCursor: state.chatterWarningCursor,
+      lastChatterWarningAt: state.lastChatterWarningAt,
       lastKnownPosition: state.lastKnownPosition,
       locationStatus: state.locationStatus
     }));
@@ -690,6 +739,8 @@ function loadState() {
       waters: saved.waters || [],
       formulaWords: (saved.formulaWords || []).map(normalizeFormulaWord),
       softResponseCursor: saved.softResponseCursor || {},
+      chatterWarningCursor: saved.chatterWarningCursor || 0,
+      lastChatterWarningAt: saved.lastChatterWarningAt || 0,
       lastKnownPosition: saved.lastKnownPosition || state.lastKnownPosition,
       locationStatus: saved.locationStatus || state.locationStatus
     });
