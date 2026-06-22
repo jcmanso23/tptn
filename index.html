@@ -11,22 +11,22 @@
   <link rel="manifest" href="manifest.json">
   <link rel="apple-touch-icon" href="icons/icon-192.png">
   <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=chat-v6">
+  <link rel="stylesheet" href="styles.css?v=chat-v7">
 </head>
 <body>
   <main class="app-shell" aria-live="polite">
     <section id="screen-unlock" class="screen screen-unlock active">
       <div class="unlock-card">
         <div class="unlock-avatar">
-          <img src="images/topotino.png" alt="Topotino" onerror="this.style.display='none'">
+          <img src="images/topotino.png?v=marco-v1" alt="Topotino" onerror="this.style.display='none'">
         </div>
         <p class="secure-label">Canal cifrado</p>
         <h1>Comunicador Subterráneo</h1>
-        <p class="unlock-copy">Introduce la clave descubierta en Londres para abrir el chat secreto con Topotino.</p>
+        <p class="unlock-copy">Introduce la clave secreta para abrir el chat con Topotino. Si no la recordáis, tendréis que volver a pensar en la pista de Londres.</p>
         <form id="unlock-form" class="unlock-form">
           <label for="unlock-code">Clave de acceso</label>
-          <input id="unlock-code" type="text" inputmode="text" autocomplete="off" autocorrect="off" spellcheck="false" placeholder="LONDRESBRILLA">
-          <p id="unlock-error" class="unlock-error" hidden>Acceso denegado. Revisad la clave de Londres.</p>
+          <input id="unlock-code" type="text" inputmode="text" autocomplete="off" autocorrect="off" spellcheck="false" placeholder="Clave secreta">
+          <p id="unlock-error" class="unlock-error" hidden>Acceso denegado. Esa no parece la clave secreta.</p>
           <button type="submit">Desbloquear canal</button>
         </form>
       </div>
@@ -36,7 +36,7 @@
       <div class="chat-panel">
         <header class="chat-header">
           <div class="header-avatar">
-            <img src="images/topotino.png" alt="Topotino" onerror="this.style.display='none'">
+            <img src="images/topotino.png?v=marco-v1" alt="Topotino" onerror="this.style.display='none'">
           </div>
           <div class="header-title">
             <h1>Chat secreto <span aria-hidden="true">🔒</span></h1>
@@ -96,6 +96,6 @@
     </section>
   </main>
 
-  <script src="app.js?v=chat-v6" type="module"></script>
+  <script src="app.js?v=chat-v7" type="module"></script>
 </body>
 </html>

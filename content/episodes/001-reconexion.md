@@ -6,8 +6,7 @@
   "channelCode": "T-12A7",
   "startsUnlocked": true,
   "activation": {
-    "type": "passphrase",
-    "accepted": ["londresbrilla"]
+    "type": "passphrase"
   },
   "mission": null,
   "formulaWord": null,
@@ -21,7 +20,7 @@
 
 # Contexto narrativo
 
-La misión de Londres fue el inicio oculto de algo mayor. La clave Londresbrilla activa el Comunicador Subterráneo.
+La misión de Londres fue el inicio oculto de algo mayor. La frase descubierta allí activa el Comunicador Subterráneo, pero Topotino no debe repetirla ni darla como pista directa.
 
 Topotino ha detectado la leyenda de la Fuente de la Noche Clara, relacionada con agua, noche y luz. Topoloco ha sido visto subiendo a un barco rumbo a España. La primera pista apunta al norte y a un lugar donde este fin de semana se mezclan agua, noche y luz.
 

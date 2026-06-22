@@ -4,9 +4,10 @@ const STORAGE_KEYS = {
 };
 
 const LEGACY_STATE_KEY = 'topotino_chat_state_v1';
-const PASSPHRASE = 'londresbrilla';
-const EPISODES_MANIFEST = 'content/episodes.json?v=chat-v3';
+const PASSPHRASE_HASH = 'a64716bd9f4e8added1bf47f80b97c3fc7b70a15b8043cdab083e1ddf85f3794';
+const EPISODES_MANIFEST = 'content/episodes.json?v=chat-v4';
 const ACTIVATION_TICK_MS = 60000;
+const TOPOTINO_IMAGE = 'images/topotino.png?v=marco-v1';
 
 const FORMULA_WORDS = [
   'MIRO',
@@ -111,9 +112,9 @@ function bindElements() {
 function bindEvents() {
   els.unlockForm.addEventListener('submit', async (event) => {
     event.preventDefault();
-    const code = normalizeText(els.unlockCode.value);
-    if (code !== PASSPHRASE) {
-      showUnlockError('Acceso denegado. Revisad la clave de Londres.');
+    const codeHash = await sha256Hex(normalizeText(els.unlockCode.value));
+    if (codeHash !== PASSPHRASE_HASH) {
+      showUnlockError('Acceso denegado. Esa no parece la clave secreta.');
       return;
     }
 
@@ -390,7 +391,7 @@ function renderMessages() {
     if (message.from !== 'user') {
       const avatar = document.createElement('div');
       avatar.className = 'message-avatar';
-      avatar.innerHTML = '<img src="images/topotino.png" alt="Topotino" onerror="this.style.display=\'none\'">';
+      avatar.innerHTML = `<img src="${TOPOTINO_IMAGE}" alt="Topotino" onerror="this.style.display='none'">`;
       row.appendChild(avatar);
     }
 
@@ -614,6 +615,14 @@ function normalizeText(text) {
     .toLowerCase()
     .trim()
     .replace(/\s+/g, ' ');
+}
+
+async function sha256Hex(text) {
+  const bytes = new TextEncoder().encode(text);
+  const digest = await crypto.subtle.digest('SHA-256', bytes);
+  return Array.from(new Uint8Array(digest))
+    .map((byte) => byte.toString(16).padStart(2, '0'))
+    .join('');
 }
 
 function nowTime() {
