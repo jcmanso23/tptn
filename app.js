@@ -5,7 +5,7 @@ const STORAGE_KEYS = {
 
 const LEGACY_STATE_KEY = 'topotino_chat_state_v1';
 const PASSPHRASE_HASH = 'a64716bd9f4e8added1bf47f80b97c3fc7b70a15b8043cdab083e1ddf85f3794';
-const EPISODES_MANIFEST = 'content/episodes.json?v=chat-v12';
+const EPISODES_MANIFEST = 'content/episodes.json?v=chat-v13';
 const ACTIVATION_TICK_MS = 60000;
 const TOPOTINO_IMAGE = 'images/topotino.png?v=marco-v1';
 const CHATTER_LIMIT_CHARS = 180;
@@ -20,16 +20,29 @@ const REPLY_STAGGER_MIN_MS = 700;
 const REPLY_STAGGER_MAX_MS = 1600;
 const REPLY_NEXT_TYPING_MIN_MS = 3000;
 const REPLY_NEXT_TYPING_MAX_MS = 8000;
+const REPLY_TYPING_VISIBLE_MIN_MS = 8000;
+const REPLY_TYPING_VISIBLE_MAX_MS = 14000;
+const REPLY_NEXT_TYPING_VISIBLE_MIN_MS = 4000;
+const REPLY_NEXT_TYPING_VISIBLE_MAX_MS = 9000;
 const ACTIVATION_SILENCE_MIN_MS = 700;
 const ACTIVATION_SILENCE_MAX_MS = 1800;
 const ACTIVATION_TYPING_MIN_MS = 1200;
 const ACTIVATION_TYPING_MAX_MS = 2600;
+const SYNC_DEBOUNCE_MS = 1800;
 
 const CHATTER_WARNINGS = [
   'Chsss... mensajes cortitos, agentes. Si Topoloco oye tanto tecleo, va a sacar la libreta de sospechas.',
   'Toposeñal un poco saturada. Decidme solo lo imprescindible, como buenos espías de bolsillo.',
   'Alerta de bigotes: demasiadas palabras hacen cosquillas en los túneles. Resumid, resumid.',
   'Modo sigilo, por favor. Topoloco se despista fácil, pero no le regalemos una novela entera.'
+];
+
+const TYPING_MESSAGES = [
+  'Topotino está escribiendo...',
+  'Topotino está tecleando con mucho cuidado...',
+  'Topotino está ordenando sus palabras...',
+  'Topotino está escribiendo despacito para no hacer ruido...',
+  'Topotino está preparando una respuesta...'
 ];
 
 const FORMULA_WORDS = [
@@ -74,17 +87,27 @@ const state = {
   softResponseCursor: {},
   chatterWarningCursor: 0,
   lastChatterWarningAt: 0,
+  typingMessageCursor: 0,
   runtimeNowOverride: null,
   lastKnownPosition: null,
-  locationStatus: 'Sin posición actualizada.'
+  locationStatus: 'Sin posición actualizada.',
+  channelId: null,
+  recoveryCode: null,
+  revision: 0,
+  lastSyncedAt: null,
+  syncStatus: 'local',
+  syncError: null
 };
 
 let manifest = [];
 let episodes = [];
 let busy = false;
+let syncTimer = null;
+let syncInFlight = false;
 
 const els = {};
 const params = new URLSearchParams(window.location.search);
+const isAdultMode = params.get('adult') === '1';
 
 document.addEventListener('DOMContentLoaded', init);
 
@@ -104,6 +127,8 @@ async function init() {
     showUnlockError('No se pudo cargar el comunicador. Revisad la conexión.');
     return;
   }
+
+  setupAdultPanel();
 
   if (state.unlocked) {
     await enterChat();
@@ -133,6 +158,20 @@ function bindElements() {
   els.internalProgress = document.getElementById('internal-progress');
   els.locationButton = document.getElementById('location-refresh');
   els.locationStatus = document.getElementById('location-status');
+  els.typingText = document.getElementById('typing-text');
+  els.adultPanel = document.getElementById('adult-panel');
+  els.adultRecoveryCode = document.getElementById('adult-recovery-code');
+  els.adultSyncStatus = document.getElementById('adult-sync-status');
+  els.adultLastSync = document.getElementById('adult-last-sync');
+  els.adultRestoreCode = document.getElementById('adult-restore-code');
+  els.adultFileInput = document.getElementById('adult-import-file');
+  els.adultMessage = document.getElementById('adult-message');
+  els.adultCopy = document.getElementById('adult-copy-code');
+  els.adultSync = document.getElementById('adult-force-sync');
+  els.adultRestore = document.getElementById('adult-restore');
+  els.adultExport = document.getElementById('adult-export');
+  els.adultImport = document.getElementById('adult-import');
+  els.adultClear = document.getElementById('adult-clear-local');
 }
 
 function bindEvents() {
@@ -165,6 +204,15 @@ function bindEvents() {
   });
 
   els.locationButton.addEventListener('click', refreshLocation);
+  window.addEventListener('online', () => syncStateNow({ force: true }));
+
+  if (els.adultCopy) els.adultCopy.addEventListener('click', copyRecoveryCode);
+  if (els.adultSync) els.adultSync.addEventListener('click', () => syncStateNow({ force: true }));
+  if (els.adultRestore) els.adultRestore.addEventListener('click', restoreFromAdultCode);
+  if (els.adultExport) els.adultExport.addEventListener('click', exportAdultBackup);
+  if (els.adultImport) els.adultImport.addEventListener('click', () => els.adultFileInput.click());
+  if (els.adultFileInput) els.adultFileInput.addEventListener('change', importAdultBackup);
+  if (els.adultClear) els.adultClear.addEventListener('click', clearLocalAdultState);
 }
 
 async function enterChat() {
@@ -180,6 +228,7 @@ async function enterChat() {
   if (activationMessages.length) {
     await deliverTopotinoMessages(activationMessages, { mode: 'activation' });
   }
+  window.setTimeout(() => syncStateNow({ force: state.syncStatus !== 'synced' }), 1000);
   setTimeout(() => els.chatInput.focus(), 50);
 }
 
@@ -552,12 +601,12 @@ function getReplyTiming(mode) {
   return {
     silenceMin: REPLY_SILENCE_MIN_MS,
     silenceMax: REPLY_SILENCE_MAX_MS,
-    typingMin: REPLY_TYPING_MIN_MS,
-    typingMax: REPLY_TYPING_MAX_MS,
+    typingMin: REPLY_TYPING_VISIBLE_MIN_MS,
+    typingMax: REPLY_TYPING_VISIBLE_MAX_MS,
     staggerMin: REPLY_STAGGER_MIN_MS,
     staggerMax: REPLY_STAGGER_MAX_MS,
-    nextTypingMin: REPLY_NEXT_TYPING_MIN_MS,
-    nextTypingMax: REPLY_NEXT_TYPING_MAX_MS
+    nextTypingMin: REPLY_NEXT_TYPING_VISIBLE_MIN_MS,
+    nextTypingMax: REPLY_NEXT_TYPING_VISIBLE_MAX_MS
   };
 }
 
@@ -616,6 +665,7 @@ function getCurrentPosition(options) {
 function renderAll() {
   renderMessages();
   renderProgress();
+  renderAdultPanel();
 }
 
 function renderMessages() {
@@ -851,6 +901,16 @@ function formatDate(date) {
   return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
 }
 
+function formatDateTime(date) {
+  if (Number.isNaN(date.getTime())) return 'pendiente';
+  return new Intl.DateTimeFormat('es-ES', {
+    day: '2-digit',
+    month: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit'
+  }).format(date);
+}
+
 function formatTime(date) {
   return `${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}`;
 }
@@ -904,9 +964,18 @@ function nowTime() {
 
 function setBusy(nextBusy, showTyping = nextBusy) {
   busy = nextBusy;
+  if (showTyping && els.typingText) {
+    els.typingText.textContent = nextTypingMessage();
+  }
   els.typing.hidden = !showTyping;
   els.sendButton.disabled = nextBusy;
   els.chatInput.disabled = nextBusy;
+}
+
+function nextTypingMessage() {
+  const message = TYPING_MESSAGES[state.typingMessageCursor % TYPING_MESSAGES.length];
+  state.typingMessageCursor += 1;
+  return message;
 }
 
 function showUnlockError(text) {
@@ -914,24 +983,308 @@ function showUnlockError(text) {
   els.unlockError.hidden = false;
 }
 
-function saveState() {
+function setupAdultPanel() {
+  if (!els.adultPanel) return;
+  els.adultPanel.hidden = !isAdultMode;
+  renderAdultPanel();
+  if (isAdultMode && state.unlocked) {
+    scheduleStateSync();
+  }
+}
+
+function renderAdultPanel() {
+  if (!isAdultMode || !els.adultPanel) return;
+
+  els.adultRecoveryCode.textContent = state.recoveryCode || 'Sin crear';
+  els.adultSyncStatus.textContent = adultSyncLabel();
+  els.adultLastSync.textContent = state.lastSyncedAt
+    ? `Última copia: ${formatDateTime(new Date(state.lastSyncedAt))}`
+    : 'Última copia: pendiente';
+}
+
+function adultSyncLabel() {
+  if (state.syncStatus === 'synced') return 'Copia segura';
+  if (state.syncStatus === 'syncing') return 'Sincronizando...';
+  if (state.syncStatus === 'pending') return 'Pendiente de copia';
+  if (state.syncStatus === 'offline') return 'Solo local';
+  return 'Copia local';
+}
+
+async function copyRecoveryCode() {
+  if (!state.recoveryCode) {
+    showAdultMessage('Aún no hay código. Pulsa sincronizar cuando el canal esté abierto.');
+    return;
+  }
   try {
+    await navigator.clipboard.writeText(state.recoveryCode);
+    showAdultMessage('Código copiado.');
+  } catch (error) {
+    showAdultMessage('No se pudo copiar automáticamente.');
+  }
+}
+
+async function restoreFromAdultCode() {
+  try {
+    await restoreFromRecoveryCode(els.adultRestoreCode.value);
+    await enterChat();
+    showAdultMessage('Conversación restaurada.');
+  } catch (error) {
+    showAdultMessage(friendlySyncError(error));
+  }
+}
+
+function exportAdultBackup() {
+  const backup = {
+    exportedAt: new Date().toISOString(),
+    app: 'topotino-comunicador',
+    version: 1,
+    state: buildLocalState()
+  };
+  const blob = new Blob([JSON.stringify(backup, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = `topotino-backup-${formatDate(new Date())}.json`;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  URL.revokeObjectURL(url);
+  showAdultMessage('Backup exportado.');
+}
+
+async function importAdultBackup(event) {
+  const file = event.target.files && event.target.files[0];
+  event.target.value = '';
+  if (!file) return;
+
+  try {
+    const text = await file.text();
+    const backup = JSON.parse(text);
+    const importedState = backup.state || backup;
+    applyRestoredState(importedState, importedState.recoveryCode || state.recoveryCode);
+    state.unlocked = true;
+    saveState({ sync: false });
+    await enterChat();
+    scheduleStateSync();
+    showAdultMessage('Backup importado en este móvil.');
+  } catch (error) {
+    showAdultMessage('No se pudo importar ese JSON.');
+  }
+}
+
+function clearLocalAdultState() {
+  const confirmed = window.confirm('Esto borra solo los datos de este móvil. Conserva el código de recuperación antes de hacerlo.');
+  if (!confirmed) return;
+  localStorage.removeItem(STORAGE_KEYS.auth);
+  localStorage.removeItem(STORAGE_KEYS.state);
+  localStorage.removeItem(LEGACY_STATE_KEY);
+  window.location.href = `${window.location.pathname}?adult=1`;
+}
+
+function showAdultMessage(text) {
+  if (!els.adultMessage) return;
+  els.adultMessage.textContent = text || '';
+}
+
+function buildLocalState() {
+  return {
+    activeEpisodeId: state.activeEpisodeId,
+    unlockedEpisodeIds: state.unlockedEpisodeIds,
+    renderedEpisodes: state.renderedEpisodes,
+    messages: state.messages,
+    flags: state.flags,
+    waters: state.waters,
+    formulaWords: state.formulaWords,
+    softResponseCursor: state.softResponseCursor,
+    chatterWarningCursor: state.chatterWarningCursor,
+    lastChatterWarningAt: state.lastChatterWarningAt,
+    typingMessageCursor: state.typingMessageCursor,
+    runtimeNowOverride: state.runtimeNowOverride,
+    lastKnownPosition: state.lastKnownPosition,
+    locationStatus: state.locationStatus,
+    channelId: state.channelId,
+    recoveryCode: state.recoveryCode,
+    revision: state.revision,
+    lastSyncedAt: state.lastSyncedAt,
+    syncStatus: state.syncStatus,
+    syncError: state.syncError
+  };
+}
+
+function buildRemoteState() {
+  const remote = buildLocalState();
+  delete remote.recoveryCode;
+  delete remote.syncStatus;
+  delete remote.syncError;
+  return remote;
+}
+
+function applyRestoredState(remoteState, recoveryCode) {
+  Object.assign(state, {
+    activeEpisodeId: remoteState.activeEpisodeId || state.activeEpisodeId,
+    unlockedEpisodeIds: remoteState.unlockedEpisodeIds || [],
+    renderedEpisodes: remoteState.renderedEpisodes || [],
+    messages: remoteState.messages || [],
+    flags: remoteState.flags || [],
+    waters: remoteState.waters || [],
+    formulaWords: (remoteState.formulaWords || []).map(normalizeFormulaWord),
+    softResponseCursor: remoteState.softResponseCursor || {},
+    chatterWarningCursor: remoteState.chatterWarningCursor || 0,
+    lastChatterWarningAt: remoteState.lastChatterWarningAt || 0,
+    typingMessageCursor: remoteState.typingMessageCursor || 0,
+    runtimeNowOverride: remoteState.runtimeNowOverride || null,
+    lastKnownPosition: remoteState.lastKnownPosition || null,
+    locationStatus: remoteState.locationStatus || 'Sin posición actualizada.',
+    channelId: remoteState.channelId || state.channelId,
+    recoveryCode: recoveryCode || state.recoveryCode,
+    revision: Number(remoteState.revision) || state.revision,
+    lastSyncedAt: remoteState.lastSyncedAt || state.lastSyncedAt,
+    syncStatus: 'synced',
+    syncError: null
+  });
+}
+
+function markStateChanged() {
+  state.revision = (Number(state.revision) || 0) + 1;
+  state.syncStatus = state.channelId ? 'pending' : 'local';
+  state.syncError = null;
+}
+
+function scheduleStateSync() {
+  if (!state.unlocked) return;
+  window.clearTimeout(syncTimer);
+  syncTimer = window.setTimeout(() => syncStateNow(), SYNC_DEBOUNCE_MS);
+}
+
+async function ensureBackupChannel() {
+  if (!state.unlocked || state.channelId || state.recoveryCode) return;
+  try {
+    const data = await callStateApi({
+      action: 'init',
+      state: buildRemoteState(),
+      revision: Math.max(1, Number(state.revision) || 1)
+    });
+    state.channelId = data.channelId;
+    state.recoveryCode = data.recoveryCode;
+    state.revision = Number(data.revision) || state.revision || 1;
+    state.lastSyncedAt = data.updatedAt || new Date().toISOString();
+    state.syncStatus = 'synced';
+    state.syncError = null;
+    saveState({ sync: false });
+    renderAdultPanel();
+  } catch (error) {
+    state.syncStatus = 'local';
+    state.syncError = friendlySyncError(error);
+    saveState({ sync: false });
+    renderAdultPanel();
+  }
+}
+
+async function syncStateNow({ force = false } = {}) {
+  if (syncInFlight) return;
+  if (!state.unlocked) return;
+
+  syncInFlight = true;
+  try {
+    if (!state.channelId || !state.recoveryCode) {
+      await ensureBackupChannel();
+      showAdultMessage(state.channelId ? 'Canal seguro creado.' : state.syncError);
+      return;
+    }
+
+    if (!force && state.syncStatus === 'synced') return;
+
+    state.syncStatus = 'syncing';
+    renderAdultPanel();
+    const data = await callStateApi({
+      action: 'sync',
+      channelId: state.channelId,
+      recoveryCode: state.recoveryCode,
+      state: buildRemoteState(),
+      revision: Number(state.revision) || 1
+    });
+    state.revision = Number(data.revision) || state.revision;
+    state.lastSyncedAt = data.updatedAt || new Date().toISOString();
+    state.syncStatus = 'synced';
+    state.syncError = null;
+    saveState({ sync: false });
+    showAdultMessage('Copia segura actualizada.');
+  } catch (error) {
+    if (error.status === 409 && error.data?.remote?.state) {
+      applyRestoredState({
+        ...error.data.remote.state,
+        channelId: error.data.remote.channelId,
+        revision: error.data.remote.revision,
+        lastSyncedAt: error.data.remote.updatedAt
+      }, state.recoveryCode);
+      saveState({ sync: false });
+      renderAll();
+      showAdultMessage('Se restauró la copia más reciente.');
+    } else {
+      state.syncStatus = 'offline';
+      state.syncError = friendlySyncError(error);
+      saveState({ sync: false });
+      showAdultMessage(state.syncError);
+    }
+  } finally {
+    syncInFlight = false;
+    renderAdultPanel();
+  }
+}
+
+async function restoreFromRecoveryCode(recoveryCode) {
+  const code = normalizeRecoveryCode(recoveryCode);
+  if (!code) throw new Error('Código vacío.');
+  const data = await callStateApi({ action: 'restore', recoveryCode: code });
+  applyRestoredState({
+    ...data.state,
+    channelId: data.channelId,
+    revision: data.revision,
+    lastSyncedAt: data.updatedAt
+  }, code);
+  state.unlocked = true;
+  localStorage.setItem(STORAGE_KEYS.auth, '1');
+  saveState({ sync: false });
+  renderAll();
+}
+
+async function callStateApi(payload) {
+  const response = await fetch('/api/state', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload)
+  });
+  const data = await response.json().catch(() => ({}));
+  if (!response.ok) {
+    const error = new Error(data.error || 'State API error');
+    error.status = response.status;
+    error.data = data;
+    throw error;
+  }
+  return data;
+}
+
+function friendlySyncError(error) {
+  if (error.status === 503) return 'Copia segura pendiente: falta configurar Redis en Vercel.';
+  if (error.status === 404) return 'No encuentro ese código de recuperación.';
+  if (error.status === 403) return 'Ese código no abre este canal.';
+  return 'Sin copia segura ahora mismo. El móvil conserva la conversación.';
+}
+
+function normalizeRecoveryCode(value) {
+  return String(value || '').trim().toUpperCase().replace(/\s+/g, '');
+}
+
+function saveState(options = {}) {
+  try {
+    if (options.sync !== false) {
+      markStateChanged();
+    }
     localStorage.setItem(STORAGE_KEYS.auth, state.unlocked ? '1' : '0');
-    localStorage.setItem(STORAGE_KEYS.state, JSON.stringify({
-      activeEpisodeId: state.activeEpisodeId,
-      unlockedEpisodeIds: state.unlockedEpisodeIds,
-      renderedEpisodes: state.renderedEpisodes,
-      messages: state.messages,
-      flags: state.flags,
-      waters: state.waters,
-      formulaWords: state.formulaWords,
-      softResponseCursor: state.softResponseCursor,
-      chatterWarningCursor: state.chatterWarningCursor,
-      lastChatterWarningAt: state.lastChatterWarningAt,
-      runtimeNowOverride: state.runtimeNowOverride,
-      lastKnownPosition: state.lastKnownPosition,
-      locationStatus: state.locationStatus
-    }));
+    localStorage.setItem(STORAGE_KEYS.state, JSON.stringify(buildLocalState()));
+    if (options.sync !== false) {
+      scheduleStateSync();
+    }
   } catch (error) {
     console.warn('Could not save state', error);
   }
@@ -940,10 +1293,13 @@ function saveState() {
 function loadState() {
   try {
     if (params.get('reset') === '1') {
-      localStorage.removeItem(STORAGE_KEYS.auth);
-      localStorage.removeItem(STORAGE_KEYS.state);
-      localStorage.removeItem(LEGACY_STATE_KEY);
+      if (isAdultMode && params.get('confirmReset') === '1') {
+        localStorage.removeItem(STORAGE_KEYS.auth);
+        localStorage.removeItem(STORAGE_KEYS.state);
+        localStorage.removeItem(LEGACY_STATE_KEY);
+      }
       params.delete('reset');
+      params.delete('confirmReset');
       const nextQuery = params.toString();
       const nextUrl = `${window.location.pathname}${nextQuery ? `?${nextQuery}` : ''}${window.location.hash}`;
       window.history.replaceState(null, '', nextUrl);
@@ -965,9 +1321,16 @@ function loadState() {
       softResponseCursor: saved.softResponseCursor || {},
       chatterWarningCursor: saved.chatterWarningCursor || 0,
       lastChatterWarningAt: saved.lastChatterWarningAt || 0,
+      typingMessageCursor: saved.typingMessageCursor || 0,
       runtimeNowOverride: saved.runtimeNowOverride || null,
       lastKnownPosition: saved.lastKnownPosition || state.lastKnownPosition,
-      locationStatus: saved.locationStatus || state.locationStatus
+      locationStatus: saved.locationStatus || state.locationStatus,
+      channelId: saved.channelId || null,
+      recoveryCode: saved.recoveryCode || null,
+      revision: Number(saved.revision) || 0,
+      lastSyncedAt: saved.lastSyncedAt || null,
+      syncStatus: saved.syncStatus || 'local',
+      syncError: saved.syncError || null
     });
   } catch (error) {
     console.warn('Could not load state', error);

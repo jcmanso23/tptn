@@ -82,7 +82,28 @@ Puedes simular condiciones sin moverte:
 
 Para probar OpenAI necesitas desplegar en Vercel o usar `vercel dev` con `OPENAI_API_KEY`.
 
-En la URL normal, las respuestas de Topotino tienen una pausa silenciosa aleatoria de 5 a 60 segundos. Después aparece el indicador de escritura durante 5 a 10 segundos y finalmente llegan las burbujas. Con `fastReply=1` esos tiempos se reducen solo para probar.
+Para activar copia segura necesitas configurar Redis/Upstash en Vercel con:
+
+- `KV_REST_API_URL`
+- `KV_REST_API_TOKEN`
+
+Si esas variables no existen, la app sigue funcionando con copia local en el móvil y el panel adulto mostrará que la copia segura está pendiente.
+
+En la URL normal, las respuestas de Topotino tienen una pausa silenciosa aleatoria de 5 a 60 segundos. Después aparece un indicador de escritura durante 8 a 14 segundos y finalmente llegan las burbujas. Si hay varias burbujas, Topotino vuelve a "escribir" 4 a 9 segundos entre ellas. Con `fastReply=1` esos tiempos se reducen solo para probar.
+
+## Panel adulto y recuperación
+
+El panel adulto se abre con `?adult=1`. No aparece en la experiencia normal de Paula y Hugo.
+
+Desde el panel puedes:
+
+- ver y copiar el código de recuperación;
+- forzar sincronización;
+- restaurar desde un código;
+- exportar/importar un JSON;
+- borrar solo los datos de este móvil.
+
+`?reset=1` ya no borra datos en modo normal. Para borrar por URL hace falta `?adult=1&reset=1&confirmReset=1`. La forma recomendada es usar el botón del panel adulto.
 
 ## Llaves de ensayo por chat
 
