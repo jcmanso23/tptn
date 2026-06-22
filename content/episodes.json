@@ -1,18 +1,18 @@
 [
   {
     "id": "001-reconexion",
-    "file": "content/episodes/001-reconexion.md"
+    "file": "content/episodes/001-reconexion.md?v=chat-v10"
   },
   {
     "id": "002-luanco-primera-gota",
-    "file": "content/episodes/002-luanco-primera-gota.md"
+    "file": "content/episodes/002-luanco-primera-gota.md?v=chat-v10"
   },
   {
     "id": "003-eclipse",
-    "file": "content/episodes/003-eclipse.md"
+    "file": "content/episodes/003-eclipse.md?v=chat-v10"
   },
   {
     "id": "004-guimaraes-origen",
-    "file": "content/episodes/004-guimaraes-origen.md"
+    "file": "content/episodes/004-guimaraes-origen.md?v=chat-v10"
   }
 ]

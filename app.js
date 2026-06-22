@@ -5,13 +5,19 @@ const STORAGE_KEYS = {
 
 const LEGACY_STATE_KEY = 'topotino_chat_state_v1';
 const PASSPHRASE_HASH = 'a64716bd9f4e8added1bf47f80b97c3fc7b70a15b8043cdab083e1ddf85f3794';
-const EPISODES_MANIFEST = 'content/episodes.json?v=chat-v6';
+const EPISODES_MANIFEST = 'content/episodes.json?v=chat-v10';
 const ACTIVATION_TICK_MS = 60000;
 const TOPOTINO_IMAGE = 'images/topotino.png?v=marco-v1';
 const CHATTER_LIMIT_CHARS = 180;
 const CHATTER_LIMIT_MESSAGES = 4;
 const CHATTER_WINDOW_MS = 2 * 60 * 1000;
 const CHATTER_WARNING_COOLDOWN_MS = 90 * 1000;
+const REPLY_SILENCE_MIN_MS = 5000;
+const REPLY_SILENCE_MAX_MS = 60000;
+const REPLY_TYPING_MIN_MS = 5000;
+const REPLY_TYPING_MAX_MS = 10000;
+const REPLY_STAGGER_MIN_MS = 700;
+const REPLY_STAGGER_MAX_MS = 1600;
 
 const CHATTER_WARNINGS = [
   'Chsss... mensajes cortitos, agentes. Si Topoloco oye tanto tecleo, va a sacar la libreta de sospechas.',
@@ -171,14 +177,19 @@ function showScreen(name) {
   els.chatScreen.classList.toggle('active', name === 'chat');
 }
 
-async function evaluateActivations({ reason } = {}) {
+async function evaluateActivations({ reason, collectMessages = false } = {}) {
   let changed = false;
+  const queuedMessages = [];
 
   for (const episode of episodes) {
     if (isEpisodeUnlocked(episode.meta.id)) continue;
     if (!episodeCanActivate(episode)) continue;
     unlockEpisode(episode.meta.id);
-    appendMessages(episode.initialMessages || []);
+    if (collectMessages) {
+      queuedMessages.push(...(episode.initialMessages || []));
+    } else {
+      appendMessages(episode.initialMessages || []);
+    }
     changed = true;
   }
 
@@ -186,6 +197,8 @@ async function evaluateActivations({ reason } = {}) {
     saveState();
     renderAll();
   }
+
+  return queuedMessages;
 }
 
 function episodeCanActivate(episode) {
@@ -242,11 +255,11 @@ async function handleUserMessage(text) {
   }
 
   if (shouldWarnAboutChatter(text)) {
-    appendMessage({
+    await deliverTopotinoMessages([{
       from: 'topotino',
       time: nowTime(),
       text: nextChatterWarning()
-    });
+    }]);
     saveState();
     renderAll();
     return;
@@ -256,7 +269,7 @@ async function handleUserMessage(text) {
 }
 
 async function applyGuidedResponse(guided, sourceEpisode) {
-  appendMessages(guided.messages || []);
+  const outboundMessages = [...(guided.messages || [])];
   addUniqueMany(state.flags, guided.setFlags || []);
 
   if (guided.water) addWater(guided.water);
@@ -267,11 +280,14 @@ async function applyGuidedResponse(guided, sourceEpisode) {
     if (nextEpisode) {
       const wasRendered = state.renderedEpisodes.includes(nextEpisode.meta.id);
       unlockEpisode(nextEpisode.meta.id);
-      if (!wasRendered) appendMessages(nextEpisode.initialMessages || []);
+      if (!wasRendered) outboundMessages.push(...(nextEpisode.initialMessages || []));
     }
   }
 
-  await evaluateActivations({ reason: 'guided' });
+  const activatedMessages = await evaluateActivations({ reason: 'guided', collectMessages: true });
+  outboundMessages.push(...activatedMessages);
+
+  await deliverTopotinoMessages(outboundMessages);
   saveState();
   renderAll();
 }
@@ -279,18 +295,17 @@ async function applyGuidedResponse(guided, sourceEpisode) {
 async function askAiFallback(text) {
   const activeEpisode = getActiveEpisode();
   if (!activeEpisode || activeEpisode.meta.ai?.enabled === false) {
-    appendMessage({
+    await deliverTopotinoMessages([{
       from: 'topotino',
       time: nowTime(),
       text: 'La señal tiembla un poco. Probad con una pista más concreta, agentes.'
-    });
+    }]);
     saveState();
     renderAll();
     return;
   }
 
-  setBusy(true);
-  try {
+  const responsePromise = (async () => {
     const response = await fetch('/api/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -315,25 +330,25 @@ async function askAiFallback(text) {
 
     if (!response.ok) throw new Error('AI request failed');
     const data = await response.json();
-    appendMessage({
+    return [{
       from: 'topotino',
       time: nowTime(),
       text: data.reply || 'He recibido interferencias. Repetidlo más despacio, agentes.'
-    });
-  } catch (error) {
+    }];
+  })().catch(() => {
     const soft = activeEpisode && activeEpisode.softResponses.length
       ? nextSoftResponse(activeEpisode)
       : null;
-    appendMessage({
+    return [{
       from: 'topotino',
       time: nowTime(),
       text: soft || 'No tengo señal suficiente para consultar los túneles ahora mismo. El historial queda guardado; probad otra vez cuando vuelva internet.'
-    });
-  } finally {
-    setBusy(false);
-    saveState();
-    renderAll();
-  }
+    }];
+  });
+
+  await deliverTopotinoMessages(responsePromise);
+  saveState();
+  renderAll();
 }
 
 function findGuidedResponse(text) {
@@ -378,6 +393,64 @@ function nextChatterWarning() {
   state.chatterWarningCursor += 1;
   state.lastChatterWarningAt = Date.now();
   return response;
+}
+
+async function deliverTopotinoMessages(messagesOrPromise) {
+  setBusy(true, false);
+
+  try {
+    const messagesPromise = Promise.resolve(messagesOrPromise);
+    const timing = getReplyTiming();
+    await wait(randomInt(timing.silenceMin, timing.silenceMax));
+    setBusy(true, true);
+
+    const [messages] = await Promise.all([
+      messagesPromise,
+      wait(randomInt(timing.typingMin, timing.typingMax))
+    ]);
+
+    const normalizedMessages = Array.isArray(messages) ? messages.filter(Boolean) : [];
+    for (let index = 0; index < normalizedMessages.length; index += 1) {
+      appendMessage(normalizedMessages[index]);
+      saveState();
+      renderAll();
+      if (index < normalizedMessages.length - 1) {
+        await wait(randomInt(timing.staggerMin, timing.staggerMax));
+      }
+    }
+  } finally {
+    setBusy(false, false);
+  }
+}
+
+function getReplyTiming() {
+  if (params.get('fastReply') === '1') {
+    return {
+      silenceMin: 250,
+      silenceMax: 600,
+      typingMin: 300,
+      typingMax: 700,
+      staggerMin: 80,
+      staggerMax: 180
+    };
+  }
+
+  return {
+    silenceMin: REPLY_SILENCE_MIN_MS,
+    silenceMax: REPLY_SILENCE_MAX_MS,
+    typingMin: REPLY_TYPING_MIN_MS,
+    typingMax: REPLY_TYPING_MAX_MS,
+    staggerMin: REPLY_STAGGER_MIN_MS,
+    staggerMax: REPLY_STAGGER_MAX_MS
+  };
+}
+
+function wait(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+function randomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 async function refreshLocation() {
@@ -679,9 +752,9 @@ function nowTime() {
   }).format(getRuntimeNow());
 }
 
-function setBusy(nextBusy) {
+function setBusy(nextBusy, showTyping = nextBusy) {
   busy = nextBusy;
-  els.typing.hidden = !nextBusy;
+  els.typing.hidden = !showTyping;
   els.sendButton.disabled = nextBusy;
   els.chatInput.disabled = nextBusy;
 }

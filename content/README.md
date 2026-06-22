@@ -64,8 +64,11 @@ Puedes simular condiciones sin moverte:
 - Simular fecha/hora: `index.html?testNow=2026-08-12T21:30:00`
 - Simular ubicación: `index.html?testLat=43.615&testLng=-5.793`
 - Combinar: `index.html?reset=1&testNow=2026-08-12T21:30:00&testLat=43.615&testLng=-5.793`
+- Acelerar respuestas para pruebas: añade `fastReply=1`
 
 Para probar OpenAI necesitas desplegar en Vercel o usar `vercel dev` con `OPENAI_API_KEY`.
+
+En la URL normal, las respuestas de Topotino tienen una pausa silenciosa aleatoria de 5 a 60 segundos. Después aparece el indicador de escritura durante 5 a 10 segundos y finalmente llegan las burbujas. Con `fastReply=1` esos tiempos se reducen solo para probar.
 
 ## Llaves de ensayo por chat
 
