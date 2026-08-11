@@ -12,6 +12,8 @@ test('la conversación libre usa Luna y conserva los turnos con sus roles', asyn
   assert.match(source, /messages: recentMessages/);
   assert.match(source, /role: message\.from === 'user' \? 'user' : 'assistant'/);
   assert.match(source, /String\(process\.env\.OPENAI_API_KEY \|\| ''\)\.trim\(\)/);
+  assert.match(source, /provider = openAIKey \? 'openai-direct' : 'vercel-ai-gateway'/);
+  assert.match(source, /maxDuration: 30/);
   assert.doesNotMatch(source, /contextoNarrativo:|narrativeContext/);
 });
 

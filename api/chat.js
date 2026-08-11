@@ -4,6 +4,10 @@ import { createOpenAI } from '@ai-sdk/openai';
 const DEFAULT_MODEL = 'openai/gpt-5.6-luna';
 const DEFAULT_OPENAI_MODEL = 'gpt-5.6-luna';
 
+export const config = {
+  maxDuration: 30
+};
+
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST');
@@ -85,13 +89,23 @@ export default async function handler(req, res) {
     maxOutputTokens: 220
   };
 
-  try {
-    const gatewayModel = process.env.AI_MODEL || DEFAULT_MODEL;
-    let provider = 'vercel-ai-gateway';
-    let result;
-    let gatewayFailure;
+  const openAIKey = String(process.env.OPENAI_API_KEY || '').trim();
+  const gatewayModel = process.env.AI_MODEL || DEFAULT_MODEL;
+  let provider = openAIKey ? 'openai-direct' : 'vercel-ai-gateway';
+  let selectedModel = openAIKey
+    ? process.env.OPENAI_MODEL || DEFAULT_OPENAI_MODEL
+    : gatewayModel;
 
-    try {
+  try {
+    let result;
+
+    if (openAIKey) {
+      const openai = createOpenAI({ apiKey: openAIKey });
+      result = await generateText({
+        ...generationOptions,
+        model: openai(selectedModel)
+      });
+    } else {
       result = await generateText({
         ...generationOptions,
         model: gatewayModel,
@@ -101,17 +115,6 @@ export default async function handler(req, res) {
             tags: ['feature:topotino-chat', `episode:${context.episodioActivo}`]
           }
         }
-      });
-    } catch (gatewayError) {
-      gatewayFailure = gatewayError;
-      const openAIKey = String(process.env.OPENAI_API_KEY || '').trim();
-      if (!openAIKey) throw gatewayError;
-
-      provider = 'openai-direct-fallback';
-      const openai = createOpenAI({ apiKey: openAIKey });
-      result = await generateText({
-        ...generationOptions,
-        model: openai(process.env.OPENAI_MODEL || DEFAULT_OPENAI_MODEL)
       });
     }
 
@@ -131,11 +134,9 @@ export default async function handler(req, res) {
       name: error?.name,
       message: error?.message,
       statusCode: error?.statusCode,
-      gatewayModel: process.env.AI_MODEL || DEFAULT_MODEL,
-      hasOpenAIFallback: Boolean(String(process.env.OPENAI_API_KEY || '').trim()),
-      gatewayErrorName: gatewayFailure?.name,
-      gatewayErrorMessage: gatewayFailure?.message,
-      gatewayStatusCode: gatewayFailure?.statusCode
+      provider,
+      selectedModel,
+      hasOpenAIKey: Boolean(openAIKey)
     });
     return res.status(503).json({ error: 'AI_UNAVAILABLE' });
   }
