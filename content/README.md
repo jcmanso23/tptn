@@ -2,6 +2,8 @@
 
 Antes de crear, corregir o publicar cualquier misión, lee y actualiza [`GUIA-COHERENCIA-NARRATIVA.md`](GUIA-COHERENCIA-NARRATIVA.md). Es el documento maestro del canon, los secretos, el recorrido y la propagación de cambios hacia todas las misiones futuras.
 
+La separación entre canon secreto, conocimiento de Topotino, estado verificable y conversación se documenta en [`ARQUITECTURA-CONVERSACIONAL.md`](ARQUITECTURA-CONVERSACIONAL.md).
+
 Cada capítulo o submisión es un archivo `.md` en `content/episodes/` y debe estar listado en `content/episodes.json`.
 
 La app carga todos los MD, pero solo muestra los mensajes de un capítulo cuando su `activation` se cumple. Las condiciones no se pisan entre sí: puedes combinar respuesta, flags, fecha, hora y ubicación. Por defecto deben cumplirse todas; usa `"mode": "any"` si basta con que se cumpla una.
@@ -156,6 +158,7 @@ Recomendación: usa siempre una ventana privada o entra con `?topoadulto=1&reset
 - `002-luanco-llegada`: se abre al acertar `Luanco` y estar cerca de Luanco, o con `topollave-luanco`.
 - `003-luanco-agua-norte`: se abre el sábado 27 tras haber observado Luanco, o con `topollave-sabado`.
 - `004-eclipse`: se abre al guardar el Agua del Norte. Sirve como pista posterior, no como destino físico inmediato.
+- `004b-rumbo-amarante`: enlaza el eclipse con el viaje. Paula y Hugo deben descubrir Amarante antes de conocer la fecha y Topotino reconoce que ignora el motivo.
 - `004-guimaraes-origen`: episodio retirado que conserva un identificador técnico heredado para no romper partidas de ensayo.
 - `005-amarante-puente`: día 13 en Amarante, con observación de la ponte y elección de la primera memoria del viaje.
 - `006-magikland-curia`: día 14, con una búsqueda de movimientos en Magikland y un cierre de observación tranquila en Curia.

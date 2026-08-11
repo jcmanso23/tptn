@@ -5,7 +5,7 @@ const STORAGE_KEYS = {
 
 const LEGACY_STATE_KEY = 'topotino_chat_state_v1';
 const PASSPHRASE_HASH = 'a64716bd9f4e8added1bf47f80b97c3fc7b70a15b8043cdab083e1ddf85f3794';
-const EPISODES_MANIFEST = 'content/episodes.json?v=chat-v17';
+const EPISODES_MANIFEST = 'content/episodes.json?v=chat-v18';
 const LIVE_STORY_ENDPOINT = '/api/story';
 const ACTIVATION_TICK_MS = 60000;
 const ADULT_PHASE_DELAY_MS = 5 * 60 * 1000;
@@ -597,7 +597,6 @@ async function askAiFallback(text) {
           id: episode.meta.id,
           title: episode.meta.title,
           mission: episode.meta.mission,
-          narrativeContext: episode.narrativeContext,
           aiContext: episode.aiContext
         })),
         runtime: getRuntimeContext(),
@@ -1691,6 +1690,6 @@ function applyTestingParams() {
 
 function registerServiceWorker() {
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('service-worker.js?v=offline-v3').catch(() => {});
+    navigator.serviceWorker.register('service-worker.js?v=offline-v4').catch(() => {});
   }
 }

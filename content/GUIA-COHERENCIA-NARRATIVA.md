@@ -111,6 +111,16 @@ No debe:
 - revelar destinos futuros para facilitar la trama;
 - utilizar el miedo para crear interés.
 
+#### Lo que Topotino sabe
+
+El canon del autor y el conocimiento de Topotino son capas distintas. Que esta guía conozca el plan completo de Topoloco no significa que Topotino pueda contarlo o siquiera sospecharlo todavía.
+
+- Topotino aprende a la vez que Paula y Hugo, a partir de señales, objetos y respuestas reales.
+- Debe distinguir con naturalidad entre «sé», «creo», «sospecho» y «no tengo ni idea».
+- Una revelación solo entra en su conversación cuando una prueba o una flag la haya convertido en conocimiento compartido.
+- Nunca utiliza el contexto secreto del autor para orientar demasiado pronto a los niños.
+- En los días 13 y 14 solo puede sospechar que Topoloco intenta extraer algo que el agua recuerda. Todavía no conoce el museo, el número exacto de recuerdos que busca ni por qué los quiere.
+
 ### Topoloco
 
 Topoloco es el antagonista, pero no una amenaza física. Es egoísta, obsesivo, presumido, chapucero y muy capaz de arruinar su propio plan.
@@ -229,6 +239,16 @@ Una misión futura debe contener, aunque su forma pueda variar:
 
 No todas las misiones deben terminar recogiendo agua. Algunas pueden encontrar una palabra, proteger una pista, descubrir un engaño o recuperar una memoria. La variedad es parte de la aventura.
 
+### Regla de las alternativas
+
+La ruta principal se propone con claridad y sin enumerar de antemano lluvia, cierres, cansancio o cambios de plan. Anticipar todas las salidas convierte la aventura en instrucciones y reduce la sensación de reto.
+
+- Topotino presenta primero una sola prueba posible y segura.
+- Si Paula o Hugo expresan un impedimento real, Topotino responde a ese impedimento concreto con una única adaptación adecuada.
+- No ofrece un menú de alternativas ni menciona problemas que todavía no existen.
+- La adaptación mantiene el mismo objetivo narrativo, aunque cambie la acción física.
+- Una norma de seguridad necesaria no se considera alternativa y puede indicarse desde el principio.
+
 ## 9. Ritmo del viaje
 
 - Alternar misiones de observación, búsqueda, deducción, imaginación, valentía, cuidado y humor.
@@ -264,14 +284,16 @@ La historia debe enriquecer las vacaciones, no secuestrarlas.
 
 ### Pueden descubrir durante los días 13 y 14
 
-- Topoloco quiere encerrar recuerdos del agua en un museo que llama exclusivo.
-- Los recuerdos solo despiertan cuando alguien mira, hace, siente y sabe contar lo vivido.
+- Una señal incompleta conduce hasta Amarante y solo después de identificarla revela que deben estar allí el 13 por la tarde.
+- Topoloco parece intentar extraer algo que el agua recuerda, pero Topotino todavía no sabe qué pretende hacer con ello.
+- Los recuerdos del agua reaccionan cuando alguien mira, hace, siente y sabe contar lo vivido.
 - El Agua del Puente conserva el comienzo compartido y entrega COMIENZO.
 - El Agua de la Risa demuestra que el agua puede correr, reír y después guardar silencio; entrega RÍO.
 
 ### Todavía no deben saber
 
 - la lista de las doce aguas;
+- el Museo Topoloco de Recuerdos Exclusivos y el plan completo de Topoloco;
 - el destino final del misterio;
 - la relación exacta con Granada y la Alhambra;
 - el papel de los doce leones;
@@ -289,9 +311,10 @@ Antes de publicar una misión nueva se añade o actualiza una fila:
 |---:|---|---|---|---|---|---|
 | 1 | Londres, anterior | Vivida | Doce pistas de Londres | `LONDRES BRILLA` | Londres era el inicio de algo mayor | Agua, noche y luz |
 | 2 | Luanco, anterior | Publicada/vivida por confirmar | Noche Blanca y Agua del Norte | Agua del Norte · MIRO | Las aguas guardan recuerdos | Día del sol escondido |
-| 3 | 12 ago | Publicada; progreso real por confirmar | El eclipse | Sin agua nueva | El eclipse abre la aventura larga | Buscar un origen tras el eclipse |
-| 4 | 13 ago | Publicada | El puente que recuerda · Amarante | Agua del Puente · COMIENZO | Topoloco quiere encerrar recuerdos; una memoria se despierta al vivirla y contarla | Un plano con seis mundos y agua en movimiento |
-| 5 | 14 ago | Publicada | El agua que ríe · Magikland y Curia | Agua de la Risa · RÍO | Topoloco no puede separar una risa de la experiencia; recordar también exige detenerse | Olor a musgo, piedra fría y un bosque que bebe del cielo |
+| 3 | 12 ago | Publicada; progreso real por confirmar | El eclipse | Sin agua nueva | El eclipse abre una señal que Topotino tampoco entiende | Fragmentos para descubrir Amarante |
+| 4 | Antes del 13 ago | Publicada | La señal partida · descubrimiento de Amarante | Sin agua nueva | Deben estar en Amarante el 13 por la tarde; Topotino desconoce el motivo | Esperar a que la señal despierte allí |
+| 5 | 13 ago | Publicada | El puente que recuerda · Amarante | Agua del Puente · COMIENZO | Topoloco buscaba algo que la ponte recordaba; su plan sigue siendo desconocido | Un plano con seis mundos y agua en movimiento |
+| 6 | 14 ago | Publicada | El agua que ríe · Magikland y Curia | Agua de la Risa · RÍO | El aparato reacciona a recuerdos vividos, pero no se sabe para qué los quiere Topoloco | Olor a musgo, piedra fría y un bosque que bebe del cielo |
 
 Los estados permitidos son: `idea`, `borrador`, `aprobada`, `publicada`, `activada`, `vivida` y `retirada`.
 
@@ -345,6 +368,16 @@ El arco, la función general de la Fuente, el plan de Topoloco y la transición 
 - Elementos que deben mantenerse: Agua del Norte, MIRO, Fuente de la Noche Clara, doce aguas, Granada y doce leones.
 - Solución de continuidad: el episodio técnico de Guimarães se conserva retirado; Amarante recibe un identificador nuevo y el día 14 acepta como compatibilidad la antigua flag.
 - Archivos actualizados: guía, investigación de Amarante, investigación de Magikland/Curia y capítulos de los días 13 y 14.
+
+### 2026-08-11 · Topotino también investiga
+
+- Cambio real o decisión: Topotino debe saber muy poco al comenzar el viaje y descubrir el plan junto a Paula y Hugo.
+- Qué habían visto ya Paula y Hugo: Londres, Luanco y la pista del eclipse; no se presupone que conozcan Amarante ni el plan de Topoloco.
+- Misiones futuras afectadas: transición al viaje, Amarante, Magikland y todas las revelaciones posteriores.
+- Pistas que deben cambiar: Amarante se descubre antes de comunicar la fecha; el museo deja de revelarse el primer día; las alternativas desaparecen de las instrucciones iniciales.
+- Elementos que deben mantenerse: el arco secreto del ladrón de recuerdos, las aguas y palabras ya aprobadas y las rutas de seguridad.
+- Solución de continuidad: el canon completo permanece en la guía, pero los capítulos solo exponen el conocimiento que las flags hayan hecho compartido.
+- Archivos actualizados: guía, eclipse, nueva transición a Amarante, días 13 y 14, reglas de conversación y arquitectura conversacional.
 
 ## 16. Cambios ocurridos durante el viaje
 

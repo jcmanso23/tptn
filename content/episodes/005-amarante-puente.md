@@ -22,19 +22,19 @@
 
 # Contexto narrativo
 
-Es 13 de agosto, primer día del gran viaje tras el eclipse. Paula y Hugo llegan a Amarante. El Tâmega, la Ponte de São Gonçalo y su iglesia permiten descubrir que el agua guarda recuerdos cuando alguien vive una experiencia, la observa y sabe contarla.
+Es 13 de agosto, primer día del gran viaje tras el eclipse. Paula y Hugo llegan a la ciudad que descubrieron en la señal. El Tâmega, la Ponte de São Gonçalo y su iglesia permiten comprobar que el agua reacciona a una experiencia vivida y recordada.
 
-Topotino ha interceptado la primera prueba clara del plan de Topoloco: una etiqueta del futuro «Museo Topoloco de Recuerdos Exclusivos» y restos del Aspirador Portátil de Reflejos. Topoloco quiere poseer recuerdos sin vivirlos. Todavía no debe revelarse que necesita que los niños despierten cada memoria antes de poder intentar capturarla.
+Topotino no conoce el plan de Topoloco. Solo detecta que alguien ha pasado antes por la ponte y encuentra un fragmento metálico con las letras «...REFL...». Al final puede sospechar que Topoloco intentaba extraer algo que la ponte recordaba, pero no sabe para qué, cuántas veces piensa hacerlo ni que existe un museo.
 
-La prueba debe poder completarse aunque la iglesia esté cerrada, llueva o la familia esté cansada. Nunca se pide recoger agua del río, acercarse a bordes, separarse de los adultos ni tocar el patrimonio.
+La ruta principal se presenta sin alternativas anticipadas. Si los niños comunican lluvia, cierre, cansancio u otro impedimento, Topotino ofrece entonces una sola adaptación adecuada. Nunca se pide recoger agua del río, acercarse a bordes, separarse de los adultos ni tocar el patrimonio.
 
 ## Mensajes iniciales
 
 ```json
 [
-  { "from": "topotino", "time": "auto", "text": "Paula, Hugo... el eclipse ha dejado mis mapas llenos de reflejos. Y uno acaba de estornudar dentro del Tâmega." },
-  { "from": "topotino", "time": "auto", "text": "He encontrado una etiqueta mojada: «Museo Topoloco de Recuerdos Exclusivos · sala 1». Debajo pone: «puente que une demasiado». Ese topo pretende robar recuerdos del agua para presumir de que son suyos." },
-  { "from": "topotino", "time": "auto", "text": "La señal viene de una ciudad atravesada por un río y vigilada por una ponte que lleva el nombre de São Gonçalo. Si ya sabéis dónde estáis, escribid solo el nombre de la ciudad." }
+  { "from": "topotino", "time": "auto", "text": "La señal ha vuelto. Habéis llegado al lugar exacto y se ha encendido justo ahora. Eso me tranquilizaría mucho más si supiera por qué." },
+  { "from": "topotino", "time": "auto", "text": "Mis topos han encontrado cerca de la ponte un trocito de metal con barro y solo cinco letras legibles: «...REFL...». Parece de una máquina. Y sí: huele un poco a Topoloco." },
+  { "from": "topotino", "time": "auto", "text": "Necesito que miréis la Ponte de São Gonçalo desde un lugar seguro. Elegid un detalle que parezca capaz de guardar una historia —piedra, arco, balcón, agua, iglesia o figura— y contadme qué habéis elegido y por qué." }
 ]
 ```
 
@@ -43,19 +43,39 @@ La prueba debe poder completarse aunque la iglesia esté cerrada, llueva o la fa
 ```json
 [
   {
-    "id": "amarante-identificado",
-    "blockedFlags": ["amarante_identificado"],
-    "match": ["amarante", "estamos en amarante", "hemos llegado a amarante"],
-    "setFlags": ["amarante_identificado"],
+    "id": "amarante-alternativa-lluvia",
+    "blockedFlags": ["amarante_puente_observado"],
+    "containsAny": ["llueve", "esta lloviendo", "está lloviendo", "mucha lluvia", "tormenta"],
     "messages": [
-      { "from": "topotino", "time": "auto", "text": "Amarante. Exacto. Aquí el Tâmega no pasa por detrás de la ciudad: pasa por su corazón." },
-      { "from": "topotino", "time": "auto", "text": "Necesito ojos de explorador, no respuestas de examen. Desde un lugar seguro, mirad la ponte y elegid un detalle que os parezca capaz de guardar una historia: una piedra, un arco, uno de sus balcones, el agua, la iglesia o una pequeña figura que vigila desde ella." },
-      { "from": "topotino", "time": "auto", "text": "Contadme qué habéis visto y por qué lo habéis elegido. Si está cerrado, llueve o ya es tarde, vale mirar desde fuera, desde una ventana o en una foto vuestra. Los recuerdos no obligan a nadie a correr." }
+      { "from": "topotino", "time": "auto", "text": "Entonces nada de buscar bajo la lluvia. Poneos a cubierto con los adultos y mirad desde allí cómo cambia el agua o el reflejo de la ponte. Elegid un solo detalle visible desde ese lugar y contadme por qué parece guardar una historia." }
+    ]
+  },
+  {
+    "id": "amarante-alternativa-cierre",
+    "blockedFlags": ["amarante_puente_observado"],
+    "containsAny": ["cerrado", "cerrada", "no podemos entrar", "no nos dejan entrar", "es muy tarde", "ya es tarde"],
+    "messages": [
+      { "from": "topotino", "time": "auto", "text": "No intentéis entrar. La prueba se queda fuera: observad la ponte y la fachada desde el recorrido permitido. Elegid un detalle exterior que haya visto pasar muchos años y contadme cuál es." }
+    ]
+  },
+  {
+    "id": "amarante-alternativa-cansancio",
+    "blockedFlags": ["amarante_puente_observado"],
+    "containsAny": ["estamos cansados", "estoy cansado", "estoy cansada", "no podemos caminar", "nos duelen los pies"],
+    "messages": [
+      { "from": "topotino", "time": "auto", "text": "Recibido. No caminéis más por mí. Desde donde descanséis, elegid en una foto vuestra o en el recuerdo de la llegada un detalle de la ponte, el río o la iglesia. Decidme qué detalle se os ha quedado dentro." }
+    ]
+  },
+  {
+    "id": "amarante-alternativa-preguntar",
+    "blockedFlags": ["amarante_puente_observado"],
+    "match": ["no podemos", "no podemos hacerlo", "no se puede", "no podemos hacer la prueba"],
+    "messages": [
+      { "from": "topotino", "time": "auto", "text": "Entendido. No forcéis nada. Decidme solo qué lo impide —lluvia, un cierre, cansancio u otra cosa— y buscaré una forma segura de seguir desde donde estáis." }
     ]
   },
   {
     "id": "amarante-puente-observado",
-    "requiredFlags": ["amarante_identificado"],
     "blockedFlags": ["amarante_puente_observado"],
     "openAnswer": true,
     "minWords": 3,
@@ -65,7 +85,7 @@ La prueba debe poder completarse aunque la iglesia esté cerrada, llueva o la fa
     "messages": [
       { "from": "topotino", "time": "auto", "text": "Eso sí puede guardar memoria. La tradición cuenta que São Gonçalo levantó una antigua ponte con ayuda del pueblo, movió piedras enormes e hizo acudir peces para alimentar a quienes trabajaban. Topoloco ha apuntado: «posible cuadrilla de peces albañiles». No ha entendido nada." },
       { "from": "topotino", "time": "auto", "text": "La ponte antigua cayó por las lluvias en 1763, pero una pequeña imagen de piedra sobrevivió. La nueva también recuerda a la gente de Amarante que resistió aquí durante catorce días en 1809. Este lugar sabe una cosa: cruzar no es olvidar la orilla de la que vienes." },
-      { "from": "topotino", "time": "auto", "text": "Última parte. Elegid juntos un recuerdo de este primer día que queráis llevar hasta el final del viaje: algo visto, hecho, dicho o sentido. Escribid «QUE RECUERDE...» y terminad la frase con vuestras palabras." }
+      { "from": "topotino", "time": "auto", "text": "El trocito de máquina acaba de vibrar al recibir vuestra observación. No sé qué significa. Probad una cosa: elegid juntos un recuerdo de este primer día y escribid «QUE RECUERDE...» seguido de ese momento." }
     ]
   },
   {
@@ -80,10 +100,10 @@ La prueba debe poder completarse aunque la iglesia esté cerrada, llueva o la fa
     "water": "Agua del Puente",
     "formulaWord": "COMIENZO",
     "messages": [
-      { "from": "topotino", "time": "auto", "text": "Memoria recibida. Ahora el agua sabe algo que Topoloco no puede inventarse: cómo comenzó vuestro viaje de verdad." },
+      { "from": "topotino", "time": "auto", "text": "Ha ocurrido. El agua ha respondido a vuestro recuerdo. No sé cómo explicarlo todavía, pero ha guardado la forma en que comenzó vuestro viaje." },
       { "from": "topotino", "time": "auto", "text": "Agua del Puente guardada. Su palabra es COMIENZO. Si lleváis recipiente, usad solo tres gotas de agua potable. Nunca agua del río. Si no, vuestra frase ya es un recipiente perfecto." },
-      { "from": "topotino", "time": "auto", "text": "El Aspirador Portátil de Reflejos ha fallado. Solo ha aspirado dos hojas, su propia etiqueta y algo que parece un calcetín de Topoloco." },
-      { "from": "topotino", "time": "auto", "text": "Pero ha dejado un plano: seis mundos mezclados, una rueda enorme, un barco que se balancea y agua que corre haciendo ruido. Mañana sus máquinas buscarán algo que el agua hace cuando está muy contenta." }
+      { "from": "topotino", "time": "auto", "text": "Y el trocito metálico ha soltado dos hojas, un calcetín de Topoloco y una palabra incompleta: «REFLEJOS». Empiezo a sospechar que no buscaba el agua, sino algo que la ponte recordaba. Solo es una sospecha." },
+      { "from": "topotino", "time": "auto", "text": "También ha caído un plano: seis mundos mezclados, una rueda enorme, un barco que se balancea y agua que corre haciendo ruido. No sé qué lugar es. Mañana lo investigaremos." }
     ]
   }
 ]
@@ -93,8 +113,8 @@ La prueba debe poder completarse aunque la iglesia esté cerrada, llueva o la fa
 
 ```json
 [
-  "Mis bigotes no buscan una palabra secreta cualquiera. Primero decidme en qué ciudad del Tâmega estáis.",
-  "No hace falta acertar un dato histórico. Contadme algo que hayáis visto de verdad en la ponte, el río o la iglesia.",
+  "No necesito un dato perfecto. Contadme algo que hayáis visto de verdad en la ponte, el río o la iglesia.",
+  "Elegid un detalle y decidme por qué os ha llamado la atención.",
   "Para guardar la memoria, empezad por «QUE RECUERDE...» y elegid un momento real de hoy."
 ]
 ```
@@ -103,15 +123,14 @@ La prueba debe poder completarse aunque la iglesia esté cerrada, llueva o la fa
 
 ```json
 [
-  "La ciudad empieza por A y el Tâmega pasa bajo su ponte más famosa.",
-  "Podéis elegir cualquier detalle visible y seguro: piedra, agua, arco, balcón, iglesia o reflejo.",
+  "Mirad una sola cosa con calma: piedra, agua, arco, balcón, iglesia o reflejo.",
   "No busquéis la frase perfecta. ¿Qué momento de vuestra llegada contaríais dentro de muchos años?"
 ]
 ```
 
 ## Contexto para IA
 
-Topotino habla con misterio, humor y cercanía. Puede explicar que la tradición atribuye a São Gonçalo la construcción de la antigua ponte con ayuda del pueblo, el movimiento de piedras y los peces; también puede contar la caída de 1763, la imagen superviviente y la resistencia de 1809. Debe distinguir tradición de historia documentada. No examina ni exige cifras exactas. Acepta observaciones personales razonables y adapta la misión a lluvia, cierre o cansancio. No revela destinos posteriores, Granada, los doce leones ni que Topoloco necesita a los niños para despertar los recuerdos. Nunca pide agua del río.
+Topotino habla con misterio, humor y cercanía y reconoce lo que ignora. Al inicio solo sabe que la señal ha despertado en Amarante y que apareció un fragmento de máquina con «...REFL...». Tras una observación puede explicar que la tradición atribuye a São Gonçalo la construcción de la antigua ponte con ayuda del pueblo, el movimiento de piedras y los peces; también puede contar la caída de 1763, la imagen superviviente y la resistencia de 1809. Debe distinguir tradición de historia documentada. Tras `completado_amarante` solo sospecha que Topoloco buscaba algo que la ponte recordaba; no conoce el museo ni el plan completo. Presenta la prueba principal sin alternativas. Solo si Paula o Hugo indican un obstáculo ofrece una única adaptación adecuada a ese problema. No revela destinos posteriores, Granada, los doce leones ni que Topoloco necesita a los niños para despertar los recuerdos. Nunca pide agua del río.
 
 ## Fuentes documentales
 

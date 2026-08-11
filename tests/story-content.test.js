@@ -65,18 +65,56 @@ test('todos los capítulos publicados tienen estructura y referencias válidas',
     }
   }
 });
-test('los días 13 y 14 conservan su cadena narrativa y sus salidas seguras', async () => {
+
+test('Amarante se descubre antes de revelar la fecha', async () => {
+  const source = 'content/episodes/004b-rumbo-amarante.md';
+  const markdown = await readFile(join(root, source), 'utf8');
+  const episode = parseEpisode(markdown, source);
+  const initialText = episode.sections['Mensajes iniciales'].map((message) => message.text).join(' ');
+  const correct = episode.sections['Respuestas guiadas']
+    .find((response) => response.id === 'amarante-descubierto-antes-del-viaje');
+
+  assert.doesNotMatch(initialText, /13 de agosto|por la tarde/i);
+  assert.ok(correct, 'falta la respuesta correcta de Amarante');
+  assert.match(correct.messages.map((message) => message.text).join(' '), /13 de agosto · por la tarde/);
+});
+
+test('los días 13 y 14 conservan su cadena narrativa y adaptan solo tras un impedimento', async () => {
   const amarante = await readFile(join(root, 'content/episodes/005-amarante-puente.md'), 'utf8');
   const dayTwo = await readFile(join(root, 'content/episodes/006-magikland-curia.md'), 'utf8');
+  const amaranteEpisode = parseEpisode(amarante, 'content/episodes/005-amarante-puente.md');
+  const dayTwoEpisode = parseEpisode(dayTwo, 'content/episodes/006-magikland-curia.md');
 
   assert.match(amarante, /"date": \{ "on": "2026-08-13" \}/);
   assert.match(amarante, /"water": "Agua del Puente"/);
   assert.match(amarante, /"formulaWord": "COMIENZO"/);
   assert.match(amarante, /Nunca agua del río/);
+  assert.doesNotMatch(
+    amaranteEpisode.sections['Mensajes iniciales'].map((message) => message.text).join(' '),
+    /llueve|cerrado|cansad|si no podéis/i
+  );
+  assert.ok(
+    amaranteEpisode.sections['Respuestas guiadas']
+      .some((response) => response.id === 'amarante-alternativa-lluvia')
+  );
 
   assert.match(dayTwo, /"date": \{ "on": "2026-08-14" \}/);
   assert.match(dayTwo, /"water": "Agua de la Risa"/);
   assert.match(dayTwo, /"formulaWord": "RIO"/);
-  assert.match(dayTwo, /escribid DESCANSO/);
   assert.match(dayTwo, /No toquéis ni recojáis agua del lago o de la piscina/);
+  assert.doesNotMatch(
+    dayTwoEpisode.sections['Mensajes iniciales'].map((message) => message.text).join(' '),
+    /cerrado|miedo|cansad|cambio de plan/i
+  );
+  assert.ok(
+    dayTwoEpisode.sections['Respuestas guiadas']
+      .some((response) => response.id === 'curia-alternativa-cambio-plan')
+  );
+
+  const childFacingText = [amaranteEpisode, dayTwoEpisode].flatMap((episode) => [
+    ...episode.sections['Mensajes iniciales'].map((message) => message.text),
+    ...episode.sections['Respuestas guiadas']
+      .flatMap((response) => (response.messages || []).map((message) => message.text))
+  ]).join(' ');
+  assert.doesNotMatch(childFacingText, /Museo Topoloco de Recuerdos Exclusivos/i);
 });

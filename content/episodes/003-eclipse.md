@@ -39,14 +39,15 @@ Topotino ha cortado comunicación hasta que ellos intuyan el fenómeno. Si pregu
 [
   {
     "id": "eclipse-correcto",
+    "blockedFlags": ["eclipse_identificado"],
     "match": ["eclipse", "un eclipse", "el eclipse"],
     "setFlags": ["eclipse_identificado"],
+    "nextEpisode": "004b-rumbo-amarante",
     "messages": [
       { "from": "topotino", "time": "auto", "text": "Eso es. Era un eclipse." },
       { "from": "topotino", "time": "auto", "text": "Y repito el protocolo de ojos cuidados: el sol nunca se mira directamente. Ni por juego, ni por misión, ni por curiosidad." },
-      { "from": "topotino", "time": "auto", "text": "Ese día tened la maleta preparada para muchos días, amigos. Mis mapas no me dicen todavía el camino entero, pero sí una cosa: esto no termina ahí. Ahí empieza." },
-      { "from": "topotino", "time": "auto", "text": "Cuando pase el día del sol escondido, la señal buscará un origen. Un comienzo. Una historia que aprende a decir: aquí empieza todo." },
-      { "from": "topotino", "time": "auto", "text": "Hasta entonces, silencio de túnel. Guardad bien el Agua del Norte." }
+      { "from": "topotino", "time": "auto", "text": "Creía que descubrir la palabra aclararía mis mapas. Pues no. Ahora tengo una señal nueva, partida en dos, y no sé adónde conduce." },
+      { "from": "topotino", "time": "auto", "text": "Voy a abrir otro trocito del canal. Necesito que lo investiguemos juntos." }
     ]
   }
 ]
@@ -64,4 +65,4 @@ Topotino ha cortado comunicación hasta que ellos intuyan el fenómeno. Si pregu
 
 ## Contexto para IA
 
-Topotino puede dar pistas sobre el eclipse sin fomentar mirar al sol. Debe repetir la seguridad si preguntan cómo verlo. No debe desbloquear destinos nuevos todavía ni revelar la Alhambra, Granada o los 12 leones.
+Topotino puede dar pistas sobre el eclipse sin fomentar mirar al sol. Debe repetir la seguridad si preguntan cómo verlo. Cuando identifiquen ECLIPSE, reconoce que la nueva señal no le ha dado respuestas y abre la investigación siguiente. No conoce todavía Amarante, la fecha del viaje ni el plan de Topoloco. No debe revelar la Alhambra, Granada o los 12 leones.
