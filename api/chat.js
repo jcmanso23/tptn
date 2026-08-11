@@ -1,6 +1,8 @@
 import { generateText } from 'ai';
+import { createOpenAI } from '@ai-sdk/openai';
 
 const DEFAULT_MODEL = 'openai/gpt-5.4-mini';
+const DEFAULT_OPENAI_MODEL = 'gpt-5.4-mini';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -50,22 +52,43 @@ export default async function handler(req, res) {
     mensajesRecientes: body.recentMessages || []
   };
 
+  const generationOptions = {
+    system: systemPrompt,
+    prompt: `Contexto permitido:\n${JSON.stringify(context, null, 2)}\n\nMensaje de Paula y Hugo:\n${userMessage}`,
+    maxOutputTokens: 220
+  };
+
   try {
-    const { text, usage } = await generateText({
-      model: process.env.AI_MODEL || DEFAULT_MODEL,
-      system: systemPrompt,
-      prompt: `Contexto permitido:\n${JSON.stringify(context, null, 2)}\n\nMensaje de Paula y Hugo:\n${userMessage}`,
-      maxOutputTokens: 220,
-      providerOptions: {
-        gateway: {
-          user: 'topotino-family',
-          tags: ['feature:topotino-chat', `episode:${context.episodioActivo}`]
+    const gatewayModel = process.env.AI_MODEL || DEFAULT_MODEL;
+    let provider = 'vercel-ai-gateway';
+    let result;
+
+    try {
+      result = await generateText({
+        ...generationOptions,
+        model: gatewayModel,
+        providerOptions: {
+          gateway: {
+            user: 'topotino-family',
+            tags: ['feature:topotino-chat', `episode:${context.episodioActivo}`]
+          }
         }
-      }
-    });
+      });
+    } catch (gatewayError) {
+      if (!process.env.OPENAI_API_KEY) throw gatewayError;
+
+      provider = 'openai-direct-fallback';
+      const openai = createOpenAI({ apiKey: process.env.OPENAI_API_KEY });
+      result = await generateText({
+        ...generationOptions,
+        model: openai(process.env.OPENAI_MODEL || DEFAULT_OPENAI_MODEL)
+      });
+    }
+
+    const { text, usage } = result;
 
     console.log('Topotino AI response', {
-      model: process.env.AI_MODEL || DEFAULT_MODEL,
+      provider,
       inputTokens: usage?.inputTokens,
       outputTokens: usage?.outputTokens
     });
@@ -74,11 +97,12 @@ export default async function handler(req, res) {
       reply: text || 'La señal llega entrecortada. Repetidlo con calma, agentes.'
     });
   } catch (error) {
-    console.error('AI Gateway request failed', {
+    console.error('Topotino AI request failed', {
       name: error?.name,
       message: error?.message,
       statusCode: error?.statusCode,
-      model: process.env.AI_MODEL || DEFAULT_MODEL
+      gatewayModel: process.env.AI_MODEL || DEFAULT_MODEL,
+      hasOpenAIFallback: Boolean(process.env.OPENAI_API_KEY)
     });
     return res.status(503).json({ error: 'AI_UNAVAILABLE' });
   }
