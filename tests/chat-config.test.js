@@ -21,6 +21,8 @@ test('la conversación libre usa Luna y conserva los turnos con sus roles', asyn
   assert.match(source, /agradécelo de forma concreta/);
   assert.match(source, /interpreta a Topoloco como inteligente, huidizo/);
   assert.match(source, /Topotino no los recuerda ni los afirma/);
+  assert.match(source, /Topoloco nunca es amigo, compañero ni aliado/);
+  assert.match(source, /no rellena ese vacío con una relación inventada/);
   assert.match(source, /maxDuration: 30/);
   assert.doesNotMatch(source, /contextoNarrativo:|narrativeContext/);
 });
