@@ -1,5 +1,7 @@
 # Cómo escribir capítulos de Topotino
 
+Antes de crear, corregir o publicar cualquier misión, lee y actualiza [`GUIA-COHERENCIA-NARRATIVA.md`](GUIA-COHERENCIA-NARRATIVA.md). Es el documento maestro del canon, los secretos, el recorrido y la propagación de cambios hacia todas las misiones futuras.
+
 Cada capítulo o submisión es un archivo `.md` en `content/episodes/` y debe estar listado en `content/episodes.json`.
 
 La app carga todos los MD, pero solo muestra los mensajes de un capítulo cuando su `activation` se cumple. Las condiciones no se pisan entre sí: puedes combinar respuesta, flags, fecha, hora y ubicación. Por defecto deben cumplirse todas; usa `"mode": "any"` si basta con que se cumpla una.
