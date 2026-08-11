@@ -4,7 +4,7 @@
 
 **Última actualización:** 11 de agosto de 2026
 
-**Estado:** nuevo arco aprobado; eclipse, transición y días 13–14 en desarrollo
+**Estado:** nuevo arco aprobado; eclipse, transición y días 13–14 publicados
 
 **Viaje principal:** 13–27 de agosto de 2026
 
@@ -319,10 +319,10 @@ Ninguna reserva o destino es imprescindible. Un cambio real se registra en esta 
 |---:|---|---|---|---|
 | 1 | Londres | Vivida | `LONDRES BRILLA` | La aventura era mayor de lo que parecía |
 | 2 | Luanco | Vivida por confirmar | Agua del Norte | El agua conserva recuerdos |
-| 3 | 12 ago | En reescritura | Eclipse y amnesia | Topotino confía en ellos y dejó una salvaguarda |
-| 4 | 12–13 ago | En reescritura | Diario y descubrimiento de Amarante | Deben ir el 13 por la tarde |
-| 5 | 13 ago | En reescritura | Agua del Puente | Topoloco buscaba algo que la ponte recordaba |
-| 6 | 14 ago | Ajuste de continuidad | Agua de la Risa | El significado, no el ruido, despierta memoria emocional |
+| 3 | 12 ago | Publicada | Eclipse y amnesia | Topotino confía en ellos y dejó una salvaguarda |
+| 4 | 12–13 ago | Publicada | Diario y descubrimiento de Amarante | Deben ir el 13 por la tarde |
+| 5 | 13 ago | Publicada | Agua del Puente | Una figura buscaba algo que la ponte recordaba |
+| 6 | 14 ago | Publicada | Agua de la Risa | El significado, no el ruido, despierta memoria emocional |
 | 7–15 | 15–26 ago | Boceto aprobado; pendientes día a día | Arco de las doce aguas | Revelación progresiva hasta la Alhambra nocturna |
 
 ## 18. Decisiones del 11 de agosto de 2026
