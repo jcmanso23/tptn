@@ -167,6 +167,12 @@ Recomendación: usa siempre una ventana privada o entra con `?topoadulto=1&reset
 - `004b-rumbo-amarante`: enlaza el eclipse con el viaje. Paula y Hugo deben descubrir Amarante antes de conocer la fecha y Topotino reconoce que ignora el motivo.
 - `004-guimaraes-origen`: episodio retirado que conserva un identificador técnico heredado para no romper partidas de ensayo.
 - `005-amarante-puente`: día 13 en Amarante, con observación de la ponte y elección de la primera memoria del viaje.
-- `006-magikland-curia`: día 14, con una búsqueda de movimientos en Magikland y un cierre de observación tranquila en Curia.
+- `006-magikland-curia`: día 14, Magikland y lectura histórica del Hotel do Parque en Curia.
+- `007` a `009`: Buçaco–Batalha–Fátima, tiempo profundo–Óbidos y Dino Parque–Lisboa.
+- `010` a `012`: ciencia–Oceanário, Lisboa histórica–Belém y Badoca–Lagos.
+- `013` a `015`: delfines–Benagil–Sagres, Ponta–Algar Seco–HolaJaima y Zoomarine.
+- `016` y `017`: Tavira–Sevilla e Isla Mágica.
+- `018-sevilla-alhambra-noche`: cierre principal en la Alhambra nocturna el 26 de agosto.
+- `019-epilogo-generalife`: epílogo voluntario y regreso el 27.
 
-El arco publicado llega actualmente hasta Magikland y Curia, el 14 de agosto. Los días posteriores se desarrollan y publican uno a uno según la guía de coherencia.
+El arco completo del viaje está publicado. Cada día conserva recuperación por cambio real de plan y conversación libre con Luna.

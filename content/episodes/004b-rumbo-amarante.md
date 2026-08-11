@@ -30,7 +30,8 @@ Al terminar, Topotino indica directamente que deben estar en Amarante el 13 por 
 
 ```json
 [
-  { "from": "topotino", "time": "auto", "text": "Primer dibujo: «TÂM...». Segundo dibujo: una ponte con un pez debajo. No hay fecha ni ciudad. Mi yo anterior daba por hecho que sabría interpretarlo. Optimista el señor." },
+  { "from": "topotino", "time": "auto", "text": "Veo algo... dos dibujos..." },
+  { "from": "topotino", "time": "auto", "text": "El primer dibujo pone «TÂM...» y el segundo dibujo es una ponte con un pez debajo. No hay fecha ni ciudad. Mi yo anterior daba por hecho que sabría interpretarlo. Optimista el topillo." },
   { "from": "topotino", "time": "auto", "text": "Creo —solo creo— que puede apuntar a Portugal y a una ciudad atravesada por ese río. Investigadlo como buenos detectives: río, ponte y pez tienen que encajar a la vez. Enviadme el nombre cuando tengáis una hipótesis." }
 ]
 ```
@@ -71,7 +72,8 @@ Al terminar, Topotino indica directamente que deben estar en Amarante el 13 por 
     "minWords": 1,
     "setFlags": ["amarante_pista_sao_goncalo"],
     "messages": [
-      { "from": "topotino", "time": "auto", "text": "Esa tampoco reúne todas las pruebas. Gracias por seguir afinando: el pez acaba de señalar una inscripción diminuta, «São Gonçalo». Puede ser el nombre de la ponte o de alguien ligado a ella." },
+      { "from": "topotino", "time": "auto", "text": "Esa tampoco reúne todas las pruebas. Gracias por seguir buscando" },
+      { "from": "topotino", "time": "auto", "text": "He sacado mi lupa y en el pez leo una inscripción diminuta, «São Gonçalo». Puede ser el nombre de la ponte o de alguien ligado a ella." },
       { "from": "topotino", "time": "auto", "text": "Tenemos Tâmega, São Gonçalo y una ciudad portuguesa que empieza por A." }
     ]
   },

@@ -1,38 +1,24 @@
 [
-  {
-    "id": "001-reconexion",
-    "file": "content/episodes/001-reconexion.md?v=memory-v22"
-  },
-  {
-    "id": "002-luanco-llegada",
-    "file": "content/episodes/002-luanco-primera-gota.md?v=memory-v22"
-  },
-  {
-    "id": "003-luanco-agua-norte",
-    "file": "content/episodes/003-luanco-agua-norte.md?v=memory-v22"
-  },
-  {
-    "id": "004-eclipse",
-    "file": "content/episodes/003-eclipse.md?v=memory-v22"
-  },
-  {
-    "id": "004c-eclipse-amnesia",
-    "file": "content/episodes/003-eclipse-amnesia.md?v=memory-v22"
-  },
-  {
-    "id": "004b-rumbo-amarante",
-    "file": "content/episodes/004b-rumbo-amarante.md?v=memory-v22"
-  },
-  {
-    "id": "004-guimaraes-origen",
-    "file": "content/episodes/004-guimaraes-origen.md?v=memory-v22"
-  },
-  {
-    "id": "005-amarante-puente",
-    "file": "content/episodes/005-amarante-puente.md?v=memory-v22"
-  },
-  {
-    "id": "006-magikland-curia",
-    "file": "content/episodes/006-magikland-curia.md?v=memory-v22"
-  }
+  { "id": "001-reconexion", "file": "content/episodes/001-reconexion.md?v=memory-v23" },
+  { "id": "002-luanco-llegada", "file": "content/episodes/002-luanco-primera-gota.md?v=memory-v23" },
+  { "id": "003-luanco-agua-norte", "file": "content/episodes/003-luanco-agua-norte.md?v=memory-v23" },
+  { "id": "004-eclipse", "file": "content/episodes/003-eclipse.md?v=memory-v23" },
+  { "id": "004c-eclipse-amnesia", "file": "content/episodes/003-eclipse-amnesia.md?v=memory-v23" },
+  { "id": "004b-rumbo-amarante", "file": "content/episodes/004b-rumbo-amarante.md?v=memory-v23" },
+  { "id": "004-guimaraes-origen", "file": "content/episodes/004-guimaraes-origen.md?v=memory-v23" },
+  { "id": "005-amarante-puente", "file": "content/episodes/005-amarante-puente.md?v=memory-v23" },
+  { "id": "006-magikland-curia", "file": "content/episodes/006-magikland-curia.md?v=memory-v23" },
+  { "id": "007-bucaco-batalha-fatima", "file": "content/episodes/007-bucaco-batalha-fatima.md?v=memory-v23" },
+  { "id": "008-huellas-mira-obidos", "file": "content/episodes/008-huellas-mira-obidos.md?v=memory-v23" },
+  { "id": "009-dinoparque-lisboa", "file": "content/episodes/009-dinoparque-lisboa.md?v=memory-v23" },
+  { "id": "010-lisboa-ciencia-oceanario", "file": "content/episodes/010-lisboa-ciencia-oceanario.md?v=memory-v23" },
+  { "id": "011-lisboa-historia-belem", "file": "content/episodes/011-lisboa-historia-belem.md?v=memory-v23" },
+  { "id": "012-badoca-lagos", "file": "content/episodes/012-badoca-lagos.md?v=memory-v23" },
+  { "id": "013-delfines-benagil-sagres", "file": "content/episodes/013-delfines-benagil-sagres.md?v=memory-v23" },
+  { "id": "014-piedade-algar-jaima", "file": "content/episodes/014-piedade-algar-jaima.md?v=memory-v23" },
+  { "id": "015-zoomarine", "file": "content/episodes/015-zoomarine.md?v=memory-v23" },
+  { "id": "016-tavira-sevilla", "file": "content/episodes/016-tavira-sevilla.md?v=memory-v23" },
+  { "id": "017-isla-magica", "file": "content/episodes/017-isla-magica.md?v=memory-v23" },
+  { "id": "018-sevilla-alhambra-noche", "file": "content/episodes/018-sevilla-alhambra-noche.md?v=memory-v23" },
+  { "id": "019-epilogo-generalife", "file": "content/episodes/019-epilogo-generalife.md?v=memory-v23" }
 ]

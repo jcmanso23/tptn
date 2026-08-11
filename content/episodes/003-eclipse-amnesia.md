@@ -8,7 +8,7 @@
   "activation": {
     "mode": "all",
     "required": ["agua_norte_recogida"],
-    "dateTime": { "from": "2026-08-12T20:35:00+02:00" }
+    "dateTime": { "from": "2026-08-12T20:31:00+02:00" }
   },
   "mission": "Reconstruir el primer recuerdo",
   "formulaWord": null,
@@ -24,7 +24,7 @@
 
 Después del eclipse, Topotino reaparece desorientado. Topoloco ha utilizado el Borrador de Reflejos contra él, pero esto permanece secreto hasta la Alhambra nocturna. Topotino conserva su identidad, su personalidad y la certeza emocional de que Paula y Hugo son sus amigos. Ha olvidado Londres, Luanco, su investigación, el plan enemigo y su propio contraataque. Desde este momento forma recuerdos nuevos normalmente.
 
-La aventura no exige observar el eclipse. Es obligatorio recordar que el sol nunca se mira directamente y que solo se usan medios homologados siguiendo a los adultos.
+El eclipse ya ha pasado.
 
 Topotino encuentra en la madriguera una placa escrita por él: «PAULA Y HUGO SON TUS AMIGOS. CONFÍA EN ELLOS. TOP O LOCO: PLAN DE LAS AGUAS. CANAL PREPARADO. SI OLVIDAS, ELLOS TE AYUDARÁN A RECORDAR. NO DEJES QUE ÉL SEA EL ÚNICO DUEÑO DE LA HISTORIA». También encuentra: «EL AGUA NO GUARDA LO QUE MIRAS. GUARDA CÓMO LO VIV...».
 
@@ -35,9 +35,10 @@ Tras escuchar un recuerdo verdadero, pide preparar un cuaderno físico: el Cuade
 ```json
 [
   { "from": "topotino", "time": "auto", "text": "¿Paula? ¿Hugo? Sé vuestros nombres. Sé que sois mis amigos. No recuerdo por qué, pero al leeros se me aflojan los bigotes, y ahora mismo esa es la única cosa de mi cabeza que no está llena de niebla." },
-  { "from": "topotino", "time": "auto", "text": "Ha ocurrido algo durante el eclipse. Primero: si lo habéis observado, siempre con los adultos y protección homologada. El sol nunca se mira directamente. Ni por una aventura, ni por mí, ni por nada." },
-  { "from": "topotino", "time": "auto", "text": "No recuerdo Londres. No recuerdo Luanco. En mi pared hay una placa escrita por mí que dice que confíe en vosotros y que alguien —o algo— llamado «TOP O LOCO» tiene un plan relacionado con aguas. Francamente, mi yo de antes escribía fatal bajo presión." },
-  { "from": "topotino", "time": "auto", "text": "Necesito comprobar que esos recuerdos existieron. Contadme un momento verdadero que hayamos vivido juntos y un detalle pequeño que un desconocido no podría inventar." }
+  { "from": "topotino", "time": "auto", "text": "Ha ocurrido algo durante el eclipse. ¿Lo habéis visto? ¿Estáis bien?" },
+  { "from": "topotino", "time": "auto", "text": "No recuerdo... nada" },
+  { "from": "topotino", "time": "auto", "text": "En mi pared hay una placa escrita por mí que dice que confíe en vosotros y que alguien —o algo— llamado «TOP O LOCO» tiene un plan relacionado con aguas. Francamente, mi yo de antes escribía fatal bajo presión." },
+  { "from": "topotino", "time": "auto", "text": "Por favor... ayudarme a recordar... ¿quién soy? ¿qué ese Top o loco? ¿de qué nos conocemos?" }
 ]
 ```
 
@@ -55,21 +56,24 @@ Tras escuchar un recuerdo verdadero, pide preparar un cuaderno físico: el Cuade
     "setFlags": ["topotino_memoria_perdida_confirmada"],
     "remember": { "kind": "shared_memory", "label": "Recuerdo verdadero usado para que Topotino reconociera su pasado" },
     "messages": [
-      { "from": "topotino", "time": "auto", "text": "Gracias. No lo recuerdo todavía, pero ese detalle tiene bordes: no suena a una historia prestada. Y al escucharlo, el Agua del Norte ha vibrado. Creo que mi yo de antes la dejó como ancla para que no olvidara también a quién quería encontrar." },
+      { "from": "topotino", "time": "auto", "text": "Gracias. No lo recuerdo todavía, pero ese detalle.. me suena. Y al escucharlo, el Agua del Norte ha vibrado. Creo que mi yo de antes la dejó como ancla para que no olvidara también a quién quería encontrar." },
       { "from": "topotino", "time": "auto", "text": "He encontrado otra frase a medio borrar: «EL AGUA NO GUARDA LO QUE MIRAS. GUARDA CÓMO LO VIV...». Me fastidia admitirlo, pero mi letra parece saber más que yo." },
-      { "from": "topotino", "time": "auto", "text": "Necesitamos una memoria que no viaje por cables ni reflejos. Buscad cualquier cuaderno que podáis llevar durante el viaje. Será el Cuaderno de la Memoria. Paula podrá guardar una frase muy corta o una palabra; Hugo podrá dibujar, usar colores o inventar símbolos. También podéis dictárselo a un adulto. No tiene que quedar bonito; tiene que ser vuestro." }
+      { "from": "topotino", "time": "auto", "text": "Necesitamos una memoria que no viaje por cables ni reflejos. Buscad cualquier cuaderno que podáis llevar durante el viaje. Será el Cuaderno de la Memoria." },
+      { "from": "topotino", "time": "auto", "text": "Paula, puedes guardar frases breves, datos o conexiones que te parezcan importantes. Hugo, puedes dibujar lo que observéis y añadir detalles, símbolos o flechas. No tiene que quedar bonito; tiene que ayudaros a pensar y recordar." },
+      { "from": "topotino", "time": "auto", "text": "Lo que hagáis dentro será privado: no os pediré que me enseñéis, describáis, fotografiéis ni copiéis sus páginas en el comunicador." },
+      { "from": "topotino", "time": "auto", "text": "¿Podéis hacerlo? ¿Tenéis cuaderno?" }
     ]
   },
   {
     "id": "diario-dos-memorias-preparado",
     "requiredFlags": ["topotino_memoria_perdida_confirmada"],
     "blockedFlags": ["diario_iniciado"],
-    "containsAny": ["tenemos cuaderno", "tenemos diario", "diario preparado", "cuaderno preparado", "lo llevaremos", "usaremos una libreta", "hemos encontrado un cuaderno", "vale lo haremos", "vale, lo haremos"],
+    "containsAny": ["tenemos cuaderno", "tenemos diario", "si", "diario preparado", "cuaderno preparado", "lo llevaremos", "usaremos una libreta", "hemos encontrado un cuaderno", "vale lo haremos", "vale, lo haremos"],
     "setFlags": ["diario_iniciado"],
     "nextEpisode": "004b-rumbo-amarante",
     "messages": [
-      { "from": "topotino", "time": "auto", "text": "Gracias. Guardadlo con vosotros. Lo que hagáis dentro será privado: no os pediré que me enseñéis, describáis ni copiéis sus páginas en el comunicador." },
-      { "from": "topotino", "time": "auto", "text": "En la primera página cread entre los dos una marca secreta. Puede mezclar letras, dibujo, forma o color. No me la mandéis ni me digáis cuál es. Servirá para reconocer vuestro cuaderno original. Y recordad esta regla: el Topotino verdadero nunca os pedirá que reveléis esa marca ni el contenido de las páginas." },
+      { "from": "topotino", "time": "auto", "text": "Gracias. Guardadlo con vosotros. No necesito saber qué vais poniendo." },
+      { "from": "topotino", "time": "auto", "text": "En la primera página cread entre los dos una marca secreta. Puede mezclar letras, dibujo, forma o color. No me la mandéis ni me digáis cuál es. Servirá para reconocer vuestro cuaderno original. Y recordad que el Topotino verdadero nunca os pedirá que reveléis esa marca ni el contenido de las páginas." },
       { "from": "topotino", "time": "auto", "text": "La placa tiene dos dibujos en el reverso. No sé qué significan, pero los investigaremos juntos." }
     ]
   },

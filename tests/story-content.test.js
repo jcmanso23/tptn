@@ -89,10 +89,10 @@ test('el eclipse activa la amnesia, el cuaderno y una memoria nueva estable', as
   const eclipse = await readFile(join(root, 'content/episodes/003-eclipse-amnesia.md'), 'utf8');
   const episode = parseEpisode(eclipse, 'content/episodes/003-eclipse-amnesia.md');
 
-  assert.match(eclipse, /"dateTime": \{ "from": "2026-08-12T20:35:00\+02:00" \}/);
+  assert.match(eclipse, /"dateTime": \{ "from": "2026-08-12T20:31:00\+02:00" \}/);
   assert.match(eclipse, /Cuaderno de la Memoria/);
   assert.match(eclipse, /exigencia aproximada de diez años/);
-  assert.match(eclipse, /no os pediré que me enseñéis, describáis ni copiéis sus páginas/);
+  assert.match(eclipse, /no os pediré que me enseñéis, describáis, fotografiéis ni copiéis sus páginas/);
   assert.match(eclipse, /Desde ahora recuerda con normalidad todo lo nuevo/);
   assert.ok(
     episode.sections['Respuestas guiadas']
@@ -141,6 +141,9 @@ test('los días 13 y 14 conservan su cadena narrativa y adaptan solo tras un imp
     dayTwoEpisode.sections['Respuestas guiadas']
       .some((response) => response.id === 'curia-alternativa-cambio-plan')
   );
+  assert.match(dayTwo, /Hotel do Parque/);
+  assert.match(dayTwo, /abrió en 1922/);
+  assert.match(dayTwo, /jardín cuidado/);
 
   const dayTwoInitial = dayTwoEpisode.sections['Mensajes iniciales'];
   assert.ok(dayTwoInitial.some((message) => message.requiredFlags?.includes('completado_amarante')));
@@ -155,4 +158,111 @@ test('los días 13 y 14 conservan su cadena narrativa y adaptan solo tras un imp
   assert.doesNotMatch(childFacingText, /Su palabra es (COMIENZO|RÍO)/i);
   assert.doesNotMatch(childFacingText, /contadme.{0,80}(qué|que).{0,40}(cuaderno|diario)/i);
   assert.doesNotMatch(childFacingText, /(foto|fotografía).{0,30}(cuaderno|diario)/i);
+});
+
+test('el viaje completo del 15 al 27 está publicado, enlazado y termina de noche en la Alhambra', async () => {
+  const manifest = JSON.parse(await readFile(join(root, 'content/episodes.json'), 'utf8'));
+  const expected = [
+    ['007-bucaco-batalha-fatima', '2026-08-15'], ['008-huellas-mira-obidos', '2026-08-16'],
+    ['009-dinoparque-lisboa', '2026-08-17'], ['010-lisboa-ciencia-oceanario', '2026-08-18'],
+    ['011-lisboa-historia-belem', '2026-08-19'], ['012-badoca-lagos', '2026-08-20'],
+    ['013-delfines-benagil-sagres', '2026-08-21'], ['014-piedade-algar-jaima', '2026-08-22'],
+    ['015-zoomarine', '2026-08-23'], ['016-tavira-sevilla', '2026-08-24'],
+    ['017-isla-magica', '2026-08-25'], ['018-sevilla-alhambra-noche', '2026-08-26'],
+    ['019-epilogo-generalife', '2026-08-27']
+  ];
+  const allChildText = [];
+
+  for (const [id, date] of expected) {
+    const item = manifest.find((entry) => entry.id === id);
+    assert.ok(item, `falta ${id} en el manifiesto`);
+    const source = item.file.replace(/\?.*$/, '');
+    const markdown = await readFile(join(root, source), 'utf8');
+    const episode = parseEpisode(markdown, source);
+    assert.equal(episode.meta.activation.date.on, date, `${id}: fecha incorrecta`);
+    assert.ok(episode.sections['Respuestas guiadas'].length >= 2, `${id}: aventura demasiado vacía`);
+    allChildText.push(...episode.sections['Mensajes iniciales'].map((message) => message.text));
+    allChildText.push(...episode.sections['Respuestas guiadas']
+      .flatMap((response) => (response.messages || []).map((message) => message.text)));
+  }
+
+  const finalEpisode = await readFile(join(root, 'content/episodes/018-sevilla-alhambra-noche.md'), 'utf8');
+  assert.match(finalEpisode, /A las 22:00/);
+  assert.match(finalEpisode, /Patio de los Leones/);
+  assert.match(finalEpisode, /doce_aguas_reunidas/);
+  assert.match(finalEpisode, /Topoloco provocó el eclipse de mi memoria/);
+  assert.match(finalEpisode, /La aventura principal termina aquí, en la Alhambra de noche/);
+
+  const text = allChildText.join(' ');
+  assert.match(text, /jamás os pediría la marca, una foto ni el contenido del cuaderno/i);
+  assert.match(text, /Enviad únicamente la conclusión y una razón; ninguna página/i);
+  assert.match(text, /descansad/i);
+});
+
+test('las pruebas nuevas exigen evidencia física, variedad y personajes reales sin regalar alternativas', async () => {
+  const sources = [
+    '007-bucaco-batalha-fatima.md', '008-huellas-mira-obidos.md', '009-dinoparque-lisboa.md',
+    '010-lisboa-ciencia-oceanario.md', '011-lisboa-historia-belem.md', '012-badoca-lagos.md',
+    '013-delfines-benagil-sagres.md', '014-piedade-algar-jaima.md', '015-zoomarine.md',
+    '016-tavira-sevilla.md', '017-isla-magica.md', '018-sevilla-alhambra-noche.md'
+  ];
+  const combined = [];
+
+  for (const file of sources) {
+    const source = `content/episodes/${file}`;
+    const markdown = await readFile(join(root, source), 'utf8');
+    const episode = parseEpisode(markdown, source);
+    const initial = episode.sections['Mensajes iniciales'].map((message) => message.text).join(' ');
+    assert.doesNotMatch(initial, /si no podéis|si está cerrado|alternativa/i, `${file}: adelanta alternativa`);
+    combined.push(markdown);
+  }
+
+  const text = combined.join('\n');
+  for (const concept of ['predicción', 'hipótesis', 'comparad', 'evidencia', 'interpretación', 'Vasco', 'Gotas', 'Corvinho', 'Capitán Pico', 'América']) {
+    assert.match(text, new RegExp(concept, 'i'), `falta variedad o personaje: ${concept}`);
+  }
+  assert.match(text, /No uséis|No toquéis|no lo alimentéis|no se garantiza/i);
+});
+
+test('la secuencia principal puede recorrerse y reúne exactamente las doce aguas', async () => {
+  const manifest = JSON.parse(await readFile(join(root, 'content/episodes.json'), 'utf8'));
+  const waters = new Set();
+  const completionFlags = new Set();
+
+  for (const item of manifest) {
+    const source = item.file.replace(/\?.*$/, '');
+    const episode = parseEpisode(await readFile(join(root, source), 'utf8'), source);
+    if (episode.meta.water) waters.add(episode.meta.water);
+    for (const response of episode.sections['Respuestas guiadas']) {
+      if (response.water) waters.add(response.water);
+      for (const flag of response.setFlags || []) {
+        if (flag.startsWith('completado_')) completionFlags.add(flag);
+      }
+    }
+  }
+
+  assert.deepEqual([...waters], [
+    'Agua del Norte',
+    'Agua del Puente',
+    'Agua de la Risa',
+    'Agua de la Promesa',
+    'Agua del Tiempo Profundo',
+    'Agua del Océano Único',
+    'Agua de la Ciudad que Regresa',
+    'Agua del Horizonte',
+    'Agua de la Piedra',
+    'Agua del Cuidado',
+    'Agua de las Dos Orillas',
+    'Agua Clara de la Noche'
+  ]);
+  for (const flag of [
+    'completado_bucaco_batalha_fatima', 'completado_huellas_mira_obidos',
+    'completado_dinoparque_lisboa', 'completado_lisboa_ciencia_oceanario',
+    'completado_lisboa_historia_belem', 'completado_badoca_lagos',
+    'completado_delfines_benagil_sagres', 'completado_piedade_algar_jaima',
+    'completado_zoomarine', 'completado_tavira_sevilla', 'completado_isla_magica',
+    'completado_sevilla_alhambra_noche'
+  ]) {
+    assert.ok(completionFlags.has(flag), `falta la salida principal ${flag}`);
+  }
 });

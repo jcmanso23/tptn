@@ -26,7 +26,7 @@ Es 14 de agosto. La jornada contrapone movimiento y quietud, pero no mediante un
 
 Magikland se divide en África, Mundo da Confusão, Aldeia Medieval, Refúgio dos Piratas, Far-West y Souk. Ofrece rotaciones, oscilaciones, desplazamientos, subidas, bajadas y recorridos de agua. Ninguna fase exige montar en una atracción concreta. Topoloco ha dejado un Cazarrisas Hidráulico que intenta separar el sonido de una risa, la causa y el recuerdo que deja. Su primer fracaso registra su propio grito, pero el segundo le permite aprender que Paula y Hugo despiertan memorias al interpretar lo vivido.
 
-El Parque da Curia tiene lago artificial, pontes, jardines, casa de té y pedalós cuando están operativos. La investigación distingue elementos diseñados por personas de procesos naturales y comprueba cómo cambia un reflejo cuando cambia la posición del observador. Si el parque no es posible, se conserva la misma exigencia usando el lugar real de descanso, una ventana y agua potable.
+En Curia duermen, pero la investigación se centra en el Hotel do Parque: un edificio de 1922 restaurado como hotel, con decoración clásica, suelos de madera, patio, piscina y jardín. La prueba distingue huellas de su época original de las adaptaciones y usos actuales; después conserva el experimento de reflejo en el jardín, la piscina, una ventana o agua potable.
 
 El Cuaderno de la Memoria continúa privado. Topotino no pide que cuenten qué escriben o dibujan. La palabra técnica `RIO` y la flag antigua `diario_magikland_curia` se conservan silenciosamente. Al cerrar despierta el Agua de la Risa, aparece una pista sensorial hacia Buçaco y Topotino pide descanso.
 
@@ -138,7 +138,7 @@ El Cuaderno de la Memoria continúa privado. Topotino no pide que cuenten qué e
     "remember": { "kind": "meaningful_event", "label": "Momento significativo de Magikland y explicación de su causa" },
     "messages": [
       { "from": "topotino", "time": "auto", "text": "Gracias. Habéis separado el fenómeno, su causa y el significado. El aparato reacciona al significado del recuerdo, no a sus decibelios. Acaba de imprimir «MUESTRA VÁLIDA · AJUSTAR SIGUIENTE CAPTURA». Topoloco no solo estaba midiendo el parque: está aprendiendo de cómo razonáis." },
-      { "from": "topotino", "time": "auto", "text": "Cuando lleguéis a Curia, escribid CURIA. Allí comprobaremos si la memoria necesita algo más que movimiento." }
+      { "from": "topotino", "time": "auto", "text": "La siguiente coordenada no señala Curia entera. Señala un edificio que abrió en 1922 y todavía recibe viajeros. Cuando encontréis el Hotel do Parque, escribid HOTEL DO PARQUE. Allí comprobaremos si un lugar puede conservar memoria aunque cambie de uso." }
     ]
   },
   {
@@ -148,7 +148,7 @@ El Cuaderno de la Memoria continúa privado. Topotino no pide que cuenten qué e
     "containsAny": ["no vamos a curia", "no iremos a curia", "hemos cambiado el plan", "cambio de plan", "no podemos ir a curia"],
     "setFlags": ["curia_llegada", "curia_recuperacion_lugar_real"],
     "messages": [
-      { "from": "topotino", "time": "auto", "text": "Cambio real anotado. No fingiremos estar en Curia. En el lugar donde descanséis buscad un elemento diseñado por personas y otro producido por la naturaleza. Si hay agua potable, ventana, jardín o piscina visible, usadlos sin tocar ni recoger agua. Explicad qué indicios os permiten distinguirlos." }
+      { "from": "topotino", "time": "auto", "text": "Cambio real anotado. No fingiremos estar en el Hotel do Parque. En el alojamiento real buscad dos indicios de un edificio de otra época y una adaptación que permita usarlo hoy. Después justificad vuestra clasificación." }
     ]
   },
   {
@@ -158,17 +158,17 @@ El Cuaderno de la Memoria continúa privado. Topotino no pide que cuenten qué e
     "containsAny": ["estamos muy cansados", "no podemos mas", "no podemos más", "queremos ir al hotel", "nos vamos al hotel"],
     "setFlags": ["curia_llegada", "curia_recuperacion_lugar_real"],
     "messages": [
-      { "from": "topotino", "time": "auto", "text": "Entonces al hotel y se investiga sentados. Buscad desde allí un elemento diseñado por personas y otro natural. Explicad qué señales permiten distinguirlos. La dificultad está en justificar, no en seguir caminando." }
+      { "from": "topotino", "time": "auto", "text": "Entonces se investiga sentados en el hotel. Buscad dos indicios de que el edificio pertenece a otra época y una adaptación que permita usarlo hoy. La dificultad está en justificar, no en seguir caminando." }
     ]
   },
   {
     "id": "curia-llegada",
     "requiredFlags": ["magikland_recuerdo_elegido"],
     "blockedFlags": ["curia_llegada"],
-    "match": ["curia", "hemos llegado a curia", "estamos en curia"],
+    "match": ["hotel do parque", "hemos llegado al hotel do parque", "estamos en el hotel do parque", "curia"],
     "setFlags": ["curia_llegada"],
     "messages": [
-      { "from": "topotino", "time": "auto", "text": "Cambio de ritmo. El lago de Curia es artificial, pero el parque también contiene vegetación, sonidos y cambios naturales. Desde un punto seguro, identificad dos indicios de diseño humano y dos de procesos naturales. No basta con nombrarlos: explicad qué evidencia os permite clasificarlos." }
+      { "from": "topotino", "time": "auto", "text": "Edificio localizado. El Hotel do Parque abrió en 1922 y ha sido restaurado para seguir recibiendo viajeros. Encontrad dos indicios visibles de su época original —fachada, simetría, ventanas, balcón, madera o decoración— y una adaptación o uso actual —recepción, iluminación, piscina, jardín cuidado o equipamiento—. Explicad por qué cada detalle pertenece a una capa distinta." }
     ]
   },
   {
@@ -177,13 +177,13 @@ El Cuaderno de la Memoria continúa privado. Topotino no pide que cuenten qué e
     "blockedFlags": ["curia_paisaje_razonado"],
     "openAnswer": true,
     "minWords": 12,
-    "containsAnyGroups": [["artificial", "humano", "personas", "construido", "puente", "ponte", "pedal", "jardín", "jardin", "ventana", "vaso"], ["natural", "naturaleza", "árbol", "arbol", "hojas", "pájaros", "pajaros", "viento", "plantas", "animales"], ["porque", "indica", "se nota", "evidencia", "diseñado", "crece", "cambia"]],
-    "rejectContainsAny": ["todo natural", "todo artificial", "no se", "ni idea", "da igual"],
+    "containsAnyGroups": [["antiguo", "antigua", "clásico", "clasico", "1922", "fachada", "ventana", "balcón", "balcon", "madera", "decoración", "decoracion", "simetría", "simetria"], ["actual", "moderno", "hotel", "recepción", "recepcion", "piscina", "jardín", "jardin", "luz", "equipamiento", "restaurado"], ["porque", "indica", "se nota", "evidencia", "época", "epoca", "uso"]],
+    "rejectContainsAny": ["todo antiguo", "todo moderno", "no se", "ni idea", "da igual"],
     "setFlags": ["curia_paisaje_razonado"],
-    "remember": { "kind": "landscape_reasoning", "label": "Distinción entre diseño humano y procesos naturales en Curia o el lugar real" },
+    "remember": { "kind": "architectural_reasoning", "label": "Lectura de las capas históricas y actuales del Hotel do Parque" },
     "messages": [
-      { "from": "topotino", "time": "auto", "text": "Bien razonado. Un paisaje puede ser artificial y natural a la vez: alguien diseña el lago o la ponte, pero viento, reflejos, plantas y animales siguen transformando la experiencia." },
-      { "from": "topotino", "time": "auto", "text": "Última investigación. Elegid un reflejo seguro en el lago, una ventana o un vaso de agua potable. Observadlo desde un punto y cambiad después vuestra posición unos pasos, siempre con los adultos. Decid qué cambió, qué permaneció y si cambió el objeto, el reflejo o el observador. Añadid un sonido pequeño que solo percibisteis al deteneros." }
+      { "from": "topotino", "time": "auto", "text": "Bien razonado. El edificio no está congelado en 1922: conserva señales antiguas mientras incorpora usos nuevos. Una memoria fiable funciona igual; no borra lo anterior, pero admite capas posteriores." },
+      { "from": "topotino", "time": "auto", "text": "Última investigación. En el jardín, junto a la piscina o ante una ventana, elegid un reflejo seguro. Observadlo desde un punto y cambiad después vuestra posición unos pasos, siempre con los adultos. Decid qué cambió, qué permaneció y si cambió el objeto, el reflejo o el observador. Añadid un sonido pequeño que solo percibisteis al deteneros." }
     ]
   },
   {
@@ -258,7 +258,7 @@ El Cuaderno de la Memoria continúa privado. Topotino no pide que cuenten qué e
   "Buscad tres mecanismos reales y clasificadlos: rotación alrededor de un eje, oscilación de ida y vuelta y desplazamiento de un punto a otro.",
   "Una predicción completa dice dónde irá más rápido o despacio y propone una causa: altura, gravedad, impulso, rozamiento o corriente.",
   "Separad el momento del parque en fenómeno, causa y significado futuro.",
-  "En Curia o el lugar real, clasificad elementos humanos y naturales usando indicios visibles.",
+  "En el Hotel do Parque, buscad dos huellas de 1922 y una adaptación de su uso actual; justificad cada capa.",
   "En el reflejo distinguimos tres cosas: el objeto, su imagen y la posición desde la que observáis. Añadid el sonido pequeño que apareció al deteneros."
 ]
 ```
@@ -271,18 +271,19 @@ El Cuaderno de la Memoria continúa privado. Topotino no pide que cuenten qué e
   "Una noria rota; un barco pirata suele oscilar; un vehículo o una barca se desplaza. Buscad ejemplos reales allí.",
   "En muchos movimientos dominados por la gravedad, la velocidad cambia con la altura. Comprobadlo en el mecanismo que habéis elegido.",
   "El Cazarrisas puede registrar ruido, pero no sabe por qué ese instante os importará dentro de años.",
-  "Un lago artificial puede contener procesos naturales. Buscad evidencias de ambos tipos.",
+  "Una fachada, un balcón o la madera pueden conservar una época; una recepción, la iluminación o la piscina muestran el uso actual.",
   "Si cambiáis de posición y el objeto sigue quieto, ¿qué ha cambiado realmente: el objeto, la imagen visible o vuestro punto de vista?"
 ]
 ```
 
 ## Contexto para IA
 
-Topotino recuerda todo desde el eclipse y consulta la memoria de viaje persistente de respuestas del comunicador. Si falta `completado_amarante`, usa la rama de recuperación: reconoce que no despertaron el Agua del Puente y no atribuye a Paula y Hugo deducciones que no hicieron. Al inicio solo conoce el plano firmado `TOP O LOCO` y el rótulo Cazarrisas Hidráulico; la firma aumenta la sospecha, pero no demuestra todavía quién causó la amnesia. Tras `magikland_movimientos`, sabe qué mecanismos clasificaron y cómo justificaron el cambio de dirección. Tras `magikland_prediccion_movimiento`, recuerda su predicción y corrección. Tras `magikland_recuerdo_elegido`, recuerda el fenómeno, causa y significado del momento elegido. Tras `curia_paisaje_razonado`, sabe qué indicios usaron para distinguir diseño humano y procesos naturales. Tras `curia_quietud_observada`, recuerda su razonamiento sobre objeto, reflejo, observador y sonido; entonces recupera solo la sensación de haberse reído con ellos en Londres. Conversa a nivel intelectual aproximado de diez años con ambos. Puede pedir razones, señalar una contradicción y aceptar que lo corrijan. No simplifica por la edad de Hugo. El Cuaderno de la Memoria es privado: no pide, conoce ni inventa su contenido. Presenta la prueba principal antes de adaptar y solo cambia la evidencia ante el impedimento comunicado. No pide agua de atracciones, piscinas o lago. Después de `completado_magikland_curia`, sabe que despertó el Agua de la Risa y que Topoloco aprendió algo de sus respuestas, pero no conoce el museo, el número de aguas ni que necesita a los niños. Al cerrar conduce mediante la pista del bosque y pide descanso. No revela Buçaco por su nombre, Granada ni los doce leones.
+Topotino recuerda todo desde el eclipse y consulta la memoria de viaje persistente de respuestas del comunicador. Si falta `completado_amarante`, usa la rama de recuperación: reconoce que no despertaron el Agua del Puente y no atribuye a Paula y Hugo deducciones que no hicieron. Al inicio solo conoce el plano firmado `TOP O LOCO` y el rótulo Cazarrisas Hidráulico; la firma aumenta la sospecha, pero no demuestra todavía quién causó la amnesia. Tras `magikland_movimientos`, sabe qué mecanismos clasificaron y cómo justificaron el cambio de dirección. Tras `magikland_prediccion_movimiento`, recuerda su predicción y corrección. Tras `magikland_recuerdo_elegido`, recuerda el fenómeno, causa y significado del momento elegido. Tras `curia_paisaje_razonado`, sabe qué huellas de 1922 y qué adaptación actual identificaron en el Hotel do Parque. Tras `curia_quietud_observada`, recuerda su razonamiento sobre objeto, reflejo, observador y sonido; entonces recupera solo la sensación de haberse reído con ellos en Londres. Conversa a nivel intelectual aproximado de diez años con ambos. Puede pedir razones, señalar una contradicción y aceptar que lo corrijan. No simplifica por la edad de Hugo. El Cuaderno de la Memoria es privado: no pide, conoce ni inventa su contenido. Presenta la prueba principal antes de adaptar y solo cambia la evidencia ante el impedimento comunicado. No pide agua de atracciones, piscinas o lago. Después de `completado_magikland_curia`, sabe que despertó el Agua de la Risa y que Topoloco aprendió algo de sus respuestas, pero no conoce el museo, el número de aguas ni que necesita a los niños. Al cerrar conduce mediante la pista del bosque y pide descanso. No revela Buçaco por su nombre, Granada ni los doce leones.
 
 ## Fuentes documentales
 
 - https://magikland.pt/areas-tematicas/
 - https://magikland.pt/divertimentos-e-piscinas/
 - https://magikland.pt/informacoes-uteis/
-- https://www.cm-anadia.pt/visitar/locais-a-visitar/patrimonio-natural/poi/parque-da-curia
+- https://www.cm-anadia.pt/visitar/alojamento/hoteis/poi/hotel-do-parque
+- https://www.booking.com/hotel/pt/do-parque-anadia.en-gb.html

@@ -4,7 +4,7 @@
 
 **Última actualización:** 11 de agosto de 2026
 
-**Estado:** nuevo arco aprobado; eclipse, transición y días 13–14 publicados
+**Estado:** arco completo desarrollado del 13 al 27 de agosto; pendiente de la verificación final de publicación
 
 **Viaje principal:** 13–27 de agosto de 2026
 
@@ -217,7 +217,7 @@ Debe:
 - pedir ayuda, no dar órdenes autoritarias;
 - distinguir lo que sabe, sospecha, recuerda o ignora;
 - enseñar historia, ciencia, naturaleza y cultura mediante preguntas inteligentes;
-- recordar los detalles recientes y las aportaciones al cuaderno que le cuenten;
+- recordar los detalles recientes y las respuestas que den por el comunicador, nunca el contenido privado del cuaderno;
 - conducir al siguiente lugar con una pista o una indicación directa;
 - si la continuación es otro día, decir que descansen antes de cerrar;
 - adaptar una prueba solo después de conocer el impedimento real;
@@ -327,7 +327,7 @@ Cada respuesta guiada que deba recordarse declara una etiqueta de memoria. Las a
 |---|---|---|
 | 12 ago | Eclipse | Ataque y amnesia de Topotino |
 | 13 ago | Valladolid → Amarante | Puente, memoria y primera aportación al cuaderno |
-| 14 ago | Magikland → Curia | Movimiento, risa, dos perspectivas y quietud |
+| 14 ago | Magikland → Hotel do Parque, Curia | Movimiento, risa, memoria de un edificio de 1922 y quietud en sus jardines |
 | 15 ago | Buçaco → Batalha → Fátima | Promesa, fuente, obra inacabada y testimonio infantil |
 | 16 ago | Huellas → Mira de Aire → Óbidos | Evidencia, agua subterránea y noche entre murallas |
 | 17 ago | Dino Parque → Lisboa | Reconstrucción científica y primer contacto de Topoloco |
@@ -435,4 +435,31 @@ La aventura termina en los Palacios Nazaríes durante la visita nocturna del 26.
 
 ## 20. Cambios durante el viaje
 
-Todavía no hay cambios reales registrados desde el inicio del viaje. Cuando ocurran, se anotará: hecho real, pasado ya vivido, etapas futuras afectadas, solución de continuidad y archivos modificados.
+### 11 de agosto · Curia se traslada al Hotel do Parque
+
+- Hecho real: la familia duerme en el **Hotel do Parque Boutique Hotel**, no en el Parque das Termas. El paseo termal puede hacerse si sobra tiempo, pero no sostiene la aventura.
+- Investigación: el hotel funciona desde 1922, conserva un lenguaje clásico, jardín, patio y piscina, y se encuentra junto al Parque Termal.
+- Etapas afectadas: cierre del 14 y comienzo del 15.
+- Solución: el Cazarrisas sigue desde el ruido de Magikland hasta una casa que ha conservado su carácter durante más de un siglo. Paula y Hugo investigan qué rasgos pertenecen al edificio, cuáles a su uso como hotel y cómo el jardín cambia su experiencia. El experimento de reflejo se realiza en una ventana, la piscina o el jardín del alojamiento.
+- Continuidad: se conservan `curia_llegada`, `curia_paisaje_razonado`, `curia_quietud_observada`, `diario_magikland_curia`, `completado_magikland_curia`, Agua de la Risa y `RIO`.
+
+## 21. Diseño completo día a día
+
+Este diseño concreta el arco aprobado. Cada episodio tendrá una entrada normal y otra de recuperación, varias investigaciones físicas, una sola adaptación por impedimento comunicado y memoria persistente de las respuestas relevantes.
+
+| Fecha | Núcleo de investigación | Ayuda o personaje | Movimiento narrativo | Enlace |
+|---|---|---|---|---|
+| 14 | En el Hotel do Parque: distinguir edificio de 1922, uso actual y jardín; experimento de reflejo y escucha | La propia casa actúa como testigo centenario | El Cazarrisas aprende que el significado no se obtiene midiendo ruido | Olor a musgo, piedra fría y hojas mojadas |
+| 15 | Buçaco: capas natural, carmelita y romántica; Fonte Fria y circulación del agua. Batalha: promesa, obra terminada e inacabada. Fátima: contraste entre la pequeña Capelinha y la escala del santuario | Los tres pastorinhos se tratan como personajes históricos infantiles, con respeto a la fe y a quienes no la comparten | Aparece una promesa incompleta del Topotino anterior; los niños reconstruyen que confiaría solo en recuerdos contrastables por más de una persona | Una huella que sobrevivió 175 millones de años |
+| 16 | Huellas: rastro frente a reconstrucción y dirección de marcha. Mira de Aire: disolución, filtración y tiempo geológico. Óbidos: puertas, capas urbanas, azulejos y Josefa d’Óbidos | **Gotas**, mascota oficial de las grutas, es colega subterráneo de Topotino | Comprenden que los recuerdos no fueron destruidos, sino desplazados como agua bajo la roca | Un laboratorio donde se limpian huevos de dinosaurio reales |
+| 17 | Dino Parque: línea temporal, modelos frente a fósiles, preparación científica y nido de Lourinhanosaurus | El Lourinhanosaurus local funciona como testigo paleontológico, no como animal vivo | Topoloco mezcla una pieza verdadera con una reconstrucción inventada; los niños detectan la diferencia. Primer anuncio del Museo de Recuerdos Exclusivos | Un lugar de Lisboa donde tocar una pregunta produce otra |
+| 18 | Pavilhão: adaptaciones animales y diseño de una prueba. Oceanário: hábitats, red trófica y un único océano. Teleférico/Tajo: conexiones visibles | **Vasco**, mascota oficial del Oceanário y colega oceanográfico de Topotino | Descubren que las aguas son nodos de una sola red y que existen doce manifestaciones | Una ciudad que tuvo que recordar quién era después de romperse |
+| 19 | Castelo: posición defensiva y capas arqueológicas. Alfama/Baixa: trama irregular frente a reconstrucción. Belém: función defensiva, lenguaje manuelino y relato de los viajes | Los pavos reales del castillo obligan a observar conducta sin alimentarlos; personajes históricos se presentan como fuentes, no aliados ficticios | Topoloco presenta su museo como conservación legítima | Una máquina ya no mira lugares: compara cómo miran Paula y Hugo |
+| 20 | Badoca: etograma, adaptación y diferencia entre observación e interpretación. Lagos: puerto, orientación y preparación del mar abierto | La red de suricatas mantiene una relación cómica de cooperación profesional con los topos | Topoloco comienza a modelar el método de razonamiento de los niños | Una ruta que puede existir aunque los delfines no aparezcan |
+| 21 | Delfines: incertidumbre y conducta sin inventar avistamientos. Benagil: abertura, luz y erosión. Sagres: promontorio, rosa de los vientos y límites de la evidencia | El **Corvinho de Sagres**, personaje del relato patrimonial oficial, es amigo corresponsal de Topotino | Topoloco admite que dejó algunas pistas y que necesita experiencias vividas, no simples datos | La piedra agujereada por un trabajo que nadie vio completo |
+| 22 | Ponta da Piedade y Algar Seco: ordenar fases de erosión, comparar arcos, cuevas, pilares y ventanas naturales | A Boneca sirve como referencia visual popular; la **HolaJaima** convierte la noche en un canal sin superficies digitales | Un falso Topotino pide la marca privada del cuaderno; la contradicción permite detectar la suplantación. El verdadero Topotino dice la única palabra mal sonante del arco y se disculpa | Proteger algo para poder devolverlo |
+| 23 | Zoomarine: adaptaciones, bienestar, conservación y rehabilitación. Diferenciar cuidar, exhibir, poseer y devolver | El equipo del **Porto d’Abrigo** y el lema «Together We Protect» aportan la evidencia real | Topoloco intenta justificar su museo como protección; Paula y Hugo desmontan el argumento | Un puente de siete arcos cuya historia fue recordada mal |
+| 24 | Tavira: siete arcos, origen medieval y corrección de la falsa etiqueta «romana»; castillo y jardines. Sevilla: Plaza de España y puentes simbólicos | La propia ciudad corrige la memoria falsa mediante su patrimonio | Consultan el Cuaderno solo para decidir si la versión encaja; comunican la conclusión, nunca el contenido | Una isla sin mar que representa seis mundos |
+| 25 | Isla Mágica: representación histórica frente a decorado; corrientes y decisiones; diseño de una trampa con afirmación verificable | **Capitán Pico y América** ayudan; **Marsupilami** puede aparecer en Agua Mágica durante las fechas anunciadas para 2026 | Primera trampa consciente: Topoloco copia una interpretación falsa controlada y revela Granada y doce leones al corregir su máquina | Sevilla monumental por la mañana y la colina roja por la noche |
+| 26 | Alcázar: capas mudéjares, simetría, agua y clima. Catedral: transformación de la Giralda y lectura visual del retablo. Alhambra nocturna: evidencia, reflejo, dos relatos y autoría compartida | Muhammad V, Ibn Zamrak y los artesanos se presentan mediante sus obras; ningún personaje histórico conoce a Topotino | Se confirma el Borrador de Reflejos. Los doce leones, distintos entre sí y realizados por varias manos, prueban que una red compartida no admite un dueño único. Topoloco libera las memorias | La aventura termina en el Patio de los Leones |
+| 27 | Generalife, Acequia Real, Alcazaba y Torre de la Vela se disfrutan como epílogo libre | Topotino puede agradecer detalles concretos de la memoria persistente | No hay nueva agua, villano ni misión. Se vuelve a casa con la historia abierta a ser contada por cada uno | Valladolid |
