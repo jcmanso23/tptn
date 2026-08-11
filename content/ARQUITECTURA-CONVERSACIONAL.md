@@ -1,6 +1,6 @@
 # Arquitectura conversacional de Topotino
 
-**Decisión actual:** conversación híbrida, con historia determinista y lenguaje natural asistido por modelo. No migrar todavía a OpenAI Agents SDK.
+**Decisión actual:** conversación híbrida, con historia determinista y lenguaje natural generado por `openai/gpt-5.6-luna` mediante Vercel AI Gateway. No migrar todavía a OpenAI Agents SDK.
 
 ## 1. El objetivo
 
@@ -55,14 +55,16 @@ Topotino todavía no necesita autonomía de ese tipo. Necesita principalmente un
 - si el prompt recibe secretos, un agente también puede adelantarlos;
 - si el proveedor de modelo no está operativo, cambiar de SDK no devuelve las respuestas.
 
-El 11 de agosto de 2026 el endpoint conversacional de producción devuelve `AI_UNAVAILABLE`. Antes de cualquier migración hay que recuperar y verificar el acceso al modelo. Las misiones guiadas siguen funcionando sin él.
+El 11 de agosto de 2026 se diagnosticó que AI Gateway rechazaba las peticiones porque el equipo de Vercel no tenía una tarjeta válida asociada, mientras que `OPENAI_API_KEY` contenía un valor vacío. El código queda preparado para Luna, pero la conversación libre no se considera operativa hasta completar la activación económica del proveedor y superar una prueba real en producción. Las misiones guiadas siguen funcionando sin él.
 
 ## 5. Evolución recomendada
 
 ### Fase actual
 
 - Mantener Vercel AI SDK para respuestas libres.
+- Usar Luna como modelo conversacional y conservar Topotino como identidad narrativa.
 - Enviar al modelo solo `aiContext`, flags y conversación reciente.
+- Enviar los turnos recientes con roles de usuario y asistente para mantener una conversación real sin repetir el contexto como si fuera una ficha.
 - Mantener respuestas guiadas para aciertos, progreso, seguridad y contingencias críticas.
 - Registrar el conocimiento de Topotino por fases.
 

@@ -5,16 +5,16 @@ const STORAGE_KEYS = {
 
 const LEGACY_STATE_KEY = 'topotino_chat_state_v1';
 const PASSPHRASE_HASH = 'a64716bd9f4e8added1bf47f80b97c3fc7b70a15b8043cdab083e1ddf85f3794';
-const EPISODES_MANIFEST = 'content/episodes.json?v=chat-v18';
+const EPISODES_MANIFEST = 'content/episodes.json?v=chat-v19';
 const LIVE_STORY_ENDPOINT = '/api/story';
 const ACTIVATION_TICK_MS = 60000;
 const ADULT_PHASE_DELAY_MS = 5 * 60 * 1000;
 const ADULT_PIN_HASH = '0f8eb4b72b6e0c9e88b388eb967b49e067ef1004bf07bffc22c3acb13b43580a';
 const ADULT_SESSION_KEY = 'topotino_adult_unlocked_v1';
 const TOPOTINO_IMAGE = 'images/topotino.png?v=marco-v1';
-const CHATTER_LIMIT_CHARS = 180;
-const CHATTER_LIMIT_MESSAGES = 4;
-const CHATTER_WINDOW_MS = 2 * 60 * 1000;
+const CHATTER_LIMIT_CHARS = 500;
+const CHATTER_LIMIT_MESSAGES = 8;
+const CHATTER_WINDOW_MS = 60 * 1000;
 const CHATTER_WARNING_COOLDOWN_MS = 90 * 1000;
 const REPLY_SILENCE_MIN_MS = 5000;
 const REPLY_SILENCE_MAX_MS = 60000;
@@ -625,7 +625,7 @@ async function askAiFallback(text) {
     }];
   });
 
-  await deliverTopotinoMessages(responsePromise);
+  await deliverTopotinoMessages(responsePromise, { mode: 'conversation' });
   saveState();
   renderAll();
 }
@@ -781,6 +781,19 @@ function getReplyTiming(mode) {
       staggerMax: REPLY_STAGGER_MAX_MS,
       nextTypingMin: ACTIVATION_TYPING_MIN_MS,
       nextTypingMax: ACTIVATION_TYPING_MAX_MS
+    };
+  }
+
+  if (mode === 'conversation') {
+    return {
+      silenceMin: 250,
+      silenceMax: 700,
+      typingMin: 700,
+      typingMax: 1400,
+      staggerMin: 250,
+      staggerMax: 600,
+      nextTypingMin: 450,
+      nextTypingMax: 900
     };
   }
 
@@ -1690,6 +1703,6 @@ function applyTestingParams() {
 
 function registerServiceWorker() {
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('service-worker.js?v=offline-v4').catch(() => {});
+    navigator.serviceWorker.register('service-worker.js?v=offline-v5').catch(() => {});
   }
 }

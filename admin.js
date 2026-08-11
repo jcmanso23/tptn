@@ -1,5 +1,5 @@
 const API = '/api/story';
-const MANIFEST = '/content/episodes.json?v=chat-v18';
+const MANIFEST = '/content/episodes.json?v=chat-v19';
 
 const els = {};
 const publishedEpisodes = new Map();
