@@ -3,7 +3,7 @@
   "id": "002-luanco-llegada",
   "order": 2,
   "title": "Luanco",
-  "channelCode": "T-12A8",
+  "channelCode": "T-12A9",
   "startsUnlocked": false,
   "activation": {
     "mode": "all",

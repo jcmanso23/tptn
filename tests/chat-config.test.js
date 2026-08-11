@@ -42,4 +42,8 @@ test('las respuestas conversacionales no usan la espera larga de las misiones', 
   assert.match(source, /function recordStoryMemory/);
   assert.match(source, /function eligibleMessages/);
   assert.match(source, /storyMemory: normalizeStoryMemory\(saved\.storyMemory\)/);
+  assert.match(source, /await refreshLocationForPendingActivations\(\)/);
+  assert.match(source, /LOCATION_REFRESH_COOLDOWN_MS/);
+  assert.match(source, /window\.addEventListener\('focus'/);
+  assert.match(source, /accuracyMargin/);
 });

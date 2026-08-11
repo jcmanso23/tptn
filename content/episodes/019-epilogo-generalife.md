@@ -5,7 +5,7 @@
   "title": "Epílogo · La memoria a la luz del día",
   "channelCode": "T-00FIN",
   "startsUnlocked": false,
-  "activation": { "mode": "all", "date": { "on": "2026-08-27" }, "time": { "from": "08:00", "to": "23:59" } },
+  "activation": { "mode": "all", "date": { "on": "2026-08-27" }, "location": { "lat": 37.1769930, "lng": -3.5852285, "radiusMeters": 1000, "label": "Generalife, Granada" } },
   "mission": "Mirar de nuevo",
   "formulaWord": null,
   "water": null,

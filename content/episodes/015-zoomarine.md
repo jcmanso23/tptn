@@ -5,7 +5,7 @@
   "title": "Día 11 · Cuidar no es poseer",
   "channelCode": "T-18Z5",
   "startsUnlocked": false,
-  "activation": { "mode": "all", "date": { "on": "2026-08-23" }, "time": { "from": "08:00", "to": "23:59" } },
+  "activation": { "mode": "all", "date": { "on": "2026-08-23" }, "location": { "lat": 37.1249791, "lng": -8.3154346, "radiusMeters": 5000, "label": "Zoomarine Algarve" } },
   "mission": "Devolver lo que debe ser libre",
   "formulaWord": null,
   "water": "Agua del Cuidado",
@@ -21,7 +21,8 @@ Zoomarine sirve para diferenciar observación, educación, rescate y rehabilitac
 
 ```json
 [
-  { "from": "topotino", "time": "auto", "text": "Buenos días. Topoloco afirma: «si cuidas algo, te pertenece». En Zoomarine buscad información de Porto d’Abrigo. Reconstruid el proceso de un rescate en cuatro fases: aviso o llegada, diagnóstico, rehabilitación y posible retorno. Para cada fase indicad qué decisión necesita evidencia." }
+  { "from": "topotino", "time": "auto", "text": "Buenos días. Topoloco afirma: «si cuidas algo, te pertenece». Buscad primero información de Porto d’Abrigo." },
+  { "from": "topotino", "time": "auto", "text": "Reconstruid un rescate: llegada, diagnóstico, rehabilitación y posible retorno. Para cada fase indicad qué decisión necesita evidencia." }
 ]
 ```
 
@@ -53,7 +54,8 @@ Zoomarine sirve para diferenciar observación, educación, rescate y rehabilitac
     "remember": { "kind": "animal_evidence", "label": "Cuerpo, conducta e hipótesis sobre una especie" },
     "messages": [
       { "from": "topotino", "time": "auto", "text": "Muy bien. Ver una conducta aquí aporta datos, pero no resume toda la vida de la especie. Habéis mantenido abierta una alternativa." },
-      { "from": "topotino", "time": "auto", "text": "Ahora juzgad cuatro decisiones: alimentar sin permiso, reducir ruido y distancia, avisar a profesionales ante un animal herido y conservarlo porque lo rescataste. Ordenadlas de más protectora a más dañina y defended dos posiciones difíciles." }
+      { "from": "topotino", "time": "auto", "text": "Moveos ahora a otra zona de animales o educación. Buscad una norma para visitantes y una medida de cuidado que use el equipo." },
+      { "from": "topotino", "time": "auto", "text": "Comparadlas con Porto d’Abrigo. Decid cuál protege evitando molestias, cuál requiere profesionales y por qué alimentar o retener puede hacer daño." }
     ]
   },
   {
@@ -64,9 +66,10 @@ Zoomarine sirve para diferenciar observación, educación, rescate y rehabilitac
     "minWords": 17,
     "containsAnyGroups": [["profesionales", "avisar", "herido"], ["distancia", "ruido", "molestar"], ["alimentar", "comida", "permiso"], ["conservar", "poseer", "devolver", "liberar"], ["orden", "porque"]],
     "setFlags": ["zoomarine_decisiones"],
-    "remember": { "kind": "ethical_ranking", "label": "Orden ético de decisiones de protección" },
+    "remember": { "kind": "field_ethics", "label": "Normas y decisiones de protección observadas en Zoomarine" },
     "messages": [
-      { "from": "topotino", "time": "auto", "text": "Argumentación aceptada. Proteger puede exigir apartarse y devolver; querer cerca no siempre es cuidar." },
+      { "from": "topotino", "time": "auto", "text": "Argumentación aceptada. Habéis comparado cuidado profesional y conducta de visitantes en dos lugares del parque." },
+      { "from": "topotino", "time": "auto", "text": "Proteger puede exigir apartarse y devolver; querer cerca no siempre es cuidar." },
       { "from": "topotino", "time": "auto", "text": "Aplicadlo al plan: Topoloco dice que mis recuerdos le pertenecen porque los «salvó» del eclipse. Refutadlo con una analogía precisa del rescate animal y señalad dónde falla la comparación." }
     ]
   },

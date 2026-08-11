@@ -5,7 +5,7 @@
   "title": "Día 12 · El puente que corrigió su nombre",
   "channelCode": "T-29V7",
   "startsUnlocked": false,
-  "activation": { "mode": "all", "date": { "on": "2026-08-24" }, "time": { "from": "08:00", "to": "23:59" } },
+  "activation": { "mode": "all", "date": { "on": "2026-08-24" }, "location": { "lat": 37.1268750, "lng": -7.6498436, "radiusMeters": 1000, "label": "Ponte antiga de Tavira" } },
   "mission": "Dos orillas, una memoria corregible",
   "formulaWord": null,
   "water": "Agua de las Dos Orillas",
@@ -21,7 +21,8 @@ Tavira corrige la memoria popular de su puente: no puede demostrarse romano, sí
 
 ```json
 [
-  { "from": "topotino", "time": "auto", "text": "Buenos días. En Tavira buscad el puente antiguo de siete arcos. Mucha gente lo llama romano; los estudios solo permiten asegurarlo como medieval y reconstruido hacia 1655. Encontrad tres detalles actuales del puente y explicad por qué un nombre repetido no pesa más que la evidencia." }
+  { "from": "topotino", "time": "auto", "text": "Buenos días. Cruzad el puente antiguo de Tavira y observadlo también desde una ribera segura para ver sus siete arcos." },
+  { "from": "topotino", "time": "auto", "text": "Mucha gente lo llama romano; los estudios lo aseguran como medieval y reconstruido hacia 1655. Encontrad tres detalles actuales y explicad por qué un nombre repetido no pesa más que la evidencia." }
 ]
 ```
 

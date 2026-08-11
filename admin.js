@@ -219,7 +219,7 @@ function episodeTemplate(id) {
   "id": "${id}",
   "order": 6,
   "title": "Nueva pista",
-  "channelCode": "T-12A8",
+  "channelCode": "T-12A9",
   "startsUnlocked": false,
   "activation": {
     "mode": "all",

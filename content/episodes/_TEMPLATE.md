@@ -8,12 +8,12 @@
   "activation": {
     "mode": "all",
     "required": ["flag_necesaria"],
-    "date": { "from": "2026-08-01", "to": "2026-08-20" },
-    "time": { "from": "09:00", "to": "22:30" },
+    "date": { "on": "2026-08-13" },
     "location": {
       "lat": 43.6150,
       "lng": -5.7930,
-      "radiusMeters": 800
+      "radiusMeters": 1000,
+      "label": "Primera parada física del capítulo"
     }
   },
   "mission": "Nombre visible de la misión",

@@ -5,7 +5,7 @@
   "title": "Día 13 · La trampa que necesitaba una decisión",
   "channelCode": "T-37I2",
   "startsUnlocked": false,
-  "activation": { "mode": "all", "date": { "on": "2026-08-25" }, "time": { "from": "09:00", "to": "23:59" } },
+  "activation": { "mode": "all", "date": { "on": "2026-08-25" }, "location": { "lat": 37.4077506, "lng": -5.9998062, "radiusMeters": 1000, "label": "Isla Mágica, Sevilla" } },
   "mission": "Distinguir historia, escenario y trampa",
   "formulaWord": null,
   "water": null,
@@ -21,7 +21,8 @@ Isla Mágica representa los siglos XVI y XVII. Capitán Pico y América ayudan c
 
 ```json
 [
-  { "from": "topotino", "time": "auto", "text": "Buenos días. Isla Mágica no es el siglo XVI: lo representa. En dos zonas distintas buscad un detalle de ambientación, un objeto que cumpla una función real hoy y una afirmación histórica verificable. Explicad por qué las tres cosas no tienen el mismo valor como evidencia." }
+  { "from": "topotino", "time": "auto", "text": "Buenos días. Isla Mágica no es el siglo XVI: lo representa. Elegid dos zonas separadas del mapa y caminad de una a otra." },
+  { "from": "topotino", "time": "auto", "text": "En cada zona buscad ambientación, un objeto con función real hoy y una afirmación histórica verificable. Explicad por qué no valen igual como evidencia." }
 ]
 ```
 

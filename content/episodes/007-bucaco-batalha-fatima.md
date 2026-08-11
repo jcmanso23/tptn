@@ -5,7 +5,7 @@
   "title": "Día 3 · El bosque, la promesa y el lugar pequeño",
   "channelCode": "T-31B5",
   "startsUnlocked": false,
-  "activation": { "mode": "all", "date": { "on": "2026-08-15" }, "time": { "from": "08:00", "to": "23:59" } },
+  "activation": { "mode": "all", "date": { "on": "2026-08-15" }, "location": { "lat": 40.3755835, "lng": -8.3619487, "radiusMeters": 5000, "label": "Mata Nacional do Buçaco" } },
   "mission": "La promesa que no se ve",
   "formulaWord": null,
   "water": "Agua de la Promesa",
@@ -40,7 +40,8 @@ Buçaco, Batalha y Fátima forman una investigación sobre capas, promesas y esc
     "remember": { "kind": "place_identification", "label": "Identificación razonada de Buçaco" },
     "messages": [
       { "from": "topotino", "time": "auto", "text": "Buçaco confirmado. Gracias por relacionar lugar y evidencias. Aquí conviven al menos cuatro capas: bosque, retiro carmelita desde 1628, batalla de 1810 y etapa romántica del palacio." },
-      { "from": "topotino", "time": "auto", "text": "Investigación de estratos: elegid tres elementos reales de capas distintas. Ordenadlos del más antiguo al más reciente usando forma, material, función, cartel o relación con el entorno. Después explicad qué dato os falta para estar completamente seguros." }
+      { "from": "topotino", "time": "auto", "text": "Empezad ante el Palace Hotel. Pasad después por el Convento de Santa Cruz y elegid un tercer elemento del bosque o una ermita." },
+      { "from": "topotino", "time": "auto", "text": "Ordenad las tres capas usando forma, material, función o cartel. Decid también qué dato os falta para estar seguros." }
     ]
   },
   {
@@ -71,8 +72,19 @@ Buçaco, Batalha y Fátima forman una investigación sobre capas, promesas y esc
     ]
   },
   {
-    "id": "batalha-capelas",
+    "id": "batalha-llegada",
     "requiredFlags": ["bucaco_fonte"],
+    "blockedFlags": ["batalha_llegada"],
+    "match": ["batalha", "estamos en batalha", "hemos llegado a batalha"],
+    "setFlags": ["batalha_llegada"],
+    "messages": [
+      { "from": "topotino", "time": "auto", "text": "Batalha localizada. Recorred la iglesia o el Claustro Real y terminad en las Capelas Imperfeitas, abiertas al cielo." },
+      { "from": "topotino", "time": "auto", "text": "Relacionad la promesa que originó el monasterio con algo terminado y algo inacabado que veáis. Explicad por qué lo incompleto también cuenta verdad." }
+    ]
+  },
+  {
+    "id": "batalha-capelas",
+    "requiredFlags": ["bucaco_fonte", "batalha_llegada"],
     "blockedFlags": ["batalha_resuelto"],
     "openAnswer": true,
     "minWords": 12,
@@ -80,8 +92,9 @@ Buçaco, Batalha y Fátima forman una investigación sobre capas, promesas y esc
     "setFlags": ["batalha_resuelto"],
     "remember": { "kind": "heritage_reasoning", "label": "Promesa y obra inacabada en Batalha" },
     "messages": [
-      { "from": "topotino", "time": "auto", "text": "Gracias. El monasterio recuerda una promesa; las Capelas Imperfeitas no esconden que una intención puede quedar abierta. Estar inacabado no convierte algo en mentira." },
-      { "from": "topotino", "time": "auto", "text": "Topoloco ha escrito: «lo mayor siempre es el centro». Su siguiente destino tiene una capilla diminuta rodeada de espacios enormes. Al llegar a Fátima, comparad la Capelinha con una de las basílicas y decid qué ocupa el centro simbólico y qué ocupa más espacio físico. No confundáis tamaño con importancia." }
+      { "from": "topotino", "time": "auto", "text": "Gracias. El monasterio recuerda una promesa; las capillas no esconden que una intención puede quedar abierta. Estar inacabado no convierte algo en mentira." },
+      { "from": "topotino", "time": "auto", "text": "Topoloco ha escrito: «lo mayor siempre es el centro». Al llegar a Fátima, id primero a la Capelinha y cruzad después la explanada hasta una basílica." },
+      { "from": "topotino", "time": "auto", "text": "Comparad qué ocupa el centro simbólico y qué ocupa más espacio físico. No confundáis tamaño con importancia." }
     ]
   },
   {

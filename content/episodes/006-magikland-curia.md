@@ -8,7 +8,7 @@
   "activation": {
     "mode": "all",
     "date": { "on": "2026-08-14" },
-    "time": { "from": "09:00", "to": "23:59" }
+    "location": { "lat": 41.1990981, "lng": -8.2800010, "radiusMeters": 5000, "label": "Magikland, Penafiel" }
   },
   "mission": "El agua que ríe",
   "formulaWord": "RIO",
@@ -22,7 +22,7 @@
 
 # Contexto narrativo
 
-Es 14 de agosto. La jornada contrapone movimiento y quietud, pero no mediante una lista simple. Magikland funciona como laboratorio de mecánica: Paula y Hugo identifican tipos de movimiento, hacen una predicción causal y distinguen ruido, emoción y recuerdo. En Curia analizan un paisaje construido, naturaleza y reflejos. Las pruebas tienen una exigencia intelectual aproximada de diez años y necesitan observación física; la ubicación no actúa como candado técnico.
+Es 14 de agosto. La jornada contrapone movimiento y quietud, pero no mediante una lista simple. Magikland funciona como laboratorio de mecánica: Paula y Hugo identifican tipos de movimiento, hacen una predicción causal y distinguen ruido, emoción y recuerdo. En Curia analizan un paisaje construido, naturaleza y reflejos. Las pruebas tienen una exigencia intelectual aproximada de diez años y necesitan observación física. La llegada a Magikland abre el capítulo, pero la ubicación nunca valida las respuestas.
 
 Magikland se divide en África, Mundo da Confusão, Aldeia Medieval, Refúgio dos Piratas, Far-West y Souk. Ofrece rotaciones, oscilaciones, desplazamientos, subidas, bajadas y recorridos de agua. Ninguna fase exige montar en una atracción concreta. Topoloco ha dejado un Cazarrisas Hidráulico que intenta separar el sonido de una risa, la causa y el recuerdo que deja. Su primer fracaso registra su propio grito, pero el segundo le permite aprender que Paula y Hugo despiertan memorias al interpretar lo vivido.
 
@@ -79,7 +79,7 @@ El Cuaderno de la Memoria continúa privado. Topotino no pide que cuenten qué e
     "remember": { "kind": "deduction", "label": "Identificación razonada de Magikland" },
     "messages": [
       { "from": "topotino", "time": "auto", "text": "Magikland encaja: sus seis áreas explican el plano. Gracias por justificarlo." },
-      { "from": "topotino", "time": "auto", "text": "Buscad tres movimientos reales: rotación, que gira; oscilación, que va y vuelve; y desplazamiento, que cambia de lugar. No hace falta montar." },
+      { "from": "topotino", "time": "auto", "text": "Recorred al menos tres mundos distintos. En cada uno buscad un movimiento: rotación, que gira; oscilación, que va y vuelve; y desplazamiento, que cambia de lugar." },
       { "from": "topotino", "time": "auto", "text": "Decidme qué elemento observasteis en cada caso y en cuál de los tres cambia de dirección de manera más evidente. Podéis discrepar, pero justificad la elección." }
     ]
   },
@@ -193,8 +193,8 @@ El Cuaderno de la Memoria continúa privado. Topotino no pide que cuenten qué e
     "setFlags": ["curia_llegada"],
     "messages": [
       { "from": "topotino", "time": "auto", "text": "Edificio localizado. El Hotel do Parque abrió en 1922 y después fue restaurado." },
-      { "from": "topotino", "time": "auto", "text": "Buscad dos señales de su época original: fachada, ventanas, balcón, madera o decoración." },
-      { "from": "topotino", "time": "auto", "text": "Buscad también una adaptación actual. Puede ser la recepción, la iluminación, la piscina o el jardín cuidado. Explicad cómo distinguís ambas épocas." }
+      { "from": "topotino", "time": "auto", "text": "Empezad fuera: buscad en la fachada dos señales de su época original. Después entrad con los adultos y elegid otra en la madera o la decoración." },
+      { "from": "topotino", "time": "auto", "text": "Terminaremos en el jardín o el patio. Buscad allí una adaptación actual y explicad cómo distinguís las capas." }
     ]
   },
   {

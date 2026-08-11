@@ -5,7 +5,7 @@
   "title": "Día 5 · Los huesos que no mienten",
   "channelCode": "T-53D9",
   "startsUnlocked": false,
-  "activation": { "mode": "all", "date": { "on": "2026-08-17" }, "time": { "from": "08:00", "to": "23:59" } },
+  "activation": { "mode": "all", "date": { "on": "2026-08-17" }, "location": { "lat": 39.2790352, "lng": -9.2916689, "radiusMeters": 5000, "label": "Dino Parque Lourinhã" } },
   "mission": "Reconstruir sin inventar",
   "formulaWord": null,
   "water": null,
@@ -21,7 +21,8 @@ Dino Parque enseña a separar original, modelo e inferencia. Topoloco planta una
 
 ```json
 [
-  { "from": "topotino", "time": "auto", "text": "Buenos días. Hoy hay más de doscientos dinosaurios visibles y, sin embargo, ninguno está vivo. Primera misión en Dino Parque: encontrad un modelo y una pieza fósil o zona de laboratorio. Dadme tres diferencias que permitan distinguir representación, resto original y trabajo científico." }
+  { "from": "topotino", "time": "auto", "text": "Buenos días. Recorred primero una ruta exterior hasta un modelo. Fijaos en tamaño, piel y postura." },
+  { "from": "topotino", "time": "auto", "text": "Después id al museo o al laboratorio y encontrad una pieza fósil o trabajo científico. Dadme tres diferencias entre modelo, resto original y estudio." }
 ]
 ```
 

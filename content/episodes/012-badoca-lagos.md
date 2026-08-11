@@ -5,7 +5,7 @@
   "title": "Día 8 · El espía que confundía hechos con cuentos",
   "channelCode": "T-84S6",
   "startsUnlocked": false,
-  "activation": { "mode": "all", "date": { "on": "2026-08-20" }, "time": { "from": "08:00", "to": "23:59" } },
+  "activation": { "mode": "all", "date": { "on": "2026-08-20" }, "location": { "lat": 38.0388305, "lng": -8.7433595, "radiusMeters": 5000, "label": "Badoca Safari Park" } },
   "mission": "Observar antes de explicar",
   "formulaWord": null,
   "water": null,
@@ -54,7 +54,8 @@ Badoca introduce un etograma simple y la separación entre conducta e intención
     "messages": [
       { "from": "topotino", "time": "auto", "text": "Exacto. La adaptación distribuye posibilidades; no entrega una medalla universal." },
       { "from": "topotino", "time": "auto", "text": "He detectado un pequeño receptor junto a la ruta. No estaba grabando animales: registraba el orden en que observáis, comparáis y corregís. Topoloco está aprendiendo vuestro método para diseñar trampas mejores." },
-      { "from": "topotino", "time": "auto", "text": "Al llegar a Lagos, buscad tres señales de que la ciudad está orientada al mar: una de movimiento, una de infraestructura y una de protección u orientación. Unidlas en un recorrido lógico desde tierra hasta agua." }
+      { "from": "topotino", "time": "auto", "text": "Al llegar a Lagos, empezad en el acceso terrestre de la marina. Seguid los pantalanes hacia la salida al mar sin abandonar el paseo permitido." },
+      { "from": "topotino", "time": "auto", "text": "Buscad por el camino una señal de movimiento, una infraestructura y otra de protección u orientación. Unidlas en una ruta de tierra a agua." }
     ]
   },
   {

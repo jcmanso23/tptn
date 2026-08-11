@@ -3,7 +3,7 @@
   "id": "001-reconexion",
   "order": 1,
   "title": "Reconexión",
-  "channelCode": "T-12A8",
+  "channelCode": "T-12A9",
   "startsUnlocked": true,
   "activation": {
     "type": "passphrase"

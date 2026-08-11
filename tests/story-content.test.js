@@ -106,8 +106,9 @@ test('los días 13 y 14 conservan su cadena narrativa y adaptan solo tras un imp
   const amaranteEpisode = parseEpisode(amarante, 'content/episodes/005-amarante-puente.md');
   const dayTwoEpisode = parseEpisode(dayTwo, 'content/episodes/006-magikland-curia.md');
 
-  assert.match(amarante, /"from": "2026-08-13T17:00:00\+02:00"/);
-  assert.match(amarante, /"to": "2026-08-13T23:59:59\+02:00"/);
+  assert.equal(amaranteEpisode.meta.activation.date.on, '2026-08-13');
+  assert.equal(amaranteEpisode.meta.activation.location.radiusMeters, 1000);
+  assert.match(amaranteEpisode.meta.activation.location.label, /Ponte de São Gonçalo/);
   assert.match(amarante, /"water": "Agua del Puente"/);
   assert.match(amarante, /"formulaWord": "COMIENZO"/);
   assert.match(amarante, /No recojáis agua del Tâmega/);
@@ -115,6 +116,8 @@ test('los días 13 y 14 conservan su cadena narrativa y adaptan solo tras un imp
   assert.match(amarante, /diario_amarante/);
   assert.match(amarante, /amarante_posicion_razonada/);
   assert.match(amarante, /cuatro balcones semicirculares/i);
+  assert.match(amarante, /Senhora da Ponte/i);
+  assert.doesNotMatch(amarante, /Clasificad las cuatro afirmaciones/i);
   assert.match(amarante, /"remember":/);
   assert.doesNotMatch(
     amaranteEpisode.sections['Mensajes iniciales'].map((message) => message.text).join(' '),
@@ -143,7 +146,8 @@ test('los días 13 y 14 conservan su cadena narrativa y adaptan solo tras un imp
   );
   assert.match(dayTwo, /Hotel do Parque/);
   assert.match(dayTwo, /abrió en 1922/);
-  assert.match(dayTwo, /jardín cuidado/);
+  assert.match(dayTwo, /Empezad fuera: buscad en la fachada/);
+  assert.match(dayTwo, /Terminaremos en el jardín o el patio/);
   assert.match(dayTwo, /bañador, toalla, protector solar/);
   assert.ok(
     dayTwoEpisode.sections['Respuestas guiadas']
@@ -165,7 +169,7 @@ test('los días 13 y 14 conservan su cadena narrativa y adaptan solo tras un imp
   assert.doesNotMatch(childFacingText, /(foto|fotografía).{0,30}(cuaderno|diario)/i);
 });
 
-test('la edición T-12A8 usa caché nueva, mensajes breves y rescates de destino', async () => {
+test('la edición T-12A9 usa caché nueva, mensajes breves y rescates de destino', async () => {
   const files = ['index.html', 'app.js', 'admin.js', 'content/episodes/001-reconexion.md'];
   const combined = (await Promise.all(files.map((file) => readFile(join(root, file), 'utf8')))).join('\n');
   const app = await readFile(join(root, 'app.js'), 'utf8');
@@ -176,12 +180,12 @@ test('la edición T-12A8 usa caché nueva, mensajes breves y rescates de destino
     'content/episodes/001-reconexion.md'
   );
 
-  assert.match(combined, /T-12A8/);
-  assert.doesNotMatch(combined, /T-12A7/);
+  assert.match(combined, /T-12A9/);
+  assert.doesNotMatch(combined, /T-12A8/);
   assert.match(app, /splitTopotinoMessages/);
   assert.match(app, /els\.channelCode\.textContent = APP_VERSION_CODE/);
-  assert.match(serviceWorker, /topotino-offline-v10/);
-  assert.match(serviceWorker, /chat-format\.js\?v=memory-v24/);
+  assert.match(serviceWorker, /topotino-offline-v11/);
+  assert.match(serviceWorker, /chat-format\.js\?v=memory-v25/);
   assert.match(ai, /Escribe como en WhatsApp/);
   assert.ok(
     reconnection.sections['Respuestas guiadas']
@@ -209,6 +213,11 @@ test('el viaje completo del 15 al 27 está publicado, enlazado y termina de noch
     const markdown = await readFile(join(root, source), 'utf8');
     const episode = parseEpisode(markdown, source);
     assert.equal(episode.meta.activation.date.on, date, `${id}: fecha incorrecta`);
+    assert.equal(episode.meta.activation.mode, 'all', `${id}: la fecha y la llegada deben cumplirse juntas`);
+    assert.ok(Number.isFinite(episode.meta.activation.location?.lat), `${id}: falta latitud de llegada`);
+    assert.ok(Number.isFinite(episode.meta.activation.location?.lng), `${id}: falta longitud de llegada`);
+    assert.ok([1000, 5000].includes(episode.meta.activation.location?.radiusMeters), `${id}: radio no permitido`);
+    assert.equal(episode.meta.activation.time, undefined, `${id}: conserva una hora rígida`);
     assert.ok(episode.sections['Respuestas guiadas'].length >= 2, `${id}: aventura demasiado vacía`);
     allChildText.push(...episode.sections['Mensajes iniciales'].map((message) => message.text));
     allChildText.push(...episode.sections['Respuestas guiadas']
@@ -226,6 +235,30 @@ test('el viaje completo del 15 al 27 está publicado, enlazado y termina de noch
   assert.match(text, /jamás os pediría la marca, una foto ni el contenido del cuaderno/i);
   assert.match(text, /Enviad únicamente la conclusión y una razón; ninguna página/i);
   assert.match(text, /descansad/i);
+});
+
+test('todas las jornadas activas recorren lugares reales después de la llegada', async () => {
+  const manifest = JSON.parse(await readFile(join(root, 'content/episodes.json'), 'utf8'));
+  const ids = [
+    '005-amarante-puente', '006-magikland-curia', '007-bucaco-batalha-fatima',
+    '008-huellas-mira-obidos', '009-dinoparque-lisboa', '010-lisboa-ciencia-oceanario',
+    '011-lisboa-historia-belem', '012-badoca-lagos', '013-delfines-benagil-sagres',
+    '014-piedade-algar-jaima', '015-zoomarine', '016-tavira-sevilla',
+    '017-isla-magica', '018-sevilla-alhambra-noche'
+  ];
+
+  for (const id of ids) {
+    const item = manifest.find((entry) => entry.id === id);
+    const source = item.file.replace(/\?.*$/, '');
+    const episode = parseEpisode(await readFile(join(root, source), 'utf8'), source);
+    const childText = [
+      ...episode.sections['Mensajes iniciales'].map((message) => message.text),
+      ...episode.sections['Respuestas guiadas'].flatMap((response) => (response.messages || []).map((message) => message.text))
+    ].join(' ');
+
+    assert.ok(episode.meta.activation.location, `${id}: no se abre por llegada`);
+    assert.match(childText, /recorred|cruzad|seguid|bajad|subid|moveos|caminad|pasad|salid|viajad|rumbo|al llegar/i, `${id}: no conduce entre puntos reales`);
+  }
 });
 
 test('las pruebas nuevas exigen evidencia física, variedad y personajes reales sin regalar alternativas', async () => {

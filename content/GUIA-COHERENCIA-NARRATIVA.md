@@ -277,7 +277,10 @@ Una ciudad o museo puede contener varias pruebas breves si exploran saberes dife
 ### Complejidad, presencia física y variedad
 
 - Cada lugar importante contiene entre dos y cuatro investigaciones breves que trabajan capacidades distintas: observar, contar, comparar, inferir, predecir, clasificar evidencias, formular una hipótesis o corregirla.
-- La solución principal depende de un detalle visible, audible o experimentable allí. La aplicación no usa la ubicación como candado: estar allí es necesario porque allí está la evidencia.
+- La solución principal depende de un detalle visible, audible o experimentable allí.
+- La fecha impide adelantar jornadas y la geolocalización abre cada capítulo al llegar a su primera parada. El radio es de 1 km en núcleos urbanos o recintos compactos y de hasta 5 km en parques, bosques y espacios extensos.
+- La ubicación solo abre el capítulo. Nunca valida una respuesta ni sustituye la observación: después Paula y Hugo recorren los puntos reales y aportan la evidencia.
+- Cada jornada con varias paradas forma una ruta explícita. Topotino envía de un punto a otro y no plantea desde el móvil una lista de datos que podrían clasificarse sin visitar el lugar.
 - Una búsqueda visual nunca termina solo con nombrar un objeto; debe conducir a una inferencia histórica, científica o narrativa.
 - No se repite de forma diaria la secuencia «observar → contar → cuaderno → agua → pista».
 - Se alternan laboratorios de movimiento, debates de evidencia, reconstrucciones, elecciones, predicciones, mapas, códigos visuales, comparaciones y pequeñas investigaciones de campo.
@@ -371,6 +374,8 @@ Ninguna reserva o destino es imprescindible. Un cambio real se registra en esta 
 - `004-guimaraes-origen` permanece retirado por compatibilidad.
 - Las flags y palabras antiguas pueden seguir registrándose internamente sin aparecer en los mensajes.
 - Los capítulos por fecha no deben quedar bloqueados por una fase anterior no terminada.
+- Los capítulos del viaje usan `mode: all` con fecha y coordenada de la primera parada. Las fases posteriores se encadenan mediante flags y recorridos reales, no mediante nuevos candados GPS.
+- Si el móvil no actualiza automáticamente la señal, el botón «Actualizar señal» vuelve a comprobarla. La Mesa de viaje conserva el lanzamiento manual como recuperación adulta.
 - Todo capítulo por fecha debe incluir un puente de recuperación si presupone una fase anterior.
 - Los mensajes iniciales pueden estar condicionados por flags y solo se entregan cuando encajan con el estado real.
 - Las fases internas sí mantienen su orden mediante flags.
@@ -446,6 +451,16 @@ La aventura termina en los Palacios Nazaríes durante la visita nocturna del 26.
 - Etapas afectadas: cierre del 14 y comienzo del 15.
 - Solución: el Cazarrisas sigue desde el ruido de Magikland hasta una casa que ha conservado su carácter durante más de un siglo. Paula y Hugo investigan qué rasgos pertenecen al edificio, cuáles a su uso como hotel y cómo el jardín cambia su experiencia. El experimento de reflejo se realiza en una ventana, la piscina o el jardín del alojamiento.
 - Continuidad: se conservan `curia_llegada`, `curia_paisaje_razonado`, `curia_quietud_observada`, `diario_magikland_curia`, `completado_magikland_curia`, Agua de la Risa y `RIO`.
+
+### 11 de agosto · Activación por llegada y aventuras en movimiento
+
+- Problema real: una apertura solo por hora podía iniciar Amarante mientras la familia seguía en Valladolid y hacía lo mismo con otras jornadas.
+- Solución técnica: cada capítulo del 13 al 27 conserva su fecha, elimina la hora rígida y añade una zona alrededor de la primera parada real. La app renueva la señal al abrirse, al volver a primer plano, al pedirlo manualmente y periódicamente mientras exista una etapa pendiente.
+- Radios: 1 km para puentes, centros urbanos y recintos compactos; 5 km para parques, bosques, yacimientos y espacios costeros extensos. Se admite un margen pequeño por la precisión del teléfono.
+- Solución narrativa: la coordenada abre la conversación, pero las respuestas solo avanzan con evidencias observadas durante un recorrido entre puntos concretos.
+- Amarante: Ponte de São Gonçalo → obelisco o placa de 1809 → Igreja de São Gonçalo y Senhora da Ponte → ribera del Tâmega. Se retira la clasificación verbal de cuatro afirmaciones.
+- Propagación: Magikland y Hotel do Parque; Buçaco, Batalha y Fátima; huellas, Mira de Aire y Óbidos; Dino Parque y Lisboa; Parque das Nações; Lisboa histórica; Badoca y Lagos; costa y Sagres; Ponta da Piedade, Algar Seco y jaima; Zoomarine; Tavira y Sevilla; Isla Mágica; Sevilla monumental y Alhambra; epílogo de Granada.
+- Continuidad: no cambia ningún identificador, flag, agua, palabra técnica, mensaje vivido ni código de recuperación.
 
 ## 21. Diseño completo día a día
 

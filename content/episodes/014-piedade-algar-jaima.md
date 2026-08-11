@@ -5,7 +5,7 @@
   "title": "Día 10 · La voz detrás de la lona",
   "channelCode": "T-04J8",
   "startsUnlocked": false,
-  "activation": { "mode": "all", "date": { "on": "2026-08-22" }, "time": { "from": "08:00", "to": "23:59" } },
+  "activation": { "mode": "all", "date": { "on": "2026-08-22" }, "location": { "lat": 37.0791946, "lng": -8.6677837, "radiusMeters": 5000, "label": "Ponta da Piedade, Lagos" } },
   "mission": "Reconocer al verdadero Topotino",
   "formulaWord": null,
   "water": "Agua de la Piedra",
@@ -21,7 +21,8 @@ Ponta da Piedade y Algar Seco permiten ordenar procesos sin afirmar una secuenci
 
 ```json
 [
-  { "from": "topotino", "time": "auto", "text": "Buenos días. Observad Ponta da Piedade desde tierra y con los adultos. Localizad tres formas entre fractura, cueva, arco, pilar o islote. Proponed un orden posible de transformación por erosión y añadid una razón por la que no toda la costa tiene que seguir exactamente esa secuencia." }
+  { "from": "topotino", "time": "auto", "text": "Buenos días. Recorred las pasarelas de Ponta da Piedade con los adultos y comparad la costa desde dos miradores seguros." },
+  { "from": "topotino", "time": "auto", "text": "Localizad tres formas entre fractura, cueva, arco, pilar o islote. Ordenad una transformación posible y explicad por qué no toda la costa sigue la misma secuencia." }
 ]
 ```
 

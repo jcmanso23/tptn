@@ -1,4 +1,4 @@
-import { splitTopotinoMessages } from './chat-format.js?v=memory-v24';
+import { splitTopotinoMessages } from './chat-format.js?v=memory-v25';
 
 const STORAGE_KEYS = {
   auth: 'topotino_chat_auth_v1',
@@ -6,11 +6,12 @@ const STORAGE_KEYS = {
 };
 
 const LEGACY_STATE_KEY = 'topotino_chat_state_v1';
-const APP_VERSION_CODE = 'T-12A8';
+const APP_VERSION_CODE = 'T-12A9';
 const PASSPHRASE_HASH = 'a64716bd9f4e8added1bf47f80b97c3fc7b70a15b8043cdab083e1ddf85f3794';
-const EPISODES_MANIFEST = 'content/episodes.json?v=memory-v24';
+const EPISODES_MANIFEST = 'content/episodes.json?v=memory-v25';
 const LIVE_STORY_ENDPOINT = '/api/story';
 const ACTIVATION_TICK_MS = 60000;
+const LOCATION_REFRESH_COOLDOWN_MS = 2 * 60 * 1000;
 const MAX_STORY_MEMORY_ITEMS = 60;
 const ADULT_PHASE_DELAY_MS = 5 * 60 * 1000;
 const ADULT_PIN_HASH = '0f8eb4b72b6e0c9e88b388eb967b49e067ef1004bf07bffc22c3acb13b43580a';
@@ -121,6 +122,7 @@ let syncTimer = null;
 let syncInFlight = false;
 let activationInterval = null;
 let adultLaunchTimer = null;
+let locationRefreshInFlight = false;
 
 const els = {};
 const params = new URLSearchParams(window.location.search);
@@ -230,6 +232,10 @@ function bindEvents() {
 
   els.locationButton.addEventListener('click', refreshLocation);
   window.addEventListener('online', () => syncStateNow({ force: true }));
+  window.addEventListener('focus', () => runActivationCheck('focus'));
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') runActivationCheck('visible');
+  });
 
   if (els.adultUnlock) els.adultUnlock.addEventListener('click', unlockAdultTools);
   if (els.adultPin) {
@@ -271,6 +277,7 @@ async function enterChat() {
 
 async function runActivationCheck(reason) {
   const liveMessages = await refreshLiveStory({ collectBroadcasts: true });
+  await refreshLocationForPendingActivations();
   const activationMessages = await evaluateActivations({ reason, collectMessages: true });
   const incomingMessages = [...liveMessages, ...activationMessages];
   if (incomingMessages.length) {
@@ -479,6 +486,9 @@ function episodeCanActivateExceptLocation(episode) {
 async function refreshLocationForPendingActivations() {
   if (!navigator.geolocation) return;
   if (!episodes.some((episode) => episodeCanActivateExceptLocation(episode))) return;
+  if (locationRefreshInFlight || lastLocationIsFresh(LOCATION_REFRESH_COOLDOWN_MS)) return;
+
+  locationRefreshInFlight = true;
 
   try {
     if (!state.locationNoticeShown) {
@@ -506,7 +516,16 @@ async function refreshLocationForPendingActivations() {
     saveState();
   } catch (error) {
     state.locationStatus = locationErrorMessage(error);
+  } finally {
+    locationRefreshInFlight = false;
   }
+}
+
+function lastLocationIsFresh(maxAgeMs) {
+  const capturedAt = state.lastKnownPosition?.capturedAt;
+  if (!capturedAt) return false;
+  const age = Date.now() - new Date(capturedAt).getTime();
+  return Number.isFinite(age) && age >= 0 && age < maxAgeMs;
 }
 
 function unlockEpisode(episodeId) {
@@ -1163,7 +1182,8 @@ function locationMatches(rule) {
   const pos = state.lastKnownPosition;
   if (!pos || typeof pos.lat !== 'number' || typeof pos.lng !== 'number') return false;
   const distance = haversineDistanceMeters(pos.lat, pos.lng, rule.lat, rule.lng);
-  return distance <= (rule.radiusMeters || 300);
+  const accuracyMargin = Math.min(Math.max(Number(pos.accuracy) || 0, 0), 500);
+  return distance <= (rule.radiusMeters || 300) + accuracyMargin;
 }
 
 function getRuntimeContext() {
@@ -1787,6 +1807,6 @@ function applyTestingParams() {
 
 function registerServiceWorker() {
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('service-worker.js?v=offline-v10').catch(() => {});
+    navigator.serviceWorker.register('service-worker.js?v=offline-v11').catch(() => {});
   }
 }

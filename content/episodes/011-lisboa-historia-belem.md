@@ -5,7 +5,7 @@
   "title": "Día 7 · La ciudad que volvió a levantarse",
   "channelCode": "T-72L1",
   "startsUnlocked": false,
-  "activation": { "mode": "all", "date": { "on": "2026-08-19" }, "time": { "from": "08:00", "to": "23:59" } },
+  "activation": { "mode": "all", "date": { "on": "2026-08-19" }, "location": { "lat": 38.7139258, "lng": -9.1334830, "radiusMeters": 1000, "label": "Castelo de São Jorge, Lisboa" } },
   "mission": "Leer una ciudad por capas",
   "formulaWord": null,
   "water": "Agua de la Ciudad que Regresa",
@@ -53,7 +53,8 @@ Castelo, Alfama, Baixa y Belém muestran ocupación, transformación y reconstru
     "remember": { "kind": "archaeological_layers", "label": "Tres capas arqueológicas del Castelo" },
     "messages": [
       { "from": "topotino", "time": "auto", "text": "Bien. Topoloco habría llamado «desorden» a la superposición. Vosotros habéis leído una secuencia." },
-      { "from": "topotino", "time": "auto", "text": "Bajad por Alfama y comparad su trazado con dos calles de Baixa: orientación, anchura, rectitud, pendiente y plazas. Proponed cuál creció adaptándose más al terreno y cuál muestra mayor planificación. Dad al menos tres evidencias visibles." }
+      { "from": "topotino", "time": "auto", "text": "Bajad a pie con los adultos por Alfama hasta la Sé. Elegid una calle curva o con pendiente." },
+      { "from": "topotino", "time": "auto", "text": "Continuad hasta Baixa y buscad dos calles más rectas. Comparad anchura, pendiente, plazas y planificación con al menos tres evidencias." }
     ]
   },
   {

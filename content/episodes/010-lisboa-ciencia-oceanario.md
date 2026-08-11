@@ -5,7 +5,7 @@
   "title": "Día 6 · Un océano hecho de relaciones",
   "channelCode": "T-68O4",
   "startsUnlocked": false,
-  "activation": { "mode": "all", "date": { "on": "2026-08-18" }, "time": { "from": "08:00", "to": "23:59" } },
+  "activation": { "mode": "all", "date": { "on": "2026-08-18" }, "location": { "lat": 38.7622806, "lng": -9.0955818, "radiusMeters": 1000, "label": "Pavilhão do Conhecimento, Lisboa" } },
   "mission": "Ver la red",
   "formulaWord": null,
   "water": "Agua del Océano Único",
@@ -21,7 +21,8 @@ Pavilhão y Oceanário convierten módulos y especies en relaciones causales. Va
 
 ```json
 [
-  { "from": "topotino", "time": "auto", "text": "Buenos días. En Superbichos, Topoloco ha confundido «superpoder» con magia. Elegid dos módulos de animales distintos. Antes de usarlos, predecid qué adaptación representan; después probadlos y corregid al menos una parte de vuestra explicación con la evidencia del módulo." }
+  { "from": "topotino", "time": "auto", "text": "Buenos días. En Superbichos, buscad dos módulos de animales situados en partes distintas de la exposición." },
+  { "from": "topotino", "time": "auto", "text": "Antes de usarlos, predecid qué adaptación representan. Después probadlos y corregid al menos una parte con la evidencia." }
 ]
 ```
 

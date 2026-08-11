@@ -5,7 +5,7 @@
   "title": "Día 4 · El animal ausente y la ciudad escrita",
   "channelCode": "T-47G2",
   "startsUnlocked": false,
-  "activation": { "mode": "all", "date": { "on": "2026-08-16" }, "time": { "from": "08:00", "to": "23:59" } },
+  "activation": { "mode": "all", "date": { "on": "2026-08-16" }, "location": { "lat": 39.5678412, "lng": -8.5899740, "radiusMeters": 5000, "label": "Monumento Natural das Pegadas de Dinossáurios" } },
   "mission": "Leer lo que ya no está",
   "formulaWord": null,
   "water": "Agua del Tiempo Profundo",
@@ -21,7 +21,8 @@ Huellas, cueva y ciudad amurallada enseñan a inferir procesos ausentes mediante
 
 ```json
 [
-  { "from": "topotino", "time": "auto", "text": "Buenos días. La primera señal tiene unos 175 millones de años, pero sigue indicando una dirección. Cuando veáis los rastros de saurópodos, elegid uno: decid hacia dónde avanzaba, qué os hace pensar que no caminaba hacia el lado contrario y qué NO podemos saber solo con esas huellas." }
+  { "from": "topotino", "time": "auto", "text": "Buenos días. Seguid el recorrido hasta ver una pista de saurópodo desde dos puntos distintos." },
+  { "from": "topotino", "time": "auto", "text": "Elegid un rastro: decid hacia dónde avanzaba, qué descarta el sentido contrario y qué NO podemos saber solo con esas huellas." }
 ]
 ```
 
@@ -39,7 +40,8 @@ Huellas, cueva y ciudad amurallada enseñan a inferir procesos ausentes mediante
     "remember": { "kind": "trace_inference", "label": "Inferencia y límite de evidencia en las huellas" },
     "messages": [
       { "from": "topotino", "time": "auto", "text": "Gracias. Una huella permite inferir dirección y modo de desplazamiento, pero no autoriza a inventar color, carácter o rugido. Topoloco ha dibujado bigote al saurópodo. Queda científicamente suspendido." },
-      { "from": "topotino", "time": "auto", "text": "Siguiente pista: una montaña hueca descubierta en 1947. Dentro os espera Gotas, mascota de la cueva y viejo colega mío del gremio subterráneo. Localizad una forma que cuelgue y otra que crezca desde el suelo. Explicad qué papel desempeña el agua en ambas." }
+      { "from": "topotino", "time": "auto", "text": "Siguiente pista: una montaña hueca descubierta en 1947. Dentro os espera Gotas, colega mío del gremio subterráneo." },
+      { "from": "topotino", "time": "auto", "text": "Durante el descenso, localizad en dos tramos distintos una forma que cuelgue y otra que crezca desde el suelo. Explicad qué hace el agua en ambas." }
     ]
   },
   {

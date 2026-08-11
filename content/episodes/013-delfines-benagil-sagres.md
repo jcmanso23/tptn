@@ -5,7 +5,7 @@
   "title": "Día 9 · La pista que no puede prometerse",
   "channelCode": "T-96A3",
   "startsUnlocked": false,
-  "activation": { "mode": "all", "date": { "on": "2026-08-21" }, "time": { "from": "08:00", "to": "23:59" } },
+  "activation": { "mode": "all", "date": { "on": "2026-08-21" }, "location": { "lat": 37.1098806, "lng": -8.6748233, "radiusMeters": 1000, "label": "Marina de Lagos" } },
   "mission": "Investigar el horizonte",
   "formulaWord": null,
   "water": "Agua del Horizonte",
@@ -53,7 +53,8 @@ El barco convierte la incertidumbre en prueba. Si no hay delfines, la ausencia e
     "remember": { "kind": "geomorphology_prediction", "label": "Predicción de erosión en Benagil" },
     "messages": [
       { "from": "topotino", "time": "auto", "text": "Bien: forma actual, proceso y predicción separados. Ahora rumbo a Sagres, al antiguo Promontorium Sacrum." },
-      { "from": "topotino", "time": "auto", "text": "En la fortaleza buscad la gran figura circular de 48 alineaciones. Corvinho, el cuervo joven del relato de la rosa de los vientos, es amigo mío y vigila desde arriba. Proponed dos funciones posibles para la figura y una observación del lugar que apoye o debilite cada hipótesis." }
+      { "from": "topotino", "time": "auto", "text": "En la fortaleza buscad primero la gran figura circular de 48 alineaciones. Proponed dos funciones y una observación que apoye o debilite cada una." },
+      { "from": "topotino", "time": "auto", "text": "Después seguid el recorrido hasta un punto seguro frente al horizonte. Corvinho, el cuervo joven del relato, vigila desde arriba." }
     ]
   },
   {

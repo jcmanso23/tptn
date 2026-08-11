@@ -49,9 +49,11 @@ Para misiones grandes, divide la historia en varios MD pequeños. Ejemplo: descu
 - `date.from` / `date.to`: ventana de días.
 - `dateTime.from` / `dateTime.to`: instante ISO 8601 con zona horaria; permite que un acontecimiento quede disponible para siempre a partir de una hora concreta.
 - `time.from` / `time.to`: ventana horaria local, formato `HH:MM`. También permite ventanas que cruzan medianoche.
-- `location.lat/lng/radiusMeters`: se activa al pulsar “Actualizar señal” dentro del radio.
+- `location.lat/lng/radiusMeters`: se activa al llegar al radio indicado. La app actualiza la posición al abrirse, al volver a primer plano y periódicamente; “Actualizar señal” permite repetir la comprobación manualmente.
 - `mode: "all"`: deben cumplirse todas las condiciones indicadas.
 - `mode: "any"`: basta con una condición.
+
+En las jornadas de viaje se recomienda combinar `date.on` y `location` con `mode: "all"`: la fecha impide adelantar la historia y la llegada evita que se abra por la mañana cuando la familia aún está en otra ciudad. Como referencia, usa unos 1.000 metros para una parada urbana o compacta y hasta 5.000 metros para parques, espacios naturales o áreas extensas. La ubicación abre el capítulo, pero nunca sustituye la observación ni valida una respuesta.
 
 ## Bloques del MD
 

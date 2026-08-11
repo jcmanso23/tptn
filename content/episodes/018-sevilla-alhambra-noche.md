@@ -5,7 +5,7 @@
   "title": "Día 14 · Las doce aguas bajo la luna",
   "channelCode": "T-42N0",
   "startsUnlocked": false,
-  "activation": { "mode": "all", "date": { "on": "2026-08-26" }, "time": { "from": "08:00", "to": "23:59" } },
+  "activation": { "mode": "all", "date": { "on": "2026-08-26" }, "location": { "lat": 37.3832105, "lng": -5.9901835, "radiusMeters": 1000, "label": "Real Alcázar de Sevilla" } },
   "mission": "Devolver la memoria compartida",
   "formulaWord": null,
   "water": "Agua Clara de la Noche",
@@ -21,7 +21,8 @@ Alcázar y Catedral preparan la lectura de capas antes de la Alhambra nocturna. 
 
 ```json
 [
-  { "from": "topotino", "time": "auto", "text": "Último día de investigación activa. En el Real Alcázar elegid dos espacios de épocas o funciones distintas. Comparad una geometría, un uso del agua y una relación interior–jardín. Decid qué capa dialoga con otra en vez de borrarla." }
+  { "from": "topotino", "time": "auto", "text": "Último día. En el Real Alcázar elegid un patio o palacio y después un jardín de otra función o época." },
+  { "from": "topotino", "time": "auto", "text": "Comparad geometría, uso del agua y relación interior–jardín. Decid qué capa dialoga con otra en vez de borrarla." }
 ]
 ```
 
