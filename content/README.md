@@ -95,6 +95,8 @@ Si esas variables no existen, la app sigue funcionando con copia local en el mó
 
 También se aceptan los nombres actuales de Upstash `UPSTASH_REDIS_REST_URL` y `UPSTASH_REDIS_REST_TOKEN`, o `REDIS_URL`. Para funciones serverless se recomienda la modalidad REST.
 
+Las integraciones de Vercel Marketplace pueden añadir un prefijo al recurso, por ejemplo `tptn_KV_REST_API_URL` y `tptn_KV_REST_API_TOKEN`. El servidor detecta esos pares automáticamente y mantiene juntos la URL y el token del mismo recurso.
+
 ## Mesa de viaje: cambios en directo
 
 La ruta `/admin.html` abre un editor privado pensado para cambios durante el viaje. Requiere estas variables privadas en Vercel:

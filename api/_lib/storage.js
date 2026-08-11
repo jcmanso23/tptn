@@ -5,21 +5,24 @@ const COMMAND_TIMEOUT_MS = 5000;
 let redisClientPromise = null;
 
 export function hasRedisStorage() {
+  const rest = getRestCredentials();
   return Boolean(
-    (getRestUrl() && getRestToken()) ||
+    (rest.url && rest.token) ||
     process.env.REDIS_URL
   );
 }
 
 export function storageMode() {
-  if (getRestUrl() && getRestToken()) return 'rest';
+  const rest = getRestCredentials();
+  if (rest.url && rest.token) return 'rest';
   if (process.env.REDIS_URL) return 'url';
   return 'none';
 }
 
 export async function redisCommand(command, ...args) {
-  if (getRestUrl() && getRestToken()) {
-    return redisRestCommand(command, ...args);
+  const rest = getRestCredentials();
+  if (rest.url && rest.token) {
+    return redisRestCommand(rest, command, ...args);
   }
 
   if (process.env.REDIS_URL) {
@@ -29,11 +32,11 @@ export async function redisCommand(command, ...args) {
   throw new Error('STATE_STORAGE_NOT_CONFIGURED');
 }
 
-async function redisRestCommand(command, ...args) {
-  const response = await fetch(getRestUrl(), {
+async function redisRestCommand(rest, command, ...args) {
+  const response = await fetch(rest.url, {
     method: 'POST',
     headers: {
-      Authorization: `Bearer ${getRestToken()}`,
+      Authorization: `Bearer ${rest.token}`,
       'Content-Type': 'application/json'
     },
     body: JSON.stringify([command, ...args]),
@@ -98,12 +101,26 @@ function resetRedisClient(client) {
   }
 }
 
-function getRestUrl() {
-  return process.env.KV_REST_API_URL || process.env.UPSTASH_REDIS_REST_URL || '';
-}
+function getRestCredentials() {
+  const knownPairs = [
+    ['KV_REST_API_URL', 'KV_REST_API_TOKEN'],
+    ['UPSTASH_REDIS_REST_URL', 'UPSTASH_REDIS_REST_TOKEN']
+  ];
 
-function getRestToken() {
-  return process.env.KV_REST_API_TOKEN || process.env.UPSTASH_REDIS_REST_TOKEN || '';
+  for (const [urlKey, tokenKey] of knownPairs) {
+    if (process.env[urlKey] && process.env[tokenKey]) {
+      return { url: process.env[urlKey], token: process.env[tokenKey] };
+    }
+  }
+
+  for (const key of Object.keys(process.env)) {
+    if (!key.endsWith('_KV_REST_API_URL')) continue;
+    const prefix = key.slice(0, -'_KV_REST_API_URL'.length);
+    const token = process.env[`${prefix}_KV_REST_API_TOKEN`];
+    if (process.env[key] && token) return { url: process.env[key], token };
+  }
+
+  return { url: '', token: '' };
 }
 
 function safeError(error) {

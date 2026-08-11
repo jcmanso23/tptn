@@ -6,8 +6,10 @@ const originalFetch = global.fetch;
 const originalEnv = { ...process.env };
 
 test.beforeEach(() => {
-  process.env.KV_REST_API_URL = 'https://redis.test';
-  process.env.KV_REST_API_TOKEN = 'test-token';
+  delete process.env.KV_REST_API_URL;
+  delete process.env.KV_REST_API_TOKEN;
+  process.env.tptn_KV_REST_API_URL = 'https://redis.test';
+  process.env.tptn_KV_REST_API_TOKEN = 'test-token';
   process.env.STORY_ADMIN_PASSWORD = 'travel-secret';
   process.env.STORY_ADMIN_SECRET = 'a-long-random-session-secret';
   delete process.env.REDIS_URL;
