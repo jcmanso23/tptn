@@ -3,7 +3,7 @@
   "id": "004c-eclipse-amnesia",
   "order": 4.2,
   "title": "El día que Topotino olvidó",
-  "channelCode": "T-12A7",
+  "channelCode": "T-12A8",
   "startsUnlocked": false,
   "activation": {
     "mode": "all",

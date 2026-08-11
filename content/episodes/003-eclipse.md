@@ -3,7 +3,7 @@
   "id": "004-eclipse",
   "order": 4,
   "title": "Enlace anterior del eclipse",
-  "channelCode": "T-12A7",
+  "channelCode": "T-12A8",
   "startsUnlocked": false,
   "activation": {
     "required": ["episodio_eclipse_anterior_retirado"]

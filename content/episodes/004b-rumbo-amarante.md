@@ -84,7 +84,8 @@ Al terminar, Topotino indica directamente que deben estar en Amarante el 13 por 
     "openAnswer": true,
     "minWords": 1,
     "messages": [
-      { "from": "topotino", "time": "auto", "text": "Aún no. Última capa de la placa: A...RANTE. El Tâmega atraviesa su centro y la ponte está relacionada con São Gonçalo." }
+      { "from": "topotino", "time": "auto", "text": "Aún no. Os doy el nombre completo para no dejaros atascados: AMARANTE." },
+      { "from": "topotino", "time": "auto", "text": "Comprobadlo: el Tâmega atraviesa su centro y la ponte está relacionada con São Gonçalo. Escribid AMARANTE cuando lo tengáis." }
     ]
   }
 ]

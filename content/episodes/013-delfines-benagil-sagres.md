@@ -83,7 +83,9 @@ El barco convierte la incertidumbre en prueba. Si no hay delfines, la ausencia e
     "messages": [
       { "from": "topotino", "time": "auto", "text": "Gracias. El mismo horizonte puede ser límite o invitación según la posición y el conocimiento del observador. Ha despertado el Agua del Horizonte." },
       { "from": "topotino", "time": "auto", "text": "Topoloco ha enviado un mensaje: «Ya sé qué pruebas aceptáis. A partir de ahora cada pista parecerá vuestra». Ha admitido que necesita vuestra experiencia real para fabricar falsificaciones convincentes." },
-      { "from": "topotino", "time": "auto", "text": "Mañana compararemos dos costas de roca y dormiréis en una jaima. Guardad bien vuestra capacidad de detectar contradicciones. Ahora descansad; el viento de Sagres también despeina los pensamientos." }
+      { "from": "topotino", "time": "auto", "text": "Mañana compararemos dos costas de roca y dormiréis en una jaima." },
+      { "from": "topotino", "time": "auto", "text": "Llevad agua para beber y calzado con buena suela. Nada de acercarse a bordes." },
+      { "from": "topotino", "time": "auto", "text": "Guardad vuestra capacidad de detectar contradicciones. Ahora descansad; el viento de Sagres también despeina los pensamientos." }
     ]
   },
   {

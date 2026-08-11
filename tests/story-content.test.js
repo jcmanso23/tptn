@@ -144,6 +144,11 @@ test('los días 13 y 14 conservan su cadena narrativa y adaptan solo tras un imp
   assert.match(dayTwo, /Hotel do Parque/);
   assert.match(dayTwo, /abrió en 1922/);
   assert.match(dayTwo, /jardín cuidado/);
+  assert.match(dayTwo, /bañador, toalla, protector solar/);
+  assert.ok(
+    dayTwoEpisode.sections['Respuestas guiadas']
+      .some((response) => response.id === 'magikland-solucion-ayudada' && response.setFlags?.includes('magikland_identificado'))
+  );
 
   const dayTwoInitial = dayTwoEpisode.sections['Mensajes iniciales'];
   assert.ok(dayTwoInitial.some((message) => message.requiredFlags?.includes('completado_amarante')));
@@ -158,6 +163,30 @@ test('los días 13 y 14 conservan su cadena narrativa y adaptan solo tras un imp
   assert.doesNotMatch(childFacingText, /Su palabra es (COMIENZO|RÍO)/i);
   assert.doesNotMatch(childFacingText, /contadme.{0,80}(qué|que).{0,40}(cuaderno|diario)/i);
   assert.doesNotMatch(childFacingText, /(foto|fotografía).{0,30}(cuaderno|diario)/i);
+});
+
+test('la edición T-12A8 usa caché nueva, mensajes breves y rescates de destino', async () => {
+  const files = ['index.html', 'app.js', 'admin.js', 'content/episodes/001-reconexion.md'];
+  const combined = (await Promise.all(files.map((file) => readFile(join(root, file), 'utf8')))).join('\n');
+  const app = await readFile(join(root, 'app.js'), 'utf8');
+  const serviceWorker = await readFile(join(root, 'service-worker.js'), 'utf8');
+  const ai = await readFile(join(root, 'api/chat.js'), 'utf8');
+  const reconnection = parseEpisode(
+    await readFile(join(root, 'content/episodes/001-reconexion.md'), 'utf8'),
+    'content/episodes/001-reconexion.md'
+  );
+
+  assert.match(combined, /T-12A8/);
+  assert.doesNotMatch(combined, /T-12A7/);
+  assert.match(app, /splitTopotinoMessages/);
+  assert.match(app, /els\.channelCode\.textContent = APP_VERSION_CODE/);
+  assert.match(serviceWorker, /topotino-offline-v10/);
+  assert.match(serviceWorker, /chat-format\.js\?v=memory-v24/);
+  assert.match(ai, /Escribe como en WhatsApp/);
+  assert.ok(
+    reconnection.sections['Respuestas guiadas']
+      .some((response) => response.id === 'luanco-solucion-ayudada' && response.setFlags?.includes('luanco_identificado'))
+  );
 });
 
 test('el viaje completo del 15 al 27 está publicado, enlazado y termina de noche en la Alhambra', async () => {

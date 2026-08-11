@@ -82,7 +82,9 @@ Tavira corrige la memoria popular de su puente: no puede demostrarse romano, sí
     "messages": [
       { "from": "topotino", "time": "auto", "text": "Gran comparación. Un puente puede resolver un cruce, organizar una escena o representar unión. La forma se parece; la función cambia." },
       { "from": "topotino", "time": "auto", "text": "Ha despertado el Agua de las Dos Orillas. Topoloco dividía recuerdos para declarar propietaria a una sola versión; vosotros acabáis de demostrar que dos orillas y dos miradas pueden mantener su diferencia y formar una relación." },
-      { "from": "topotino", "time": "auto", "text": "Mañana entraremos en una ciudad representada como aventura. Sus mascotas conocen bien los disfraces. Descansad en Sevilla; aún no sabemos dónde será el final." }
+      { "from": "topotino", "time": "auto", "text": "Mañana entraremos en una ciudad representada como aventura. Sus mascotas conocen bien los disfraces." },
+      { "from": "topotino", "time": "auto", "text": "Si vais a usar Agua Mágica, preparad bañador, toalla y protector solar." },
+      { "from": "topotino", "time": "auto", "text": "Descansad en Sevilla. Aún no sabemos dónde será el final." }
     ]
   },
   {

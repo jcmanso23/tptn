@@ -34,6 +34,7 @@ El Cuaderno de la Memoria continúa privado. Topotino no pide que cuenten qué e
 
 ```json
 [
+  { "from": "topotino", "time": "auto", "text": "Antes de salir: bañador, toalla, protector solar, agua para beber y calzado cómodo. Hay zonas de agua, aunque ninguna prueba obliga a usarlas." },
   { "from": "topotino", "time": "auto", "requiredFlags": ["completado_amarante"], "text": "Alerta de bigotes. El plano de seis mundos que salió de la máquina de Amarante se ha desplegado otra vez: África, confusión, una aldea medieval, piratas, Far-West y un zoco." },
   { "from": "topotino", "time": "auto", "blockedFlags": ["completado_amarante"], "text": "La señal de ayer quedó incompleta y no voy a inventar un Agua del Puente que no despertamos. Esta mañana ha aparecido, por otra vía, un plano firmado «TOP O LOCO»: África, confusión, una aldea medieval, piratas, Far-West y un zoco. Continuaremos desde la evidencia que sí tenemos." },
   { "from": "topotino", "time": "auto", "text": "En el margen pone «Cazarrisas Hidráulico» y aparece el mismo sello «TOP O LOCO» de la placa. Eso relaciona el nombre con la máquina, pero no demuestra quién atacó mi memoria. Identificad primero el lugar donde conviven esos seis mundos y enviadme el nombre con una razón que descarte que sea una ciudad normal." }
@@ -45,6 +46,29 @@ El Cuaderno de la Memoria continúa privado. Topotino no pide que cuenten qué e
 ```json
 [
   {
+    "id": "magikland-pista-pedida",
+    "blockedFlags": ["magikland_pista_dada", "magikland_identificado"],
+    "containsAny": ["pista", "ayuda", "no sabemos", "no lo encontramos", "no tenemos idea", "ni idea"],
+    "setFlags": ["magikland_pista_dada"],
+    "messages": [
+      { "from": "topotino", "time": "auto", "text": "Pista más clara: es un parque de Penafiel." },
+      { "from": "topotino", "time": "auto", "text": "Su nombre empieza por MAGIK y termina como la palabra inglesa para «tierra»." }
+    ]
+  },
+  {
+    "id": "magikland-solucion-ayudada",
+    "requiredFlags": ["magikland_pista_dada"],
+    "blockedFlags": ["magikland_identificado"],
+    "containsAny": ["pista", "ayuda", "no sabemos", "no lo encontramos", "no tenemos idea", "ni idea"],
+    "setFlags": ["magikland_identificado"],
+    "remember": { "kind": "assisted_deduction", "label": "Identificación ayudada de Magikland" },
+    "messages": [
+      { "from": "topotino", "time": "auto", "text": "Es Magikland: MAGIK + LAND. No os voy a dejar atrapados en un nombre." },
+      { "from": "topotino", "time": "auto", "text": "Ahora comprobad allí la parte importante: que existen los seis mundos del plano." },
+      { "from": "topotino", "time": "auto", "text": "Después buscad tres movimientos: algo que gira, algo que va y vuelve y algo que cambia de lugar. No hace falta montar." }
+    ]
+  },
+  {
     "id": "magikland-identificado",
     "blockedFlags": ["magikland_identificado"],
     "openAnswer": true,
@@ -54,8 +78,8 @@ El Cuaderno de la Memoria continúa privado. Topotino no pide que cuenten qué e
     "setFlags": ["magikland_identificado"],
     "remember": { "kind": "deduction", "label": "Identificación razonada de Magikland" },
     "messages": [
-      { "from": "topotino", "time": "auto", "text": "Magikland encaja porque sus seis áreas temáticas explican el plano. Gracias por justificarlo; reconocer un nombre sin relacionarlo con la evidencia no habría bastado." },
-      { "from": "topotino", "time": "auto", "text": "Primera investigación de campo: buscad tres movimientos reales del parque. Uno debe ser rotación alrededor de un eje; otro, oscilación de ida y vuelta; y el tercero, desplazamiento de un punto a otro. No hace falta montar." },
+      { "from": "topotino", "time": "auto", "text": "Magikland encaja: sus seis áreas explican el plano. Gracias por justificarlo." },
+      { "from": "topotino", "time": "auto", "text": "Buscad tres movimientos reales: rotación, que gira; oscilación, que va y vuelve; y desplazamiento, que cambia de lugar. No hace falta montar." },
       { "from": "topotino", "time": "auto", "text": "Decidme qué elemento observasteis en cada caso y en cuál de los tres cambia de dirección de manera más evidente. Podéis discrepar, pero justificad la elección." }
     ]
   },
@@ -168,7 +192,9 @@ El Cuaderno de la Memoria continúa privado. Topotino no pide que cuenten qué e
     "match": ["hotel do parque", "hemos llegado al hotel do parque", "estamos en el hotel do parque", "curia"],
     "setFlags": ["curia_llegada"],
     "messages": [
-      { "from": "topotino", "time": "auto", "text": "Edificio localizado. El Hotel do Parque abrió en 1922 y ha sido restaurado para seguir recibiendo viajeros. Encontrad dos indicios visibles de su época original —fachada, simetría, ventanas, balcón, madera o decoración— y una adaptación o uso actual —recepción, iluminación, piscina, jardín cuidado o equipamiento—. Explicad por qué cada detalle pertenece a una capa distinta." }
+      { "from": "topotino", "time": "auto", "text": "Edificio localizado. El Hotel do Parque abrió en 1922 y después fue restaurado." },
+      { "from": "topotino", "time": "auto", "text": "Buscad dos señales de su época original: fachada, ventanas, balcón, madera o decoración." },
+      { "from": "topotino", "time": "auto", "text": "Buscad también una adaptación actual. Puede ser la recepción, la iluminación, la piscina o el jardín cuidado. Explicad cómo distinguís ambas épocas." }
     ]
   },
   {

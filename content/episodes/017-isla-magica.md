@@ -84,7 +84,9 @@ Isla Mágica representa los siglos XVI y XVII. Capitán Pico y América ayudan c
     "remember": { "kind": "epistemic_guardrail", "label": "Regla contra una falsificación convincente" },
     "messages": [
       { "from": "topotino", "time": "auto", "text": "Regla aceptada. Hoy no despierta agua: habéis conseguido algo más urgente, el destino final." },
-      { "from": "topotino", "time": "auto", "text": "Mañana veremos primero dos edificios de Sevilla que contienen varias épocas y después viajaremos a Granada. La entrada nocturna es el desenlace; guardad energía. Ahora descansad." }
+      { "from": "topotino", "time": "auto", "text": "Mañana veremos dos edificios de Sevilla con varias épocas y después viajaremos a Granada." },
+      { "from": "topotino", "time": "auto", "text": "Tened las entradas preparadas y llevad una capa ligera para la noche. Guardad energía." },
+      { "from": "topotino", "time": "auto", "text": "La entrada nocturna es el desenlace. Ahora descansad." }
     ]
   },
   {

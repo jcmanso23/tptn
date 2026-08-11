@@ -1,11 +1,14 @@
+import { splitTopotinoMessages } from './chat-format.js?v=memory-v24';
+
 const STORAGE_KEYS = {
   auth: 'topotino_chat_auth_v1',
   state: 'topotino_chat_state_v2'
 };
 
 const LEGACY_STATE_KEY = 'topotino_chat_state_v1';
+const APP_VERSION_CODE = 'T-12A8';
 const PASSPHRASE_HASH = 'a64716bd9f4e8added1bf47f80b97c3fc7b70a15b8043cdab083e1ddf85f3794';
-const EPISODES_MANIFEST = 'content/episodes.json?v=memory-v23';
+const EPISODES_MANIFEST = 'content/episodes.json?v=memory-v24';
 const LIVE_STORY_ENDPOINT = '/api/story';
 const ACTIVATION_TICK_MS = 60000;
 const MAX_STORY_MEMORY_ITEMS = 60;
@@ -758,7 +761,9 @@ async function deliverTopotinoMessages(messagesOrPromise, options = {}) {
       wait(randomInt(timing.typingMin, timing.typingMax))
     ]);
 
-    const normalizedMessages = Array.isArray(messages) ? messages.filter(Boolean) : [];
+    const normalizedMessages = splitTopotinoMessages(
+      Array.isArray(messages) ? messages.filter(Boolean) : []
+    );
     for (let index = 0; index < normalizedMessages.length; index += 1) {
       appendMessage(normalizedMessages[index]);
       saveState();
@@ -890,7 +895,7 @@ function renderMessages() {
   const fragment = document.createDocumentFragment();
   let lastDateKey = '';
 
-  state.messages.forEach((message) => {
+  splitTopotinoMessages(state.messages).forEach((message) => {
     const messageDate = message.createdAt ? new Date(message.createdAt) : new Date();
     const dateKey = formatDate(messageDate);
     if (dateKey !== lastDateKey) {
@@ -935,7 +940,7 @@ function renderMessages() {
 function renderProgress() {
   const activeEpisode = getActiveEpisode();
   const meta = activeEpisode ? activeEpisode.meta : {};
-  els.channelCode.textContent = meta.channelCode || 'T-12A7';
+  els.channelCode.textContent = APP_VERSION_CODE;
   els.missionActive.textContent = meta.mission || meta.title || 'Reconexión';
   els.watersCount.textContent = `${state.waters.length}/12`;
   els.locationStatus.textContent = state.locationStatus;
@@ -1782,6 +1787,6 @@ function applyTestingParams() {
 
 function registerServiceWorker() {
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('service-worker.js?v=offline-v9').catch(() => {});
+    navigator.serviceWorker.register('service-worker.js?v=offline-v10').catch(() => {});
   }
 }

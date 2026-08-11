@@ -82,6 +82,7 @@ Badoca introduce un etograma simple y la separación entre conducta e intención
     "remember": { "kind": "field_method", "label": "Método de búsqueda de delfines" },
     "messages": [
       { "from": "topotino", "time": "auto", "text": "Buen método. Hoy no hay agua nueva: habéis preparado la investigación que permitirá despertar la siguiente." },
+      { "from": "topotino", "time": "auto", "text": "Para mañana: llegad con tiempo. Llevad protector solar y una chaqueta ligera para el barco." },
       { "from": "topotino", "time": "auto", "text": "Topoloco sabe ya cómo razonáis, así que mañana puede plantar una pista hecha a vuestra medida. Aceptad la incertidumbre y comparad fuentes. Ahora descansad junto a la marina; la salida es temprano." }
     ]
   },

@@ -125,6 +125,7 @@ El Cuaderno de la Memoria continúa siendo privado. Topotino no pide una entrada
       { "from": "topotino", "time": "auto", "text": "El fragmento «...REFL...» ha respondido. El Agua del Puente acaba de despertar. No recojáis agua del Tâmega: la memoria está en la relación que habéis descubierto entre forma, paisaje e historia." },
       { "from": "topotino", "time": "auto", "text": "Estoy recordando una escena. Una figura de espaldas ajusta una máquina y dice: «Nadie puede acusarme de robar algo que no se puede tocar». No veo su cara. Después oigo mi propia voz: «No quiere el agua. Quiere lo que el agua recuerda». Eso es todo; no voy a fingir que sé más." },
       { "from": "topotino", "time": "auto", "text": "La máquina ha soltado un plano con seis mundos: África, confusión, una aldea medieval, piratas, Far-West y un zoco. También aparecen una rueda, un barco que se balancea y agua corriendo. Esa es nuestra siguiente ruta." },
+      { "from": "topotino", "time": "auto", "text": "Para mañana preparad bañador, toalla, protector solar, agua para beber y calzado cómodo." },
       { "from": "topotino", "time": "auto", "text": "Por hoy basta. Habéis hecho inventario, leído el terreno y discutido qué cuenta como evidencia. Cenad y descansad. Mañana quiero investigadores despiertos, no dos croquetas con ojeras." }
     ]
   },
@@ -139,7 +140,8 @@ El Cuaderno de la Memoria continúa siendo privado. Topotino no pide una entrada
     "formulaWord": "COMIENZO",
     "messages": [
       { "from": "topotino", "time": "auto", "text": "La señal antigua se había quedado esperando una confirmación que ya no necesito. No voy a pediros el contenido del cuaderno. Doy por cerrada la investigación con lo que razonasteis sobre Amarante." },
-      { "from": "topotino", "time": "auto", "text": "La siguiente ruta reúne África, confusión, medievo, piratas, Far-West y un zoco. Ahora descansad; continuaremos mañana." }
+      { "from": "topotino", "time": "auto", "text": "La siguiente ruta reúne África, confusión, medievo, piratas, Far-West y un zoco." },
+      { "from": "topotino", "time": "auto", "text": "Preparad bañador, toalla, protector solar, agua para beber y calzado cómodo. Ahora descansad; continuaremos mañana." }
     ]
   }
 ]

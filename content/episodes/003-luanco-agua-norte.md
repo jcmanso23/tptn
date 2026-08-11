@@ -3,7 +3,7 @@
   "id": "003-luanco-agua-norte",
   "order": 3,
   "title": "Agua del Norte",
-  "channelCode": "T-12A7",
+  "channelCode": "T-12A8",
   "startsUnlocked": false,
   "activation": {
     "mode": "all",

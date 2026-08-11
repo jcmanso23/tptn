@@ -3,7 +3,7 @@
   "id": "001-reconexion",
   "order": 1,
   "title": "Reconexión",
-  "channelCode": "T-12A7",
+  "channelCode": "T-12A8",
   "startsUnlocked": true,
   "activation": {
     "type": "passphrase"
@@ -56,6 +56,28 @@ El primer objetivo del chat es confirmar que son Paula y Hugo, pero Topotino no 
       { "from": "topotino", "time": "auto", "text": "Y también sé algo más: Topoloco estaba detrás de esto. Mis topos vigía lo han visto subiendo a un barco rumbo a España." },
       { "from": "topotino", "time": "auto", "text": "Hay algo moviéndose este fin de semana. Algo que mezcla agua, noche y luz. ¿Os acordáis de algún sitio que pueda encajar?" },
       { "from": "topotino", "time": "auto", "text": "Cuando tengáis una sospecha, escribid el nombre en el comunicador. Las pistas importantes no se encuentran corriendo. Se encuentran mirando." }
+    ]
+  },
+  {
+    "id": "luanco-pista-pedida",
+    "requiredFlags": ["identidad_confirmada"],
+    "blockedFlags": ["luanco_pista_dada", "luanco_identificado"],
+    "containsAny": ["pista", "ayuda", "no sabemos", "ni idea", "no lo encontramos"],
+    "setFlags": ["luanco_pista_dada"],
+    "messages": [
+      { "from": "topotino", "time": "auto", "text": "Pista: está en la costa de Asturias y su nombre empieza por LUAN." },
+      { "from": "topotino", "time": "auto", "text": "La última sílaba suena como «co»." }
+    ]
+  },
+  {
+    "id": "luanco-solucion-ayudada",
+    "requiredFlags": ["identidad_confirmada", "luanco_pista_dada"],
+    "blockedFlags": ["luanco_identificado"],
+    "containsAny": ["pista", "ayuda", "no sabemos", "ni idea", "no lo encontramos"],
+    "setFlags": ["luanco_identificado"],
+    "messages": [
+      { "from": "topotino", "time": "auto", "text": "Es Luanco. La costa, la sal y la pista LUAN-CO apuntan allí." },
+      { "from": "topotino", "time": "auto", "text": "Ya tenemos destino. Cuando estéis cerca, el comunicador buscará la siguiente señal." }
     ]
   },
   {
