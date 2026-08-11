@@ -79,12 +79,13 @@ test('Amarante se descubre antes de revelar la fecha', async () => {
   assert.match(correct.messages.map((message) => message.text).join(' '), /13 de agosto · por la tarde/);
 });
 
-test('el eclipse activa la amnesia, el diario y una memoria nueva estable', async () => {
+test('el eclipse activa la amnesia, el cuaderno y una memoria nueva estable', async () => {
   const eclipse = await readFile(join(root, 'content/episodes/003-eclipse-amnesia.md'), 'utf8');
   const episode = parseEpisode(eclipse, 'content/episodes/003-eclipse-amnesia.md');
 
   assert.match(eclipse, /"dateTime": \{ "from": "2026-08-12T20:35:00\+02:00" \}/);
-  assert.match(eclipse, /Diario de las Dos Memorias/);
+  assert.match(eclipse, /Cuaderno de la Memoria/);
+  assert.match(eclipse, /Hugo, que tiene seis años/);
   assert.match(eclipse, /Desde ahora recuerda con normalidad todo lo nuevo/);
   assert.ok(
     episode.sections['Respuestas guiadas']

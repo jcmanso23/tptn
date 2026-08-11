@@ -5,7 +5,7 @@ const STORAGE_KEYS = {
 
 const LEGACY_STATE_KEY = 'topotino_chat_state_v1';
 const PASSPHRASE_HASH = 'a64716bd9f4e8added1bf47f80b97c3fc7b70a15b8043cdab083e1ddf85f3794';
-const EPISODES_MANIFEST = 'content/episodes.json?v=memory-v20';
+const EPISODES_MANIFEST = 'content/episodes.json?v=memory-v21';
 const LIVE_STORY_ENDPOINT = '/api/story';
 const ACTIVATION_TICK_MS = 60000;
 const ADULT_PHASE_DELAY_MS = 5 * 60 * 1000;
@@ -1719,6 +1719,6 @@ function applyTestingParams() {
 
 function registerServiceWorker() {
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('service-worker.js?v=offline-v5').catch(() => {});
+    navigator.serviceWorker.register('service-worker.js?v=offline-v7').catch(() => {});
   }
 }

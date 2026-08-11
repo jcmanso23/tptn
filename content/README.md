@@ -91,7 +91,7 @@ Puedes simular condiciones sin moverte:
 - Acelerar respuestas para pruebas: añade `fastReply=1`
 - Acortar el lanzamiento adulto solo para pruebas: añade `launchDelayMs=1000`
 
-Las respuestas libres usan Vercel AI Gateway. En producción se autentica mediante OIDC. Para desarrollo local, vincula el proyecto y ejecuta `vercel env pull .env.local` antes de `vercel dev`.
+Las respuestas libres usan directamente la API de OpenAI cuando existe `OPENAI_API_KEY`; Vercel AI Gateway queda como alternativa. Para desarrollo local, vincula el proyecto y ejecuta `vercel env pull .env.local` antes de `vercel dev`.
 
 Para activar copia segura necesitas configurar Redis/Upstash en Vercel con:
 
@@ -158,10 +158,11 @@ Recomendación: usa siempre una ventana privada o entra con `?topoadulto=1&reset
 - `001-reconexion`: se activa al entrar con la clave. Solo confirma identidad y abre el misterio.
 - `002-luanco-llegada`: se abre al acertar `Luanco` y estar cerca de Luanco, o con `topollave-luanco`.
 - `003-luanco-agua-norte`: se abre el sábado 27 tras haber observado Luanco, o con `topollave-sabado`.
-- `004-eclipse`: se abre al guardar el Agua del Norte. Sirve como pista posterior, no como destino físico inmediato.
+- `004-eclipse`: episodio anterior del eclipse, retirado y conservado solo por compatibilidad.
+- `004c-eclipse-amnesia`: se activa después del eclipse del 12 de agosto y abre la pérdida de memoria y el Cuaderno de la Memoria.
 - `004b-rumbo-amarante`: enlaza el eclipse con el viaje. Paula y Hugo deben descubrir Amarante antes de conocer la fecha y Topotino reconoce que ignora el motivo.
 - `004-guimaraes-origen`: episodio retirado que conserva un identificador técnico heredado para no romper partidas de ensayo.
 - `005-amarante-puente`: día 13 en Amarante, con observación de la ponte y elección de la primera memoria del viaje.
 - `006-magikland-curia`: día 14, con una búsqueda de movimientos en Magikland y un cierre de observación tranquila en Curia.
 
-Para este fin de semana, las submisiones jugables son Luanco llegada/observación y Agua del Norte el sábado 27. La pista del eclipse se puede probar después para reproducir la continuación narrativa.
+El arco publicado llega actualmente hasta Magikland y Curia, el 14 de agosto. Los días posteriores se desarrollan y publican uno a uno según la guía de coherencia.

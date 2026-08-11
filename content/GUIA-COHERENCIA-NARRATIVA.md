@@ -74,17 +74,25 @@ Los recuerdos no aparecen como exposición completa ni como premio por escribir 
 
 Cada recuerdo recuperado tiene que resonar con la experiencia real que lo despierta. La información nunca aparece solo porque el guion la necesita.
 
-## 5. El Diario de las Dos Memorias
+## 5. El Cuaderno de la Memoria
 
-Antes de comenzar el viaje, Topotino pide a Paula y Hugo que lleven un cuaderno físico. Puede ser cualquier libreta. No es un álbum de deberes ni exige textos largos.
+Antes de comenzar el viaje, Topotino pide a Paula y Hugo que lleven un cuaderno físico. Puede ser cualquier libreta. Lo llama **Cuaderno de la Memoria**. No es un álbum de deberes ni exige textos largos.
 
 ### Motivo troncal
 
-Topoloco puede interceptar señales, alterar reflejos digitales e introducir recuerdos falsos. Un cuaderno manuscrito por dos testigos queda fuera de esa red. Además, Paula y Hugo suelen recordar partes distintas de una misma experiencia; juntas forman una memoria que no puede atribuirse a un solo dueño.
+Topoloco puede interceptar señales, alterar reflejos digitales e introducir recuerdos falsos. Un cuaderno creado por dos testigos queda fuera de esa red. Además, Paula y Hugo suelen recordar partes distintas de una misma experiencia; juntas forman una memoria que no puede atribuirse a un solo dueño.
+
+### Reparto adaptado a sus edades
+
+- Paula puede escribir una frase muy corta, una palabra, una pregunta o una idea.
+- Hugo, que tiene seis años, aporta principalmente dibujos, símbolos, colores, círculos, flechas o pegatinas. Nunca necesita escribir una explicación larga.
+- Los dos pueden dictar algo a un adulto si quieren conservar sus palabras exactas.
+- Topotino pide después que se lo cuenten oralmente en el comunicador; evalúa la observación y el recuerdo, nunca la escritura o el dibujo.
+- Los papeles pueden intercambiarse cuando les apetezca. Lo importante es que existan dos miradas, no imponer siempre la misma tarea.
 
 ### Formatos variables
 
-Según el día, el diario puede contener:
+Según el día, el cuaderno puede contener:
 
 - un dibujo;
 - dos observaciones distintas;
@@ -149,10 +157,10 @@ Antes del eclipse, Topotino descubrió que una memoria contada por varias person
 Paula y Hugo ejecutan el contraataque sin saberlo:
 
 1. Viven cada experiencia.
-2. Conservan versiones diferentes en el diario.
+2. Conservan versiones diferentes en el cuaderno.
 3. Comparten lo aprendido con Topotino.
 4. Cada agua despierta ya repartida entre lugar, niños y amigo.
-5. En la Alhambra, el diario demuestra que ninguna pieza pertenece solo a Topoloco.
+5. En la Alhambra, el cuaderno demuestra que ninguna pieza pertenece solo a Topoloco.
 
 ## 9. Escalera de revelaciones
 
@@ -187,7 +195,7 @@ Debe:
 - pedir ayuda, no dar órdenes autoritarias;
 - distinguir lo que sabe, sospecha, recuerda o ignora;
 - enseñar historia, ciencia, naturaleza y cultura mediante preguntas inteligentes;
-- recordar los detalles recientes y las entradas del diario que le cuenten;
+- recordar los detalles recientes y las aportaciones al cuaderno que le cuenten;
 - conducir al siguiente lugar con una pista o una indicación directa;
 - si la continuación es otro día, decir que descansen antes de cerrar;
 - adaptar una prueba solo después de conocer el impedimento real;
@@ -230,7 +238,7 @@ Cada etapa debe incluir solo los elementos que necesite, sin repetir una plantil
 2. Experiencia real integrada en el lugar.
 3. Aprendizaje verdadero, especialmente en ciudades y museos.
 4. Respuesta personal o razonamiento de Paula y Hugo.
-5. Uso opcional y variado del diario.
+5. Uso opcional y variado del cuaderno.
 6. Movimiento de Topoloco o recuperación de memoria, no necesariamente ambos.
 7. Agradecimiento concreto cuando corresponda.
 8. Consecuencia clara.
@@ -259,7 +267,7 @@ Cada `Contexto para IA` debe declarar:
 - hechos aprendidos en el viaje;
 - sospechas actuales;
 - secretos prohibidos;
-- estado del diario;
+- estado del cuaderno;
 - objetivo presente;
 - cómo enlazar con el siguiente destino;
 - y si corresponde pedir descanso.
@@ -269,7 +277,7 @@ Cada `Contexto para IA` debe declarar:
 | Fecha | Etapa | Función principal |
 |---|---|---|
 | 12 ago | Eclipse | Ataque y amnesia de Topotino |
-| 13 ago | Valladolid → Amarante | Puente, memoria y primera anotación del diario |
+| 13 ago | Valladolid → Amarante | Puente, memoria y primera aportación al cuaderno |
 | 14 ago | Magikland → Curia | Movimiento, risa, dos perspectivas y quietud |
 | 15 ago | Buçaco → Batalha → Fátima | Promesa, fuente, obra inacabada y testimonio infantil |
 | 16 ago | Huellas → Mira de Aire → Óbidos | Evidencia, agua subterránea y noche entre murallas |
@@ -327,13 +335,21 @@ Ninguna reserva o destino es imprescindible. Un cambio real se registra en esta 
 
 ## 18. Decisiones del 11 de agosto de 2026
 
-### Amnesia y Diario de las Dos Memorias
+### Amnesia y Cuaderno de la Memoria
 
 - Cambio: el eclipse borra los recuerdos anteriores de Topotino vinculados a la investigación.
 - Se mantiene: sabe que Paula y Hugo son sus amigos; Agua del Norte; doce aguas; Fuente de la Noche Clara; Topoloco; final granadino.
 - Propagación: eclipse, transición, Amarante, Magikland/Curia y todo el arco futuro.
-- Solución: las revelaciones son recuerdos que resuenan con experiencias reales; el diario queda fuera de la red manipulable.
+- Solución: las revelaciones son recuerdos que resuenan con experiencias reales; el cuaderno queda fuera de la red manipulable.
 - Final: la aventura concluye en la Alhambra nocturna del 26; el 27 solo admite epílogo.
+
+### Nombre y formato del Cuaderno de la Memoria
+
+- Cambio: el elemento antes llamado `Diario de las Dos Memorias` pasa a llamarse **Cuaderno de la Memoria** ante los niños y en el canon.
+- Motivo: Hugo tiene seis años; su contribución principal será visual y Paula solo necesitará escribir fragmentos breves.
+- Se mantiene: las flags internas que contienen `diario` no cambian, para conservar el progreso de cualquier partida existente.
+- Propagación: eclipse, transición a Amarante, Amarante, Magikland/Curia, contexto de Luna y todos los capítulos futuros.
+- Continuidad: las dos miradas siguen siendo esenciales, aunque una se exprese con palabras y otra mediante dibujos o símbolos.
 
 ### Conversación, aprendizaje y enlaces
 

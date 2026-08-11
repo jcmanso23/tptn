@@ -22,9 +22,9 @@
 
 Esta transición convierte los dibujos de la placa de emergencia en el primer destino. Topotino no conoce la ciudad, la fecha ni por qué su yo anterior quería llegar allí. Solo ve `TÂM...`, una ponte y un pez. Paula y Hugo investigan Amarante; la fecha aparece únicamente después de identificarla.
 
-Topotino ya recuerda la conversación posterior al eclipse, la placa y la preparación del diario. No recuerda el pasado anterior ni el plan. Cada intento incorrecto permite revelar una evidencia nueva sin ridiculizarlo.
+Topotino ya recuerda la conversación posterior al eclipse, la placa y la preparación del Cuaderno de la Memoria. No recuerda el pasado anterior ni el plan. Cada intento incorrecto permite revelar una evidencia nueva sin ridiculizarlo.
 
-Al terminar, Topotino indica directamente que deben estar en Amarante el 13 por la tarde. Como la continuación pertenece al día siguiente, pide que preparen el diario, duerman y descansen.
+Al terminar, Topotino indica directamente que deben estar en Amarante el 13 por la tarde. Como la continuación pertenece al día siguiente, pide que preparen el cuaderno, duerman y descansen.
 
 ## Mensajes iniciales
 
@@ -47,7 +47,7 @@ Al terminar, Topotino indica directamente que deben estar en Amarante el 13 por 
     "messages": [
       { "from": "topotino", "time": "auto", "text": "Gracias. Amarante encaja con las tres cosas: el Tâmega, la Ponte de São Gonçalo y la tradición del pez. Buena investigación; no os habéis quedado con la primera ciudad que sonaba portuguesa." },
       { "from": "topotino", "time": "auto", "text": "Al colocar ese nombre sobre la placa ha aparecido una línea que antes era invisible: «13 de agosto · por la tarde». Tenemos que estar allí entonces. Digo tenemos porque pienso acompañaros desde el comunicador, aunque mis patas no quepan en vuestro coche." },
-      { "from": "topotino", "time": "auto", "text": "No sé para qué debemos ir. Preparad el Diario de las Dos Memorias y el viaje. Ahora descansad; mañana será largo y no pienso permitir que empecéis una aventura con sueño de murciélago." }
+      { "from": "topotino", "time": "auto", "text": "No sé para qué debemos ir. Preparad el Cuaderno de la Memoria y el viaje. Ahora descansad; mañana será largo y no pienso permitir que empecéis una aventura con sueño de murciélago." }
     ]
   },
   {
@@ -105,7 +105,7 @@ Al terminar, Topotino indica directamente que deben estar en Amarante el 13 por 
 
 ## Contexto para IA
 
-Topotino recuerda todo lo hablado después del eclipse: sabe que perdió memoria, que Paula y Hugo son sus amigos, que el Agua del Norte reaccionó y que han preparado el Diario de las Dos Memorias. Antes de `amarante_previa_identificada` solo conoce `TÂM...`, la ponte, el pez y la hipótesis de Portugal; usa únicamente las pistas permitidas por `amarante_pista_tamega` y `amarante_pista_sao_goncalo`. No adelanta la fecha. Después del acierto sabe que deben estar en Amarante el 13 por la tarde, pero ignora el motivo. Agradece los intentos razonados sin validar nombres incorrectos. Tras resolverlo, conduce directamente a Amarante y pide descansar porque continuarán al día siguiente. No conoce el autor de su amnesia, el museo, las doce aguas, Granada ni destinos posteriores.
+Topotino recuerda todo lo hablado después del eclipse: sabe que perdió memoria, que Paula y Hugo son sus amigos, que el Agua del Norte reaccionó y que han preparado el Cuaderno de la Memoria. Antes de `amarante_previa_identificada` solo conoce `TÂM...`, la ponte, el pez y la hipótesis de Portugal; usa únicamente las pistas permitidas por `amarante_pista_tamega` y `amarante_pista_sao_goncalo`. No adelanta la fecha. Después del acierto sabe que deben estar en Amarante el 13 por la tarde, pero ignora el motivo. Agradece los intentos razonados sin validar nombres incorrectos. Tras resolverlo, conduce directamente a Amarante y pide descansar porque continuarán al día siguiente. No conoce el autor de su amnesia, el museo, las doce aguas, Granada ni destinos posteriores.
 
 ## Fuentes documentales
 

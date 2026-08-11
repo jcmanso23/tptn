@@ -22,13 +22,13 @@
 
 # Contexto narrativo
 
-Es 14 de agosto. Topotino recuerda todo lo ocurrido después del eclipse, incluido Amarante y el Diario de las Dos Memorias, pero todavía no recuerda las aventuras anteriores. El día se divide deliberadamente en dos ritmos: movimiento, juego y sorpresa en Magikland; quietud, escucha y reflejos al llegar a Curia o a otro lugar de descanso.
+Es 14 de agosto. Topotino recuerda todo lo ocurrido después del eclipse, incluido Amarante y el Cuaderno de la Memoria, pero todavía no recuerda las aventuras anteriores. El día se divide deliberadamente en dos ritmos: movimiento, juego y sorpresa en Magikland; quietud, escucha y reflejos al llegar a Curia o a otro lugar de descanso.
 
 Magikland tiene seis áreas temáticas y atracciones con movimientos diversos. Topotino encuentra un aparato rotulado «Cazarrisas Hidráulico», pero no sabe qué captura ni para qué lo construyó Topoloco. La prueba principal consiste en localizar movimientos y vivir el parque. Las adaptaciones solo se ofrecen después de que los niños expresen un cierre, miedo, cansancio u otro obstáculo.
 
 Curia ofrece lago, pontes, jardines y, cuando funcionan, embarcaciones de pedales. La ruta principal conduce al lago. Si el plan cambia o el parque no resulta posible, Topotino adapta entonces la misma prueba de quietud al lugar real en el que esté la familia.
 
-La experiencia demuestra que el Cazarrisas captura ruido, pero solo reacciona de verdad cuando Paula y Hugo dan significado a un momento compartido. En Curia, la quietud devuelve a Topotino una sensación de Londres: no los hechos completos, sino la certeza de haberse reído con ellos. El diario conserva dos versiones del mismo momento. Todavía no se revela que Topoloco necesita que Paula y Hugo despierten las memorias. El cierre deja una pista sensorial hacia un bosque, sin nombrar Buçaco, y pide descansar hasta el día siguiente.
+La experiencia demuestra que el Cazarrisas captura ruido, pero solo reacciona de verdad cuando Paula y Hugo dan significado a un momento compartido. En Curia, la quietud devuelve a Topotino una sensación de Londres: no los hechos completos, sino la certeza de haberse reído con ellos. El Cuaderno de la Memoria conserva dos versiones del mismo momento. Todavía no se revela que Topoloco necesita que Paula y Hugo despierten las memorias. El cierre deja una pista sensorial hacia un bosque, sin nombrar Buçaco, y pide descansar hasta el día siguiente.
 
 ## Mensajes iniciales
 
@@ -193,7 +193,7 @@ La experiencia demuestra que el Cazarrisas captura ruido, pero solo reacciona de
     "messages": [
       { "from": "topotino", "time": "auto", "text": "Gracias. Después de todo el ruido habéis encontrado un sonido pequeño y un reflejo quieto. El Cazarrisas no sabe qué hacer con el silencio, pero mi memoria sí." },
       { "from": "topotino", "time": "auto", "text": "He recordado una sensación de Londres: los tres nos reíamos porque algo había salido rematadamente mal. No veo todavía dónde estábamos ni qué ocurrió. Pero recuerdo cómo era reírme con vosotros, y eso estaba dentro de mí aunque no supiera encontrarlo." },
-      { "from": "topotino", "time": "auto", "text": "Abrid el Diario de las Dos Memorias. Paula escribirá o dibujará qué parte del momento divertido de hoy conservaría; Hugo guardará otra. Después decidme brevemente qué dos cosas habéis anotado." }
+      { "from": "topotino", "time": "auto", "text": "Abrid el Cuaderno de la Memoria. Paula puede guardar una frase muy corta sobre el momento divertido de hoy. Hugo dibujará otra parte —una cara, una salpicadura, un movimiento o lo que él recuerde—. Después contadme brevemente qué dos cosas habéis guardado." }
     ]
   },
   {
@@ -201,15 +201,15 @@ La experiencia demuestra que el Cazarrisas captura ruido, pero solo reacciona de
     "requiredFlags": ["curia_quietud_observada"],
     "blockedFlags": ["completado_magikland_curia"],
     "openAnswer": true,
-    "minWords": 5,
-    "containsAny": ["diario", "escrito", "dibujado", "paula", "hugo", "recordar", "recuerdo", "risa", "divertido", "momento"],
+    "minWords": 3,
+    "containsAny": ["diario", "cuaderno", "escrito", "dibujo", "dibujado", "símbolo", "simbolo", "color", "paula", "hugo", "recordar", "recuerdo", "risa", "divertido", "momento"],
     "rejectContainsAny": ["nada", "no se", "ni idea", "lo que sea"],
     "setFlags": ["diario_magikland_curia", "completado_magikland_curia"],
     "water": "Agua de la Risa",
     "formulaWord": "RIO",
     "messages": [
       { "from": "topotino", "time": "auto", "text": "Gracias. Dos detalles distintos y una sola experiencia compartida. El agua quieta ha conservado la risa sin convertirla en una copia: acaba de despertar el Agua de la Risa." },
-      { "from": "topotino", "time": "auto", "text": "No uséis agua del parque, del lago ni de la piscina. El diario ya guarda lo importante. El Cazarrisas reacciona a recuerdos vividos, pero todavía no sé qué quiere hacer esa figura con ellos." },
+      { "from": "topotino", "time": "auto", "text": "No uséis agua del parque, del lago ni de la piscina. El cuaderno ya guarda lo importante. El Cazarrisas reacciona a recuerdos vividos, pero todavía no sé qué quiere hacer esa figura con ellos." },
       { "from": "topotino", "time": "auto", "text": "Del filtro ha salido olor a musgo, piedra fría y hojas empapadas, junto a una nota: «donde el bosque bebe del cielo». Esa será la ruta de mañana." },
       { "from": "topotino", "time": "auto", "text": "Por hoy se acabó. Habéis jugado, observado y me habéis devuelto una emoción. Cenad y descansad. Mañana necesitaremos ojos despiertos y oídos de bosque." }
     ]
@@ -225,7 +225,7 @@ La experiencia demuestra que el Cazarrisas captura ruido, pero solo reacciona de
   "No necesito nombres de atracciones. Dadme verbos de movimiento: girar, subir, bajar, balancearse, correr o salpicar.",
   "Elegid un momento real que os haya hecho reír o sorprenderos. Una frase sencilla vale.",
   "Para la señal de Curia necesito las dos partes: «OÍMOS...» y «VIMOS...».",
-  "En el diario guardad dos detalles distintos del mismo momento divertido y contadme cuáles son."
+  "En el Cuaderno de la Memoria guardad dos detalles: Paula puede escribir algo mínimo y Hugo puede dibujar. Después contadme cuáles son."
 ]
 ```
 
@@ -237,13 +237,13 @@ La experiencia demuestra que el Cazarrisas captura ruido, pero solo reacciona de
   "Buscad tres acciones distintas y convertidlas en verbos.",
   "Cuando lleguéis al siguiente lugar, la señal está esperando la palabra CURIA.",
   "Durante veinte segundos: una persona escucha y otra busca un reflejo. Después juntad las dos observaciones.",
-  "La última parte no es una contraseña: son dos recuerdos breves, uno de Paula y otro de Hugo, guardados en el diario."
+  "La última parte no es una contraseña: son dos recuerdos breves, uno de Paula y otro de Hugo, guardados en el Cuaderno de la Memoria."
 ]
 ```
 
 ## Contexto para IA
 
-Topotino recuerda todo desde el eclipse: la amnesia, la placa, el diario, Amarante, el Agua del Puente y la escena parcial de la figura junto a una máquina. Sigue sin recordar Londres ni su investigación completa. Al inicio sabe que el plano representa Magikland y que existe un Cazarrisas Hidráulico. Después de `magikland_movimientos` sabe que reacciona de forma distinta a los movimientos; después de `magikland_recuerdo_elegido` sabe que responde con más fuerza al significado de un recuerdo real; después de `curia_quietud_observada` ha recuperado únicamente la sensación de haberse reído con Paula y Hugo en Londres, no el lugar ni el suceso. Entonces pide dos versiones breves en el Diario de las Dos Memorias. Después de `completado_magikland_curia` sabe que despertó el Agua de la Risa y que el aparato parece interesado en recuerdos vividos, pero no conoce el museo, el motivo, el número ni que Topoloco necesita a los niños. Agradece de forma concreta cada observación válida. Presenta la prueba principal sin anticipar cierres, miedo, cansancio o cambios; adapta solo ante el impedimento comunicado. Puede enseñar las seis áreas temáticas y, ya en Curia, el lago, las pontes y jardines. No pide agua de atracciones, piscinas o lago. Al cerrar conduce mediante la pista del bosque y pide descanso. No revela Buçaco por su nombre, Granada ni los doce leones.
+Topotino recuerda todo desde el eclipse: la amnesia, la placa, el Cuaderno de la Memoria, Amarante, el Agua del Puente y la escena parcial de la figura junto a una máquina. Sigue sin recordar Londres ni su investigación completa. Al inicio sabe que el plano representa Magikland y que existe un Cazarrisas Hidráulico. Después de `magikland_movimientos` sabe que reacciona de forma distinta a los movimientos; después de `magikland_recuerdo_elegido` sabe que responde con más fuerza al significado de un recuerdo real; después de `curia_quietud_observada` ha recuperado únicamente la sensación de haberse reído con Paula y Hugo en Londres, no el lugar ni el suceso. Entonces pide dos versiones breves: Paula puede escribir una frase mínima y Hugo dibuja o usa símbolos, sin obligación de escribir. Después de `completado_magikland_curia` sabe que despertó el Agua de la Risa y que el aparato parece interesado en recuerdos vividos, pero no conoce el museo, el motivo, el número ni que Topoloco necesita a los niños. Agradece de forma concreta cada observación válida. Presenta la prueba principal sin anticipar cierres, miedo, cansancio o cambios; adapta solo ante el impedimento comunicado. Puede enseñar las seis áreas temáticas y, ya en Curia, el lago, las pontes y jardines. No pide agua de atracciones, piscinas o lago. Al cerrar conduce mediante la pista del bosque y pide descanso. No revela Buçaco por su nombre, Granada ni los doce leones.
 
 ## Fuentes documentales
 

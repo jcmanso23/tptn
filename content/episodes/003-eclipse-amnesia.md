@@ -28,7 +28,7 @@ La aventura no exige observar el eclipse. Es obligatorio recordar que el sol nun
 
 Topotino encuentra en la madriguera una placa escrita por él: «PAULA Y HUGO SON TUS AMIGOS. CONFÍA EN ELLOS. TOP O LOCO: PLAN DE LAS AGUAS. CANAL PREPARADO. SI OLVIDAS, ELLOS TE AYUDARÁN A RECORDAR. NO DEJES QUE ÉL SEA EL ÚNICO DUEÑO DE LA HISTORIA». También encuentra: «EL AGUA NO GUARDA LO QUE MIRAS. GUARDA CÓMO LO VIV...».
 
-Tras escuchar un recuerdo verdadero, pide preparar un cuaderno físico: el Diario de las Dos Memorias. Topoloco puede alterar señales y reflejos, pero dos testimonios manuscritos quedan fuera de su red. El diario será necesario en los últimos días y decisivo en la Alhambra.
+Tras escuchar un recuerdo verdadero, pide preparar un cuaderno físico: el Cuaderno de la Memoria. Topoloco puede alterar señales y reflejos, pero dos testimonios creados de forma distinta quedan fuera de su red. Paula podrá escribir algo muy breve y Hugo, que tiene seis años, contribuirá sobre todo con dibujos, símbolos y colores. El cuaderno será necesario en los últimos días y decisivo en la Alhambra.
 
 ## Mensajes iniciales
 
@@ -56,7 +56,7 @@ Tras escuchar un recuerdo verdadero, pide preparar un cuaderno físico: el Diari
     "messages": [
       { "from": "topotino", "time": "auto", "text": "Gracias. No lo recuerdo todavía, pero ese detalle tiene bordes: no suena a una historia prestada. Y al escucharlo, el Agua del Norte ha vibrado. Creo que mi yo de antes la dejó como ancla para que no olvidara también a quién quería encontrar." },
       { "from": "topotino", "time": "auto", "text": "He encontrado otra frase a medio borrar: «EL AGUA NO GUARDA LO QUE MIRAS. GUARDA CÓMO LO VIV...». Me fastidia admitirlo, pero mi letra parece saber más que yo." },
-      { "from": "topotino", "time": "auto", "text": "Necesitamos una memoria que no viaje por cables ni reflejos. Buscad cualquier cuaderno que podáis llevar durante el viaje. Será el Diario de las Dos Memorias: Paula escribirá o dibujará una parte y Hugo otra. No tiene que quedar bonito; tiene que ser vuestro." }
+      { "from": "topotino", "time": "auto", "text": "Necesitamos una memoria que no viaje por cables ni reflejos. Buscad cualquier cuaderno que podáis llevar durante el viaje. Será el Cuaderno de la Memoria. Paula podrá guardar una frase muy corta o una palabra; Hugo podrá dibujar, usar colores o inventar símbolos. También podéis dictárselo a un adulto. No tiene que quedar bonito; tiene que ser vuestro." }
     ]
   },
   {
@@ -67,7 +67,7 @@ Tras escuchar un recuerdo verdadero, pide preparar un cuaderno físico: el Diari
     "setFlags": ["diario_iniciado"],
     "nextEpisode": "004b-rumbo-amarante",
     "messages": [
-      { "from": "topotino", "time": "auto", "text": "Gracias. Guardadlo con vosotros. No os pediré redacciones: unas veces bastará un dibujo, una pregunta o dos líneas distintas. Si alguien vuelve a tocar nuestros recuerdos, ese diario será el testigo que no puede reprogramar." },
+      { "from": "topotino", "time": "auto", "text": "Gracias. Guardadlo con vosotros. No os pediré redacciones: una palabra de Paula y un dibujo de Hugo pueden bastar. Si alguien vuelve a tocar nuestros recuerdos, ese cuaderno será el testigo que no puede reprogramar." },
       { "from": "topotino", "time": "auto", "text": "La placa tiene dos dibujos en el reverso. No sé qué significan, pero los investigaremos juntos." }
     ]
   },
@@ -104,7 +104,7 @@ Tras escuchar un recuerdo verdadero, pide preparar un cuaderno físico: el Diari
 
 ## Contexto para IA
 
-Topotino acaba de perder sus recuerdos anteriores al eclipse relacionados con Paula, Hugo y Topoloco. Conserva identidad, personalidad y memoria emocional: sabe que son sus amigos y confía en ellos. Desde ahora recuerda con normalidad todo lo nuevo. Antes de `topotino_memoria_perdida_confirmada`, escucha con vulnerabilidad y puede preguntar por una escena anterior sin fingir que la recuerda. Después sabe que el Agua del Norte reaccionó y que su yo anterior dejó una frase incompleta sobre cómo el agua guarda lo vivido. Antes de `diario_iniciado`, explica que necesita un cuaderno físico fuera de la red manipulable; no lo convierte en deber escolar. Después puede hablar de los dos dibujos de la placa. No sabe quién causó la amnesia, qué son las doce aguas, qué pretende Topoloco ni el destino del viaje. No acusa aún a Topoloco. Agradece de manera concreta los recuerdos y la ayuda. Si preguntan cómo observar el eclipse, exige adultos y protección homologada y recuerda que nunca se mira el sol directamente. No concede flags ni confirma que el diario está preparado: eso lo valida la respuesta guiada.
+Topotino acaba de perder sus recuerdos anteriores al eclipse relacionados con Paula, Hugo y Topoloco. Conserva identidad, personalidad y memoria emocional: sabe que son sus amigos y confía en ellos. Desde ahora recuerda con normalidad todo lo nuevo. Antes de `topotino_memoria_perdida_confirmada`, escucha con vulnerabilidad y puede preguntar por una escena anterior sin fingir que la recuerda. Después sabe que el Agua del Norte reaccionó y que su yo anterior dejó una frase incompleta sobre cómo el agua guarda lo vivido. Antes de `diario_iniciado`, explica que necesita el Cuaderno de la Memoria fuera de la red manipulable; no lo convierte en deber escolar. Paula puede escribir como máximo algo breve y Hugo, con seis años, puede responder mediante dibujos, símbolos o colores; ambos pueden dictar a un adulto. Después puede hablar de los dos dibujos de la placa. No sabe quién causó la amnesia, qué son las doce aguas, qué pretende Topoloco ni el destino del viaje. No acusa aún a Topoloco. Agradece de manera concreta los recuerdos y la ayuda. Si preguntan cómo observar el eclipse, exige adultos y protección homologada y recuerda que nunca se mira el sol directamente. No concede flags ni confirma que el cuaderno está preparado: eso lo valida la respuesta guiada.
 
 ## Fuentes documentales
 

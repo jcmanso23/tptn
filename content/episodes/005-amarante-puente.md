@@ -22,7 +22,7 @@
 
 # Contexto narrativo
 
-Es el 13 de agosto. Paula y Hugo llegan a la ciudad descubierta en la placa. El capítulo combina tres experiencias: observar un detalle capaz de guardar historia, distinguir tradición de hechos documentados y conservar dos versiones del comienzo del viaje en el diario.
+Es el 13 de agosto. Paula y Hugo llegan a la ciudad descubierta en la placa. El capítulo combina tres experiencias: observar un detalle capaz de guardar historia, distinguir tradición de hechos documentados y conservar dos versiones del comienzo del viaje en el Cuaderno de la Memoria.
 
 La señal detecta un fragmento metálico con `...REFL...`. Topotino no sabe que pertenece al Aspirador Portátil de Reflejos ni que Topoloco lo dejó en parte para comprobar si los niños despertaban la memoria.
 
@@ -101,7 +101,7 @@ La palabra técnica `COMIENZO` se conserva silenciosamente por compatibilidad. N
     "setFlags": ["amarante_historia_comprendida"],
     "messages": [
       { "from": "topotino", "time": "auto", "text": "Exacto. Gracias por separar lo que cuenta la tradición de lo que sostienen las fechas y los registros. Las dos cosas pueden enseñarnos, pero no son la misma clase de verdad." },
-      { "from": "topotino", "time": "auto", "text": "El fragmento «...REFL...» acaba de vibrar. Antes de tocar la señal, abrid el Diario de las Dos Memorias. Paula guardará un detalle del comienzo del viaje; Hugo guardará otro. Puede ser dibujo o frase. Luego contadme en pocas palabras qué habéis decidido no olvidar." }
+      { "from": "topotino", "time": "auto", "text": "El fragmento «...REFL...» acaba de vibrar. Antes de tocar la señal, abrid el Cuaderno de la Memoria. Paula guardará una palabra o una frase muy corta sobre el comienzo del viaje. Hugo dibujará otro detalle, con los colores o símbolos que quiera. Después contádmelo en pocas palabras; no necesito que Hugo escriba." }
     ]
   },
   {
@@ -109,14 +109,14 @@ La palabra técnica `COMIENZO` se conserva silenciosamente por compatibilidad. N
     "requiredFlags": ["amarante_historia_comprendida"],
     "blockedFlags": ["completado_amarante"],
     "openAnswer": true,
-    "minWords": 5,
-    "containsAny": ["diario", "dibujado", "escrito", "recordar", "recuerdo", "viaje", "llegada", "familia", "puente", "ponte", "amarante", "tâmega", "tamega"],
+    "minWords": 3,
+    "containsAny": ["diario", "cuaderno", "dibujo", "dibujado", "símbolo", "simbolo", "color", "escrito", "recordar", "recuerdo", "viaje", "llegada", "familia", "puente", "ponte", "amarante", "tâmega", "tamega"],
     "rejectContainsAny": ["nada", "no se", "ni idea", "lo que sea"],
     "setFlags": ["diario_amarante", "completado_amarante"],
     "water": "Agua del Puente",
     "formulaWord": "COMIENZO",
     "messages": [
-      { "from": "topotino", "time": "auto", "text": "Gracias por guardarlo. El diario tiene dos recuerdos y ninguno borra al otro. La ponte ha respondido: el Agua del Puente acaba de despertar. No recojáis agua del río; vuestra entrada ya es el recipiente." },
+      { "from": "topotino", "time": "auto", "text": "Gracias por guardarlo. El cuaderno tiene dos recuerdos y ninguno borra al otro. La ponte ha respondido: el Agua del Puente acaba de despertar. No recojáis agua del río; vuestra entrada ya es el recipiente." },
       { "from": "topotino", "time": "auto", "text": "Estoy recordando una escena. Una figura de espaldas ajusta una máquina y dice: «Nadie puede acusarme de robar algo que no se puede tocar». No veo su cara. Después oigo mi propia voz: «No quiere el agua. Quiere lo que el agua recuerda». Eso es todo; no voy a fingir que sé más." },
       { "from": "topotino", "time": "auto", "text": "La máquina ha soltado un plano con seis mundos: África, confusión, una aldea medieval, piratas, Far-West y un zoco. También aparecen una rueda, un barco que se balancea y agua corriendo. Esa es nuestra siguiente ruta; mañana averiguaremos el lugar." },
       { "from": "topotino", "time": "auto", "text": "Por hoy basta. Habéis viajado, observado y me habéis devuelto mi primer recuerdo. Cenad y descansad. Mañana quiero agentes despiertos, no dos croquetas con ojeras." }
@@ -131,7 +131,7 @@ La palabra técnica `COMIENZO` se conserva silenciosamente por compatibilidad. N
 [
   "Elegid un detalle real cada uno y explicad por qué parece capaz de guardar una historia.",
   "La parte de São Gonçalo y los peces pertenece a la tradición; las fechas 1763 y 1809 proceden de la historia documentada.",
-  "En el diario bastan dos detalles distintos y una frase breve sobre lo que queréis conservar de la llegada."
+  "En el Cuaderno de la Memoria basta una palabra o frase muy corta de Paula y un dibujo o símbolo de Hugo. Después contadme qué habéis querido conservar."
 ]
 ```
 
@@ -141,13 +141,13 @@ La palabra técnica `COMIENZO` se conserva silenciosamente por compatibilidad. N
 [
   "Mirad con calma piedra, agua, arcos, iglesia, figuras o reflejos. Paula elige uno y Hugo otro.",
   "Preguntad qué parte es una tradición sobre São Gonçalo y qué partes tienen fecha histórica.",
-  "El diario no pide una frase perfecta: guardad dos cosas que recordaríais dentro de muchos años."
+  "El Cuaderno de la Memoria no pide una frase perfecta: Paula puede escribir muy poco y Hugo puede dibujar. Guardad entre los dos dos cosas que recordaríais dentro de muchos años."
 ]
 ```
 
 ## Contexto para IA
 
-Topotino conserva la amistad emocional con Paula y Hugo y recuerda todo desde el eclipse: la amnesia, la placa, el Diario de las Dos Memorias y el descubrimiento de Amarante. No recuerda Londres, Luanco ni su antigua investigación. Al inicio solo sabe que la señal se activó allí y apareció `...REFL...`. Tras `amarante_puente_observado`, puede enseñar la tradición de São Gonçalo y los peces y distinguirla de la caída de 1763 y la resistencia de 1809. No da por superada esa comparación; la valida el motor. Tras `amarante_historia_comprendida`, pide una entrada breve y doble en el diario. Tras `completado_amarante`, sabe que despertó el Agua del Puente y recuerda la escena exacta autorizada: figura de espaldas, frase sobre robar lo intangible y su propia conclusión «No quiere el agua. Quiere lo que el agua recuerda». No sabe quién era la figura ni acusa con certeza a Topoloco. Agradece observaciones y razonamientos concretos. Puede ampliar historia y cultura de Amarante usando solo los hechos del capítulo. No revela el museo, las doce aguas, Granada, los leones ni que los niños son necesarios. Si preguntan qué sigue antes del final, usa únicamente el plano de seis mundos; al cerrar el día pide descanso. Nunca pide agua del río.
+Topotino conserva la amistad emocional con Paula y Hugo y recuerda todo desde el eclipse: la amnesia, la placa, el Cuaderno de la Memoria y el descubrimiento de Amarante. No recuerda Londres, Luanco ni su antigua investigación. Al inicio solo sabe que la señal se activó allí y apareció `...REFL...`. Tras `amarante_puente_observado`, puede enseñar la tradición de São Gonçalo y los peces y distinguirla de la caída de 1763 y la resistencia de 1809. No da por superada esa comparación; la valida el motor. Tras `amarante_historia_comprendida`, pide una entrada breve y doble: Paula puede escribir algo mínimo y Hugo dibuja o usa símbolos, sin obligación de escribir. Tras `completado_amarante`, sabe que despertó el Agua del Puente y recuerda la escena exacta autorizada: figura de espaldas, frase sobre robar lo intangible y su propia conclusión «No quiere el agua. Quiere lo que el agua recuerda». No sabe quién era la figura ni acusa con certeza a Topoloco. Agradece observaciones y razonamientos concretos. Puede ampliar historia y cultura de Amarante usando solo los hechos del capítulo. No revela el museo, las doce aguas, Granada, los leones ni que los niños son necesarios. Si preguntan qué sigue antes del final, usa únicamente el plano de seis mundos; al cerrar el día pide descanso. Nunca pide agua del río.
 
 ## Fuentes documentales
 

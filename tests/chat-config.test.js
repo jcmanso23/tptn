@@ -16,7 +16,8 @@ test('la conversación libre usa Luna y conserva los turnos con sus roles', asyn
   assert.match(source, /reasoningEffort: 'none'/);
   assert.match(source, /maxOutputTokens: 480/);
   assert.match(source, /Escribe siempre en texto plano/);
-  assert.match(source, /Diario de las Dos Memorias/);
+  assert.match(source, /Cuaderno de la Memoria/);
+  assert.match(source, /Hugo tiene seis años/);
   assert.match(source, /Recuerdas con normalidad todo lo sucedido desde que despertaste/);
   assert.match(source, /agradécelo de forma concreta/);
   assert.match(source, /interpreta a Topoloco como inteligente, huidizo/);

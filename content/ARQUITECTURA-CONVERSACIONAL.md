@@ -16,7 +16,7 @@ En cada turno necesita saber:
 - si ha surgido un impedimento real que exige adaptar la prueba;
 - qué secretos siguen fuera de su conocimiento.
 - qué recuerdos anteriores al eclipse ha recuperado y cuáles siguen perdidos;
-- qué entrada del Diario de las Dos Memorias puede pedir en esa fase;
+- qué aportación al Cuaderno de la Memoria puede pedir en esa fase;
 - qué aprendizaje real puede explicar;
 - cómo agradecer un avance válido;
 - cuál es el siguiente destino permitido y si antes deben descansar.
@@ -74,7 +74,7 @@ El 11 de agosto de 2026 se decidió usar la facturación existente de la API de 
 - Enviar los turnos recientes con roles de usuario y asistente para mantener una conversación real sin repetir el contexto como si fuera una ficha.
 - Mantener respuestas guiadas para aciertos, progreso, seguridad y contingencias críticas.
 - Registrar el conocimiento de Topotino por fases.
-- Usar el Diario de las Dos Memorias como elemento narrativo; la app solo registra las confirmaciones necesarias, no sustituye el cuaderno físico.
+- Usar el Cuaderno de la Memoria como elemento narrativo; Paula puede escribir algo mínimo y Hugo expresarse con dibujos, símbolos o colores. La app solo registra las confirmaciones necesarias, no sustituye el cuaderno físico.
 - Agradecer de forma concreta observaciones y razonamientos válidos sin conceder progreso desde el modelo.
 - Conducir al siguiente lugar solo con la pista autorizada y pedir descanso cuando cambie el día.
 
