@@ -107,9 +107,10 @@ El primer objetivo del chat es confirmar que son Paula y Hugo, pero Topotino no 
     "id": "ensayo-origen",
     "match": ["topollave-origen"],
     "setFlags": ["identidad_confirmada", "luanco_identificado", "luanco_observado", "agua_norte_recogida", "eclipse_identificado"],
+    "setRuntimeNow": "2026-08-13T18:00:00+02:00",
     "water": "Agua del Norte",
     "formulaWord": "MIRO",
-    "nextEpisode": "004-guimaraes-origen",
+    "nextEpisode": "004-eclipse",
     "messages": [
       { "from": "topotino", "time": "auto", "text": "Modo ensayo activado. Simulo la señal de origen sin movernos del sofá. El sofá, oficialmente, queda declarado túnel provisional." }
     ]

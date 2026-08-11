@@ -44,6 +44,8 @@ Escribe aquí lo que Topotino sabe en este capítulo, lo que sospecha y lo que N
 [
   {
     "id": "respuesta-correcta",
+    "requiredFlags": ["fase_anterior_completada"],
+    "blockedFlags": ["respuesta_ya_completada"],
     "match": ["respuesta", "otra forma aceptada"],
     "setFlags": ["flag_desbloqueada"],
     "water": null,

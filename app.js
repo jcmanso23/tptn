@@ -5,7 +5,7 @@ const STORAGE_KEYS = {
 
 const LEGACY_STATE_KEY = 'topotino_chat_state_v1';
 const PASSPHRASE_HASH = 'a64716bd9f4e8added1bf47f80b97c3fc7b70a15b8043cdab083e1ddf85f3794';
-const EPISODES_MANIFEST = 'content/episodes.json?v=chat-v16';
+const EPISODES_MANIFEST = 'content/episodes.json?v=chat-v17';
 const LIVE_STORY_ENDPOINT = '/api/story';
 const ACTIVATION_TICK_MS = 60000;
 const ADULT_PHASE_DELAY_MS = 5 * 60 * 1000;
@@ -648,6 +648,11 @@ function findGuidedResponse(text) {
 function responseMatches(candidate, normalizedText) {
   const requiredFlags = candidate.requiredFlags || [];
   if (requiredFlags.length && !requiredFlags.every((flag) => state.flags.includes(flag))) {
+    return false;
+  }
+
+  const blockedFlags = candidate.blockedFlags || [];
+  if (blockedFlags.some((flag) => state.flags.includes(flag))) {
     return false;
   }
 
@@ -1686,6 +1691,6 @@ function applyTestingParams() {
 
 function registerServiceWorker() {
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('service-worker.js?v=offline-v2').catch(() => {});
+    navigator.serviceWorker.register('service-worker.js?v=offline-v3').catch(() => {});
   }
 }

@@ -3,7 +3,7 @@
 > Documento maestro de continuidad. Debe leerse antes de crear, corregir o publicar cualquier misión. Si una decisión de esta guía cambia, hay que revisar todas las misiones futuras afectadas antes de desplegar.
 
 **Última actualización:** 11 de agosto de 2026  
-**Estado:** historia de fondo pendiente de elección  
+**Estado:** arco de fondo elegido; días 13 y 14 desarrollados
 **Viaje principal:** 13–27 de agosto de 2026
 
 ## 1. Para qué sirve esta guía
@@ -70,7 +70,7 @@ Una reserva, visita o destino no debe convertirse en indispensable para resolver
 - El eclipse del 12 de agosto de 2026 separa el prólogo del gran viaje.
 - El viaje empieza el 13 de agosto, el día siguiente al eclipse.
 - El eclipse no debe presentarse como algo mágico que permita ignorar la seguridad: nunca se anima a mirar directamente al sol.
-- El día del sol escondido pone en movimiento el misterio, pero su significado completo todavía no está decidido.
+- El día del sol escondido despierta una red de recuerdos del agua y pone en marcha el aparato de Topoloco. Los niños todavía no conocen el alcance de esa red.
 
 ### El secreto del viaje
 
@@ -78,7 +78,12 @@ Una reserva, visita o destino no debe convertirse en indispensable para resolver
 - Paula y Hugo no deben conocer desde el principio la lista completa ni el final.
 - El desenlace está relacionado con Granada, la Alhambra, el agua nocturna y los doce leones.
 - La existencia de ese desenlace debe insinuarse mediante imágenes recurrentes, no anunciarse.
-- La historia de fondo definitiva todavía debe elegirse entre las posibilidades que apruebe Juan.
+- La historia de fondo elegida es **El ladrón de los recuerdos del agua**.
+- El agua puede conservar el recuerdo de un lugar cuando alguien lo vive de verdad, lo observa y sabe contarlo. No guarda fotografías perfectas: guarda sensaciones, gestos, sonidos, decisiones y vínculos.
+- Topoloco pretende extraer doce recuerdos singulares y encerrarlos en su **Museo Topoloco de Recuerdos Exclusivos**, donde solo él podría poseerlos, ordenarlos y presumir de haberlos vivido.
+- Su herramienta principal es el **Aspirador Portátil de Reflejos**, acompañado de accesorios chapuceros distintos en cada etapa.
+- El aparato no puede despertar por sí solo una memoria auténtica. En secreto, Topoloco necesita que Paula y Hugo vivan cada experiencia antes de intentar capturarla. Este giro se prepara desde el principio, pero no debe revelarse todavía.
+- La Fuente de la Noche Clara es una memoria común capaz de devolver a los lugares lo que Topoloco intente encerrar. Su relación exacta con los doce leones se reserva para el desenlace.
 
 ## 4. Personajes
 
@@ -121,6 +126,14 @@ Rasgos obligatorios:
 
 Sus intervenciones deben variar. No puede limitarse a dejar una nota en cada lugar. Puede perder objetos, interceptar mensajes, construir aparatos inútiles, cambiar etiquetas, enviar pistas falsas, disfrazarse mal, interpretar una leyenda al revés o creer que ha ganado demasiado pronto.
 
+#### Plan canónico de Topoloco
+
+- Quiere inaugurar un museo donde las mejores memorias del agua sean propiedad suya y los demás lugares queden sin historias que contar.
+- Cree que poseer una memoria equivale a haber vivido la experiencia, error que Paula y Hugo deberán desmontar.
+- Huye de los niños porque teme que estropeen sus aparatos y porque no quiere que comprendan que los necesita para despertar cada recuerdo.
+- En Amarante utiliza el Aspirador Portátil de Reflejos; en Magikland acopla un Cazarrisas Hidráulico. Los accesorios posteriores deben variar según el lugar.
+- El humor nace de su prisa y su soberbia: recoge hojas, ruidos, instrucciones o su propio grito en vez de la memoria buscada.
+
 ### Paula y Hugo
 
 Son los protagonistas reales. La aventura avanza gracias a lo que ven, recuerdan, preguntan, imaginan y hacen juntos.
@@ -154,7 +167,9 @@ Cada agua debe tener:
 | Número | Agua | Significado | Palabra | Estado |
 |---:|---|---|---|---|
 | 1 | Agua del Norte | Mirar con atención; memoria de mar y Noche Blanca | MIRO | Establecida |
-| 2–12 | Pendientes | No fijar hasta aprobar el arco general | Pendientes | Futuras |
+| 2 | Agua del Puente | Unir dos orillas y elegir qué recuerdo inicia el viaje | COMIENZO | Aprobada para el 13 de agosto |
+| 3 | Agua de la Risa | Vivir el movimiento y detenerse después para poder recordarlo | RÍO | Aprobada para el 14 de agosto |
+| 4–12 | Pendientes | Se fijarán día a día a partir del arco general | Pendientes | Futuras |
 
 No deben cerrarse los nombres de las once aguas restantes solo para hacer coincidir el itinerario. Primero se decide el arco de fondo; después cada agua recibe una función dentro de él.
 
@@ -164,7 +179,9 @@ La aplicación contiene actualmente esta propuesta técnica:
 
 `MIRO · COMIENZO · RÍO · ESPERO · CONFÍO · JUEGO · DESCUBRO · PREGUNTO · CUIDO · VUELO · ME ATREVO · AGRADEZCO`
 
-Solo **MIRO** está establecida dentro de la historia. Las demás son provisionales hasta que se apruebe el arco completo. Si cambian, deberán actualizarse tanto la guía como la aplicación y todas las misiones futuras relacionadas.
+**MIRO**, **COMIENZO** y **RÍO** están establecidas dentro de la historia. Las demás siguen provisionales hasta que se diseñen sus días. Si cambian, deberán actualizarse tanto la guía como la aplicación y todas las misiones futuras relacionadas.
+
+`RÍO` se revela con un doble sentido: el curso de agua que atraviesa un lugar y «yo río» cuando juego. Este descubrimiento enlaza el Tâmega con Magikland sin repetir la misma clase de prueba.
 
 Las palabras no pueden ser premios decorativos. En el desenlace deberán demostrar algo que Paula y Hugo han aprendido a hacer durante el viaje.
 
@@ -192,11 +209,9 @@ La planificación ofrece muchos tipos de agua y aventura. Esta tabla es un mapa 
 
 El itinerario recibido rotula el 13 de agosto como miércoles, pero en 2026 es jueves. Para activaciones y continuidad se usan siempre las fechas numéricas.
 
-### Incompatibilidad que debe resolverse
+### Incompatibilidad resuelta
 
-La misión futura publicada como `004-guimaraes-origen` sucede en Guimarães, pero el itinerario actual comienza en Amarante y no incluye Guimarães. No debe activarse en su forma actual. Antes del viaje habrá que retirarla, sustituirla o convertir su aparente error en parte de la trama.
-
-No se cambia todavía hasta decidir el hilo argumental y comprobar el progreso real de Paula y Hugo.
+El identificador técnico `004-guimaraes-origen` se conserva como episodio retirado para no romper una partida de ensayo que pudiera tenerlo guardado. El capítulo real del 13 de agosto utiliza el identificador nuevo `005-amarante-puente`, de modo que llegará también a dispositivos que hubieran abierto el ensayo antiguo. Guimarães deja de formar parte de la historia. La antigua flag `completado_guimaraes` se acepta únicamente como compatibilidad; el nuevo capítulo utiliza `completado_amarante`.
 
 ## 8. Arquitectura de una misión
 
@@ -245,6 +260,13 @@ La historia debe enriquecer las vacaciones, no secuestrarlas.
 - El eclipse pone en marcha el viaje.
 - El Agua del Norte y la palabra MIRO son importantes.
 
+### Pueden descubrir durante los días 13 y 14
+
+- Topoloco quiere encerrar recuerdos del agua en un museo que llama exclusivo.
+- Los recuerdos solo despiertan cuando alguien mira, hace, siente y sabe contar lo vivido.
+- El Agua del Puente conserva el comienzo compartido y entrega COMIENZO.
+- El Agua de la Risa demuestra que el agua puede correr, reír y después guardar silencio; entrega RÍO.
+
 ### Todavía no deben saber
 
 - la lista de las doce aguas;
@@ -266,7 +288,8 @@ Antes de publicar una misión nueva se añade o actualiza una fila:
 | 1 | Londres, anterior | Vivida | Doce pistas de Londres | `LONDRES BRILLA` | Londres era el inicio de algo mayor | Agua, noche y luz |
 | 2 | Luanco, anterior | Publicada/vivida por confirmar | Noche Blanca y Agua del Norte | Agua del Norte · MIRO | Las aguas guardan recuerdos | Día del sol escondido |
 | 3 | 12 ago | Publicada; progreso real por confirmar | El eclipse | Sin agua nueva | El eclipse abre la aventura larga | Buscar un origen tras el eclipse |
-| 4 | 13 ago | Debe reescribirse | Guimarães ya no encaja; el viaje llega a Amarante | Por decidir | Por decidir | Por decidir |
+| 4 | 13 ago | Publicada | El puente que recuerda · Amarante | Agua del Puente · COMIENZO | Topoloco quiere encerrar recuerdos; una memoria se despierta al vivirla y contarla | Un plano con seis mundos y agua en movimiento |
+| 5 | 14 ago | Publicada | El agua que ríe · Magikland y Curia | Agua de la Risa · RÍO | Topoloco no puede separar una risa de la experiencia; recordar también exige detenerse | Olor a musgo, piedra fría y un bosque que bebe del cielo |
 
 Los estados permitidos son: `idea`, `borrador`, `aprobada`, `publicada`, `activada`, `vivida` y `retirada`.
 
@@ -302,17 +325,26 @@ Si una misión ya fue vivida, nunca se borra su efecto. Se añade una explicaci�
 
 ## 14. Decisiones pendientes antes de continuar
 
-1. Elegir la historia de fondo definitiva o una combinación aprobada.
-2. Confirmar qué episodios han vivido realmente Paula y Hugo y qué progreso conserva su dispositivo.
-3. Decidir qué significa la Fuente de la Noche Clara.
-4. Decidir el plan exacto de Topoloco y por qué necesita las doce aguas.
-5. Determinar el papel final de los doce leones.
-6. Confirmar o sustituir las once palabras provisionales de la fórmula.
-7. Rehacer la transición Guimarães–Amarante sin romper el progreso existente.
+1. Confirmar qué episodios han vivido realmente Paula y Hugo y qué progreso conserva su dispositivo.
+2. Determinar el mecanismo final de los doce leones sin revelarlo antes de tiempo.
+3. Confirmar o sustituir, día por día, las nueve palabras todavía provisionales de la fórmula.
+4. Investigar Buçaco, Batalha y Fátima antes de fijar el capítulo del 15 de agosto.
 
-No deben crearse las misiones del viaje hasta resolver al menos los puntos 1–4.
+El arco, la función general de la Fuente, el plan de Topoloco y la transición Amarante están resueltos. Los siguientes capítulos pueden crearse siempre mediante investigación previa y propagación de continuidad.
 
-## 15. Cambios ocurridos durante el viaje
+## 15. Registro de decisiones narrativas
+
+### 2026-08-11 · El ladrón de los recuerdos del agua
+
+- Cambio real o decisión: Juan elige la primera versión del arco general y aprueba trabajar los días 13 y 14.
+- Qué habían visto ya Paula y Hugo: Londres, la señal de Luanco y la pista del eclipse; el progreso exacto del dispositivo sigue por confirmar.
+- Misiones futuras afectadas: todo el viaje del 13 al 27 de agosto.
+- Pistas que deben cambiar: cada lugar debe aportar una memoria vivida, no una simple botella; Topoloco debe dejar huellas distintas y preparar en secreto que necesita a los niños.
+- Elementos que deben mantenerse: Agua del Norte, MIRO, Fuente de la Noche Clara, doce aguas, Granada y doce leones.
+- Solución de continuidad: el episodio técnico de Guimarães se conserva retirado; Amarante recibe un identificador nuevo y el día 14 acepta como compatibilidad la antigua flag.
+- Archivos actualizados: guía, investigación de Amarante, investigación de Magikland/Curia y capítulos de los días 13 y 14.
+
+## 16. Cambios ocurridos durante el viaje
 
 Esta sección se irá completando desde el 13 de agosto. Cada entrada se considera parte de la realidad de la aventura y obliga a revisar el futuro según el protocolo anterior.
 

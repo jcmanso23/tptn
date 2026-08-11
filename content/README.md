@@ -69,6 +69,8 @@ En respuestas guiadas puedes usar:
 - `openAnswer: true`: acepta una respuesta abierta si pasa los filtros.
 - `minLength` / `minWords`: evita respuestas demasiado vacías.
 - `rejectContainsAny`: bloquea bromas o tonterías evidentes.
+- `requiredFlags`: la respuesta solo funciona cuando ya se han completado esas fases.
+- `blockedFlags`: la respuesta deja de funcionar cuando ya existe cualquiera de esas flags; evita repetir una fase terminada.
 - `setFlags`: activa submisiones posteriores.
 - `setLocation`: simula una ubicación desde el chat para pruebas.
 - `setRuntimeNow`: simula fecha/hora desde el chat para pruebas.
@@ -144,7 +146,7 @@ Estas palabras no forman parte de la aventura para Paula y Hugo. Se mantienen co
 - `topollave-luanco`: activa la misión de Luanco, Operación Primera Gota.
 - `topollave-sabado`: simula el sábado 27 sin borrar memoria y permite probar el mensaje de los topos.
 - `topollave-eclipse`: simula Luanco completado, guarda Agua del Norte, añade MIRO y abre la pista del eclipse.
-- `topollave-origen`: simula el camino hasta Guimarães y abre Agua del Origen sin GPS.
+- `topollave-origen`: simula el camino hasta el primer día del viaje y abre Amarante sin esperar a la fecha.
 
 Recomendación: usa siempre una ventana privada o entra con `?topoadulto=1&reset=1&confirmReset=1` antes de probar una secuencia completa.
 
@@ -154,6 +156,8 @@ Recomendación: usa siempre una ventana privada o entra con `?topoadulto=1&reset
 - `002-luanco-llegada`: se abre al acertar `Luanco` y estar cerca de Luanco, o con `topollave-luanco`.
 - `003-luanco-agua-norte`: se abre el sábado 27 tras haber observado Luanco, o con `topollave-sabado`.
 - `004-eclipse`: se abre al guardar el Agua del Norte. Sirve como pista posterior, no como destino físico inmediato.
-- `004-guimaraes-origen`: queda preparada para más adelante. Normalmente requiere haber identificado el eclipse y estar cerca de Guimarães, salvo con llave de ensayo.
+- `004-guimaraes-origen`: episodio retirado que conserva un identificador técnico heredado para no romper partidas de ensayo.
+- `005-amarante-puente`: día 13 en Amarante, con observación de la ponte y elección de la primera memoria del viaje.
+- `006-magikland-curia`: día 14, con una búsqueda de movimientos en Magikland y un cierre de observación tranquila en Curia.
 
 Para este fin de semana, las submisiones jugables son Luanco llegada/observación y Agua del Norte el sábado 27. La pista del eclipse se puede probar después para reproducir la continuación narrativa.
