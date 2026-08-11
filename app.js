@@ -5,7 +5,8 @@ const STORAGE_KEYS = {
 
 const LEGACY_STATE_KEY = 'topotino_chat_state_v1';
 const PASSPHRASE_HASH = 'a64716bd9f4e8added1bf47f80b97c3fc7b70a15b8043cdab083e1ddf85f3794';
-const EPISODES_MANIFEST = 'content/episodes.json?v=chat-v15';
+const EPISODES_MANIFEST = 'content/episodes.json?v=chat-v16';
+const LIVE_STORY_ENDPOINT = '/api/story';
 const ACTIVATION_TICK_MS = 60000;
 const ADULT_PHASE_DELAY_MS = 5 * 60 * 1000;
 const ADULT_PIN_HASH = '0f8eb4b72b6e0c9e88b388eb967b49e067ef1004bf07bffc22c3acb13b43580a';
@@ -97,6 +98,7 @@ const state = {
   locationStatus: 'Sin posición actualizada.',
   locationNoticeShown: false,
   scheduledAdultLaunches: [],
+  seenBroadcastIds: [],
   channelId: null,
   recoveryCode: null,
   revision: 0,
@@ -106,7 +108,9 @@ const state = {
 };
 
 let manifest = [];
+let baseEpisodes = [];
 let episodes = [];
+let liveStoryVersion = null;
 let busy = false;
 let syncTimer = null;
 let syncInFlight = false;
@@ -128,8 +132,9 @@ async function init() {
 
   try {
     manifest = await fetchJson(EPISODES_MANIFEST);
-    episodes = await Promise.all(manifest.map((item) => fetchEpisode(item.file)));
-    episodes.sort((a, b) => (a.meta.order || 0) - (b.meta.order || 0));
+    baseEpisodes = await Promise.all(manifest.map((item) => fetchEpisode(item.file)));
+    episodes = baseEpisodes.slice().sort((a, b) => (a.meta.order || 0) - (b.meta.order || 0));
+    await refreshLiveStory();
   } catch (error) {
     console.error(error);
     showUnlockError('No se pudo cargar el comunicador. Revisad la conexión.');
@@ -243,6 +248,7 @@ async function enterChat() {
     els.internalProgress.hidden = false;
     els.internalProgress.setAttribute('aria-hidden', 'false');
   }
+  const liveMessages = await refreshLiveStory({ collectBroadcasts: true });
   await refreshLocationForPendingActivations();
   const activationMessages = await evaluateActivations({ reason: 'enter', collectMessages: true });
   renderAll();
@@ -250,18 +256,71 @@ async function enterChat() {
     activationInterval = setInterval(() => runActivationCheck('tick'), ACTIVATION_TICK_MS);
   }
   scheduleNextAdultLaunchTimer();
-  if (activationMessages.length) {
-    await deliverTopotinoMessages(activationMessages, { mode: 'activation' });
+  const incomingMessages = [...liveMessages, ...activationMessages];
+  if (incomingMessages.length) {
+    await deliverTopotinoMessages(incomingMessages, { mode: 'activation' });
   }
   window.setTimeout(() => syncStateNow({ force: state.syncStatus !== 'synced' }), 1000);
   setTimeout(() => els.chatInput.focus(), 50);
 }
 
 async function runActivationCheck(reason) {
+  const liveMessages = await refreshLiveStory({ collectBroadcasts: true });
   const activationMessages = await evaluateActivations({ reason, collectMessages: true });
-  if (activationMessages.length) {
-    await deliverTopotinoMessages(activationMessages, { mode: 'activation' });
+  const incomingMessages = [...liveMessages, ...activationMessages];
+  if (incomingMessages.length) {
+    await deliverTopotinoMessages(incomingMessages, { mode: 'activation' });
   }
+}
+
+async function refreshLiveStory({ collectBroadcasts = false } = {}) {
+  try {
+    const response = await fetch(LIVE_STORY_ENDPOINT, { cache: 'no-store' });
+    if (!response.ok) return [];
+    const live = await response.json();
+
+    if (liveStoryVersion !== Number(live.version || 0)) {
+      mergeLiveEpisodes(live.episodes || []);
+      liveStoryVersion = Number(live.version || 0);
+      renderAdultPhaseLauncher();
+    }
+
+    if (!collectBroadcasts || !state.unlocked) return [];
+    const unseen = (live.broadcasts || []).filter((broadcast) =>
+      broadcast?.id &&
+      broadcast?.text &&
+      !state.seenBroadcastIds.includes(broadcast.id)
+    );
+    if (!unseen.length) return [];
+
+    addUniqueMany(state.seenBroadcastIds, unseen.map((broadcast) => broadcast.id));
+    saveState();
+    return unseen.map((broadcast) => ({
+      from: 'topotino',
+      time: 'auto',
+      text: broadcast.text
+    }));
+  } catch (error) {
+    console.warn('Live story unavailable; using the published chapters.', error);
+    return [];
+  }
+}
+
+function mergeLiveEpisodes(overrides) {
+  const merged = new Map(baseEpisodes.map((episode) => [episode.meta.id, episode]));
+
+  overrides.forEach((override) => {
+    if (!override?.id || !override?.markdown) return;
+    try {
+      const episode = parseEpisode(override.markdown);
+      if (episode.meta.id !== override.id) return;
+      merged.set(episode.meta.id, episode);
+    } catch (error) {
+      console.warn(`Invalid live episode ${override.id}`, error);
+    }
+  });
+
+  episodes = [...merged.values()].sort((a, b) => (a.meta.order || 0) - (b.meta.order || 0));
 }
 
 function showScreen(name) {
@@ -1366,6 +1425,7 @@ function buildLocalState() {
     locationStatus: state.locationStatus,
     locationNoticeShown: state.locationNoticeShown,
     scheduledAdultLaunches: state.scheduledAdultLaunches,
+    seenBroadcastIds: state.seenBroadcastIds,
     channelId: state.channelId,
     recoveryCode: state.recoveryCode,
     revision: state.revision,
@@ -1401,6 +1461,7 @@ function applyRestoredState(remoteState, recoveryCode) {
     locationStatus: remoteState.locationStatus || 'Sin posición actualizada.',
     locationNoticeShown: Boolean(remoteState.locationNoticeShown),
     scheduledAdultLaunches: remoteState.scheduledAdultLaunches || [],
+    seenBroadcastIds: remoteState.seenBroadcastIds || [],
     channelId: remoteState.channelId || state.channelId,
     recoveryCode: recoveryCode || state.recoveryCode,
     revision: Number(remoteState.revision) || state.revision,
@@ -1595,6 +1656,7 @@ function loadState() {
       locationStatus: saved.locationStatus || state.locationStatus,
       locationNoticeShown: Boolean(saved.locationNoticeShown),
       scheduledAdultLaunches: saved.scheduledAdultLaunches || [],
+      seenBroadcastIds: saved.seenBroadcastIds || [],
       channelId: saved.channelId || null,
       recoveryCode: saved.recoveryCode || null,
       revision: Number(saved.revision) || 0,
@@ -1624,6 +1686,6 @@ function applyTestingParams() {
 
 function registerServiceWorker() {
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('service-worker.js').catch(() => {});
+    navigator.serviceWorker.register('service-worker.js?v=offline-v2').catch(() => {});
   }
 }

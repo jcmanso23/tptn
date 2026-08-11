@@ -84,7 +84,7 @@ Puedes simular condiciones sin moverte:
 - Acelerar respuestas para pruebas: añade `fastReply=1`
 - Acortar el lanzamiento adulto solo para pruebas: añade `launchDelayMs=1000`
 
-Para probar OpenAI necesitas desplegar en Vercel o usar `vercel dev` con `OPENAI_API_KEY`.
+Las respuestas libres usan Vercel AI Gateway. En producción se autentica mediante OIDC. Para desarrollo local, vincula el proyecto y ejecuta `vercel env pull .env.local` antes de `vercel dev`.
 
 Para activar copia segura necesitas configurar Redis/Upstash en Vercel con:
 
@@ -92,6 +92,29 @@ Para activar copia segura necesitas configurar Redis/Upstash en Vercel con:
 - `KV_REST_API_TOKEN`
 
 Si esas variables no existen, la app sigue funcionando con copia local en el móvil y el panel adulto mostrará que la copia segura está pendiente.
+
+También se aceptan los nombres actuales de Upstash `UPSTASH_REDIS_REST_URL` y `UPSTASH_REDIS_REST_TOKEN`, o `REDIS_URL`. Para funciones serverless se recomienda la modalidad REST.
+
+Las integraciones de Vercel Marketplace pueden añadir un prefijo al recurso, por ejemplo `tptn_KV_REST_API_URL` y `tptn_KV_REST_API_TOKEN`. El servidor detecta esos pares automáticamente y mantiene juntos la URL y el token del mismo recurso.
+
+## Mesa de viaje: cambios en directo
+
+La ruta `/admin.html` abre un editor privado pensado para cambios durante el viaje. Requiere estas variables privadas en Vercel:
+
+- `STORY_ADMIN_PASSWORD`: contraseña que escribe el adulto.
+- `STORY_ADMIN_SECRET`: cadena aleatoria larga usada para firmar la sesión.
+- una conexión Redis REST de las indicadas arriba.
+
+Desde la mesa de viaje puedes:
+
+- enviar un mensaje inmediato de Topotino a los comunicadores abiertos;
+- editar cualquier capítulo Markdown sin desplegar de nuevo;
+- crear un capítulo nuevo a partir de una plantilla;
+- retirar una modificación y volver a la versión estable de GitHub.
+
+Los cambios en directo se guardan en Redis como una capa sobre los archivos de GitHub. La app consulta esa capa al abrirse y cada minuto. Si Redis falla, los capítulos publicados en GitHub siguen funcionando.
+
+Para incorporar definitivamente un cambio realizado durante el viaje, cópialo después al archivo correspondiente del repositorio y elimina la sobrescritura desde la mesa de viaje.
 
 En la URL normal, las respuestas de Topotino tienen una pausa silenciosa aleatoria de 5 a 60 segundos. Después aparece un indicador de escritura durante 8 a 14 segundos y finalmente llegan las burbujas. Si hay varias burbujas, Topotino vuelve a "escribir" 4 a 9 segundos entre ellas. Con `fastReply=1` esos tiempos se reducen solo para probar.
 

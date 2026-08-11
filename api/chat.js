@@ -1,17 +1,13 @@
-import OpenAI from 'openai';
+import { generateText } from 'ai';
+import { createOpenAI } from '@ai-sdk/openai';
 
-const client = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY
-});
+const DEFAULT_MODEL = 'openai/gpt-5.4-mini';
+const DEFAULT_OPENAI_MODEL = 'gpt-5.4-mini';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST');
     return res.status(405).json({ error: 'Method not allowed' });
-  }
-
-  if (!process.env.OPENAI_API_KEY) {
-    return res.status(500).json({ error: 'OPENAI_API_KEY is not configured' });
   }
 
   const body = req.body || {};
@@ -56,24 +52,58 @@ export default async function handler(req, res) {
     mensajesRecientes: body.recentMessages || []
   };
 
+  const generationOptions = {
+    system: systemPrompt,
+    prompt: `Contexto permitido:\n${JSON.stringify(context, null, 2)}\n\nMensaje de Paula y Hugo:\n${userMessage}`,
+    maxOutputTokens: 220
+  };
+
   try {
-    const response = await client.responses.create({
-      model: process.env.OPENAI_MODEL || 'gpt-5-mini',
-      input: [
-        { role: 'system', content: systemPrompt },
-        {
-          role: 'user',
-          content: `Contexto permitido:\n${JSON.stringify(context, null, 2)}\n\nMensaje de Paula y Hugo:\n${userMessage}`
+    const gatewayModel = process.env.AI_MODEL || DEFAULT_MODEL;
+    let provider = 'vercel-ai-gateway';
+    let result;
+
+    try {
+      result = await generateText({
+        ...generationOptions,
+        model: gatewayModel,
+        providerOptions: {
+          gateway: {
+            user: 'topotino-family',
+            tags: ['feature:topotino-chat', `episode:${context.episodioActivo}`]
+          }
         }
-      ],
-      max_output_tokens: 220
+      });
+    } catch (gatewayError) {
+      if (!process.env.OPENAI_API_KEY) throw gatewayError;
+
+      provider = 'openai-direct-fallback';
+      const openai = createOpenAI({ apiKey: process.env.OPENAI_API_KEY });
+      result = await generateText({
+        ...generationOptions,
+        model: openai(process.env.OPENAI_MODEL || DEFAULT_OPENAI_MODEL)
+      });
+    }
+
+    const { text, usage } = result;
+
+    console.log('Topotino AI response', {
+      provider,
+      inputTokens: usage?.inputTokens,
+      outputTokens: usage?.outputTokens
     });
 
     return res.status(200).json({
-      reply: response.output_text || 'La señal llega entrecortada. Repetidlo con calma, agentes.'
+      reply: text || 'La señal llega entrecortada. Repetidlo con calma, agentes.'
     });
   } catch (error) {
-    console.error('OpenAI request failed', error);
-    return res.status(500).json({ error: 'AI response failed' });
+    console.error('Topotino AI request failed', {
+      name: error?.name,
+      message: error?.message,
+      statusCode: error?.statusCode,
+      gatewayModel: process.env.AI_MODEL || DEFAULT_MODEL,
+      hasOpenAIFallback: Boolean(process.env.OPENAI_API_KEY)
+    });
+    return res.status(503).json({ error: 'AI_UNAVAILABLE' });
   }
 }

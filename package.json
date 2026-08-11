@@ -3,12 +3,17 @@
   "version": "1.0.0",
   "private": true,
   "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
   "scripts": {
     "dev": "vercel dev",
-    "static": "python3 -m http.server 4173"
+    "static": "python3 -m http.server 4173",
+    "test": "node --test"
   },
   "dependencies": {
-    "openai": "^6.10.0",
+    "@ai-sdk/openai": "^4.0.37",
+    "ai": "^7.0.58",
     "redis": "^6.0.0"
   },
   "devDependencies": {

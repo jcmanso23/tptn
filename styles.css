@@ -643,7 +643,8 @@ input {
 
 .adult-panel button,
 .adult-panel input,
-.adult-panel select {
+.adult-panel select,
+.adult-editor-link {
   min-height: 36px;
   border: 1px solid rgba(97, 255, 184, .45);
   border-radius: 8px;
@@ -653,11 +654,18 @@ input {
   font: inherit;
 }
 
-.adult-panel button {
+.adult-panel button,
+.adult-editor-link {
   color: var(--teal);
   font-weight: 800;
   text-transform: uppercase;
   letter-spacing: .05em;
+}
+
+.adult-editor-link {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
 }
 
 .adult-panel input,
