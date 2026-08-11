@@ -79,16 +79,31 @@ test('Amarante se descubre antes de revelar la fecha', async () => {
   assert.match(correct.messages.map((message) => message.text).join(' '), /13 de agosto · por la tarde/);
 });
 
+test('el eclipse activa la amnesia, el diario y una memoria nueva estable', async () => {
+  const eclipse = await readFile(join(root, 'content/episodes/003-eclipse-amnesia.md'), 'utf8');
+  const episode = parseEpisode(eclipse, 'content/episodes/003-eclipse-amnesia.md');
+
+  assert.match(eclipse, /"dateTime": \{ "from": "2026-08-12T20:35:00\+02:00" \}/);
+  assert.match(eclipse, /Diario de las Dos Memorias/);
+  assert.match(eclipse, /Desde ahora recuerda con normalidad todo lo nuevo/);
+  assert.ok(
+    episode.sections['Respuestas guiadas']
+      .some((response) => response.id === 'diario-dos-memorias-preparado')
+  );
+});
+
 test('los días 13 y 14 conservan su cadena narrativa y adaptan solo tras un impedimento', async () => {
   const amarante = await readFile(join(root, 'content/episodes/005-amarante-puente.md'), 'utf8');
   const dayTwo = await readFile(join(root, 'content/episodes/006-magikland-curia.md'), 'utf8');
   const amaranteEpisode = parseEpisode(amarante, 'content/episodes/005-amarante-puente.md');
   const dayTwoEpisode = parseEpisode(dayTwo, 'content/episodes/006-magikland-curia.md');
 
-  assert.match(amarante, /"date": \{ "on": "2026-08-13" \}/);
+  assert.match(amarante, /"dateTime": \{ "from": "2026-08-13T17:00:00\+02:00" \}/);
   assert.match(amarante, /"water": "Agua del Puente"/);
   assert.match(amarante, /"formulaWord": "COMIENZO"/);
-  assert.match(amarante, /Nunca agua del río/);
+  assert.match(amarante, /No recojáis agua del río/);
+  assert.match(amarante, /tradición/);
+  assert.match(amarante, /diario_amarante/);
   assert.doesNotMatch(
     amaranteEpisode.sections['Mensajes iniciales'].map((message) => message.text).join(' '),
     /llueve|cerrado|cansad|si no podéis/i
@@ -101,6 +116,7 @@ test('los días 13 y 14 conservan su cadena narrativa y adaptan solo tras un imp
   assert.match(dayTwo, /"date": \{ "on": "2026-08-14" \}/);
   assert.match(dayTwo, /"water": "Agua de la Risa"/);
   assert.match(dayTwo, /"formulaWord": "RIO"/);
+  assert.match(dayTwo, /diario_magikland_curia/);
   assert.match(dayTwo, /No toquéis ni recojáis agua del lago o de la piscina/);
   assert.doesNotMatch(
     dayTwoEpisode.sections['Mensajes iniciales'].map((message) => message.text).join(' '),
@@ -117,4 +133,5 @@ test('los días 13 y 14 conservan su cadena narrativa y adaptan solo tras un imp
       .flatMap((response) => (response.messages || []).map((message) => message.text))
   ]).join(' ');
   assert.doesNotMatch(childFacingText, /Museo Topoloco de Recuerdos Exclusivos/i);
+  assert.doesNotMatch(childFacingText, /Su palabra es (COMIENZO|RÍO)/i);
 });

@@ -2,13 +2,13 @@
 {
   "id": "004b-rumbo-amarante",
   "order": 4.7,
-  "title": "La señal partida",
+  "title": "La primera ruta de la placa",
   "channelCode": "T-17M3",
   "startsUnlocked": false,
   "activation": {
-    "required": ["eclipse_identificado"]
+    "required": ["diario_iniciado"]
   },
-  "mission": "Descubrir el primer destino",
+  "mission": "Descubrir adónde conduce la placa",
   "formulaWord": null,
   "water": null,
   "ai": {
@@ -20,19 +20,18 @@
 
 # Contexto narrativo
 
-Esta transición une el eclipse con el comienzo del viaje. Topotino no conoce el destino, la fecha ni el motivo de la señal. Solo ha recuperado dos fragmentos: parte del nombre del río Tâmega y un dibujo de una ponte acompañado por un pez.
+Esta transición convierte los dibujos de la placa de emergencia en el primer destino. Topotino no conoce la ciudad, la fecha ni por qué su yo anterior quería llegar allí. Solo ve `TÂM...`, una ponte y un pez. Paula y Hugo investigan Amarante; la fecha aparece únicamente después de identificarla.
 
-Paula y Hugo deben descubrir Amarante antes de que Topotino pueda leer la segunda capa del mensaje. Solo después del acierto aparece la instrucción de estar allí el 13 de agosto por la tarde. No se menciona todavía ninguna agua nueva, el museo, el plan de Topoloco ni los destinos posteriores.
+Topotino ya recuerda la conversación posterior al eclipse, la placa y la preparación del diario. No recuerda el pasado anterior ni el plan. Cada intento incorrecto permite revelar una evidencia nueva sin ridiculizarlo.
 
-Las respuestas incorrectas no se ridiculizan. Cada intento permite limpiar un fragmento más de la señal y recibir una pista progresiva.
+Al terminar, Topotino indica directamente que deben estar en Amarante el 13 por la tarde. Como la continuación pertenece al día siguiente, pide que preparen el diario, duerman y descansen.
 
 ## Mensajes iniciales
 
 ```json
 [
-  { "from": "topotino", "time": "auto", "text": "Ya tengo los dos trozos de la señal. Uno dice «TÂM...» y el otro es un dibujo de una ponte con un pez debajo. Eso es todo. Ni fecha, ni lugar, ni instrucciones." },
-  { "from": "topotino", "time": "auto", "text": "Mis topos creen que apunta a una ciudad de Portugal atravesada por ese río. Yo no la encuentro en el mapa porque alguien ha derramado cacao justo encima." },
-  { "from": "topotino", "time": "auto", "text": "¿Podéis investigar qué ciudad puede ser? Enviadme solo el nombre cuando tengáis una sospecha." }
+  { "from": "topotino", "time": "auto", "text": "Primer dibujo: «TÂM...». Segundo dibujo: una ponte con un pez debajo. No hay fecha ni ciudad. Mi yo anterior daba por hecho que sabría interpretarlo. Optimista el señor." },
+  { "from": "topotino", "time": "auto", "text": "Creo —solo creo— que puede apuntar a Portugal y a una ciudad atravesada por ese río. Investigadlo como buenos detectives: río, ponte y pez tienen que encajar a la vez. Enviadme el nombre cuando tengáis una hipótesis." }
 ]
 ```
 
@@ -46,21 +45,21 @@ Las respuestas incorrectas no se ridiculizan. Cada intento permite limpiar un fr
     "match": ["amarante", "puede ser amarante", "creemos que es amarante", "la ciudad es amarante"],
     "setFlags": ["amarante_previa_identificada"],
     "messages": [
-      { "from": "topotino", "time": "auto", "text": "Amarante... Un momento. El dibujo acaba de encajar con la ponte de São Gonçalo y el río Tâmega. Sí. Es Amarante." },
-      { "from": "topotino", "time": "auto", "text": "Al acertarlo ha aparecido una línea que antes no estaba: «13 de agosto · por la tarde». Tenéis que estar allí entonces." },
-      { "from": "topotino", "time": "auto", "text": "No me preguntéis todavía para qué, porque no lo sé. La señal se ha vuelto a apagar. Preparad el viaje y guardad bien el Agua del Norte; cuando lleguéis, veremos si despierta otra vez." }
+      { "from": "topotino", "time": "auto", "text": "Gracias. Amarante encaja con las tres cosas: el Tâmega, la Ponte de São Gonçalo y la tradición del pez. Buena investigación; no os habéis quedado con la primera ciudad que sonaba portuguesa." },
+      { "from": "topotino", "time": "auto", "text": "Al colocar ese nombre sobre la placa ha aparecido una línea que antes era invisible: «13 de agosto · por la tarde». Tenemos que estar allí entonces. Digo tenemos porque pienso acompañaros desde el comunicador, aunque mis patas no quepan en vuestro coche." },
+      { "from": "topotino", "time": "auto", "text": "No sé para qué debemos ir. Preparad el Diario de las Dos Memorias y el viaje. Ahora descansad; mañana será largo y no pienso permitir que empecéis una aventura con sueño de murciélago." }
     ]
   },
   {
     "id": "amarante-intento-uno",
-    "requiredFlags": ["eclipse_identificado"],
+    "requiredFlags": ["diario_iniciado"],
     "blockedFlags": ["amarante_pista_tamega", "amarante_previa_identificada"],
     "openAnswer": true,
     "minWords": 1,
     "setFlags": ["amarante_pista_tamega"],
     "messages": [
-      { "from": "topotino", "time": "auto", "text": "He probado ese nombre y los dos trozos no encajan. Pero al moverlos se ha limpiado una letra más: el río se llama Tâmega." },
-      { "from": "topotino", "time": "auto", "text": "Buscad una ciudad portuguesa cuyo centro esté atravesado por el Tâmega. Yo sigo quitando cacao del mapa." }
+      { "from": "topotino", "time": "auto", "text": "Gracias por probar una hipótesis. No encaja todavía, pero al mover la placa se ha limpiado el nombre completo del río: Tâmega." },
+      { "from": "topotino", "time": "auto", "text": "Buscad una ciudad portuguesa cuyo centro esté atravesado por el Tâmega. Yo voy a dejar de frotar el mapa con la manga porque solo estoy extendiendo el cacao." }
     ]
   },
   {
@@ -71,8 +70,8 @@ Las respuestas incorrectas no se ridiculizan. Cada intento permite limpiar un fr
     "minWords": 1,
     "setFlags": ["amarante_pista_sao_goncalo"],
     "messages": [
-      { "from": "topotino", "time": "auto", "text": "Tampoco. El pez del dibujo acaba de señalar una inscripción diminuta: «São Gonçalo». Debe de ser el nombre de la ponte o de alguien relacionado con ella." },
-      { "from": "topotino", "time": "auto", "text": "La ciudad empieza por A. Tâmega, São Gonçalo y una ciudad portuguesa que empieza por A." }
+      { "from": "topotino", "time": "auto", "text": "Esa tampoco reúne todas las pruebas. Gracias por seguir afinando: el pez acaba de señalar una inscripción diminuta, «São Gonçalo». Puede ser el nombre de la ponte o de alguien ligado a ella." },
+      { "from": "topotino", "time": "auto", "text": "Tenemos Tâmega, São Gonçalo y una ciudad portuguesa que empieza por A." }
     ]
   },
   {
@@ -82,7 +81,7 @@ Las respuestas incorrectas no se ridiculizan. Cada intento permite limpiar un fr
     "openAnswer": true,
     "minWords": 1,
     "messages": [
-      { "from": "topotino", "time": "auto", "text": "La señal insiste en que aún no es. Última limpieza de mapa: A...RANTE. Con el Tâmega cruzando por el centro." }
+      { "from": "topotino", "time": "auto", "text": "Aún no. Última capa de la placa: A...RANTE. El Tâmega atraviesa su centro y la ponte está relacionada con São Gonçalo." }
     ]
   }
 ]
@@ -92,9 +91,9 @@ Las respuestas incorrectas no se ridiculizan. Cada intento permite limpiar un fr
 
 ```json
 [
-  "Solo tengo dos fragmentos: TÂM... y una ponte con un pez. Probemos con un nombre de ciudad.",
-  "No quiero inventarme el destino. Necesitamos que todos los trozos encajen.",
-  "Seguid la pista del río y de São Gonçalo; la fecha continúa oculta hasta encontrar la ciudad."
+  "No quiero inventar el destino. Hagamos que encajen el río, la ponte y el pez.",
+  "Seguid el Tâmega hasta una ciudad portuguesa y comprobad su relación con São Gonçalo.",
+  "La fecha continúa oculta hasta que tengamos una ciudad apoyada por las tres pistas."
 ]
 ```
 
@@ -106,7 +105,7 @@ Las respuestas incorrectas no se ridiculizan. Cada intento permite limpiar un fr
 
 ## Contexto para IA
 
-Topotino sabe muy poco y debe reconocerlo. Antes de la flag `amarante_previa_identificada`, solo conoce los fragmentos TÂM..., la ponte, el pez y que podría tratarse de Portugal. Puede ayudar a investigar con pistas ya reveladas por las flags, pero nunca confirma otra ciudad ni adelanta la fecha. Solo después de que escriban AMARANTE puede decir que deben estar allí el 13 de agosto por la tarde. No conoce el motivo, el plan de Topoloco, el museo, las doce aguas ni destinos posteriores.
+Topotino recuerda todo lo hablado después del eclipse: sabe que perdió memoria, que Paula y Hugo son sus amigos, que el Agua del Norte reaccionó y que han preparado el Diario de las Dos Memorias. Antes de `amarante_previa_identificada` solo conoce `TÂM...`, la ponte, el pez y la hipótesis de Portugal; usa únicamente las pistas permitidas por `amarante_pista_tamega` y `amarante_pista_sao_goncalo`. No adelanta la fecha. Después del acierto sabe que deben estar en Amarante el 13 por la tarde, pero ignora el motivo. Agradece los intentos razonados sin validar nombres incorrectos. Tras resolverlo, conduce directamente a Amarante y pide descansar porque continuarán al día siguiente. No conoce el autor de su amnesia, el museo, las doce aguas, Granada ni destinos posteriores.
 
 ## Fuentes documentales
 

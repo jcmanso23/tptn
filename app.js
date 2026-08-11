@@ -5,7 +5,7 @@ const STORAGE_KEYS = {
 
 const LEGACY_STATE_KEY = 'topotino_chat_state_v1';
 const PASSPHRASE_HASH = 'a64716bd9f4e8added1bf47f80b97c3fc7b70a15b8043cdab083e1ddf85f3794';
-const EPISODES_MANIFEST = 'content/episodes.json?v=chat-v19';
+const EPISODES_MANIFEST = 'content/episodes.json?v=memory-v20';
 const LIVE_STORY_ENDPOINT = '/api/story';
 const ACTIVATION_TICK_MS = 60000;
 const ADULT_PHASE_DELAY_MS = 5 * 60 * 1000;
@@ -388,6 +388,10 @@ function episodeCanActivate(episode) {
     checks.push(dateMatches(activation.date, getRuntimeNow()));
   }
 
+  if (activation.dateTime) {
+    checks.push(dateTimeMatches(activation.dateTime, getRuntimeNow()));
+  }
+
   if (activation.time) {
     checks.push(timeMatches(activation.time, getRuntimeNow()));
   }
@@ -455,6 +459,9 @@ function episodeCanActivateExceptLocation(episode) {
   }
   if (activation.date) {
     checks.push(dateMatches(activation.date, getRuntimeNow()));
+  }
+  if (activation.dateTime) {
+    checks.push(dateTimeMatches(activation.dateTime, getRuntimeNow()));
   }
   if (activation.time) {
     checks.push(timeMatches(activation.time, getRuntimeNow()));
@@ -593,7 +600,7 @@ async function askAiFallback(text) {
         message: text,
         activeEpisodeId: activeEpisode.meta.id,
         activeEpisodeTitle: activeEpisode.meta.title,
-        activeEpisodes: getUnlockedEpisodes().map((episode) => ({
+        activeEpisodes: [activeEpisode].map((episode) => ({
           id: episode.meta.id,
           title: episode.meta.title,
           mission: episode.meta.mission,
@@ -1065,6 +1072,15 @@ function dateMatches(rule, now) {
   if (rule.on) return current === rule.on;
   if (rule.from && current < rule.from) return false;
   if (rule.to && current > rule.to) return false;
+  return true;
+}
+
+function dateTimeMatches(rule, now) {
+  const current = now.getTime();
+  const from = rule.from ? new Date(rule.from).getTime() : null;
+  const to = rule.to ? new Date(rule.to).getTime() : null;
+  if (Number.isFinite(from) && current < from) return false;
+  if (Number.isFinite(to) && current > to) return false;
   return true;
 }
 

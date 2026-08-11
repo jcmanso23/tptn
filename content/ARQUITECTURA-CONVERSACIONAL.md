@@ -1,6 +1,6 @@
 # Arquitectura conversacional de Topotino
 
-**Decisión actual:** conversación híbrida, con historia determinista y lenguaje natural generado por `gpt-5.6-luna`. Cuando existe `OPENAI_API_KEY`, la app usa OpenAI directamente; AI Gateway queda como ruta para instalaciones sin clave propia. No migrar todavía a OpenAI Agents SDK.
+**Decisión actual:** conversación híbrida operativa en producción, con historia determinista y lenguaje natural generado por `gpt-5.6-luna`. Cuando existe `OPENAI_API_KEY`, la app usa OpenAI directamente; AI Gateway queda como ruta para instalaciones sin clave propia. No migrar todavía a OpenAI Agents SDK.
 
 ## 1. El objetivo
 
@@ -15,6 +15,11 @@ En cada turno necesita saber:
 - qué han respondido recientemente Paula y Hugo;
 - si ha surgido un impedimento real que exige adaptar la prueba;
 - qué secretos siguen fuera de su conocimiento.
+- qué recuerdos anteriores al eclipse ha recuperado y cuáles siguen perdidos;
+- qué entrada del Diario de las Dos Memorias puede pedir en esa fase;
+- qué aprendizaje real puede explicar;
+- cómo agradecer un avance válido;
+- cuál es el siguiente destino permitido y si antes deben descansar.
 
 ## 2. Cuatro capas separadas
 
@@ -25,6 +30,8 @@ Vive en `GUIA-COHERENCIA-NARRATIVA.md`. Incluye el plan completo de Topoloco, gi
 ### Conocimiento de Topotino
 
 Vive en `## Contexto para IA` de cada episodio y se expresa por fases según las flags. Solo contiene lo que Topotino sabe, sospecha o ignora en ese momento.
+
+Desde el eclipse distingue memoria emocional, memoria factual anterior y memoria nueva. Sabe siempre que Paula y Hugo son sus amigos; no recupera hechos por intuición y recuerda normalmente todo lo vivido desde que despertó.
 
 ### Estado verificable
 
@@ -55,7 +62,7 @@ Topotino todavía no necesita autonomía de ese tipo. Necesita principalmente un
 - si el prompt recibe secretos, un agente también puede adelantarlos;
 - si el proveedor de modelo no está operativo, cambiar de SDK no devuelve las respuestas.
 
-El 11 de agosto de 2026 se diagnosticó que AI Gateway exigía créditos comprados para Luna. Se decidió usar la facturación ya existente de la API de OpenAI y priorizar la conexión directa mediante `OPENAI_API_KEY`. La conversación libre no se considera operativa hasta superar una prueba real en producción. Las misiones guiadas siguen funcionando sin ella.
+El 11 de agosto de 2026 se decidió usar la facturación existente de la API de OpenAI y priorizar la conexión directa mediante `OPENAI_API_KEY`. La conversación libre con Luna superó pruebas reales en producción: contexto reciente, recuerdo de datos conversados, adaptación a lluvia, límites de conocimiento y respuestas completas. Las misiones guiadas siguen funcionando aunque el modelo no esté disponible.
 
 ## 5. Evolución recomendada
 
@@ -63,10 +70,13 @@ El 11 de agosto de 2026 se diagnosticó que AI Gateway exigía créditos comprad
 
 - Mantener Vercel AI SDK para respuestas libres.
 - Usar Luna como modelo conversacional y conservar Topotino como identidad narrativa.
-- Enviar al modelo solo `aiContext`, flags y conversación reciente.
+- Enviar al modelo solo el `aiContext` de la fase activa, flags y conversación reciente; no mezclar contextos antiguos desbloqueados que contradigan la amnesia actual.
 - Enviar los turnos recientes con roles de usuario y asistente para mantener una conversación real sin repetir el contexto como si fuera una ficha.
 - Mantener respuestas guiadas para aciertos, progreso, seguridad y contingencias críticas.
 - Registrar el conocimiento de Topotino por fases.
+- Usar el Diario de las Dos Memorias como elemento narrativo; la app solo registra las confirmaciones necesarias, no sustituye el cuaderno físico.
+- Agradecer de forma concreta observaciones y razonamientos válidos sin conceder progreso desde el modelo.
+- Conducir al siguiente lugar solo con la pista autorizada y pedir descanso cuando cambie el día.
 
 ### Fase siguiente
 

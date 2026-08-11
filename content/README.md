@@ -47,6 +47,7 @@ Para misiones grandes, divide la historia en varios MD pequeños. Ejemplo: descu
 - `anyFlags`: basta con una de esas flags.
 - `date.on`: solo ese día, formato `YYYY-MM-DD`.
 - `date.from` / `date.to`: ventana de días.
+- `dateTime.from` / `dateTime.to`: instante ISO 8601 con zona horaria; permite que un acontecimiento quede disponible para siempre a partir de una hora concreta.
 - `time.from` / `time.to`: ventana horaria local, formato `HH:MM`. También permite ventanas que cruzan medianoche.
 - `location.lat/lng/radiusMeters`: se activa al pulsar “Actualizar señal” dentro del radio.
 - `mode: "all"`: deben cumplirse todas las condiciones indicadas.

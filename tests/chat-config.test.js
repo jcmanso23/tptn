@@ -16,6 +16,10 @@ test('la conversación libre usa Luna y conserva los turnos con sus roles', asyn
   assert.match(source, /reasoningEffort: 'none'/);
   assert.match(source, /maxOutputTokens: 480/);
   assert.match(source, /Escribe siempre en texto plano/);
+  assert.match(source, /Diario de las Dos Memorias/);
+  assert.match(source, /Recuerdas con normalidad todo lo sucedido desde que despertaste/);
+  assert.match(source, /agradécelo de forma concreta/);
+  assert.match(source, /Topoloco es inteligente, huidizo/);
   assert.match(source, /maxDuration: 30/);
   assert.doesNotMatch(source, /contextoNarrativo:|narrativeContext/);
 });
@@ -25,4 +29,5 @@ test('las respuestas conversacionales no usan la espera larga de las misiones', 
 
   assert.match(source, /deliverTopotinoMessages\(responsePromise, \{ mode: 'conversation' \}\)/);
   assert.match(source, /if \(mode === 'conversation'\)/);
+  assert.match(source, /activeEpisodes: \[activeEpisode\]\.map/);
 });
