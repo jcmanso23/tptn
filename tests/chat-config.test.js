@@ -17,7 +17,11 @@ test('la conversación libre usa Luna y conserva los turnos con sus roles', asyn
   assert.match(source, /maxOutputTokens: 480/);
   assert.match(source, /Escribe siempre en texto plano/);
   assert.match(source, /Cuaderno de la Memoria/);
-  assert.match(source, /Hugo tiene seis años/);
+  assert.match(source, /No infantilizas a Paula y Hugo/);
+  assert.match(source, /exigencia intelectual aproximada de diez años/);
+  assert.match(source, /No pidas que enseñen, describan, fotografíen o transcriban sus páginas/);
+  assert.match(source, /memoria de viaje persistente/);
+  assert.match(source, /memoriaDeViaje:/);
   assert.match(source, /Recuerdas con normalidad todo lo sucedido desde que despertaste/);
   assert.match(source, /agradécelo de forma concreta/);
   assert.match(source, /interpreta a Topoloco como inteligente, huidizo/);
@@ -34,4 +38,8 @@ test('las respuestas conversacionales no usan la espera larga de las misiones', 
   assert.match(source, /deliverTopotinoMessages\(responsePromise, \{ mode: 'conversation' \}\)/);
   assert.match(source, /if \(mode === 'conversation'\)/);
   assert.match(source, /activeEpisodes: \[activeEpisode\]\.map/);
+  assert.match(source, /storyMemory: state\.storyMemory\.slice\(-36\)/);
+  assert.match(source, /function recordStoryMemory/);
+  assert.match(source, /function eligibleMessages/);
+  assert.match(source, /storyMemory: normalizeStoryMemory\(saved\.storyMemory\)/);
 });

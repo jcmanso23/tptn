@@ -16,7 +16,7 @@ En cada turno necesita saber:
 - si ha surgido un impedimento real que exige adaptar la prueba;
 - qué secretos siguen fuera de su conocimiento.
 - qué recuerdos anteriores al eclipse ha recuperado y cuáles siguen perdidos;
-- qué aportación al Cuaderno de la Memoria puede pedir en esa fase;
+- si una escena futura autoriza consultar el Cuaderno de la Memoria, sin solicitar ni inventar su contenido;
 - qué aprendizaje real puede explicar;
 - cómo agradecer un avance válido;
 - cuál es el siguiente destino permitido y si antes deben descansar.
@@ -35,11 +35,15 @@ Desde el eclipse distingue memoria emocional, memoria factual anterior y memoria
 
 ### Estado verificable
 
-Flags, aguas, palabras, episodios y mensajes viven en el estado de la partida y en su copia de Upstash. Esta capa decide qué se ha completado. Un modelo no puede inventar o conceder un logro.
+Flags, aguas, palabras, episodios, mensajes y memoria de viaje viven en el estado de la partida y en su copia de Upstash. Esta capa decide qué se ha completado. Un modelo no puede inventar o conceder un logro.
+
+La `storyMemory` conserva únicamente respuestas guiadas del comunicador marcadas como relevantes: observaciones físicas, hipótesis, predicciones, decisiones y correcciones. Cada elemento incluye episodio, tipo, etiqueta y texto original. Se limita a sesenta elementos y migra de forma compatible: una partida anterior empieza con la lista vacía sin perder ningún dato existente.
 
 ### Conversación
 
-El modelo puede redactar pistas, reaccionar a preguntas y adaptar una acción a un imprevisto. Recibe únicamente el conocimiento permitido, el estado actual y los mensajes recientes.
+El modelo puede redactar pistas, reaccionar a preguntas y adaptar una acción a un imprevisto. Recibe únicamente el conocimiento permitido, el estado actual, la memoria de viaje y los mensajes recientes.
+
+El Cuaderno de la Memoria queda deliberadamente fuera de esta capa. Luna sabe que existe y para qué servirá, pero no recibe, solicita ni deduce sus páginas.
 
 ## 3. Alternativas reactivas
 
@@ -50,6 +54,8 @@ La conversación sigue esta política:
 3. Si expresan un obstáculo, el sistema identifica únicamente ese obstáculo.
 4. Topotino ofrece una sola adaptación que conserva el objetivo narrativo.
 5. Si «no podemos» no explica la causa, pregunta qué ocurre antes de proponer nada.
+
+Las activaciones por fecha filtran sus mensajes iniciales mediante `requiredFlags` y `blockedFlags`. Si falta una fase anterior, llega un puente de recuperación que reconoce lo no vivido y presenta la evidencia disponible del día actual. Nunca se atribuye a Paula y Hugo un agua, una deducción o una visita que no completaron.
 
 Las contingencias importantes siguen teniendo respuestas deterministas para funcionar aunque el modelo no esté disponible.
 
@@ -72,11 +78,13 @@ El 11 de agosto de 2026 se decidió usar la facturación existente de la API de 
 - Usar Luna como modelo conversacional y conservar Topotino como identidad narrativa.
 - Enviar al modelo solo el `aiContext` de la fase activa, flags y conversación reciente; no mezclar contextos antiguos desbloqueados que contradigan la amnesia actual.
 - Enviar los turnos recientes con roles de usuario y asistente para mantener una conversación real sin repetir el contexto como si fuera una ficha.
+- Enviar también la memoria de viaje persistente, separada de los turnos recientes y del cuaderno privado.
 - Mantener respuestas guiadas para aciertos, progreso, seguridad y contingencias críticas.
 - Registrar el conocimiento de Topotino por fases.
-- Usar el Cuaderno de la Memoria como elemento narrativo; Paula puede escribir algo mínimo y Hugo expresarse con dibujos, símbolos o colores. La app solo registra las confirmaciones necesarias, no sustituye el cuaderno físico.
+- Mantener privado el Cuaderno de la Memoria. La app no pide ni registra su contenido; solo registra respuestas dadas durante las investigaciones del chat.
 - Agradecer de forma concreta observaciones y razonamientos válidos sin conceder progreso desde el modelo.
 - Conducir al siguiente lugar solo con la pista autorizada y pedir descanso cuando cambie el día.
+- Razonar con Paula y Hugo con exigencia aproximada de diez años para ambos. La edad de Hugo solo adapta la escritura del cuaderno, no la complejidad intelectual.
 
 ### Fase siguiente
 

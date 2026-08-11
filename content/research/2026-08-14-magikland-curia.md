@@ -28,11 +28,13 @@
 La estructura cambia respecto a Amarante:
 
 1. deducción breve para reconocer Magikland;
-2. búsqueda corporal y visual de tres movimientos diferentes —girar, subir, caer, balancearse, correr o salpicar— sin exigir una atracción concreta;
-3. elección personal del momento más divertido o inesperado del día;
-4. al llegar a Curia o a cualquier lugar tranquilo, veinte segundos de escucha y reflejos para demostrar que el agua también sabe guardar silencio.
+2. clasificación física de rotación, oscilación y desplazamiento sin exigir una atracción concreta;
+3. predicción sobre velocidad y comprobación mediante altura, gravedad, impulso, rozamiento o corriente;
+4. separación entre fenómeno, causa y significado de un recuerdo real;
+5. en Curia, distinción razonada entre diseño humano y procesos naturales;
+6. experimento de punto de vista con objeto, reflejo, observador y escucha.
 
-La recompensa es el **Agua de la Risa** y la palabra **RÍO**, que funciona como giro de lenguaje: un río corre y «yo río» cuando algo me divierte.
+La recompensa narrativa es el **Agua de la Risa**. La palabra técnica **RÍO** se conserva internamente y no aparece. El Cuaderno de la Memoria es privado y no se solicita su contenido.
 
 ## Alternativas por imprevistos
 

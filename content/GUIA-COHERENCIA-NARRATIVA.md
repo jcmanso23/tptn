@@ -82,13 +82,15 @@ Antes de comenzar el viaje, Topotino pide a Paula y Hugo que lleven un cuaderno 
 
 Topoloco puede interceptar señales, alterar reflejos digitales e introducir recuerdos falsos. Un cuaderno creado por dos testigos queda fuera de esa red. Además, Paula y Hugo suelen recordar partes distintas de una misma experiencia; juntas forman una memoria que no puede atribuirse a un solo dueño.
 
-### Reparto adaptado a sus edades
+### Cuaderno privado y adaptado a sus edades
 
 - Paula puede escribir una frase muy corta, una palabra, una pregunta o una idea.
 - Hugo, que tiene seis años, aporta principalmente dibujos, símbolos, colores, círculos, flechas o pegatinas. Nunca necesita escribir una explicación larga.
 - Los dos pueden dictar algo a un adulto si quieren conservar sus palabras exactas.
-- Topotino pide después que se lo cuenten oralmente en el comunicador; evalúa la observación y el recuerdo, nunca la escritura o el dibujo.
 - Los papeles pueden intercambiarse cuando les apetezca. Lo importante es que existan dos miradas, no imponer siempre la misma tarea.
+- La adaptación gráfica de Hugo afecta solo al cuaderno. No rebaja la dificultad intelectual de las conversaciones ni de las pruebas.
+- Topotino no pide que enseñen, describan, fotografíen o transcriban las páginas. El contenido pertenece a Paula y Hugo.
+- Luna sabe que el cuaderno existe y qué función tiene, pero nunca conoce ni inventa su contenido.
 
 ### Formatos variables
 
@@ -103,14 +105,15 @@ Según el día, el cuaderno puede contener:
 - una corrección de algo que creían cierto;
 - o un momento que quieran conservar.
 
-Topotino solo pide una entrada cuando tenga función narrativa. Agradece el esfuerzo de forma concreta y nunca evalúa la caligrafía.
+Topotino puede sugerir que conserven libremente algo, pero no convierte cada jornada en una entrega ni pide confirmación de lo anotado. Nunca evalúa la caligrafía, el dibujo o la cantidad escrita.
 
 ### Función final
 
-- En la jaima ayuda a distinguir al Topotino verdadero de una imitación.
-- En Tavira permite detectar una memoria falsa.
-- En la Alhambra nocturna demuestra que el viaje existe en dos testimonios distintos y evita que Topoloco reclame su propiedad exclusiva.
-- Si alguna entrada falta, la conversación guardada en la app actúa como respaldo; la aventura nunca queda bloqueada.
+- Antes de salir, Paula y Hugo crean en la primera página una marca privada que permite reconocer su cuaderno original y no la envían por el comunicador.
+- En la jaima, la imitación intenta que revelen la marca o acepta un cuaderno falso. Paula y Hugo consultan la primera página y recuerdan que el verdadero Topotino prometió no pedir jamás su contenido. Detectan la suplantación sin revelar la marca.
+- En Tavira contrastan una afirmación falsa con sus páginas y comunican únicamente la conclusión, no el contenido.
+- En la Alhambra nocturna utilizan la existencia de dos miradas independientes para demostrar que Topoloco no puede reclamar una memoria compartida como propiedad exclusiva.
+- Si alguna página falta, la memoria de viaje guardada por la app permite razonar con lo que ya respondieron durante las investigaciones; la aventura nunca queda bloqueada.
 
 ## 6. Las doce aguas
 
@@ -149,6 +152,25 @@ Topoloco es inteligente, huidizo, vanidoso y estratégico. No es una amenaza fí
 - Nunca persigue físicamente, amenaza, insulta ni pone en peligro a la familia.
 
 Su humor procede de la obsesión por clasificar, patentar y etiquetar lo que no puede poseerse; no de ser tonto. Algunos fallos cómicos nacen de su soberbia o del comportamiento imprevisible de sus máquinas.
+
+### Evolución de su estrategia
+
+Topoloco no repite la misma jugada dos días seguidos:
+
+1. Amarante: observa a distancia mediante un fragmento de máquina y comprueba si el puente despierta memoria.
+2. Magikland/Curia: intenta separar ruido, emoción y recuerdo con el Cazarrisas; obtiene datos incompletos.
+3. Buçaco/Batalha/Fátima: intercepta una salvaguarda antigua de Topotino e introduce una promesa ambigua.
+4. Huellas/cuevas/Óbidos: desplaza fragmentos de memoria y deja una reconstrucción plausible pero incorrecta.
+5. Dino Parque: mezcla evidencia real con una pieza inventada para medir si los niños contrastan fuentes.
+6. Lisboa científica: escucha cómo conectan sistemas y comprende que existen doce nodos.
+7. Lisboa histórica: presenta por primera vez su Museo de Recuerdos Exclusivos como si fuera un proyecto de conservación legítimo.
+8. Badoca: deja de limitarse a observar lugares y empieza a observar cómo razonan Paula y Hugo.
+9. Sagres: admite parcialmente que las pistas fueron deliberadas y que necesitaba sus experiencias.
+10. Algar Seco/jaima: suplanta la voz de Topotino e intenta obtener la marca privada del cuaderno; su petición contradice el acuerdo de privacidad del verdadero Topotino.
+11. Zoomarine: reformula su plan como «protección» de recuerdos para intentar convencerlos.
+12. Tavira: inserta una memoria falsa que contradice lo vivido y el cuaderno.
+13. Isla Mágica: cae en la primera trampa diseñada conscientemente por Paula y Hugo.
+14. Alhambra: intenta firmar las doce memorias como una única obra suya y pierde porque las pruebas demuestran autoría compartida.
 
 ## 8. Contraataque de Topotino
 
@@ -217,6 +239,9 @@ No debe:
 
 Son inteligentes y capaces de detectar contradicciones. Las pruebas respetan esa inteligencia:
 
+- se diseñan con una exigencia intelectual aproximada de diez años para ambos, aunque Hugo tenga seis;
+- la lectura o escritura nunca es la medida de su inteligencia;
+
 - formulan hipótesis;
 - distinguen tradición, hecho y reconstrucción;
 - comparan fuentes y versiones;
@@ -247,6 +272,24 @@ Cada etapa debe incluir solo los elementos que necesite, sin repetir una plantil
 
 Una ciudad o museo puede contener varias pruebas breves si exploran saberes diferentes. La historia debe enriquecer la visita, no secuestrarla ni obligar a mirar el móvil constantemente.
 
+### Complejidad, presencia física y variedad
+
+- Cada lugar importante contiene entre dos y cuatro investigaciones breves que trabajan capacidades distintas: observar, contar, comparar, inferir, predecir, clasificar evidencias, formular una hipótesis o corregirla.
+- La solución principal depende de un detalle visible, audible o experimentable allí. La aplicación no usa la ubicación como candado: estar allí es necesario porque allí está la evidencia.
+- Una búsqueda visual nunca termina solo con nombrar un objeto; debe conducir a una inferencia histórica, científica o narrativa.
+- No se repite de forma diaria la secuencia «observar → contar → cuaderno → agua → pista».
+- Se alternan laboratorios de movimiento, debates de evidencia, reconstrucciones, elecciones, predicciones, mapas, códigos visuales, comparaciones y pequeñas investigaciones de campo.
+
+### Intensidad adaptable sin rebajar el reto
+
+Cada lugar distingue:
+
+- **núcleo narrativo:** dos o tres investigaciones necesarias para comprender el descubrimiento;
+- **profundización:** una prueba adicional de aprendizaje que puede hacerse si hay tiempo y energía;
+- **recuperación:** si una visita cambia o una fase anterior quedó pendiente, Topotino resume solo el enlace imprescindible y propone una investigación equivalente en el lugar real.
+
+La recuperación no regala la solución ni infantiliza el reto. Cambia la evidencia disponible, no la capacidad intelectual exigida.
+
 ## 12. Conversación con Luna
 
 Luna es el modelo de lenguaje; Topotino es la única identidad visible.
@@ -260,6 +303,10 @@ La app usa una arquitectura híbrida:
 - el canon secreto completo nunca se envía a Luna;
 - una caída de IA conserva respuestas guiadas jugables.
 
+Además, la aplicación guarda una **memoria de viaje persistente** formada únicamente por respuestas dadas en el comunicador que tengan valor de continuidad: observaciones, hipótesis, razonamientos, decisiones y correcciones. No guarda ni solicita el contenido privado del Cuaderno de la Memoria.
+
+Luna recibe esa memoria persistente junto al capítulo activo. Puede recordar días anteriores, agradecer una idea concreta y detectar contradicciones, pero no usa esos datos para conceder avances ni para conocer secretos futuros.
+
 Cada `Contexto para IA` debe declarar:
 
 - memoria conservada;
@@ -271,6 +318,8 @@ Cada `Contexto para IA` debe declarar:
 - objetivo presente;
 - cómo enlazar con el siguiente destino;
 - y si corresponde pedir descanso.
+
+Cada respuesta guiada que deba recordarse declara una etiqueta de memoria. Las activaciones por fecha admiten mensajes normales y mensajes de recuperación según las flags existentes; así el viaje continúa aunque una fase anterior no se completara, sin fingir que ocurrió.
 
 ## 13. Itinerario y función narrativa
 
@@ -290,7 +339,7 @@ Cada `Contexto para IA` debe declarar:
 | 23 ago | Zoomarine | Cuidado frente a posesión |
 | 24 ago | Tavira → Sevilla | Memoria histórica corregida y dos orillas |
 | 25 ago | Isla Mágica y Agua Mágica | Trampa consciente y descubrimiento de Granada |
-| 26 ago | Sevilla → Alhambra nocturna | Doce leones, diario, derrota de Topoloco y final |
+| 26 ago | Sevilla → Alhambra nocturna | Doce leones, cuaderno, derrota de Topoloco y final |
 | 27 ago | Generalife → Valladolid | Epílogo opcional, sin nueva misión |
 
 Las activaciones usan las fechas numéricas de 2026 aunque el itinerario original rotule algún día de la semana de forma incorrecta.
@@ -318,7 +367,10 @@ Ninguna reserva o destino es imprescindible. Un cambio real se registra en esta 
 - `004-guimaraes-origen` permanece retirado por compatibilidad.
 - Las flags y palabras antiguas pueden seguir registrándose internamente sin aparecer en los mensajes.
 - Los capítulos por fecha no deben quedar bloqueados por una fase anterior no terminada.
+- Todo capítulo por fecha debe incluir un puente de recuperación si presupone una fase anterior.
+- Los mensajes iniciales pueden estar condicionados por flags y solo se entregan cuando encajan con el estado real.
 - Las fases internas sí mantienen su orden mediante flags.
+- `storyMemory` se añade de forma compatible: las partidas antiguas comienzan con una lista vacía y conservan todo su estado anterior.
 - La partida existente, mensajes y código de recuperación continúan intactos.
 
 ## 17. Registro actual
@@ -328,7 +380,7 @@ Ninguna reserva o destino es imprescindible. Un cambio real se registra en esta 
 | 1 | Londres | Vivida | `LONDRES BRILLA` | La aventura era mayor de lo que parecía |
 | 2 | Luanco | Vivida por confirmar | Agua del Norte | El agua conserva recuerdos |
 | 3 | 12 ago | Publicada | Eclipse y amnesia | Topotino confía en ellos y dejó una salvaguarda |
-| 4 | 12–13 ago | Publicada | Diario y descubrimiento de Amarante | Deben ir el 13 por la tarde |
+| 4 | 12–13 ago | Publicada | Cuaderno y descubrimiento de Amarante | Deben ir el 13 por la tarde |
 | 5 | 13 ago | Publicada | Agua del Puente | Una figura buscaba algo que la ponte recordaba |
 | 6 | 14 ago | Publicada | Agua de la Risa | El significado, no el ruido, despierta memoria emocional |
 | 7–15 | 15–26 ago | Boceto aprobado; pendientes día a día | Arco de las doce aguas | Revelación progresiva hasta la Alhambra nocturna |
@@ -359,6 +411,28 @@ Ninguna reserva o destino es imprescindible. Un cambio real se registra en esta 
 - Si continúa otro día, pide descanso.
 - Ciudades y museos pueden incluir varias experiencias breves de observación, historia, ciencia y contraste de fuentes.
 
-## 19. Cambios durante el viaje
+### Complejidad, privacidad y continuidad seleccionadas por Juan
+
+- Cambio: las pruebas se diseñan con exigencia intelectual aproximada de diez años para Paula y Hugo.
+- Aclaración: Hugo dibuja solo en el Cuaderno de la Memoria; sus respuestas orales y razonamientos no se simplifican por edad.
+- Privacidad: Topotino no solicita el contenido del cuaderno salvo que una escena futura exija consultarlo; incluso entonces pide una conclusión o decisión, nunca una transcripción o fotografía.
+- Memoria: Luna recibe una memoria persistente de respuestas del chat, separada del cuaderno privado.
+- Recuperación: cada día por fecha debe reconocer las fases realmente vividas y ofrecer un puente coherente si falta alguna.
+- Variedad: se prohíbe repetir una plantilla fija y se exigen varias investigaciones físicas por lugar.
+- Topoloco: sus tácticas evolucionan y responden a lo que aprende.
+- Intensidad: se distinguen núcleo, profundización y recuperación para proteger el viaje real sin reducir la complejidad.
+
+## 19. Diseño cerrado del desenlace nocturno
+
+La aventura termina en los Palacios Nazaríes durante la visita nocturna del 26. No se prolonga al Generalife del día 27.
+
+1. **Mexuar — la afirmación dudosa:** Topoloco emite una versión aparentemente ordenada del viaje en la que se atribuye todas las decisiones. Paula y Hugo deben detectar qué tipo de afirmación no está respaldada por evidencia compartida.
+2. **Patio de los Arrayanes — reflejo y realidad:** utilizan el reflejo para distinguir imagen, objeto y experiencia. Reconocen la firma técnica del Borrador de Reflejos y confirman que el eclipse fue un ataque contra la memoria de Topotino.
+3. **Comares — dos relatos incompatibles:** Luna recupera de la memoria persistente dos observaciones reales de días distintos. Los niños explican por qué una colección puede conservar datos sin convertirse en dueña de lo vivido.
+4. **Patio de los Leones — las doce relaciones:** los doce leones no son doce contraseñas; permiten comprender que las doce aguas forman una red. Paula y Hugo consultan el cuaderno y verifican que existen dos miradas independientes. No necesitan leerlas en voz alta ni enviarlas.
+5. **Derrota de Topoloco:** su máquina exige un único autor para cerrar el archivo. La respuesta correcta es que no existe: lugares, familia, Paula, Hugo y Topotino participaron. El sistema de Topoloco no puede registrar propiedad exclusiva y libera las memorias.
+6. **Cierre:** despierta el Agua de la Noche Clara, Topotino recupera el sentido de su contraataque —no cada detalle perdido de forma artificial— y agradece contribuciones concretas recordadas del viaje. La aventura termina esa noche.
+
+## 20. Cambios durante el viaje
 
 Todavía no hay cambios reales registrados desde el inicio del viaje. Cuando ocurran, se anotará: hecho real, pasado ya vivido, etapas futuras afectadas, solución de continuidad y archivos modificados.

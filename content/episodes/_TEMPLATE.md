@@ -48,6 +48,7 @@ Escribe aquí lo que Topotino sabe en este capítulo, lo que sospecha y lo que N
     "blockedFlags": ["respuesta_ya_completada"],
     "match": ["respuesta", "otra forma aceptada"],
     "setFlags": ["flag_desbloqueada"],
+    "remember": { "kind": "observation", "label": "Qué debe recordar Luna de esta respuesta" },
     "water": null,
     "formulaWord": null,
     "nextEpisode": null,

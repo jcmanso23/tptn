@@ -69,6 +69,7 @@ En respuestas guiadas puedes usar:
 - `match`: textos exactos.
 - `containsAny`: basta con que el mensaje contenga una de esas palabras.
 - `containsAll`: deben aparecer todas esas palabras.
+- `containsAnyGroups`: lista de grupos; la respuesta debe contener al menos un término de cada grupo. Permite validar razonamientos con varias piezas de evidencia sin exigir una frase exacta.
 - `openAnswer: true`: acepta una respuesta abierta si pasa los filtros.
 - `minLength` / `minWords`: evita respuestas demasiado vacías.
 - `rejectContainsAny`: bloquea bromas o tonterías evidentes.
@@ -77,6 +78,9 @@ En respuestas guiadas puedes usar:
 - `setFlags`: activa submisiones posteriores.
 - `setLocation`: simula una ubicación desde el chat para pruebas.
 - `setRuntimeNow`: simula fecha/hora desde el chat para pruebas.
+- `remember`: guarda la respuesta del chat en la memoria persistente de viaje. Puede ser una etiqueta o un objeto con `kind` y `label`. No se usa para contenidos del Cuaderno de la Memoria.
+
+Los objetos de `Mensajes iniciales` pueden incluir `requiredFlags` y `blockedFlags`. La app entrega solo los mensajes compatibles con el estado existente; se usa para que un capítulo por fecha tenga una entrada normal y otra de recuperación sin fingir fases no vividas.
 
 Las horas visibles del chat siempre usan la hora real del dispositivo, como un chat normal. `testNow` y `setRuntimeNow` solo afectan a las activaciones internas de capítulos.
 

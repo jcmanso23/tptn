@@ -44,6 +44,7 @@ Al terminar, Topotino indica directamente que deben estar en Amarante el 13 por 
     "blockedFlags": ["amarante_previa_identificada"],
     "match": ["amarante", "puede ser amarante", "creemos que es amarante", "la ciudad es amarante"],
     "setFlags": ["amarante_previa_identificada"],
+    "remember": { "kind": "deduction", "label": "Deducción de Amarante a partir del Tâmega, la ponte y São Gonçalo" },
     "messages": [
       { "from": "topotino", "time": "auto", "text": "Gracias. Amarante encaja con las tres cosas: el Tâmega, la Ponte de São Gonçalo y la tradición del pez. Buena investigación; no os habéis quedado con la primera ciudad que sonaba portuguesa." },
       { "from": "topotino", "time": "auto", "text": "Al colocar ese nombre sobre la placa ha aparecido una línea que antes era invisible: «13 de agosto · por la tarde». Tenemos que estar allí entonces. Digo tenemos porque pienso acompañaros desde el comunicador, aunque mis patas no quepan en vuestro coche." },

@@ -5,9 +5,10 @@ const STORAGE_KEYS = {
 
 const LEGACY_STATE_KEY = 'topotino_chat_state_v1';
 const PASSPHRASE_HASH = 'a64716bd9f4e8added1bf47f80b97c3fc7b70a15b8043cdab083e1ddf85f3794';
-const EPISODES_MANIFEST = 'content/episodes.json?v=memory-v21';
+const EPISODES_MANIFEST = 'content/episodes.json?v=memory-v22';
 const LIVE_STORY_ENDPOINT = '/api/story';
 const ACTIVATION_TICK_MS = 60000;
+const MAX_STORY_MEMORY_ITEMS = 60;
 const ADULT_PHASE_DELAY_MS = 5 * 60 * 1000;
 const ADULT_PIN_HASH = '0f8eb4b72b6e0c9e88b388eb967b49e067ef1004bf07bffc22c3acb13b43580a';
 const ADULT_SESSION_KEY = 'topotino_adult_unlocked_v1';
@@ -88,6 +89,7 @@ const state = {
   flags: [],
   waters: [],
   formulaWords: [],
+  storyMemory: [],
   softResponseCursor: {},
   hintMissCursor: {},
   chatterWarningCursor: 0,
@@ -340,9 +342,9 @@ async function evaluateActivations({ reason, collectMessages = false } = {}) {
     if (!episode) return;
     unlockEpisode(episode.meta.id);
     if (collectMessages) {
-      queuedMessages.push(...(episode.initialMessages || []));
+      queuedMessages.push(...eligibleMessages(episode.initialMessages));
     } else {
-      appendMessages(episode.initialMessages || []);
+      appendMessages(eligibleMessages(episode.initialMessages));
     }
     changed = true;
   });
@@ -352,9 +354,9 @@ async function evaluateActivations({ reason, collectMessages = false } = {}) {
     if (!episodeCanActivate(episode)) continue;
     unlockEpisode(episode.meta.id);
     if (collectMessages) {
-      queuedMessages.push(...(episode.initialMessages || []));
+      queuedMessages.push(...eligibleMessages(episode.initialMessages));
     } else {
-      appendMessages(episode.initialMessages || []);
+      appendMessages(eligibleMessages(episode.initialMessages));
     }
     changed = true;
   }
@@ -521,7 +523,7 @@ async function handleUserMessage(text) {
 
   const guided = findGuidedResponse(text);
   if (guided) {
-    await applyGuidedResponse(guided.response, guided.episode);
+    await applyGuidedResponse(guided.response, guided.episode, text);
     return;
   }
 
@@ -551,7 +553,7 @@ async function handleUserMessage(text) {
   await askAiFallback(text);
 }
 
-async function applyGuidedResponse(guided, sourceEpisode) {
+async function applyGuidedResponse(guided, sourceEpisode, userText = '') {
   const outboundMessages = [...(guided.messages || [])];
   state.hintMissCursor[sourceEpisode.meta.id] = 0;
   addUniqueMany(state.flags, guided.setFlags || []);
@@ -561,13 +563,14 @@ async function applyGuidedResponse(guided, sourceEpisode) {
   if (guided.clearRuntimeNow) clearSimulatedRuntime();
   if (guided.water) addWater(guided.water);
   if (guided.formulaWord) addFormulaWord(guided.formulaWord);
+  if (guided.remember) recordStoryMemory(guided.remember, userText, sourceEpisode, guided);
 
   if (guided.nextEpisode) {
     const nextEpisode = getEpisode(guided.nextEpisode);
     if (nextEpisode) {
       const wasRendered = state.renderedEpisodes.includes(nextEpisode.meta.id);
       unlockEpisode(nextEpisode.meta.id);
-      if (!wasRendered) outboundMessages.push(...(nextEpisode.initialMessages || []));
+      if (!wasRendered) outboundMessages.push(...eligibleMessages(nextEpisode.initialMessages));
     }
   }
 
@@ -610,6 +613,7 @@ async function askAiFallback(text) {
         flags: state.flags,
         waters: state.waters,
         formulaWords: state.formulaWords,
+        storyMemory: state.storyMemory.slice(-36),
         recentMessages: state.messages.slice(-14)
       })
     });
@@ -680,12 +684,19 @@ function responseMatches(candidate, normalizedText) {
     return false;
   }
 
+  const containsAnyGroups = candidate.containsAnyGroups || [];
+  if (containsAnyGroups.length && !containsAnyGroups.every((group) =>
+    Array.isArray(group) && group.some((term) => normalizedText.includes(normalizeText(term)))
+  )) {
+    return false;
+  }
+
   const containsAny = candidate.containsAny || [];
   if (containsAny.length) {
     return containsAny.some((term) => normalizedText.includes(normalizeText(term)));
   }
 
-  if (containsAll.length) return true;
+  if (containsAll.length || containsAnyGroups.length) return true;
 
   return Boolean(candidate.openAnswer);
 }
@@ -1032,6 +1043,55 @@ function addWater(water) {
 function addFormulaWord(word) {
   const normalized = normalizeFormulaWord(word);
   if (!state.formulaWords.includes(normalized)) state.formulaWords.push(normalized);
+}
+
+function recordStoryMemory(config, userText, episode, guided) {
+  const text = String(userText || '').trim().slice(0, 600);
+  if (!text) return;
+
+  const details = typeof config === 'string' ? { label: config } : (config || {});
+  const id = String(details.id || `${episode.meta.id}:${guided.id}`);
+  const item = {
+    id,
+    episodeId: episode.meta.id,
+    episodeTitle: episode.meta.title || '',
+    responseId: guided.id,
+    kind: String(details.kind || 'observation').slice(0, 40),
+    label: String(details.label || guided.id).slice(0, 120),
+    text,
+    createdAt: Date.now()
+  };
+
+  const existingIndex = state.storyMemory.findIndex((memory) => memory.id === id);
+  if (existingIndex >= 0) state.storyMemory.splice(existingIndex, 1);
+  state.storyMemory.push(item);
+  if (state.storyMemory.length > MAX_STORY_MEMORY_ITEMS) {
+    state.storyMemory.splice(0, state.storyMemory.length - MAX_STORY_MEMORY_ITEMS);
+  }
+}
+
+function normalizeStoryMemory(value) {
+  if (!Array.isArray(value)) return [];
+  return value.slice(-MAX_STORY_MEMORY_ITEMS).map((item, index) => ({
+    id: String(item?.id || `legacy-memory-${index}`),
+    episodeId: String(item?.episodeId || ''),
+    episodeTitle: String(item?.episodeTitle || '').slice(0, 120),
+    responseId: String(item?.responseId || ''),
+    kind: String(item?.kind || 'observation').slice(0, 40),
+    label: String(item?.label || 'Recuerdo del viaje').slice(0, 120),
+    text: String(item?.text || '').slice(0, 600),
+    createdAt: Number(item?.createdAt) || Date.now()
+  })).filter((item) => item.text);
+}
+
+function eligibleMessages(messages) {
+  return (messages || []).filter((message) => {
+    const requiredFlags = message.requiredFlags || [];
+    if (requiredFlags.length && !requiredFlags.every((flag) => state.flags.includes(flag))) return false;
+    const blockedFlags = message.blockedFlags || [];
+    if (blockedFlags.some((flag) => state.flags.includes(flag))) return false;
+    return true;
+  });
 }
 
 function setSimulatedLocation(location) {
@@ -1448,6 +1508,7 @@ function buildLocalState() {
     flags: state.flags,
     waters: state.waters,
     formulaWords: state.formulaWords,
+    storyMemory: state.storyMemory,
     softResponseCursor: state.softResponseCursor,
     hintMissCursor: state.hintMissCursor,
     chatterWarningCursor: state.chatterWarningCursor,
@@ -1485,6 +1546,7 @@ function applyRestoredState(remoteState, recoveryCode) {
     flags: remoteState.flags || [],
     waters: remoteState.waters || [],
     formulaWords: (remoteState.formulaWords || []).map(normalizeFormulaWord),
+    storyMemory: normalizeStoryMemory(remoteState.storyMemory),
     softResponseCursor: remoteState.softResponseCursor || {},
     chatterWarningCursor: remoteState.chatterWarningCursor || 0,
     lastChatterWarningAt: remoteState.lastChatterWarningAt || 0,
@@ -1679,6 +1741,7 @@ function loadState() {
       flags: saved.flags || [],
       waters: saved.waters || [],
       formulaWords: (saved.formulaWords || []).map(normalizeFormulaWord),
+      storyMemory: normalizeStoryMemory(saved.storyMemory),
       softResponseCursor: saved.softResponseCursor || {},
       hintMissCursor: saved.hintMissCursor || {},
       chatterWarningCursor: saved.chatterWarningCursor || 0,
@@ -1719,6 +1782,6 @@ function applyTestingParams() {
 
 function registerServiceWorker() {
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('service-worker.js?v=offline-v7').catch(() => {});
+    navigator.serviceWorker.register('service-worker.js?v=offline-v8').catch(() => {});
   }
 }
