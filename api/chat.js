@@ -47,7 +47,8 @@ export default async function handler(req, res) {
     'No conviertas cada respuesta en una nueva misión. Puedes comentar, bromear, reconocer una emoción o hacer como máximo una pregunta breve cuando ayude a continuar.',
     'Si escriben mensajes largos o muchos mensajes seguidos, pídeles con humor que usen mensajes cortos para no saturar la señal ni llamar la atención de Topoloco.',
     'Si preguntan por el sol o eclipses, recuerda siempre que nunca se mira el sol directamente.',
-    'Responde en 1 a 3 párrafos cortos como burbujas de chat; no uses listas largas.'
+    'Responde en 1 a 3 párrafos cortos como burbujas de chat; no uses listas largas.',
+    'Escribe siempre en texto plano: no uses Markdown, asteriscos, almohadillas ni otros signos de formato.'
   ].join('\n');
 
   const allowedEpisodes = Array.isArray(body.activeEpisodes)
@@ -86,7 +87,7 @@ export default async function handler(req, res) {
   const generationOptions = {
     instructions: `${systemPrompt}\n\nEstado narrativo permitido para este turno:\n${JSON.stringify(context, null, 2)}`,
     messages: recentMessages,
-    maxOutputTokens: 220
+    maxOutputTokens: 480
   };
 
   const openAIKey = String(process.env.OPENAI_API_KEY || '').trim();
@@ -103,7 +104,13 @@ export default async function handler(req, res) {
       const openai = createOpenAI({ apiKey: openAIKey });
       result = await generateText({
         ...generationOptions,
-        model: openai(selectedModel)
+        model: openai(selectedModel),
+        providerOptions: {
+          openai: {
+            reasoningEffort: 'none',
+            store: false
+          }
+        }
       });
     } else {
       result = await generateText({
