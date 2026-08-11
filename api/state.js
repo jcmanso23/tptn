@@ -1,10 +1,8 @@
 import crypto from 'node:crypto';
-import { createClient } from 'redis';
+import { hasRedisStorage, redisCommand, storageMode } from './_lib/storage.js';
 
 const CHANNEL_PREFIX = 'topotino:channel:';
 const RECOVERY_PREFIX = 'topotino:recovery:';
-
-let redisClientPromise = null;
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
@@ -26,7 +24,12 @@ export default async function handler(req, res) {
 
     return res.status(400).json({ error: 'Unknown action' });
   } catch (error) {
-    console.error('State API failed', error);
+    console.error('State API failed', {
+      action,
+      storageMode: storageMode(),
+      name: error?.name,
+      message: error?.message
+    });
     return res.status(500).json({ error: 'State API failed' });
   }
 }
@@ -115,57 +118,6 @@ async function getChannel(channelId) {
   const raw = await redisCommand('GET', channelKey(channelId));
   if (!raw) return null;
   return typeof raw === 'string' ? JSON.parse(raw) : raw;
-}
-
-async function redisCommand(command, ...args) {
-  if (process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN) {
-    return redisRestCommand(command, ...args);
-  }
-
-  return redisUrlCommand(command, ...args);
-}
-
-async function redisRestCommand(command, ...args) {
-  const response = await fetch(process.env.KV_REST_API_URL, {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${process.env.KV_REST_API_TOKEN}`,
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify([command, ...args])
-  });
-
-  if (!response.ok) {
-    throw new Error(`Redis command failed: ${response.status}`);
-  }
-
-  const data = await response.json();
-  if (data.error) throw new Error(data.error);
-  return data.result;
-}
-
-async function redisUrlCommand(command, ...args) {
-  const client = await getRedisClient();
-  return client.sendCommand([command, ...args.map(String)]);
-}
-
-async function getRedisClient() {
-  if (!redisClientPromise) {
-    const client = createClient({ url: process.env.REDIS_URL });
-    client.on('error', (error) => {
-      console.error('Redis client error', error);
-    });
-    redisClientPromise = client.connect().then(() => client);
-  }
-
-  return redisClientPromise;
-}
-
-function hasRedisStorage() {
-  return Boolean(
-    (process.env.KV_REST_API_URL && process.env.KV_REST_API_TOKEN) ||
-    process.env.REDIS_URL
-  );
 }
 
 function publicRecord(record) {

@@ -1,17 +1,11 @@
-import OpenAI from 'openai';
+import { generateText } from 'ai';
 
-const client = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY
-});
+const DEFAULT_MODEL = 'openai/gpt-5.4-mini';
 
 export default async function handler(req, res) {
   if (req.method !== 'POST') {
     res.setHeader('Allow', 'POST');
     return res.status(405).json({ error: 'Method not allowed' });
-  }
-
-  if (!process.env.OPENAI_API_KEY) {
-    return res.status(500).json({ error: 'OPENAI_API_KEY is not configured' });
   }
 
   const body = req.body || {};
@@ -57,23 +51,35 @@ export default async function handler(req, res) {
   };
 
   try {
-    const response = await client.responses.create({
-      model: process.env.OPENAI_MODEL || 'gpt-5-mini',
-      input: [
-        { role: 'system', content: systemPrompt },
-        {
-          role: 'user',
-          content: `Contexto permitido:\n${JSON.stringify(context, null, 2)}\n\nMensaje de Paula y Hugo:\n${userMessage}`
+    const { text, usage } = await generateText({
+      model: process.env.AI_MODEL || DEFAULT_MODEL,
+      system: systemPrompt,
+      prompt: `Contexto permitido:\n${JSON.stringify(context, null, 2)}\n\nMensaje de Paula y Hugo:\n${userMessage}`,
+      maxOutputTokens: 220,
+      providerOptions: {
+        gateway: {
+          user: 'topotino-family',
+          tags: ['feature:topotino-chat', `episode:${context.episodioActivo}`]
         }
-      ],
-      max_output_tokens: 220
+      }
+    });
+
+    console.log('Topotino AI response', {
+      model: process.env.AI_MODEL || DEFAULT_MODEL,
+      inputTokens: usage?.inputTokens,
+      outputTokens: usage?.outputTokens
     });
 
     return res.status(200).json({
-      reply: response.output_text || 'La señal llega entrecortada. Repetidlo con calma, agentes.'
+      reply: text || 'La señal llega entrecortada. Repetidlo con calma, agentes.'
     });
   } catch (error) {
-    console.error('OpenAI request failed', error);
-    return res.status(500).json({ error: 'AI response failed' });
+    console.error('AI Gateway request failed', {
+      name: error?.name,
+      message: error?.message,
+      statusCode: error?.statusCode,
+      model: process.env.AI_MODEL || DEFAULT_MODEL
+    });
+    return res.status(503).json({ error: 'AI_UNAVAILABLE' });
   }
 }
