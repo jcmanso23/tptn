@@ -4,7 +4,7 @@
 
 **Última actualización:** 11 de agosto de 2026
 
-**Estado:** arco completo desarrollado del 13 al 27 de agosto; pendiente de la verificación final de publicación
+**Estado:** arco completo desarrollado, verificado y publicado del 13 al 27 de agosto
 
 **Viaje principal:** 13–27 de agosto de 2026
 
