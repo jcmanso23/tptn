@@ -19,7 +19,8 @@ test('la conversación libre usa Luna y conserva los turnos con sus roles', asyn
   assert.match(source, /Diario de las Dos Memorias/);
   assert.match(source, /Recuerdas con normalidad todo lo sucedido desde que despertaste/);
   assert.match(source, /agradécelo de forma concreta/);
-  assert.match(source, /Topoloco es inteligente, huidizo/);
+  assert.match(source, /interpreta a Topoloco como inteligente, huidizo/);
+  assert.match(source, /Topotino no los recuerda ni los afirma/);
   assert.match(source, /maxDuration: 30/);
   assert.doesNotMatch(source, /contextoNarrativo:|narrativeContext/);
 });
