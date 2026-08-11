@@ -7,7 +7,6 @@
   "startsUnlocked": false,
   "activation": {
     "mode": "all",
-    "required": ["eclipse_identificado"],
     "date": { "on": "2026-08-13" },
     "time": { "from": "17:00", "to": "23:59" }
   },

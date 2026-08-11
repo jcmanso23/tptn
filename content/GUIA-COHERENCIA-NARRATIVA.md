@@ -162,6 +162,8 @@ Cada agua debe tener:
 - una alternativa de activación que no dependa solo del GPS;
 - una función en el desenlace.
 
+Los capítulos diarios del viaje se activan por su fecha y franja horaria, sin exigir que la familia haya terminado todos los episodios anteriores. El progreso previo enriquece la secuencia, pero nunca puede impedir que llegue la aventura del día real. Las fases internas de cada capítulo sí mantienen su orden mediante flags.
+
 ### Inventario canónico
 
 | Número | Agua | Significado | Palabra | Estado |

@@ -7,7 +7,6 @@
   "startsUnlocked": false,
   "activation": {
     "mode": "all",
-    "anyFlags": ["completado_amarante", "completado_guimaraes"],
     "date": { "on": "2026-08-14" },
     "time": { "from": "09:00", "to": "23:59" }
   },
@@ -35,7 +34,7 @@ Todavía no se revela que Topoloco necesita que Paula y Hugo despierten las memo
 
 ```json
 [
-  { "from": "topotino", "time": "auto", "text": "Alerta de bigotes. El plano de Topoloco se ha desplegado solo y ahora mi túnel contiene África, un mundo de confusión, una aldea medieval, piratas, el Far-West y un zoco. Todo a la vez. Casi piso un barco dibujado." },
+  { "from": "topotino", "time": "auto", "text": "Alerta de bigotes. Ha aparecido un plano de Topoloco y, al desplegarlo, mi túnel se ha llenado de África, un mundo de confusión, una aldea medieval, piratas, el Far-West y un zoco. Todo a la vez. Casi piso un barco dibujado." },
   { "from": "topotino", "time": "auto", "text": "En el margen pone: «Cazarrisas Hidráulico listo. Capturar la alegría antes de que los niños la recuerden». Si reconocéis el lugar de esos seis mundos, escribid su nombre." }
 ]
 ```
