@@ -1,6 +1,6 @@
 # Guía maestra de coherencia narrativa · Las Doce Aguas
 
-**Versión canónica:** 12 de agosto de 2026 · edición T-12B0
+**Versión canónica:** 12 de agosto de 2026 · edición T-12B1
 **Final principal:** Alhambra, Palacios Nazaríes, noche del 26 de agosto
 **Epílogo:** Generalife, 27 de agosto; no abre otra amenaza
 
@@ -36,6 +36,8 @@ Sus máquinas no pueden inventar una experiencia convincente desde cero. Necesit
 ## 3. El ataque del eclipse
 
 Topoloco prepara el eclipse como una gran superficie de sombra y reflejo. Con ayuda de los Oscurnos ejecuta un ataque contra Topotino para que deje de frustrar sus planes. No borra su identidad ni su capacidad de crear recuerdos nuevos: extrae y dispersa casi toda su memoria anterior relacionada con las aventuras y la investigación.
+
+Durante la mañana del 12 de agosto, antes del eclipse, Topotino conserva toda su memoria. Confirma con claridad que la señal anunciaba el eclipse de ese mismo día, que ocurrirá por la tarde cerca del atardecer y que no hay ninguna prueba pendiente hasta entonces. Pide observarlo solo con adultos y protección homologada. Nota pequeñas anomalías en sus aparatos, pero todavía no sabe que son un ataque. No habla como si el eclipse ya hubiera ocurrido ni adelanta la amnesia.
 
 Al comienzo solo se sabe que ocurrió algo durante el eclipse. La atribución progresa así:
 
@@ -278,6 +280,12 @@ Antes de publicar un cambio:
 - [ ] El final continúa en la Alhambra nocturna y el Generalife es solo epílogo.
 
 ## 19. Registro de decisiones
+
+### 12 de agosto de 2026 · T-12B1
+
+- Se añade una escena de espera durante la mañana del eclipse que también se abre en partidas ya iniciadas.
+- Topotino responde de forma directa a «¿es el eclipse?», «¿cuándo?» y «no te entiendo».
+- La conversación anterior al eclipse usa Luna y deja de caer en una respuesta genérica repetida.
 
 ### 12 de agosto de 2026 · T-12B0
 

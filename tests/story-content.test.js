@@ -169,7 +169,7 @@ test('los días 13 y 14 conservan su cadena narrativa y adaptan solo tras un imp
   assert.doesNotMatch(childFacingText, /(foto|fotografía).{0,30}(cuaderno|diario)/i);
 });
 
-test('la edición T-12B0 usa caché nueva, mensajes breves y rescates de destino', async () => {
+test('la edición T-12B1 usa caché nueva, mensajes breves y rescates de destino', async () => {
   const files = ['index.html', 'app.js', 'admin.js', 'content/episodes/001-reconexion.md'];
   const combined = (await Promise.all(files.map((file) => readFile(join(root, file), 'utf8')))).join('\n');
   const app = await readFile(join(root, 'app.js'), 'utf8');
@@ -180,17 +180,44 @@ test('la edición T-12B0 usa caché nueva, mensajes breves y rescates de destino
     'content/episodes/001-reconexion.md'
   );
 
-  assert.match(combined, /T-12B0/);
+  assert.match(combined, /T-12B1/);
   assert.doesNotMatch(combined, /T-12A9/);
   assert.match(app, /splitTopotinoMessages/);
   assert.match(app, /els\.channelCode\.textContent = APP_VERSION_CODE/);
-  assert.match(serviceWorker, /topotino-offline-v12/);
-  assert.match(serviceWorker, /chat-format\.js\?v=memory-v26/);
+  assert.match(serviceWorker, /topotino-offline-v13/);
+  assert.match(serviceWorker, /chat-format\.js\?v=memory-v27/);
   assert.match(ai, /Escribe como en WhatsApp/);
   assert.ok(
     reconnection.sections['Respuestas guiadas']
       .some((response) => response.id === 'luanco-solucion-ayudada' && response.setFlags?.includes('luanco_identificado'))
   );
+});
+
+test('la mañana del eclipse aclara la espera y rescata partidas ya iniciadas', async () => {
+  const manifest = JSON.parse(await readFile(join(root, 'content/episodes.json'), 'utf8'));
+  const bridgeItem = manifest.find((item) => item.id === '004a-eclipse-espera');
+  assert.ok(bridgeItem, 'falta la escena puente del 12 de agosto');
+
+  const source = bridgeItem.file.replace(/\?.*$/, '');
+  const bridge = parseEpisode(await readFile(join(root, source), 'utf8'), source);
+  assert.deepEqual(bridge.meta.activation.required, ['agua_norte_recogida']);
+  assert.equal(bridge.meta.activation.dateTime.from, '2026-08-12T00:00:00+02:00');
+  assert.equal(bridge.meta.activation.dateTime.to, '2026-08-12T20:30:59+02:00');
+  assert.equal(bridge.meta.ai.enabled, true);
+
+  const childText = [
+    ...bridge.sections['Mensajes iniciales'].map((message) => message.text),
+    ...bridge.sections['Respuestas guiadas']
+      .flatMap((response) => (response.messages || []).map((message) => message.text))
+  ].join(' ');
+  assert.match(childText, /eclipse de hoy/i);
+  assert.match(childText, /esta tarde/i);
+  assert.match(childText, /no tenéis que resolver ninguna prueba|no tenéis ninguna prueba/i);
+  assert.match(childText, /protección homologada/i);
+
+  const responseIds = new Set(bridge.sections['Respuestas guiadas'].map((response) => response.id));
+  assert.ok(responseIds.has('eclipse-confirmacion-clara'));
+  assert.ok(responseIds.has('eclipse-no-entiendo'));
 });
 
 test('el viaje completo del 15 al 27 está publicado, enlazado y termina de noche en la Alhambra', async () => {
@@ -329,7 +356,7 @@ test('la secuencia principal puede recorrerse y reúne exactamente las doce agua
   }
 });
 
-test('la narrativa T-12B0 usa mapa, paquete y ventanas sin enseñar los nombres internos', async () => {
+test('la narrativa T-12B1 usa mapa, paquete y ventanas sin enseñar los nombres internos', async () => {
   const manifest = JSON.parse(await readFile(join(root, 'content/episodes.json'), 'utf8'));
   const childFacing = [];
 
