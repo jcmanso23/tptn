@@ -1,6 +1,6 @@
 # Guía maestra de coherencia narrativa · Las Doce Aguas
 
-**Versión canónica:** 12 de agosto de 2026 · edición T-12B2
+**Versión canónica:** 12 de agosto de 2026 · edición T-12B3
 **Final principal:** Alhambra, Palacios Nazaríes, noche del 26 de agosto
 **Epílogo:** Generalife, 27 de agosto; no abre otra amenaza
 
@@ -16,7 +16,7 @@ En su madriguera quedan tres cosas preparadas antes del ataque:
 
 - el Comunicador Subterráneo;
 - una nota de emergencia que menciona a Topoloco y «el plan de las aguas»;
-- noticia de un paquete escondido por la red de topos.
+- una nota que confirma que Marga Mapas custodia un paquete de emergencia.
 
 La historia completa no se explica al principio. Se reconstruye mediante lugares, recuerdos parciales, aliados y errores de Topoloco.
 
@@ -85,11 +85,13 @@ Topotina recuerda a su hermano y la arquitectura del sistema, pero no conoce la 
 
 ## 6. El paquete físico y el Mapa de las Doce Aguas
 
-Después de que Paula y Hugo aporten un recuerdo verdadero y acepten preparar el Cuaderno de la Memoria, Marga Mapas informa de que la red de topos ha encontrado un paquete escondido antes del eclipse.
+Antes del eclipse, Topotino prepara un paquete de emergencia, lo cierra y se lo confía directamente a Marga Mapas. No lo envía entonces ni Marga lo encuentra por casualidad. En el exterior deja una instrucción precisa: si después del eclipse la señal de Topotino se interrumpe y él ya no recuerda Luanco ni el motivo de aquella muestra, Marga debe hacérselo llegar a Paula y Hugo y no explicarles el contenido.
+
+Después de que Topotino admita su pérdida de memoria, Paula y Hugo aporten un recuerdo verdadero y acepten preparar el Cuaderno de la Memoria, se cumple la condición. Marga entrega el paquete a los niños para que lo abran mientras están comunicados con el Topotino del futuro. La carta interior está escrita por Topotino para sí mismo; Paula y Hugo actúan como custodios y testigos.
 
 El paquete contiene:
 
-- una carta breve escrita por Topotino antes del ataque;
+- una carta de Topotino al Topotino del futuro, escrita antes del ataque;
 - un mapa con doce ventanas oscuras conectadas;
 - la primera ventana ya marcada gracias a Luanco;
 - la pista `TÂM…`, una ponte y un pez;
@@ -282,6 +284,12 @@ Antes de publicar un cambio:
 - [ ] El final continúa en la Alhambra nocturna y el Generalife es solo epílogo.
 
 ## 19. Registro de decisiones
+
+### 12 de agosto de 2026 · T-12B3
+
+- Topotino entrega personalmente a Marga el paquete cerrado antes del eclipse; Marga no lo encuentra ni lo recibe después.
+- La condición de entrega es que tras el eclipse Topotino haya perdido la memoria de Luanco y de su investigación.
+- Marga hace llegar el paquete a Paula y Hugo, que leen junto a Topotino una carta dirigida por su yo anterior a su yo futuro.
 
 ### 12 de agosto de 2026 · T-12B2
 

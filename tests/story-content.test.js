@@ -169,7 +169,7 @@ test('los días 13 y 14 conservan su cadena narrativa y adaptan solo tras un imp
   assert.doesNotMatch(childFacingText, /(foto|fotografía).{0,30}(cuaderno|diario)/i);
 });
 
-test('la edición T-12B2 usa caché nueva, mensajes breves y rescates de destino', async () => {
+test('la edición T-12B3 usa caché nueva, mensajes breves y rescates de destino', async () => {
   const files = ['index.html', 'app.js', 'admin.js', 'content/episodes/001-reconexion.md'];
   const combined = (await Promise.all(files.map((file) => readFile(join(root, file), 'utf8')))).join('\n');
   const app = await readFile(join(root, 'app.js'), 'utf8');
@@ -180,12 +180,12 @@ test('la edición T-12B2 usa caché nueva, mensajes breves y rescates de destino
     'content/episodes/001-reconexion.md'
   );
 
-  assert.match(combined, /T-12B2/);
+  assert.match(combined, /T-12B3/);
   assert.doesNotMatch(combined, /T-12A9/);
   assert.match(app, /splitTopotinoMessages/);
   assert.match(app, /els\.channelCode\.textContent = APP_VERSION_CODE/);
-  assert.match(serviceWorker, /topotino-offline-v14/);
-  assert.match(serviceWorker, /chat-format\.js\?v=memory-v28/);
+  assert.match(serviceWorker, /topotino-offline-v15/);
+  assert.match(serviceWorker, /chat-format\.js\?v=memory-v29/);
   assert.match(ai, /Escribe como en WhatsApp/);
   assert.ok(
     reconnection.sections['Respuestas guiadas']
@@ -356,7 +356,7 @@ test('la secuencia principal puede recorrerse y reúne exactamente las doce agua
   }
 });
 
-test('la narrativa T-12B2 usa mapa, paquete y ventanas sin enseñar los nombres internos', async () => {
+test('la narrativa T-12B3 usa mapa, paquete y ventanas sin enseñar los nombres internos', async () => {
   const manifest = JSON.parse(await readFile(join(root, 'content/episodes.json'), 'utf8'));
   const childFacing = [];
 
@@ -385,6 +385,10 @@ test('la narrativa T-12B2 usa mapa, paquete y ventanas sin enseñar los nombres 
   assert.doesNotMatch(ai, /aguas: body\.waters/);
   assert.match(packagePage, /TÂM…/);
   assert.match(packagePage, /La fecha solo aparecerá cuando el lugar sea correcto/);
+  assert.match(packagePage, /Para Topotino/);
+  assert.match(packagePage, /Instrucciones para Marga Mapas/);
+  assert.match(packagePage, /no recuerdo Luanco/i);
+  assert.doesNotMatch(text, /Marga Mapas.{0,80}ha encontrado un paquete|Marga.{0,80}ha encontrado un paquete/i);
 });
 
 test('los hilos de aliados y antagonistas llegan al desenlace sin adelantar el destino', async () => {

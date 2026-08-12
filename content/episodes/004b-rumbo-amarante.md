@@ -20,7 +20,7 @@
 
 # Contexto narrativo
 
-Marga Mapas ha hecho llegar el paquete escondido antes del eclipse. Contiene una carta mínima de Topotino, un mapa con doce ventanas oscuras conectadas y la pista del primer destino. Una ventana ya está clara y lleva una pequeña marca de Luanco; las demás no tienen nombres. Topotino no conoce la ciudad, la fecha ni por qué su yo anterior quería llegar allí. Solo ve `TÂM...`, una ponte y un pez. Paula y Hugo investigan Amarante; la fecha aparece únicamente después de identificarla.
+Marga Mapas ha hecho llegar a Paula y Hugo el paquete cerrado que Topotino le confió antes del eclipse. La condición de emergencia se ha cumplido. Contiene una carta de Topotino a su yo futuro, un mapa con doce ventanas oscuras conectadas y la pista del primer destino. Una ventana ya está clara y lleva una pequeña marca de Luanco; las demás no tienen nombres. Topotino no conoce la ciudad, la fecha ni por qué su yo anterior quería llegar allí. Solo ve `TÂM...`, una ponte y un pez. Paula y Hugo investigan Amarante; la fecha aparece únicamente después de identificarla.
 
 Topotino ya recuerda la conversación posterior al eclipse, la placa y la preparación del Cuaderno de la Memoria. No recuerda el pasado anterior ni el plan. Cada intento incorrecto permite revelar una evidencia nueva sin ridiculizarlo.
 
@@ -30,7 +30,9 @@ Al terminar, Topotino indica directamente que deben estar en Amarante el 13 por 
 
 ```json
 [
-  { "from": "topotino", "time": "auto", "text": "Marga ha entregado el paquete. Dentro hay una carta escrita por mí: «Si no recuerdas, no viajes solo. Paula y Hugo sabrán mirar»." },
+  { "from": "topotino", "time": "auto", "text": "Marga os ha hecho llegar el paquete que le entregué antes del eclipse. Lo estamos abriendo juntos, aunque yo esté al otro lado del comunicador." },
+  { "from": "topotino", "time": "auto", "text": "La carta está dirigida a mí. Dice: «Topotino: si no recuerdas haber escrito esto, no finjas. Confía en Paula y Hugo. Ellos conservan la parte que ninguna máquina puede guardar»." },
+  { "from": "topotino", "time": "auto", "text": "También dice que el mapa no es una ruta completa y que debemos abrir una señal cada vez, comprobando las pistas en el lugar real." },
   { "from": "topotino", "time": "auto", "text": "También hay un mapa con doce ventanas oscuras unidas por líneas. Solo una está clara y tiene una pequeña marca de Luanco." },
   { "from": "topotino", "time": "auto", "text": "Debajo pone «Mapa de las Doce Aguas». No sé si habla de lugares, señales o una red." },
   { "from": "topotino", "time": "auto", "text": "La siguiente ventana muestra dos dibujos. Uno pone «TÂM...» y el otro es una ponte con un pez debajo." },
