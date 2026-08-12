@@ -15,7 +15,7 @@
 
 # Contexto narrativo
 
-Badoca introduce un etograma simple y la separación entre conducta e intención. En Lagos, la orientación marítima revela que Topoloco estudia cómo razonan Paula y Hugo.
+Badoca introduce un etograma simple y la separación entre conducta e intención. Niebla, uno de los Oscurnos, se mantiene lejos porque reconoce a Paula y Hugo de Francia, pero usa un receptor para estudiar cómo observan y corrigen. En Lagos, la orientación marítima revela el propósito del dispositivo.
 
 ## Mensajes iniciales
 
@@ -53,7 +53,9 @@ Badoca introduce un etograma simple y la separación entre conducta e intención
     "remember": { "kind": "comparative_biology", "label": "Comparación situada de dos especies" },
     "messages": [
       { "from": "topotino", "time": "auto", "text": "Exacto. La adaptación distribuye posibilidades; no entrega una medalla universal." },
-      { "from": "topotino", "time": "auto", "text": "He detectado un pequeño receptor junto a la ruta. No estaba grabando animales: registraba el orden en que observáis, comparáis y corregís. Topoloco está aprendiendo vuestro método para diseñar trampas mejores." },
+      { "from": "topotino", "time": "auto", "text": "He detectado un pequeño receptor junto a la ruta. No grababa animales: registraba el orden en que observáis, comparáis y corregís." },
+      { "from": "topotino", "time": "auto", "text": "Lleva una marca como de niebla y una frase: «no acercarse a los niños de Francia». Marga cree que pertenece a un Oscurno llamado Niebla." },
+      { "from": "topotino", "time": "auto", "text": "No recuerdo Francia, pero vosotros sí. Parece que ellos también." },
       { "from": "topotino", "time": "auto", "text": "Al llegar a Lagos, empezad en el acceso terrestre de la marina. Seguid los pantalanes hacia la salida al mar sin abandonar el paseo permitido." },
       { "from": "topotino", "time": "auto", "text": "Buscad por el camino una señal de movimiento, una infraestructura y otra de protección u orientación. Unidlas en una ruta de tierra a agua." }
     ]
@@ -82,7 +84,8 @@ Badoca introduce un etograma simple y la separación entre conducta e intención
     "setFlags": ["completado_badoca_lagos"],
     "remember": { "kind": "field_method", "label": "Método de búsqueda de delfines" },
     "messages": [
-      { "from": "topotino", "time": "auto", "text": "Buen método. Hoy no hay agua nueva: habéis preparado la investigación que permitirá despertar la siguiente." },
+      { "from": "topotino", "time": "auto", "text": "Buen método. Hoy no se abre una ventana: habéis diseñado la investigación que necesitaremos en el mar." },
+      { "from": "topotino", "time": "auto", "text": "Vasco ha reconocido la ruta y recuerda su Protocolo Azul: observar sin prometer y no confundir no ver con ausencia." },
       { "from": "topotino", "time": "auto", "text": "Para mañana: llegad con tiempo. Llevad protector solar y una chaqueta ligera para el barco." },
       { "from": "topotino", "time": "auto", "text": "Topoloco sabe ya cómo razonáis, así que mañana puede plantar una pista hecha a vuestra medida. Aceptad la incertidumbre y comparad fuentes. Ahora descansad junto a la marina; la salida es temprano." }
     ]
@@ -120,7 +123,7 @@ Badoca introduce un etograma simple y la separación entre conducta e intención
 
 ## Contexto para IA
 
-Topotino descubre que Topoloco estudia el método de los niños. No afirma aún por qué. No promete delfines. Sin agua este día. Cuaderno privado.
+Topotino descubre que Niebla estudia el método de los niños para Topoloco y que los Oscurnos los recuerdan de Francia y evitan acercarse. No afirma aún por qué. Recuerda el Protocolo Azul de Vasco y no promete delfines. Este día no abre ventana. Cuaderno privado.
 
 ## Fuentes documentales
 

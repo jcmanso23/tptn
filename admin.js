@@ -1,5 +1,5 @@
 const API = '/api/story';
-const MANIFEST = '/content/episodes.json?v=chat-v19';
+const MANIFEST = '/content/episodes.json?v=memory-v26';
 
 const els = {};
 const publishedEpisodes = new Map();
@@ -219,7 +219,7 @@ function episodeTemplate(id) {
   "id": "${id}",
   "order": 6,
   "title": "Nueva pista",
-  "channelCode": "T-12A9",
+  "channelCode": "T-12B0",
   "startsUnlocked": false,
   "activation": {
     "mode": "all",

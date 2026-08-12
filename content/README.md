@@ -8,16 +8,16 @@ Cada capítulo o submisión es un archivo `.md` en `content/episodes/` y debe es
 
 La app carga todos los MD, pero solo muestra los mensajes de un capítulo cuando su `activation` se cumple. Las condiciones no se pisan entre sí: puedes combinar respuesta, flags, fecha, hora y ubicación. Por defecto deben cumplirse todas; usa `"mode": "any"` si basta con que se cumpla una.
 
-Para misiones grandes, divide la historia en varios MD pequeños. Ejemplo: descubrir Luanco, llegar a Luanco, observar la Noche Blanca, recoger el Agua del Norte y abrir la pista del cielo son submisiones distintas.
+Para misiones grandes, divide la historia en varios MD pequeños. Ejemplo: descubrir Luanco, llegar, observar la Noche Blanca, guardar la muestra y abrir la pista del cielo son submisiones distintas.
 
 ## Frontmatter recomendado
 
 ```json
 {
-  "id": "004-guimaraes-origen",
+  "id": "020-ejemplo-lugar",
   "order": 4,
-  "title": "Agua del Origen",
-  "channelCode": "T-19B4",
+  "title": "La ventana del lugar",
+  "channelCode": "T-12B0",
   "startsUnlocked": false,
   "activation": {
     "mode": "all",
@@ -30,9 +30,9 @@ Para misiones grandes, divide la historia en varios MD pequeños. Ejemplo: descu
       "radiusMeters": 1200
     }
   },
-  "mission": "Agua del Origen",
+  "mission": "Comprender el lugar",
   "formulaWord": "COMIENZO",
-  "water": "Agua del Origen",
+  "water": "Valor interno heredado",
   "ai": {
     "enabled": true,
     "mode": "fallback"
@@ -61,7 +61,7 @@ Usa siempre estos encabezados:
 
 - `# Contexto narrativo`: lo que sabe Topotino y lo que no debe revelar.
 - `## Mensajes iniciales`: JSON con mensajes que llegan al activarse.
-- `## Respuestas guiadas`: JSON con respuestas exactas o respuestas abiertas controladas que desbloquean flags, aguas, palabras o capítulos.
+- `## Respuestas guiadas`: JSON con respuestas exactas o respuestas abiertas controladas que desbloquean flags, ventanas, palabras técnicas o capítulos.
 - `## Respuestas suaves si fallan`: JSON con pistas cuando no hay acierto guiado.
 - `## Pistas progresivas`: JSON con pistas que empiezan a salir tras tres intentos fallidos en un episodio.
 - `## Contexto para IA`: límites y tono para el fallback de OpenAI.
@@ -154,7 +154,7 @@ Estas palabras no forman parte de la aventura para Paula y Hugo. Se mantienen co
 
 - `topollave-luanco`: activa la misión de Luanco, Operación Primera Gota.
 - `topollave-sabado`: simula el sábado 27 sin borrar memoria y permite probar el mensaje de los topos.
-- `topollave-eclipse`: simula Luanco completado, guarda Agua del Norte, añade MIRO y abre la pista del eclipse.
+- `topollave-eclipse`: simula Luanco completado, guarda el valor interno de su primera ventana, añade MIRO y abre la pista del eclipse.
 - `topollave-origen`: simula el camino hasta el primer día del viaje y abre Amarante sin esperar a la fecha.
 
 Recomendación: usa siempre una ventana privada o entra con `?topoadulto=1&reset=1&confirmReset=1` antes de probar una secuencia completa.
@@ -163,12 +163,12 @@ Recomendación: usa siempre una ventana privada o entra con `?topoadulto=1&reset
 
 - `001-reconexion`: se activa al entrar con la clave. Solo confirma identidad y abre el misterio.
 - `002-luanco-llegada`: se abre al acertar `Luanco` y estar cerca de Luanco, o con `topollave-luanco`.
-- `003-luanco-agua-norte`: se abre el sábado 27 tras haber observado Luanco, o con `topollave-sabado`.
+- `003-luanco-agua-norte`: identificador heredado; se abre el sábado 27 tras haber observado Luanco, o con `topollave-sabado`.
 - `004-eclipse`: episodio anterior del eclipse, retirado y conservado solo por compatibilidad.
 - `004c-eclipse-amnesia`: se activa después del eclipse del 12 de agosto y abre la pérdida de memoria y el Cuaderno de la Memoria.
-- `004b-rumbo-amarante`: enlaza el eclipse con el viaje. Paula y Hugo deben descubrir Amarante antes de conocer la fecha y Topotino reconoce que ignora el motivo.
+- `004b-rumbo-amarante`: enlaza el eclipse con el paquete de Marga y el Mapa de las Doce Aguas. Paula y Hugo deben descubrir Amarante antes de conocer la fecha.
 - `004-guimaraes-origen`: episodio retirado que conserva un identificador técnico heredado para no romper partidas de ensayo.
-- `005-amarante-puente`: día 13 en Amarante, con observación de la ponte y elección de la primera memoria del viaje.
+- `005-amarante-puente`: día 13 en Amarante, primer transmisor investigado después del eclipse.
 - `006-magikland-curia`: día 14, Magikland y lectura histórica del Hotel do Parque en Curia.
 - `007` a `009`: Buçaco–Batalha–Fátima, tiempo profundo–Óbidos y Dino Parque–Lisboa.
 - `010` a `012`: ciencia–Oceanário, Lisboa histórica–Belém y Badoca–Lagos.

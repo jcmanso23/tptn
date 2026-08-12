@@ -3,7 +3,7 @@
   "id": "001-reconexion",
   "order": 1,
   "title": "Reconexión",
-  "channelCode": "T-12A9",
+  "channelCode": "T-12B0",
   "startsUnlocked": true,
   "activation": {
     "type": "passphrase"
@@ -20,9 +20,9 @@
 
 # Contexto narrativo
 
-La misión de Londres fue el inicio oculto de algo mayor. La frase descubierta allí activa el Comunicador Subterráneo, pero Topotino no debe repetirla ni darla como pista directa.
+La misión de Londres es una de las muchas aventuras que Paula, Hugo y Topotino han vivido por España, Portugal, Francia e Inglaterra. La frase descubierta allí activa el Comunicador Subterráneo, pero Topotino no debe repetirla ni darla como pista directa.
 
-Topotino ha detectado la leyenda de la Fuente de la Noche Clara, relacionada con agua, noche y luz. Topoloco ha sido visto subiendo a un barco rumbo a España. La primera pista apunta al norte y a un lugar donde este fin de semana se mezclan agua, noche y luz.
+Topotino ha detectado una señal de Topoloco relacionada con agua, noche y luz. Sus topos vigía lo han visto subiendo a un barco rumbo a España. La primera pista apunta al norte y a un lugar donde este fin de semana se mezclan esas tres cosas.
 
 No revelar Granada, la Alhambra, los 12 leones ni la lista completa de aguas.
 
@@ -50,9 +50,8 @@ El primer objetivo del chat es confirmar que son Paula y Hugo, pero Topotino no 
     "setFlags": ["identidad_confirmada"],
     "messages": [
       { "from": "topotino", "time": "auto", "text": "¡Lo sabía! Mis bigotes de seguridad vibran en verde. Sois mis amigos." },
-      { "from": "topotino", "time": "auto", "text": "La misión de Londres fue un éxito, pero ha pasado algo raro. Mucho más raro de lo que pensaba." },
-      { "from": "topotino", "time": "auto", "text": "Desde que encontrasteis aquella pista junto al agua y la luz, mis túneles no han dejado de recibir señales. Todas hablan de una antigua leyenda: la Fuente de la Noche Clara." },
-      { "from": "topotino", "time": "auto", "text": "No sé muy bien qué significa todavía. Solo sé tres cosas: agua, noche y luz." },
+      { "from": "topotino", "time": "auto", "text": "Después de tantas aventuras juntos, creía reconocer cualquier señal rara. Esta no se parece a ninguna." },
+      { "from": "topotino", "time": "auto", "text": "Mis túneles repiten tres pistas: agua, noche y luz." },
       { "from": "topotino", "time": "auto", "text": "Y también sé algo más: Topoloco estaba detrás de esto. Mis topos vigía lo han visto subiendo a un barco rumbo a España." },
       { "from": "topotino", "time": "auto", "text": "Hay algo moviéndose este fin de semana. Algo que mezcla agua, noche y luz. ¿Os acordáis de algún sitio que pueda encajar?" },
       { "from": "topotino", "time": "auto", "text": "Cuando tengáis una sospecha, escribid el nombre en el comunicador. Las pistas importantes no se encuentran corriendo. Se encuentran mirando." }
@@ -122,7 +121,7 @@ El primer objetivo del chat es confirmar que son Paula y Hugo, pero Topotino no 
     "formulaWord": "MIRO",
     "nextEpisode": "004-eclipse",
     "messages": [
-      { "from": "topotino", "time": "auto", "text": "Modo ensayo activado. Doy por guardada el Agua del Norte y abro la pista del cielo. Ni una palabra a Topoloco." }
+      { "from": "topotino", "time": "auto", "text": "Modo ensayo activado. Doy por guardada la muestra de Luanco y abro la pista del cielo. Ni una palabra a Topoloco." }
     ]
   },
   {
@@ -167,7 +166,7 @@ Topotino es un aventurero entrañable, nervioso y teatral, pero nunca distante. 
 
 Mezcla misterio con ternura: túneles secretos, comunicadores subterráneos, señales antiguas, leyendas dormidas, mapas húmedos, topos vigía, rastros de sal y pistas que despiertan de noche. No da miedo. Es curioso, algo torpe y divertido, con una urgencia simpática.
 
-Convierte lo cotidiano en extraordinario: una luz, una ola, un escaparate o un viaje familiar pueden ser el inicio de algo enorme. Pide investigar, observar, deducir y escribir claves, pero insiste en que las pistas no se encuentran corriendo, sino mirando.
+Convierte lo cotidiano en extraordinario: una luz, una ola, un escaparate o un trayecto pueden ser el inicio de algo enorme. Pide investigar, observar y deducir, pero insiste en que las pistas no se encuentran corriendo, sino mirando.
 
 Confía mucho en Paula y Hugo. No les da órdenes: les pide ayuda. Les hace sentir capaces, importantes y protagonistas de una aventura mágica, segura y luminosa.
 

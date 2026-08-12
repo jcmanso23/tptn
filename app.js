@@ -1,4 +1,4 @@
-import { splitTopotinoMessages } from './chat-format.js?v=memory-v25';
+import { splitTopotinoMessages } from './chat-format.js?v=memory-v26';
 
 const STORAGE_KEYS = {
   auth: 'topotino_chat_auth_v1',
@@ -6,9 +6,9 @@ const STORAGE_KEYS = {
 };
 
 const LEGACY_STATE_KEY = 'topotino_chat_state_v1';
-const APP_VERSION_CODE = 'T-12A9';
+const APP_VERSION_CODE = 'T-12B0';
 const PASSPHRASE_HASH = 'a64716bd9f4e8added1bf47f80b97c3fc7b70a15b8043cdab083e1ddf85f3794';
-const EPISODES_MANIFEST = 'content/episodes.json?v=memory-v25';
+const EPISODES_MANIFEST = 'content/episodes.json?v=memory-v26';
 const LIVE_STORY_ENDPOINT = '/api/story';
 const ACTIVATION_TICK_MS = 60000;
 const LOCATION_REFRESH_COOLDOWN_MS = 2 * 60 * 1000;
@@ -968,10 +968,11 @@ function renderProgress() {
     .join(', ');
 
   els.watersList.innerHTML = '';
-  state.waters.forEach((water) => {
+  state.waters.forEach((water, index) => {
     const pill = document.createElement('span');
     pill.className = 'water-pill';
-    pill.textContent = water;
+    pill.textContent = `Ventana ${index + 1}`;
+    pill.title = 'Conexión recuperada del Mapa de las Doce Aguas';
     els.watersList.appendChild(pill);
   });
 }
@@ -1807,6 +1808,6 @@ function applyTestingParams() {
 
 function registerServiceWorker() {
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('service-worker.js?v=offline-v11').catch(() => {});
+    navigator.serviceWorker.register('service-worker.js?v=offline-v12').catch(() => {});
   }
 }

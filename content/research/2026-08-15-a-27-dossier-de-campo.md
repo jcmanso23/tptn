@@ -13,7 +13,7 @@ Investigación documental que sostiene las misiones. Se separan hechos observabl
 ## 16 · Huellas, Mira de Aire y Óbidos
 
 - Las huellas de Ourém/Torres Novas tienen unos 175 millones de años. Hay alrededor de veinte rastros; el más largo atribuido a un saurópodo alcanza 147 metros. La dirección y separación de pisadas permiten inferir sin ver al animal.
-- Mira de Aire fue descubierta en 1947 y abierta al público en 1970. El recorrido muestra cómo el agua disuelve y deposita caliza. Su mascota oficial, Gotas, será un colega subterráneo de Topotino.
+- Mira de Aire fue descubierta en 1947 y abierta al público en 1970. El recorrido muestra cómo el agua disuelve y deposita caliza. Gotas se integra en la ficción como colega subterráneo de Topotino, no como simple mascota.
 - En Óbidos, Rua Direita conecta la puerta con el castillo; Santa Maria conserva azulejos y una obra de Josefa de Óbidos en su emplazamiento original. Las capas de muralla, calle, iglesia y librerías actuales prueban que la memoria puede desplazarse sin desaparecer.
 - Fuentes: https://www.icnf.pt/conservacao/rnapareasprotegidas/monumentosnaturais/mnpegadasdedinossauriosdeouremtorresnovas · https://www.grutasmiradaire.com/en/ · https://turismo.obidos.pt/2021/04/09/rua-direita-main-street/ · https://turismo.obidos.pt/2020/07/30/igreja-de-santa-maria/
 
@@ -27,7 +27,7 @@ Investigación documental que sostiene las misiones. Se separan hechos observabl
 ## 18 · Pavilhão do Conhecimento y Oceanário
 
 - `Superbichos`, abierta hasta septiembre de 2026, propone 27 módulos sobre adaptaciones animales. Las pruebas siguen el método predicción–experimento–corrección.
-- El tanque central del Oceanário contiene cinco millones de litros y está concebido como un solo océano. Vasco es su mascota oficial y aliado ocasional. Los hábitats visibles permiten relacionar forma, conducta y ambiente.
+- El tanque central del Oceanário contiene cinco millones de litros y está concebido como un solo océano. Vasco se integra como aliado educativo de la red de Topotino. Los hábitats visibles permiten relacionar forma, conducta y ambiente.
 - Oportunidad narrativa: doce nodos no son doce objetos aislados sino partes de una red.
 - Fuentes: https://www.pavconhecimento.pt/exposicoes/superbichos · https://oceanario.pt/vasco/diverte-te-e-aprende/ · https://oceanario.pt/en/conservation/what-we-do-at-oceanario/center-for-species-survival/
 

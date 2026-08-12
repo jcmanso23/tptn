@@ -21,7 +21,8 @@ El barco convierte la incertidumbre en prueba. Si no hay delfines, la ausencia e
 
 ```json
 [
-  { "from": "topotino", "time": "auto", "text": "Antes de zarpar: un avistamiento de delfines no se garantiza. Registrad tres señales que use la tripulación para buscar y, si aparecen, una conducta comprobable. Si no aparecen, explicad por qué la ausencia no demuestra que no haya delfines en esta costa." }
+  { "from": "topotino", "time": "auto", "text": "Antes de zarpar, Vasco recuerda el Protocolo Azul: un avistamiento no se garantiza y no se persigue molestando." },
+  { "from": "topotino", "time": "auto", "text": "Registrad tres señales que use la tripulación. Si aparecen delfines, anotad una conducta comprobable. Si no, explicad por qué no verlos hoy no demuestra que no vivan aquí." }
 ]
 ```
 
@@ -82,8 +83,8 @@ El barco convierte la incertidumbre en prueba. Si no hay delfines, la ausencia e
     "remember": { "kind": "perspective_reframing", "label": "Sagres como final y comienzo" },
     "water": "Agua del Horizonte",
     "messages": [
-      { "from": "topotino", "time": "auto", "text": "Gracias. El mismo horizonte puede ser límite o invitación según la posición y el conocimiento del observador. Ha despertado el Agua del Horizonte." },
-      { "from": "topotino", "time": "auto", "text": "Topoloco ha enviado un mensaje: «Ya sé qué pruebas aceptáis. A partir de ahora cada pista parecerá vuestra». Ha admitido que necesita vuestra experiencia real para fabricar falsificaciones convincentes." },
+      { "from": "topotino", "time": "auto", "text": "Gracias. El mismo horizonte puede ser límite o invitación según la posición y el conocimiento del observador. La octava ventana se ha aclarado." },
+      { "from": "topotino", "time": "auto", "text": "Niebla ha enviado un mensaje de Topoloco: «Ya sé qué pruebas aceptáis. A partir de ahora cada pista parecerá vuestra». Necesitan vuestra experiencia real para fabricar falsificaciones convincentes." },
       { "from": "topotino", "time": "auto", "text": "Mañana compararemos dos costas de roca y dormiréis en una jaima." },
       { "from": "topotino", "time": "auto", "text": "Llevad agua para beber y calzado con buena suela. Nada de acercarse a bordes." },
       { "from": "topotino", "time": "auto", "text": "Guardad vuestra capacidad de detectar contradicciones. Ahora descansad; el viento de Sagres también despeina los pensamientos." }

@@ -169,7 +169,7 @@ test('los días 13 y 14 conservan su cadena narrativa y adaptan solo tras un imp
   assert.doesNotMatch(childFacingText, /(foto|fotografía).{0,30}(cuaderno|diario)/i);
 });
 
-test('la edición T-12A9 usa caché nueva, mensajes breves y rescates de destino', async () => {
+test('la edición T-12B0 usa caché nueva, mensajes breves y rescates de destino', async () => {
   const files = ['index.html', 'app.js', 'admin.js', 'content/episodes/001-reconexion.md'];
   const combined = (await Promise.all(files.map((file) => readFile(join(root, file), 'utf8')))).join('\n');
   const app = await readFile(join(root, 'app.js'), 'utf8');
@@ -180,12 +180,12 @@ test('la edición T-12A9 usa caché nueva, mensajes breves y rescates de destino
     'content/episodes/001-reconexion.md'
   );
 
-  assert.match(combined, /T-12A9/);
-  assert.doesNotMatch(combined, /T-12A8/);
+  assert.match(combined, /T-12B0/);
+  assert.doesNotMatch(combined, /T-12A9/);
   assert.match(app, /splitTopotinoMessages/);
   assert.match(app, /els\.channelCode\.textContent = APP_VERSION_CODE/);
-  assert.match(serviceWorker, /topotino-offline-v11/);
-  assert.match(serviceWorker, /chat-format\.js\?v=memory-v25/);
+  assert.match(serviceWorker, /topotino-offline-v12/);
+  assert.match(serviceWorker, /chat-format\.js\?v=memory-v26/);
   assert.match(ai, /Escribe como en WhatsApp/);
   assert.ok(
     reconnection.sections['Respuestas guiadas']
@@ -228,7 +228,7 @@ test('el viaje completo del 15 al 27 está publicado, enlazado y termina de noch
   assert.match(finalEpisode, /A las 22:00/);
   assert.match(finalEpisode, /Patio de los Leones/);
   assert.match(finalEpisode, /doce_aguas_reunidas/);
-  assert.match(finalEpisode, /Topoloco provocó el eclipse de mi memoria/);
+  assert.match(finalEpisode, /Topoloco provocó el eclipse/);
   assert.match(finalEpisode, /La aventura principal termina aquí, en la Alhambra de noche/);
 
   const text = allChildText.join(' ');
@@ -280,7 +280,7 @@ test('las pruebas nuevas exigen evidencia física, variedad y personajes reales 
   }
 
   const text = combined.join('\n');
-  for (const concept of ['predicción', 'hipótesis', 'comparad', 'evidencia', 'interpretación', 'Vasco', 'Gotas', 'Corvinho', 'Capitán Pico', 'América']) {
+  for (const concept of ['predicción', 'hipótesis', 'comparad', 'evidencia', 'interpretación', 'Vasco', 'Gotas', 'Corvinho', 'Capitán Pico', 'América', 'Krim', 'Topotina', 'Borrón', 'Eco', 'Niebla']) {
     assert.match(text, new RegExp(concept, 'i'), `falta variedad o personaje: ${concept}`);
   }
   assert.match(text, /No uséis|No toquéis|no lo alimentéis|no se garantiza/i);
@@ -327,4 +327,59 @@ test('la secuencia principal puede recorrerse y reúne exactamente las doce agua
   ]) {
     assert.ok(completionFlags.has(flag), `falta la salida principal ${flag}`);
   }
+});
+
+test('la narrativa T-12B0 usa mapa, paquete y ventanas sin enseñar los nombres internos', async () => {
+  const manifest = JSON.parse(await readFile(join(root, 'content/episodes.json'), 'utf8'));
+  const childFacing = [];
+
+  for (const item of manifest) {
+    const source = item.file.replace(/\?.*$/, '');
+    const episode = parseEpisode(await readFile(join(root, source), 'utf8'), source);
+    childFacing.push(...episode.sections['Mensajes iniciales'].map((message) => message.text));
+    childFacing.push(...episode.sections['Respuestas guiadas']
+      .flatMap((response) => (response.messages || []).map((message) => message.text)));
+  }
+
+  const text = childFacing.join(' ');
+  assert.match(text, /Mapa de las Doce Aguas/);
+  assert.match(text, /doce ventanas oscuras/i);
+  assert.match(text, /Marga Mapas|Marga ha entregado/);
+  assert.match(text, /La última ventana se ha aclarado/);
+  assert.doesNotMatch(text, /Ha despertado el Agua|Agua de la Risa|Agua de la Promesa|Agua del Puente|Agua del Horizonte|Agua del Cuidado/i);
+
+  const index = await readFile(join(root, 'index.html'), 'utf8');
+  const app = await readFile(join(root, 'app.js'), 'utf8');
+  const ai = await readFile(join(root, 'api/chat.js'), 'utf8');
+  const packagePage = await readFile(join(root, 'paquete-inicial.html'), 'utf8');
+  assert.match(index, /Ventanas del mapa/);
+  assert.match(app, /`Ventana \$\{index \+ 1\}`/);
+  assert.doesNotMatch(app, /pill\.textContent = water/);
+  assert.doesNotMatch(ai, /aguas: body\.waters/);
+  assert.match(packagePage, /TÂM…/);
+  assert.match(packagePage, /La fecha solo aparecerá cuando el lugar sea correcto/);
+});
+
+test('los hilos de aliados y antagonistas llegan al desenlace sin adelantar el destino', async () => {
+  const eclipse = await readFile(join(root, 'content/episodes/003-eclipse-amnesia.md'), 'utf8');
+  const magikland = await readFile(join(root, 'content/episodes/006-magikland-curia.md'), 'utf8');
+  const oceanario = await readFile(join(root, 'content/episodes/010-lisboa-ciencia-oceanario.md'), 'utf8');
+  const badoca = await readFile(join(root, 'content/episodes/012-badoca-lagos.md'), 'utf8');
+  const jaima = await readFile(join(root, 'content/episodes/014-piedade-algar-jaima.md'), 'utf8');
+  const isla = await readFile(join(root, 'content/episodes/017-isla-magica.md'), 'utf8');
+  const final = await readFile(join(root, 'content/episodes/018-sevilla-alhambra-noche.md'), 'utf8');
+
+  assert.match(eclipse, /aventuras de España, Portugal, Francia e Inglaterra/);
+  assert.doesNotMatch(eclipse, /Granada|Alhambra|doce leones/i);
+  assert.match(magikland, /No necesito que me recuerdes para seguir siendo tu hermana/);
+  assert.match(magikland, /segunda firma|firma.*segundo parque/is);
+  assert.match(oceanario, /Protocolo Azul/);
+  assert.match(badoca, /Oscurno llamado Niebla/);
+  assert.match(jaima, /era Eco, un Oscurno/);
+  assert.match(isla, /Capitán Pico/);
+  assert.match(isla, /América/);
+  assert.match(isla, /Krim/);
+  assert.match(final, /Ese fue el mecanismo que extrajo mis recuerdos/);
+  assert.match(final, /Tina\. Te llamaba Tina/);
+  assert.match(final, /Borrón, Eco y Niebla/);
 });

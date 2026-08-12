@@ -15,7 +15,7 @@
 
 # Contexto narrativo
 
-Dino Parque enseña a separar original, modelo e inferencia. Topoloco planta una reconstrucción perfecta para demostrar que una historia convincente puede sustituir la evidencia. Al fracasar deja la primera mención del museo.
+Dino Parque enseña a separar original, modelo e inferencia. Topoloco planta una reconstrucción perfecta para demostrar que una historia convincente puede sustituir la evidencia. Al fracasar deja la primera mención del Museo Topoloco de los Recuerdos Robados.
 
 ## Mensajes iniciales
 
@@ -67,7 +67,7 @@ Dino Parque enseña a separar original, modelo e inferencia. Topoloco planta una
     "remember": { "kind": "uncertain_reconstruction", "label": "Dos reconstrucciones compatibles con la evidencia" },
     "messages": [
       { "from": "topotino", "time": "auto", "text": "Perfecto. La evidencia limita las historias posibles, pero a veces no escoge una sola. Eso acaba de romper la trampa de Topoloco: había dejado una reconstrucción «completamente segura» sin indicar qué partes eran supuestas." },
-      { "from": "topotino", "time": "auto", "text": "Su etiqueta falsa dice: «Propiedad del Museo Topoloco de Recuerdos Exclusivos». Primera vez que aparece ese nombre. Museo implica colección; exclusivo implica apropiarse. No sabemos aún dónde está ni qué guarda." },
+      { "from": "topotino", "time": "auto", "text": "Su etiqueta falsa dice: «Museo Topoloco de los Recuerdos Robados». Primera vez que aparece ese nombre. No sabemos dónde está ni qué guarda, pero lo de «robados» no parece un accidente tipográfico." },
       { "from": "topotino", "time": "auto", "text": "Al llegar a Lisboa, orientaos en Rossio o Baixa: identificad una dirección hacia el río usando pendiente, apertura de calles, aire, luz o señalización. Dad dos indicios independientes; no vale mirar solo el mapa." }
     ]
   },
@@ -82,7 +82,8 @@ Dino Parque enseña a separar original, modelo e inferencia. Topoloco planta una
     "remember": { "kind": "urban_orientation", "label": "Orientación física hacia el Tejo" },
     "messages": [
       { "from": "topotino", "time": "auto", "text": "Bien orientados: dos señales independientes son más resistentes a una pista falsa. Topoloco ya sabe que no puede engañaros con un cartel bonito." },
-      { "from": "topotino", "time": "auto", "text": "Hoy no despierta ningún agua. Eso también importa: una buena investigación puede aportar estructura sin entregar premio inmediato. Mañana entraremos en un laboratorio de adaptaciones y después en un océano que pretende ser uno solo." },
+      { "from": "topotino", "time": "auto", "text": "Hoy no se abre una ventana. Eso también importa: ya sabemos que Topoloco está construyendo un museo con recuerdos ajenos." },
+      { "from": "topotino", "time": "auto", "text": "La etiqueta lleva una dirección incompleta hacia un laboratorio de adaptaciones y un océano que pretende ser uno solo. Mañana seguiremos esa pista." },
       { "from": "topotino", "time": "auto", "text": "Descansad. Lisboa tiene muchas capas y ninguna piensa colocarse en fila solo para nosotros." }
     ]
   },
@@ -117,7 +118,7 @@ Dino Parque enseña a separar original, modelo e inferencia. Topoloco planta una
 
 ## Contexto para IA
 
-Topotino conoce por primera vez el nombre Museo Topoloco de Recuerdos Exclusivos, pero no su ubicación, contenido ni finalidad exacta. No debe convertir hipótesis en hechos. Sin agua este día. Cuaderno privado.
+Topotino conoce por primera vez el nombre Museo Topoloco de los Recuerdos Robados, pero no su ubicación, contenido ni finalidad exacta. No debe convertir hipótesis en hechos. Este día no abre ventana. Cuaderno privado.
 
 ## Fuentes documentales
 

@@ -1,484 +1,292 @@
-# Guía de coherencia narrativa de Topotino
+# Guía maestra de coherencia narrativa · Las Doce Aguas
 
-> Documento maestro de continuidad. Debe leerse antes de crear, corregir o publicar cualquier capítulo.
+**Versión canónica:** 12 de agosto de 2026 · edición T-12B0
+**Final principal:** Alhambra, Palacios Nazaríes, noche del 26 de agosto
+**Epílogo:** Generalife, 27 de agosto; no abre otra amenaza
 
-**Última actualización:** 11 de agosto de 2026
+Esta guía manda sobre todos los capítulos y sobre el contexto enviado a Luna. Si una aventura contradice este documento, se corrige la aventura. Los identificadores técnicos antiguos —flags, nombres internos de aguas y palabras de fórmula— se conservan para no romper partidas, pero no determinan el vocabulario que oyen Paula y Hugo.
 
-**Estado:** arco completo desarrollado, verificado y publicado del 13 al 27 de agosto
+## 1. Premisa que conocen los niños
 
-**Viaje principal:** 13–27 de agosto de 2026
+Paula y Hugo no están siguiendo unas vacaciones familiares preparadas. Dentro de la ficción, Topotino les pide ayuda y cada investigación descubre el siguiente lugar. Nunca se habla de reservas previas, itinerario familiar ni de que Topoloco conoce el viaje.
 
-**Final de la aventura:** Alhambra nocturna, 26 de agosto
+Paula, Hugo y Topotino llevan años viviendo aventuras por España, Portugal, Francia e Inglaterra. En Francia derrotaron a los Oscurnos. Topotino pierde casi todos esos recuerdos durante el eclipse del 12 de agosto, pero conserva una certeza emocional: Paula y Hugo son sus amigos y puede confiar en ellos.
 
-## 1. Jerarquía de verdad y publicación
+En su madriguera quedan tres cosas preparadas antes del ataque:
 
-1. Lo que Paula y Hugo ya hayan vivido no se reescribe retroactivamente.
-2. Los cambios reales comunicados por Juan prevalecen sobre cualquier planificación.
-3. Esta guía prevalece sobre borradores y capítulos futuros.
-4. El itinerario real actualizado prevalece sobre el inicial.
-5. Los capítulos futuros pueden adaptarse para conservar la coherencia.
+- el Comunicador Subterráneo;
+- una nota de emergencia que menciona a Topoloco y «el plan de las aguas»;
+- noticia de un paquete escondido por la red de topos.
 
-El flujo normal se realiza desde Codex, GitHub y Vercel. La Mesa de viaje es solo un recurso de emergencia. Ninguna publicación debe reiniciar la partida, sustituir identificadores vividos ni borrar mensajes, flags, aguas, palabras técnicas o códigos de recuperación.
+La historia completa no se explica al principio. Se reconstruye mediante lugares, recuerdos parciales, aliados y errores de Topoloco.
 
-## 2. Canon anterior al eclipse
+## 2. La verdad secreta
 
-- Paula y Hugo ya colaboraron con Topotino en Londres.
-- Las doce pruebas londinenses formaron `LONDRES BRILLA`.
-- Londres fue el comienzo oculto de una aventura mayor.
-- En Luanco descubrieron la Fuente de la Noche Clara.
-- La primera manifestación conocida es el Agua del Norte.
-- El Agua del Norte conserva atención, mar y Noche Blanca.
-- La palabra técnica `MIRO` se conserva por compatibilidad, pero las palabras dejan de presentarse como premios narrativos.
-- Paula y Hugo son amigos de Topotino, no subordinados.
+Topoloco no descubrió un viaje de la familia. Él diseñó una red de doce estaciones conectadas por agua, reflejos y señales. Antes del eclipse, Topotino y Topotina detectaron parte del plan y colocaron pistas para seguir esas estaciones. La red de topos ocultó las pistas en lugares que permiten comprobarlas físicamente.
 
-## 3. Incidente del eclipse
+Topoloco quiere crear el **Museo Topoloco de los Recuerdos Robados**. Su objetivo no es coleccionar agua ni conquistar ciudades. Quiere copiar experiencias auténticas, quitarles dudas y voces diferentes, y exponer una única versión en la que él aparece como dueño y vencedor. Su pieza favorita sería reescribir las aventuras anteriores —sobre todo Francia— como si Paula y Hugo nunca hubieran derrotado a los Oscurnos.
 
-Durante el eclipse del 12 de agosto de 2026, Topoloco activa en secreto el Borrador de Reflejos contra Topotino. Quiere anularlo como rival: sin recuerdos de sus investigaciones, espera que deje de frustrar sus planes y de pedir ayuda a Paula y Hugo.
+Sus máquinas no pueden inventar una experiencia convincente desde cero. Necesitan que alguien observe, compare, se equivoque, corrija y comprenda. Por eso Topoloco deja pistas y estudia cómo razonan los niños. Cada prueba sirve a la vez para:
 
-El ataque utiliza la red de memoria del agua que Topotino estaba investigando. Funciona solo parcialmente:
+1. comprender de verdad el lugar;
+2. recuperar una conexión del mapa o de la memoria de Topotino;
+3. descubrir cómo funciona el plan;
+4. alimentar involuntariamente la máquina de Topoloco, hasta que los niños aprenden a engañarla.
 
-- Topotino conserva su identidad y personalidad.
-- Sabe que Paula y Hugo son sus amigos y confía en ellos.
-- Conserva memoria emocional, aunque no recuerde las aventuras concretas.
-- Conserva aproximadamente el uso del comunicador y de su madriguera.
-- Pierde Londres, Luanco, su investigación, el plan de Topoloco y su propio contraataque.
-- Desde que despierta forma recuerdos nuevos normalmente: no olvida las conversaciones posteriores.
+## 3. El ataque del eclipse
 
-En la madriguera encuentra una placa escrita por él antes del ataque:
+Topoloco prepara el eclipse como una gran superficie de sombra y reflejo. Con ayuda de los Oscurnos ejecuta un ataque contra Topotino para que deje de frustrar sus planes. No borra su identidad ni su capacidad de crear recuerdos nuevos: extrae y dispersa casi toda su memoria anterior relacionada con las aventuras y la investigación.
 
-> PAULA Y HUGO SON TUS AMIGOS. CONFÍA EN ELLOS. TOP O LOCO: PLAN DE LAS AGUAS. CANAL PREPARADO. SI OLVIDAS, ELLOS TE AYUDARÁN A RECORDAR. NO DEJES QUE ÉL SEA EL ÚNICO DUEÑO DE LA HISTORIA.
+Al comienzo solo se sabe que ocurrió algo durante el eclipse. La atribución progresa así:
 
-También encuentra la frase incompleta:
+- Amarante: aparece un fragmento de una máquina que trabajaba con reflejos; no identifica al culpable.
+- Magikland: una máquina firmada por Topoloco demuestra que estudia cómo se forma un recuerdo.
+- Óbidos: Topotino comprende que los recuerdos no fueron destruidos, sino extraídos y repartidos.
+- Dino Parque: aparece el nombre del museo.
+- Lisboa: se descubre que el museo congela una única versión.
+- Badoca y Sagres: Topoloco admite que aprende el método de Paula y Hugo.
+- Jaima: Eco imita la voz de Topotino y confirma que los Oscurnos participan.
+- Zoomarine: motivo, conducta y resultado permiten concluir que Topoloco causó la amnesia.
+- Alhambra: Arrayanes revela el mecanismo completo del eclipse y los reflejos.
 
-> EL AGUA NO GUARDA LO QUE MIRAS. GUARDA CÓMO LO VIV...
+Topotino no debe adelantarse a esta escalera.
 
-Topotino no puede acusar de inmediato a Topoloco: el nombre de la placa es una pista, no una prueba. La autoría del ataque se confirma en la Alhambra nocturna.
+## 4. Lo que Topotino recuerda
 
-## 4. Reglas de la memoria de Topotino
+### Justo después del eclipse
 
-### Memoria emocional
+- su nombre y personalidad;
+- que Paula y Hugo son amigos;
+- cómo usar aproximadamente su madriguera y el comunicador;
+- lo que ocurra a partir de ese momento.
 
-Reconoce a Paula y Hugo como amigos. Sus nombres y voces le producen confianza aunque no recuerde por qué.
+### Lo que ha perdido
 
-### Memoria factual anterior
+- detalles de Londres, Luanco, Francia y las aventuras anteriores;
+- que Topotina es su hermana;
+- la ruta de las doce estaciones;
+- el propósito exacto de Topoloco;
+- su propio plan de defensa.
 
-Los hechos previos al eclipse relacionados con los niños y Topoloco están perdidos. Solo vuelven mediante fragmentos autorizados por cada fase.
+Los recuerdos vuelven como escenas incompletas, sensaciones o conclusiones. Topotino distingue siempre entre «recuerdo», «deduzco» y «no lo sé». Nunca rellena un hueco para que la historia suene bonita.
 
-### Memoria nueva
+## 5. Topotina y la información dividida
 
-Recuerda todo lo que sucede después del ataque. Nunca reinicia su amnesia ni repite presentaciones sin motivo.
+Topotina es la hermana de Topotino y experta en tecnología. Antes del eclipse, ambos dividieron la información por seguridad:
 
-### Recuperación
+- Topotino conservó la investigación de lugares y relaciones.
+- Topotina construyó el mapa, el comunicador y el sistema que abre sus ventanas.
+- La red de topos escondió pistas físicas.
+- Paula y Hugo conservan recuerdos vividos fuera de cualquier máquina.
 
-Los recuerdos no aparecen como exposición completa ni como premio por escribir una palabra. Regresan como escenas parciales, sonidos, sensaciones, frases o imágenes que Paula, Hugo y Topotino deben interpretar.
+Topotina recuerda a su hermano y la arquitectura del sistema, pero no conoce la ruta completa. Por eso no puede resolverla desde un ordenador. Su primera aparición se produce después de que el mapa responda en Magikland. Topotino no la reconoce. Ella no dramatiza ni exige que la recuerde: «No necesito que me recuerdes para seguir siendo tu hermana». En el final, Topotino recupera espontáneamente el nombre íntimo «Tina».
 
-Cada recuerdo recuperado tiene que resonar con la experiencia real que lo despierta. La información nunca aparece solo porque el guion la necesita.
+## 6. El paquete físico y el Mapa de las Doce Aguas
 
-## 5. El Cuaderno de la Memoria
+Después de que Paula y Hugo aporten un recuerdo verdadero y acepten preparar el Cuaderno de la Memoria, Marga Mapas informa de que la red de topos ha encontrado un paquete escondido antes del eclipse.
 
-Antes de comenzar el viaje, Topotino pide a Paula y Hugo que lleven un cuaderno físico. Puede ser cualquier libreta. Lo llama **Cuaderno de la Memoria**. No es un álbum de deberes ni exige textos largos.
+El paquete contiene:
 
-### Motivo troncal
+- una carta breve escrita por Topotino antes del ataque;
+- un mapa con doce ventanas oscuras conectadas;
+- la primera ventana ya marcada gracias a Luanco;
+- la pista `TÂM…`, una ponte y un pez;
+- ninguna lista de ciudades ni explicación del final.
 
-Topoloco puede interceptar señales, alterar reflejos digitales e introducir recuerdos falsos. Un cuaderno creado por dos testigos queda fuera de esa red. Además, Paula y Hugo suelen recordar partes distintas de una misma experiencia; juntas forman una memoria que no puede atribuirse a un solo dueño.
+**Las Doce Aguas** es el nombre misterioso de la red y del mapa. No se inventan nombres poéticos para cada parada en la conversación. Cuando completan una estación, Topotino dice que una ventana se ha aclarado, que un tramo del mapa ha aparecido o que la red ha recuperado una conexión.
 
-### Cuaderno privado y adaptado a sus edades
+Internamente la aplicación conserva doce valores `water` antiguos para compatibilidad. La interfaz infantil muestra solo **Ventanas del mapa: N/12** y no enseña sus nombres internos.
 
-- Paula puede escribir una frase muy corta, una palabra, una pregunta o una idea.
-- Hugo, que tiene seis años, aporta principalmente dibujos, símbolos, colores, círculos, flechas o pegatinas. Nunca necesita escribir una explicación larga.
-- Los dos pueden dictar algo a un adulto si quieren conservar sus palabras exactas.
-- Los papeles pueden intercambiarse cuando les apetezca. Lo importante es que existan dos miradas, no imponer siempre la misma tarea.
-- La adaptación gráfica de Hugo afecta solo al cuaderno. No rebaja la dificultad intelectual de las conversaciones ni de las pruebas.
-- Topotino no pide que enseñen, describan, fotografíen o transcriban las páginas. El contenido pertenece a Paula y Hugo.
-- Luna sabe que el cuaderno existe y qué función tiene, pero nunca conoce ni inventa su contenido.
+## 7. El Cuaderno de la Memoria
 
-### Formatos variables
+Topotino lo pide porque el comunicador, los reflejos y las máquinas pueden alterarse; un cuaderno físico creado por Paula y Hugo queda fuera de esa red.
 
-Según el día, el cuaderno puede contener:
+Primero les pide reconstruir como quieran algo de sus aventuras anteriores. Después lo llevan durante el viaje:
 
-- un dibujo;
-- dos observaciones distintas;
-- una pregunta para un museo o guía;
-- algo aprendido;
-- una hipótesis;
-- un detalle sensorial;
-- una corrección de algo que creían cierto;
-- o un momento que quieran conservar.
-
-Topotino puede sugerir que conserven libremente algo, pero no convierte cada jornada en una entrega ni pide confirmación de lo anotado. Nunca evalúa la caligrafía, el dibujo o la cantidad escrita.
-
-### Función final
-
-- Antes de salir, Paula y Hugo crean en la primera página una marca privada que permite reconocer su cuaderno original y no la envían por el comunicador.
-- En la jaima, la imitación intenta que revelen la marca o acepta un cuaderno falso. Paula y Hugo consultan la primera página y recuerdan que el verdadero Topotino prometió no pedir jamás su contenido. Detectan la suplantación sin revelar la marca.
-- En Tavira contrastan una afirmación falsa con sus páginas y comunican únicamente la conclusión, no el contenido.
-- En la Alhambra nocturna utilizan la existencia de dos miradas independientes para demostrar que Topoloco no puede reclamar una memoria compartida como propiedad exclusiva.
-- Si alguna página falta, la memoria de viaje guardada por la app permite razonar con lo que ya respondieron durante las investigaciones; la aventura nunca queda bloqueada.
-
-## 6. Las doce aguas
-
-Las doce aguas no son botellas ni sustancias diferentes. Son doce manifestaciones de una misma memoria del agua. Una memoria despierta cuando alguien observa, vive, decide, aprende y sabe compartir lo ocurrido.
-
-| Nº | Agua | Escenario | Función narrativa |
-|---:|---|---|---|
-| 1 | Agua del Norte | Luanco | Atención y ancla contra el borrado |
-| 2 | Agua del Puente | Amarante | Conexión entre pasado y comienzo |
-| 3 | Agua de la Risa | Magikland y Curia | Memoria emocional compartida |
-| 4 | Agua de la Promesa | Buçaco, Batalha y Fátima | Confianza en una decisión anterior |
-| 5 | Agua del Tiempo Profundo | Huellas, Mira de Aire y Óbidos | Los rastros sobreviven al olvido |
-| 6 | Agua de un Solo Océano | Lisboa científica y Oceanário | Doce nodos de una única red |
-| 7 | Agua de la Ciudad que Regresa | Lisboa histórica y Belém | Identidad después del cambio |
-| 8 | Agua del Horizonte | Lagos, Benagil y Sagres | Lo que existe más allá de lo visible |
-| 9 | Agua de Piedra | Ponta da Piedade y Algar Seco | El proceso lento también forma memoria |
-| 10 | Agua del Cuidado | Zoomarine | Cuidar no es poseer; es proteger y devolver |
-| 11 | Agua de las Dos Orillas | Tavira y Sevilla | Unir versiones y corregir errores |
-| 12 | Agua de la Noche Clara | Alhambra nocturna | Ninguna memoria compartida tiene un único dueño |
-
-Las palabras técnicas existentes (`MIRO`, `COMIENZO`, `RIO`) se conservan internamente para no romper el progreso. No se anuncian a los niños como recompensas. Las futuras palabras dejan de formar parte del arco visible.
-
-## 7. Plan secreto de Topoloco
-
-Topoloco es inteligente, huidizo, vanidoso y estratégico. No es una amenaza física.
-
-- Quiere inaugurar el Museo Topoloco de Recuerdos Exclusivos.
-- Pretende poseer doce memorias extraordinarias y presumir de un viaje que no vivió.
-- Sus máquinas no pueden despertar una memoria auténtica.
-- Necesita que Paula y Hugo vivan las experiencias antes de intentar capturarlas.
-- Algunas pistas son deliberadas: guía a los niños para utilizarlos.
-- Ataca la memoria de Topotino para apartarlo y convertir a los niños en llaves sin guía.
-- Aprende de cada fracaso y adapta su estrategia.
-- Introduce una nota falsa, una reconstrucción manipulada, una memoria falsa y una imitación de Topotino.
-- Defiende que su museo «conserva» recuerdos; la diferencia entre cuidar y poseer se resuelve en Zoomarine.
-- Nunca persigue físicamente, amenaza, insulta ni pone en peligro a la familia.
-
-Su humor procede de la obsesión por clasificar, patentar y etiquetar lo que no puede poseerse; no de ser tonto. Algunos fallos cómicos nacen de su soberbia o del comportamiento imprevisible de sus máquinas.
-
-### Evolución de su estrategia
-
-Topoloco no repite la misma jugada dos días seguidos:
-
-1. Amarante: observa a distancia mediante un fragmento de máquina y comprueba si el puente despierta memoria.
-2. Magikland/Curia: intenta separar ruido, emoción y recuerdo con el Cazarrisas; obtiene datos incompletos.
-3. Buçaco/Batalha/Fátima: intercepta una salvaguarda antigua de Topotino e introduce una promesa ambigua.
-4. Huellas/cuevas/Óbidos: desplaza fragmentos de memoria y deja una reconstrucción plausible pero incorrecta.
-5. Dino Parque: mezcla evidencia real con una pieza inventada para medir si los niños contrastan fuentes.
-6. Lisboa científica: escucha cómo conectan sistemas y comprende que existen doce nodos.
-7. Lisboa histórica: presenta por primera vez su Museo de Recuerdos Exclusivos como si fuera un proyecto de conservación legítimo.
-8. Badoca: deja de limitarse a observar lugares y empieza a observar cómo razonan Paula y Hugo.
-9. Sagres: admite parcialmente que las pistas fueron deliberadas y que necesitaba sus experiencias.
-10. Algar Seco/jaima: suplanta la voz de Topotino e intenta obtener la marca privada del cuaderno; su petición contradice el acuerdo de privacidad del verdadero Topotino.
-11. Zoomarine: reformula su plan como «protección» de recuerdos para intentar convencerlos.
-12. Tavira: inserta una memoria falsa que contradice lo vivido y el cuaderno.
-13. Isla Mágica: cae en la primera trampa diseñada conscientemente por Paula y Hugo.
-14. Alhambra: intenta firmar las doce memorias como una única obra suya y pierde porque las pruebas demuestran autoría compartida.
-
-## 8. Contraataque de Topotino
-
-Antes del eclipse, Topotino descubrió que una memoria contada por varias personas no puede convertirse en propiedad exclusiva. Preparó el viaje como respuesta, pero olvidó el plan.
-
-Paula y Hugo ejecutan el contraataque sin saberlo:
-
-1. Viven cada experiencia.
-2. Conservan versiones diferentes en el cuaderno.
-3. Comparten lo aprendido con Topotino.
-4. Cada agua despierta ya repartida entre lugar, niños y amigo.
-5. En la Alhambra, el cuaderno demuestra que ninguna pieza pertenece solo a Topoloco.
-
-## 9. Escalera de revelaciones
-
-1. Eclipse: Topotino ha perdido memoria y dejó instrucciones para confiar en Paula y Hugo.
-2. Amarante: Topoloco buscaba algo que el agua recuerda.
-3. Magikland/Curia: los recuerdos emocionales necesitan significado, no ruido.
-4. Buçaco/Batalha/Fátima: Topotino había previsto el ataque y dejó una salvaguarda.
-5. Huellas/cuevas/Óbidos: los recuerdos no fueron destruidos; fueron desplazados.
-6. Dino Parque: evidencia, interpretación y reconstrucción no son lo mismo.
-7. Oceanário: existen doce manifestaciones de una única red.
-8. Lisboa histórica: aparece el Museo de Recuerdos Exclusivos.
-9. Badoca: las máquinas reaccionan cuando Paula y Hugo observan de verdad.
-10. Sagres: Topoloco necesita que los niños despierten las memorias y dejó pistas deliberadas.
-11. Algar Seco/jaima: una memoria compartida no tiene un único dueño; Topoloco imita a Topotino.
-12. Zoomarine: cuidar no equivale a poseer; se recupera el principio del contraataque.
-13. Tavira: Topoloco puede insertar recuerdos falsos y deben contrastarlos.
-14. Isla Mágica: primer contraataque consciente y descubrimiento de Granada.
-15. Alhambra nocturna: se confirma el ataque, despierta el Agua de la Noche Clara y termina la aventura.
-
-El 27 de agosto puede existir un epílogo breve de Topotino durante el regreso, pero no una nueva misión ni una prolongación del conflicto.
-
-## 10. Personajes
-
-### Topotino
-
-Tiene personalidad fuerte: curioso, teatral, valiente al admitir miedo, algo cabezota, protector y con opiniones propias. No es servicial de forma plana ni felicita cualquier cosa.
-
-Debe:
-
-- responder primero a lo último que hayan dicho;
-- agradecer de manera concreta una observación, ayuda o razonamiento válido;
-- pedir ayuda, no dar órdenes autoritarias;
-- distinguir lo que sabe, sospecha, recuerda o ignora;
-- enseñar historia, ciencia, naturaleza y cultura mediante preguntas inteligentes;
-- recordar los detalles recientes y las respuestas que den por el comunicador, nunca el contenido privado del cuaderno;
-- conducir al siguiente lugar con una pista o una indicación directa;
-- si deben adivinar un destino, ofrecer pistas cada vez más claras y terminar dando el nombre si siguen bloqueados; la adivinanza nunca detiene el viaje;
-- avisar antes del descanso de cualquier preparación imprescindible o útil para la etapa siguiente, como bañador, entradas, calzado o abrigo;
-- si la continuación es otro día, decir que descansen antes de cerrar;
-- adaptar una prueba solo después de conocer el impedimento real;
-- equivocarse ocasionalmente y corregirse;
-- pronunciar muy pocas veces una palabra incorrecta o inventada;
-- usar una única palabra mal sonante en todo el arco, en la jaima, y disculparse inmediatamente.
-
-No debe:
-
-- hablar como una interfaz;
-- decir «misión desbloqueada»;
-- revelar destinos o secretos prematuramente;
-- convertir cada conversación en una prueba;
-- dar por buena una respuesta absurda;
-- saber por intuición lo que la continuidad todavía le niega;
-- presentar listas anticipadas de alternativas.
-
-### Paula y Hugo
-
-Son inteligentes y capaces de detectar contradicciones. Las pruebas respetan esa inteligencia:
-
-- se diseñan con una exigencia intelectual aproximada de diez años para ambos, aunque Hugo tenga seis;
-- la lectura o escritura nunca es la medida de su inteligencia;
-
-- formulan hipótesis;
-- distinguen tradición, hecho y reconstrucción;
-- comparan fuentes y versiones;
-- observan detalles reales;
-- hacen preguntas en museos y ciudades;
-- expresan desacuerdo y pueden corregir a Topotino;
-- aportan perspectivas diferentes;
-- y toman decisiones con consecuencias narrativas.
+- Paula puede escribir frases, datos, hipótesis o relaciones.
+- Hugo puede dibujar, usar símbolos, flechas, colores o palabras.
+- Esto solo adapta el soporte. Los retos hablados mantienen una exigencia aproximada de diez años para ambos.
+
+El cuaderno es privado:
+
+- Topotino no solicita páginas, fotos, transcripciones ni la marca secreta.
+- La app no almacena su contenido.
+- Nunca se exige confirmar que han escrito una entrada.
+- En Tavira se consulta en privado para extraer un principio general de corrección.
+- En la Alhambra sirve como prueba independiente: existe una historia que la máquina nunca pudo copiar. Solo se comunica una conclusión compartida.
+
+Eco se delata en la jaima precisamente porque, imitando a Topotino, pide la marca o una foto.
+
+## 8. Los antagonistas
 
 ### Topoloco
 
-Es listo y huidizo. Deja rastros a propósito cuando le conviene, mezcla verdades con mentiras y aprende. Su debilidad es creer que catalogar una experiencia equivale a vivirla.
+Es listo, huidizo, vanidoso y capaz de aprender. No es un torpe constante. Puede cometer errores por ego, pero adapta sus trampas a los razonamientos de los niños. Huye de ellos porque sabe que ya frustraron a los Oscurnos en Francia. No se vuelve bueno ni es capturado al final.
 
-## 11. Arquitectura de cada etapa
+### Los Oscurnos
 
-Cada etapa debe incluir solo los elementos que necesite, sin repetir una plantilla visible:
+Son criaturas de sombra derrotadas anteriormente por Paula y Hugo. Huyen si deben enfrentarse a ellos directamente, así que actúan mediante dispositivos, voces y pistas.
 
-1. Alteración narrativa o conversación significativa.
-2. Experiencia real integrada en el lugar.
-3. Aprendizaje verdadero, especialmente en ciudades y museos.
-4. Respuesta personal o razonamiento de Paula y Hugo.
-5. Uso opcional y variado del cuaderno.
-6. Movimiento de Topoloco o recuperación de memoria, no necesariamente ambos.
-7. Agradecimiento concreto cuando corresponda.
-8. Consecuencia clara.
-9. Enlace al destino siguiente mediante pista o indicación directa.
-10. Descanso explícito cuando la continuación sea al día siguiente.
+- **Borrón** altera etiquetas, soportes y evidencias.
+- **Eco** copia voces y protagoniza la suplantación de la jaima.
+- **Niebla** estudia cómo deciden los niños y diseña opciones engañosas.
 
-Una ciudad o museo puede contener varias pruebas breves si exploran saberes diferentes. La historia debe enriquecer la visita, no secuestrarla ni obligar a mirar el móvil constantemente.
+Sus apariciones deben dejar rastros coherentes. No son monstruos terroríficos; producen tensión, misterio y oportunidades de razonamiento.
 
-### Complejidad, presencia física y variedad
+## 9. La red de aliados
 
-- Cada lugar importante contiene entre dos y cuatro investigaciones breves que trabajan capacidades distintas: observar, contar, comparar, inferir, predecir, clasificar evidencias, formular una hipótesis o corregirla.
-- La solución principal depende de un detalle visible, audible o experimentable allí.
-- La fecha impide adelantar jornadas y la geolocalización abre cada capítulo al llegar a su primera parada. El radio es de 1 km en núcleos urbanos o recintos compactos y de hasta 5 km en parques, bosques y espacios extensos.
-- La ubicación solo abre el capítulo. Nunca valida una respuesta ni sustituye la observación: después Paula y Hugo recorren los puntos reales y aportan la evidencia.
-- Cada jornada con varias paradas forma una ruta explícita. Topotino envía de un punto a otro y no plantea desde el móvil una lista de datos que podrían clasificarse sin visitar el lugar.
-- Una búsqueda visual nunca termina solo con nombrar un objeto; debe conducir a una inferencia histórica, científica o narrativa.
-- No se repite de forma diaria la secuencia «observar → contar → cuaderno → agua → pista».
-- Se alternan laboratorios de movimiento, debates de evidencia, reconstrucciones, elecciones, predicciones, mapas, códigos visuales, comparaciones y pequeñas investigaciones de campo.
+- **Marga Mapas:** cartógrafa de la red de topos. Custodia el paquete y puede confirmar rutas, nunca resolver pruebas.
+- **Rufino Tuercas:** experto en máquinas, ruidoso y cómico. Analiza piezas, pero necesita evidencias de campo.
+- **Sira:** enlace con aliados de la superficie.
+- **Gotas:** conoce las cuevas de Mira de Aire y ayuda a comprender el trabajo del agua.
+- **Vasco:** aliado del Oceanário. Nació simbólicamente el 8 de junio, le encanta bucear y enseña a observar y proteger el océano.
+- **Corvinho:** joven cuervo ligado a Sagres; ayuda a mantener abiertas hipótesis rivales.
+- **Capitán Pico y América:** exploradores de Isla Mágica. Reclutan a Paula y Hugo como pequeños exploradores y recuperan piezas de la pista final.
+- **Krim:** duende del Mundo de los Colores. Ayuda a distinguir lo que se siente de la decisión que se toma bajo esa emoción.
 
-### Intensidad adaptable sin rebajar el reto
+Topotino puede decir que son amigos o colaboradores. Nunca los presenta como simples mascotas ni permite que hagan el trabajo de los niños.
 
-Cada lugar distingue:
+## 10. Protocolo Azul
 
-- **núcleo narrativo:** dos o tres investigaciones necesarias para comprender el descubrimiento;
-- **profundización:** una prueba adicional de aprendizaje que puede hacerse si hay tiempo y energía;
-- **recuperación:** si una visita cambia o una fase anterior quedó pendiente, Topotino resume solo el enlace imprescindible y propone una investigación equivalente en el lugar real.
+Vasco enseña en el Oceanário un método que reaparece en el barco de delfines y en Zoomarine:
 
-La recuperación no regala la solución ni infantiliza el reto. Cambia la evidencia disponible, no la capacidad intelectual exigida.
+1. observar sin prometer un animal;
+2. distinguir «no lo vimos» de «no existe»;
+3. no molestar ni intervenir sin criterio;
+4. cuidar significa proteger y, cuando corresponde, devolver.
 
-## 12. Conversación con Luna
+Esta continuidad une Oceanário, delfines, Benagil y Porto d’Abrigo. En Zoomarine permite refutar «si cuidas algo, te pertenece».
 
-Luna es el modelo de lenguaje; Topotino es la única identidad visible.
+## 11. Magikland e Isla Mágica
 
-La app usa una arquitectura híbrida:
+Son dos estaciones emparejadas.
 
-- reglas deterministas validan aciertos, flags, aguas y fases;
-- Luna redacta conversación libre, humor, reacciones, pistas suaves e imprevistos;
-- cada episodio entrega solo el conocimiento que Topotino puede usar;
-- flags y mensajes recientes indican la fase exacta;
-- el canon secreto completo nunca se envía a Luna;
-- una caída de IA conserva respuestas guiadas jugables.
+- En Magikland, Topoloco estudia movimiento, atención, ruido y la formación de un recuerdo significativo.
+- Topotina detecta una segunda firma técnica de parque, todavía sin destino.
+- En Isla Mágica, Niebla combina ruido, emoción y urgencia para provocar una decisión irreflexiva.
+- Capitán Pico y América convierten la búsqueda en una misión de exploradores.
+- Krim ayuda a reconocer la emoción sin obedecerla automáticamente.
+- Paula y Hugo alimentan la máquina con una decisión falsa y reversible; la trampa se vuelve contra Topoloco.
+- El fallo revela: «ciudad roja · doce guardianes de piedra · cuando el agua refleje la noche».
 
-Además, la aplicación guarda una **memoria de viaje persistente** formada únicamente por respuestas dadas en el comunicador que tengan valor de continuidad: observaciones, hipótesis, razonamientos, decisiones y correcciones. No guarda ni solicita el contenido privado del Cuaderno de la Memoria.
+## 12. Regla de diseño de cada jornada
 
-Luna recibe esa memoria persistente junto al capítulo activo. Puede recordar días anteriores, agradecer una idea concreta y detectar contradicciones, pero no usa esos datos para conceder avances ni para conocer secretos futuros.
+Cada capítulo activo debe contener:
 
-Topotino escribe como en WhatsApp: frases cortas, una idea por burbuja y vocabulario claro. La complejidad está en la observación y el razonamiento. Si emplea un término técnico, lo explica brevemente. La interfaz divide automáticamente cualquier respuesta demasiado larga sin alterar su contenido ni el estado narrativo.
+1. una razón narrativa para estar allí;
+2. una pista que solo puede confirmarse físicamente;
+3. dos o más acciones variadas cuando el lugar lo permita: caminar, localizar, observar, comparar, predecir, escuchar, reconstruir, debatir o corregir;
+4. una consecuencia en el plan o en la memoria;
+5. una pista hacia el siguiente lugar;
+6. preparación práctica si hace falta;
+7. petición de descanso al cambiar de día.
 
-Cada `Contexto para IA` debe declarar:
+La geolocalización abre la conversación, no resuelve la prueba. Primero se propone la prueba principal. Solo si Paula o Hugo comunican un obstáculo concreto se ofrece una adaptación equivalente. No se muestran alternativas de antemano.
 
-- memoria conservada;
-- recuerdos recuperados por flag;
-- hechos aprendidos en el viaje;
-- sospechas actuales;
-- secretos prohibidos;
-- estado del cuaderno;
-- objetivo presente;
-- cómo enlazar con el siguiente destino;
-- y si corresponde pedir descanso.
+Las respuestas deben exigir evidencia y razonamiento, pero los mensajes de Topotino son breves, como WhatsApp. Una instrucción compleja se divide en varios mensajes.
 
-Cada respuesta guiada que deba recordarse declara una etiqueta de memoria. Las activaciones por fecha admiten mensajes normales y mensajes de recuperación según las flags existentes; así el viaje continúa aunque una fase anterior no se completara, sin fingir que ocurrió.
+## 13. Ruta narrativa completa
 
-## 13. Itinerario y función narrativa
+| Día | Lugares | Función dentro del plan | Lo que deja para después |
+|---|---|---|---|
+| Antes | Luanco y eclipse | Primera ventana marcada; ataque y amnesia | Paquete, cuaderno y pista del Tâmega |
+| 13 | Amarante | Primer transmisor; historia pública, tradición y paisaje | Seis mundos y máquina de atención |
+| 14 | Magikland, Hotel do Parque | Topoloco aprende cómo nace un recuerdo; aparece Topotina; edificio con capas | Bosque con convento, batalla y palacio |
+| 15 | Buçaco, Batalha, Fátima | Ordenar capas, promesa, obra incompleta y escala | Rastros de animal y agua bajo tierra |
+| 16 | Huellas, Mira de Aire, Óbidos | Borrón deja pistas; rastros, procesos y diferencia dato/interpretación | Los recuerdos fueron extraídos; fósiles y reconstrucción |
+| 17 | Dino Parque, Lisboa | Original, modelo e inferencia; aparece el Museo Topoloco | Laboratorio de adaptaciones y océano conectado |
+| 18 | Pavilhão, Oceanário, Tejo | Vasco enseña Protocolo Azul; doce nodos son una red | Leer una ciudad por capas |
+| 19 | Lisboa, Belém | Supervivencia, reconstrucción y cambio de uso; museo de versión única | Observar animales sin inventar intención |
+| 20 | Badoca, Lagos | Niebla estudia el método; diseñar búsqueda incierta | Barco, delfines y horizonte |
+| 21 | Delfines, Benagil, Sagres | Aplicar Protocolo Azul; erosión e hipótesis; Topoloco admite que aprende | Dos costas y una voz en la lona |
+| 22 | Piedade, Algar Seco, jaima | Hueco/soporte; Eco suplanta a Topotino y es descubierto | «Si cuidas algo, te pertenece» |
+| 23 | Zoomarine | Vasco y Porto d’Abrigo: rescatar, rehabilitar y devolver | Concluir que Topoloco causó la amnesia; puente mal nombrado |
+| 24 | Tavira, Sevilla | Corregir un relato popular; conectar orillas y activar firma del segundo parque | Isla Mágica y la estación gemela |
+| 25 | Isla Mágica | Pico, América y Krim ayudan a tender una contratrampa | Granada, ciudad roja y doce guardianes |
+| 26 | Alcázar, Catedral, Alhambra nocturna | Capas, reflejo, memoria conectada, autoría compartida y cierre | Derrota del museo; memorias devueltas |
+| 27 | Generalife | Segunda mirada voluntaria y despedida | Ninguna secuela forzada |
 
-| Fecha | Etapa | Función principal |
-|---|---|---|
-| 12 ago | Eclipse | Ataque y amnesia de Topotino |
-| 13 ago | Valladolid → Amarante | Puente, memoria y primera aportación al cuaderno |
-| 14 ago | Magikland → Hotel do Parque, Curia | Movimiento, risa, memoria de un edificio de 1922 y quietud en sus jardines |
-| 15 ago | Buçaco → Batalha → Fátima | Promesa, fuente, obra inacabada y testimonio infantil |
-| 16 ago | Huellas → Mira de Aire → Óbidos | Evidencia, agua subterránea y noche entre murallas |
-| 17 ago | Dino Parque → Lisboa | Reconstrucción científica y primer contacto de Topoloco |
-| 18 ago | Ciencia → Oceanário | Método científico y un solo océano |
-| 19 ago | Lisboa histórica → Belém | Terremoto, reconstrucción, viajes y museo de Topoloco |
-| 20 ago | Badoca → Lagos | Observar comportamiento y descubrir que los utilizan |
-| 21 ago | Delfines → Benagil → Sagres | Incertidumbre, horizonte y giro de los niños-llave |
-| 22 ago | Ponta da Piedade → Carvoeiro → jaima | Erosión, tiempo e imitación de Topotino |
-| 23 ago | Zoomarine | Cuidado frente a posesión |
-| 24 ago | Tavira → Sevilla | Memoria histórica corregida y dos orillas |
-| 25 ago | Isla Mágica y Agua Mágica | Trampa consciente y descubrimiento de Granada |
-| 26 ago | Sevilla → Alhambra nocturna | Doce leones, cuaderno, derrota de Topoloco y final |
-| 27 ago | Generalife → Valladolid | Epílogo opcional, sin nueva misión |
+## 14. El final de la Alhambra
 
-Las activaciones usan las fechas numéricas de 2026 aunque el itinerario original rotule algún día de la semana de forma incorrecta.
+La entrada nocturna se resuelve paso a paso:
 
-## 14. Seguridad
+1. **Mexuar:** refutan que un edificio solo pueda contar su primer uso.
+2. **Arrayanes:** distinguen original, reflejo y medio; el movimiento del agua revela cómo el eclipse permitió copiar y deformar recuerdos.
+3. **Comares:** conectan observaciones y correcciones de días distintos. La historia funciona como red, no como vitrinas separadas.
+4. **Leones:** comprueban que los doce leones no son idénticos y que intervinieron varias manos. El número doce no exige dueño único.
+5. **Cuaderno:** sin mostrarlo, Paula y Hugo afirman que dos miradas diferentes forman una historia compartida y no una propiedad.
 
-- Nunca se mira directamente al sol ni se supera una fase por observar el eclipse.
-- Nunca se pide separarse de los adultos.
-- No se entra en zonas cerradas ni se sale de recorridos autorizados.
-- No se toca patrimonio, animales o formaciones salvo permiso explícito.
-- No se recoge agua de ríos, lagos, piscinas, fuentes monumentales o atracciones.
-- Una frase, dibujo o agua potable puede actuar como símbolo.
-- Los adultos, el descanso, el clima y la realidad prevalecen siempre.
-- Topoloco nunca está físicamente cerca vigilando a los niños.
+La máquina de Topoloco exige un único propietario y una única versión. No sabe procesar una obra con varias manos, contradicciones honestas, correcciones y una copia privada inaccesible. Las doce ventanas se conectan y el archivo libera las memorias.
 
-## 15. Alternativas e imprevistos
+Topoloco huye. Los Oscurnos se dispersan. Topotino reconoce a Topotina: «Tina». Agradece a Paula y Hugo con hechos concretos. La aventura termina esa noche.
 
-Topotino presenta primero una sola experiencia. Solo si Paula o Hugo expresan un impedimento ofrece una adaptación concreta que conserva el objetivo narrativo. Si dicen únicamente «no podemos», pregunta qué ocurre.
+## 15. Voz de Topotino
 
-Ninguna reserva o destino es imprescindible. Un cambio real se registra en esta guía, se convierte en parte de la ficción y obliga a revisar las etapas futuras relacionadas.
+Topotino tiene personalidad fuerte: afectuoso, teatral, ingenioso, un poco nervioso y muy leal. Habla como compañero, no como profesor ni narrador omnisciente.
 
-## 16. Continuidad técnica
+- agradece una observación o un razonamiento concreto;
+- acepta que lo corrijan;
+- distingue hechos, hipótesis y recuerdos;
+- usa humor breve y no encadena ocurrencias;
+- puede decir una única palabrota leve en la jaima y se disculpa inmediatamente;
+- no llama pequeños ni simplifica los retos;
+- no envía párrafos largos: máximo dos ideas por mensaje;
+- nunca menciona flags, nombres técnicos de aguas, palabras de fórmula ni «misión desbloqueada».
 
-- Se conservan los identificadores ya publicados.
-- `004-guimaraes-origen` permanece retirado por compatibilidad.
-- Las flags y palabras antiguas pueden seguir registrándose internamente sin aparecer en los mensajes.
-- Los capítulos por fecha no deben quedar bloqueados por una fase anterior no terminada.
-- Los capítulos del viaje usan `mode: all` con fecha y coordenada de la primera parada. Las fases posteriores se encadenan mediante flags y recorridos reales, no mediante nuevos candados GPS.
-- Si el móvil no actualiza automáticamente la señal, el botón «Actualizar señal» vuelve a comprobarla. La Mesa de viaje conserva el lanzamiento manual como recuperación adulta.
-- Todo capítulo por fecha debe incluir un puente de recuperación si presupone una fase anterior.
-- Los mensajes iniciales pueden estar condicionados por flags y solo se entregan cuando encajan con el estado real.
-- Las fases internas sí mantienen su orden mediante flags.
-- `storyMemory` se añade de forma compatible: las partidas antiguas comienzan con una lista vacía y conservan todo su estado anterior.
-- La partida existente, mensajes y código de recuperación continúan intactos.
+## 16. Arquitectura conversacional
 
-## 17. Registro actual
+Luna recibe solo el contexto permitido de la fase activa, flags, memoria de respuestas del chat y mensajes recientes. No recibe el canon secreto ni el contenido del cuaderno. El modelo conversa y adapta; el motor determinista concede progreso.
 
-| Orden | Fecha | Estado | Qué ocurre | Qué saben al terminar |
-|---:|---|---|---|---|
-| 1 | Londres | Vivida | `LONDRES BRILLA` | La aventura era mayor de lo que parecía |
-| 2 | Luanco | Vivida por confirmar | Agua del Norte | El agua conserva recuerdos |
-| 3 | 12 ago | Publicada | Eclipse y amnesia | Topotino confía en ellos y dejó una salvaguarda |
-| 4 | 12–13 ago | Publicada | Cuaderno y descubrimiento de Amarante | Deben ir el 13 por la tarde |
-| 5 | 13 ago | Publicada | Agua del Puente | Una figura buscaba algo que la ponte recordaba |
-| 6 | 14 ago | Publicada | Agua de la Risa | El significado, no el ruido, despierta memoria emocional |
-| 7–15 | 15–26 ago | Boceto aprobado; pendientes día a día | Arco de las doce aguas | Revelación progresiva hasta la Alhambra nocturna |
+Después del eclipse, cada contexto de IA debe indicar:
 
-## 18. Decisiones del 11 de agosto de 2026
+- qué recuerda Topotino;
+- qué ha deducido;
+- qué ignora;
+- qué aliado conoce;
+- qué destino puede revelar;
+- qué secreto sigue prohibido.
 
-### Amnesia y Cuaderno de la Memoria
+Las ramas de recuperación reconocen capítulos no vividos y nunca atribuyen a los niños una visita, hallazgo o deducción que no ocurrió.
 
-- Cambio: el eclipse borra los recuerdos anteriores de Topotino vinculados a la investigación.
-- Se mantiene: sabe que Paula y Hugo son sus amigos; Agua del Norte; doce aguas; Fuente de la Noche Clara; Topoloco; final granadino.
-- Propagación: eclipse, transición, Amarante, Magikland/Curia y todo el arco futuro.
-- Solución: las revelaciones son recuerdos que resuenan con experiencias reales; el cuaderno queda fuera de la red manipulable.
-- Final: la aventura concluye en la Alhambra nocturna del 26; el 27 solo admite epílogo.
+## 17. Compatibilidad técnica
 
-### Nombre y formato del Cuaderno de la Memoria
+No cambiar sin migración explícita:
 
-- Cambio: el elemento antes llamado `Diario de las Dos Memorias` pasa a llamarse **Cuaderno de la Memoria** ante los niños y en el canon.
-- Motivo: Hugo tiene seis años; su contribución principal será visual y Paula solo necesitará escribir fragmentos breves.
-- Se mantiene: las flags internas que contienen `diario` no cambian, para conservar el progreso de cualquier partida existente.
-- Propagación: eclipse, transición a Amarante, Amarante, Magikland/Curia, contexto de Luna y todos los capítulos futuros.
-- Continuidad: las dos miradas siguen siendo esenciales, aunque una se exprese con palabras y otra mediante dibujos o símbolos.
+- IDs de episodios y respuestas;
+- flags existentes;
+- valores internos `water`;
+- palabras técnicas de fórmula;
+- estructura de guardado local y Upstash.
 
-### Conversación, aprendizaje y enlaces
+Es válido cambiar títulos, mensajes, misión visible, textos de IA e interfaz. Los nombres internos de las doce aguas solo son contadores heredados. Nunca aparecen como recompensas infantiles.
 
-- Luna conversa como Topotino con contexto acotado por fases.
-- Topotino agradece logros reales, tiene personalidad fuerte y no valida respuestas absurdas.
-- Cada etapa conduce a la siguiente con pista o dirección directa.
-- Si continúa otro día, pide descanso.
-- Ciudades y museos pueden incluir varias experiencias breves de observación, historia, ciencia y contraste de fuentes.
+## 18. Lista de control global
 
-### Complejidad, privacidad y continuidad seleccionadas por Juan
+Antes de publicar un cambio:
 
-- Cambio: las pruebas se diseñan con exigencia intelectual aproximada de diez años para Paula y Hugo.
-- Aclaración: Hugo dibuja solo en el Cuaderno de la Memoria; sus respuestas orales y razonamientos no se simplifican por edad.
-- Privacidad: Topotino no solicita el contenido del cuaderno salvo que una escena futura exija consultarlo; incluso entonces pide una conclusión o decisión, nunca una transcripción o fotografía.
-- Memoria: Luna recibe una memoria persistente de respuestas del chat, separada del cuaderno privado.
-- Recuperación: cada día por fecha debe reconocer las fases realmente vividas y ofrecer un puente coherente si falta alguna.
-- Variedad: se prohíbe repetir una plantilla fija y se exigen varias investigaciones físicas por lugar.
-- Topoloco: sus tácticas evolucionan y responden a lo que aprende.
-- Intensidad: se distinguen núcleo, profundización y recuperación para proteger el viaje real sin reducir la complejidad.
+- [ ] La familia no parece tener un viaje preparado dentro de la ficción.
+- [ ] El destino actual fue deducido o entregado por una consecuencia anterior.
+- [ ] La prueba necesita evidencia del lugar real.
+- [ ] Topotino no revela información que todavía ignora.
+- [ ] El Cuaderno sigue privado.
+- [ ] Topotina y los aliados no resuelven la prueba.
+- [ ] Los Oscurnos actúan de forma coherente y no aparecen porque sí.
+- [ ] La ventana del mapa se abre por comprensión, no por una palabra mágica.
+- [ ] El siguiente destino tiene una razón narrativa y preparación práctica.
+- [ ] Si cambia el día, Topotino pide descanso.
+- [ ] Los mensajes parecen conversación de WhatsApp.
+- [ ] El final continúa en la Alhambra nocturna y el Generalife es solo epílogo.
 
-## 19. Diseño cerrado del desenlace nocturno
+## 19. Registro de decisiones
 
-La aventura termina en los Palacios Nazaríes durante la visita nocturna del 26. No se prolonga al Generalife del día 27.
+### 12 de agosto de 2026 · T-12B0
 
-1. **Mexuar — la afirmación dudosa:** Topoloco emite una versión aparentemente ordenada del viaje en la que se atribuye todas las decisiones. Paula y Hugo deben detectar qué tipo de afirmación no está respaldada por evidencia compartida.
-2. **Patio de los Arrayanes — reflejo y realidad:** utilizan el reflejo para distinguir imagen, objeto y experiencia. Reconocen la firma técnica del Borrador de Reflejos y confirman que el eclipse fue un ataque contra la memoria de Topotino.
-3. **Comares — dos relatos incompatibles:** Luna recupera de la memoria persistente dos observaciones reales de días distintos. Los niños explican por qué una colección puede conservar datos sin convertirse en dueña de lo vivido.
-4. **Patio de los Leones — las doce relaciones:** los doce leones no son doce contraseñas; permiten comprender que las doce aguas forman una red. Paula y Hugo consultan el cuaderno y verifican que existen dos miradas independientes. No necesitan leerlas en voz alta ni enviarlas.
-5. **Derrota de Topoloco:** su máquina exige un único autor para cerrar el archivo. La respuesta correcta es que no existe: lugares, familia, Paula, Hugo y Topotino participaron. El sistema de Topoloco no puede registrar propiedad exclusiva y libera las memorias.
-6. **Cierre:** despierta el Agua de la Noche Clara, Topotino recupera el sentido de su contraataque —no cada detalle perdido de forma artificial— y agradece contribuciones concretas recordadas del viaje. La aventura termina esa noche.
-
-## 20. Cambios durante el viaje
-
-### 11 de agosto · Curia se traslada al Hotel do Parque
-
-- Hecho real: la familia duerme en el **Hotel do Parque Boutique Hotel**, no en el Parque das Termas. El paseo termal puede hacerse si sobra tiempo, pero no sostiene la aventura.
-- Investigación: el hotel funciona desde 1922, conserva un lenguaje clásico, jardín, patio y piscina, y se encuentra junto al Parque Termal.
-- Etapas afectadas: cierre del 14 y comienzo del 15.
-- Solución: el Cazarrisas sigue desde el ruido de Magikland hasta una casa que ha conservado su carácter durante más de un siglo. Paula y Hugo investigan qué rasgos pertenecen al edificio, cuáles a su uso como hotel y cómo el jardín cambia su experiencia. El experimento de reflejo se realiza en una ventana, la piscina o el jardín del alojamiento.
-- Continuidad: se conservan `curia_llegada`, `curia_paisaje_razonado`, `curia_quietud_observada`, `diario_magikland_curia`, `completado_magikland_curia`, Agua de la Risa y `RIO`.
-
-### 11 de agosto · Activación por llegada y aventuras en movimiento
-
-- Problema real: una apertura solo por hora podía iniciar Amarante mientras la familia seguía en Valladolid y hacía lo mismo con otras jornadas.
-- Solución técnica: cada capítulo del 13 al 27 conserva su fecha, elimina la hora rígida y añade una zona alrededor de la primera parada real. La app renueva la señal al abrirse, al volver a primer plano, al pedirlo manualmente y periódicamente mientras exista una etapa pendiente.
-- Radios: 1 km para puentes, centros urbanos y recintos compactos; 5 km para parques, bosques, yacimientos y espacios costeros extensos. Se admite un margen pequeño por la precisión del teléfono.
-- Solución narrativa: la coordenada abre la conversación, pero las respuestas solo avanzan con evidencias observadas durante un recorrido entre puntos concretos.
-- Amarante: Ponte de São Gonçalo → obelisco o placa de 1809 → Igreja de São Gonçalo y Senhora da Ponte → ribera del Tâmega. Se retira la clasificación verbal de cuatro afirmaciones.
-- Propagación: Magikland y Hotel do Parque; Buçaco, Batalha y Fátima; huellas, Mira de Aire y Óbidos; Dino Parque y Lisboa; Parque das Nações; Lisboa histórica; Badoca y Lagos; costa y Sagres; Ponta da Piedade, Algar Seco y jaima; Zoomarine; Tavira y Sevilla; Isla Mágica; Sevilla monumental y Alhambra; epílogo de Granada.
-- Continuidad: no cambia ningún identificador, flag, agua, palabra técnica, mensaje vivido ni código de recuperación.
-
-## 21. Diseño completo día a día
-
-Este diseño concreta el arco aprobado. Cada episodio tendrá una entrada normal y otra de recuperación, varias investigaciones físicas, una sola adaptación por impedimento comunicado y memoria persistente de las respuestas relevantes.
-
-| Fecha | Núcleo de investigación | Ayuda o personaje | Movimiento narrativo | Enlace |
-|---|---|---|---|---|
-| 14 | En el Hotel do Parque: distinguir edificio de 1922, uso actual y jardín; experimento de reflejo y escucha | La propia casa actúa como testigo centenario | El Cazarrisas aprende que el significado no se obtiene midiendo ruido | Olor a musgo, piedra fría y hojas mojadas |
-| 15 | Buçaco: capas natural, carmelita y romántica; Fonte Fria y circulación del agua. Batalha: promesa, obra terminada e inacabada. Fátima: contraste entre la pequeña Capelinha y la escala del santuario | Los tres pastorinhos se tratan como personajes históricos infantiles, con respeto a la fe y a quienes no la comparten | Aparece una promesa incompleta del Topotino anterior; los niños reconstruyen que confiaría solo en recuerdos contrastables por más de una persona | Una huella que sobrevivió 175 millones de años |
-| 16 | Huellas: rastro frente a reconstrucción y dirección de marcha. Mira de Aire: disolución, filtración y tiempo geológico. Óbidos: puertas, capas urbanas, azulejos y Josefa d’Óbidos | **Gotas**, mascota oficial de las grutas, es colega subterráneo de Topotino | Comprenden que los recuerdos no fueron destruidos, sino desplazados como agua bajo la roca | Un laboratorio donde se limpian huevos de dinosaurio reales |
-| 17 | Dino Parque: línea temporal, modelos frente a fósiles, preparación científica y nido de Lourinhanosaurus | El Lourinhanosaurus local funciona como testigo paleontológico, no como animal vivo | Topoloco mezcla una pieza verdadera con una reconstrucción inventada; los niños detectan la diferencia. Primer anuncio del Museo de Recuerdos Exclusivos | Un lugar de Lisboa donde tocar una pregunta produce otra |
-| 18 | Pavilhão: adaptaciones animales y diseño de una prueba. Oceanário: hábitats, red trófica y un único océano. Teleférico/Tajo: conexiones visibles | **Vasco**, mascota oficial del Oceanário y colega oceanográfico de Topotino | Descubren que las aguas son nodos de una sola red y que existen doce manifestaciones | Una ciudad que tuvo que recordar quién era después de romperse |
-| 19 | Castelo: posición defensiva y capas arqueológicas. Alfama/Baixa: trama irregular frente a reconstrucción. Belém: función defensiva, lenguaje manuelino y relato de los viajes | Los pavos reales del castillo obligan a observar conducta sin alimentarlos; personajes históricos se presentan como fuentes, no aliados ficticios | Topoloco presenta su museo como conservación legítima | Una máquina ya no mira lugares: compara cómo miran Paula y Hugo |
-| 20 | Badoca: etograma, adaptación y diferencia entre observación e interpretación. Lagos: puerto, orientación y preparación del mar abierto | La red de suricatas mantiene una relación cómica de cooperación profesional con los topos | Topoloco comienza a modelar el método de razonamiento de los niños | Una ruta que puede existir aunque los delfines no aparezcan |
-| 21 | Delfines: incertidumbre y conducta sin inventar avistamientos. Benagil: abertura, luz y erosión. Sagres: promontorio, rosa de los vientos y límites de la evidencia | El **Corvinho de Sagres**, personaje del relato patrimonial oficial, es amigo corresponsal de Topotino | Topoloco admite que dejó algunas pistas y que necesita experiencias vividas, no simples datos | La piedra agujereada por un trabajo que nadie vio completo |
-| 22 | Ponta da Piedade y Algar Seco: ordenar fases de erosión, comparar arcos, cuevas, pilares y ventanas naturales | A Boneca sirve como referencia visual popular; la **HolaJaima** convierte la noche en un canal sin superficies digitales | Un falso Topotino pide la marca privada del cuaderno; la contradicción permite detectar la suplantación. El verdadero Topotino dice la única palabra mal sonante del arco y se disculpa | Proteger algo para poder devolverlo |
-| 23 | Zoomarine: adaptaciones, bienestar, conservación y rehabilitación. Diferenciar cuidar, exhibir, poseer y devolver | El equipo del **Porto d’Abrigo** y el lema «Together We Protect» aportan la evidencia real | Topoloco intenta justificar su museo como protección; Paula y Hugo desmontan el argumento | Un puente de siete arcos cuya historia fue recordada mal |
-| 24 | Tavira: siete arcos, origen medieval y corrección de la falsa etiqueta «romana»; castillo y jardines. Sevilla: Plaza de España y puentes simbólicos | La propia ciudad corrige la memoria falsa mediante su patrimonio | Consultan el Cuaderno solo para decidir si la versión encaja; comunican la conclusión, nunca el contenido | Una isla sin mar que representa seis mundos |
-| 25 | Isla Mágica: representación histórica frente a decorado; corrientes y decisiones; diseño de una trampa con afirmación verificable | **Capitán Pico y América** ayudan; **Marsupilami** puede aparecer en Agua Mágica durante las fechas anunciadas para 2026 | Primera trampa consciente: Topoloco copia una interpretación falsa controlada y revela Granada y doce leones al corregir su máquina | Sevilla monumental por la mañana y la colina roja por la noche |
-| 26 | Alcázar: capas mudéjares, simetría, agua y clima. Catedral: transformación de la Giralda y lectura visual del retablo. Alhambra nocturna: evidencia, reflejo, dos relatos y autoría compartida | Muhammad V, Ibn Zamrak y los artesanos se presentan mediante sus obras; ningún personaje histórico conoce a Topotino | Se confirma el Borrador de Reflejos. Los doce leones, distintos entre sí y realizados por varias manos, prueban que una red compartida no admite un dueño único. Topoloco libera las memorias | La aventura termina en el Patio de los Leones |
-| 27 | Generalife, Acequia Real, Alcazaba y Torre de la Vela se disfrutan como epílogo libre | Topotino puede agradecer detalles concretos de la memoria persistente | No hay nueva agua, villano ni misión. Se vuelve a casa con la historia abierta a ser contada por cada uno | Valladolid |
+- Se elimina del lenguaje infantil la colección de aguas con nombres poéticos.
+- Se establece el mapa físico con doce ventanas y «Las Doce Aguas» como nombre de la red.
+- Topoloco no conoce ni sigue un itinerario familiar: las pistas de Topotino conducen el viaje.
+- Se incorpora la historia previa de aventuras y la derrota de los Oscurnos en Francia.
+- Se añaden Topotina, Marga Mapas, Rufino Tuercas, Sira, Borrón, Eco y Niebla.
+- Vasco, Gotas, Corvinho, Capitán Pico, América y Krim pasan a ser aliados narrativos.
+- Magikland e Isla Mágica quedan unidas como estaciones gemelas.
+- Oceanário, delfines y Zoomarine quedan unidos por el Protocolo Azul.
+- La Alhambra resuelve el mecanismo del eclipse, la autoría compartida y el reconocimiento de Topotina.

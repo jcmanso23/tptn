@@ -15,7 +15,7 @@
 
 # Contexto narrativo
 
-Alcázar y Catedral preparan la lectura de capas antes de la Alhambra nocturna. En Mexuar, Arrayanes, Comares y Leones se resuelve el plan. Los doce leones distintos prueban autoría compartida. Las aguas eran relaciones vividas, no objetos. Topoloco es derrotado sin dejar de ser inteligente y huidizo.
+Alcázar y Catedral preparan la lectura de capas antes de la Alhambra nocturna. Topotina coordina la apertura de la última ventana, pero necesita la evidencia de Paula y Hugo. En Mexuar, Arrayanes, Comares y Leones se resuelve el plan. El reflejo de Arrayanes revela el mecanismo del eclipse; los doce leones distintos prueban autoría compartida; el Cuaderno aporta una historia privada que la máquina nunca copió. Las Doce Aguas eran una red de experiencias, no objetos. Topoloco es derrotado sin dejar de ser inteligente y huidizo.
 
 ## Mensajes iniciales
 
@@ -54,6 +54,7 @@ Alcázar y Catedral preparan la lectura de capas antes de la Alhambra nocturna. 
     "remember": { "kind": "building_transformation", "label": "Transformaciones visibles de la Catedral" },
     "messages": [
       { "from": "topotino", "time": "auto", "text": "Preparación completa. Viajad a Granada y descansad antes de la entrada nocturna. No intentéis resolver nada durante el trayecto." },
+      { "from": "topotino", "time": "auto", "text": "Topotina mantendrá abierto el mapa. Dice que la última ventana solo responderá si demostramos tres cosas: que una historia puede cambiar, que un reflejo no es el original y que varias manos no necesitan un único dueño." },
       { "from": "topotino", "time": "auto", "text": "A las 22:00, cuando entréis en los Palacios Nazaríes, escribid MEXUAR. Desde ahí iremos paso a paso; no os adelantaré alternativas ni el final." }
     ]
   },
@@ -91,6 +92,7 @@ Alcázar y Catedral preparan la lectura de capas antes de la Alhambra nocturna. 
     "remember": { "kind": "final_reflection", "label": "Objeto, reflejo y distorsión en Arrayanes" },
     "messages": [
       { "from": "topotino", "time": "auto", "text": "Segunda cerradura. El reflejo depende del original y del medio: Topoloco guardó imágenes y pretendió declararlas originales." },
+      { "from": "topotino", "time": "auto", "text": "Topotina ha unido esta respuesta con el eclipse. La sombra creó el momento de copia; las superficies de agua y cristal distribuyeron versiones deformables. Ese fue el mecanismo que extrajo mis recuerdos." },
       { "from": "topotino", "time": "auto", "text": "En Comares, recuperad dos respuestas de vuestra memoria de chat: una observación y una corrección realizadas en días distintos. No consultéis ni transcribáis el cuaderno. Explicad cómo se apoyan mutuamente aunque procedan de lugares diferentes." }
     ]
   },
@@ -133,10 +135,13 @@ Alcázar y Catedral preparan la lectura de capas antes de la Alhambra nocturna. 
     "remember": { "kind": "final_conclusion", "label": "Conclusión privada que reúne las doce aguas" },
     "water": "Agua Clara de la Noche",
     "messages": [
-      { "from": "topotino", "time": "auto", "text": "Cierre abierto. Ha despertado el Agua Clara de la Noche y las doce aguas han respondido como una red. No eran líquidos ni contraseñas: eran doce formas de relacionar evidencia, memoria, lugares y personas." },
-      { "from": "topotino", "time": "auto", "text": "Topoloco provocó el eclipse de mi memoria para convertirme en un testigo aislado. Después quiso usar vuestras experiencias para fabricar una versión perfecta y encerrarla en su museo. Ha fallado porque una memoria compartida conserva diferencias y acepta correcciones." },
-      { "from": "topotino", "time": "auto", "text": "Acaba de huir por un conducto que, sinceramente, es demasiado estrecho incluso para un topo de su ego. No lo hemos capturado, pero su máquina se ha quedado sin propietario único y ha devuelto las conexiones." },
-      { "from": "topotino", "time": "auto", "text": "Recuerdo Londres y recuerdo este viaje. No todo ha vuelto de golpe, y está bien: ahora sé distinguir un hueco de una mentira. Paula, Hugo: gracias. Lo habéis hecho extraordinariamente bien." },
+      { "from": "topotino", "time": "auto", "text": "Cierre abierto. La última ventana se ha aclarado y las doce han respondido como una sola red. Las Doce Aguas no eran líquidos ni contraseñas: eran lugares, experiencias, correcciones y personas conectadas." },
+      { "from": "topotino", "time": "auto", "text": "La máquina exige un único dueño y una única versión. No sabe procesar los leones hechos por varias manos, vuestras dos miradas ni un cuaderno que nunca pudo leer." },
+      { "from": "topotino", "time": "auto", "text": "Topoloco provocó el eclipse para convertirme en un testigo aislado. Después usó vuestras experiencias para fabricar una versión perfecta y encerrarla en su museo. Ha fallado porque una memoria compartida conserva diferencias y acepta correcciones." },
+      { "from": "topotino", "time": "auto", "text": "Borrón, Eco y Niebla han soltado las conexiones y han huido. Topoloco también escapa por un conducto demasiado estrecho incluso para un topo de su ego. No lo hemos capturado, pero su museo está devolviendo los recuerdos." },
+      { "from": "topotino", "time": "auto", "text": "Topotina acaba de decir que la red está estable. Y yo… espera. Tina. Te llamaba Tina." },
+      { "from": "topotino", "time": "auto", "text": "Recuerdo Londres, Francia y este viaje. No todo ha vuelto de golpe, y está bien: ahora sé distinguir un hueco de una mentira." },
+      { "from": "topotino", "time": "auto", "text": "Paula, Hugo: gracias. Habéis observado, discutido, corregido y protegido una historia que no pertenece a una sola persona. Lo habéis hecho extraordinariamente bien." },
       { "from": "topotino", "time": "auto", "text": "La aventura principal termina aquí, en la Alhambra de noche, como debía. Mañana habrá un epílogo tranquilo a la luz del día. Ahora salid con los adultos y descansad. Misión cumplida." }
     ]
   },
@@ -176,7 +181,7 @@ Alcázar y Catedral preparan la lectura de capas antes de la Alhambra nocturna. 
 
 ## Contexto para IA
 
-Este es el final activo. Luna debe usar la memoria persistente para ayudar a recordar respuestas del chat, nunca inventarlas; si no dispone de dos, pide dos ejemplos reales sin atribuirlos. La visita nocturna va paso a paso. Topoloco huye, no se convierte en aliado. El cuaderno se consulta en privado y solo se comunica la conclusión. Después del cierre no abre otra amenaza.
+Este es el final activo. Luna debe usar la memoria persistente para ayudar a recordar respuestas del chat, nunca inventarlas; si no dispone de dos, pide dos ejemplos reales sin atribuirlos. La visita nocturna va paso a paso. En Arrayanes se confirma el mecanismo del eclipse. Topoloco huye, no se convierte en aliado; los Oscurnos también escapan. El cuaderno se consulta en privado y solo se comunica la conclusión. Tras el cierre Topotino reconoce a Topotina como «Tina». Después no abre otra amenaza.
 
 ## Fuentes documentales
 

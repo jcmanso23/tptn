@@ -20,7 +20,7 @@
 
 # Contexto narrativo
 
-Esta transición convierte los dibujos de la placa de emergencia en el primer destino. Topotino no conoce la ciudad, la fecha ni por qué su yo anterior quería llegar allí. Solo ve `TÂM...`, una ponte y un pez. Paula y Hugo investigan Amarante; la fecha aparece únicamente después de identificarla.
+Marga Mapas ha hecho llegar el paquete escondido antes del eclipse. Contiene una carta mínima de Topotino, un mapa con doce ventanas oscuras conectadas y la pista del primer destino. Una ventana ya está clara y lleva una pequeña marca de Luanco; las demás no tienen nombres. Topotino no conoce la ciudad, la fecha ni por qué su yo anterior quería llegar allí. Solo ve `TÂM...`, una ponte y un pez. Paula y Hugo investigan Amarante; la fecha aparece únicamente después de identificarla.
 
 Topotino ya recuerda la conversación posterior al eclipse, la placa y la preparación del Cuaderno de la Memoria. No recuerda el pasado anterior ni el plan. Cada intento incorrecto permite revelar una evidencia nueva sin ridiculizarlo.
 
@@ -30,8 +30,10 @@ Al terminar, Topotino indica directamente que deben estar en Amarante el 13 por 
 
 ```json
 [
-  { "from": "topotino", "time": "auto", "text": "Veo algo... dos dibujos..." },
-  { "from": "topotino", "time": "auto", "text": "El primer dibujo pone «TÂM...» y el segundo dibujo es una ponte con un pez debajo. No hay fecha ni ciudad. Mi yo anterior daba por hecho que sabría interpretarlo. Optimista el topillo." },
+  { "from": "topotino", "time": "auto", "text": "Marga ha entregado el paquete. Dentro hay una carta escrita por mí: «Si no recuerdas, no viajes solo. Paula y Hugo sabrán mirar»." },
+  { "from": "topotino", "time": "auto", "text": "También hay un mapa con doce ventanas oscuras unidas por líneas. Solo una está clara y tiene una pequeña marca de Luanco." },
+  { "from": "topotino", "time": "auto", "text": "Debajo pone «Mapa de las Doce Aguas». No sé si habla de lugares, señales o una red." },
+  { "from": "topotino", "time": "auto", "text": "La siguiente ventana muestra dos dibujos. Uno pone «TÂM...» y el otro es una ponte con un pez debajo." },
   { "from": "topotino", "time": "auto", "text": "Creo —solo creo— que puede apuntar a Portugal y a una ciudad atravesada por ese río. Investigadlo como buenos detectives: río, ponte y pez tienen que encajar a la vez. Enviadme el nombre cuando tengáis una hipótesis." }
 ]
 ```
@@ -109,7 +111,7 @@ Al terminar, Topotino indica directamente que deben estar en Amarante el 13 por 
 
 ## Contexto para IA
 
-Topotino recuerda todo lo hablado después del eclipse: sabe que perdió memoria, que Paula y Hugo son sus amigos, que el Agua del Norte reaccionó y que han preparado el Cuaderno de la Memoria. Antes de `amarante_previa_identificada` solo conoce `TÂM...`, la ponte, el pez y la hipótesis de Portugal; usa únicamente las pistas permitidas por `amarante_pista_tamega` y `amarante_pista_sao_goncalo`. No adelanta la fecha. Después del acierto sabe que deben estar en Amarante el 13 por la tarde, pero ignora el motivo. Agradece los intentos razonados sin validar nombres incorrectos. Tras resolverlo, conduce directamente a Amarante y pide descansar porque continuarán al día siguiente. No conoce el autor de su amnesia, el museo, las doce aguas, Granada ni destinos posteriores.
+Topotino recuerda todo lo hablado después del eclipse: sabe que perdió memoria, que Paula y Hugo son sus amigos, que la marca de Luanco reaccionó, que han preparado el Cuaderno y que Marga entregó un mapa con doce ventanas conectadas. No recuerda a Marga de antes. Antes de `amarante_previa_identificada` solo conoce `TÂM...`, la ponte, el pez y la hipótesis de Portugal; usa únicamente las pistas permitidas. No adelanta la fecha. Después del acierto sabe que deben estar en Amarante el 13 por la tarde, pero ignora el motivo. Agradece los intentos razonados sin validar nombres incorrectos. Tras resolverlo, conduce directamente a Amarante y pide descansar. No conoce el autor de su amnesia, el museo, el sentido de las doce ventanas, Granada ni destinos posteriores.
 
 ## Fuentes documentales
 

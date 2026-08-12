@@ -15,7 +15,7 @@
 
 # Contexto narrativo
 
-Ponta da Piedade y Algar Seco permiten ordenar procesos sin afirmar una secuencia universal. En la HolaJaima, Topoloco suplanta a Topotino y pide la marca privada del cuaderno. La petición misma lo delata. El verdadero Topotino pronuncia la única palabrota leve del arco y se disculpa.
+Ponta da Piedade y Algar Seco permiten ordenar procesos sin afirmar una secuencia universal. En la HolaJaima, Eco, uno de los Oscurnos, suplanta a Topotino por orden de Topoloco y pide la marca privada del cuaderno. La petición misma lo delata. El verdadero Topotino pronuncia la única palabrota leve del arco y se disculpa.
 
 ## Mensajes iniciales
 
@@ -78,7 +78,8 @@ Ponta da Piedade y Algar Seco permiten ordenar procesos sin afirmar una secuenci
     "setFlags": ["jaima_impostor"],
     "remember": { "kind": "identity_verification", "label": "Detección del falso Topotino sin revelar la marca" },
     "messages": [
-      { "from": "topotino", "time": "auto", "text": "Canal falso expulsado. Soy yo de verdad. Mierda… perdón. Topoloco imitó mi voz, pero olvidó mi promesa: jamás os pediría la marca, una foto ni el contenido del cuaderno." },
+      { "from": "topotino", "time": "auto", "text": "Canal falso expulsado. Soy yo de verdad. Mierda… perdón. Quien imitó mi voz olvidó mi promesa: jamás os pediría la marca, una foto ni el contenido del cuaderno." },
+      { "from": "topotino", "time": "auto", "text": "Topotina ha rastreado la señal: era Eco, un Oscurno. Al detectar vuestros nombres cortó la conexión y huyó. Lo de Francia sigue dándoles bastante miedo." },
       { "from": "topotino", "time": "auto", "text": "Habéis usado coherencia, no una contraseña. Eso es más fuerte: una voz puede copiarse; una conducta mantenida en el tiempo es más difícil de falsificar." },
       { "from": "topotino", "time": "auto", "text": "Desde la terraza o dentro de la jaima, escuchad durante un minuto. Clasificad tres sonidos por distancia probable y decid cuál atravesaría peor una pared rígida. Justificadlo mediante volumen, frecuencia, repetición o cercanía." }
     ]
@@ -95,8 +96,10 @@ Ponta da Piedade y Algar Seco permiten ordenar procesos sin afirmar una secuenci
     "water": "Agua de la Piedra",
     "messages": [
       { "from": "topotino", "time": "auto", "text": "Gracias. La jaima no es solo un dormitorio raro y estupendo: esta noche ha funcionado como instrumento de escucha." },
-      { "from": "topotino", "time": "auto", "text": "Ha despertado el Agua de la Piedra: la huella de lo retirado, la resistencia de lo que permanece y la coherencia que permite reconocer una voz." },
-      { "from": "topotino", "time": "auto", "text": "La última señal interceptada dice «si cuidas algo, te pertenece». Mañana demostraremos por qué esa frase es peligrosa. Ahora descansad en vuestra tienda; la aventura continúa, pero no esta noche." }
+      { "from": "topotino", "time": "auto", "text": "La novena ventana se ha aclarado: conecta la huella de lo retirado, la resistencia de lo que permanece y la coherencia que permite reconocer una voz." },
+      { "from": "topotino", "time": "auto", "text": "Eco dejó una orden: «Busca el lugar que rescata animales del mar. Si los cuidan, nos pertenecen»." },
+      { "from": "topotino", "time": "auto", "text": "Topotina ha encontrado el nombre Porto d’Abrigo dentro de un parque marino. Mañana demostraremos por qué esa frase es peligrosa." },
+      { "from": "topotino", "time": "auto", "text": "Ahora descansad en vuestra tienda. La aventura continúa, pero no esta noche." }
     ]
   },
   {
@@ -132,7 +135,7 @@ Ponta da Piedade y Algar Seco permiten ordenar procesos sin afirmar una secuenci
 
 ## Contexto para IA
 
-La primera frase tras JAIMA la pronuncia Topoloco suplantando a Topotino; la segunda invita a detectar la contradicción. Nunca se acepta ni se almacena la marca. Topotino usa solo una vez «mierda», se disculpa inmediatamente y no repite palabrotas. No revela Granada. Cuaderno privado salvo consulta silenciosa para detectar la contradicción.
+La primera frase tras JAIMA la pronuncia Eco suplantando a Topotino por orden de Topoloco; la segunda invita a detectar la contradicción. Nunca se acepta ni se almacena la marca. Topotina rastrea a Eco y explica que huyó al reconocer a los niños de Francia. Topotino usa solo una vez «mierda», se disculpa inmediatamente y no repite palabrotas. No revela Granada. Cuaderno privado salvo consulta silenciosa para detectar la contradicción.
 
 ## Fuentes documentales
 

@@ -15,7 +15,7 @@
 
 # Contexto narrativo
 
-Tavira corrige la memoria popular de su puente: no puede demostrarse romano, sí medieval y reconstruido. Sevilla amplía la comparación entre puente, canal, representación y territorio. El cuaderno solo se consulta para producir una conclusión.
+Tavira corrige la memoria popular de su puente: no puede demostrarse romano, sí medieval y reconstruido. Sevilla amplía la comparación entre puente, canal, representación y territorio. Al completar la relación, Topotina localiza la segunda firma de parque detectada en Magikland. El cuaderno solo se consulta para producir una conclusión.
 
 ## Mensajes iniciales
 
@@ -82,8 +82,9 @@ Tavira corrige la memoria popular de su puente: no puede demostrarse romano, sí
     "water": "Agua de las Dos Orillas",
     "messages": [
       { "from": "topotino", "time": "auto", "text": "Gran comparación. Un puente puede resolver un cruce, organizar una escena o representar unión. La forma se parece; la función cambia." },
-      { "from": "topotino", "time": "auto", "text": "Ha despertado el Agua de las Dos Orillas. Topoloco dividía recuerdos para declarar propietaria a una sola versión; vosotros acabáis de demostrar que dos orillas y dos miradas pueden mantener su diferencia y formar una relación." },
-      { "from": "topotino", "time": "auto", "text": "Mañana entraremos en una ciudad representada como aventura. Sus mascotas conocen bien los disfraces." },
+      { "from": "topotino", "time": "auto", "text": "La undécima ventana se ha aclarado. Topoloco dividía recuerdos para declarar propietaria a una sola versión; vosotros habéis demostrado que dos orillas y dos miradas pueden mantener su diferencia y formar una relación." },
+      { "from": "topotino", "time": "auto", "text": "Topotina ha localizado la firma gemela de Magikland. Está en Sevilla: una isla de exploradores, barcos, piratas y viajes al otro lado del océano." },
+      { "from": "topotino", "time": "auto", "text": "Dos aliados de la red aparecen en el archivo: Capitán Pico y América. Mañana tendremos que encontrarlos y descubrir por qué Topoloco conectó los dos parques." },
       { "from": "topotino", "time": "auto", "text": "Si vais a usar Agua Mágica, preparad bañador, toalla y protector solar." },
       { "from": "topotino", "time": "auto", "text": "Descansad en Sevilla. Aún no sabemos dónde será el final." }
     ]

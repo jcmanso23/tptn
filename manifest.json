@@ -1,7 +1,7 @@
 {
   "name": "Comunicador Subterráneo",
   "short_name": "Topotino",
-  "description": "Chat secreto de Topotino y la Fuente de la Noche Clara",
+  "description": "Chat secreto de Topotino y el Mapa de las Doce Aguas",
   "start_url": "./index.html",
   "display": "standalone",
   "orientation": "portrait",

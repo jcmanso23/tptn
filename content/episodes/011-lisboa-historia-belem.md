@@ -96,9 +96,10 @@ Castelo, Alfama, Baixa y Belém muestran ocupación, transformación y reconstru
     "remember": { "kind": "memory_transformation", "label": "Supervivencia, reconstrucción y cambio de uso en Lisboa" },
     "water": "Agua de la Ciudad que Regresa",
     "messages": [
-      { "from": "topotino", "time": "auto", "text": "Eso era. Conservación no significa inmovilidad. Ha despertado el Agua de la Ciudad que Regresa." },
-      { "from": "topotino", "time": "auto", "text": "Recuerdo que el supuesto museo de Topoloco no era un edificio normal: él llamaba «exposición» a congelar una sola versión y eliminar las demás. Yo intenté impedirlo." },
-      { "from": "topotino", "time": "auto", "text": "Mañana cambiaremos piedra por animales vivos. Necesitaré observaciones sin suponer intenciones. Cenad y descansad; hoy Lisboa os ha hecho subir suficiente para tres topos y medio." }
+      { "from": "topotino", "time": "auto", "text": "Eso era. Conservación no significa inmovilidad. La séptima ventana se ha aclarado." },
+      { "from": "topotino", "time": "auto", "text": "Recuerdo que el museo de Topoloco no era un edificio normal. Él llamaba «exposición» a congelar una sola versión y eliminar las demás. Yo intenté impedirlo." },
+      { "from": "topotino", "time": "auto", "text": "En el mapa ha aparecido una silueta de sabana y, después, una marina abierta al mar. Mañana cambiaremos piedra por animales vivos y observaremos sin inventar intenciones." },
+      { "from": "topotino", "time": "auto", "text": "Cenad y descansad; hoy Lisboa os ha hecho subir suficiente para tres topos y medio." }
     ]
   },
   {

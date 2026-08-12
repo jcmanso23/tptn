@@ -15,7 +15,7 @@
 
 # Contexto narrativo
 
-Buçaco, Batalha y Fátima forman una investigación sobre capas, promesas y escala. Topoloco deja una ruta falsa que confunde lo más grande con lo más importante. Topotino recupera la promesa de confiar en Paula y Hugo, no el detalle de su memoria anterior al eclipse.
+Buçaco, Batalha y Fátima forman una investigación sobre capas, promesas y escala. Topoloco deja una ruta falsa que confunde lo más grande con lo más importante. La red necesita esa distinción para encontrar su cuarta conexión. Topotino recupera la promesa de confiar en Paula y Hugo, no el detalle de su memoria anterior al eclipse.
 
 ## Mensajes iniciales
 
@@ -110,8 +110,8 @@ Buçaco, Batalha y Fátima forman una investigación sobre capas, promesas y esc
     "messages": [
       { "from": "topotino", "time": "auto", "text": "Exacto. Habéis separado tamaño, posición y significado, y habéis tratado un lugar de fe con respeto: una cosa es lo observable y otra el testimonio que una comunidad conserva." },
       { "from": "topotino", "time": "auto", "text": "He recordado una promesa mía: si volvía a perderme dentro de mis propios recuerdos, confiaría en las dos versiones que Paula y Hugo pudieran comprobar juntos. No recuerdo cuándo la hice, pero sí por qué: una sola mirada deja puntos ciegos." },
-      { "from": "topotino", "time": "auto", "text": "Ha despertado el Agua de la Promesa. No es líquido para guardar: es una relación entre palabra, evidencia y acción. Topoloco acaba de perder su primera apuesta de hoy." },
-      { "from": "topotino", "time": "auto", "text": "La pista de mañana muestra pasos de un animal que ya no existe y agua trabajando bajo tierra." },
+      { "from": "topotino", "time": "auto", "text": "La cuarta ventana del mapa se ha aclarado. No guarda líquido: conecta palabra, evidencia y acción. Topoloco acaba de perder su apuesta de hoy." },
+      { "from": "topotino", "time": "auto", "text": "La ventana siguiente muestra pasos de un animal que ya no existe y agua trabajando bajo tierra. Tendremos que seguir ambos rastros." },
       { "from": "topotino", "time": "auto", "text": "Preparad calzado con buena suela y una capa ligera: dentro de una cueva puede refrescar." },
       { "from": "topotino", "time": "auto", "text": "Por hoy, basta. Cenad y descansad. Y no soñéis con contar 147 metros de pisadas: se puede medir mejor." }
     ]
@@ -149,7 +149,7 @@ Buçaco, Batalha y Fátima forman una investigación sobre capas, promesas y esc
 
 ## Contexto para IA
 
-Topotino recuerda las respuestas nuevas, no el pasado anterior al eclipse. Agradece argumentos concretos. No presenta alternativas hasta conocer un impedimento. Mantiene la distinción entre evidencia histórica, tradición y fe. No revela aún el museo, las doce aguas, Granada ni la causa confirmada de la amnesia. El Cuaderno de la Memoria es privado.
+Topotino recuerda las respuestas nuevas, no el pasado anterior al eclipse. Agradece argumentos concretos. No presenta alternativas hasta conocer un impedimento. Mantiene la distinción entre evidencia histórica, tradición y fe. Conoce el mapa y su nombre, pero no entiende todavía qué conecta la red. No revela el museo, Granada ni la causa confirmada de la amnesia. El Cuaderno de la Memoria es privado.
 
 ## Fuentes documentales
 

@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Paquete de Marga Mapas</title>
+  <style>
+    :root { color-scheme: light; --ink:#132c36; --gold:#bf8425; --paper:#f7f0dc; --night:#102937; }
+    * { box-sizing:border-box; }
+    body { margin:0; background:#d9d2bf; color:var(--ink); font-family:Georgia,serif; }
+    .toolbar { position:sticky; top:0; padding:12px; text-align:center; background:#102937; }
+    button { border:0; border-radius:999px; padding:10px 18px; background:#f2ae3e; color:#10212a; font-weight:800; cursor:pointer; }
+    main { width:min(900px, calc(100% - 28px)); margin:24px auto; }
+    .sheet { min-height:calc(100vh - 80px); margin:0 0 24px; padding:9%; background:var(--paper); box-shadow:0 8px 32px #0003; page-break-after:always; }
+    .seal { width:74px; height:74px; margin:auto; border:4px double var(--gold); border-radius:50%; display:grid; place-items:center; font:700 30px/1 Georgia; color:var(--gold); }
+    h1,h2 { text-align:center; letter-spacing:.06em; }
+    h1 { margin:26px 0 6px; font-size:clamp(28px,5vw,48px); }
+    .kicker { text-align:center; text-transform:uppercase; letter-spacing:.18em; font:700 12px/1.4 Arial,sans-serif; color:#80601f; }
+    .letter { max-width:650px; margin:44px auto 0; font-size:clamp(18px,2.5vw,25px); line-height:1.55; }
+    .signature { margin-top:36px; text-align:right; font-style:italic; }
+    .map { position:relative; margin:42px auto 24px; max-width:720px; display:grid; grid-template-columns:repeat(4,1fr); gap:34px 28px; }
+    .map:before { content:""; position:absolute; inset:10% 5%; background:linear-gradient(25deg,transparent 48%,#b68c3b 49% 51%,transparent 52%),linear-gradient(-18deg,transparent 48%,#b68c3b 49% 51%,transparent 52%); opacity:.45; }
+    .window { position:relative; z-index:1; aspect-ratio:1; border:6px double #c3953b; border-radius:50%; background:var(--night); display:grid; place-items:center; color:#f7f0dc; font:700 22px/1 Arial,sans-serif; box-shadow:0 3px 0 #8c6829; }
+    .window.clear { background:#e8f7e6; color:#234431; }
+    .window small { display:block; text-align:center; font-size:10px; letter-spacing:.08em; }
+    .clue { max-width:620px; margin:45px auto 0; padding:24px; border:3px solid var(--gold); text-align:center; }
+    .clue strong { display:block; font-size:34px; letter-spacing:.18em; }
+    .symbols { display:flex; justify-content:center; gap:34px; margin:18px 0; font-size:54px; }
+    .warning { text-align:center; font:700 12px/1.5 Arial,sans-serif; letter-spacing:.1em; text-transform:uppercase; }
+    @media print { body{background:white}.toolbar{display:none}main{width:100%;margin:0}.sheet{box-shadow:none;margin:0;min-height:100vh} }
+  </style>
+</head>
+<body>
+  <div class="toolbar"><button type="button" onclick="window.print()">Imprimir carta y mapa</button></div>
+  <main>
+    <section class="sheet">
+      <div class="seal">M</div>
+      <p class="kicker">Red subterránea · Entrega de Marga Mapas</p>
+      <h1>Para Paula y Hugo</h1>
+      <div class="letter">
+        <p>Si estáis leyendo esto, ha ocurrido algo que yo temía.</p>
+        <p>Puede que no recuerde el camino. Puede que ni siquiera recuerde por qué lo preparé. Pero sí dejé escrita una cosa de la que estaba completamente seguro:</p>
+        <p><strong>No debo recorrerlo solo. Paula y Hugo sabrán mirar.</strong></p>
+        <p>El mapa no contiene destinos. Cada ventana se abrirá únicamente cuando comprendáis algo que Topoloco no pueda copiar sin vosotros.</p>
+        <p>No confiéis en la pista más llamativa. Confiad en la que podáis comprobar juntos.</p>
+        <p>Y si yo olvido quiénes sois, recordádmelo con una historia verdadera.</p>
+        <p class="signature">Topotino<br><small>escrito antes del eclipse</small></p>
+      </div>
+    </section>
+    <section class="sheet">
+      <p class="kicker">Documento T-12 · No entregar a Topoloco</p>
+      <h2>Mapa de las Doce Aguas</h2>
+      <div class="map" aria-label="Doce ventanas conectadas">
+        <div class="window clear">✓<small>LUANCO</small></div>
+        <div class="window">2</div><div class="window">3</div><div class="window">4</div>
+        <div class="window">5</div><div class="window">6</div><div class="window">7</div><div class="window">8</div>
+        <div class="window">9</div><div class="window">10</div><div class="window">11</div><div class="window">12</div>
+      </div>
+      <div class="clue">
+        <strong>TÂM…</strong>
+        <div class="symbols" aria-label="un puente y un pez"><span>🌉</span><span>🐟</span></div>
+        <p>El río, la ponte y el pez deben señalar el mismo lugar.</p>
+      </div>
+      <p class="warning">La fecha solo aparecerá cuando el lugar sea correcto</p>
+    </section>
+  </main>
+</body>
+</html>

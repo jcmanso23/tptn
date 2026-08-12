@@ -15,13 +15,14 @@
 
 # Contexto narrativo
 
-Zoomarine sirve para diferenciar observación, educación, rescate y rehabilitación. El eje ético es que cuidar no otorga propiedad. Las pruebas no dependen de ver un animal concreto.
+Zoomarine sirve para diferenciar observación, educación, rescate y rehabilitación. Vasco reaparece mediante el comunicador para conectar el Protocolo Azul con Porto d’Abrigo. Topotina analiza la tecnología encontrada por Eco. El eje ético es que cuidar no otorga propiedad. Las pruebas no dependen de ver un animal concreto.
 
 ## Mensajes iniciales
 
 ```json
 [
-  { "from": "topotino", "time": "auto", "text": "Buenos días. Topoloco afirma: «si cuidas algo, te pertenece». Buscad primero información de Porto d’Abrigo." },
+  { "from": "topotino", "time": "auto", "text": "Buenos días. Vasco ha respondido a la orden de Eco con una sola palabra: «devolver». Topoloco afirma: «si cuidas algo, te pertenece»." },
+  { "from": "topotino", "time": "auto", "text": "Buscad primero información de Porto d’Abrigo." },
   { "from": "topotino", "time": "auto", "text": "Reconstruid un rescate: llegada, diagnóstico, rehabilitación y posible retorno. Para cada fase indicad qué decisión necesita evidencia." }
 ]
 ```
@@ -85,8 +86,10 @@ Zoomarine sirve para diferenciar observación, educación, rescate y rehabilitac
     "water": "Agua del Cuidado",
     "messages": [
       { "from": "topotino", "time": "auto", "text": "Exacto. Si realmente los hubiera protegido, su objetivo sería devolverlos sin imponer una versión. Retenerlos y borrar relaciones es apropiación, no cuidado." },
-      { "from": "topotino", "time": "auto", "text": "Ha despertado el Agua del Cuidado. Y he recuperado una certeza: Topoloco provocó mi amnesia para que dejara de frustrar su plan. Aún no puedo demostrar el mecanismo completo, pero ya conocemos motivo, conducta y resultado." },
-      { "from": "topotino", "time": "auto", "text": "Mañana comprobaremos una memoria urbana muy repetida que quizá sea falsa. Después cruzaremos otra frontera y otro río. Descansad; hoy habéis derrotado una idea peligrosa, no solo una prueba." }
+      { "from": "topotino", "time": "auto", "text": "La décima ventana se ha aclarado. Y he recuperado una certeza: Topoloco provocó mi amnesia para que dejara de frustrar su plan." },
+      { "from": "topotino", "time": "auto", "text": "Aún no puedo demostrar el mecanismo completo, pero ya conocemos motivo, conducta y resultado. Topotina cree que la respuesta final está en un reflejo nocturno." },
+      { "from": "topotino", "time": "auto", "text": "La ventana siguiente muestra un puente de siete arcos con una etiqueta que dice «romano». Borrón ha marcado la palabra como si quisiera que la creyéramos sin comprobarla." },
+      { "from": "topotino", "time": "auto", "text": "Mañana corregiremos esa memoria, cruzaremos una frontera y buscaremos la segunda firma de parque. Descansad; hoy habéis derrotado una idea peligrosa." }
     ]
   }
 ]
@@ -116,10 +119,11 @@ Zoomarine sirve para diferenciar observación, educación, rescate y rehabilitac
 
 ## Contexto para IA
 
-Al final Topotino concluye que Topoloco causó la amnesia, como inferencia muy fuerte apoyada por motivo y conducta, pero admite que falta el mecanismo. No trivializa bienestar animal. Cuaderno privado.
+Al final Topotino concluye que Topoloco causó la amnesia, como inferencia muy fuerte apoyada por motivo y conducta, pero admite que falta el mecanismo. Topotina sitúa la respuesta final en un reflejo nocturno. Vasco conecta el Protocolo Azul con rescate y devolución. No trivializa bienestar animal. Cuaderno privado.
 
 ## Fuentes documentales
 
 - https://www.zoomarine.pt/pt/
 - https://www.zoomarine.pt/en/togetherweprotect/about-us-twp/
+- https://www.zoomarine.pt/en/togetherweprotect/rehabilitation-center/the-centres-activities/
 - https://www.zoomarine.pt/en/discover-the-park/presentations/

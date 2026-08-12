@@ -42,6 +42,7 @@ No hay villano, agua ni misión obligatoria. Generalife, Carlos V y Alcazaba sir
     "messages": [
       { "from": "topotino", "time": "auto", "text": "Gracias por volver a mirar. Un lugar no se agota en una visita ni una historia en una versión." },
       { "from": "topotino", "time": "auto", "text": "El Cuaderno de la Memoria es vuestro. No necesito verlo para saber lo importante: fue construido por dos personas capaces de observar, discutir, corregir y seguir siendo un equipo." },
+      { "from": "topotino", "time": "auto", "text": "Topotina —Tina— manda saludos. Dice que por fin voy a devolverle sus tres destornilladores. No recuerdo haberlos cogido, lo cual no mejora mi defensa." },
       { "from": "topotino", "time": "auto", "text": "Buen viaje de vuelta a Valladolid, Paula y Hugo. Canal T-00FIN cerrado con honores. Topotino fuera… aunque seguiré vigilando por si cierto topo ridículo vuelve a asomar el bigote." }
     ]
   },

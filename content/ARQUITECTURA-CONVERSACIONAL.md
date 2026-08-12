@@ -35,7 +35,7 @@ Desde el eclipse distingue memoria emocional, memoria factual anterior y memoria
 
 ### Estado verificable
 
-Flags, aguas, palabras, episodios, mensajes y memoria de viaje viven en el estado de la partida y en su copia de Upstash. Esta capa decide qué se ha completado. Un modelo no puede inventar o conceder un logro.
+Flags, valores internos heredados de aguas, palabras, episodios, mensajes y memoria de viaje viven en el estado de la partida y en su copia de Upstash. Esta capa decide qué se ha completado. Los valores de agua se traducen en la interfaz como ventanas recuperadas del mapa. Un modelo no puede inventar o conceder un logro.
 
 La `storyMemory` conserva únicamente respuestas guiadas del comunicador marcadas como relevantes: observaciones físicas, hipótesis, predicciones, decisiones y correcciones. Cada elemento incluye episodio, tipo, etiqueta y texto original. Se limita a sesenta elementos y migra de forma compatible: una partida anterior empieza con la lista vacía sin perder ningún dato existente.
 
@@ -55,7 +55,7 @@ La conversación sigue esta política:
 4. Topotino ofrece una sola adaptación que conserva el objetivo narrativo.
 5. Si «no podemos» no explica la causa, pregunta qué ocurre antes de proponer nada.
 
-Las activaciones por fecha filtran sus mensajes iniciales mediante `requiredFlags` y `blockedFlags`. Si falta una fase anterior, llega un puente de recuperación que reconoce lo no vivido y presenta la evidencia disponible del día actual. Nunca se atribuye a Paula y Hugo un agua, una deducción o una visita que no completaron.
+Las activaciones por fecha filtran sus mensajes iniciales mediante `requiredFlags` y `blockedFlags`. Si falta una fase anterior, llega un puente de recuperación que reconoce lo no vivido y presenta la evidencia disponible del día actual. Nunca se atribuye a Paula y Hugo una ventana, una deducción o una visita que no completaron.
 
 Las contingencias importantes siguen teniendo respuestas deterministas para funcionar aunque el modelo no esté disponible.
 
@@ -98,13 +98,13 @@ Adoptar un único agente Topotino —no una red de agentes— si necesitamos her
 - `clasificar_imprevisto`: identifica lluvia, cierre, cansancio, miedo o cambio de plan;
 - `pedir_pista_controlada`: recupera una pista ya aprobada;
 - `proponer_adaptacion`: devuelve una adaptación sin modificar progreso;
-- `solicitar_avance`: pide al motor determinista validar una respuesta antes de conceder flags, aguas o palabras.
+- `solicitar_avance`: pide al motor determinista validar una respuesta antes de conceder flags, ventanas o palabras técnicas.
 
 El registro de Upstash seguirá siendo la fuente de verdad aunque el SDK incorpore sesiones. La memoria del modelo ayuda a conversar; no sustituye la continuidad canónica.
 
 ## 6. Límites no negociables
 
-- El agente no puede conceder flags, aguas o palabras sin validación determinista.
+- El agente no puede conceder flags, ventanas o palabras técnicas sin validación determinista.
 - No puede leer el canon secreto completo.
 - No puede modificar capítulos ni enviar mensajes adultos.
 - Las reglas de seguridad se aplican antes de la creatividad narrativa.

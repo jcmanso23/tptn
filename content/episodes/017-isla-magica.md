@@ -15,7 +15,7 @@
 
 # Contexto narrativo
 
-Isla Mágica representa los siglos XVI y XVII. Capitán Pico y América ayudan como mensajeros. Marsupilami puede ser un cameo, nunca un requisito. Topoloco diseña una trampa basada en cómo deciden los niños y, al fallar, revela Granada y doce guardianes.
+Isla Mágica representa los siglos XVI y XVII y es la estación gemela de Magikland. Capitán Pico y América no son mascotas decorativas: son aliados de Topotino y convierten a Paula y Hugo en pequeños exploradores para buscar dos partes de la señal. Krim, duende del Mundo de los Colores, ayuda a separar emoción y decisión mediante color, cuento y juego. Niebla combina ruido, emoción y urgencia en una trampa basada en cómo deciden los niños. Paula y Hugo la vuelven contra él y el fallo revela Granada y doce guardianes.
 
 ## Mensajes iniciales
 
@@ -39,7 +39,8 @@ Isla Mágica representa los siglos XVI y XVII. Capitán Pico y América ayudan c
     "setFlags": ["isla_evidencia"],
     "remember": { "kind": "representation_literacy", "label": "Diferencia entre ambientación, función y evidencia histórica" },
     "messages": [
-      { "from": "topotino", "time": "auto", "text": "Gracias. Un escenario puede enseñar y divertir sin convertirse en documento original. Capitán Pico y América, las mascotas del parque, confirman que Topoloco ha escondido dos rutas falsas." },
+      { "from": "topotino", "time": "auto", "text": "Gracias. Un escenario puede enseñar y divertir sin convertirse en documento original." },
+      { "from": "topotino", "time": "auto", "text": "Capitán Pico y América os nombran pequeños exploradores. Han encontrado dos rutas falsas de Topoloco, pero cada una contiene media señal verdadera." },
       { "from": "topotino", "time": "auto", "text": "Escoged una atracción o espacio de agua y otro sin agua. Para cada uno construid una cadena causa–efecto de tres pasos. Luego identificad una decisión humana que cambie el resultado: posición, momento, recorrido, protección o estrategia. No hace falta montar en nada que no queráis." }
     ]
   },
@@ -54,7 +55,9 @@ Isla Mágica representa los siglos XVI y XVII. Capitán Pico y América ayudan c
     "remember": { "kind": "causal_chains", "label": "Dos cadenas causales y una decisión en Isla Mágica" },
     "messages": [
       { "from": "topotino", "time": "auto", "text": "Eso buscaba Topoloco: no vuestros datos, sino el punto exacto donde una decisión cambia el sistema." },
-      { "from": "topotino", "time": "auto", "text": "Ha enviado dos instrucciones: A) seguid la ruta más llamativa; B) seguid la que contiene una afirmación comprobable y una salida segura si falla. Elegid una y justificadla con el método de todo el viaje. Atención: esta vez la trampa es deliberada." }
+      { "from": "topotino", "time": "auto", "text": "Krim ha detectado colores de prisa, emoción y miedo a perderse algo. Sentirlos es normal; obedecerlos sin pensar es otra cosa." },
+      { "from": "topotino", "time": "auto", "text": "Niebla envía dos rutas: A) la más llamativa y urgente; B) una afirmación comprobable con salida segura si falla." },
+      { "from": "topotino", "time": "auto", "text": "Elegid una. Decid qué emoción intenta usar Niebla, qué evidencia comprobaréis y cómo podréis corregir sin quedar atrapados." }
     ]
   },
   {
@@ -63,11 +66,12 @@ Isla Mágica representa los siglos XVI y XVII. Capitán Pico y América ayudan c
     "blockedFlags": ["isla_trampa"],
     "openAnswer": true,
     "minWords": 11,
-    "containsAnyGroups": [["b", "segunda", "comprobable", "evidencia"], ["segura", "salida", "corregir", "falla"], ["método", "metodo", "porque", "no la llamativa"]],
+    "containsAnyGroups": [["b", "segunda", "comprobable", "evidencia"], ["segura", "salida", "corregir", "falla"], ["emoción", "emocion", "prisa", "miedo", "ilusión", "ilusion", "urgencia"], ["método", "metodo", "porque", "no la llamativa"]],
     "setFlags": ["isla_trampa"],
     "remember": { "kind": "adversarial_decision", "label": "Elección de una ruta comprobable y reversible" },
     "messages": [
-      { "from": "topotino", "time": "auto", "text": "Trampa desactivada. Elegisteis una afirmación comprobable y una decisión reversible. Topoloco apostó a que la urgencia borraría vuestro método." },
+      { "from": "topotino", "time": "auto", "text": "Contratrampa completada. Elegisteis una afirmación comprobable, reconocisteis la emoción y mantuvisteis una salida. Niebla creyó que la urgencia borraría vuestro método." },
+      { "from": "topotino", "time": "auto", "text": "Capitán Pico ha hecho que Niebla siga la ruta llamativa. América ha cerrado la copia en cuanto intentó corregir. Krim dice que el Oscurno salió color «verde mareado»." },
       { "from": "topotino", "time": "auto", "text": "Capitán Pico ha recuperado un fragmento; América ha encontrado el otro. Juntos dicen: «GRANADA · la ciudad roja · doce guardianes de piedra · cuando el agua refleje la noche»." },
       { "from": "topotino", "time": "auto", "text": "Ya sabemos el destino final: la Alhambra de Granada, de noche. No sabemos aún qué harán los doce guardianes ni cómo se abre el cierre." },
       { "from": "topotino", "time": "auto", "text": "Si encontráis a Marsupilami en Agua Mágica, podéis saludarlo; no posee ninguna clave y no hace falta buscarlo. La misión no depende de una aparición." },
@@ -84,7 +88,7 @@ Isla Mágica representa los siglos XVI y XVII. Capitán Pico y América ayudan c
     "setFlags": ["completado_isla_magica"],
     "remember": { "kind": "epistemic_guardrail", "label": "Regla contra una falsificación convincente" },
     "messages": [
-      { "from": "topotino", "time": "auto", "text": "Regla aceptada. Hoy no despierta agua: habéis conseguido algo más urgente, el destino final." },
+      { "from": "topotino", "time": "auto", "text": "Regla aceptada. Hoy no se abre una ventana: habéis conseguido algo más urgente, el destino final." },
       { "from": "topotino", "time": "auto", "text": "Mañana veremos dos edificios de Sevilla con varias épocas y después viajaremos a Granada." },
       { "from": "topotino", "time": "auto", "text": "Tened las entradas preparadas y llevad una capa ligera para la noche. Guardad energía." },
       { "from": "topotino", "time": "auto", "text": "La entrada nocturna es el desenlace. Ahora descansad." }
@@ -123,10 +127,12 @@ Isla Mágica representa los siglos XVI y XVII. Capitán Pico y América ayudan c
 
 ## Contexto para IA
 
-Capitán Pico y América ayudan solo a reunir la pista. Marsupilami es opcional. Tras la trampa se puede decir Granada, Alhambra y doce guardianes; antes no. Topotino aún no sabe que son los leones. Sin agua. Cuaderno privado.
+Capitán Pico y América reclutan a los niños como exploradores y ayudan a reunir la pista, sin resolver las pruebas. Krim ayuda a nombrar la emoción y separarla de la decisión. Niebla cae en una contratrampa reversible y huye. Marsupilami es opcional. Tras la trampa se puede decir Granada, Alhambra y doce guardianes; antes no. Topotino aún no sabe que son los leones. Este día no abre ventana. Cuaderno privado.
 
 ## Fuentes documentales
 
 - https://www.islamagica.es/mapa-y-zonas-tematicas
 - https://www.islamagica.es/aguamagica
 - https://signaling.islamagica.es/publica/prog_espectaculos.php
+- https://www.islamagica.es/espectaculos/capitan-pico-y-america
+- https://www.islamagica.es/espectaculos/el-duende-de-los-colores

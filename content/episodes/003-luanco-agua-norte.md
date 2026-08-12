@@ -2,8 +2,8 @@
 {
   "id": "003-luanco-agua-norte",
   "order": 3,
-  "title": "Agua del Norte",
-  "channelCode": "T-12A9",
+  "title": "Luanco · La primera señal",
+  "channelCode": "T-12B0",
   "startsUnlocked": false,
   "activation": {
     "mode": "all",
@@ -24,11 +24,11 @@
 
 # Contexto narrativo
 
-Es sábado 27. Los topos han revisado la observación de Luanco y han descubierto que la Fuente de la Noche Clara no despierta con una pista única, sino con una especie de pócima simbólica hecha con aguas de muchos lugares.
+Es sábado 27. Los topos han revisado la observación de Luanco. Topotino todavía no conoce la red completa, pero sospecha que Topoloco está haciendo pruebas con lugares donde el agua y los recuerdos se cruzan.
 
-Topotino debe explicar que por eso Topoloco está en Luanco: quiere guardar el brillo para él. No debe dar miedo; Topoloco es torpe, obsesivo y egoísta.
+Topotino no sabe todavía para qué sirve la prueba. Topoloco es egoísta y huidizo, no un torpe constante.
 
-Paula y Hugo deben recoger muy poca agua, como tres gotas, de forma segura y respetuosa. Deben poner una pegatina o etiqueta para recordar que es el Agua del Norte. No hace falta cantidad: importa el recuerdo.
+Paula y Hugo deben recoger muy poca agua, como tres gotas, de forma segura y respetuosa. Deben etiquetarla simplemente como LUANCO. No hace falta cantidad: es una muestra para la investigación anterior al eclipse.
 
 No revelar la lista completa de aguas ni destinos futuros.
 
@@ -38,10 +38,10 @@ No revelar la lista completa de aguas ni destinos futuros.
 [
   { "from": "topotino", "time": "auto", "text": "Amigos, acabo de recibir respuesta de los topos vigía." },
   { "from": "topotino", "time": "auto", "text": "Venía en un papel húmedo, doblado en forma de ola. Eso, en lenguaje topo, significa asunto importante." },
-  { "from": "topotino", "time": "auto", "text": "La señal de anoche no era una pista suelta. Era el borde de algo mucho más raro, de una pócima de aguas." },
-  { "from": "topotino", "time": "auto", "text": "Por eso Topoloco está por aquí. Quiere encontrar el brillo antes que vosotros y guardárselo, como si la belleza cupiera en un bolsillo." },
+  { "from": "topotino", "time": "auto", "text": "La señal de anoche no era una pista suelta. Topoloco está probando algo con el agua y los recuerdos de los lugares." },
+  { "from": "topotino", "time": "auto", "text": "No sé todavía para qué. Y eso me pone los bigotes de punta." },
   { "from": "topotino", "time": "auto", "text": "Necesito que cojáis solo un poquito de agua. Tres gotas bastan. Las aguas importantes no pesan por cantidad, pesan por recuerdo." },
-  { "from": "topotino", "time": "auto", "text": "Ponedle una pegatina o una etiqueta que diga: Agua del Norte. Así nos acordaremos más adelante de cuál cogimos." },
+  { "from": "topotino", "time": "auto", "text": "Ponedle una etiqueta que diga LUANCO. Así sabremos de dónde salió la muestra." },
   { "from": "topotino", "time": "auto", "text": "Cuando esté guardada, contádmelo por aquí. Sin gritar. Las gotas escuchan mejor en voz baja." }
 ]
 ```
@@ -60,7 +60,7 @@ No revelar la lista completa de aguas ni destinos futuros.
     "nextEpisode": "004-eclipse",
     "messages": [
       { "from": "topotino", "time": "auto", "text": "Buena misión, amigos. Muy buena." },
-      { "from": "topotino", "time": "auto", "text": "Agua del Norte guardada. No es mucha, pero tiene memoria de mar, de noche blanca y de ojos atentos." },
+      { "from": "topotino", "time": "auto", "text": "Muestra de Luanco guardada. No es mucha, pero conserva el lugar exacto donde empezó esta señal." },
       { "from": "topotino", "time": "auto", "text": "Es importante que no la perdáis." },
       { "from": "topotino", "time": "auto", "text": "Escuchad... me llega una primera palabra... es MIRO." },
       { "from": "topotino", "time": "auto", "text": "¿Para qué servirá?" },
@@ -77,7 +77,7 @@ No revelar la lista completa de aguas ni destinos futuros.
 
 ```json
 [
-  "Todavía no marco el Agua del Norte como guardada. Recordad coger tres gotas de agua del mar.",
+  "Todavía no marco la muestra de Luanco como guardada. Recordad coger solo tres gotas de agua del mar.",
   "No hace falta mucha agua. Hace falta cuidarla y recordar de dónde viene.",
   "Cuando la tengáis en el botecito con su pegatina, decidme que está hecho."
 ]
@@ -85,6 +85,6 @@ No revelar la lista completa de aguas ni destinos futuros.
 
 ## Contexto para IA
 
-Topotino debe explicar la idea de la pócima de aguas de forma misteriosa y familiar, sin revelar la ruta completa. Debe insistir en recoger muy poca agua, respetar el lugar y etiquetar el bote como Agua del Norte.
+Topotino explica que la muestra sirve para investigar la relación entre agua, lugar y recuerdo, sin inventar todavía el mapa ni la ruta. Debe insistir en recoger muy poca agua, respetar el lugar y etiquetar el bote como LUANCO.
 
 Si Paula y Hugo dicen que ya lo han hecho de forma plausible, la respuesta guiada debe encargarse del avance. Si escriben algo raro o inseguro, Topotino debe redirigir hacia una acción sencilla, segura y respetuosa.
