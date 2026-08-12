@@ -32,11 +32,15 @@ test('la conversación libre usa Luna y conserva los turnos con sus roles', asyn
   assert.doesNotMatch(source, /contextoNarrativo:|narrativeContext/);
 });
 
-test('las respuestas conversacionales no usan la espera larga de las misiones', async () => {
+test('las respuestas conversacionales usan silencios naturales y pueden no contestar', async () => {
   const source = await readFile(join(root, 'app.js'), 'utf8');
 
   assert.match(source, /deliverTopotinoMessages\(responsePromise, \{ mode: 'conversation' \}\)/);
   assert.match(source, /if \(mode === 'conversation'\)/);
+  assert.match(source, /shouldTopotinoStaySilent\(text\)/);
+  assert.match(source, /LONG_REPLY_CHANCE/);
+  assert.match(source, /LONG_REPLY_MIN_MS = 60000/);
+  assert.match(source, /nextTypingMin: 2500/);
   assert.match(source, /activeEpisodes: \[activeEpisode\]\.map/);
   assert.match(source, /storyMemory: state\.storyMemory\.slice\(-36\)/);
   assert.match(source, /function recordStoryMemory/);

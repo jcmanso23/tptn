@@ -1,6 +1,6 @@
 # Guía maestra de coherencia narrativa · Las Doce Aguas
 
-**Versión canónica:** 12 de agosto de 2026 · edición T-12B1
+**Versión canónica:** 12 de agosto de 2026 · edición T-12B2
 **Final principal:** Alhambra, Palacios Nazaríes, noche del 26 de agosto
 **Epílogo:** Generalife, 27 de agosto; no abre otra amenaza
 
@@ -277,9 +277,17 @@ Antes de publicar un cambio:
 - [ ] El siguiente destino tiene una razón narrativa y preparación práctica.
 - [ ] Si cambia el día, Topotino pide descanso.
 - [ ] Los mensajes parecen conversación de WhatsApp.
+- [ ] Topotino no responde a un simple cierre si la conversación ya ha quedado resuelta.
+- [ ] Antes de responder hay una pausa natural y cada burbuja requiere un tiempo de escritura propio.
 - [ ] El final continúa en la Alhambra nocturna y el Generalife es solo epílogo.
 
 ## 19. Registro de decisiones
+
+### 12 de agosto de 2026 · T-12B2
+
+- Topotino guarda silencio ante cierres como «ok», «vale», «entendido» o «gracias», excepto cuando sean una respuesta necesaria para avanzar.
+- Las conversaciones de Luna recuperan pausas variables: normalmente segundos y, ocasionalmente, una ausencia más larga.
+- Cada burbuja sucesiva muestra un nuevo tiempo de escritura; ya no aparecen varios mensajes en el mismo instante.
 
 ### 12 de agosto de 2026 · T-12B1
 

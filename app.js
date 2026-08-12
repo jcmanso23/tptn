@@ -1,4 +1,4 @@
-import { splitTopotinoMessages } from './chat-format.js?v=memory-v27';
+import { splitTopotinoMessages } from './chat-format.js?v=memory-v28';
 
 const STORAGE_KEYS = {
   auth: 'topotino_chat_auth_v1',
@@ -6,9 +6,9 @@ const STORAGE_KEYS = {
 };
 
 const LEGACY_STATE_KEY = 'topotino_chat_state_v1';
-const APP_VERSION_CODE = 'T-12B1';
+const APP_VERSION_CODE = 'T-12B2';
 const PASSPHRASE_HASH = 'a64716bd9f4e8added1bf47f80b97c3fc7b70a15b8043cdab083e1ddf85f3794';
-const EPISODES_MANIFEST = 'content/episodes.json?v=memory-v27';
+const EPISODES_MANIFEST = 'content/episodes.json?v=memory-v28';
 const LIVE_STORY_ENDPOINT = '/api/story';
 const ACTIVATION_TICK_MS = 60000;
 const LOCATION_REFRESH_COOLDOWN_MS = 2 * 60 * 1000;
@@ -33,10 +33,13 @@ const REPLY_TYPING_VISIBLE_MIN_MS = 8000;
 const REPLY_TYPING_VISIBLE_MAX_MS = 14000;
 const REPLY_NEXT_TYPING_VISIBLE_MIN_MS = 4000;
 const REPLY_NEXT_TYPING_VISIBLE_MAX_MS = 9000;
-const ACTIVATION_SILENCE_MIN_MS = 700;
-const ACTIVATION_SILENCE_MAX_MS = 1800;
-const ACTIVATION_TYPING_MIN_MS = 1200;
-const ACTIVATION_TYPING_MAX_MS = 2600;
+const ACTIVATION_SILENCE_MIN_MS = 2000;
+const ACTIVATION_SILENCE_MAX_MS = 8000;
+const ACTIVATION_TYPING_MIN_MS = 2500;
+const ACTIVATION_TYPING_MAX_MS = 6500;
+const LONG_REPLY_CHANCE = 0.06;
+const LONG_REPLY_MIN_MS = 60000;
+const LONG_REPLY_MAX_MS = 120000;
 const SYNC_DEBOUNCE_MS = 1800;
 
 const CHATTER_WARNINGS = [
@@ -549,6 +552,12 @@ async function handleUserMessage(text) {
     return;
   }
 
+  if (shouldTopotinoStaySilent(text)) {
+    saveState();
+    renderAll();
+    return;
+  }
+
   const progressiveHint = nextProgressiveHint();
   if (progressiveHint) {
     await deliverTopotinoMessages([{
@@ -759,6 +768,15 @@ function shouldWarnAboutChatter(text) {
   return recentUserMessages.length >= CHATTER_LIMIT_MESSAGES;
 }
 
+function shouldTopotinoStaySilent(text) {
+  const normalized = normalizeText(text).replace(/[.!¡?¿]+$/g, '').trim();
+  return new Set([
+    'ok', 'okay', 'vale', 'de acuerdo', 'entendido', 'entendida',
+    'perfecto', 'perfecta', 'gracias', 'muchas gracias', 'genial',
+    'bien', 'esta bien', 'está bien', 'hasta luego', 'adios', 'adiós'
+  ]).has(normalized);
+}
+
 function nextChatterWarning() {
   const response = CHATTER_WARNINGS[state.chatterWarningCursor % CHATTER_WARNINGS.length];
   state.chatterWarningCursor += 1;
@@ -772,7 +790,7 @@ async function deliverTopotinoMessages(messagesOrPromise, options = {}) {
   try {
     const messagesPromise = Promise.resolve(messagesOrPromise);
     const timing = getReplyTiming(options.mode);
-    await wait(randomInt(timing.silenceMin, timing.silenceMax));
+    await wait(getInitialReplyDelay(timing, options.mode));
     setBusy(true, true);
 
     const [messages] = await Promise.all([
@@ -828,14 +846,14 @@ function getReplyTiming(mode) {
 
   if (mode === 'conversation') {
     return {
-      silenceMin: 250,
-      silenceMax: 700,
-      typingMin: 700,
-      typingMax: 1400,
-      staggerMin: 250,
-      staggerMax: 600,
-      nextTypingMin: 450,
-      nextTypingMax: 900
+      silenceMin: 4000,
+      silenceMax: 35000,
+      typingMin: 2500,
+      typingMax: 7500,
+      staggerMin: 1500,
+      staggerMax: 4000,
+      nextTypingMin: 2500,
+      nextTypingMax: 7000
     };
   }
 
@@ -849,6 +867,12 @@ function getReplyTiming(mode) {
     nextTypingMin: REPLY_NEXT_TYPING_VISIBLE_MIN_MS,
     nextTypingMax: REPLY_NEXT_TYPING_VISIBLE_MAX_MS
   };
+}
+
+function getInitialReplyDelay(timing, mode) {
+  const ordinaryDelay = randomInt(timing.silenceMin, timing.silenceMax);
+  if (mode !== 'conversation' || Math.random() >= LONG_REPLY_CHANCE) return ordinaryDelay;
+  return randomInt(LONG_REPLY_MIN_MS, LONG_REPLY_MAX_MS);
 }
 
 function wait(ms) {
@@ -1808,6 +1832,6 @@ function applyTestingParams() {
 
 function registerServiceWorker() {
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('service-worker.js?v=offline-v13').catch(() => {});
+    navigator.serviceWorker.register('service-worker.js?v=offline-v14').catch(() => {});
   }
 }
