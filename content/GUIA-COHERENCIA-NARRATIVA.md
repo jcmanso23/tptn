@@ -1,6 +1,6 @@
 # Guía maestra de coherencia narrativa · Las Doce Aguas
 
-**Versión canónica:** 12 de agosto de 2026 · edición T-12B3
+**Versión canónica:** 12 de agosto de 2026 · edición T-12B4
 **Final principal:** Alhambra, Palacios Nazaríes, noche del 26 de agosto
 **Epílogo:** Generalife, 27 de agosto; no abre otra amenaza
 
@@ -85,9 +85,9 @@ Topotina recuerda a su hermano y la arquitectura del sistema, pero no conoce la 
 
 ## 6. El paquete físico y el Mapa de las Doce Aguas
 
-Antes del eclipse, Topotino prepara un paquete de emergencia, lo cierra y se lo confía directamente a Marga Mapas. No lo envía entonces ni Marga lo encuentra por casualidad. En el exterior deja una instrucción precisa: si después del eclipse la señal de Topotino se interrumpe y él ya no recuerda Luanco ni el motivo de aquella muestra, Marga debe hacérselo llegar a Paula y Hugo y no explicarles el contenido.
+Antes del eclipse, Topotino prepara dos copias idénticas de la carta y del mapa. Esconde una en un doble fondo de su madriguera sin dejar ninguna referencia visible y entrega la otra, cerrada, a Marga Mapas. No lo envía entonces ni Marga lo encuentra por casualidad. En el exterior deja una instrucción precisa: si después del eclipse la señal de Topotino se interrumpe y él ya no recuerda Luanco ni el motivo de aquella muestra, Marga debe hacérsela llegar a Paula y Hugo y no explicarles el contenido.
 
-Después de que Topotino admita su pérdida de memoria, Paula y Hugo aporten un recuerdo verdadero y acepten preparar el Cuaderno de la Memoria, se cumple la condición. Marga entrega el paquete a los niños para que lo abran mientras están comunicados con el Topotino del futuro. La carta interior está escrita por Topotino para sí mismo; Paula y Hugo actúan como custodios y testigos.
+Después de que Topotino admita su pérdida de memoria, Paula y Hugo aporten un recuerdo verdadero y acepten preparar el Cuaderno de la Memoria, se cumple la condición. Marga entrega su copia a los niños y les indica que existe otra escondida en la madriguera, pero que solo ellos deben comunicárselo a Topotino. Marga no contacta con él ni revela el escondite. Topotino desconoce por completo la existencia de ambas copias hasta que Paula y Hugo se lo cuentan. Entonces busca en su madriguera, encuentra el doble fondo y abre su copia al mismo tiempo que ellos. La carta está escrita por Topotino para sí mismo; Paula y Hugo actúan como custodios y testigos.
 
 El paquete contiene:
 
@@ -284,6 +284,12 @@ Antes de publicar un cambio:
 - [ ] El final continúa en la Alhambra nocturna y el Generalife es solo epílogo.
 
 ## 19. Registro de decisiones
+
+### 12 de agosto de 2026 · T-12B4
+
+- El documento físico definitivo es el PDF creado por la familia: carta y mapa envejecido de doce puntos.
+- Antes del eclipse, Topotino prepara dos copias idénticas: una queda con Marga y otra escondida en su madriguera.
+- Tras la amnesia, Topotino no sabe que existe ninguna copia. Marga informa solo a Paula y Hugo; ellos deben revelárselo y solo entonces él encuentra la suya.
 
 ### 12 de agosto de 2026 · T-12B3
 

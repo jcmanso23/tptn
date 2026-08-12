@@ -169,7 +169,7 @@ test('los días 13 y 14 conservan su cadena narrativa y adaptan solo tras un imp
   assert.doesNotMatch(childFacingText, /(foto|fotografía).{0,30}(cuaderno|diario)/i);
 });
 
-test('la edición T-12B3 usa caché nueva, mensajes breves y rescates de destino', async () => {
+test('la edición T-12B4 usa caché nueva, mensajes breves y rescates de destino', async () => {
   const files = ['index.html', 'app.js', 'admin.js', 'content/episodes/001-reconexion.md'];
   const combined = (await Promise.all(files.map((file) => readFile(join(root, file), 'utf8')))).join('\n');
   const app = await readFile(join(root, 'app.js'), 'utf8');
@@ -180,12 +180,12 @@ test('la edición T-12B3 usa caché nueva, mensajes breves y rescates de destino
     'content/episodes/001-reconexion.md'
   );
 
-  assert.match(combined, /T-12B3/);
+  assert.match(combined, /T-12B4/);
   assert.doesNotMatch(combined, /T-12A9/);
   assert.match(app, /splitTopotinoMessages/);
   assert.match(app, /els\.channelCode\.textContent = APP_VERSION_CODE/);
-  assert.match(serviceWorker, /topotino-offline-v15/);
-  assert.match(serviceWorker, /chat-format\.js\?v=memory-v29/);
+  assert.match(serviceWorker, /topotino-offline-v16/);
+  assert.match(serviceWorker, /chat-format\.js\?v=memory-v30/);
   assert.match(ai, /Escribe como en WhatsApp/);
   assert.ok(
     reconnection.sections['Respuestas guiadas']
@@ -356,7 +356,7 @@ test('la secuencia principal puede recorrerse y reúne exactamente las doce agua
   }
 });
 
-test('la narrativa T-12B3 usa mapa, paquete y ventanas sin enseñar los nombres internos', async () => {
+test('la narrativa T-12B4 usa mapa, paquete y ventanas sin enseñar los nombres internos', async () => {
   const manifest = JSON.parse(await readFile(join(root, 'content/episodes.json'), 'utf8'));
   const childFacing = [];
 
@@ -369,9 +369,9 @@ test('la narrativa T-12B3 usa mapa, paquete y ventanas sin enseñar los nombres 
   }
 
   const text = childFacing.join(' ');
-  assert.match(text, /Mapa de las Doce Aguas/);
-  assert.match(text, /doce ventanas oscuras/i);
-  assert.match(text, /Marga Mapas|Marga ha entregado/);
+  assert.match(text, /mapa (?:todavía )?no contiene una ruta completa/i);
+  assert.match(text, /mapa de doce puntos|doce puntos/i);
+  assert.match(text, /Marga/);
   assert.match(text, /La última ventana se ha aclarado/);
   assert.doesNotMatch(text, /Ha despertado el Agua|Agua de la Risa|Agua de la Promesa|Agua del Puente|Agua del Horizonte|Agua del Cuidado/i);
 
@@ -389,6 +389,19 @@ test('la narrativa T-12B3 usa mapa, paquete y ventanas sin enseñar los nombres 
   assert.match(packagePage, /Instrucciones para Marga Mapas/);
   assert.match(packagePage, /no recuerdo Luanco/i);
   assert.doesNotMatch(text, /Marga Mapas.{0,80}ha encontrado un paquete|Marga.{0,80}ha encontrado un paquete/i);
+
+  const amnesiaSource = manifest.find((item) => item.id === '004c-eclipse-amnesia').file.replace(/\?.*$/, '');
+  const routeSource = manifest.find((item) => item.id === '004b-rumbo-amarante').file.replace(/\?.*$/, '');
+  const amnesia = await readFile(join(root, amnesiaSource), 'utf8');
+  const route = parseEpisode(await readFile(join(root, routeSource), 'utf8'), routeSource);
+  assert.match(amnesia, /desconoce que haya una escondida cerca de él/i);
+  const reveal = route.sections['Respuestas guiadas']
+    .find((response) => response.id === 'paquete-revelado-por-paula-hugo');
+  assert.ok(reveal);
+  assert.ok(reveal.setFlags.includes('paquete_revelado_topotino'));
+  assert.ok(route.sections['Respuestas guiadas']
+    .filter((response) => response.id.startsWith('amarante-'))
+    .every((response) => response.requiredFlags?.includes('paquete_revelado_topotino')));
 });
 
 test('los hilos de aliados y antagonistas llegan al desenlace sin adelantar el destino', async () => {

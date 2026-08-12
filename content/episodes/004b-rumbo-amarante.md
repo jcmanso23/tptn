@@ -20,7 +20,7 @@
 
 # Contexto narrativo
 
-Marga Mapas ha hecho llegar a Paula y Hugo el paquete cerrado que Topotino le confió antes del eclipse. La condición de emergencia se ha cumplido. Contiene una carta de Topotino a su yo futuro, un mapa con doce ventanas oscuras conectadas y la pista del primer destino. Una ventana ya está clara y lleva una pequeña marca de Luanco; las demás no tienen nombres. Topotino no conoce la ciudad, la fecha ni por qué su yo anterior quería llegar allí. Solo ve `TÂM...`, una ponte y un pez. Paula y Hugo investigan Amarante; la fecha aparece únicamente después de identificarla.
+Marga Mapas ha hecho llegar en secreto a Paula y Hugo una de las dos copias que Topotino preparó antes del eclipse. La segunda está escondida en la madriguera. Topotino no recuerda las copias, a Marga, la carta ni el mapa. Marga ha indicado a los niños que deben ser ellos quienes le revelen su existencia. Hasta que lo hagan, Topotino no menciona el paquete ni puede ver las pistas. Cuando se lo cuentan, busca y encuentra su copia en un doble fondo. Ambos documentos contienen una carta de Topotino a su yo futuro y el mismo mapa de doce puntos. El punto 1 señala Luanco; junto al punto 2 aparecen `TÂM...`, una ponte y un pez. Paula y Hugo investigan Amarante; la fecha aparece únicamente después de identificarla.
 
 Topotino ya recuerda la conversación posterior al eclipse, la placa y la preparación del Cuaderno de la Memoria. No recuerda el pasado anterior ni el plan. Cada intento incorrecto permite revelar una evidencia nueva sin ridiculizarlo.
 
@@ -30,13 +30,8 @@ Al terminar, Topotino indica directamente que deben estar en Amarante el 13 por 
 
 ```json
 [
-  { "from": "topotino", "time": "auto", "text": "Marga os ha hecho llegar el paquete que le entregué antes del eclipse. Lo estamos abriendo juntos, aunque yo esté al otro lado del comunicador." },
-  { "from": "topotino", "time": "auto", "text": "La carta está dirigida a mí. Dice: «Topotino: si no recuerdas haber escrito esto, no finjas. Confía en Paula y Hugo. Ellos conservan la parte que ninguna máquina puede guardar»." },
-  { "from": "topotino", "time": "auto", "text": "También dice que el mapa no es una ruta completa y que debemos abrir una señal cada vez, comprobando las pistas en el lugar real." },
-  { "from": "topotino", "time": "auto", "text": "También hay un mapa con doce ventanas oscuras unidas por líneas. Solo una está clara y tiene una pequeña marca de Luanco." },
-  { "from": "topotino", "time": "auto", "text": "Debajo pone «Mapa de las Doce Aguas». No sé si habla de lugares, señales o una red." },
-  { "from": "topotino", "time": "auto", "text": "La siguiente ventana muestra dos dibujos. Uno pone «TÂM...» y el otro es una ponte con un pez debajo." },
-  { "from": "topotino", "time": "auto", "text": "Creo —solo creo— que puede apuntar a Portugal y a una ciudad atravesada por ese río. Investigadlo como buenos detectives: río, ponte y pez tienen que encajar a la vez. Enviadme el nombre cuando tengáis una hipótesis." }
+  { "from": "topotino", "time": "auto", "text": "El aviso cifrado sigue en vuestro lado. Yo no sé qué contiene ni quién lo envió." },
+  { "from": "topotino", "time": "auto", "text": "Cuando decidáis que debo conocerlo, contadme qué habéis recibido." }
 ]
 ```
 
@@ -45,7 +40,24 @@ Al terminar, Topotino indica directamente que deben estar en Amarante el 13 por 
 ```json
 [
   {
+    "id": "paquete-revelado-por-paula-hugo",
+    "requiredFlags": ["diario_iniciado"],
+    "blockedFlags": ["paquete_revelado_topotino"],
+    "containsAny": ["marga", "paquete", "carta", "mapa", "copia", "tienes una copia", "hay otra copia", "copia escondida", "lo hemos recibido"],
+    "setFlags": ["paquete_revelado_topotino"],
+    "messages": [
+      { "from": "topotino", "time": "auto", "text": "¿Una carta escrita por mí y un mapa? No recuerdo haber preparado nada de eso." },
+      { "from": "topotino", "time": "auto", "text": "¿Y Marga asegura que escondí otra copia aquí? Esperad. No toquéis nada." },
+      { "from": "topotino", "time": "auto", "text": "Hay un doble fondo detrás de la placa. Nunca lo habría encontrado si vosotros no me lo hubierais dicho." },
+      { "from": "topotino", "time": "auto", "text": "La tengo. Es idéntica a la vuestra." },
+      { "from": "topotino", "time": "auto", "text": "La carta está dirigida a mi yo del futuro. Dice que confíe en Paula y Hugo y que el mapa todavía no contiene una ruta completa." },
+      { "from": "topotino", "time": "auto", "text": "El mapa tiene doce puntos unidos. No sé aún qué significan ni adónde llevan." },
+      { "from": "topotino", "time": "auto", "text": "El punto 1 está en Luanco. Junto al 2 veo «TÂM...», una ponte y un pez. Eso sí podemos investigarlo juntos." }
+    ]
+  },
+  {
     "id": "amarante-descubierto-antes-del-viaje",
+    "requiredFlags": ["paquete_revelado_topotino"],
     "blockedFlags": ["amarante_previa_identificada"],
     "match": ["amarante", "puede ser amarante", "creemos que es amarante", "la ciudad es amarante"],
     "setFlags": ["amarante_previa_identificada"],
@@ -58,7 +70,7 @@ Al terminar, Topotino indica directamente que deben estar en Amarante el 13 por 
   },
   {
     "id": "amarante-intento-uno",
-    "requiredFlags": ["diario_iniciado"],
+    "requiredFlags": ["paquete_revelado_topotino"],
     "blockedFlags": ["amarante_pista_tamega", "amarante_previa_identificada"],
     "openAnswer": true,
     "minWords": 1,
@@ -70,7 +82,7 @@ Al terminar, Topotino indica directamente que deben estar en Amarante el 13 por 
   },
   {
     "id": "amarante-intento-dos",
-    "requiredFlags": ["amarante_pista_tamega"],
+    "requiredFlags": ["paquete_revelado_topotino", "amarante_pista_tamega"],
     "blockedFlags": ["amarante_pista_sao_goncalo", "amarante_previa_identificada"],
     "openAnswer": true,
     "minWords": 1,
@@ -83,7 +95,7 @@ Al terminar, Topotino indica directamente que deben estar en Amarante el 13 por 
   },
   {
     "id": "amarante-intento-tres",
-    "requiredFlags": ["amarante_pista_sao_goncalo"],
+    "requiredFlags": ["paquete_revelado_topotino", "amarante_pista_sao_goncalo"],
     "blockedFlags": ["amarante_previa_identificada"],
     "openAnswer": true,
     "minWords": 1,
@@ -113,7 +125,7 @@ Al terminar, Topotino indica directamente que deben estar en Amarante el 13 por 
 
 ## Contexto para IA
 
-Topotino recuerda todo lo hablado después del eclipse: sabe que perdió memoria, que Paula y Hugo son sus amigos, que la marca de Luanco reaccionó, que han preparado el Cuaderno y que Marga entregó un mapa con doce ventanas conectadas. No recuerda a Marga de antes. Antes de `amarante_previa_identificada` solo conoce `TÂM...`, la ponte, el pez y la hipótesis de Portugal; usa únicamente las pistas permitidas. No adelanta la fecha. Después del acierto sabe que deben estar en Amarante el 13 por la tarde, pero ignora el motivo. Agradece los intentos razonados sin validar nombres incorrectos. Tras resolverlo, conduce directamente a Amarante y pide descansar. No conoce el autor de su amnesia, el museo, el sentido de las doce ventanas, Granada ni destinos posteriores.
+Topotino recuerda todo lo hablado después del eclipse: sabe que perdió memoria, que Paula y Hugo son sus amigos, que la marca de Luanco reaccionó y que han preparado el Cuaderno. Antes de `paquete_revelado_topotino` no sabe quién es Marga, no conoce la existencia de ninguna carta o mapa y no sospecha que haya una copia escondida en su madriguera. No inventa su contenido ni intenta adivinarlo. Solo después de que Paula y Hugo se lo cuenten encuentra el doble fondo y puede leer su copia. Desde entonces conoce el mapa de doce puntos, Luanco en el punto 1 y `TÂM...`, la ponte y el pez junto al punto 2. Antes de `amarante_previa_identificada` usa únicamente esas pistas y la hipótesis de Portugal. No adelanta la fecha. Después del acierto sabe que deben estar en Amarante el 13 por la tarde, pero ignora el motivo. Tras resolverlo, conduce directamente a Amarante y pide descansar. No conoce el autor de su amnesia, el museo, el sentido de los doce puntos, Granada ni destinos posteriores.
 
 ## Fuentes documentales
 
