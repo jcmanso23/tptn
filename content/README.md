@@ -17,7 +17,7 @@ Para misiones grandes, divide la historia en varios MD pequeños. Ejemplo: descu
   "id": "020-ejemplo-lugar",
   "order": 4,
   "title": "La ventana del lugar",
-  "channelCode": "T-12B0",
+  "channelCode": "T-12B5",
   "startsUnlocked": false,
   "activation": {
     "mode": "all",
@@ -164,10 +164,9 @@ Recomendación: usa siempre una ventana privada o entra con `?topoadulto=1&reset
 - `001-reconexion`: se activa al entrar con la clave. Solo confirma identidad y abre el misterio.
 - `002-luanco-llegada`: se abre al acertar `Luanco` y estar cerca de Luanco, o con `topollave-luanco`.
 - `003-luanco-agua-norte`: identificador heredado; se abre el sábado 27 tras haber observado Luanco, o con `topollave-sabado`.
-- `004-eclipse`: episodio anterior del eclipse, retirado y conservado solo por compatibilidad.
+- `004a-eclipse-espera`: confirma el eclipse durante la mañana del 12 de agosto sin adelantar la amnesia.
 - `004c-eclipse-amnesia`: se activa después del eclipse del 12 de agosto y abre la pérdida de memoria y el Cuaderno de la Memoria.
-- `004b-rumbo-amarante`: enlaza el eclipse con el paquete de Marga y el Mapa de las Doce Aguas. Paula y Hugo deben descubrir Amarante antes de conocer la fecha.
-- `004-guimaraes-origen`: episodio retirado que conserva un identificador técnico heredado para no romper partidas de ensayo.
+- `004b-rumbo-amarante`: enlaza el eclipse con las dos copias de la carta y el mapa. Paula y Hugo deben revelárselos a Topotino y descubrir Amarante antes de conocer la fecha.
 - `005-amarante-puente`: día 13 en Amarante, primer transmisor investigado después del eclipse.
 - `006-magikland-curia`: día 14, Magikland y lectura histórica del Hotel do Parque en Curia.
 - `007` a `009`: Buçaco–Batalha–Fátima, tiempo profundo–Óbidos y Dino Parque–Lisboa.

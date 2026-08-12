@@ -1,4 +1,4 @@
-import { splitTopotinoMessages } from './chat-format.js?v=memory-v30';
+import { splitTopotinoMessages } from './chat-format.js?v=memory-v31';
 
 const STORAGE_KEYS = {
   auth: 'topotino_chat_auth_v1',
@@ -6,9 +6,9 @@ const STORAGE_KEYS = {
 };
 
 const LEGACY_STATE_KEY = 'topotino_chat_state_v1';
-const APP_VERSION_CODE = 'T-12B4';
+const APP_VERSION_CODE = 'T-12B5';
 const PASSPHRASE_HASH = 'a64716bd9f4e8added1bf47f80b97c3fc7b70a15b8043cdab083e1ddf85f3794';
-const EPISODES_MANIFEST = 'content/episodes.json?v=memory-v30';
+const EPISODES_MANIFEST = 'content/episodes.json?v=memory-v31';
 const LIVE_STORY_ENDPOINT = '/api/story';
 const ACTIVATION_TICK_MS = 60000;
 const LOCATION_REFRESH_COOLDOWN_MS = 2 * 60 * 1000;
@@ -1832,6 +1832,6 @@ function applyTestingParams() {
 
 function registerServiceWorker() {
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('service-worker.js?v=offline-v16').catch(() => {});
+    navigator.serviceWorker.register('service-worker.js?v=offline-v17').catch(() => {});
   }
 }

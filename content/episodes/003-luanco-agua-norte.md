@@ -57,7 +57,6 @@ No revelar la lista completa de aguas ni destinos futuros.
     "setFlags": ["agua_norte_recogida"],
     "water": "Agua del Norte",
     "formulaWord": "MIRO",
-    "nextEpisode": "004-eclipse",
     "messages": [
       { "from": "topotino", "time": "auto", "text": "Buena misión, amigos. Muy buena." },
       { "from": "topotino", "time": "auto", "text": "Muestra de Luanco guardada. No es mucha, pero conserva el lugar exacto donde empezó esta señal." },

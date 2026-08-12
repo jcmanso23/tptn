@@ -119,7 +119,6 @@ El primer objetivo del chat es confirmar que son Paula y Hugo, pero Topotino no 
     "setFlags": ["identidad_confirmada", "luanco_identificado", "luanco_observado", "agua_norte_recogida"],
     "water": "Agua del Norte",
     "formulaWord": "MIRO",
-    "nextEpisode": "004-eclipse",
     "messages": [
       { "from": "topotino", "time": "auto", "text": "Modo ensayo activado. Doy por guardada la muestra de Luanco y abro la pista del cielo. Ni una palabra a Topoloco." }
     ]

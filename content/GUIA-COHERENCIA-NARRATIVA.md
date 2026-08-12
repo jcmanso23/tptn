@@ -1,6 +1,6 @@
 # Guía maestra de coherencia narrativa · Las Doce Aguas
 
-**Versión canónica:** 12 de agosto de 2026 · edición T-12B4
+**Versión canónica:** 12 de agosto de 2026 · edición T-12B5
 **Final principal:** Alhambra, Palacios Nazaríes, noche del 26 de agosto
 **Epílogo:** Generalife, 27 de agosto; no abre otra amenaza
 
@@ -284,6 +284,14 @@ Antes de publicar un cambio:
 - [ ] El final continúa en la Alhambra nocturna y el Generalife es solo epílogo.
 
 ## 19. Registro de decisiones
+
+### 12 de agosto de 2026 · T-12B5
+
+- Se retiran definitivamente los episodios vacíos `004-eclipse` y `004-guimaraes-origen`; ninguna partida depende ya de ellos para continuar.
+- La espera del eclipse se activa directamente por la muestra de Luanco y la fecha, sin puente técnico retirado.
+- Se eliminan el archivo de misiones y las fotografías de la antigua aventura de Londres; Londres permanece únicamente como recuerdo canónico de aventuras pasadas.
+- GitHub conserva el código y Vercel realiza el único despliegue de producción; se retiran los flujos duplicados de GitHub Pages.
+- Se mantienen solo los identificadores de progreso ya persistidos que siguen siendo necesarios para no interrumpir la partida actual.
 
 ### 12 de agosto de 2026 · T-12B4
 

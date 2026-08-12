@@ -169,7 +169,7 @@ test('los días 13 y 14 conservan su cadena narrativa y adaptan solo tras un imp
   assert.doesNotMatch(childFacingText, /(foto|fotografía).{0,30}(cuaderno|diario)/i);
 });
 
-test('la edición T-12B4 usa caché nueva, mensajes breves y rescates de destino', async () => {
+test('la edición T-12B5 usa caché nueva, mensajes breves y rescates de destino', async () => {
   const files = ['index.html', 'app.js', 'admin.js', 'content/episodes/001-reconexion.md'];
   const combined = (await Promise.all(files.map((file) => readFile(join(root, file), 'utf8')))).join('\n');
   const app = await readFile(join(root, 'app.js'), 'utf8');
@@ -180,17 +180,33 @@ test('la edición T-12B4 usa caché nueva, mensajes breves y rescates de destino
     'content/episodes/001-reconexion.md'
   );
 
-  assert.match(combined, /T-12B4/);
+  assert.match(combined, /T-12B5/);
   assert.doesNotMatch(combined, /T-12A9/);
   assert.match(app, /splitTopotinoMessages/);
   assert.match(app, /els\.channelCode\.textContent = APP_VERSION_CODE/);
-  assert.match(serviceWorker, /topotino-offline-v16/);
-  assert.match(serviceWorker, /chat-format\.js\?v=memory-v30/);
+  assert.match(serviceWorker, /topotino-offline-v17/);
+  assert.match(serviceWorker, /chat-format\.js\?v=memory-v31/);
   assert.match(ai, /Escribe como en WhatsApp/);
   assert.ok(
     reconnection.sections['Respuestas guiadas']
       .some((response) => response.id === 'luanco-solucion-ayudada' && response.setFlags?.includes('luanco_identificado'))
   );
+});
+
+test('la publicación limpia no carga capítulos retirados ni recursos de Londres', async () => {
+  const manifest = JSON.parse(await readFile(join(root, 'content/episodes.json'), 'utf8'));
+  const ids = new Set(manifest.map((item) => item.id));
+  assert.equal(ids.has('004-eclipse'), false);
+  assert.equal(ids.has('004-guimaraes-origen'), false);
+  assert.ok(ids.has('004a-eclipse-espera'));
+  assert.ok(ids.has('004c-eclipse-amnesia'));
+
+  const reconnection = await readFile(join(root, 'content/episodes/001-reconexion.md'), 'utf8');
+  const luanco = await readFile(join(root, 'content/episodes/003-luanco-agua-norte.md'), 'utf8');
+  assert.doesNotMatch(`${reconnection}\n${luanco}`, /"nextEpisode": "004-eclipse"/);
+
+  await assert.rejects(readFile(join(root, 'missions.js'), 'utf8'), /ENOENT/);
+  await assert.rejects(readFile(join(root, 'images/bigben.jpg')), /ENOENT/);
 });
 
 test('la mañana del eclipse aclara la espera y rescata partidas ya iniciadas', async () => {
@@ -356,7 +372,7 @@ test('la secuencia principal puede recorrerse y reúne exactamente las doce agua
   }
 });
 
-test('la narrativa T-12B4 usa mapa, paquete y ventanas sin enseñar los nombres internos', async () => {
+test('la narrativa T-12B5 usa mapa, paquete y ventanas sin enseñar los nombres internos', async () => {
   const manifest = JSON.parse(await readFile(join(root, 'content/episodes.json'), 'utf8'));
   const childFacing = [];
 
