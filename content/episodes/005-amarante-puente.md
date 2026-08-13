@@ -22,13 +22,13 @@
 
 # Contexto narrativo
 
-Es el 13 de agosto. Paula y Hugo llegan a Amarante. El capítulo exige un recorrido real y enlazado: ribera y vista completa de la ponte, cruce seguro para leer el paisaje, obelisco o memoria de 1809, exterior de la Igreja de São Gonçalo y Senhora da Ponte. Las respuestas se diseñan con una exigencia aproximada de diez años para ambos. La geolocalización solo abre la conversación al llegar; la evidencia se obtiene caminando por el conjunto de São Gonçalo.
+Es el 13 de agosto. Paula y Hugo llegan a Amarante. El capítulo exige un recorrido real y enlazado: ribera y vista completa de la ponte, cruce seguro para leer el paisaje, obelisco o memoria de 1809, exterior de la Igreja de São Gonçalo y Senhora da Ponte. Después bajarán hacia la zona de detrás del Mercado Municipal para localizar las barcas con forma de animales y mirar el río desde el agua, si la actividad está abierta y los adultos lo autorizan. Las respuestas se diseñan con una exigencia aproximada de diez años para ambos. La geolocalización solo abre la conversación al llegar; la evidencia se obtiene caminando por el conjunto de São Gonçalo.
 
 La ponte actual mide unos cincuenta metros y tiene cuatro balcones semicirculares. La antigua cayó tras las lluvias de 1763. La tradición atribuye a São Gonçalo la construcción de una ponte anterior, el movimiento de grandes piedras y la ayuda de peces para alimentar a quienes trabajaban. La ponte actual fue un paso estratégico durante la resistencia de 1809, que duró catorce días.
 
 Topotino no recibe una señal nueva ni encuentra una máquina en Amarante. El propio lugar le provoca una familiaridad incompleta: reconoce el recorrido, recuerda preguntas de una investigación anterior y sabe qué detalles solía comprobar, pero no recuerda el caso entero ni sus conclusiones. Cada recuerdo debe contrastarse con lo que Paula y Hugo observan allí. No se usan ventanas mágicas del mapa ni pistas colocadas en monumentos.
 
-El Cuaderno de la Memoria continúa siendo privado. Topotino no pide una entrada, una foto ni una explicación de sus páginas. La palabra técnica `COMIENZO` y las flags antiguas con `diario` se conservan silenciosamente por compatibilidad. Al terminar la investigación, pide recoger una pequeña muestra del agua de Amarante solo si los adultos lo consideran seguro, sin entrar en el río ni acercarse a un borde. Todavía no sabe para qué servirá, pero prefiere conservarla a tener que regresar después. Solo tras recogerla la llama Agua del Puente. Después, un recuerdo de la planificación anterior conduce a Magikland y Topotino pide descanso.
+En la zona del mercado también pueden ver, desde un lugar autorizado y seguro, un paso de grandes piedras sobre el Tâmega. Parece un puente sencillo en una fotografía, pero las losas están mojadas, la corriente puede ser fuerte y una caída sería peligrosa: se observa, no se cruza. El cruce seguro sigue siendo la Ponte de São Gonçalo con los adultos. El Cuaderno de la Memoria continúa siendo privado. Topotino no pide una entrada, una foto ni una explicación de sus páginas. La palabra técnica `COMIENZO` y las flags antiguas con `diario` se conservan silenciosamente por compatibilidad. Al terminar la investigación, pide recoger una pequeña muestra del agua de Amarante solo si los adultos lo consideran seguro, sin entrar en el río ni acercarse a un borde. Todavía no sabe para qué servirá, pero prefiere conservarla a tener que regresar después. Solo tras recogerla la llama Agua del Puente. Después, un recuerdo de la planificación anterior conduce a Magikland y Topotino pide descanso.
 
 ## Mensajes iniciales
 
@@ -125,15 +125,56 @@ El Cuaderno de la Memoria continúa siendo privado. Topotino no pide una entrada
     "messages": [
       { "from": "topotino", "time": "auto", "text": "Exacto. La inscripción conserva un hecho público; la Senhora da Ponte conserva una imagen ligada a una travesía anterior; y el relato de los peces conserva identidad y valores de Amarante. Son memorias distintas, no una sola prueba mezclada." },
       { "from": "topotino", "time": "auto", "text": "La tradición cuenta que São Gonçalo ayudó a construir la primera ponte, movió piedras enormes y pidió peces para alimentar a quienes trabajaban. Os lo cuento como tradición de la comunidad, no como un dato que la inscripción pueda demostrar." },
-      { "from": "topotino", "time": "auto", "text": "Ahora entiendo por qué este lugar me resultaba familiar. No he recuperado el caso entero: he recuperado la manera de investigarlo. Mi yo anterior venía aquí para comparar paisaje, monumento e historia oral." },
-      { "from": "topotino", "time": "auto", "text": "Antes de cerrar, os voy a pedir algo distinto. Si los adultos lo consideran seguro, recoged una pequeña muestra del agua de Amarante en un recipiente cerrado. No entréis en el río, no os acerquéis a bordes y no la bebáis." },
-      { "from": "topotino", "time": "auto", "text": "No sé para qué servirá. Precisamente por eso prefiero tenerla guardada a descubrir mañana que necesitamos volver. Una investigación también consiste en conservar una posibilidad." },
-      { "from": "topotino", "time": "auto", "text": "Cuando la tengáis, decidme solo que la habéis recogido. Después le pondremos un nombre: Agua del Puente. No porque sepamos todavía qué hará, sino porque nació junto a esta ponte." }
+      { "from": "topotino", "time": "auto", "text": "Ahora entiendo por qué este lugar me resultaba familiar. No he recuperado el caso entero: he recuperado la manera de investigarlo. Mi yo anterior venía aquí para comparar paisaje, monumento e historia oral." }
+    ]
+  },
+  {
+    "id": "amarante-animal-tamega",
+    "requiredFlags": ["amarante_historia_comprendida"],
+    "blockedFlags": ["amarante_animal_tamega"],
+    "openAnswer": true,
+    "minWords": 16,
+    "containsAnyGroups": [["gaivota", "pato", "serpiente", "dragón", "dragon", "unicornio", "animal", "barca", "barco", "pedal"], ["río", "rio", "tâmega", "tamega", "agua"], ["mercado", "detrás", "detras", "cais", "margen", "orilla"], ["subimos", "subido", "montamos", "montado", "navegamos", "navegado", "paseamos", "pedaleamos", "pedaleado", "embarcamos", "embarcado"]],
+    "rejectContainsAny": ["no sé", "no se", "ni idea", "da igual", "no podemos", "no montamos"],
+    "setFlags": ["amarante_animal_tamega"],
+    "remember": { "kind": "field_observation", "label": "Perspectiva del Tâmega desde una barca con forma de animal" },
+    "messages": [
+      { "from": "topotino", "time": "auto", "text": "¡Mis bigotes acaban de recordar un desvío! Detrás del Mercado Municipal hay una flotilla de animales que parece escapada de un sueño: patos, serpientes, dragones, unicornios… Bueno, quizá algún dragón sea solo una barca muy decorada." },
+      { "from": "topotino", "time": "auto", "text": "Si la actividad está abierta y los adultos dicen que sí, elegid una embarcación autorizada, respetad sus normas y poneos el chaleco si os lo indican. Desde ese animal sobre el agua, contad qué se ve del Tâmega, de la ponte y de las dos orillas que no se entiende igual desde tierra." },
+      { "from": "topotino", "time": "auto", "text": "Mi recuerdo no era una carrera: era una pregunta. ¿Qué cambia cuando miráis Amarante desde el río? Las gaivotas y las guigas permiten descubrir la ciudad desde otra perspectiva, como si el Tâmega os prestara sus ojos." },
+      { "from": "topotino", "time": "auto", "text": "Cuando bajéis, mirad cerca de la ribera. Hay un paso de piedras que parece invitar a cruzar, pero ahí mi memoria se vuelve muy seria. Primero decidme qué veis y qué riesgos tendría; no hagáis ninguna heroicidad." }
+    ]
+  },
+  {
+    "id": "amarante-animal-alternativa",
+    "requiredFlags": ["amarante_historia_comprendida"],
+    "blockedFlags": ["amarante_animal_tamega"],
+    "containsAny": ["cerrado", "cerrada", "no hay barcos", "no funciona", "no podemos subir", "no podemos montar", "no dejan"],
+    "setFlags": ["amarante_animal_tamega"],
+    "messages": [
+      { "from": "topotino", "time": "auto", "text": "Entonces no fingiremos que hemos navegado. Una investigación no se mejora inventando una barca. Desde el muelle o la ribera permitida, observad qué cambiaría al mirar la ponte y las orillas desde el agua; la respuesta también puede ser una comparación imaginada." },
+      { "from": "topotino", "time": "auto", "text": "La flotilla está detrás del Mercado Municipal, pero solo se usa cuando está abierta, autorizada y los adultos lo consideran adecuado. Ahora localizad desde un lugar seguro el paso de piedras que aparece junto al agua." }
+    ]
+  },
+  {
+    "id": "amarante-piedras-seguras",
+    "requiredFlags": ["amarante_animal_tamega"],
+    "blockedFlags": ["amarante_piedras_observadas"],
+    "openAnswer": true,
+    "minWords": 18,
+    "containsAnyGroups": [["piedra", "piedras", "losas", "paso", "azud", "puente"], ["río", "rio", "tâmega", "tamega", "agua", "corriente"], ["peligro", "peligroso", "resbaladizo", "mojado", "caída", "caida", "desnivel"], ["no cruzamos", "no se cruza", "no cruzar", "solo observar", "desde lejos", "lugar seguro", "adultos"]],
+    "setFlags": ["amarante_piedras_observadas"],
+    "remember": { "kind": "safety_reasoning", "label": "Observación segura del paso de piedras del Tâmega" },
+    "messages": [
+      { "from": "topotino", "time": "auto", "text": "Correcto: esas piedras están ahí, pero una fotografía aplana el peligro. El agua pasa por encima, las losas pueden estar mojadas y desniveladas, y una corriente no avisa antes de hacer resbalar." },
+      { "from": "topotino", "time": "auto", "text": "No se cruza. Ni para demostrar valentía, ni para ahorrar camino, ni porque parezca fácil en la imagen. Lo observáis desde un sitio autorizado y seguro, con los adultos; para cruzar el río usamos la Ponte de São Gonçalo." },
+      { "from": "topotino", "time": "auto", "text": "Habéis descubierto una regla importante: reconocer un camino no significa que tengamos permiso para usarlo. También hay que leer la fuerza del agua, el suelo y el riesgo de caída." },
+      { "from": "topotino", "time": "auto", "text": "Ahora sí, si los adultos lo consideran seguro, recoged una pequeña muestra del agua de Amarante en un recipiente cerrado, sin entrar en el río ni acercaros al borde. No sé para qué servirá, pero mejor conservarla que volver después a buscarla." }
     ]
   },
   {
     "id": "amarante-diario-guardado",
-    "requiredFlags": ["amarante_historia_comprendida"],
+    "requiredFlags": ["amarante_historia_comprendida", "amarante_animal_tamega", "amarante_piedras_observadas"],
     "blockedFlags": ["completado_amarante"],
     "openAnswer": true,
     "minWords": 4,
@@ -160,7 +201,9 @@ El Cuaderno de la Memoria continúa siendo privado. Topotino no pide una entrada
 [
   "La primera respuesta necesita tres partes: cuántos balcones semicirculares veis, otro detalle construido y por qué identifica esta ponte.",
   "Para explicar su valor estratégico, usad dos evidencias visibles: el río, las orillas, el paso, la forma de cruzar o la relación con la ciudad.",
-  "Buscad dos paradas distintas: una inscripción u obelisco de 1809 y la Senhora da Ponte en una ventana de la iglesia. Después relacionadlas con el relato de los peces."
+  "Buscad dos paradas distintas: una inscripción u obelisco de 1809 y la Senhora da Ponte en una ventana de la iglesia. Después relacionadlas con el relato de los peces.",
+  "Detrás del Mercado Municipal buscad las barcas con forma de animal. Si están abiertas y los adultos lo autorizan, contad qué cambia al mirar el Tâmega desde el agua; si no, comparadlo desde la ribera.",
+  "El paso de piedras está junto al agua, pero no es una prueba de valentía: observad corriente, losas mojadas y desnivel desde un lugar seguro. No lo crucéis."
 ]
 ```
 
@@ -170,16 +213,20 @@ El Cuaderno de la Memoria continúa siendo privado. Topotino no pide una entrada
 [
   "Los balcones que buscamos sobresalen de la ponte con forma semicircular. El número es menor que cinco y mayor que tres; añadid una evidencia de piedra o arcos y otra relacionada con el río o la ciudad.",
   "Imaginad que el río dificulta pasar de una orilla a otra. No basta con decir que la ponte era importante: explicad qué podía vigilar o bloquear quien controlara ese paso.",
-  "La inscripción u obelisco recuerda 1809. En el exterior de la iglesia, una ventana conserva la Senhora da Ponte y se relaciona con la caída de la antigua ponte en 1763. Los peces pertenecen al relato de São Gonçalo. Comparad qué tipo de memoria aporta cada fuente."
+  "La inscripción u obelisco recuerda 1809. En el exterior de la iglesia, una ventana conserva la Senhora da Ponte y se relaciona con la caída de la antigua ponte en 1763. Los peces pertenecen al relato de São Gonçalo. Comparad qué tipo de memoria aporta cada fuente.",
+  "Pensad en un animal que pueda flotar y en el lugar que queda detrás del Mercado Municipal. La barca os daría una vista distinta del puente y de las dos orillas.",
+  "La respuesta segura al paso de piedras contiene tres ideas: están mojadas, hay corriente y no se cruzan. El río se observa; no se desafía."
 ]
 ```
 
 ## Contexto para IA
 
-Topotino conserva la amistad emocional con Paula y Hugo y recuerda todo desde el eclipse. El capítulo admite una rama normal y otra de recuperación: si falta `amarante_previa_identificada`, reconoce que la deducción quedó pendiente y no finge que ocurrió. No recupera el caso completo anterior, pero el lugar le activa recuerdos parciales de método: reconoce el puente, recuerda preguntas y puede recordar una ruta sin recordar sus respuestas. Cada recuerdo debe contrastarse con la evidencia que Paula y Hugo encuentran allí. Tras `amarante_puente_observado`, sabe que comprobaron cuatro balcones semicirculares y dos relaciones del puente con su entorno. Tras `amarante_posicion_razonada`, puede conversar sobre la importancia estratégica de la ponte sin añadir hechos que no dijeron. Tras `amarante_historia_comprendida`, sabe que localizaron la memoria de 1809, la Senhora da Ponte y la tradición de São Gonçalo, y debe explicar qué aporta cada fuente. Después pide una muestra segura del agua de Amarante; solo cuando se confirma que la han recogido reconoce el nombre Agua del Puente y el cierre del día. No usa ventanas del mapa, máquinas ni señales nuevas. No identifica con certeza a Topoloco. Conversa con ambos a nivel intelectual aproximado de diez años. El Cuaderno es privado. No revela el museo, Granada ni los leones. Al cerrar recuerda de forma incompleta un lugar imposible con África, lejano Oeste, zoco, piratas y poblado medieval, y pide ayudarle a encontrarlo al día siguiente.
+Topotino conserva la amistad emocional con Paula y Hugo y recuerda todo desde el eclipse. El capítulo admite una rama normal y otra de recuperación: si falta `amarante_previa_identificada`, reconoce que la deducción quedó pendiente y no finge que ocurrió. No recupera el caso completo anterior, pero el lugar le activa recuerdos parciales de método: reconoce el puente, recuerda preguntas y puede recordar una ruta sin recordar sus respuestas. Cada recuerdo debe contrastarse con la evidencia que Paula y Hugo encuentran allí. Tras `amarante_puente_observado`, sabe que comprobaron cuatro balcones semicirculares y dos relaciones del puente con su entorno. Tras `amarante_posicion_razonada`, puede conversar sobre la importancia estratégica de la ponte sin añadir hechos que no dijeron. Tras `amarante_historia_comprendida`, sabe que localizaron la memoria de 1809, la Senhora da Ponte y la tradición de São Gonçalo, y debe explicar qué aporta cada fuente. Luego los dirige detrás del Mercado Municipal para buscar las barcas con forma de animales: si están abiertas y los adultos lo autorizan, pueden observar el Tâmega desde una gaivota u otra embarcación autorizada; si no, hacen la comparación desde tierra. También deben localizar el paso de piedras junto al agua y dejar claro que solo se observa: no se cruza porque es resbaladizo y peligroso. Después pide una muestra segura del agua de Amarante; solo cuando se confirma que la han recogido reconoce el nombre Agua del Puente y el cierre del día. No usa ventanas del mapa, máquinas ni señales nuevas. No identifica con certeza a Topoloco. Conversa con ambos a nivel intelectual aproximado de diez años. El Cuaderno es privado. No revela el museo, Granada ni los leones. Al cerrar recuerda de forma incompleta un lugar imposible con África, lejano Oeste, zoco, piratas y poblado medieval, y pide ayudarle a encontrarlo al día siguiente.
 
 ## Fuentes documentales
 
 - https://amarantetourism.com/poi/ponte-de-sao-goncalo/
 - https://amarantetourism.com/poi/os-milagres-de-sao-goncalo/
+- https://amarantetourism.com/poi/amazing-tamega-boats/
+- https://amarantetourism.com/poi/navegar-por-historias-de-amarante-guigas-de-amarante/
 - https://www.cm-amarante.pt/amarante-evoca-a-defesa-da-ponte-com-programa-cultural-e-evocativo-no-dia-2-de-maio/
