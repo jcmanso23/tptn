@@ -26,22 +26,20 @@ Es el 13 de agosto. Paula y Hugo llegan a Amarante. El capítulo exige un recorr
 
 La ponte actual mide unos cincuenta metros y tiene cuatro balcones semicirculares. La antigua cayó tras las lluvias de 1763. La tradición atribuye a São Gonçalo la construcción de una ponte anterior, el movimiento de grandes piedras y la ayuda de peces para alimentar a quienes trabajaban. La ponte actual fue un paso estratégico durante la resistencia de 1809, que duró catorce días.
 
-La señal detecta un fragmento metálico con `...REFL...` y una mancha oscura de Borrón. Topotino todavía no sabe qué es Borrón ni que el fragmento pertenece a la máquina del eclipse. Cuando Paula y Hugo relacionan forma, lugar, historia y experiencia, la segunda ventana del mapa se vuelve transparente y devuelve una escena parcial: una figura de espaldas sostiene que nadie puede acusarla de robar algo intangible. Topotino recupera su propia conclusión: «No quiere el agua. Quiere lo que vivimos junto a ella».
+Topotino no recibe una señal nueva ni encuentra una máquina en Amarante. El propio lugar le provoca una familiaridad incompleta: reconoce el recorrido, recuerda preguntas de una investigación anterior y sabe qué detalles solía comprobar, pero no recuerda el caso entero ni sus conclusiones. Cada recuerdo debe contrastarse con lo que Paula y Hugo observan allí. No se usan ventanas mágicas del mapa ni pistas colocadas en monumentos.
 
-El Cuaderno de la Memoria continúa siendo privado. Topotino no pide una entrada, una foto ni una explicación de sus páginas. La palabra técnica `COMIENZO` y las flags antiguas con `diario` se conservan silenciosamente por compatibilidad. Nunca se recoge agua del río. Al terminar aparece una pista hacia Magikland y Topotino pide descanso.
+El Cuaderno de la Memoria continúa siendo privado. Topotino no pide una entrada, una foto ni una explicación de sus páginas. La palabra técnica `COMIENZO` y las flags antiguas con `diario` se conservan silenciosamente por compatibilidad. Nunca se recoge agua del río. Al terminar, un recuerdo de la planificación anterior conduce a Magikland y Topotino pide descanso.
 
 ## Mensajes iniciales
 
 ```json
 [
-  { "from": "topotino", "time": "auto", "requiredFlags": ["amarante_previa_identificada"], "text": "Os estoy siguiendo. Habéis llegado al lugar que dedujisteis. Gracias por traerme hasta aquí aunque yo fuera quien dejó el mapa. Ups." },
-  { "from": "topotino", "time": "auto", "blockedFlags": ["amarante_previa_identificada"], "text": "La señal anterior se cortó antes de que resolviéramos. Durante la noche apareció el nombre AMARANTE junto al Tâmega y la ponte de São Gonçalo. Nos falta esa deducción, pero podemos investigar la evidencia real desde aquí." },
-  { "from": "topotino", "time": "auto", "text": "Marga ha superpuesto el mapa sobre la ponte. La segunda ventana coincide con este lugar." },
-  { "from": "topotino", "time": "auto", "text": "Rufino Tuercas, otro topo al que tampoco recuerdo, ha detectado un fragmento de máquina en la señal." },
-  { "from": "topotino", "time": "auto", "text": "Tiene una mancha negra que intenta tapar las letras. Rufino la llama «rastro de Borrón», pero no sabe qué lo dejó." },
-  { "from": "topotino", "time": "auto", "text": "Se leen cinco letras: «...REFL...». Puede ser reflejo, reflector o reflejante. Reflejante no existe. Ya hemos descartado una hipótesis. ¿O puede ser otra cosa?" },
-  { "from": "topotino", "time": "auto", "text": "Empezad en una ribera desde la que veáis la ponte completa. No respondáis todavía desde el primer rincón." },
-  { "from": "topotino", "time": "auto", "text": "Contad sus balcones semicirculares. Después acercaos por el recorrido permitido y elegid otro rasgo —arco, piedra, ventana u obelisco— que permita reconocer esta ponte y no otra." }
+  { "from": "topotino", "time": "auto", "requiredFlags": ["amarante_previa_identificada"], "text": "Habéis llegado al lugar que dedujisteis. Gracias por traerme hasta aquí aunque yo fuera quien preparó la investigación. Ups: mi yo anterior sí sabía organizar viajes." },
+  { "from": "topotino", "time": "auto", "blockedFlags": ["amarante_previa_identificada"], "text": "La deducción quedó pendiente, pero ya estáis en Amarante. No fingiré que recuerdo haberlo planeado: investigaremos el lugar real y reconstruiremos la ruta desde lo que veáis." },
+  { "from": "topotino", "time": "auto", "text": "Hay algo extraño. Este puente me resulta conocido, pero no como una fotografía: mis patas parecen recordar el recorrido antes que mi cabeza." },
+  { "from": "topotino", "time": "auto", "text": "Creo que ya estuve aquí durante una investigación anterior al eclipse. Recuerdo preguntas, no respuestas. Si mi memoria se equivoca, corregidme; una corazonada de topo no es una prueba." },
+  { "from": "topotino", "time": "auto", "text": "Empezad en una ribera desde la que veáis la ponte completa. Quiero comprobar un recuerdo concreto, no haceros repetir una pista." },
+  { "from": "topotino", "time": "auto", "text": "Contad sus balcones semicirculares. Después elegid dos evidencias más: una de la construcción y otra de su relación con el río o la ciudad. Explicad cómo juntas permiten reconocer esta ponte y no solo cualquier puente bonito." }
 ]
 ```
 
@@ -85,15 +83,16 @@ El Cuaderno de la Memoria continúa siendo privado. Topotino no pide una entrada
     "id": "amarante-puente-observado",
     "blockedFlags": ["amarante_puente_observado"],
     "openAnswer": true,
-    "minWords": 9,
-    "containsAnyGroups": [["cuatro", "4"], ["balcón", "balcon", "balcones", "balcões"], ["arco", "arcos", "piedra", "pedra", "figura", "ventana", "janela", "obelisco", "iglesia", "igreja", "torre"], ["porque", "identifica", "reconocer", "distingue", "característico", "caracteristico"]],
+    "minWords": 18,
+    "containsAnyGroups": [["cuatro", "4"], ["balcón", "balcon", "balcones", "balcões"], ["arco", "arcos", "piedra", "pedra", "obelisco", "torre"], ["río", "rio", "tâmega", "tamega", "orilla", "orillas", "ciudad"], ["porque", "identifica", "reconocer", "distingue", "característico", "caracteristico"]],
     "rejectContainsAny": ["no se", "ni idea", "da igual", "lo que sea"],
     "setFlags": ["amarante_puente_observado"],
     "remember": { "kind": "field_observation", "label": "Inventario físico de la Ponte de São Gonçalo" },
     "messages": [
-      { "from": "topotino", "time": "auto", "text": "¡Genial! Muchas gracias. Cuatro balcones y un rasgo elegido con motivo: ya no es una foto genérica, sino esta ponte." },
+      { "from": "topotino", "time": "auto", "text": "Mi recuerdo acierta en una parte: son cuatro balcones semicirculares. Lo importante es que no os habéis quedado con el número: habéis reunido forma, río y ciudad para identificar el lugar." },
+      { "from": "topotino", "time": "auto", "text": "La ponte actual mide unos cincuenta metros. La antigua se vino abajo en 1763 después de lluvias intensas, y la imagen de Nossa Senhora da Piedade sobrevivió y quedó vinculada a la nueva travesía. Un puente puede cambiar y seguir conservando una historia." },
       { "from": "topotino", "time": "auto", "text": "Ahora cruzadla con los adultos. Deteneos en un balcón permitido y mirad ambas orillas, el Tâmega y las calles que continúan." },
-      { "from": "topotino", "time": "auto", "text": "En 1809 este paso fue defendido durante catorce días. Explicad por qué controlarlo era importante usando dos evidencias del paisaje." }
+      { "from": "topotino", "time": "auto", "text": "Mi siguiente recuerdo es una pregunta sobre 1809: si un ejército quisiera cruzar el Tâmega, ¿qué tendría que controlar aquí y qué podría vigilar desde la ponte? No acepto solo «porque era importante»: usad dos evidencias del paisaje y una consecuencia." }
     ]
   },
   {
@@ -101,16 +100,16 @@ El Cuaderno de la Memoria continúa siendo privado. Topotino no pide una entrada
     "requiredFlags": ["amarante_puente_observado"],
     "blockedFlags": ["amarante_posicion_razonada"],
     "openAnswer": true,
-    "minWords": 10,
-    "containsAnyGroups": [["río", "rio", "tâmega", "tamega"], ["orillas", "ciudad", "calles", "camino", "ruta", "entrada", "salida"], ["cruzar", "cruce", "paso", "defender", "controlar", "puente", "ponte"], ["porque", "permite", "impide", "obliga", "conecta", "separa"]],
+    "minWords": 20,
+    "containsAnyGroups": [["río", "rio", "tâmega", "tamega"], ["orillas", "ciudad", "calles", "camino", "ruta", "entrada", "salida"], ["cruzar", "cruce", "paso", "defender", "controlar", "puente", "ponte"], ["porque", "permite", "impide", "obliga", "conecta", "separa"], ["vigilar", "detener", "bloquear", "proteger", "atacar", "defender"]],
     "rejectContainsAny": ["porque si", "porque sí", "no se", "ni idea", "da igual"],
     "setFlags": ["amarante_posicion_razonada"],
     "remember": { "kind": "reasoning", "label": "Hipótesis sobre la importancia estratégica de la ponte" },
     "messages": [
-      { "from": "topotino", "time": "auto", "text": "Buena inferencia. Habéis leído historia en el terreno, no repetido una fecha." },
-      { "from": "topotino", "time": "auto", "text": "Buscad ahora un obelisco o una inscripción de la ponte que recuerde la resistencia de 1809. Decid qué palabras, fecha o símbolo encontráis." },
-      { "from": "topotino", "time": "auto", "text": "Después id al exterior de la Igreja de São Gonçalo. En una ventana está la Senhora da Ponte, ligada al paso medieval que cayó en 1763." },
-      { "from": "topotino", "time": "auto", "text": "Terminaremos junto al río. Relacionad esos dos hallazgos con la tradición de São Gonçalo y los peces. ¿Qué conserva el monumento y qué conserva el relato?" }
+      { "from": "topotino", "time": "auto", "text": "Buena inferencia. Habéis leído historia en el terreno, no repetido una fecha. En 1809 la resistencia de la ponte duró catorce días, entre abril y mayo, durante las Invasiones Francesas. Aunque la defensa acabó siendo superada, retrasó y desgastó la ofensiva: el paisaje ayuda a entender por qué un paso podía importar tanto." },
+      { "from": "topotino", "time": "auto", "text": "Ahora buscad un obelisco, una lápida o una inscripción de la ponte. No me digáis solo qué fecha aparece: decid qué hecho conmemora y qué parte de la historia no puede contarnos por sí sola." },
+      { "from": "topotino", "time": "auto", "text": "Después id al exterior de la Igreja de São Gonçalo. Buscad en una ventana la Senhora da Ponte. Mi memoria insiste en que la antigua ponte cayó en 1763, pero quiero que comprobéis qué imagen sobrevivió y dónde se conserva." },
+      { "from": "topotino", "time": "auto", "text": "Cuando tengáis ambos hallazgos, comparadlos: ¿qué diferencia hay entre una inscripción histórica y una imagen conservada por una comunidad? No os pido decidir cuál es «más verdadera». Os pido explicar qué tipo de memoria aporta cada una." }
     ]
   },
   {
@@ -118,23 +117,22 @@ El Cuaderno de la Memoria continúa siendo privado. Topotino no pide una entrada
     "requiredFlags": ["amarante_posicion_razonada"],
     "blockedFlags": ["completado_amarante"],
     "openAnswer": true,
-    "minWords": 9,
-    "containsAnyGroups": [["obelisco", "inscripción", "inscripcion", "placa", "1809", "resistencia"], ["senhora", "piedad", "ventana", "iglesia", "1763", "medieval"], ["pez", "peces", "são gonçalo", "tradición", "tradicion", "relato"], ["memoria", "historia", "documento", "monumento", "conserva", "porque"]],
+    "minWords": 24,
+    "containsAnyGroups": [["obelisco", "inscripción", "inscripcion", "lápida", "lapida", "1809", "resistencia"], ["senhora", "piedad", "ventana", "iglesia", "1763", "medieval"], ["pez", "peces", "são gonçalo", "tradición", "tradicion", "relato"], ["memoria", "historia", "documento", "monumento", "conserva", "comunidad"], ["diferencia", "distinta", "tipo", "aporta", "recuerda", "conmemora"]],
     "rejectContainsAny": ["todo es verdad", "todo es mentira", "no se", "ni idea"],
     "setFlags": ["amarante_historia_comprendida", "diario_amarante", "completado_amarante"],
     "remember": { "kind": "walking_source_reasoning", "label": "Recorrido entre monumento, imagen y tradición en Amarante" },
     "water": "Agua del Puente",
     "formulaWord": "COMIENZO",
     "messages": [
-      { "from": "topotino", "time": "auto", "text": "Exacto. La inscripción conserva un hecho público; la Senhora da Ponte conserva una pieza anterior; y el relato de los peces conserva identidad y valores." },
-      { "from": "topotino", "time": "auto", "text": "Habéis tenido que cruzar, buscar y relacionar. Eso vale más que clasificar cuatro frases desde una pantalla." },
-      { "from": "topotino", "time": "auto", "text": "El fragmento «...REFL...» ha respondido. La segunda ventana del mapa acaba de volverse transparente." },
-      { "from": "topotino", "time": "auto", "text": "No recojáis agua del Tâmega. La conexión apareció porque comprendisteis el lugar, no por tocar el río." },
-      { "from": "topotino", "time": "auto", "text": "Estoy recordando una escena. Una figura de espaldas ajusta una máquina y dice: «Nadie puede acusarme de robar algo que no se puede tocar»." },
-      { "from": "topotino", "time": "auto", "text": "Después oigo mi voz: «No quiere el agua. Quiere lo que vivimos junto a ella». Eso es todo; no fingiré saber más." },
-      { "from": "topotino", "time": "auto", "text": "La máquina ha soltado un plano con seis mundos: África, confusión, una aldea medieval, piratas, Far-West y un zoco. También aparecen una rueda, un barco que se balancea y agua corriendo. Esa es nuestra siguiente ruta." },
+      { "from": "topotino", "time": "auto", "text": "Exacto. La inscripción conserva un hecho público; la Senhora da Ponte conserva una imagen ligada a una travesía anterior; y el relato de los peces conserva identidad y valores de Amarante. Son memorias distintas, no una sola prueba mezclada." },
+      { "from": "topotino", "time": "auto", "text": "La tradición cuenta que São Gonçalo ayudó a construir la primera ponte, movió piedras enormes y pidió peces para alimentar a quienes trabajaban. Os lo cuento como tradición de la comunidad, no como un dato que la inscripción pueda demostrar." },
+      { "from": "topotino", "time": "auto", "text": "Ahora entiendo por qué este lugar me resultaba familiar. No he recuperado el caso entero: he recuperado la manera de investigarlo. Mi yo anterior venía aquí para comparar paisaje, monumento e historia oral." },
+      { "from": "topotino", "time": "auto", "text": "El Agua del Puente ha despertado. No porque hayáis tocado el Tâmega —no recojáis agua—, sino porque habéis cruzado entre dos orillas y habéis unido dos formas de recordar sin confundirlas." },
+      { "from": "topotino", "time": "auto", "text": "Y me llega otro recuerdo práctico: yo había preparado para mañana una investigación sobre un lugar donde todo gira, se balancea y cambia de sitio. Recuerdo seis ambientes: África, una aldea medieval, piratas, Far-West, un zoco y una zona de confusión." },
+      { "from": "topotino", "time": "auto", "text": "Empieza por MAGIK... ¿Podéis identificarlo? No es una contraseña: comprobad si el nombre y esos ambientes encajan con el lugar al que iremos." },
       { "from": "topotino", "time": "auto", "text": "Para mañana preparad bañador, toalla, protector solar, agua para beber y calzado cómodo." },
-      { "from": "topotino", "time": "auto", "text": "Por hoy basta. Habéis hecho inventario, leído el terreno y discutido qué cuenta como evidencia. Cenad y descansad. Mañana quiero investigadores despiertos, no dos croquetas con ojeras." }
+      { "from": "topotino", "time": "auto", "text": "Por hoy basta. Habéis hecho inventario, leído una posición militar, comparado fuentes y corregido un recuerdo mío. Cenad y descansad: mañana quiero investigadores despiertos, no dos croquetas con ojeras." }
     ]
   },
   {
@@ -147,8 +145,8 @@ El Cuaderno de la Memoria continúa siendo privado. Topotino no pide una entrada
     "water": "Agua del Puente",
     "formulaWord": "COMIENZO",
     "messages": [
-      { "from": "topotino", "time": "auto", "text": "La señal antigua se había quedado esperando una confirmación que ya no necesito. No voy a pediros el contenido del cuaderno. Doy por cerrada la investigación con lo que razonasteis sobre Amarante." },
-      { "from": "topotino", "time": "auto", "text": "La siguiente ruta reúne África, confusión, medievo, piratas, Far-West y un zoco." },
+      { "from": "topotino", "time": "auto", "text": "No voy a pediros el contenido del cuaderno. Doy por cerrada la investigación con lo que razonasteis sobre Amarante y con los recuerdos que hemos podido comprobar en el lugar." },
+      { "from": "topotino", "time": "auto", "text": "Mi memoria de la siguiente ruta reúne África, confusión, medievo, piratas, Far-West y un zoco. Si el nombre que pensáis es Magikland, comprobadlo mañana con los ojos, no solo con mi recuerdo." },
       { "from": "topotino", "time": "auto", "text": "Preparad bañador, toalla, protector solar, agua para beber y calzado cómodo. Ahora descansad; continuaremos mañana." }
     ]
   }
@@ -169,15 +167,15 @@ El Cuaderno de la Memoria continúa siendo privado. Topotino no pide una entrada
 
 ```json
 [
-  "Los balcones que buscamos sobresalen de la ponte con forma semicircular. El número es menor que cinco y mayor que tres.",
-  "Imaginad que el río dificulta pasar de una orilla a otra. ¿Qué controla quien controla el paso más claro?",
-  "En la ponte, los obeliscos recuerdan 1809. En el exterior de la iglesia, una ventana conserva la Senhora da Ponte. Los peces pertenecen al relato de São Gonçalo."
+  "Los balcones que buscamos sobresalen de la ponte con forma semicircular. El número es menor que cinco y mayor que tres; añadid una evidencia de piedra o arcos y otra relacionada con el río o la ciudad.",
+  "Imaginad que el río dificulta pasar de una orilla a otra. No basta con decir que la ponte era importante: explicad qué podía vigilar o bloquear quien controlara ese paso.",
+  "La inscripción u obelisco recuerda 1809. En el exterior de la iglesia, una ventana conserva la Senhora da Ponte y se relaciona con la caída de la antigua ponte en 1763. Los peces pertenecen al relato de São Gonçalo. Comparad qué tipo de memoria aporta cada fuente."
 ]
 ```
 
 ## Contexto para IA
 
-Topotino conserva la amistad emocional con Paula y Hugo y recuerda todo desde el eclipse. El capítulo admite una rama normal y otra de recuperación: si falta `amarante_previa_identificada`, reconoce que la deducción quedó pendiente y no finge que ocurrió. No recuerda Londres, Luanco ni su investigación anterior. Al inicio sabe que el mapa señala Amarante y que Rufino ha detectado un fragmento `...REFL...` manchado por algo llamado Borrón. Tras `amarante_puente_observado`, sabe que vieron cuatro balcones semicirculares y otro rasgo real. Tras `amarante_posicion_razonada`, puede conversar sobre su hipótesis estratégica sin añadir hechos que no dijeron. Tras `amarante_historia_comprendida`, sabe que recorrieron la ponte, localizaron el recuerdo de 1809, buscaron la Senhora da Ponte y relacionaron esos indicios con la tradición de São Gonçalo. Tras `completado_amarante`, sabe que la segunda ventana se aclaró y recuerda únicamente la escena autorizada de la figura de espaldas. No identifica con certeza a Topoloco. Conversa con ambos a nivel intelectual aproximado de diez años. El Cuaderno es privado. No revela el museo, Granada, los leones ni que los niños son necesarios. Al cerrar usa únicamente el plano de seis mundos y pide descanso. Nunca pide agua del río.
+Topotino conserva la amistad emocional con Paula y Hugo y recuerda todo desde el eclipse. El capítulo admite una rama normal y otra de recuperación: si falta `amarante_previa_identificada`, reconoce que la deducción quedó pendiente y no finge que ocurrió. No recupera el caso completo anterior, pero el lugar le activa recuerdos parciales de método: reconoce el puente, recuerda preguntas y puede recordar una ruta sin recordar sus respuestas. Cada recuerdo debe contrastarse con la evidencia que Paula y Hugo encuentran allí. Tras `amarante_puente_observado`, sabe que comprobaron cuatro balcones semicirculares y dos relaciones del puente con su entorno. Tras `amarante_posicion_razonada`, puede conversar sobre la importancia estratégica de la ponte sin añadir hechos que no dijeron. Tras `amarante_historia_comprendida`, sabe que localizaron la memoria de 1809, la Senhora da Ponte y la tradición de São Gonçalo, y debe explicar qué aporta cada fuente. No usa ventanas del mapa, máquinas ni señales nuevas. No identifica con certeza a Topoloco. Conversa con ambos a nivel intelectual aproximado de diez años. El Cuaderno es privado. No revela el museo, Granada ni los leones. Al cerrar recuerda de forma incompleta que la siguiente investigación trataba de seis ambientes y movimiento, y pide comprobar Magikland al día siguiente. Nunca pide agua del río.
 
 ## Fuentes documentales
 

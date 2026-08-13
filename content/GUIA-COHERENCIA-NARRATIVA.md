@@ -41,7 +41,7 @@ Durante la mañana del 12 de agosto, antes del eclipse, Topotino conserva toda s
 
 Al comienzo solo se sabe que ocurrió algo durante el eclipse. La atribución progresa así:
 
-- Amarante: aparece un fragmento de una máquina que trabajaba con reflejos; no identifica al culpable.
+- Amarante: el lugar activa recuerdos parciales de una investigación anterior; Topotino reconoce preguntas y métodos, pero debe contrastarlos con Paula y Hugo. No identifica al culpable.
 - Magikland: una máquina firmada por Topoloco demuestra que estudia cómo se forma un recuerdo.
 - Óbidos: Topotino comprende que los recuerdos no fueron destruidos, sino extraídos y repartidos.
 - Dino Parque: aparece el nombre del museo.
@@ -194,7 +194,7 @@ Las respuestas deben exigir evidencia y razonamiento, pero los mensajes de Topot
 | Día | Lugares | Función dentro del plan | Lo que deja para después |
 |---|---|---|---|
 | Antes | Luanco y eclipse | Primera ventana marcada; ataque y amnesia | Paquete, cuaderno y pista del Tâmega |
-| 13 | Amarante | Primer transmisor; historia pública, tradición y paisaje | Seis mundos y máquina de atención |
+| 13 | Amarante | Primer transmisor; historia pública, tradición y paisaje | Recuerdo incompleto de seis mundos y máquina de atención |
 | 14 | Magikland, Hotel do Parque | Topoloco aprende cómo nace un recuerdo; aparece Topotina; edificio con capas | Bosque con convento, batalla y palacio |
 | 15 | Buçaco, Batalha, Fátima | Ordenar capas, promesa, obra incompleta y escala | Rastros de animal y agua bajo tierra |
 | 16 | Huellas, Mira de Aire, Óbidos | Borrón deja pistas; rastros, procesos y diferencia dato/interpretación | Los recuerdos fueron extraídos; fósiles y reconstrucción |
@@ -316,6 +316,14 @@ Antes de publicar un cambio:
 - Se añade una escena de espera durante la mañana del eclipse que también se abre en partidas ya iniciadas.
 - Topotino responde de forma directa a «¿es el eclipse?», «¿cuándo?» y «no te entiendo».
 - La conversación anterior al eclipse usa Luna y deja de caer en una respuesta genérica repetida.
+
+### 13 de agosto de 2026 · T-13A1
+
+- Amarante deja de usar ventanas del mapa, fragmentos de máquina o señales colocadas en el lugar como mecanismo de revelación.
+- Topotino reconoce la Ponte de São Gonçalo porque ya investigó allí antes del eclipse, pero recuerda preguntas y métodos antes que respuestas.
+- Paula y Hugo deben verificar cada recuerdo mediante observación, razonamiento y comparación de fuentes.
+- Tras cada descubrimiento, Topotino explica la historia de la ponte, la resistencia de 1809, la caída de la ponte anterior en 1763 y la tradición de São Gonçalo.
+- El Agua del Puente despierta por relacionar paisaje, monumento, historia documentada y tradición. Magikland aparece como un recuerdo incompleto de planificación anterior.
 
 ### 12 de agosto de 2026 · T-12B0
 
