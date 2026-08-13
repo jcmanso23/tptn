@@ -1,4 +1,4 @@
-import { splitTopotinoMessages } from './chat-format.js?v=memory-v31';
+import { splitTopotinoMessages } from './chat-format.js?v=memory-v33';
 
 const STORAGE_KEYS = {
   auth: 'topotino_chat_auth_v1',
@@ -6,10 +6,18 @@ const STORAGE_KEYS = {
 };
 
 const LEGACY_STATE_KEY = 'topotino_chat_state_v1';
-const APP_VERSION_CODE = 'T-12B5';
+const APP_VERSION_CODE = 'T-19B5';
 const PASSPHRASE_HASH = 'a64716bd9f4e8added1bf47f80b97c3fc7b70a15b8043cdab083e1ddf85f3794';
-const EPISODES_MANIFEST = 'content/episodes.json?v=memory-v31';
+const EPISODES_MANIFEST = 'content/episodes.json?v=memory-v33';
 const LIVE_STORY_ENDPOINT = '/api/story';
+const AMARANTE_TRAVEL_DATE = '2026-08-13';
+const AMARANTE_ROUTE_EPISODE_ID = '004b-rumbo-amarante';
+const AMARANTE_EPISODE_ID = '005-amarante-puente';
+const AMARANTE_RESCUE_MARKER = 'rescate-cierre-amarante-t19b5';
+const STALE_LUANCO_EPISODE_IDS = new Set([
+  '002-luanco-llegada',
+  '003-luanco-agua-norte'
+]);
 const ACTIVATION_TICK_MS = 60000;
 const LOCATION_REFRESH_COOLDOWN_MS = 2 * 60 * 1000;
 const MAX_STORY_MEMORY_ITEMS = 60;
@@ -126,6 +134,7 @@ let syncInFlight = false;
 let activationInterval = null;
 let adultLaunchTimer = null;
 let locationRefreshInFlight = false;
+let startupRescueMessages = [];
 
 const els = {};
 const params = new URLSearchParams(window.location.search);
@@ -145,6 +154,8 @@ async function init() {
     baseEpisodes = await Promise.all(manifest.map((item) => fetchEpisode(item.file)));
     episodes = baseEpisodes.slice().sort((a, b) => (a.meta.order || 0) - (b.meta.order || 0));
     await refreshLiveStory();
+    applyTravelDayRescue();
+    applyAmaranteCompletionRescue();
   } catch (error) {
     console.error(error);
     showUnlockError('No se pudo cargar el comunicador. Revisad la conexión.');
@@ -270,7 +281,8 @@ async function enterChat() {
     activationInterval = setInterval(() => runActivationCheck('tick'), ACTIVATION_TICK_MS);
   }
   scheduleNextAdultLaunchTimer();
-  const incomingMessages = [...liveMessages, ...activationMessages];
+  const incomingMessages = [...startupRescueMessages, ...liveMessages, ...activationMessages];
+  startupRescueMessages = [];
   if (incomingMessages.length) {
     await deliverTopotinoMessages(incomingMessages, { mode: 'activation' });
   }
@@ -677,6 +689,7 @@ function findGuidedResponse(text) {
   const available = getUnlockedEpisodes().slice().reverse();
 
   for (const episode of available) {
+    if (isStaleLuancoEpisode(episode)) continue;
     const response = (episode.guidedResponses || []).find((candidate) =>
       responseMatches(candidate, normalized)
     );
@@ -983,7 +996,7 @@ function renderMessages() {
 function renderProgress() {
   const activeEpisode = getActiveEpisode();
   const meta = activeEpisode ? activeEpisode.meta : {};
-  els.channelCode.textContent = APP_VERSION_CODE;
+  els.channelCode.textContent = meta.channelCode || APP_VERSION_CODE;
   els.missionActive.textContent = meta.mission || meta.title || 'Reconexión';
   els.watersCount.textContent = `${state.waters.length}/12`;
   els.locationStatus.textContent = state.locationStatus;
@@ -1083,6 +1096,51 @@ function getUnlockedEpisodes() {
 
 function isEpisodeUnlocked(episodeId) {
   return state.unlockedEpisodeIds.includes(episodeId);
+}
+
+function applyTravelDayRescue() {
+  if (!state.unlocked) return false;
+  if (formatDate(getRuntimeNow()) < AMARANTE_TRAVEL_DATE) return false;
+  if (!STALE_LUANCO_EPISODE_IDS.has(state.activeEpisodeId)) return false;
+  const routeEpisode = getEpisode(AMARANTE_ROUTE_EPISODE_ID);
+  if (!routeEpisode) return false;
+
+  unlockEpisode(routeEpisode.meta.id);
+  saveState({ sync: false });
+  return true;
+}
+
+function applyAmaranteCompletionRescue() {
+  if (!state.unlocked) return false;
+  if (formatDate(getRuntimeNow()) !== AMARANTE_TRAVEL_DATE) return false;
+  if (state.flags.includes('completado_amarante')) return false;
+  if (state.seenBroadcastIds.includes(AMARANTE_RESCUE_MARKER)) return false;
+  if (!state.unlockedEpisodeIds.includes(AMARANTE_EPISODE_ID)) return false;
+
+  addUniqueMany(state.flags, [
+    'amarante_historia_comprendida',
+    'amarante_animal_tamega',
+    'amarante_piedras_observadas',
+    'diario_amarante',
+    'completado_amarante'
+  ]);
+  addWater('Agua del Puente');
+  addFormulaWord('COMIENZO');
+  state.seenBroadcastIds.push(AMARANTE_RESCUE_MARKER);
+  startupRescueMessages = [
+    { from: 'topotino', time: 'auto', text: 'Paula, Hugo: misión cumplida. Habéis investigado Amarante de verdad y no voy a pediros que repitáis ninguna respuesta.' },
+    { from: 'topotino', time: 'auto', text: 'Habéis unido la ponte, la memoria de 1809, la tradición de São Gonçalo y distintas formas de mirar el Tâmega. Muy buen trabajo, agentes.' },
+    { from: 'topotino', time: 'auto', text: 'La muestra queda guardada como Agua del Puente. Amarante está terminada.' },
+    { from: 'topotino', time: 'auto', text: 'Para mañana recuerdo un lugar imposible: África, lejano Oeste, zoco, piratas y poblado medieval, todo junto. Tendremos que descubrir si existe.' },
+    { from: 'topotino', time: 'auto', text: 'Preparad bañador, toalla, protector solar, agua y calzado cómodo. Ahora cenad y descansad. Seguimos mañana.' }
+  ];
+  saveState();
+  return true;
+}
+
+function isStaleLuancoEpisode(episode) {
+  return STALE_LUANCO_EPISODE_IDS.has(episode?.meta?.id) &&
+    formatDate(getRuntimeNow()) >= AMARANTE_TRAVEL_DATE;
 }
 
 function addWater(water) {
@@ -1832,6 +1890,6 @@ function applyTestingParams() {
 
 function registerServiceWorker() {
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('service-worker.js?v=offline-v17').catch(() => {});
+    navigator.serviceWorker.register('service-worker.js?v=offline-v19').catch(() => {});
   }
 }

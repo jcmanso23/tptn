@@ -1,6 +1,6 @@
 # Guía maestra de coherencia narrativa · Las Doce Aguas
 
-**Versión canónica:** 12 de agosto de 2026 · edición T-12B5
+**Versión canónica:** 13 de agosto de 2026 · edición T-19B5
 **Final principal:** Alhambra, Palacios Nazaríes, noche del 26 de agosto
 **Epílogo:** Generalife, 27 de agosto; no abre otra amenaza
 
@@ -285,7 +285,14 @@ Antes de publicar un cambio:
 
 ## 19. Registro de decisiones
 
-### 12 de agosto de 2026 · T-12B5
+### 13 de agosto de 2026 · T-19B5
+
+- Se cierra Amarante automáticamente cuando el capítulo ya está abierto en la partida real y el motor quedó esperando otra marca interna.
+- El rescate reconoce como realizadas la historia, la perspectiva del Tâmega, la observación segura de las piedras y la conservación de la muestra, sin pedir repetir respuestas.
+- Topotino felicita a Paula y Hugo, da por terminada la jornada, conserva Agua del Puente y deja la pista de los seis mundos para el 14 de agosto.
+- La salida solo se aplica una vez y no adelanta Magikland antes del día y la ubicación correspondientes.
+
+### 12 de agosto de 2026 · T-19B4
 
 - Se retiran definitivamente los episodios vacíos `004-eclipse` y `004-guimaraes-origen`; ninguna partida depende ya de ellos para continuar.
 - La espera del eclipse se activa directamente por la muestra de Luanco y la fecha, sin puente técnico retirado.

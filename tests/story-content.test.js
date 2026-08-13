@@ -111,7 +111,8 @@ test('los días 13 y 14 conservan su cadena narrativa y adaptan solo tras un imp
   assert.match(amaranteEpisode.meta.activation.location.label, /Ponte de São Gonçalo/);
   assert.match(amarante, /"water": "Agua del Puente"/);
   assert.match(amarante, /"formulaWord": "COMIENZO"/);
-  assert.match(amarante, /No recojáis agua del Tâmega/);
+  assert.match(amarante, /recoged una pequeña muestra del agua de Amarante/i);
+  assert.match(amarante, /sin entrar en el río ni acercaros al borde/i);
   assert.match(amarante, /tradición/);
   assert.match(amarante, /diario_amarante/);
   assert.match(amarante, /amarante_posicion_razonada/);
@@ -169,7 +170,7 @@ test('los días 13 y 14 conservan su cadena narrativa y adaptan solo tras un imp
   assert.doesNotMatch(childFacingText, /(foto|fotografía).{0,30}(cuaderno|diario)/i);
 });
 
-test('la edición T-12B5 usa caché nueva, mensajes breves y rescates de destino', async () => {
+test('la edición T-19B5 usa caché nueva, mensajes breves y rescates de destino', async () => {
   const files = ['index.html', 'app.js', 'admin.js', 'content/episodes/001-reconexion.md'];
   const combined = (await Promise.all(files.map((file) => readFile(join(root, file), 'utf8')))).join('\n');
   const app = await readFile(join(root, 'app.js'), 'utf8');
@@ -180,17 +181,37 @@ test('la edición T-12B5 usa caché nueva, mensajes breves y rescates de destino
     'content/episodes/001-reconexion.md'
   );
 
-  assert.match(combined, /T-12B5/);
+  assert.match(combined, /T-19B5/);
   assert.doesNotMatch(combined, /T-12A9/);
   assert.match(app, /splitTopotinoMessages/);
-  assert.match(app, /els\.channelCode\.textContent = APP_VERSION_CODE/);
-  assert.match(serviceWorker, /topotino-offline-v17/);
-  assert.match(serviceWorker, /chat-format\.js\?v=memory-v31/);
+  assert.match(app, /els\.channelCode\.textContent = meta\.channelCode \|\| APP_VERSION_CODE/);
+  assert.match(serviceWorker, /topotino-offline-v19/);
+  assert.match(serviceWorker, /chat-format\.js\?v=memory-v33/);
   assert.match(ai, /Escribe como en WhatsApp/);
   assert.ok(
     reconnection.sections['Respuestas guiadas']
       .some((response) => response.id === 'luanco-solucion-ayudada' && response.setFlags?.includes('luanco_identificado'))
   );
+});
+
+test('el rescate T-19B5 cierra Amarante sin repetir pruebas y deja preparado el día siguiente', async () => {
+  const app = await readFile(join(root, 'app.js'), 'utf8');
+  const amarante = parseEpisode(
+    await readFile(join(root, 'content/episodes/005-amarante-puente.md'), 'utf8'),
+    'content/episodes/005-amarante-puente.md'
+  );
+  const rescue = amarante.sections['Respuestas guiadas']
+    .find((response) => response.id === 'amarante-cierre-rescate-inmediato');
+
+  assert.ok(rescue);
+  assert.ok(rescue.setFlags.includes('completado_amarante'));
+  assert.equal(rescue.water, 'Agua del Puente');
+  assert.match(rescue.messages.map((message) => message.text).join(' '), /misión cumplida/i);
+  assert.match(rescue.messages.map((message) => message.text).join(' '), /mañana/i);
+  assert.match(rescue.messages.map((message) => message.text).join(' '), /bañador/i);
+  assert.match(app, /function applyAmaranteCompletionRescue/);
+  assert.match(app, /rescate-cierre-amarante-t19b5/);
+  assert.match(app, /startupRescueMessages/);
 });
 
 test('la publicación limpia no carga capítulos retirados ni recursos de Londres', async () => {
@@ -372,7 +393,7 @@ test('la secuencia principal puede recorrerse y reúne exactamente las doce agua
   }
 });
 
-test('la narrativa T-12B5 usa mapa, paquete y ventanas sin enseñar los nombres internos', async () => {
+test('la narrativa T-19B5 usa mapa, paquete y ventanas sin enseñar los nombres internos', async () => {
   const manifest = JSON.parse(await readFile(join(root, 'content/episodes.json'), 'utf8'));
   const childFacing = [];
 
@@ -389,7 +410,8 @@ test('la narrativa T-12B5 usa mapa, paquete y ventanas sin enseñar los nombres 
   assert.match(text, /mapa de doce puntos|doce puntos/i);
   assert.match(text, /Marga/);
   assert.match(text, /La última ventana se ha aclarado/);
-  assert.doesNotMatch(text, /Ha despertado el Agua|Agua de la Risa|Agua de la Promesa|Agua del Puente|Agua del Horizonte|Agua del Cuidado/i);
+  assert.match(text, /Agua del Puente/i);
+  assert.doesNotMatch(text, /Ha despertado el Agua|Agua de la Risa|Agua de la Promesa|Agua del Horizonte|Agua del Cuidado/i);
 
   const index = await readFile(join(root, 'index.html'), 'utf8');
   const app = await readFile(join(root, 'app.js'), 'utf8');

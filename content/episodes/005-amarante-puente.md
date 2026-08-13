@@ -3,7 +3,7 @@
   "id": "005-amarante-puente",
   "order": 5,
   "title": "Día 1 · El puente entre dos memorias",
-  "channelCode": "T-19B4",
+  "channelCode": "T-19B5",
   "startsUnlocked": false,
   "activation": {
     "mode": "all",
@@ -48,6 +48,21 @@ En la zona del mercado también pueden ver, desde un lugar autorizado y seguro, 
 
 ```json
 [
+  {
+    "id": "amarante-cierre-rescate-inmediato",
+    "blockedFlags": ["completado_amarante"],
+    "containsAny": ["terminar amarante", "fin amarante", "hemos terminado", "ya hemos terminado", "misión terminada", "mision terminada", "cerrar el día", "cerrar el dia", "agua guardada", "muestra guardada"],
+    "setFlags": ["amarante_historia_comprendida", "amarante_animal_tamega", "amarante_piedras_observadas", "diario_amarante", "completado_amarante"],
+    "water": "Agua del Puente",
+    "formulaWord": "COMIENZO",
+    "messages": [
+      { "from": "topotino", "time": "auto", "text": "Paula, Hugo: misión cumplida. Habéis investigado Amarante de verdad y no voy a pediros que repitáis ninguna respuesta." },
+      { "from": "topotino", "time": "auto", "text": "Habéis unido la ponte, la memoria de 1809, la tradición de São Gonçalo y dos formas de mirar el Tâmega. Muy buen trabajo, agentes." },
+      { "from": "topotino", "time": "auto", "text": "La muestra queda guardada como Agua del Puente. Amarante está terminada." },
+      { "from": "topotino", "time": "auto", "text": "Para mañana recuerdo un lugar imposible: África, lejano Oeste, zoco, piratas y poblado medieval, todo junto. Tendremos que descubrir si existe." },
+      { "from": "topotino", "time": "auto", "text": "Preparad bañador, toalla, protector solar, agua y calzado cómodo. Ahora cenad y descansad. Seguimos mañana." }
+    ]
+  },
   {
     "id": "amarante-alternativa-lluvia",
     "blockedFlags": ["amarante_puente_observado"],
