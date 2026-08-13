@@ -170,7 +170,7 @@ test('los días 13 y 14 conservan su cadena narrativa y adaptan solo tras un imp
   assert.doesNotMatch(childFacingText, /(foto|fotografía).{0,30}(cuaderno|diario)/i);
 });
 
-test('la edición T-19B6 usa caché nueva, mensajes breves y rescates de destino', async () => {
+test('la edición T-20A0 usa el motor de retos, caché nueva y rescates de destino', async () => {
   const files = ['index.html', 'app.js', 'admin.js', 'content/episodes/001-reconexion.md'];
   const combined = (await Promise.all(files.map((file) => readFile(join(root, file), 'utf8')))).join('\n');
   const app = await readFile(join(root, 'app.js'), 'utf8');
@@ -181,12 +181,14 @@ test('la edición T-19B6 usa caché nueva, mensajes breves y rescates de destino
     'content/episodes/001-reconexion.md'
   );
 
-  assert.match(combined, /T-19B6/);
+  assert.match(combined, /T-20A0/);
   assert.doesNotMatch(combined, /T-12A9/);
   assert.match(app, /splitTopotinoMessages/);
-  assert.match(app, /els\.channelCode\.textContent = meta\.channelCode \|\| APP_VERSION_CODE/);
-  assert.match(serviceWorker, /topotino-offline-v20/);
-  assert.match(serviceWorker, /chat-format\.js\?v=memory-v34/);
+  assert.match(app, /CHALLENGE_PACKS/);
+  assert.match(app, /els\.channelCode\.textContent = APP_VERSION_CODE/);
+  assert.match(serviceWorker, /topotino-offline-v23/);
+  assert.match(serviceWorker, /chat-format\.js\?v=memory-v37/);
+  assert.match(serviceWorker, /content\/challenges\.js\?v=memory-v37/);
   assert.match(ai, /Escribe como en WhatsApp/);
   assert.ok(
     reconnection.sections['Respuestas guiadas']

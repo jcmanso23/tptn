@@ -60,3 +60,16 @@ test('las respuestas conversacionales usan silencios naturales y pueden no conte
   assert.match(source, /window\.addEventListener\('focus'/);
   assert.match(source, /accuracyMargin/);
 });
+
+test('Luna valida respuestas escritas con un veredicto estructurado sin controlar el progreso', async () => {
+  const api = await readFile(join(root, 'api/chat.js'), 'utf8');
+  const app = await readFile(join(root, 'app.js'), 'utf8');
+
+  assert.match(api, /Output\.object\(\{ schema: challengeVerdictSchema \}\)/);
+  assert.match(api, /validate-challenge/);
+  assert.match(api, /\['correct', 'partial', 'incorrect', 'clarify'\]/);
+  assert.match(api, /La aplicación, no tú, decide el avance/);
+  assert.match(app, /function completeChallenge/);
+  assert.match(app, /result\.verdict \|\| \{\}/);
+  assert.match(app, /No cuenta como error/);
+});

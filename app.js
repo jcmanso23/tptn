@@ -1,4 +1,5 @@
-import { splitTopotinoMessages } from './chat-format.js?v=memory-v34';
+import { splitTopotinoMessages } from './chat-format.js?v=memory-v37';
+import { CHALLENGE_PACKS } from './content/challenges.js?v=memory-v37';
 
 const STORAGE_KEYS = {
   auth: 'topotino_chat_auth_v1',
@@ -6,9 +7,9 @@ const STORAGE_KEYS = {
 };
 
 const LEGACY_STATE_KEY = 'topotino_chat_state_v1';
-const APP_VERSION_CODE = 'T-19B6';
+const APP_VERSION_CODE = 'T-20A0';
 const PASSPHRASE_HASH = 'a64716bd9f4e8added1bf47f80b97c3fc7b70a15b8043cdab083e1ddf85f3794';
-const EPISODES_MANIFEST = 'content/episodes.json?v=memory-v34';
+const EPISODES_MANIFEST = 'content/episodes.json?v=memory-v37';
 const LIVE_STORY_ENDPOINT = '/api/story';
 const AMARANTE_TRAVEL_DATE = '2026-08-13';
 const AMARANTE_ROUTE_EPISODE_ID = '004b-rumbo-amarante';
@@ -105,6 +106,13 @@ const state = {
   waters: [],
   formulaWords: [],
   storyMemory: [],
+  completedChallengeIds: [],
+  challengeAttempts: {},
+  challengeWrongOptions: {},
+  memoryScore: 0,
+  shadowScore: 0,
+  recoveredShadow: 0,
+  endingVariant: null,
   softResponseCursor: {},
   hintMissCursor: {},
   chatterWarningCursor: 0,
@@ -187,6 +195,9 @@ function bindElements() {
   els.watersCount = document.getElementById('waters-count');
   els.watersList = document.getElementById('waters-list');
   els.formulaDisplay = document.getElementById('formula-display');
+  els.memoryScore = document.getElementById('memory-score');
+  els.shadowScore = document.getElementById('shadow-score');
+  els.challengePanel = document.getElementById('challenge-panel');
   els.progressToggle = document.getElementById('progress-toggle');
   els.progressBody = document.getElementById('progress-body');
   els.internalProgress = document.getElementById('internal-progress');
@@ -367,9 +378,9 @@ async function evaluateActivations({ reason, collectMessages = false } = {}) {
     if (!episode) return;
     unlockEpisode(episode.meta.id);
     if (collectMessages) {
-      queuedMessages.push(...eligibleMessages(episode.initialMessages));
+      queuedMessages.push(...episodeOpeningMessages(episode));
     } else {
-      appendMessages(eligibleMessages(episode.initialMessages));
+      appendMessages(episodeOpeningMessages(episode));
     }
     changed = true;
   });
@@ -379,9 +390,9 @@ async function evaluateActivations({ reason, collectMessages = false } = {}) {
     if (!episodeCanActivate(episode)) continue;
     unlockEpisode(episode.meta.id);
     if (collectMessages) {
-      queuedMessages.push(...eligibleMessages(episode.initialMessages));
+      queuedMessages.push(...episodeOpeningMessages(episode));
     } else {
-      appendMessages(eligibleMessages(episode.initialMessages));
+      appendMessages(episodeOpeningMessages(episode));
     }
     changed = true;
   }
@@ -393,6 +404,14 @@ async function evaluateActivations({ reason, collectMessages = false } = {}) {
   }
 
   return queuedMessages;
+}
+
+function episodeOpeningMessages(episode) {
+  const pack = CHALLENGE_PACKS[episode.meta.id];
+  const messages = pack?.openingMessages?.length
+    ? pack.openingMessages.map((text) => ({ from: 'topotino', time: 'auto', text }))
+    : eligibleMessages(episode.initialMessages);
+  return messages;
 }
 
 function episodeCanActivate(episode) {
@@ -558,6 +577,23 @@ async function handleUserMessage(text) {
   saveState();
   renderAll();
 
+  const challenge = getActiveChallenge();
+  if (challenge) {
+    if (challengeNeedsPhysicalConfirmation(challenge) && isChallengeCompletionMessage(text)) {
+      await resolveChallengeCompletion(challenge);
+      return;
+    }
+    if (challenge.kind === 'choice' || challenge.kind === 'destination' || challenge.kind === 'daily-recovery') {
+      const exactOption = (challenge.options || []).find((option) => normalizeText(option.text) === normalizeText(text));
+      if (exactOption) {
+        await resolveChallengeOption(challenge, exactOption.id);
+        return;
+      }
+      await askChallengeValidation(challenge, text);
+      return;
+    }
+  }
+
   const guided = findGuidedResponse(text);
   if (guided) {
     await applyGuidedResponse(guided.response, guided.episode, text);
@@ -594,6 +630,243 @@ async function handleUserMessage(text) {
   }
 
   await askAiFallback(text);
+}
+
+function getChallengePack(episodeId = getActiveEpisode()?.meta?.id) {
+  return episodeId ? CHALLENGE_PACKS[episodeId] || null : null;
+}
+
+function getActiveChallenge() {
+  const episode = getActiveEpisode();
+  const pack = getChallengePack(episode?.meta?.id);
+  if (!pack) return null;
+
+  for (const step of pack.steps || []) {
+    if (state.completedChallengeIds.includes(step.id)) continue;
+    if (step.kind === 'daily-recovery' && getNetShadow() <= 0) continue;
+    return { ...step, episodeId: episode.meta.id, shadowActor: pack.shadowActor || 'Topoloco' };
+  }
+  return null;
+}
+
+function challengeNeedsPhysicalConfirmation(challenge) {
+  if (!challenge) return false;
+  if (challenge.kind === 'expedition' || challenge.kind === 'ending') return true;
+  return (state.challengeAttempts[challenge.id] || 0) >= 2 && Boolean(challenge.recovery);
+}
+
+function isChallengeCompletionMessage(text) {
+  const normalized = normalizeText(text);
+  if (/^(no|aun no|todavia no)\b/.test(normalized) || /\bno lo hemos hecho\b/.test(normalized)) return false;
+  return [
+    'ya lo hemos hecho', 'ya esta hecho', 'ya está hecho', 'lo hemos hecho',
+    'hemos terminado', 'terminado', 'completado', 'hecho', 'ya esta', 'ya está'
+  ].some((phrase) => normalized === normalizeText(phrase) || normalized.includes(normalizeText(phrase)));
+}
+
+async function handleChallengeOption(challenge, optionId) {
+  const option = (challenge.options || []).find((item) => item.id === optionId);
+  if (!option) return;
+  appendMessage({ from: 'user', time: nowTime(), text: option.text });
+  saveState();
+  renderAll();
+
+  await resolveChallengeOption(challenge, optionId);
+}
+
+async function resolveChallengeOption(challenge, optionId) {
+  if (challenge.kind === 'daily-recovery') {
+    await resolveDailyRecovery(challenge, optionId === challenge.correctOptionId);
+    return;
+  }
+  if (optionId === challenge.correctOptionId) {
+    await resolveChallengeSuccess(challenge);
+  } else {
+    await resolveChallengeIncorrect(challenge, optionId);
+  }
+}
+
+async function handleChallengeCompletion(challenge) {
+  appendMessage({ from: 'user', time: nowTime(), text: 'Ya lo hemos hecho.' });
+  saveState();
+  renderAll();
+  await resolveChallengeCompletion(challenge);
+}
+
+async function resolveChallengeCompletion(challenge) {
+  if (state.completedChallengeIds.includes(challenge.id)) return;
+  const isRecovery = (state.challengeAttempts[challenge.id] || 0) >= 2 && Boolean(challenge.recovery);
+  let messages;
+
+  if (challenge.kind === 'ending') {
+    completeChallenge(challenge, { awardMemory: true });
+    state.endingVariant = calculateEndingVariant();
+    messages = endingMessages(state.endingVariant);
+  } else if (isRecovery) {
+    completeChallenge(challenge, { awardMemory: true });
+    messages = [
+      'Comprobación hecha. Ya no hace falta adivinar ninguna redacción.',
+      ...(challenge.successMessages || []),
+      'La pregunta queda resuelta. Las Sombras de los intentos anteriores permanecen, pero la aventura continúa.'
+    ];
+  } else {
+    completeChallenge(challenge, { awardMemory: true });
+    messages = challenge.doneMessages || ['Expedición completada. Gracias, agentes.'];
+  }
+
+  saveState();
+  renderAll();
+  await deliverTopotinoMessages(toTopotinoMessages(messages), { mode: 'challenge' });
+  saveState();
+  renderAll();
+}
+
+async function resolveChallengeSuccess(challenge) {
+  if (state.completedChallengeIds.includes(challenge.id)) return;
+  completeChallenge(challenge, { awardMemory: true });
+  saveState();
+  renderAll();
+  await deliverTopotinoMessages(toTopotinoMessages(challenge.successMessages || ['Correcto. Muy bien observado.']), { mode: 'challenge' });
+  saveState();
+  renderAll();
+}
+
+async function resolveChallengeIncorrect(challenge, optionId = null, modelReply = '') {
+  if (state.completedChallengeIds.includes(challenge.id)) return;
+  const attempts = Math.min(2, (state.challengeAttempts[challenge.id] || 0) + 1);
+  state.challengeAttempts[challenge.id] = attempts;
+  if (optionId) {
+    const wrong = state.challengeWrongOptions[challenge.id] || [];
+    if (!wrong.includes(optionId)) wrong.push(optionId);
+    state.challengeWrongOptions[challenge.id] = wrong;
+  }
+  state.shadowScore += 1;
+
+  const actor = challenge.shadowActor || 'Topoloco';
+  const messages = [
+    modelReply || `Esa opción no encaja con la evidencia. ${challenge.hint || 'Mirad otra vez antes de elegir.'}`,
+    `${actor} gana una Sombra. Tranquilos: un error no borra nada; nos enseña dónde está la trampa.`
+  ];
+  if (attempts >= 2) {
+    messages.push('Han sido dos intentos. Cambio de plan: aparece una comprobación física breve para que podáis continuar sin quedar atrapados.');
+  }
+  saveState();
+  renderAll();
+  await deliverTopotinoMessages(toTopotinoMessages(messages), { mode: 'challenge' });
+  saveState();
+  renderAll();
+}
+
+async function resolveDailyRecovery(challenge, correct) {
+  if (state.completedChallengeIds.includes(challenge.id)) return;
+  addUniqueMany(state.completedChallengeIds, [challenge.id]);
+  let messages;
+  if (correct && getNetShadow() > 0) {
+    state.recoveredShadow += 1;
+    messages = challenge.successMessages || ['Habéis retirado una Sombra.'];
+  } else {
+    messages = challenge.failureMessages || ['Esta vez la Sombra permanece. Mañana habrá otra oportunidad.'];
+  }
+  saveState();
+  renderAll();
+  await deliverTopotinoMessages(toTopotinoMessages(messages), { mode: 'challenge' });
+  saveState();
+  renderAll();
+}
+
+async function askChallengeValidation(challenge, text) {
+  setBusy(true, true);
+  try {
+    const response = await fetch('/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        mode: 'validate-challenge',
+        message: text,
+        challenge: {
+          id: challenge.id,
+          kind: challenge.kind,
+          place: challenge.place,
+          prompt: challenge.prompt,
+          options: challenge.options,
+          correctOptionId: challenge.correctOptionId,
+          explanation: (challenge.successMessages || []).join(' ')
+        }
+      })
+    });
+    if (!response.ok) throw new Error('Challenge validation failed');
+    const result = await response.json();
+    const verdict = result.verdict || {};
+    if (verdict.verdict === 'correct') {
+      if (challenge.kind === 'daily-recovery') await resolveDailyRecovery(challenge, true);
+      else await resolveChallengeSuccess(challenge);
+      return;
+    }
+    if (verdict.verdict === 'incorrect') {
+      if (challenge.kind === 'daily-recovery') await resolveDailyRecovery(challenge, false);
+      else await resolveChallengeIncorrect(challenge, null, verdict.reply);
+      return;
+    }
+    await deliverTopotinoMessages(toTopotinoMessages([
+      verdict.reply || 'No estoy seguro de que eso sea vuestra respuesta. Podéis tocar una opción o explicármelo de otra manera.'
+    ]), { mode: 'challenge' });
+  } catch (error) {
+    await deliverTopotinoMessages(toTopotinoMessages([
+      'La señal de Luna no ha podido comprobar esa frase. No cuenta como error.',
+      'Usad los botones o probad con un mensaje más corto.'
+    ]), { mode: 'challenge' });
+  } finally {
+    setBusy(false, false);
+    saveState();
+    renderAll();
+  }
+}
+
+function completeChallenge(challenge, { awardMemory = false } = {}) {
+  addUniqueMany(state.completedChallengeIds, [challenge.id]);
+  if (awardMemory) state.memoryScore += 1;
+  applyChallengeEffects(challenge.effects || {});
+}
+
+function applyChallengeEffects(effects) {
+  addUniqueMany(state.flags, effects.setFlags || []);
+  if (effects.water) addWater(effects.water);
+  if (effects.formulaWord) addFormulaWord(effects.formulaWord);
+  if (effects.nextEpisode) {
+    const nextEpisode = getEpisode(effects.nextEpisode);
+    if (nextEpisode) unlockEpisode(nextEpisode.meta.id);
+  }
+}
+
+function getNetShadow() {
+  return Math.max(0, Number(state.shadowScore || 0) - Number(state.recoveredShadow || 0));
+}
+
+function calculateEndingVariant() {
+  const ratio = getNetShadow() / Math.max(1, Number(state.memoryScore || 0));
+  if (ratio <= 0.25) return 'clean';
+  if (ratio <= 0.6) return 'close';
+  return 'incomplete';
+}
+
+function endingMessages(variant) {
+  const shared = [
+    'Las doce ventanas se han abierto como una sola red. Topoloco no puede convertir vuestras dos miradas en una propiedad suya.',
+    'Borrón, Eco y Niebla sueltan las conexiones. Topoloco huye por un conducto estrecho, enfadado porque una historia compartida no cabe en su vitrina.',
+    'Topotina mantiene el mapa estable. Y yo… Tina. Recuerdo que te llamaba Tina.',
+    'Paula, Hugo: gracias. Habéis observado, elegido, corregido y seguido juntos. La aventura principal termina aquí, en la Alhambra de noche.'
+  ];
+  if (variant === 'clean') {
+    return ['Victoria limpia. La Memoria supera claramente a la Sombra.', ...shared, 'Mis recuerdos regresan con conexiones muy nítidas. Mañana solo queda una despedida tranquila.'];
+  }
+  if (variant === 'close') {
+    return ['Victoria ajustada. La Sombra llegó lejos, pero no pudo romper vuestra red.', ...shared, 'Han vuelto los recuerdos importantes. Algunas esquinas siguen borrosas y las ordenaremos sin inventarlas.'];
+  }
+  return ['Victoria incompleta, pero victoria al fin. Topoloco pierde el museo; algunas Sombras permanecen pegadas a mis recuerdos.', ...shared, 'Mañana, con la luz del Generalife, necesitaremos una segunda mirada para asentar lo recuperado. No empezamos otra amenaza.'];
+}
+
+function toTopotinoMessages(texts) {
+  return texts.filter(Boolean).map((text) => ({ from: 'topotino', time: nowTime(), text }));
 }
 
 async function applyGuidedResponse(guided, sourceEpisode, userText = '') {
@@ -863,6 +1136,19 @@ function getReplyTiming(mode) {
     };
   }
 
+  if (mode === 'challenge') {
+    return {
+      silenceMin: 2000,
+      silenceMax: 6000,
+      typingMin: 900,
+      typingMax: 2200,
+      staggerMin: 500,
+      staggerMax: 1100,
+      nextTypingMin: 700,
+      nextTypingMax: 1800
+    };
+  }
+
   if (mode === 'conversation') {
     return {
       silenceMin: 4000,
@@ -949,6 +1235,7 @@ function getCurrentPosition(options) {
 function renderAll() {
   renderMessages();
   renderProgress();
+  renderChallenge();
   renderAdultPanel();
 }
 
@@ -1002,13 +1289,15 @@ function renderMessages() {
 function renderProgress() {
   const activeEpisode = getActiveEpisode();
   const meta = activeEpisode ? activeEpisode.meta : {};
-  els.channelCode.textContent = meta.channelCode || APP_VERSION_CODE;
+  els.channelCode.textContent = APP_VERSION_CODE;
   els.missionActive.textContent = meta.mission || meta.title || 'Reconexión';
   els.watersCount.textContent = `${state.waters.length}/12`;
   els.locationStatus.textContent = state.locationStatus;
   els.formulaDisplay.textContent = FORMULA_WORDS
     .map((word) => state.formulaWords.includes(word) ? FORMULA_LABELS[word] : '???')
     .join(', ');
+  if (els.memoryScore) els.memoryScore.textContent = String(state.memoryScore || 0);
+  if (els.shadowScore) els.shadowScore.textContent = String(getNetShadow());
 
   els.watersList.innerHTML = '';
   state.waters.forEach((water, index) => {
@@ -1018,6 +1307,99 @@ function renderProgress() {
     pill.title = 'Conexión recuperada del Mapa de las Doce Aguas';
     els.watersList.appendChild(pill);
   });
+}
+
+function renderChallenge() {
+  if (!els.challengePanel) return;
+  const challenge = getActiveChallenge();
+  els.challengePanel.innerHTML = '';
+  els.challengePanel.hidden = !challenge;
+  if (!challenge) return;
+
+  const card = document.createElement('section');
+  card.className = `challenge-card challenge-${challenge.kind}`;
+
+  const heading = document.createElement('div');
+  heading.className = 'challenge-heading';
+  const place = document.createElement('span');
+  place.className = 'challenge-place';
+  place.textContent = challenge.place || 'Misión actual';
+  const title = document.createElement('strong');
+  title.textContent = challenge.title || {
+    choice: 'Elegid la explicación que encaja',
+    destination: 'Descubrid la ruta completa de mañana',
+    'daily-recovery': 'Relacionad lo aprendido hoy'
+  }[challenge.kind] || 'Decisión de la aventura';
+  heading.append(place, title);
+  card.appendChild(heading);
+
+  const attempts = state.challengeAttempts[challenge.id] || 0;
+  const recoveryMode = attempts >= 2 && Boolean(challenge.recovery);
+  if (recoveryMode) {
+    const explanation = document.createElement('p');
+    explanation.textContent = 'Dos intentos no han bastado. Haced esta comprobación y continuamos sin examen.';
+    card.appendChild(explanation);
+    card.appendChild(renderActionList(challenge.recovery.actions || []));
+    card.appendChild(challengeCompleteButton('Ya hemos hecho la comprobación', challenge));
+  } else if (challenge.kind === 'expedition' || challenge.kind === 'ending') {
+    const intro = document.createElement('p');
+    intro.textContent = challenge.intro || 'Realizad estas acciones con calma.';
+    card.appendChild(intro);
+    card.appendChild(renderActionList(challenge.actions || []));
+    card.appendChild(challengeCompleteButton(challenge.kind === 'ending' ? 'Abrir las doce ventanas' : 'Ya lo hemos hecho', challenge));
+  } else {
+    const prompt = document.createElement('p');
+    prompt.className = 'challenge-prompt';
+    prompt.textContent = challenge.prompt;
+    card.appendChild(prompt);
+    const options = document.createElement('div');
+    options.className = 'challenge-options';
+    const wrongOptions = state.challengeWrongOptions[challenge.id] || [];
+    (challenge.options || []).forEach((option) => {
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.dataset.challengeOption = option.id;
+      button.textContent = option.text;
+      button.disabled = busy || wrongOptions.includes(option.id);
+      if (wrongOptions.includes(option.id)) button.classList.add('was-wrong');
+      button.addEventListener('click', async () => {
+        if (busy || button.disabled) return;
+        await handleChallengeOption(challenge, option.id);
+      });
+      options.appendChild(button);
+    });
+    card.appendChild(options);
+    const help = document.createElement('small');
+    help.textContent = 'Podéis tocar una opción o escribir vuestra respuesta a Topotino.';
+    card.appendChild(help);
+  }
+
+  els.challengePanel.appendChild(card);
+}
+
+function renderActionList(actions) {
+  const list = document.createElement('ol');
+  list.className = 'challenge-actions';
+  actions.forEach((action) => {
+    const item = document.createElement('li');
+    item.textContent = action;
+    list.appendChild(item);
+  });
+  return list;
+}
+
+function challengeCompleteButton(label, challenge) {
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.className = 'challenge-complete';
+  button.dataset.challengeComplete = '1';
+  button.disabled = busy;
+  button.textContent = label;
+  button.addEventListener('click', async () => {
+    if (busy || button.disabled) return;
+    await handleChallengeCompletion(challenge);
+  });
+  return button;
 }
 
 async function fetchEpisode(file) {
@@ -1132,6 +1514,7 @@ function applyAmaranteCompletionRescue() {
   ]);
   addWater('Agua del Puente');
   addFormulaWord('COMIENZO');
+  state.memoryScore = Math.max(1, Number(state.memoryScore || 0));
   state.seenBroadcastIds.push(AMARANTE_RESCUE_MARKER);
   startupRescueMessages = [
     { from: 'topotino', time: 'auto', text: 'Paula, Hugo: misión cumplida. Habéis investigado Amarante de verdad y no voy a pediros que repitáis ninguna respuesta.' },
@@ -1399,6 +1782,9 @@ function setBusy(nextBusy, showTyping = nextBusy) {
   els.typing.hidden = !showTyping;
   els.sendButton.disabled = nextBusy;
   els.chatInput.disabled = nextBusy;
+  els.challengePanel?.querySelectorAll('button').forEach((button) => {
+    button.disabled = nextBusy || button.classList.contains('was-wrong');
+  });
 }
 
 function nextTypingMessage() {
@@ -1623,6 +2009,13 @@ function buildLocalState() {
     waters: state.waters,
     formulaWords: state.formulaWords,
     storyMemory: state.storyMemory,
+    completedChallengeIds: state.completedChallengeIds,
+    challengeAttempts: state.challengeAttempts,
+    challengeWrongOptions: state.challengeWrongOptions,
+    memoryScore: state.memoryScore,
+    shadowScore: state.shadowScore,
+    recoveredShadow: state.recoveredShadow,
+    endingVariant: state.endingVariant,
     softResponseCursor: state.softResponseCursor,
     hintMissCursor: state.hintMissCursor,
     chatterWarningCursor: state.chatterWarningCursor,
@@ -1661,6 +2054,13 @@ function applyRestoredState(remoteState, recoveryCode) {
     waters: remoteState.waters || [],
     formulaWords: (remoteState.formulaWords || []).map(normalizeFormulaWord),
     storyMemory: normalizeStoryMemory(remoteState.storyMemory),
+    completedChallengeIds: remoteState.completedChallengeIds || [],
+    challengeAttempts: remoteState.challengeAttempts || {},
+    challengeWrongOptions: remoteState.challengeWrongOptions || {},
+    memoryScore: Number(remoteState.memoryScore) || ((remoteState.flags || []).includes('completado_amarante') ? 1 : 0),
+    shadowScore: Number(remoteState.shadowScore) || 0,
+    recoveredShadow: Number(remoteState.recoveredShadow) || 0,
+    endingVariant: remoteState.endingVariant || null,
     softResponseCursor: remoteState.softResponseCursor || {},
     chatterWarningCursor: remoteState.chatterWarningCursor || 0,
     lastChatterWarningAt: remoteState.lastChatterWarningAt || 0,
@@ -1856,6 +2256,13 @@ function loadState() {
       waters: saved.waters || [],
       formulaWords: (saved.formulaWords || []).map(normalizeFormulaWord),
       storyMemory: normalizeStoryMemory(saved.storyMemory),
+      completedChallengeIds: saved.completedChallengeIds || [],
+      challengeAttempts: saved.challengeAttempts || {},
+      challengeWrongOptions: saved.challengeWrongOptions || {},
+      memoryScore: Number(saved.memoryScore) || ((saved.flags || []).includes('completado_amarante') ? 1 : 0),
+      shadowScore: Number(saved.shadowScore) || 0,
+      recoveredShadow: Number(saved.recoveredShadow) || 0,
+      endingVariant: saved.endingVariant || null,
       softResponseCursor: saved.softResponseCursor || {},
       hintMissCursor: saved.hintMissCursor || {},
       chatterWarningCursor: saved.chatterWarningCursor || 0,
@@ -1896,6 +2303,6 @@ function applyTestingParams() {
 
 function registerServiceWorker() {
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('service-worker.js?v=offline-v20').catch(() => {});
+    navigator.serviceWorker.register('service-worker.js?v=offline-v23').catch(() => {});
   }
 }

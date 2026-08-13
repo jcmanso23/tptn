@@ -1,6 +1,6 @@
 # Guía maestra de coherencia narrativa · Las Doce Aguas
 
-**Versión canónica:** 13 de agosto de 2026 · edición T-19B6
+**Versión canónica:** 13 de agosto de 2026 · edición T-20A0
 **Final principal:** Alhambra, Palacios Nazaríes, noche del 26 de agosto
 **Epílogo:** Generalife, 27 de agosto; no abre otra amenaza
 
@@ -189,6 +189,24 @@ La geolocalización abre la conversación, no resuelve la prueba. Primero se pro
 
 Las respuestas deben exigir evidencia y razonamiento, pero los mensajes de Topotino son breves, como WhatsApp. Una instrucción compleja se divide en varios mensajes.
 
+Desde T-20A0 cada parada del itinerario se juega con un sistema claro:
+
+1. Topotino recuerda por qué la aventura conduce hasta allí y qué está en juego.
+2. Una tarjeta de expedición reúne entre dos y cuatro acciones físicas sencillas. No se dispersan instrucciones por el chat.
+3. Paula y Hugo confirman con el botón «Ya lo hemos hecho» o con una frase equivalente. Topotino da por realizadas las acciones sin examinarlos.
+4. Topotino cuenta la historia o el conocimiento que permite entender lo observado.
+5. Cada parada contiene dos decisiones con tres opciones visibles. Al acertar, Topotino explica por qué y amplía la información.
+6. El orden puede variar entre expedición y decisiones para que las paradas no sean mecánicamente idénticas.
+7. La dificultad reside en observar, predecir, ordenar, comparar, detectar una pista falsa o tomar una decisión; nunca en adivinar la redacción que espera la aplicación.
+
+Los botones son la vía principal. Luna también puede interpretar una respuesta escrita y clasificarla como correcta, parcial, incorrecta o necesitada de aclaración. Solo una respuesta inequívocamente correcta o incorrecta altera el juego. Una ambigüedad, una pregunta de los niños o un fallo técnico no penalizan.
+
+Cada error confirmado aumenta la **Sombra** y permite que Borrón, Eco, Niebla o Topoloco ganen una pequeña ventaja narrativa. Cada acierto recupera **Memoria**. Después de dos errores en una misma pregunta, aparece una comprobación física alternativa que permite continuar; las Sombras obtenidas permanecen. Cada jornada ofrece una oportunidad opcional de retirar una Sombra.
+
+Memoria y Sombra son visibles. Nunca borran progreso, cambian el itinerario real ni impiden llegar a la Alhambra. Determinan tres formas del desenlace: victoria limpia, victoria ajustada o victoria incompleta que necesita asentarse durante el epílogo.
+
+La noche anterior se descubre mediante opciones la ruta completa del día siguiente. Topotino explica por qué esa ruta continúa la investigación, da la preparación práctica y pide descanso. Al comenzar la jornada recuerda esa conexión antes de presentar la primera parada.
+
 ## 13. Ruta narrativa completa
 
 | Día | Lugares | Función dentro del plan | Lo que deja para después |
@@ -239,7 +257,7 @@ Topotino tiene personalidad fuerte: afectuoso, teatral, ingenioso, un poco nervi
 
 ## 16. Arquitectura conversacional
 
-Luna recibe solo el contexto permitido de la fase activa, flags, memoria de respuestas del chat y mensajes recientes. No recibe el canon secreto ni el contenido del cuaderno. El modelo conversa y adapta; el motor determinista concede progreso.
+Luna recibe solo el contexto permitido de la fase activa, flags, memoria de respuestas del chat y mensajes recientes. No recibe el canon secreto ni el contenido del cuaderno. El motor concede progreso cuando se pulsa una opción o se confirma una expedición. Luna puede validar respuestas libres mediante una salida estructurada, pero debe aportar evidencia suficiente y nunca altera directamente el estado.
 
 Después del eclipse, cada contexto de IA debe indicar:
 
@@ -284,6 +302,16 @@ Antes de publicar un cambio:
 - [ ] El final continúa en la Alhambra nocturna y el Generalife es solo epílogo.
 
 ## 19. Registro de decisiones
+
+### 13 de agosto de 2026 · T-20A0
+
+- Se sustituye el reconocimiento de redacciones abiertas por expediciones agrupadas y preguntas con botones.
+- Todas las paradas principales del itinerario conservan experiencia completa: dos decisiones y una expedición de dos a cuatro acciones, agrupando salas y puntos internos.
+- Las expediciones se aceptan al confirmar que se han realizado y desembocan en una explicación educativa, no en un examen de lo observado.
+- Cada respuesta errónea confirmada alimenta la Sombra; cada acierto recupera Memoria. Hay una recuperación opcional diaria y tres variantes victoriosas del desenlace.
+- Luna puede interpretar respuestas escritas con cuatro resultados estructurados; ambigüedades y errores técnicos no cuentan como fallos.
+- La ruta completa de cada día se descubre la noche anterior mediante un enigma con opciones y termina con instrucciones prácticas y descanso.
+- Amarante permanece terminada. La única actividad nueva del día 13 es descubrir y preparar Magikland y Curia.
 
 ### 13 de agosto de 2026 · T-19B6
 

@@ -4,7 +4,7 @@ Antes de crear, corregir o publicar cualquier misión, lee y actualiza [`GUIA-CO
 
 La separación entre canon secreto, conocimiento de Topotino, estado verificable y conversación se documenta en [`ARQUITECTURA-CONVERSACIONAL.md`](ARQUITECTURA-CONVERSACIONAL.md).
 
-Cada capítulo o submisión es un archivo `.md` en `content/episodes/` y debe estar listado en `content/episodes.json`.
+Cada capítulo o submisión es un archivo `.md` en `content/episodes/` y debe estar listado en `content/episodes.json`. Desde el día de Amarante, la experiencia jugable revisada se define además en `content/challenges.js`; sus pasos sustituyen a las antiguas respuestas abiertas de esos capítulos sin borrar el contexto, las activaciones ni la documentación histórica.
 
 La app carga todos los MD, pero solo muestra los mensajes de un capítulo cuando su `activation` se cumple. Las condiciones no se pisan entre sí: puedes combinar respuesta, flags, fecha, hora y ubicación. Por defecto deben cumplirse todas; usa `"mode": "any"` si basta con que se cumpla una.
 
@@ -65,6 +65,20 @@ Usa siempre estos encabezados:
 - `## Respuestas suaves si fallan`: JSON con pistas cuando no hay acierto guiado.
 - `## Pistas progresivas`: JSON con pistas que empiezan a salir tras tres intentos fallidos en un episodio.
 - `## Contexto para IA`: límites y tono para el fallback de OpenAI.
+
+## Retos estructurados desde T-20A0
+
+Cada paquete de `content/challenges.js` usa el mismo `id` que su episodio y puede contener:
+
+- `expedition`: tarjeta con lugar, motivo y de dos a cuatro acciones. Se completa al confirmar que se han realizado;
+- `choice`: pregunta con tres o cuatro botones, respuesta correcta, explicación educativa, pista y comprobación física alternativa;
+- `daily-recovery`: una relación entre aprendizajes del día que puede retirar una Sombra;
+- `destination`: pista para averiguar la ruta completa de mañana, con preparación y petición de descanso;
+- `ending`: cierre físico final que calcula una de las tres variantes victoriosas.
+
+Las opciones admiten también respuesta escrita. Luna solo clasifica el significado mediante un resultado estructurado; `app.js` conserva la autoridad para sumar Memoria, Sombra, flags y ventanas. Un fallo de Luna no penaliza y siempre deja disponibles los botones.
+
+Cada lugar principal debe incluir una expedición física y dos preguntas que amplíen la información al acertar. La dificultad reside en observar, comparar y deducir; la redacción debe ser breve y natural. Tras dos errores claros, la pregunta cambia a una comprobación sobre el terreno y la aventura continúa.
 
 En respuestas guiadas puedes usar:
 
@@ -176,4 +190,4 @@ Recomendación: usa siempre una ventana privada o entra con `?topoadulto=1&reset
 - `018-sevilla-alhambra-noche`: cierre principal en la Alhambra nocturna el 26 de agosto.
 - `019-epilogo-generalife`: epílogo voluntario y regreso el 27.
 
-El arco completo del viaje está publicado. Cada día conserva recuperación por cambio real de plan y conversación libre con Luna.
+El arco completo del viaje está publicado. Cada mañana recuerda el motivo de la ruta, cada lugar usa retos breves y físicos, cada noche permite descubrir el destino siguiente y la conversación libre con Luna continúa disponible sin controlar el progreso.

@@ -35,13 +35,23 @@ Desde el eclipse distingue memoria emocional, memoria factual anterior y memoria
 
 ### Estado verificable
 
-Flags, valores internos heredados de aguas, palabras, episodios, mensajes y memoria de viaje viven en el estado de la partida y en su copia de Upstash. Esta capa decide qué se ha completado. Los valores de agua se traducen en la interfaz como ventanas recuperadas del mapa. Un modelo no puede inventar o conceder un logro.
+Flags, valores internos heredados de aguas, palabras, episodios, mensajes, retos completados, Memoria, Sombra y memoria de viaje viven en el estado de la partida y en su copia de Upstash. Esta capa decide qué se ha completado. Los valores de agua se traducen en la interfaz como ventanas recuperadas del mapa. Un modelo no puede inventar o conceder un logro.
+
+Desde `T-20A0`, los retos jugables del día 13 en adelante viven en `content/challenges.js`. El motor presenta tres formatos controlados:
+
+- preguntas de elección con botones y ampliación educativa después del acierto;
+- expediciones con dos a cuatro acciones físicas que se dan juntas;
+- rutas del día siguiente que se resuelven la noche anterior y terminan con preparación y descanso.
+
+Un error claro suma una Sombra. Después de dos intentos, el motor sustituye la pregunta por una comprobación física para que nadie quede atrapado. Una vez al día puede aparecer una recuperación que retire una Sombra. Cada avance válido suma Memoria y el balance produce tres variantes del mismo desenlace victorioso.
 
 La `storyMemory` conserva únicamente respuestas guiadas del comunicador marcadas como relevantes: observaciones físicas, hipótesis, predicciones, decisiones y correcciones. Cada elemento incluye episodio, tipo, etiqueta y texto original. Se limita a sesenta elementos y migra de forma compatible: una partida anterior empieza con la lista vacía sin perder ningún dato existente.
 
 ### Conversación
 
-El modelo puede redactar pistas, reaccionar a preguntas y adaptar una acción a un imprevisto. Recibe únicamente el conocimiento permitido, el estado actual, la memoria de viaje y los mensajes recientes.
+El modelo puede reaccionar a preguntas, adaptar una acción a un imprevisto y validar semánticamente una respuesta escrita. Recibe únicamente el conocimiento permitido, el estado actual, la memoria de viaje y los mensajes recientes.
+
+En una pregunta con opciones, Paula y Hugo pueden pulsar un botón o escribir con sus propias palabras. Luna devuelve un objeto cerrado con `correct`, `partial`, `incorrect` o `clarify`. Ese veredicto no modifica el estado directamente: el motor aplica las mismas reglas que con los botones. Si Luna no responde, no cuenta como error y los botones mantienen la aventura jugable.
 
 El Cuaderno de la Memoria queda deliberadamente fuera de esta capa. Luna sabe que existe y para qué servirá, pero no recibe, solicita ni deduce sus páginas.
 
@@ -79,7 +89,10 @@ El 11 de agosto de 2026 se decidió usar la facturación existente de la API de 
 - Enviar al modelo solo el `aiContext` de la fase activa, flags y conversación reciente; no mezclar contextos antiguos desbloqueados que contradigan la amnesia actual.
 - Enviar los turnos recientes con roles de usuario y asistente para mantener una conversación real sin repetir el contexto como si fuera una ficha.
 - Enviar también la memoria de viaje persistente, separada de los turnos recientes y del cuaderno privado.
-- Mantener respuestas guiadas para aciertos, progreso, seguridad y contingencias críticas.
+- Mantener el motor de retos para aciertos, progreso, seguridad y contingencias críticas.
+- Usar botones para elecciones, tarjetas para expediciones y salida física después de dos intentos.
+- Mantener visibles Memoria y Sombra y ofrecer una recuperación como máximo una vez por jornada.
+- Descubrir por completo la ruta siguiente la noche anterior y recordar su motivo al comenzar la mañana.
 - Registrar el conocimiento de Topotino por fases.
 - Mantener privado el Cuaderno de la Memoria. La app no pide ni registra su contenido; solo registra respuestas dadas durante las investigaciones del chat.
 - Agradecer de forma concreta observaciones y razonamientos válidos sin conceder progreso desde el modelo.

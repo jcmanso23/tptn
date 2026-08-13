@@ -1,8 +1,28 @@
-import { generateText } from 'ai';
+import { generateText, jsonSchema, Output } from 'ai';
 import { createOpenAI } from '@ai-sdk/openai';
 
 const DEFAULT_MODEL = 'openai/gpt-5.6-luna';
 const DEFAULT_OPENAI_MODEL = 'gpt-5.6-luna';
+
+const challengeVerdictSchema = jsonSchema({
+  type: 'object',
+  additionalProperties: false,
+  required: ['verdict', 'evidence', 'reply'],
+  properties: {
+    verdict: {
+      type: 'string',
+      enum: ['correct', 'partial', 'incorrect', 'clarify']
+    },
+    evidence: {
+      type: 'string',
+      description: 'Razón breve y concreta del veredicto.'
+    },
+    reply: {
+      type: 'string',
+      description: 'Respuesta de Topotino, clara y de un máximo de tres frases cortas.'
+    }
+  }
+});
 
 export const config = {
   maxDuration: 30
@@ -19,6 +39,10 @@ export default async function handler(req, res) {
 
   if (!userMessage.trim()) {
     return res.status(400).json({ error: 'Missing message' });
+  }
+
+  if (body.mode === 'validate-challenge') {
+    return validateChallenge(body, userMessage, res);
   }
 
   const systemPrompt = [
@@ -173,6 +197,109 @@ export default async function handler(req, res) {
       name: error?.name,
       message: error?.message,
       statusCode: error?.statusCode,
+      provider,
+      selectedModel,
+      hasOpenAIKey: Boolean(openAIKey)
+    });
+    return res.status(503).json({ error: 'AI_UNAVAILABLE' });
+  }
+}
+
+async function validateChallenge(body, userMessage, res) {
+  const challenge = body.challenge && typeof body.challenge === 'object'
+    ? body.challenge
+    : {};
+  const options = Array.isArray(challenge.options)
+    ? challenge.options.map((option) => ({
+      id: String(option?.id || '').slice(0, 80),
+      text: String(option?.text || '').slice(0, 300)
+    }))
+    : [];
+  const correctOptionId = String(challenge.correctOptionId || '').slice(0, 80);
+  const correctOption = options.find((option) => option.id === correctOptionId);
+
+  if (!String(challenge.prompt || '').trim() || !correctOption) {
+    return res.status(400).json({ error: 'Invalid challenge' });
+  }
+
+  const instructions = [
+    'Clasificas una respuesta escrita por Paula o Hugo a una prueba de Topotino.',
+    'La aplicación, no tú, decide el avance. Devuelve únicamente el objeto solicitado.',
+    'Marca correct si la respuesta expresa la idea de la opción correcta, aunque use otras palabras.',
+    'Marca partial si contiene una parte útil pero falta una distinción importante.',
+    'Marca incorrect solo si elige claramente una opción equivocada o afirma lo contrario de la correcta.',
+    'Marca clarify si es una pregunta, una petición de pista, una frase ambigua, una broma o no permite saber qué opción elige.',
+    'No castigues faltas de ortografía ni una explicación breve.',
+    'En reply habla como Topotino en español de España, con vocabulario sencillo y máximo tres frases cortas.',
+    'Si es correct, confirma y amplía el aprendizaje con el dato suministrado.',
+    'Si es partial o clarify, formula una sola ayuda concreta sin revelar directamente la respuesta.',
+    'Si es incorrect, explica por qué no encaja y da la pista suministrada; no ridiculices.',
+    `Prueba: ${String(challenge.prompt).slice(0, 600)}`,
+    `Opciones: ${JSON.stringify(options)}`,
+    `Opción correcta: ${JSON.stringify(correctOption)}`,
+    `Explicación al acertar: ${String(challenge.learn || challenge.explanation || '').slice(0, 600)}`,
+    `Pista: ${String(challenge.hint || '').slice(0, 400)}`,
+    `Respuesta escrita: ${JSON.stringify(userMessage)}`
+  ].join('\n');
+
+  const openAIKey = String(process.env.OPENAI_API_KEY || '').trim();
+  const gatewayModel = process.env.AI_MODEL || DEFAULT_MODEL;
+  const selectedModel = openAIKey
+    ? process.env.OPENAI_MODEL || DEFAULT_OPENAI_MODEL
+    : gatewayModel;
+  const provider = openAIKey ? 'openai-direct' : 'vercel-ai-gateway';
+  const generationOptions = {
+    instructions,
+    prompt: userMessage,
+    output: Output.object({ schema: challengeVerdictSchema }),
+    maxOutputTokens: 300
+  };
+
+  try {
+    let result;
+    if (openAIKey) {
+      const openai = createOpenAI({ apiKey: openAIKey });
+      result = await generateText({
+        ...generationOptions,
+        model: openai(selectedModel),
+        providerOptions: {
+          openai: {
+            reasoningEffort: 'none',
+            store: false
+          }
+        }
+      });
+    } else {
+      result = await generateText({
+        ...generationOptions,
+        model: gatewayModel,
+        providerOptions: {
+          gateway: {
+            user: 'topotino-family',
+            tags: ['feature:challenge-validation', `challenge:${String(challenge.id || 'unknown')}`]
+          }
+        }
+      });
+    }
+
+    const verdict = result.output;
+    if (!verdict || !['correct', 'partial', 'incorrect', 'clarify'].includes(verdict.verdict)) {
+      throw new Error('INVALID_CHALLENGE_VERDICT');
+    }
+
+    console.log('Topotino challenge verdict', {
+      provider,
+      challengeId: String(challenge.id || ''),
+      verdict: verdict.verdict,
+      inputTokens: result.usage?.inputTokens,
+      outputTokens: result.usage?.outputTokens
+    });
+
+    return res.status(200).json({ verdict });
+  } catch (error) {
+    console.error('Topotino challenge validation failed', {
+      name: error?.name,
+      message: error?.message,
       provider,
       selectedModel,
       hasOpenAIKey: Boolean(openAIKey)
