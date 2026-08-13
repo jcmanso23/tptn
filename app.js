@@ -1,4 +1,4 @@
-import { splitTopotinoMessages } from './chat-format.js?v=memory-v33';
+import { splitTopotinoMessages } from './chat-format.js?v=memory-v34';
 
 const STORAGE_KEYS = {
   auth: 'topotino_chat_auth_v1',
@@ -6,9 +6,9 @@ const STORAGE_KEYS = {
 };
 
 const LEGACY_STATE_KEY = 'topotino_chat_state_v1';
-const APP_VERSION_CODE = 'T-19B5';
+const APP_VERSION_CODE = 'T-19B6';
 const PASSPHRASE_HASH = 'a64716bd9f4e8added1bf47f80b97c3fc7b70a15b8043cdab083e1ddf85f3794';
-const EPISODES_MANIFEST = 'content/episodes.json?v=memory-v33';
+const EPISODES_MANIFEST = 'content/episodes.json?v=memory-v34';
 const LIVE_STORY_ENDPOINT = '/api/story';
 const AMARANTE_TRAVEL_DATE = '2026-08-13';
 const AMARANTE_ROUTE_EPISODE_ID = '004b-rumbo-amarante';
@@ -669,7 +669,7 @@ async function askAiFallback(text) {
       text: data.reply || 'He recibido interferencias. Repetidlo más despacio, agentes.'
     }];
   })().catch(() => {
-    const soft = activeEpisode && activeEpisode.softResponses.length
+    const soft = activeEpisode && !isEpisodeCompleted(activeEpisode) && activeEpisode.softResponses.length
       ? nextSoftResponse(activeEpisode)
       : null;
     return [{
@@ -686,17 +686,22 @@ async function askAiFallback(text) {
 
 function findGuidedResponse(text) {
   const normalized = normalizeText(text);
-  const available = getUnlockedEpisodes().slice().reverse();
+  const episode = getActiveEpisode();
+  if (!episode || isStaleLuancoEpisode(episode) || isEpisodeCompleted(episode)) return null;
 
-  for (const episode of available) {
-    if (isStaleLuancoEpisode(episode)) continue;
-    const response = (episode.guidedResponses || []).find((candidate) =>
-      responseMatches(candidate, normalized)
-    );
-    if (response) return { episode, response };
-  }
+  const response = (episode.guidedResponses || []).find((candidate) =>
+    responseMatches(candidate, normalized)
+  );
+  if (response) return { episode, response };
 
   return null;
+}
+
+function isEpisodeCompleted(episode) {
+  const completionFlags = (episode.guidedResponses || [])
+    .flatMap((response) => response.setFlags || [])
+    .filter((flag) => flag.startsWith('completado_'));
+  return completionFlags.some((flag) => state.flags.includes(flag));
 }
 
 function responseMatches(candidate, normalizedText) {
@@ -755,6 +760,7 @@ function nextSoftResponse(episode) {
 
 function nextProgressiveHint() {
   const activeEpisode = getActiveEpisode();
+  if (!activeEpisode || isEpisodeCompleted(activeEpisode)) return null;
   const hints = activeEpisode?.progressiveHints || [];
   if (!hints.length) return null;
 
@@ -1890,6 +1896,6 @@ function applyTestingParams() {
 
 function registerServiceWorker() {
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('service-worker.js?v=offline-v19').catch(() => {});
+    navigator.serviceWorker.register('service-worker.js?v=offline-v20').catch(() => {});
   }
 }

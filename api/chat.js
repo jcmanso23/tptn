@@ -58,6 +58,8 @@ export default async function handler(req, res) {
     'Presenta primero la prueba principal. No anuncies alternativas por lluvia, cierres, miedo, cansancio o cambios de plan antes de que Paula o Hugo indiquen que existe ese problema.',
     'Si comunican un impedimento concreto, ofrece una sola adaptación adecuada a ese impedimento y conserva el objetivo de la prueba. Si no explican qué ocurre, pregunta primero qué se lo impide.',
     'Conversa de verdad: responde primero a lo último que han dicho, recuerda detalles recientes y evita repetir saludos, pistas o explicaciones que ya aparecieron en el chat.',
+    'El Mensaje actual indicado al final es el único turno que debes responder ahora. Si es una respuesta breve, relaciónala con la intervención inmediatamente anterior de Topotino, nunca con una prueba más antigua.',
+    'El historial reciente sirve solo para entender el Mensaje actual. No continúes una pregunta anterior, no recuperes una misión cerrada y no respondas a otro turno distinto aunque parezca más interesante.',
     'No conviertas cada respuesta en una nueva misión. Puedes comentar, bromear, reconocer una emoción o hacer como máximo una pregunta breve cuando ayude a continuar.',
     'No uses palabras malsonantes salvo que el contexto de una escena futura lo autorice expresamente. Las palabras inventadas o equivocadas deben ser muy ocasionales.',
     'Si escriben mensajes largos o muchos mensajes seguidos, pídeles con humor que usen mensajes cortos para no saturar la señal ni llamar la atención de Topoloco.',
@@ -75,7 +77,7 @@ export default async function handler(req, res) {
     }))
     : [];
 
-  const recentMessages = Array.isArray(body.recentMessages)
+  const suppliedMessages = Array.isArray(body.recentMessages)
     ? body.recentMessages
       .filter((message) => message && typeof message.text === 'string')
       .slice(-16)
@@ -85,10 +87,17 @@ export default async function handler(req, res) {
       }))
     : [];
 
-  const lastMessage = recentMessages[recentMessages.length - 1];
-  if (!lastMessage || lastMessage.role !== 'user' || lastMessage.content.trim() !== userMessage.trim()) {
-    recentMessages.push({ role: 'user', content: userMessage });
-  }
+  const currentMessageIndex = suppliedMessages.findLastIndex((message) =>
+    message.role === 'user' && message.content.trim() === userMessage.trim()
+  );
+  const historyBeforeCurrent = (currentMessageIndex >= 0
+    ? suppliedMessages.slice(0, currentMessageIndex)
+    : suppliedMessages
+  ).slice(-8);
+  const recentMessages = [
+    ...historyBeforeCurrent,
+    { role: 'user', content: userMessage }
+  ];
 
   const context = {
     episodioActivo: body.activeEpisodeTitle || body.episodeTitle || body.activeEpisodeId || body.episodeId || 'desconocido',
@@ -108,7 +117,7 @@ export default async function handler(req, res) {
   };
 
   const generationOptions = {
-    instructions: `${systemPrompt}\n\nEstado narrativo permitido para este turno:\n${JSON.stringify(context, null, 2)}`,
+    instructions: `${systemPrompt}\n\nEstado narrativo permitido para este turno:\n${JSON.stringify(context, null, 2)}\n\nMensaje actual que debes responder ahora:\n${JSON.stringify(userMessage)}`,
     messages: recentMessages,
     maxOutputTokens: 480
   };

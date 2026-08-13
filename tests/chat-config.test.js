@@ -10,6 +10,10 @@ test('la conversación libre usa Luna y conserva los turnos con sus roles', asyn
 
   assert.match(source, /openai\/gpt-5\.6-luna/);
   assert.match(source, /messages: recentMessages/);
+  assert.match(source, /Mensaje actual que debes responder ahora/);
+  assert.match(source, /findLastIndex/);
+  assert.match(source, /historyBeforeCurrent/);
+  assert.match(source, /suppliedMessages\.slice\(0, currentMessageIndex\)/);
   assert.match(source, /role: message\.from === 'user' \? 'user' : 'assistant'/);
   assert.match(source, /String\(process\.env\.OPENAI_API_KEY \|\| ''\)\.trim\(\)/);
   assert.match(source, /provider = openAIKey \? 'openai-direct' : 'vercel-ai-gateway'/);
@@ -45,6 +49,11 @@ test('las respuestas conversacionales usan silencios naturales y pueden no conte
   assert.match(source, /storyMemory: state\.storyMemory\.slice\(-36\)/);
   assert.match(source, /function recordStoryMemory/);
   assert.match(source, /function eligibleMessages/);
+  assert.match(source, /const episode = getActiveEpisode\(\)/);
+  assert.match(source, /isEpisodeCompleted\(episode\)/);
+  assert.match(source, /!isEpisodeCompleted\(activeEpisode\) && activeEpisode\.softResponses\.length/);
+  assert.match(source, /if \(!activeEpisode \|\| isEpisodeCompleted\(activeEpisode\)\) return null/);
+  assert.doesNotMatch(source, /const available = getUnlockedEpisodes\(\)\.slice\(\)\.reverse\(\)/);
   assert.match(source, /storyMemory: normalizeStoryMemory\(saved\.storyMemory\)/);
   assert.match(source, /await refreshLocationForPendingActivations\(\)/);
   assert.match(source, /LOCATION_REFRESH_COOLDOWN_MS/);

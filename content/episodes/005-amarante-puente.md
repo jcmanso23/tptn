@@ -3,7 +3,7 @@
   "id": "005-amarante-puente",
   "order": 5,
   "title": "Día 1 · El puente entre dos memorias",
-  "channelCode": "T-19B5",
+  "channelCode": "T-19B6",
   "startsUnlocked": false,
   "activation": {
     "mode": "all",

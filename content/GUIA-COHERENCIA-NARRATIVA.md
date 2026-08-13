@@ -1,6 +1,6 @@
 # Guía maestra de coherencia narrativa · Las Doce Aguas
 
-**Versión canónica:** 13 de agosto de 2026 · edición T-19B5
+**Versión canónica:** 13 de agosto de 2026 · edición T-19B6
 **Final principal:** Alhambra, Palacios Nazaríes, noche del 26 de agosto
 **Epílogo:** Generalife, 27 de agosto; no abre otra amenaza
 
@@ -284,6 +284,14 @@ Antes de publicar un cambio:
 - [ ] El final continúa en la Alhambra nocturna y el Generalife es solo epílogo.
 
 ## 19. Registro de decisiones
+
+### 13 de agosto de 2026 · T-19B6
+
+- El último mensaje de Paula y Hugo manda siempre sobre el historial: Topotino responde a ese turno concreto y usa lo anterior solo para comprenderlo.
+- Las respuestas guiadas se buscan únicamente en el capítulo activo; una frase ya no puede activar por accidente una prueba de un capítulo anterior.
+- Cuando el capítulo activo ya está completado, sus pruebas dejan de escuchar respuestas. La conversación continúa libremente con Luna sin reabrir etapas cerradas.
+- Las pistas progresivas y respuestas de emergencia de un capítulo terminado también quedan desactivadas; nunca reaparecen por acumulación de mensajes o por una caída puntual de Luna.
+- El contexto reciente que recibe Luna termina de forma inequívoca en el mensaje actual y descarta cualquier turno posterior o duplicado que pudiera haber llegado desordenado.
 
 ### 13 de agosto de 2026 · T-19B5
 

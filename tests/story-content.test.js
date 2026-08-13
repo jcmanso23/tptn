@@ -170,7 +170,7 @@ test('los días 13 y 14 conservan su cadena narrativa y adaptan solo tras un imp
   assert.doesNotMatch(childFacingText, /(foto|fotografía).{0,30}(cuaderno|diario)/i);
 });
 
-test('la edición T-19B5 usa caché nueva, mensajes breves y rescates de destino', async () => {
+test('la edición T-19B6 usa caché nueva, mensajes breves y rescates de destino', async () => {
   const files = ['index.html', 'app.js', 'admin.js', 'content/episodes/001-reconexion.md'];
   const combined = (await Promise.all(files.map((file) => readFile(join(root, file), 'utf8')))).join('\n');
   const app = await readFile(join(root, 'app.js'), 'utf8');
@@ -181,12 +181,12 @@ test('la edición T-19B5 usa caché nueva, mensajes breves y rescates de destino
     'content/episodes/001-reconexion.md'
   );
 
-  assert.match(combined, /T-19B5/);
+  assert.match(combined, /T-19B6/);
   assert.doesNotMatch(combined, /T-12A9/);
   assert.match(app, /splitTopotinoMessages/);
   assert.match(app, /els\.channelCode\.textContent = meta\.channelCode \|\| APP_VERSION_CODE/);
-  assert.match(serviceWorker, /topotino-offline-v19/);
-  assert.match(serviceWorker, /chat-format\.js\?v=memory-v33/);
+  assert.match(serviceWorker, /topotino-offline-v20/);
+  assert.match(serviceWorker, /chat-format\.js\?v=memory-v34/);
   assert.match(ai, /Escribe como en WhatsApp/);
   assert.ok(
     reconnection.sections['Respuestas guiadas']
@@ -194,7 +194,7 @@ test('la edición T-19B5 usa caché nueva, mensajes breves y rescates de destino
   );
 });
 
-test('el rescate T-19B5 cierra Amarante sin repetir pruebas y deja preparado el día siguiente', async () => {
+test('el rescate T-19B6 cierra Amarante sin repetir pruebas y deja preparado el día siguiente', async () => {
   const app = await readFile(join(root, 'app.js'), 'utf8');
   const amarante = parseEpisode(
     await readFile(join(root, 'content/episodes/005-amarante-puente.md'), 'utf8'),
@@ -393,7 +393,7 @@ test('la secuencia principal puede recorrerse y reúne exactamente las doce agua
   }
 });
 
-test('la narrativa T-19B5 usa mapa, paquete y ventanas sin enseñar los nombres internos', async () => {
+test('la narrativa T-19B6 usa mapa, paquete y ventanas sin enseñar los nombres internos', async () => {
   const manifest = JSON.parse(await readFile(join(root, 'content/episodes.json'), 'utf8'));
   const childFacing = [];
 
