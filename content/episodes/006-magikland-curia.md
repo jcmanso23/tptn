@@ -26,20 +26,20 @@ Es 14 de agosto. La jornada contrapone movimiento y quietud, pero no mediante un
 
 Magikland se divide en África, Mundo da Confusão, Aldeia Medieval, Refúgio dos Piratas, Far-West y Souk. Ofrece rotaciones, oscilaciones, desplazamientos, subidas, bajadas y recorridos de agua. Ninguna fase exige montar en una atracción concreta. Topoloco ha dejado un Cazarrisas Hidráulico que intenta separar el sonido de una risa, la causa y el recuerdo que deja. Su primer fracaso registra su propio grito, pero el segundo le permite aprender que Paula y Hugo recuperan conexiones al interpretar lo vivido. La máquina comparte firma con otra estación todavía no localizada dentro de un segundo parque de aventuras.
 
-Después de que el mapa reaccione, llega la primera transmisión de Topotina. Explica que es la hermana de Topotino y que diseñó el sistema de ventanas, pero no la ruta: dividieron la información para que nadie pudiera robarla completa. Topotino no la recuerda. Ella responde: «No necesito que me recuerdes para seguir siendo tu hermana».
+Después de que Paula y Hugo confirmen que los seis mundos existen, llega la primera transmisión de Topotina. Explica que es la hermana de Topotino y que ayudó a preparar el sistema de investigación, pero no la ruta: dividieron la información para que nadie pudiera robarla completa. Topotino no la recuerda. Ella responde: «No necesito que me recuerdes para seguir siendo tu hermana».
 
 En Curia duermen, pero la investigación se centra en el Hotel do Parque: un edificio de 1922 restaurado como hotel, con decoración clásica, suelos de madera, patio, piscina y jardín. La prueba distingue huellas de su época original de las adaptaciones y usos actuales; después conserva el experimento de reflejo en el jardín, la piscina, una ventana o agua potable.
 
-El Cuaderno de la Memoria continúa privado. Topotino no pide que cuenten qué escriben o dibujan. La palabra técnica `RIO`, el valor interno de agua y la flag antigua `diario_magikland_curia` se conservan silenciosamente. Al cerrar se aclara la tercera ventana del mapa, aparece una pista hacia Buçaco y Topotino pide descanso.
+El Cuaderno de la Memoria continúa privado. Topotino no pide que cuenten qué escriben o dibujan. La palabra técnica `RIO`, el valor interno de agua y la flag antigua `diario_magikland_curia` se conservan silenciosamente. Al cerrar, el recuerdo de Topotino se completa con una imagen precisa del siguiente paisaje y aparece una pista hacia Buçaco; después pide descanso.
 
 ## Mensajes iniciales
 
 ```json
 [
   { "from": "topotino", "time": "auto", "text": "Antes de salir: bañador, toalla, protector solar, agua para beber y calzado cómodo. Hay zonas de agua, aunque ninguna prueba obliga a usarlas." },
-  { "from": "topotino", "time": "auto", "requiredFlags": ["completado_amarante"], "text": "Alerta de bigotes. El plano de seis mundos que salió de la máquina de Amarante se ha desplegado otra vez: África, confusión, una aldea medieval, piratas, Far-West y un zoco." },
-  { "from": "topotino", "time": "auto", "blockedFlags": ["completado_amarante"], "text": "La señal de ayer quedó incompleta y no voy a inventar una ventana del mapa que no abrimos. Esta mañana ha aparecido, por otra vía, un plano firmado «TOP O LOCO»: África, confusión, una aldea medieval, piratas, Far-West y un zoco." },
-  { "from": "topotino", "time": "auto", "text": "En el margen pone «Cazarrisas Hidráulico» y aparece el mismo sello «TOP O LOCO» de la placa. Eso relaciona el nombre con la máquina, pero no demuestra quién atacó mi memoria. Identificad primero el lugar donde conviven esos seis mundos y enviadme el nombre con una razón que descarte que sea una ciudad normal." }
+  { "from": "topotino", "time": "auto", "requiredFlags": ["completado_amarante"], "text": "Alerta de bigotes. El lugar raro de mi recuerdo existe: seis mundos juntos, como si alguien hubiera mezclado un sueño con un mapa. Agua del Puente a salvo; ahora comprobaremos si mi cabeza acierta con el resto." },
+  { "from": "topotino", "time": "auto", "blockedFlags": ["completado_amarante"], "text": "El recuerdo de ayer quedó incompleto, pero ya estamos aquí. No fingiré que sé por qué: busquemos el lugar que encaja con África, el lejano Oeste, el zoco, los piratas y el poblado medieval." },
+  { "from": "topotino", "time": "auto", "text": "Antes de buscar atracciones concretas, comprobad que esos mundos conviven de verdad en el mismo recinto. Después veremos qué está intentando aprender una máquina escondida entre ellos." }
 ]
 ```
 

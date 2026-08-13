@@ -28,7 +28,7 @@ La ponte actual mide unos cincuenta metros y tiene cuatro balcones semicirculare
 
 Topotino no recibe una señal nueva ni encuentra una máquina en Amarante. El propio lugar le provoca una familiaridad incompleta: reconoce el recorrido, recuerda preguntas de una investigación anterior y sabe qué detalles solía comprobar, pero no recuerda el caso entero ni sus conclusiones. Cada recuerdo debe contrastarse con lo que Paula y Hugo observan allí. No se usan ventanas mágicas del mapa ni pistas colocadas en monumentos.
 
-El Cuaderno de la Memoria continúa siendo privado. Topotino no pide una entrada, una foto ni una explicación de sus páginas. La palabra técnica `COMIENZO` y las flags antiguas con `diario` se conservan silenciosamente por compatibilidad. Nunca se recoge agua del río. Al terminar, un recuerdo de la planificación anterior conduce a Magikland y Topotino pide descanso.
+El Cuaderno de la Memoria continúa siendo privado. Topotino no pide una entrada, una foto ni una explicación de sus páginas. La palabra técnica `COMIENZO` y las flags antiguas con `diario` se conservan silenciosamente por compatibilidad. Al terminar la investigación, pide recoger una pequeña muestra del agua de Amarante solo si los adultos lo consideran seguro, sin entrar en el río ni acercarse a un borde. Todavía no sabe para qué servirá, pero prefiere conservarla a tener que regresar después. Solo tras recogerla la llama Agua del Puente. Después, un recuerdo de la planificación anterior conduce a Magikland y Topotino pide descanso.
 
 ## Mensajes iniciales
 
@@ -120,19 +120,15 @@ El Cuaderno de la Memoria continúa siendo privado. Topotino no pide una entrada
     "minWords": 24,
     "containsAnyGroups": [["obelisco", "inscripción", "inscripcion", "lápida", "lapida", "1809", "resistencia"], ["senhora", "piedad", "ventana", "iglesia", "1763", "medieval"], ["pez", "peces", "são gonçalo", "tradición", "tradicion", "relato"], ["memoria", "historia", "documento", "monumento", "conserva", "comunidad"], ["diferencia", "distinta", "tipo", "aporta", "recuerda", "conmemora"]],
     "rejectContainsAny": ["todo es verdad", "todo es mentira", "no se", "ni idea"],
-    "setFlags": ["amarante_historia_comprendida", "diario_amarante", "completado_amarante"],
+    "setFlags": ["amarante_historia_comprendida"],
     "remember": { "kind": "walking_source_reasoning", "label": "Recorrido entre monumento, imagen y tradición en Amarante" },
-    "water": "Agua del Puente",
-    "formulaWord": "COMIENZO",
     "messages": [
       { "from": "topotino", "time": "auto", "text": "Exacto. La inscripción conserva un hecho público; la Senhora da Ponte conserva una imagen ligada a una travesía anterior; y el relato de los peces conserva identidad y valores de Amarante. Son memorias distintas, no una sola prueba mezclada." },
       { "from": "topotino", "time": "auto", "text": "La tradición cuenta que São Gonçalo ayudó a construir la primera ponte, movió piedras enormes y pidió peces para alimentar a quienes trabajaban. Os lo cuento como tradición de la comunidad, no como un dato que la inscripción pueda demostrar." },
       { "from": "topotino", "time": "auto", "text": "Ahora entiendo por qué este lugar me resultaba familiar. No he recuperado el caso entero: he recuperado la manera de investigarlo. Mi yo anterior venía aquí para comparar paisaje, monumento e historia oral." },
-      { "from": "topotino", "time": "auto", "text": "El Agua del Puente ha despertado. No porque hayáis tocado el Tâmega —no recojáis agua—, sino porque habéis cruzado entre dos orillas y habéis unido dos formas de recordar sin confundirlas." },
-      { "from": "topotino", "time": "auto", "text": "Y me llega otro recuerdo práctico: yo había preparado para mañana una investigación sobre un lugar donde todo gira, se balancea y cambia de sitio. Recuerdo seis ambientes: África, una aldea medieval, piratas, Far-West, un zoco y una zona de confusión." },
-      { "from": "topotino", "time": "auto", "text": "Empieza por MAGIK... ¿Podéis identificarlo? No es una contraseña: comprobad si el nombre y esos ambientes encajan con el lugar al que iremos." },
-      { "from": "topotino", "time": "auto", "text": "Para mañana preparad bañador, toalla, protector solar, agua para beber y calzado cómodo." },
-      { "from": "topotino", "time": "auto", "text": "Por hoy basta. Habéis hecho inventario, leído una posición militar, comparado fuentes y corregido un recuerdo mío. Cenad y descansad: mañana quiero investigadores despiertos, no dos croquetas con ojeras." }
+      { "from": "topotino", "time": "auto", "text": "Antes de cerrar, os voy a pedir algo distinto. Si los adultos lo consideran seguro, recoged una pequeña muestra del agua de Amarante en un recipiente cerrado. No entréis en el río, no os acerquéis a bordes y no la bebáis." },
+      { "from": "topotino", "time": "auto", "text": "No sé para qué servirá. Precisamente por eso prefiero tenerla guardada a descubrir mañana que necesitamos volver. Una investigación también consiste en conservar una posibilidad." },
+      { "from": "topotino", "time": "auto", "text": "Cuando la tengáis, decidme solo que la habéis recogido. Después le pondremos un nombre: Agua del Puente. No porque sepamos todavía qué hará, sino porque nació junto a esta ponte." }
     ]
   },
   {
@@ -140,13 +136,18 @@ El Cuaderno de la Memoria continúa siendo privado. Topotino no pide una entrada
     "requiredFlags": ["amarante_historia_comprendida"],
     "blockedFlags": ["completado_amarante"],
     "openAnswer": true,
-    "minWords": 1,
+    "minWords": 4,
+    "containsAnyGroups": [["agua", "amarante", "río", "rio", "tâmega", "tamega"], ["recog", "cog", "guard", "muestra", "gotas", "frasco", "botella", "recipiente"]],
+    "rejectContainsAny": ["no se", "ni idea", "da igual", "no podemos"],
     "setFlags": ["diario_amarante", "completado_amarante"],
     "water": "Agua del Puente",
     "formulaWord": "COMIENZO",
     "messages": [
-      { "from": "topotino", "time": "auto", "text": "No voy a pediros el contenido del cuaderno. Doy por cerrada la investigación con lo que razonasteis sobre Amarante y con los recuerdos que hemos podido comprobar en el lugar." },
-      { "from": "topotino", "time": "auto", "text": "Mi memoria de la siguiente ruta reúne África, confusión, medievo, piratas, Far-West y un zoco. Si el nombre que pensáis es Magikland, comprobadlo mañana con los ojos, no solo con mi recuerdo." },
+      { "from": "topotino", "time": "auto", "text": "Recibido. No voy a pediros el contenido del cuaderno. Doy por cerrada la investigación con lo que razonasteis sobre Amarante y con la muestra que habéis conservado con los adultos." },
+      { "from": "topotino", "time": "auto", "text": "Desde ahora la llamamos Agua del Puente. No sé qué recordará ni para qué nos servirá, pero ya no tendremos que volver a buscarla." },
+      { "from": "topotino", "time": "auto", "text": "Y ahora me ha vuelto otro recuerdo, pero viene hecho un lío. Había un lugar mágico muy raro; parecía un sueño. Allí convivían África, el lejano Oeste y un zoco, pero también piratas y un poblado medieval." },
+      { "from": "topotino", "time": "auto", "text": "No sé si era un parque, una ciudad inventada o un sueño con entradas. Ayudadme a encontrarlo. No tengo muchas más pistas y, por una vez, mi confusión parece parte del mapa." },
+      { "from": "topotino", "time": "auto", "text": "Y no olvidéis el lugar extraño de mi recuerdo: África, el lejano Oeste, un zoco, piratas y un poblado medieval en el mismo sitio. Mañana comprobaremos si existe de verdad." },
       { "from": "topotino", "time": "auto", "text": "Preparad bañador, toalla, protector solar, agua para beber y calzado cómodo. Ahora descansad; continuaremos mañana." }
     ]
   }
@@ -175,7 +176,7 @@ El Cuaderno de la Memoria continúa siendo privado. Topotino no pide una entrada
 
 ## Contexto para IA
 
-Topotino conserva la amistad emocional con Paula y Hugo y recuerda todo desde el eclipse. El capítulo admite una rama normal y otra de recuperación: si falta `amarante_previa_identificada`, reconoce que la deducción quedó pendiente y no finge que ocurrió. No recupera el caso completo anterior, pero el lugar le activa recuerdos parciales de método: reconoce el puente, recuerda preguntas y puede recordar una ruta sin recordar sus respuestas. Cada recuerdo debe contrastarse con la evidencia que Paula y Hugo encuentran allí. Tras `amarante_puente_observado`, sabe que comprobaron cuatro balcones semicirculares y dos relaciones del puente con su entorno. Tras `amarante_posicion_razonada`, puede conversar sobre la importancia estratégica de la ponte sin añadir hechos que no dijeron. Tras `amarante_historia_comprendida`, sabe que localizaron la memoria de 1809, la Senhora da Ponte y la tradición de São Gonçalo, y debe explicar qué aporta cada fuente. No usa ventanas del mapa, máquinas ni señales nuevas. No identifica con certeza a Topoloco. Conversa con ambos a nivel intelectual aproximado de diez años. El Cuaderno es privado. No revela el museo, Granada ni los leones. Al cerrar recuerda de forma incompleta que la siguiente investigación trataba de seis ambientes y movimiento, y pide comprobar Magikland al día siguiente. Nunca pide agua del río.
+Topotino conserva la amistad emocional con Paula y Hugo y recuerda todo desde el eclipse. El capítulo admite una rama normal y otra de recuperación: si falta `amarante_previa_identificada`, reconoce que la deducción quedó pendiente y no finge que ocurrió. No recupera el caso completo anterior, pero el lugar le activa recuerdos parciales de método: reconoce el puente, recuerda preguntas y puede recordar una ruta sin recordar sus respuestas. Cada recuerdo debe contrastarse con la evidencia que Paula y Hugo encuentran allí. Tras `amarante_puente_observado`, sabe que comprobaron cuatro balcones semicirculares y dos relaciones del puente con su entorno. Tras `amarante_posicion_razonada`, puede conversar sobre la importancia estratégica de la ponte sin añadir hechos que no dijeron. Tras `amarante_historia_comprendida`, sabe que localizaron la memoria de 1809, la Senhora da Ponte y la tradición de São Gonçalo, y debe explicar qué aporta cada fuente. Después pide una muestra segura del agua de Amarante; solo cuando se confirma que la han recogido reconoce el nombre Agua del Puente y el cierre del día. No usa ventanas del mapa, máquinas ni señales nuevas. No identifica con certeza a Topoloco. Conversa con ambos a nivel intelectual aproximado de diez años. El Cuaderno es privado. No revela el museo, Granada ni los leones. Al cerrar recuerda de forma incompleta un lugar imposible con África, lejano Oeste, zoco, piratas y poblado medieval, y pide ayudarle a encontrarlo al día siguiente.
 
 ## Fuentes documentales
 

@@ -97,7 +97,7 @@ El paquete contiene:
 - la pista `TÂM…`, una ponte y un pez;
 - ninguna lista de ciudades ni explicación del final.
 
-**Las Doce Aguas** es el nombre misterioso de la red y del mapa. No se inventan nombres poéticos para cada parada en la conversación. Cuando completan una estación, Topotino dice que una ventana se ha aclarado, que un tramo del mapa ha aparecido o que la red ha recuperado una conexión.
+**Las Doce Aguas** es el nombre misterioso de la red y del mapa. No se inventan nombres poéticos para cada parada en la conversación. Excepción de continuidad: después de recoger la muestra de Amarante, Topotino la llama provisionalmente **Agua del Puente** porque necesita identificarla sin saber todavía para qué servirá. No se presenta como premio ni como explicación completa de la red.
 
 Internamente la aplicación conserva doce valores `water` antiguos para compatibilidad. La interfaz infantil muestra solo **Ventanas del mapa: N/12** y no enseña sus nombres internos.
 
@@ -323,7 +323,7 @@ Antes de publicar un cambio:
 - Topotino reconoce la Ponte de São Gonçalo porque ya investigó allí antes del eclipse, pero recuerda preguntas y métodos antes que respuestas.
 - Paula y Hugo deben verificar cada recuerdo mediante observación, razonamiento y comparación de fuentes.
 - Tras cada descubrimiento, Topotino explica la historia de la ponte, la resistencia de 1809, la caída de la ponte anterior en 1763 y la tradición de São Gonçalo.
-- El Agua del Puente despierta por relacionar paisaje, monumento, historia documentada y tradición. Magikland aparece como un recuerdo incompleto de planificación anterior.
+- Tras relacionar paisaje, monumento, historia documentada y tradición, Topotino pide recoger con seguridad una pequeña muestra del agua de Amarante. Solo después la llaman Agua del Puente; todavía no saben para qué servirá y prefieren conservarla para no tener que regresar. Magikland aparece como un recuerdo incompleto de planificación anterior: un lugar extraño donde conviven África, el lejano Oeste, un zoco, piratas y un poblado medieval.
 
 ### 12 de agosto de 2026 · T-12B0
 
