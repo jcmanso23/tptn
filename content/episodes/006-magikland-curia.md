@@ -22,7 +22,9 @@
 
 # Contexto narrativo
 
-Es 14 de agosto. La jornada contrapone movimiento y quietud, pero no mediante una lista simple. Magikland funciona como laboratorio de mecánica: Paula y Hugo identifican tipos de movimiento, hacen una predicción causal y distinguen ruido, emoción y recuerdo. En Curia analizan un paisaje construido, naturaleza y reflejos. Las pruebas tienen una exigencia intelectual aproximada de diez años y necesitan observación física. La llegada a Magikland abre el capítulo, pero la ubicación nunca valida las respuestas.
+Es 14 de agosto. Antes de cualquier prueba, Topotino reconoce las interferencias de Amarante, explica que parecen un intento de intrusión de Topoloco y presenta el contador de Sombra como alarma experimental. Espera una respuesta de Paula y Hugo para comprobar que el canal vuelve a respetar el orden. Solo después les ayuda a identificar Magikland; Curia permanece oculta hasta que el Cazarrisas produce la coordenada al terminar la investigación del parque.
+
+La jornada contrapone movimiento y quietud, pero no mediante una lista simple. Magikland funciona como laboratorio de mecánica: Paula y Hugo identifican tipos de movimiento, hacen una predicción causal y distinguen ruido, emoción y recuerdo. En Curia analizan un paisaje construido, naturaleza y reflejos. Las pruebas tienen una exigencia intelectual aproximada de diez años y necesitan observación física. La llegada a Magikland abre el capítulo, pero la ubicación nunca valida las respuestas.
 
 Magikland se divide en África, Mundo da Confusão, Aldeia Medieval, Refúgio dos Piratas, Far-West y Souk. Ofrece rotaciones, oscilaciones, desplazamientos, subidas, bajadas y recorridos de agua. Ninguna fase exige montar en una atracción concreta. Topoloco ha dejado un Cazarrisas Hidráulico que intenta separar el sonido de una risa, la causa y el recuerdo que deja. Su primer fracaso registra su propio grito, pero el segundo le permite aprender que Paula y Hugo recuperan conexiones al interpretar lo vivido. La máquina comparte firma con otra estación todavía no localizada dentro de un segundo parque de aventuras.
 

@@ -50,13 +50,31 @@ test('todo el viaje futuro tiene un paquete de retos completo y sin ids duplicad
 test('cada jornada recuerda la ruta, permite recuperar Sombra y prepara el día siguiente', () => {
   for (const episodeId of futureEpisodeIds.slice(1, -2)) {
     const pack = CHALLENGE_PACKS[episodeId];
-    assert.match(pack.openingMessages.join(' '), /Buenos días/i, `${episodeId}: falta recordatorio de mañana`);
+    if (episodeId !== '006-magikland-curia') {
+      assert.match(pack.openingMessages.join(' '), /Buenos días/i, `${episodeId}: falta recordatorio de mañana`);
+    }
     assert.ok(pack.steps.some((step) => step.kind === 'daily-recovery'), `${episodeId}: falta recuperación diaria`);
     const route = pack.steps.find((step) => step.kind === 'destination');
     assert.ok(route, `${episodeId}: falta ruta del día siguiente`);
     assert.match(route.successMessages.join(' '), /preparad|tened|llevad/i, `${episodeId}: falta preparación`);
     assert.match(route.successMessages.join(' '), /descansad|guardad energía/i, `${episodeId}: falta cierre del día`);
   }
+});
+
+test('el día 14 revela Magikland antes que Curia y conserva la continuidad', () => {
+  const amarante = CHALLENGE_PACKS['005-amarante-puente'];
+  const day14 = CHALLENGE_PACKS['006-magikland-curia'];
+  const firstRoute = amarante.steps.find((step) => step.id === 'ruta-dia14');
+  const magiklandEnd = day14.steps.findIndex((step) => step.id === 'magikland-q2');
+  const curiaRoute = day14.steps.findIndex((step) => step.id === 'curia-ruta-descubierta');
+  const curiaExpedition = day14.steps.findIndex((step) => step.id === 'curia-expedicion');
+
+  assert.equal(firstRoute.title, 'Descubrid la primera parada');
+  assert.deepEqual(firstRoute.options.map((option) => option.text), ['Magikland', 'Parque da Cidade do Porto', 'Castillo de Guimarães']);
+  assert.doesNotMatch([firstRoute.prompt, ...firstRoute.successMessages, ...day14.openingMessages].join(' '), /Curia|Hotel do Parque/i);
+  assert.ok(magiklandEnd >= 0 && magiklandEnd < curiaRoute);
+  assert.ok(curiaRoute < curiaExpedition);
+  assert.match(day14.steps[curiaRoute].successMessages.join(' '), /Curia|Hotel do Parque/i);
 });
 
 test('las pruebas son breves, físicas y enseñan después de elegir', () => {

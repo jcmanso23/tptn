@@ -55,6 +55,15 @@ function route(id, prompt, options, correctIndex, successMessages, effects = {})
   };
 }
 
+function firstStop(id, prompt, options, correctIndex, successMessages, effects = {}) {
+  return {
+    ...route(id, prompt, options, correctIndex, successMessages, effects),
+    place: 'Primera parada de hoy',
+    title: 'Descubrid la primera parada',
+    hint: 'Relacionad todos los mundos de la pista con un único lugar real.'
+  };
+}
+
 function withOrder(expeditionStep, questions, order = 'expedition-first') {
   if (order === 'question-first') return [questions[0], expeditionStep, questions[1]];
   if (order === 'split') return [questions[0], expeditionStep, questions[1]];
@@ -67,15 +76,15 @@ packs['005-amarante-puente'] = {
   shadowActor: 'Niebla',
   openingMessages: [],
   steps: [
-    route(
+    firstStop(
       'ruta-dia14',
-      'Mañana necesitamos un lugar con África, lejano Oeste, zoco, piratas y aldea medieval. Después dormiremos en un hotel de 1922 rodeado de jardín. ¿Qué ruta encaja?',
-      ['Magikland y después Curia', 'Oporto y después Braga', 'Coímbra y después Aveiro'],
+      'El recuerdo reúne África, Far-West, un zoco, piratas, una aldea medieval y zonas de agua en un mismo recinto. ¿Cuál es la primera parada de hoy?',
+      ['Magikland', 'Parque da Cidade do Porto', 'Castillo de Guimarães'],
       0,
       [
-        'Exacto: primero Magikland, cerca de Penafiel. Sus seis mundos coinciden con mi recuerdo.',
-        'Después iremos a Curia. Allí buscaremos el Hotel do Parque y sus jardines: un edificio de 1922 que todavía recibe viajeros.',
-        'Preparad bañador, toalla, protector solar, agua y calzado cómodo. Ahora descansad. Mañana os recordaré por qué seguimos esta ruta.'
+        'Exacto: Magikland, cerca de Penafiel. Sus seis mundos coinciden con el recuerdo.',
+        'Es la única parte de la ruta que puedo reconstruir por ahora. Lo que venga después tendrá que aparecer allí.',
+        'Llevad bañador, toalla, protector solar, agua y calzado cómodo. Hay zonas de agua, aunque ninguna prueba obliga a usarlas.'
       ],
       { setFlags: ['ruta_dia14_descubierta'] }
     )
@@ -85,8 +94,8 @@ packs['005-amarante-puente'] = {
 packs['006-magikland-curia'] = {
   shadowActor: 'Topoloco',
   openingMessages: [
-    'Buenos días, agentes. Ayer descubristeis la ruta: Magikland y después Curia.',
-    'Venimos porque mi memoria conserva seis mundos imposibles y una máquina que estudia cómo nace un recuerdo. Topoloco podría estar aprendiendo de nosotros.',
+    'La primera parada encaja: Magikland.',
+    'Mi memoria conserva seis mundos imposibles y una máquina que estudia cómo nace un recuerdo. Topoloco podría estar aprendiendo de nosotros.',
     'Hoy no tenéis que escribir explicaciones largas. Mirad, haced y elegid. Yo me encargo de ordenar la historia.'
   ],
   steps: [
@@ -101,8 +110,18 @@ packs['006-magikland-curia'] = {
       ]),
       [
         question('magikland-q1', 'Magikland', '¿Cuál de estos movimientos es una oscilación?', ['Una noria que gira alrededor de su eje', 'Un barco que va y vuelve', 'Un tren que avanza por la vía'], 1, 'Correcto: ir y volver alrededor de una posición es oscilar.', 'La rotación gira alrededor de un eje; el desplazamiento cambia de lugar. Topoloco los mezclaba para que su máquina pareciera más lista.', 'Fijaos en qué movimiento cambia de dirección una y otra vez.'),
-        question('magikland-q2', 'Magikland', '¿Qué hace que un momento se convierta mejor en recuerdo?', ['Que sea el más ruidoso', 'Que tenga significado para quien lo vive', 'Que dure exactamente un minuto'], 1, 'Sí. El significado pesa más que los decibelios.', 'Dos personas pueden vivir el mismo movimiento y guardar recuerdos distintos. La máquina de Topoloco no entiende bien esa diferencia.', 'Pensad en el momento que elegisteis: ¿lo recordaréis solo por el volumen?')
+        question('magikland-q2', 'Magikland', '¿Qué hace que un momento se convierta mejor en recuerdo?', ['Que sea el más ruidoso', 'Que tenga significado para quien lo vive', 'Que dure exactamente un minuto'], 1, 'Sí. El significado pesa más que los decibelios.', 'Entra una transmisión: «Soy Topotina, tu hermana. Diseñé las ventanas». No la recuerdo. Ella responde: «No necesito que me recuerdes para seguir siendo tu hermana».', 'Pensad en el momento que elegisteis: ¿lo recordaréis solo por el volumen?')
       ]
+    ),
+    question(
+      'curia-ruta-descubierta',
+      'Nueva coordenada',
+      'El Cazarrisas acaba de expulsar una reserva antigua: un hotel inaugurado en 1922, rodeado de jardines y cerca de unas termas del centro de Portugal. ¿A qué localidad conduce?',
+      ['Curia', 'Aveiro', 'Braga'],
+      0,
+      'Curia. La señal no apunta a toda la localidad, sino al Hotel do Parque.',
+      'Topoloco parece comparar recuerdos con edificios que cambian sin borrar lo anterior. Vamos a comprobarlo allí.',
+      'Buscad la localidad termal vinculada a un Hotel do Parque inaugurado en 1922.'
     ),
     ...withOrder(
       expedition('curia-expedicion', 'Hotel do Parque · Curia', 'Expedición del hotel que conserva tiempo', 'Cuando lleguéis a Curia, la investigación continúa en el Hotel do Parque y sus jardines.', [
@@ -117,8 +136,7 @@ packs['006-magikland-curia'] = {
       [
         question('curia-q1', 'Hotel do Parque · Curia', '¿Qué prueba mejor que un edificio antiguo sigue vivo?', ['Que todo permanezca exactamente igual', 'Que conserve huellas antiguas y tenga adaptaciones actuales', 'Que nadie pueda entrar'], 1, 'Exacto. Conservar no significa congelar.', 'Un hotel histórico puede mantener fachada, suelos o decoración y, a la vez, incorporar instalaciones actuales.', 'Comparad los detalles antiguos con la adaptación que habéis encontrado.'),
         question('curia-q2', 'Hotel do Parque · Curia', 'Si un reflejo se mueve cuando cambia el agua, ¿qué demuestra?', ['Que el reflejo depende del objeto y de la superficie', 'Que el edificio se está moviendo', 'Que el reflejo es más antiguo que el objeto'], 0, 'Muy bien. El reflejo no es una copia independiente.', 'Esta idea será importante: una imagen puede deformarse aunque el original siga en su sitio.', 'Mirad qué cambia realmente: ¿el edificio o la superficie que lo refleja?')
-      ],
-      'question-first'
+      ]
     ),
     recovery('recuperacion-dia14', 'Para borrar una Sombra: ¿qué une Magikland y el Hotel do Parque?', ['Los dos muestran que un recuerdo nace al relacionar experiencia y cambio', 'Los dos fueron construidos en 1922', 'Los dos son bosques'], 0, 'Recuperación conseguida. Habéis unido movimiento, significado y cambio sin borrar el pasado.', 'La Sombra se queda hoy. No pasa nada: sabemos exactamente qué relación debemos reforzar.'),
     route('ruta-dia15', 'Una nueva pista muestra un bosque con convento, ermitas, una batalla y un palacio; después, un monasterio nacido de una promesa y una gran explanada de peregrinos. ¿Qué ruta es?', ['Buçaco, Batalha y Fátima', 'Sintra, Nazaré y Leiria', 'Oporto, Guimarães y Braga'], 0, [

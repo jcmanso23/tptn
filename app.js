@@ -1,5 +1,5 @@
-import { splitTopotinoMessages } from './chat-format.js?v=memory-v37';
-import { CHALLENGE_PACKS } from './content/challenges.js?v=memory-v37';
+import { splitTopotinoMessages } from './chat-format.js?v=memory-v39';
+import { CHALLENGE_PACKS } from './content/challenges.js?v=memory-v39';
 
 const STORAGE_KEYS = {
   auth: 'topotino_chat_auth_v1',
@@ -7,14 +7,30 @@ const STORAGE_KEYS = {
 };
 
 const LEGACY_STATE_KEY = 'topotino_chat_state_v1';
-const APP_VERSION_CODE = 'T-20A0';
+const APP_VERSION_CODE = 'T-20A1';
 const PASSPHRASE_HASH = 'a64716bd9f4e8added1bf47f80b97c3fc7b70a15b8043cdab083e1ddf85f3794';
-const EPISODES_MANIFEST = 'content/episodes.json?v=memory-v37';
+const EPISODES_MANIFEST = 'content/episodes.json?v=memory-v39';
 const LIVE_STORY_ENDPOINT = '/api/story';
 const AMARANTE_TRAVEL_DATE = '2026-08-13';
 const AMARANTE_ROUTE_EPISODE_ID = '004b-rumbo-amarante';
 const AMARANTE_EPISODE_ID = '005-amarante-puente';
 const AMARANTE_RESCUE_MARKER = 'rescate-cierre-amarante-t19b5';
+const SECURITY_CHECKIN_DATE = '2026-08-14';
+const SECURITY_ANNOUNCED_FLAG = 'seguridad_t20a1_anunciada';
+const SECURITY_CONFIRMED_FLAG = 'seguridad_t20a1_confirmada';
+const SECURITY_CHECKIN_MESSAGES = [
+  'Buenos días, Paula y Hugo.',
+  'Antes de seguir tengo que contaros algo. Ayer el chat secreto estaba estropeado: llegaban mensajes tarde, se mezclaban y yo respondía a cosas anteriores.',
+  'He revisado el canal. Parece que Topoloco ha encontrado nuestra frecuencia y estuvo intentando entrar.',
+  'Creo que he mejorado la seguridad. También he instalado un contador de Sombra: si sube, puede significar que Topoloco vuelve a acercarse al chat.',
+  'No sé si funcionará. Vamos a probarlo.',
+  '¿Me recibís los dos? Contestadme con cualquier cosa. No empezaré hasta comprobar que este mensaje os ha llegado entero.'
+];
+const SECURITY_CHECKIN_CHALLENGE = {
+  id: 'seguridad-t20a1-checkin',
+  kind: 'check-in',
+  place: 'Comprobación del canal'
+};
 const STALE_LUANCO_EPISODE_IDS = new Set([
   '002-luanco-llegada',
   '003-luanco-agua-norte'
@@ -164,6 +180,7 @@ async function init() {
     await refreshLiveStory();
     applyTravelDayRescue();
     applyAmaranteCompletionRescue();
+    applyDay14SecurityCheckIn();
   } catch (error) {
     console.error(error);
     showUnlockError('No se pudo cargar el comunicador. Revisad la conexión.');
@@ -284,9 +301,13 @@ async function enterChat() {
     els.internalProgress.hidden = false;
     els.internalProgress.setAttribute('aria-hidden', 'false');
   }
-  const liveMessages = await refreshLiveStory({ collectBroadcasts: true });
-  await refreshLocationForPendingActivations();
-  const activationMessages = await evaluateActivations({ reason: 'enter', collectMessages: true });
+  const securityPending = isSecurityCheckInPending();
+  const routePending = !securityPending && getActiveChallenge()?.kind === 'destination';
+  const liveMessages = await refreshLiveStory({ collectBroadcasts: !securityPending && !routePending });
+  if (!securityPending && !routePending) await refreshLocationForPendingActivations();
+  const activationMessages = securityPending || routePending
+    ? []
+    : await evaluateActivations({ reason: 'enter', collectMessages: true });
   renderAll();
   if (!activationInterval) {
     activationInterval = setInterval(() => runActivationCheck('tick'), ACTIVATION_TICK_MS);
@@ -302,7 +323,11 @@ async function enterChat() {
 }
 
 async function runActivationCheck(reason) {
-  const liveMessages = await refreshLiveStory({ collectBroadcasts: true });
+  const securityPending = isSecurityCheckInPending();
+  const routePending = !securityPending && getActiveChallenge()?.kind === 'destination';
+  const liveMessages = await refreshLiveStory({ collectBroadcasts: !securityPending && !routePending });
+  if (securityPending) return;
+  if (routePending) return;
   await refreshLocationForPendingActivations();
   const activationMessages = await evaluateActivations({ reason, collectMessages: true });
   const incomingMessages = [...liveMessages, ...activationMessages];
@@ -579,6 +604,10 @@ async function handleUserMessage(text) {
 
   const challenge = getActiveChallenge();
   if (challenge) {
+    if (challenge.kind === 'check-in') {
+      await resolveSecurityCheckIn();
+      return;
+    }
     if (challengeNeedsPhysicalConfirmation(challenge) && isChallengeCompletionMessage(text)) {
       await resolveChallengeCompletion(challenge);
       return;
@@ -637,6 +666,9 @@ function getChallengePack(episodeId = getActiveEpisode()?.meta?.id) {
 }
 
 function getActiveChallenge() {
+  if (isSecurityCheckInPending()) {
+    return { ...SECURITY_CHECKIN_CHALLENGE, episodeId: getActiveEpisode()?.meta?.id };
+  }
   const episode = getActiveEpisode();
   const pack = getChallengePack(episode?.meta?.id);
   if (!pack) return null;
@@ -647,6 +679,23 @@ function getActiveChallenge() {
     return { ...step, episodeId: episode.meta.id, shadowActor: pack.shadowActor || 'Topoloco' };
   }
   return null;
+}
+
+function isSecurityCheckInPending() {
+  return state.flags.includes(SECURITY_ANNOUNCED_FLAG) && !state.flags.includes(SECURITY_CONFIRMED_FLAG);
+}
+
+async function resolveSecurityCheckIn() {
+  if (state.flags.includes(SECURITY_CONFIRMED_FLAG)) return;
+  await deliverTopotinoMessages(toTopotinoMessages([
+    'Os recibo. Esta vez el mensaje ha llegado entero y en orden.',
+    'El contador de Sombra sigue estable. Por ahora, Topoloco no parece estar dentro del canal.',
+    'Ayer recuperamos el Agua del Puente. Después quedó un recuerdo incompleto: África, Far-West, un zoco, piratas y una aldea medieval en el mismo lugar.',
+    'Solo puedo ver la primera parada. Vamos a identificarla.'
+  ]), { mode: 'conversation' });
+  addUniqueMany(state.flags, [SECURITY_CONFIRMED_FLAG]);
+  saveState();
+  renderAll();
 }
 
 function challengeNeedsPhysicalConfirmation(challenge) {
@@ -745,7 +794,7 @@ async function resolveChallengeIncorrect(challenge, optionId = null, modelReply 
   const actor = challenge.shadowActor || 'Topoloco';
   const messages = [
     modelReply || `Esa opción no encaja con la evidencia. ${challenge.hint || 'Mirad otra vez antes de elegir.'}`,
-    `${actor} gana una Sombra. Tranquilos: un error no borra nada; nos enseña dónde está la trampa.`
+    `${actor} gana una Sombra. El contador avisa de que la interferencia se acerca, pero el error no borra nada y podemos corregirlo.`
   ];
   if (attempts >= 2) {
     messages.push('Han sido dos intentos. Cambio de plan: aparece una comprobación física breve para que podáis continuar sin quedar atrapados.');
@@ -1313,6 +1362,10 @@ function renderChallenge() {
   if (!els.challengePanel) return;
   const challenge = getActiveChallenge();
   els.challengePanel.innerHTML = '';
+  if (challenge?.kind === 'check-in') {
+    els.challengePanel.hidden = true;
+    return;
+  }
   els.challengePanel.hidden = !challenge;
   if (!challenge) return;
 
@@ -1523,6 +1576,22 @@ function applyAmaranteCompletionRescue() {
     { from: 'topotino', time: 'auto', text: 'Para mañana recuerdo un lugar imposible: África, lejano Oeste, zoco, piratas y poblado medieval, todo junto. Tendremos que descubrir si existe.' },
     { from: 'topotino', time: 'auto', text: 'Preparad bañador, toalla, protector solar, agua y calzado cómodo. Ahora cenad y descansad. Seguimos mañana.' }
   ];
+  saveState();
+  return true;
+}
+
+function applyDay14SecurityCheckIn() {
+  if (!state.unlocked) return false;
+  if (formatDate(getRuntimeNow()) !== SECURITY_CHECKIN_DATE) return false;
+  if (state.flags.includes(SECURITY_CONFIRMED_FLAG)) return false;
+  if (!state.flags.includes('completado_amarante') && !['005-amarante-puente', '006-magikland-curia'].includes(state.activeEpisodeId)) return false;
+
+  addUniqueMany(state.flags, [SECURITY_ANNOUNCED_FLAG]);
+  const existingTexts = new Set(state.messages.map((message) => message.text));
+  const missingMessages = SECURITY_CHECKIN_MESSAGES
+    .filter((message) => !existingTexts.has(message))
+    .map((text) => ({ from: 'topotino', time: 'auto', text }));
+  startupRescueMessages = [...startupRescueMessages, ...missingMessages];
   saveState();
   return true;
 }
@@ -2303,6 +2372,6 @@ function applyTestingParams() {
 
 function registerServiceWorker() {
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('service-worker.js?v=offline-v23').catch(() => {});
+    navigator.serviceWorker.register('service-worker.js?v=offline-v24').catch(() => {});
   }
 }

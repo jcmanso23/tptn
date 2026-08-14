@@ -1,6 +1,6 @@
 # Guía maestra de coherencia narrativa · Las Doce Aguas
 
-**Versión canónica:** 13 de agosto de 2026 · edición T-20A0
+**Versión canónica:** 14 de agosto de 2026 · edición T-20A1
 **Final principal:** Alhambra, Palacios Nazaríes, noche del 26 de agosto
 **Epílogo:** Generalife, 27 de agosto; no abre otra amenaza
 
@@ -52,6 +52,8 @@ Al comienzo solo se sabe que ocurrió algo durante el eclipse. La atribución pr
 - Alhambra: Arrayanes revela el mecanismo completo del eclipse y los reflejos.
 
 Topotino no debe adelantarse a esta escalera.
+
+Durante Amarante el comunicador funcionó mal: hubo interferencias, mensajes retrasados y respuestas que parecían contestar a turnos anteriores. El 14 de agosto Topotino interpreta el fallo con prudencia: **parece** que Topoloco ha encontrado la frecuencia e intentado entrar, pero todavía no sabe cómo ni puede vincular este incidente con la amnesia. Ha reforzado el canal y añade un contador de **Sombra** como alarma experimental. Explica que una subida puede indicar que Topoloco o un Oscurno se acerca de nuevo a la conversación; no afirma que el contador sea infalible.
 
 ## 4. Lo que Topotino recuerda
 
@@ -203,9 +205,11 @@ Los botones son la vía principal. Luna también puede interpretar una respuesta
 
 Cada error confirmado aumenta la **Sombra** y permite que Borrón, Eco, Niebla o Topoloco ganen una pequeña ventaja narrativa. Cada acierto recupera **Memoria**. Después de dos errores en una misma pregunta, aparece una comprobación física alternativa que permite continuar; las Sombras obtenidas permanecen. Cada jornada ofrece una oportunidad opcional de retirar una Sombra.
 
+El 14 de agosto tiene una apertura excepcional y obligatoria. Antes de mostrar ninguna pregunta, Topotino cuenta en varios mensajes breves qué ocurrió con el chat, explica el contador de Sombra y pide a Paula y Hugo que contesten para comprobar el canal. La aplicación espera su respuesta. Solo después de recibirla confirma que el mensaje llegó entero, recuerda el motivo de la primera parada y presenta la elección de Magikland.
+
 Memoria y Sombra son visibles. Nunca borran progreso, cambian el itinerario real ni impiden llegar a la Alhambra. Determinan tres formas del desenlace: victoria limpia, victoria ajustada o victoria incompleta que necesita asentarse durante el epílogo.
 
-La noche anterior se descubre mediante opciones la ruta completa del día siguiente. Topotino explica por qué esa ruta continúa la investigación, da la preparación práctica y pide descanso. Al comenzar la jornada recuerda esa conexión antes de presentar la primera parada.
+La noche anterior se descubre mediante opciones solo la parte de la ruta que la historia ya permite deducir. Un destino posterior no se revela hasta que una consecuencia de la investigación actual lo hace necesario. Topotino explica por qué cada desplazamiento continúa la investigación y da la preparación práctica cuando corresponde. Al comenzar la jornada recuerda la conexión antes de presentar la primera parada.
 
 ## 13. Ruta narrativa completa
 
@@ -303,6 +307,14 @@ Antes de publicar un cambio:
 
 ## 19. Registro de decisiones
 
+### 14 de agosto de 2026 · T-20A1
+
+- El fallo conversacional de Amarante entra en la ficción como una interferencia: Topotino sospecha que Topoloco encontró el canal, pero no lo presenta como una certeza ni adelanta el mecanismo del eclipse.
+- Al primer acceso del día 14, Topotino explica el problema y el nuevo contador de Sombra en mensajes breves. No aparece ninguna prueba hasta que Paula y Hugo contestan y él comprueba que el canal vuelve a respetar el orden.
+- La Sombra representa también el riesgo de intrusión o interferencia. Un error puede elevarla porque ofrece una abertura narrativa al adversario, pero nunca castiga, borra ni bloquea el progreso.
+- La pista de Amarante permite descubrir únicamente Magikland. Curia y el Hotel do Parque no se nombran hasta que la investigación de Magikland produce esa nueva coordenada.
+- Se conservan los IDs, flags y datos de progreso ya guardados. La comprobación de seguridad usa marcas nuevas y se ejecuta una sola vez.
+
 ### 13 de agosto de 2026 · T-20A0
 
 - Se sustituye el reconocimiento de redacciones abiertas por expediciones agrupadas y preguntas con botones.
@@ -310,8 +322,8 @@ Antes de publicar un cambio:
 - Las expediciones se aceptan al confirmar que se han realizado y desembocan en una explicación educativa, no en un examen de lo observado.
 - Cada respuesta errónea confirmada alimenta la Sombra; cada acierto recupera Memoria. Hay una recuperación opcional diaria y tres variantes victoriosas del desenlace.
 - Luna puede interpretar respuestas escritas con cuatro resultados estructurados; ambigüedades y errores técnicos no cuentan como fallos.
-- La ruta completa de cada día se descubre la noche anterior mediante un enigma con opciones y termina con instrucciones prácticas y descanso.
-- Amarante permanece terminada. La única actividad nueva del día 13 es descubrir y preparar Magikland y Curia.
+- Cada ruta se descubre mediante un enigma con opciones, pero solo hasta donde alcanzan las pistas reunidas; termina con instrucciones prácticas y descanso cuando se resuelve la víspera.
+- Amarante permanece terminada. La única actividad nueva posterior a su cierre es descubrir y preparar Magikland; Curia no se adelanta.
 
 ### 13 de agosto de 2026 · T-19B6
 

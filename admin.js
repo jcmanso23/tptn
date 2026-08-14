@@ -1,5 +1,5 @@
 const API = '/api/story';
-const MANIFEST = '/content/episodes.json?v=memory-v37';
+const MANIFEST = '/content/episodes.json?v=memory-v39';
 
 const els = {};
 const publishedEpisodes = new Map();
