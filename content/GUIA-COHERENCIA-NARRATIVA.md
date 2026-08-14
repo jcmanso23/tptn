@@ -1,6 +1,6 @@
 # Guía maestra de coherencia narrativa · Las Doce Aguas
 
-**Versión canónica:** 14 de agosto de 2026 · edición T-20A5
+**Versión canónica:** 14 de agosto de 2026 · edición T-20A6
 **Final principal:** Alhambra, Palacios Nazaríes, noche del 26 de agosto
 **Epílogo:** Generalife, 27 de agosto; no abre otra amenaza
 
@@ -287,6 +287,19 @@ Después del eclipse, cada contexto de IA debe indicar:
 
 Las ramas de recuperación reconocen capítulos no vividos y nunca atribuyen a los niños una visita, hallazgo o deducción que no ocurrió.
 
+### Destino descubierto no significa misión disponible
+
+En todo el viaje existen cuatro estados distintos y se respetan siempre en este orden:
+
+1. **Destino descubierto:** una prueba del lugar actual permite saber adónde ir después.
+2. **Ruta preparada:** Topotino explica por qué ese lugar continúa la investigación, qué conviene llevar y, si cambia el día, pide descanso.
+3. **Llegada confirmada:** el comunicador detecta el nuevo lugar. Solo entonces Topotino presenta qué van a investigar allí.
+4. **Misión realizada:** Paula y Hugo observan, hacen o eligen; solo su confirmación o respuesta hace avanzar la historia.
+
+Resolver una pista nunca equivale a llegar. La tarjeta de una expedición futura permanece oculta aunque el nombre del lugar ya se conozca. La ubicación solo confirma la llegada: no responde preguntas, no completa acciones y no inventa una visita. Una vez confirmada la llegada, la misión queda disponible aunque la señal GPS oscile o el dispositivo se aleje después.
+
+Cada cambio de lugar debe contener una conexión concreta: qué dato obtenido en la parada anterior apunta a la siguiente y qué espera comprobar allí Topotino. Ningún aliado, aparato o plan se da por conocido. Su introducción avanza en tres pasos: aparece una señal o una voz; los niños y Topotino comprueban quién o qué es; por último se explica para qué puede ayudar y qué no sabe hacer. El humor nace del carácter y de la relación entre personajes, nunca sustituye una explicación necesaria.
+
 ## 17. Compatibilidad técnica
 
 No cambiar sin migración explícita:
@@ -305,6 +318,9 @@ Antes de publicar un cambio:
 
 - [ ] La familia no parece tener un viaje preparado dentro de la ficción.
 - [ ] El destino actual fue deducido o entregado por una consecuencia anterior.
+- [ ] Descubrir el destino no ha mostrado todavía la misión del lugar siguiente.
+- [ ] La misión nueva solo aparece tras confirmar físicamente la llegada y permanece disponible después.
+- [ ] La transición explica qué dato anterior conduce al nuevo lugar.
 - [ ] La prueba necesita evidencia del lugar real.
 - [ ] Topotino no revela información que todavía ignora.
 - [ ] El Cuaderno sigue privado.
@@ -319,6 +335,15 @@ Antes de publicar un cambio:
 - [ ] El final continúa en la Alhambra nocturna y el Generalife es solo epílogo.
 
 ## 19. Registro de decisiones
+
+### 14 de agosto de 2026 · T-20A6
+
+- Se confirma la cronología real: el 14 de agosto termina en Curia, donde la familia hace check-in y duerme en el Hotel do Parque; el 15 empieza desde Curia y continúa por Buçaco, Batalha y Fátima.
+- La separación entre destino descubierto y llegada física deja de ser una excepción de Curia y pasa a gobernar todas las paradas posteriores. La primera tarjeta de cada nuevo lugar queda oculta hasta entrar en su radio de llegada.
+- Una llegada confirmada queda guardada. Una variación posterior del GPS no vuelve a ocultar una misión que ya se abrió, pero la ubicación nunca completa una prueba.
+- Las preguntas que por estructura preceden a una expedición también quedan protegidas por la llegada: no se puede ver una pregunta de Batalha, Mira de Aire, Lisboa, Oceanário, Lagos, Sagres, Algar Seco, Sevilla, Isla Mágica, Catedral o Alhambra desde el lugar anterior.
+- Cada aviso de llegada explica con palabras concretas por qué esa parada continúa lo aprendido y qué deben observar allí. Personajes y mecanismos se presentan por pasos y no se dan por entendidos tras una sola mención.
+- Se mantienen todos los IDs y el progreso guardado. Las partidas que ya alcanzaron una parada no repiten retos ni pierden Memoria.
 
 ### 14 de agosto de 2026 · T-20A5
 

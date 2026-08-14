@@ -170,7 +170,7 @@ test('los días 13 y 14 conservan su cadena narrativa y adaptan solo tras un imp
   assert.doesNotMatch(childFacingText, /(foto|fotografía).{0,30}(cuaderno|diario)/i);
 });
 
-test('la edición T-20A5 compacta la experiencia móvil y separa destino de llegada', async () => {
+test('la edición T-20A6 compacta la experiencia móvil y separa destino de llegada en todo el viaje', async () => {
   const files = ['index.html', 'app.js', 'admin.js', 'content/episodes/001-reconexion.md'];
   const combined = (await Promise.all(files.map((file) => readFile(join(root, file), 'utf8')))).join('\n');
   const app = await readFile(join(root, 'app.js'), 'utf8');
@@ -183,14 +183,14 @@ test('la edición T-20A5 compacta la experiencia móvil y separa destino de lleg
 
   const styles = await readFile(join(root, 'styles.css'), 'utf8');
 
-  assert.match(combined, /T-20A5/);
+  assert.match(combined, /T-20A6/);
   assert.doesNotMatch(combined, /T-12A9/);
   assert.match(app, /splitTopotinoMessages/);
   assert.match(app, /CHALLENGE_PACKS/);
   assert.match(app, /els\.channelCode\.textContent = APP_VERSION_CODE/);
-  assert.match(serviceWorker, /topotino-offline-v28/);
-  assert.match(serviceWorker, /chat-format\.js\?v=memory-v43/);
-  assert.match(serviceWorker, /content\/challenges\.js\?v=memory-v43/);
+  assert.match(serviceWorker, /topotino-offline-v29/);
+  assert.match(serviceWorker, /chat-format\.js\?v=memory-v44/);
+  assert.match(serviceWorker, /content\/challenges\.js\?v=memory-v44/);
   assert.match(serviceWorker, /images\/topotina\.png\?v=topotina-v1/);
   assert.match(app, /topotina: \{ name: 'Topotina'/);
   assert.match(app, /Topotina está escribiendo/);
@@ -199,6 +199,9 @@ test('la edición T-20A5 compacta la experiencia móvil y separa destino de lleg
   assert.match(app, /challengePanelCollapsed/);
   assert.match(app, /function getPendingArrivalChallenge/);
   assert.match(app, /function collectChallengeArrivalMessages/);
+  assert.match(app, /function challengeArrivalWasConfirmed/);
+  assert.match(app, /function challengeLocationMatches/);
+  assert.match(app, /state\.seenBroadcastIds\.includes\(challenge\.arrivalMarker\)/);
   assert.match(app, /function applyDay14MachineClarification/);
   assert.match(styles, /max-height: 38dvh/);
   assert.match(styles, /grid-template-rows: auto auto minmax\(112px, 1fr\)/);

@@ -1,5 +1,35 @@
 const optionIds = ['a', 'b', 'c', 'd'];
 
+const ARRIVAL_LOCATIONS = Object.freeze({
+  batalha: { lat: 39.6594, lng: -8.8254, radiusMeters: 700, label: 'Monasterio de Batalha' },
+  fatima: { lat: 39.6321, lng: -8.6719, radiusMeters: 1000, label: 'Santuario de Fátima' },
+  mira: { lat: 39.5434, lng: -8.7046, radiusMeters: 700, label: 'Grutas de Mira de Aire' },
+  obidos: { lat: 39.3605, lng: -9.1570, radiusMeters: 1000, label: 'Óbidos' },
+  rossio: { lat: 38.7139, lng: -9.1394, radiusMeters: 700, label: 'Rossio, Lisboa' },
+  oceanario: { lat: 38.7636, lng: -9.0937, radiusMeters: 180, label: 'Oceanário de Lisboa' },
+  tejo: { lat: 38.7682, lng: -9.0922, radiusMeters: 350, label: 'Ribera del Tajo, Parque das Nações' },
+  alfama: { lat: 38.7114, lng: -9.1301, radiusMeters: 500, label: 'Alfama, Lisboa' },
+  belem: { lat: 38.6977, lng: -9.2068, radiusMeters: 1000, label: 'Belém, Lisboa' },
+  lagos: { lat: 37.1099, lng: -8.6748, radiusMeters: 1000, label: 'Marina de Lagos' },
+  sagres: { lat: 37.0016, lng: -8.9459, radiusMeters: 5000, label: 'Sagres y Cabo de São Vicente' },
+  algar: { lat: 37.0966, lng: -8.4719, radiusMeters: 700, label: 'Algar Seco, Carvoeiro' },
+  jaima: { lat: 37.106434, lng: -8.25335, radiusMeters: 5000, label: 'HolaCamp Albufeira' },
+  sevillaPlaza: { lat: 37.3772, lng: -5.9869, radiusMeters: 700, label: 'Plaza de España, Sevilla' },
+  catedralSevilla: { lat: 37.3858, lng: -5.9931, radiusMeters: 450, label: 'Catedral de Sevilla' },
+  alhambra: { lat: 37.1761, lng: -3.5881, radiusMeters: 700, label: 'Alhambra, Granada' }
+});
+
+function onArrival(step, location, arrivalMessages, marker = `llegada-${step.id}-t20a6`) {
+  return Object.assign(step, {
+    location,
+    arrivalMarker: marker,
+    arrivalMessages: [
+      { from: 'system', text: `Llegada confirmada: ${location.label}.` },
+      ...arrivalMessages
+    ]
+  });
+}
+
 export function displayChallengeOptions(challenge) {
   const options = [...(challenge?.options || [])];
   if (options.length < 2 || !challenge?.correctOptionId) return options;
@@ -177,7 +207,7 @@ packs['006-magikland-curia'] = {
         'El hotel abrió en 1922. Conserva partes antiguas, como la fachada, la madera o la decoración, y también tiene instalaciones modernas.',
         'Un edificio puede cambiar y seguir mostrando cómo era antes. Topoloco quiere borrar esas diferencias y dejar una sola historia.'
       ]), {
-        location: { lat: 40.42377, lng: -8.46321, radiusMeters: 5000, label: 'Curia · Hotel do Parque' },
+        location: { lat: 40.425204, lng: -8.465911, radiusMeters: 5000, label: 'Curia · Hotel do Parque' },
         arrivalMarker: 'llegada-curia-t20a5',
         arrivalMessages: [
           { from: 'system', text: 'Coordenada de Curia confirmada. Misión disponible.' },
@@ -235,13 +265,16 @@ packs['007-bucaco-batalha-fatima'] = {
         'Varias generaciones y maestros dejaron estilos distintos. Que las capillas estén inacabadas no las vuelve inútiles ni mudas.'
       ]),
       [
-        question('batalha-q1', 'Monasterio de Batalha', '¿Por qué se empezó a construir el monasterio?', ['Por una promesa ligada a una victoria', 'Para ocultar un parque acuático', 'Porque las Capelas Imperfeitas ya existían'], 0, 'Exacto. La promesa y la victoria están en el origen del monumento.', 'La construcción comenzó en 1388 y convirtió una decisión histórica en un lugar de memoria.', 'Pensad qué hecho y qué promesa explican su nombre y su origen.'),
+        onArrival(question('batalha-q1', 'Monasterio de Batalha', '¿Por qué se empezó a construir el monasterio?', ['Por una promesa ligada a una victoria', 'Para ocultar un parque acuático', 'Porque las Capelas Imperfeitas ya existían'], 0, 'Exacto. La promesa y la victoria están en el origen del monumento.', 'La construcción comenzó en 1388 y convirtió una decisión histórica en un lugar de memoria.', 'Pensad qué hecho y qué promesa explican su nombre y su origen.'), ARRIVAL_LOCATIONS.batalha, [
+          { from: 'topotino', text: 'Buçaco nos ha enseñado que un lugar guarda varias épocas. Esta pista termina en una promesa convertida en piedra.' },
+          { from: 'topotino', text: 'Ahora sí: estáis ante el Monasterio de Batalha. Primero averiguaremos por qué empezó a construirse.' }
+        ]),
         question('batalha-q2', 'Monasterio de Batalha', '¿Qué enseñan las Capelas Imperfeitas?', ['Que una obra incompleta también puede tener valor e historia', 'Que nunca se comenzó a trabajar en ellas', 'Que todo el monasterio está sin techo'], 0, 'Muy bien. Incompleto no significa vacío.', 'Las capillas fueron concebidas como panteón y conservan el rastro de un proyecto que cambió.', 'Mirad qué partes existen aunque el conjunto no se terminara como estaba previsto.')
       ],
       'question-first'
     ),
     ...withOrder(
-      expedition('fatima-expedicion', 'Fátima', 'Expedición de la escala', 'Aquí compararemos un lugar pequeño con espacios capaces de reunir a muchísimas personas.', [
+      onArrival(expedition('fatima-expedicion', 'Fátima', 'Expedición de la escala', 'Aquí compararemos un lugar pequeño con espacios capaces de reunir a muchísimas personas.', [
         'Localizad la Capelinha das Aparições.',
         'Cruzad una parte de la explanada y mirad la distancia entre sus extremos.',
         'Comparad desde fuera la Basílica do Rosário y la Basílica da Santíssima Trindade.',
@@ -249,6 +282,9 @@ packs['007-bucaco-batalha-fatima'] = {
       ], [
         'Hecho. La Capelinha es pequeña, pero ocupa el centro simbólico del conjunto.',
         'La importancia de un lugar no se mide solo en metros. Se construye también con lo que una comunidad recuerda y hace allí.'
+      ]), ARRIVAL_LOCATIONS.fatima, [
+        { from: 'topotino', text: 'Batalha ha demostrado que algo inacabado puede importar. La siguiente señal pregunta si algo pequeño también puede ser el centro de un lugar enorme.' },
+        { from: 'topotino', text: 'Habéis llegado a Fátima. Buscad primero la Capelinha y después comparadla con la explanada.' }
       ]),
       [
         question('fatima-q1', 'Fátima', '¿Qué lugar es más pequeño pero central en el relato de las apariciones?', ['La Capelinha', 'Toda la explanada', 'El aparcamiento'], 0, 'Correcto: la Capelinha.', 'La escala física y la importancia simbólica pueden ser muy diferentes. Esa era la trampa de Topoloco.', 'Comparad el tamaño de la capilla con el espacio que la rodea.'),
@@ -297,13 +333,16 @@ packs['008-huellas-mira-obidos'] = {
         'La cueva demuestra que una acción lenta puede construir formas enormes sin que veamos todo el proceso.'
       ]),
       [
-        question('mira-q1', 'Grutas de Mira de Aire', '¿Cuál crece desde el techo?', ['La estalactita', 'La estalagmita', 'El lago'], 0, 'Correcto: la estalactita cuelga del techo.', 'La estalagmita crece desde el suelo por las gotas que caen. Si llegan a unirse, pueden formar una columna.', 'Recordad la forma que habéis visto colgar.'),
+        onArrival(question('mira-q1', 'Grutas de Mira de Aire', '¿Cuál crece desde el techo?', ['La estalactita', 'La estalagmita', 'El lago'], 0, 'Correcto: la estalactita cuelga del techo.', 'La estalagmita crece desde el suelo por las gotas que caen. Si llegan a unirse, pueden formar una columna.', 'Recordad la forma que habéis visto colgar.'), ARRIVAL_LOCATIONS.mira, [
+          { from: 'topotino', text: 'Las huellas conservan un paso sobre la superficie. La nueva pista apunta a marcas creadas gota a gota bajo tierra.' },
+          { from: 'topotino', text: 'Ya estáis en las Grutas de Mira de Aire. Dentro, mirad techo y suelo antes de elegir.' }
+        ]),
         question('mira-q2', 'Grutas de Mira de Aire', '¿Por qué no deben tocarse las formaciones?', ['Porque son decorados de papel', 'Porque crecen muy despacio y podemos alterarlas', 'Porque se mueven solas'], 1, 'Muy bien. El proceso es lento y delicado.', 'La grasa y la suciedad de las manos pueden afectar superficies que tardaron muchísimo en formarse.', 'Pensad cuánto tarda una gota en dejar una capa diminuta.')
       ],
       'question-first'
     ),
     ...withOrder(
-      expedition('obidos-expedicion', 'Óbidos', 'Expedición de la ciudad escrita', 'En Óbidos, Borrón mezcla soportes reales con interpretaciones apresuradas.', [
+      onArrival(expedition('obidos-expedicion', 'Óbidos', 'Expedición de la ciudad escrita', 'En Óbidos, Borrón mezcla soportes reales con interpretaciones apresuradas.', [
         'Entrad por Porta da Vila y observad qué protege y qué anuncia.',
         'Recorred Rua Direita hasta localizar una iglesia, tienda o librería dentro de un edificio antiguo.',
         'Mirad la muralla y el castillo desde un lugar seguro; no caminéis por zonas que os parezcan peligrosas.',
@@ -311,6 +350,9 @@ packs['008-huellas-mira-obidos'] = {
       ], [
         'Expedición cerrada. Óbidos conserva muralla, puertas y trazado, pero también viviendas, comercio y cultura actuales.',
         'Una ciudad histórica no es una maqueta inmóvil. Sus usos nuevos escriben sin borrar por completo lo anterior.'
+      ]), ARRIVAL_LOCATIONS.obidos, [
+        { from: 'topotino', text: 'En la gruta leísteis el tiempo en la roca. Borrón ha llevado la misma trampa a una ciudad: mezcla lo que está escrito con lo que él quiere que creamos.' },
+        { from: 'topotino', text: 'Habéis llegado a Óbidos. Ahora sí: muralla, calles y textos nos dirán qué es evidencia y qué es interpretación.' }
       ]),
       [
         question('obidos-q1', 'Óbidos', '¿Qué demuestra mejor que Óbidos sigue siendo una ciudad viva?', ['Que dentro de edificios antiguos hay usos actuales', 'Que nadie puede entrar', 'Que todas las calles están vacías'], 0, 'Exacto. El uso actual convive con la estructura heredada.', 'Vivir en un lugar histórico implica adaptar, cuidar y reinterpretar, no congelarlo.', 'Pensad en la tienda, iglesia o librería que habéis localizado.'),
@@ -359,7 +401,10 @@ packs['009-dinoparque-lisboa'] = {
         'Topoloco acaba de dejar un rótulo: «Museo Topoloco de los Recuerdos Robados». Ya sabemos qué pretende construir.'
       ]),
       [
-        question('lisboa-llegada-q1', 'Lisboa · Baixa y Rossio', '¿Qué ayuda más a orientarse en la Baixa?', ['La relación entre calles rectas y plazas', 'Cerrar los ojos', 'Seguir siempre la calle más empinada'], 0, 'Correcto. La estructura urbana crea conexiones legibles.', 'La Baixa fue reconstruida con una trama regular. Mañana compararemos esa organización con otros sistemas.', 'Mirad qué calles permiten ver o alcanzar otra plaza.'),
+        onArrival(question('lisboa-llegada-q1', 'Lisboa · Baixa y Rossio', '¿Qué ayuda más a orientarse en la Baixa?', ['La relación entre calles rectas y plazas', 'Cerrar los ojos', 'Seguir siempre la calle más empinada'], 0, 'Correcto. La estructura urbana crea conexiones legibles.', 'La Baixa fue reconstruida con una trama regular. Mañana compararemos esa organización con otros sistemas.', 'Mirad qué calles permiten ver o alcanzar otra plaza.'), ARRIVAL_LOCATIONS.rossio, [
+          { from: 'topotino', text: 'En Dino Parque separasteis fósil, réplica y reconstrucción. La señal nos trae ahora a una ciudad reconstruida que también conserva pistas de lo anterior.' },
+          { from: 'topotino', text: 'Ya estáis en Rossio. Antes de investigar Lisboa, vamos a aprender a orientarnos en su trazado real.' }
+        ]),
         question('lisboa-llegada-q2', 'Lisboa · Baixa y Rossio', '¿Qué revela un edificio antiguo con uso actual?', ['Que una ciudad puede cambiar sin borrar todas sus capas', 'Que el edificio nunca cambió', 'Que el pasado ya no importa'], 0, 'Sí. Uso nuevo y huella antigua pueden convivir.', 'Esta idea contradice el museo de una sola versión que prepara Topoloco.', 'Comparad lo que conserva el edificio con lo que se hace hoy dentro.')
       ],
       'question-first'
@@ -406,13 +451,16 @@ packs['010-lisboa-ciencia-oceanario'] = {
         'Vasco llama a esto mirar relaciones, no coleccionar nombres. El 8 de junio celebra simbólicamente su cumpleaños y el Día Mundial de los Océanos.'
       ]),
       [
-        question('oceanario-q1', 'Oceanário de Lisboa', '¿Por qué importa observar el tanque desde varios lados?', ['Porque cada ventana muestra relaciones y zonas distintas del mismo sistema', 'Porque los animales cambian de especie', 'Porque una ventana siempre miente'], 0, 'Correcto. Cambia la perspectiva, no el océano.', 'Las distintas vistas se complementan. Esto se parece a Paula y Hugo recordando el mismo viaje de maneras diferentes.', 'Comparad qué aparecía y desaparecía al cambiar de ventana.'),
+        onArrival(question('oceanario-q1', 'Oceanário de Lisboa', '¿Por qué importa observar el tanque desde varios lados?', ['Porque cada ventana muestra relaciones y zonas distintas del mismo sistema', 'Porque los animales cambian de especie', 'Porque una ventana siempre miente'], 0, 'Correcto. Cambia la perspectiva, no el océano.', 'Las distintas vistas se complementan. Esto se parece a Paula y Hugo recordando el mismo viaje de maneras diferentes.', 'Comparad qué aparecía y desaparecía al cambiar de ventana.'), ARRIVAL_LOCATIONS.oceanario, [
+          { from: 'topotino', text: 'Me ha llegado un mensaje de Vasco, el explorador del Oceanário. Dice que vigilaba para nosotros la parte marina de la red.' },
+          { from: 'topotino', text: 'No lo recuerdo todavía, pero no pretende resolver la prueba: nos indica dónde mirar. Empezad por observar el gran tanque desde varios lados.' }
+        ]),
         question('oceanario-q2', 'Oceanário de Lisboa', '¿Cuál cumple mejor el Protocolo Azul?', ['Observar sin molestar y aceptar que un animal puede no aparecer', 'Perseguirlo hasta conseguir una foto', 'Alimentarlo para que se acerque'], 0, 'Exacto. Observar no da derecho a intervenir.', 'Vasco nos pide distinguir «no lo vimos» de «no existe» y proteger sin convertir al animal en propiedad.', 'Pensad qué opción respeta la decisión y el espacio del animal.')
       ],
       'question-first'
     ),
     ...withOrder(
-      expedition('tejo-expedicion', 'Ribera del Tajo', 'Expedición del río que llega al océano', 'Al salir, conectaremos el mundo interior del Oceanário con el paisaje real.', [
+      onArrival(expedition('tejo-expedicion', 'Ribera del Tajo', 'Expedición del río que llega al océano', 'Al salir, conectaremos el mundo interior del Oceanário con el paisaje real.', [
         'Mirad la anchura del Tajo desde la ribera.',
         'Buscad una embarcación o infraestructura relacionada con el agua.',
         'Localizad una señal de marea, viento o corriente.',
@@ -420,6 +468,9 @@ packs['010-lisboa-ciencia-oceanario'] = {
       ], [
         'Expedición terminada. El Tajo no acaba en Lisboa: se abre hacia el Atlántico.',
         'La sexta ventana confirma que las doce marcas del mapa son nodos de una red, no doce objetos aislados.'
+      ]), ARRIVAL_LOCATIONS.tejo, [
+        { from: 'topotino', text: 'Vasco avisa: dentro habéis visto una red marina; ahora toca comprobar dónde conecta esa historia con agua real.' },
+        { from: 'topotino', text: 'Estáis junto al Tajo. Seguid el río con la vista y buscad cómo la ciudad se relaciona con él.' }
       ]),
       [
         question('tejo-q1', 'Ribera del Tajo', '¿Qué conecta mejor el Tajo con el Oceanário?', ['Ambos permiten estudiar relaciones del agua con seres vivos y personas', 'Ambos tienen paredes de cristal', 'Ambos son piscinas'], 0, 'Sí. Uno es paisaje real y otro una representación cuidada, pero ambos muestran conexiones.', 'Las representaciones ayudan a observar; el río recuerda que el sistema continúa fuera del edificio.', 'Buscad una relación, no una semejanza de forma.'),
@@ -468,13 +519,16 @@ packs['011-lisboa-historia-belem'] = {
         'La ciudad sobrevivió cambiando. Topoloco confunde supervivencia con inmovilidad.'
       ]),
       [
-        question('alfama-q1', 'Alfama y Baixa', '¿En qué trazado es más fácil ver de lejos el final de una calle?', ['En la cuadrícula recta de Baixa', 'En cualquier curva de Alfama', 'En una escalera cerrada'], 0, 'Correcto. La línea recta facilita orientación y perspectiva.', 'El trazado irregular puede adaptarse a pendientes y crear recorridos distintos. No hay una forma única de ciudad.', 'Recordad en cuál de los dos barrios veíais otra plaza al fondo.'),
+        onArrival(question('alfama-q1', 'Alfama y Baixa', '¿En qué trazado es más fácil ver de lejos el final de una calle?', ['En la cuadrícula recta de Baixa', 'En cualquier curva de Alfama', 'En una escalera cerrada'], 0, 'Correcto. La línea recta facilita orientación y perspectiva.', 'El trazado irregular puede adaptarse a pendientes y crear recorridos distintos. No hay una forma única de ciudad.', 'Recordad en cuál de los dos barrios veíais otra plaza al fondo.'), ARRIVAL_LOCATIONS.alfama, [
+          { from: 'topotino', text: 'Desde el castillo habéis visto Lisboa como un mapa. Ahora bajaremos a comprobar lo que esa vista alta no podía enseñar.' },
+          { from: 'topotino', text: 'Ya estáis en Alfama. Comparad sus curvas y pendientes con las calles rectas de la Baixa.' }
+        ]),
         question('alfama-q2', 'Alfama y Baixa', '¿Qué prueba mejor que Lisboa se reconstruyó?', ['La diferencia entre trazados y edificios de distintas épocas', 'Que todas las calles son iguales', 'Que el terremoto no cambió nada'], 0, 'Sí. La diferencia visible conserva el cambio.', 'Reconstruir no borra necesariamente lo anterior: puede dejar contrastes que ayudan a entender la catástrofe y la respuesta.', 'Comparad, no busquéis una sola calle aislada.')
       ],
       'question-first'
     ),
     ...withOrder(
-      expedition('belem-expedicion', 'Belém', 'Expedición de piedra, río y viajes', 'Recorred la ribera sin necesidad de entrar en todos los edificios.', [
+      onArrival(expedition('belem-expedicion', 'Belém', 'Expedición de piedra, río y viajes', 'Recorred la ribera sin necesidad de entrar en todos los edificios.', [
         'Observad el Mosteiro dos Jerónimos y elegid un detalle de piedra trabajado.',
         'Localizad el Padrão dos Descobrimentos y mirad hacia dónde se orienta.',
         'Llegad a un punto seguro desde el que se vea la Torre de Belém y el Tajo.',
@@ -482,6 +536,9 @@ packs['011-lisboa-historia-belem'] = {
       ], [
         'Expedición cerrada. Jerónimos, Padrão y Torre cuentan relaciones distintas con los viajes, el poder y el río.',
         'Topoloco intenta guardarlos como una sola versión heroica; vuestra comparación mantiene funciones y épocas diferentes.'
+      ]), ARRIVAL_LOCATIONS.belem, [
+        { from: 'topotino', text: 'Alfama y Baixa muestran que una ciudad cambia sin volverse una sola historia. La siguiente señal sigue el Tajo hacia los viajes que también la transformaron.' },
+        { from: 'topotino', text: 'Habéis llegado a Belém. Ahora sí: buscad cómo la piedra, el río y los viajes se explican entre sí.' }
       ]),
       [
         question('belem-q1', 'Belém', '¿Cuál tuvo una función defensiva ligada a la entrada del Tajo?', ['La Torre de Belém', 'El Padrão dos Descobrimentos', 'Un pastel'], 0, 'Correcto: la Torre de Belém.', 'Su posición junto al agua formaba parte de un sistema defensivo. Hoy su función y su entorno han cambiado.', 'Mirad cuál está situado como control del paso por el río.'),
@@ -530,7 +587,10 @@ packs['012-badoca-lagos'] = {
         'El receptor de Niebla apuntaba a las salidas de barcos. Está preparando una prueba donde quizá no aparezca lo que buscamos.'
       ]),
       [
-        question('lagos-q1', 'Lagos y su marina', '¿Qué indica mejor que la marina conecta ciudad y mar?', ['Las rutas y embarcaciones que salen de ella', 'El color de una sombrilla', 'Que todas las calles sean rectas'], 0, 'Correcto. La función se reconoce por movimientos y conexiones.', 'Mañana esa salida nos permitirá investigar delfines y costa, pero sin prometer resultados.', 'Mirad qué elementos empiezan aquí y continúan fuera del puerto.'),
+        onArrival(question('lagos-q1', 'Lagos y su marina', '¿Qué indica mejor que la marina conecta ciudad y mar?', ['Las rutas y embarcaciones que salen de ella', 'El color de una sombrilla', 'Que todas las calles sean rectas'], 0, 'Correcto. La función se reconoce por movimientos y conexiones.', 'Mañana esa salida nos permitirá investigar delfines y costa, pero sin prometer resultados.', 'Mirad qué elementos empiezan aquí y continúan fuera del puerto.'), ARRIVAL_LOCATIONS.lagos, [
+          { from: 'topotino', text: 'En Badoca habéis separado un animal real de lo que imaginamos sobre él. La nueva pista sale hacia el mar, donde tampoco podremos ordenar que aparezca un delfín.' },
+          { from: 'topotino', text: 'Ya estáis en la Marina de Lagos. Primero averiguaremos cómo conecta la ciudad con las rutas del mar.' }
+        ]),
         question('lagos-q2', 'Lagos y su marina', '¿Para qué servía una defensa costera?', ['Vigilar y controlar accesos', 'Garantizar que aparezcan delfines', 'Decorar una piscina'], 0, 'Exacto. Su posición tiene relación con el territorio que controla.', 'La ciudad y el mar han mantenido relaciones comerciales, defensivas y de viaje diferentes.', 'Pensad qué podía observar o impedir desde su posición.')
       ],
       'question-first'
@@ -577,7 +637,10 @@ packs['013-delfines-benagil-sagres'] = {
         'La rosa suele llamarse de los vientos; su función exacta ha tenido interpretaciones distintas. Corvinho aprueba que mantengamos más de una hipótesis.'
       ]),
       [
-        question('sagres-q1', 'Sagres y Cabo de São Vicente', '¿Qué ayuda a la navegación desde un promontorio?', ['Una vista amplia de costa, mar y horizonte', 'No mirar el tiempo', 'Suponer que el viento nunca cambia'], 0, 'Correcto. La posición ofrece información.', 'También exige interpretar viento, luz y costa. Una vista grande no sustituye al razonamiento.', 'Recordad qué podíais ver desde arriba que no se ve al nivel del agua.'),
+        onArrival(question('sagres-q1', 'Sagres y Cabo de São Vicente', '¿Qué ayuda a la navegación desde un promontorio?', ['Una vista amplia de costa, mar y horizonte', 'No mirar el tiempo', 'Suponer que el viento nunca cambia'], 0, 'Correcto. La posición ofrece información.', 'También exige interpretar viento, luz y costa. Una vista grande no sustituye al razonamiento.', 'Recordad qué podíais ver desde arriba que no se ve al nivel del agua.'), ARRIVAL_LOCATIONS.sagres, [
+          { from: 'topotino', text: 'Desde el barco habéis aprendido que observar no garantiza encontrar. La señal nos manda ahora a mirar el mismo mar desde tierra firme y mucha altura.' },
+          { from: 'topotino', text: 'Habéis llegado a Sagres. Buscad costa, viento y horizonte antes de decidir qué información aporta este punto.' }
+        ]),
         question('sagres-q2', 'Sagres y Cabo de São Vicente', 'Si hay varias explicaciones para una estructura, ¿qué hacemos?', ['Comparamos evidencias y mantenemos abierta la duda', 'Elegimos la más emocionante', 'Decimos que todas están demostradas'], 0, 'Muy bien. Una hipótesis no se convierte en hecho por sonar bien.', 'Topoloco acaba de admitir que está aprendiendo de vuestro método. Eso lo vuelve más peligroso y también más previsible.', 'Buscad la opción que permite corregir si aparece nueva evidencia.')
       ],
       'question-first'
@@ -624,13 +687,16 @@ packs['014-piedade-algar-jaima'] = {
         'Eco copia la voz y cree que basta con quitar al original. Pero una identidad también se sostiene con relaciones y límites.'
       ]),
       [
-        question('algar-q1', 'Algar Seco', '¿Qué necesita una ventana natural para seguir abierta?', ['Roca que actúe como soporte alrededor', 'Que desaparezca toda la roca', 'Una cortina'], 0, 'Correcto. El hueco depende de lo que permanece.', 'La erosión retira material, pero la forma visible también está definida por sus soportes.', 'Mirad qué partes sostienen la abertura.'),
+        onArrival(question('algar-q1', 'Algar Seco', '¿Qué necesita una ventana natural para seguir abierta?', ['Roca que actúe como soporte alrededor', 'Que desaparezca toda la roca', 'Una cortina'], 0, 'Correcto. El hueco depende de lo que permanece.', 'La erosión retira material, pero la forma visible también está definida por sus soportes.', 'Mirad qué partes sostienen la abertura.'), ARRIVAL_LOCATIONS.algar, [
+          { from: 'topotino', text: 'Ponta da Piedade nos ha enseñado cómo el mar cambia la roca. La señal continúa hacia un lugar donde podremos mirar de cerca huecos y soportes.' },
+          { from: 'topotino', text: 'Ya estáis en Algar Seco. Observad una abertura real antes de elegir qué la mantiene en pie.' }
+        ]),
         question('algar-q2', 'Algar Seco', '¿Dónde suele actuar con más fuerza el mar?', ['En zonas más expuestas a oleaje y fracturas', 'Siempre igual en cualquier punto', 'Solo donde hay edificios'], 0, 'Sí. La exposición y las debilidades de la roca importan.', 'Por eso comparar dos zonas próximas ayuda a explicar diferencias sin inventar una regla universal.', 'Comparad la cara abierta al mar con una cavidad protegida.')
       ],
       'question-first'
     ),
     ...withOrder(
-      expedition('jaima-expedicion', 'HolaJaima · Albufeira', 'Expedición de la voz verdadera', 'Al llegar, Eco intentará imitar a Topotino. El Cuaderno continúa privado.', [
+      onArrival(expedition('jaima-expedicion', 'HolaJaima · Albufeira', 'Expedición de la voz verdadera', 'Al llegar, Eco intentará imitar a Topotino. El Cuaderno continúa privado.', [
         'Reconoced dos detalles reales de vuestra tienda o su entorno.',
         'Escuchad durante un minuto y separad un sonido cercano de uno lejano.',
         'Recordad una regla que el verdadero Topotino mantiene siempre sobre el Cuaderno.',
@@ -638,6 +704,10 @@ packs['014-piedade-algar-jaima'] = {
       ], [
         'Bien hecho. La tienda ha funcionado como lugar de escucha y como prueba de coherencia.',
         'Una voz puede copiarse. Una conducta mantenida durante días es mucho más difícil de falsificar.'
+      ]), ARRIVAL_LOCATIONS.jaima, [
+        { from: 'system', text: 'Interferencia de voz detectada cerca del campamento.' },
+        { from: 'topotino', text: 'La señal ha seguido los huecos de la roca hasta vuestra tienda. Eco cree que una voz parecida basta para hacerse pasar por mí.' },
+        { from: 'topotino', text: 'No contestéis deprisa ni enseñéis el Cuaderno. Primero compararemos lo que esa voz pide con mis reglas de siempre.' }
       ]),
       [
         question('jaima-q1', 'HolaJaima · Albufeira', 'Una voz idéntica pide una foto del Cuaderno. ¿Quién es más probable que sea?', ['Eco imitando a Topotino', 'El verdadero Topotino rompiendo su regla', 'El Cuaderno hablando'], 0, 'Exacto. La petición contradice la conducta de Topotino.', 'Eco se ha delatado: el verdadero Topotino nunca pide páginas, fotos ni marcas privadas.', 'No os fijéis solo en la voz. Comparad lo que pide con la regla mantenida.'),
@@ -717,7 +787,10 @@ packs['016-tavira-sevilla'] = {
         'Una forma parecida puede cumplir funciones distintas. Dos orillas no necesitan perder su diferencia para estar conectadas.'
       ]),
       [
-        question('sevilla-plaza-q1', 'Plaza de España · Sevilla', '¿Qué función añade la plaza a sus puentes?', ['Organizar una escena que representa unión y territorio', 'Defender la entrada del Atlántico', 'Conservar huellas de dinosaurio'], 0, 'Correcto. Aquí cruzar y representar trabajan juntos.', 'El canal y los puentes forman parte de un diseño simbólico, distinto del cruce urbano de Tavira.', 'Pensad en todo lo que rodea al puente, no solo en el paso.'),
+        onArrival(question('sevilla-plaza-q1', 'Plaza de España · Sevilla', '¿Qué función añade la plaza a sus puentes?', ['Organizar una escena que representa unión y territorio', 'Defender la entrada del Atlántico', 'Conservar huellas de dinosaurio'], 0, 'Correcto. Aquí cruzar y representar trabajan juntos.', 'El canal y los puentes forman parte de un diseño simbólico, distinto del cruce urbano de Tavira.', 'Pensad en todo lo que rodea al puente, no solo en el paso.'), ARRIVAL_LOCATIONS.sevillaPlaza, [
+          { from: 'topotino', text: 'En Tavira habéis corregido la historia de un puente sin quitarle valor. La señal cruza la frontera para comparar otro puente con una función distinta.' },
+          { from: 'topotino', text: 'Habéis llegado a la Plaza de España. Mirad el canal y todo lo que rodea sus puentes antes de elegir.' }
+        ]),
         question('sevilla-plaza-q2', 'Plaza de España · Sevilla', '¿Qué comparación es más útil?', ['Misma forma general, pero contexto y función diferentes', 'Son idénticos porque ambos cruzan agua', 'No se pueden comparar dos lugares'], 0, 'Muy bien. Comparar no significa declarar iguales.', 'Topotina ha detectado aquí la segunda firma de parque que apareció en Magikland: está en Isla Mágica.', 'Buscad una semejanza y una diferencia que puedan existir a la vez.')
       ],
       'question-first'
@@ -796,13 +869,16 @@ packs['018-sevilla-alhambra-noche'] = {
         'Ya tenemos la preparación: una historia puede cambiar y seguir siendo reconocible.'
       ]),
       [
-        question('catedral-q1', 'Catedral de Sevilla', '¿Qué ejemplo muestra mejor un cambio de función?', ['El alminar convertido en campanario', 'Una sombra que cambia de lugar', 'Una entrada que sigue siendo entrada'], 0, 'Correcto. La estructura permanece reconocible y su uso cambia.', 'Añadir el campanario y el Giraldillo no convierte toda la torre en una obra de una sola época.', 'Pensad qué hacía la torre antes y qué hace ahora.'),
+        onArrival(question('catedral-q1', 'Catedral de Sevilla', '¿Qué ejemplo muestra mejor un cambio de función?', ['El alminar convertido en campanario', 'Una sombra que cambia de lugar', 'Una entrada que sigue siendo entrada'], 0, 'Correcto. La estructura permanece reconocible y su uso cambia.', 'Añadir el campanario y el Giraldillo no convierte toda la torre en una obra de una sola época.', 'Pensad qué hacía la torre antes y qué hace ahora.'), ARRIVAL_LOCATIONS.catedralSevilla, [
+          { from: 'topotino', text: 'En el Alcázar habéis visto capas que conviven. La siguiente cerradura necesita un ejemplo todavía más claro: una torre que cambió de función.' },
+          { from: 'topotino', text: 'Ya estáis en la Catedral. Buscad primero la Giralda y el Giraldillo; después compararemos lo que permaneció y lo que se añadió.' }
+        ]),
         question('catedral-q2', 'Catedral de Sevilla', '¿Qué relato puede aportar una tumba o retablo?', ['Viajes, poder, creencias y decisiones de una época', 'La fecha exacta de cada piedra del edificio', 'Una única verdad sobre toda Sevilla'], 0, 'Muy bien. Una pieza aporta una capa, no el edificio entero.', 'Topoloco selecciona una pieza y finge que posee toda la historia. Esta comparación nos prepara para desenmascararlo.', 'Elegid la opción que reconoce el valor sin convertir una parte en el todo.')
       ],
       'question-first'
     ),
     ...withOrder(
-      expedition('alhambra-expedicion', 'Alhambra nocturna', 'Expedición de las cuatro cerraduras', 'Entrad con los adultos y seguid el recorrido real. El Cuaderno permanece privado.', [
+      onArrival(expedition('alhambra-expedicion', 'Alhambra nocturna', 'Expedición de las cuatro cerraduras', 'Entrad con los adultos y seguid el recorrido real. El Cuaderno permanece privado.', [
         'En Mexuar, localizad una señal de cambio de uso o superposición.',
         'En Arrayanes, comparad un detalle arquitectónico con su reflejo y observad qué ocurre si el agua se mueve.',
         'En Comares, recordad dos momentos distintos del viaje que ahora se relacionen.',
@@ -810,6 +886,10 @@ packs['018-sevilla-alhambra-noche'] = {
       ], [
         'Las cuatro observaciones están reunidas. Topotina mantiene abierta la red.',
         'Topoloco exige una única versión y un único dueño. Vamos a responder cerradura por cerradura.'
+      ]), ARRIVAL_LOCATIONS.alhambra, [
+        { from: 'topotina', text: 'Coordenada final confirmada. Las doce ventanas están conectadas, pero ninguna se abrirá sin lo que Paula y Hugo observen dentro.' },
+        { from: 'topotino', text: 'Catedral y Alcázar nos han preparado para distinguir cambios y capas. Ahora sí: habéis llegado a la Alhambra de noche.' },
+        { from: 'topotino', text: 'Iremos en orden: Mexuar, Arrayanes, Comares y Leones. No saltéis al final; Topoloco cuenta con que tengamos prisa.' }
       ]),
       [
         question('alhambra-q1', 'Alhambra nocturna · Mexuar', '¿Qué refuta «un edificio solo cuenta su primer uso»?', ['Las adaptaciones y capas visibles del propio Mexuar', 'Que el edificio tenga una puerta', 'Que sea de noche'], 0, 'Primera cerradura abierta.', 'Mexuar cambió de usos y forma. La transformación no elimina automáticamente todas sus historias anteriores.', 'Usad una capa que hayáis localizado allí.'),

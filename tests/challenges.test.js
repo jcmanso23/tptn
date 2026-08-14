@@ -122,6 +122,35 @@ test('el día 14 revela Magikland antes que Curia y conserva la continuidad', ()
   assert.doesNotMatch(visibleDay14Text, /el significado pesa|conserva tiempo|expulsar una reserva|relacionar experiencia y cambio/i);
 });
 
+test('cada cambio de lugar futuro espera la llegada física antes de mostrar su primera prueba', () => {
+  const gatedFirstSteps = [
+    'curia-expedicion',
+    'batalha-q1', 'fatima-expedicion',
+    'mira-q1', 'obidos-expedicion',
+    'lisboa-llegada-q1',
+    'oceanario-q1', 'tejo-expedicion',
+    'alfama-q1', 'belem-expedicion',
+    'lagos-q1', 'sagres-q1',
+    'algar-q1', 'jaima-expedicion',
+    'sevilla-plaza-q1',
+    'catedral-q1', 'alhambra-expedicion'
+  ];
+  const allSteps = Object.values(CHALLENGE_PACKS).flatMap((pack) => pack.steps);
+  const markers = new Set();
+
+  for (const id of gatedFirstSteps) {
+    const step = allSteps.find((candidate) => candidate.id === id);
+    assert.ok(step, `${id}: no existe`);
+    assert.ok(step.location?.lat && step.location?.lng, `${id}: falta coordenada de llegada`);
+    assert.ok(step.location.radiusMeters <= 5000, `${id}: radio demasiado amplio`);
+    assert.ok(step.arrivalMarker, `${id}: la llegada no queda guardada`);
+    assert.equal(markers.has(step.arrivalMarker), false, `${id}: marcador de llegada repetido`);
+    markers.add(step.arrivalMarker);
+    assert.ok(step.arrivalMessages?.length >= 2, `${id}: falta transición narrativa al llegar`);
+    assert.match(step.arrivalMessages.map(messageText).join(' '), /llegada|llegado|llegado|estáis|estais/i, `${id}: el aviso no confirma la llegada`);
+  }
+});
+
 test('las pruebas son breves, físicas y enseñan después de elegir', () => {
   for (const pack of Object.values(CHALLENGE_PACKS)) {
     for (const step of pack.steps) {

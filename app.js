@@ -1,5 +1,5 @@
-import { splitTopotinoMessages } from './chat-format.js?v=memory-v43';
-import { CHALLENGE_PACKS, displayChallengeOptions } from './content/challenges.js?v=memory-v43';
+import { splitTopotinoMessages } from './chat-format.js?v=memory-v44';
+import { CHALLENGE_PACKS, displayChallengeOptions } from './content/challenges.js?v=memory-v44';
 
 const STORAGE_KEYS = {
   auth: 'topotino_chat_auth_v1',
@@ -7,9 +7,9 @@ const STORAGE_KEYS = {
 };
 
 const LEGACY_STATE_KEY = 'topotino_chat_state_v1';
-const APP_VERSION_CODE = 'T-20A5';
+const APP_VERSION_CODE = 'T-20A6';
 const PASSPHRASE_HASH = 'a64716bd9f4e8added1bf47f80b97c3fc7b70a15b8043cdab083e1ddf85f3794';
-const EPISODES_MANIFEST = 'content/episodes.json?v=memory-v43';
+const EPISODES_MANIFEST = 'content/episodes.json?v=memory-v44';
 const LIVE_STORY_ENDPOINT = '/api/story';
 const AMARANTE_TRAVEL_DATE = '2026-08-13';
 const AMARANTE_ROUTE_EPISODE_ID = '004b-rumbo-amarante';
@@ -693,7 +693,7 @@ function getNextChallengeStep() {
 
 function getPendingArrivalChallenge() {
   const challenge = getNextChallengeStep();
-  if (!challenge?.location || locationMatches(challenge.location)) return null;
+  if (!challenge?.location || challengeArrivalWasConfirmed(challenge) || challengeLocationMatches(challenge.location)) return null;
   return challenge;
 }
 
@@ -702,18 +702,30 @@ function getActiveChallenge() {
     return { ...SECURITY_CHECKIN_CHALLENGE, episodeId: getActiveEpisode()?.meta?.id };
   }
   const challenge = getNextChallengeStep();
-  if (challenge?.location && !locationMatches(challenge.location)) return null;
+  if (challenge?.location && !challengeArrivalWasConfirmed(challenge) && !challengeLocationMatches(challenge.location)) return null;
   return challenge;
 }
 
 function collectChallengeArrivalMessages() {
   const challenge = getNextChallengeStep();
-  if (!challenge?.location || !locationMatches(challenge.location)) return [];
+  if (!challenge?.location || !challengeLocationMatches(challenge.location)) return [];
   if (!challenge.arrivalMarker || state.seenBroadcastIds.includes(challenge.arrivalMarker)) return [];
 
   state.seenBroadcastIds.push(challenge.arrivalMarker);
   saveState();
   return toTopotinoMessages(challenge.arrivalMessages || []);
+}
+
+function challengeArrivalWasConfirmed(challenge) {
+  return Boolean(challenge?.arrivalMarker && state.seenBroadcastIds.includes(challenge.arrivalMarker));
+}
+
+function challengeLocationMatches(rule) {
+  const pos = state.lastKnownPosition;
+  if (!pos || typeof pos.lat !== 'number' || typeof pos.lng !== 'number') return false;
+  const distance = haversineDistanceMeters(pos.lat, pos.lng, rule.lat, rule.lng);
+  const accuracyMargin = Math.min(Math.max(Number(pos.accuracy) || 0, 0), 100);
+  return distance <= (rule.radiusMeters || 300) + accuracyMargin;
 }
 
 function isSecurityCheckInPending() {
