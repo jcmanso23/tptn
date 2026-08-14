@@ -1,6 +1,6 @@
 # Guía maestra de coherencia narrativa · Las Doce Aguas
 
-**Versión canónica:** 14 de agosto de 2026 · edición T-20A6
+**Versión canónica:** 14 de agosto de 2026 · edición T-20A7
 **Final principal:** Alhambra, Palacios Nazaríes, noche del 26 de agosto
 **Epílogo:** Generalife, 27 de agosto; no abre otra amenaza
 
@@ -230,8 +230,8 @@ La noche anterior se descubre mediante opciones solo la parte de la ruta que la 
 |---|---|---|---|
 | Antes | Luanco y eclipse | Primera ventana marcada; ataque y amnesia | Paquete, cuaderno y pista del Tâmega |
 | 13 | Amarante | Primer transmisor; historia pública, tradición y paisaje | Recuerdo incompleto de seis mundos y máquina de atención |
-| 14 | Magikland, Hotel do Parque | Topoloco aprende cómo nace un recuerdo; aparece Topotina; edificio con capas | Bosque con convento, batalla y palacio |
-| 15 | Buçaco, Batalha, Fátima | Ordenar capas, promesa, obra incompleta y escala | Rastros de animal y agua bajo tierra |
+| 14 | Magikland, Hotel do Parque, Buçaco breve | Topoloco aprende cómo nace un recuerdo; aparece Topotina; edificio y bosque con épocas distintas | Un Portugal representado a escala, una promesa y un lugar pequeño |
+| 15 | Portugal dos Pequenitos, Batalha, Fátima | Distinguir representación y original; promesa, obra incompleta y escala | Rastros de animal y agua bajo tierra |
 | 16 | Huellas, Mira de Aire, Óbidos | Borrón deja pistas; rastros, procesos y diferencia dato/interpretación | Los recuerdos fueron extraídos; fósiles y reconstrucción |
 | 17 | Dino Parque, Lisboa | Original, modelo e inferencia; aparece el Museo Topoloco | Laboratorio de adaptaciones y océano conectado |
 | 18 | Pavilhão, Oceanário, Tejo | Vasco enseña Protocolo Azul; doce nodos son una red | Leer una ciudad por capas |
@@ -335,6 +335,16 @@ Antes de publicar un cambio:
 - [ ] El final continúa en la Alhambra nocturna y el Generalife es solo epílogo.
 
 ## 19. Registro de decisiones
+
+### 14 de agosto de 2026 · T-20A7
+
+- La ruta real cambia durante la tarde: después del Hotel do Parque se visita Buçaco de forma breve el 14 de agosto; el 15 Buçaco se sustituye por Portugal dos Pequenitos antes de Batalha y Fátima.
+- Topotina no conoce mágicamente el nuevo itinerario. Al comparar las lecturas del hotel detecta que la señal de Buçaco está cerca y pierde intensidad con la luz. Propone recalcular el orden; Paula y Hugo siguen teniendo que identificar el lugar y llegar físicamente.
+- La misión de Curia deja de sugerir piscina: fachada, interior, jardín y reflejo en cristal permiten resolverla con el tiempo y el clima reales.
+- Buçaco se convierte en una expedición breve y concentrada: Palace Hotel, Convento de Santa Cruz y relación entre construcción y bosque. Fonte Fria es opcional si el acceso y el tiempo real lo permiten; nunca se finge una visita.
+- Portugal dos Pequenitos no abre una ventana adicional. Aporta al cuarto tramo la distinción entre original y representación a escala: una maqueta puede enseñar si reconoce qué selecciona, reduce y reorganiza.
+- La observación de Portugal dos Pequenitos prepara dos retornos posteriores: en Dino Parque se distinguirán modelo, fósil y estudio; en Isla Mágica se distinguirán escenario histórico, objeto funcional y fuente original.
+- Se conservan los IDs de Buçaco trasladándolos al final del paquete del día 14. No se reinicia la partida ni se repiten Magikland, Curia o pruebas ya superadas.
 
 ### 14 de agosto de 2026 · T-20A6
 

@@ -15,14 +15,14 @@
 
 # Contexto narrativo
 
-Dino Parque enseña a separar original, modelo e inferencia. Topoloco planta una reconstrucción perfecta para demostrar que una historia convincente puede sustituir la evidencia. Al fracasar deja la primera mención del Museo Topoloco de los Recuerdos Robados.
+Dino Parque recupera la distinción iniciada en Portugal dos Pequenitos: una representación puede enseñar si reconoce qué transforma. Aquí se añade evidencia material y trabajo científico para separar fósil, modelo e inferencia. Topoloco planta una reconstrucción perfecta para demostrar que una historia convincente puede sustituir la evidencia. Al fracasar deja la primera mención del Museo Topoloco de los Recuerdos Robados.
 
 ## Mensajes iniciales
 
 ```json
 [
   { "from": "topotino", "time": "auto", "text": "Buenos días. Recorred primero una ruta exterior hasta un modelo. Fijaos en tamaño, piel y postura." },
-  { "from": "topotino", "time": "auto", "text": "Después id al museo o al laboratorio y encontrad una pieza fósil o trabajo científico. Dadme tres diferencias entre modelo, resto original y estudio." }
+  { "from": "topotino", "time": "auto", "text": "En Coimbra comparasteis reproducción y original. Hoy añadiremos una pieza fósil y el trabajo científico que los relaciona con el modelo." }
 ]
 ```
 

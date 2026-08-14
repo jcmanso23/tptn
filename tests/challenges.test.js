@@ -88,13 +88,24 @@ test('el día 14 revela Magikland antes que Curia y conserva la continuidad', ()
   const magiklandEnd = day14.steps.findIndex((step) => step.id === 'magikland-q2');
   const curiaRoute = day14.steps.findIndex((step) => step.id === 'curia-ruta-descubierta');
   const curiaExpedition = day14.steps.findIndex((step) => step.id === 'curia-expedicion');
+  const curiaEnd = day14.steps.findIndex((step) => step.id === 'curia-q2');
+  const bucacoRoute = day14.steps.findIndex((step) => step.id === 'bucaco-hoy-ruta');
+  const bucacoExpedition = day14.steps.findIndex((step) => step.id === 'bucaco-expedicion');
+  const tomorrowRoute = day14.steps.find((step) => step.id === 'ruta-dia15');
 
   assert.equal(firstRoute.title, 'Descubrid la primera parada');
   assert.deepEqual(firstRoute.options.map((option) => option.text), ['Magikland', 'Parque da Cidade do Porto', 'Castillo de Guimarães']);
   assert.doesNotMatch([firstRoute.prompt, ...firstRoute.successMessages, ...day14.openingMessages].join(' '), /Curia|Hotel do Parque/i);
   assert.ok(magiklandEnd >= 0 && magiklandEnd < curiaRoute);
   assert.ok(curiaRoute < curiaExpedition);
+  assert.ok(curiaExpedition < curiaEnd && curiaEnd < bucacoRoute && bucacoRoute < bucacoExpedition);
   assert.match(day14.steps[curiaRoute].successMessages.map(messageText).join(' '), /Curia|Hotel do Parque/i);
+  assert.match(day14.steps[bucacoRoute].successMessages.map(messageText).join(' '), /Topotina|19:00|orden/i);
+  assert.deepEqual(tomorrowRoute.options.map((option) => option.text), [
+    'Portugal dos Pequenitos, Batalha y Fátima',
+    'Sintra, Nazaré y Leiria',
+    'Oporto, Guimarães y Braga'
+  ]);
 
   const topotinaEntrance = day14.steps.find((step) => step.id === 'magikland-q2').successMessages;
   assert.equal(topotinaEntrance.findIndex((message) => message?.from === 'system'), 2);
@@ -106,6 +117,11 @@ test('el día 14 revela Magikland antes que Curia y conserva la continuidad', ()
   assert.equal(curiaArrival.location.radiusMeters, 5000);
   assert.ok(curiaArrival.arrivalMessages.some((message) => message?.from === 'topotina'));
   assert.match(curiaArrival.arrivalMessages.map(messageText).join(' '), /no se ha abierto hasta vuestra llegada/i);
+  assert.doesNotMatch([
+    curiaArrival.intro,
+    ...(curiaArrival.actions || []),
+    ...day14.steps.find((step) => step.id === 'curia-q2').successMessages.map(messageText)
+  ].join(' '), /piscina/i);
 
   const visibleDay14Text = [
     ...day14.openingMessages,
@@ -125,6 +141,7 @@ test('el día 14 revela Magikland antes que Curia y conserva la continuidad', ()
 test('cada cambio de lugar futuro espera la llegada física antes de mostrar su primera prueba', () => {
   const gatedFirstSteps = [
     'curia-expedicion',
+    'bucaco-expedicion', 'portugal-pequenitos-expedicion',
     'batalha-q1', 'fatima-expedicion',
     'mira-q1', 'obidos-expedicion',
     'lisboa-llegada-q1',
@@ -149,6 +166,26 @@ test('cada cambio de lugar futuro espera la llegada física antes de mostrar su 
     assert.ok(step.arrivalMessages?.length >= 2, `${id}: falta transición narrativa al llegar`);
     assert.match(step.arrivalMessages.map(messageText).join(' '), /llegada|llegado|llegado|estáis|estais/i, `${id}: el aviso no confirma la llegada`);
   }
+});
+
+test('el cambio real mueve Buçaco al día 14 y abre el día 15 en Portugal dos Pequenitos', () => {
+  const day14 = CHALLENGE_PACKS['006-magikland-curia'];
+  const day15 = CHALLENGE_PACKS['007-bucaco-batalha-fatima'];
+  const day14Ids = day14.steps.map((step) => step.id);
+  const day15Ids = day15.steps.map((step) => step.id);
+
+  assert.ok(day14Ids.includes('bucaco-expedicion'));
+  assert.ok(day14Ids.includes('bucaco-q1'));
+  assert.ok(day14Ids.includes('bucaco-q2'));
+  assert.equal(day15Ids.some((id) => id.startsWith('bucaco-')), false);
+  assert.deepEqual(day15Ids.slice(0, 3), [
+    'portugal-pequenitos-expedicion',
+    'portugal-pequenitos-q1',
+    'portugal-pequenitos-q2'
+  ]);
+  assert.match(day15.openingMessages.join(' '), /Topotina.*adelantó.*Buçaco/i);
+  assert.ok(day15Ids.indexOf('portugal-pequenitos-q2') < day15Ids.indexOf('batalha-q1'));
+  assert.ok(day15Ids.indexOf('batalha-q2') < day15Ids.indexOf('fatima-expedicion'));
 });
 
 test('las pruebas son breves, físicas y enseñan después de elegir', () => {

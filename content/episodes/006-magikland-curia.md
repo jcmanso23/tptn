@@ -32,9 +32,11 @@ Magikland se divide en África, Mundo da Confusão, Aldeia Medieval, Refúgio do
 
 Después de que Paula y Hugo confirmen que los seis mundos existen y descifren las dos lecturas del Cazarrisas, llega la primera transmisión de Topotina. Explica que es la hermana de Topotino y que ayudó a preparar el sistema de investigación, pero no la ruta: dividieron la información para que nadie pudiera robarla completa. Topotino desconfía, no la recuerda y busca explicaciones alternativas. Topotina aporta datos privados —incluida la galleta escondida tras el transmisor— y mantiene la frase «No necesito que me recuerdes para seguir siendo tu hermana». Él acepta llamarla provisionalmente «técnica misteriosa con mis orejas»; ella replica que son las orejas de ambos. La relación avanza con humor y pruebas pequeñas, no con una aceptación instantánea.
 
-En Curia duermen, pero la investigación se centra en el Hotel do Parque: un edificio de 1922 restaurado como hotel, con decoración clásica, suelos de madera, patio, piscina y jardín. Al detectar la llegada, Topotina confirma que el bloqueo geográfico ha funcionado y recuerda que ella y Topotino lo programaron juntos. Solo entonces se muestra la expedición. La prueba distingue huellas de su época original de las adaptaciones y usos actuales; después conserva el experimento de reflejo en el jardín, la piscina, una ventana o agua potable.
+En Curia duermen, pero la investigación se centra en el Hotel do Parque: un edificio de 1922 restaurado como hotel, con decoración clásica, suelos de madera, patio y jardín. Al detectar la llegada, Topotina confirma que el bloqueo geográfico ha funcionado y recuerda que ella y Topotino lo programaron juntos. Solo entonces se muestra la expedición. La prueba distingue huellas de su época original de las adaptaciones y usos actuales. No depende de piscina ni de buen tiempo: el reflejo se observa en una ventana, puerta de cristal o espejo.
 
-El Cuaderno de la Memoria continúa privado. Topotino no pide que cuenten qué escriben o dibujan. La palabra técnica `RIO`, el valor interno de agua y la flag antigua `diario_magikland_curia` se conservan silenciosamente. Al cerrar, el recuerdo de Topotino se completa con una imagen precisa del siguiente paisaje y aparece una pista hacia Buçaco; después pide descanso.
+Después de Curia, Topotina compara la lectura del hotel con el mapa y detecta que la señal cercana de Buçaco pierde intensidad al caer la tarde. No conoce una ruta secreta nueva ni decide por la familia: propone cambiar el orden de dos investigaciones ya visibles. Topotino protesta porque no recuerda haber diseñado rutas con ella; ambos discuten con humor sobre sus cables enredados. Paula y Hugo identifican Buçaco y la misión permanece oculta hasta la llegada. Como queda poco tiempo, la investigación se limita al Palace Hotel, el Convento de Santa Cruz y el bosque inmediato. Fonte Fria y otros recorridos no son obligatorios y nunca se finge haberlos visto.
+
+El Cuaderno de la Memoria continúa privado. Topotino no pide que cuenten qué escriben o dibujan. La palabra técnica `RIO`, el valor interno de agua y la flag antigua `diario_magikland_curia` se conservan silenciosamente. Buçaco produce una imagen de monumentos portugueses reducidos al tamaño de los niños. Así se descubre para el día siguiente Portugal dos Pequenitos, seguido de Batalha y Fátima. Topotino indica volver a Curia, donde duermen, y después pide descanso.
 
 ## Mensajes iniciales
 
@@ -221,7 +223,7 @@ El Cuaderno de la Memoria continúa privado. Topotino no pide que cuenten qué e
     "remember": { "kind": "architectural_reasoning", "label": "Lectura de las capas históricas y actuales del Hotel do Parque" },
     "messages": [
       { "from": "topotino", "time": "auto", "text": "Bien razonado. El hotel conserva partes de 1922 y también tiene elementos modernos para recibir huéspedes hoy. Cambiar no obliga a borrar todo lo anterior." },
-      { "from": "topotino", "time": "auto", "text": "Última investigación. En el jardín, junto a la piscina o ante una ventana, elegid un reflejo seguro. Observadlo desde un punto y cambiad después vuestra posición unos pasos, siempre con los adultos. Decid qué cambió, qué permaneció y si cambió el objeto, el reflejo o el observador. Añadid un sonido pequeño que solo percibisteis al deteneros." }
+      { "from": "topotino", "time": "auto", "text": "Última investigación del hotel. Elegid un reflejo en una ventana, puerta de cristal o espejo. Cambiad vuestra posición dos pasos y decid qué cambió, qué permaneció y por qué. No necesitamos piscina." }
     ]
   },
   {
@@ -268,8 +270,8 @@ El Cuaderno de la Memoria continúa privado. Topotino no pide que cuenten qué e
       { "from": "topotino", "time": "auto", "text": "He recordado una sensación de Londres: los tres nos reíamos porque algo había salido rematadamente mal. No veo dónde estábamos ni qué ocurrió, pero recuerdo cómo era reírme con vosotros. No completaré el hueco con una invención." },
       { "from": "topotino", "time": "auto", "text": "La tercera ventana del mapa se ha aclarado. No uséis agua del parque, del lago ni de la piscina: la conexión apareció al comprender por qué un momento se convierte en recuerdo." },
       { "from": "topotino", "time": "auto", "text": "Topotina confirma que las ventanas forman una red. Ella construyó el sistema; yo escondí los destinos. Ninguno tenía el plan completo." },
-      { "from": "topotino", "time": "auto", "text": "Del filtro ha salido una imagen: un bosque con convento, memoria de una batalla y un palacio. Huele a musgo, piedra fría y hojas mojadas. Esa será la ruta de mañana." },
-      { "from": "topotino", "time": "auto", "text": "Por hoy se acabó. Habéis clasificado movimientos, comprobado una predicción y separado objeto, reflejo y observador. Cenad y descansad. Mañana necesitaremos ojos despiertos y argumentos todavía mejores." }
+      { "from": "topotina", "time": "auto", "text": "Un momento. La señal de un bosque cercano está perdiendo intensidad con la luz. Puedo cambiar el orden, no las pruebas." },
+      { "from": "topotino", "time": "auto", "text": "La aplicación os mostrará una pista breve. Si los adultos confirman que hay tiempo, hoy seguiremos hasta Buçaco sin correr." }
     ]
   },
   {
@@ -283,7 +285,7 @@ El Cuaderno de la Memoria continúa privado. Topotino no pide que cuenten qué e
     "formulaWord": "RIO",
     "messages": [
       { "from": "topotino", "time": "auto", "text": "La señal antigua esperaba una descripción del cuaderno. Ya no la necesito y no voy a pedírosla. La investigación del reflejo contiene la evidencia suficiente." },
-      { "from": "topotino", "time": "auto", "text": "La siguiente pista huele a musgo, piedra fría y hojas empapadas: «donde el bosque bebe del cielo». Ahora descansad." }
+      { "from": "topotina", "time": "auto", "text": "La siguiente pista huele a musgo y piedra fría. Comprobad la nueva tarjeta: si los adultos confirman tiempo, la señal conduce hoy a Buçaco." }
     ]
   }
 ]
@@ -298,7 +300,8 @@ El Cuaderno de la Memoria continúa privado. Topotino no pide que cuenten qué e
   "Una predicción completa dice dónde irá más rápido o despacio y propone una causa: altura, gravedad, impulso, rozamiento o corriente.",
   "Separad el momento del parque en fenómeno, causa y significado futuro.",
   "En el Hotel do Parque, buscad dos huellas de 1922 y una adaptación de su uso actual; justificad cada capa.",
-  "En el reflejo distinguimos tres cosas: el objeto, su imagen y la posición desde la que observáis. Añadid el sonido pequeño que apareció al deteneros."
+  "En el reflejo distinguimos tres cosas: el objeto, su imagen y la posición desde la que observáis. No hace falta usar la piscina.",
+  "En Buçaco basta comparar Palace Hotel, Convento de Santa Cruz y bosque. No intentéis recorrer toda la mata."
 ]
 ```
 
@@ -310,14 +313,14 @@ El Cuaderno de la Memoria continúa privado. Topotino no pide que cuenten qué e
   "Una noria rota; un barco pirata suele oscilar; un vehículo o una barca se desplaza. Buscad ejemplos reales allí.",
   "En muchos movimientos dominados por la gravedad, la velocidad cambia con la altura. Comprobadlo en el mecanismo que habéis elegido.",
   "El Cazarrisas puede registrar ruido, pero no sabe por qué ese instante os importará dentro de años.",
-  "Una fachada, un balcón o la madera pueden conservar una época; una recepción, la iluminación o la piscina muestran el uso actual.",
+  "Una fachada, un balcón o la madera pueden conservar una época; una recepción, la iluminación o los servicios muestran el uso actual.",
   "Si cambiáis de posición y el objeto sigue quieto, ¿qué ha cambiado realmente: el objeto, la imagen visible o vuestro punto de vista?"
 ]
 ```
 
 ## Contexto para IA
 
-Topotino recuerda todo desde el eclipse y consulta la memoria de viaje persistente. Si falta `completado_amarante`, reconoce que no abrieron la ventana anterior y no atribuye deducciones que no hicieron. Al inicio conoce el plano firmado `TOP O LOCO`; descubre que el Cazarrisas es un programa escondido en la señal, no una máquina que los niños debían localizar físicamente. La firma aumenta la sospecha, pero no demuestra quién causó la amnesia. Tras `magikland_recuerdo_elegido`, sabe que el aparato graba qué observan, qué eligen y qué recuerdan después; detecta la firma de un segundo parque y recibe a Topotina. La entrada de Topotina aparece con remitente y avatar propios: Topotino no parafrasea sus mensajes. No la recuerda ni acepta inmediatamente el parentesco; conserva la duda de manera cómica mientras admite que sus datos encajan. Resolver Curia solo guarda la ruta. La expedición no se muestra hasta que el dispositivo está a menos de 5 km del Hotel do Parque; al llegar, Topotina confirma el bloqueo y continúa su diálogo con Topotino. Tras `curia_paisaje_razonado`, sabe qué partes de 1922 y qué elemento moderno identificaron en el hotel. Tras `curia_quietud_observada`, recupera solo la sensación de haberse reído con ellos en Londres y ve aclararse la tercera ventana. Conversa a nivel intelectual aproximado de diez años con frases concretas: nombra el objeto, la acción y el resultado, y define cualquier término técnico con un ejemplo. El Cuaderno es privado. No pide agua de atracciones, piscinas o lago. No conoce el museo, Granada ni los doce leones. Al cerrar conduce mediante una imagen precisa del bosque y pide descanso.
+Topotino recuerda todo desde el eclipse y consulta la memoria de viaje persistente. Si falta `completado_amarante`, reconoce que no abrieron la ventana anterior y no atribuye deducciones que no hicieron. Al inicio conoce el plano firmado `TOP O LOCO`; descubre que el Cazarrisas es un programa escondido en la señal, no una máquina que los niños debían localizar físicamente. La firma aumenta la sospecha, pero no demuestra quién causó la amnesia. Tras `magikland_recuerdo_elegido`, sabe que el aparato graba qué observan, qué eligen y qué recuerdan después; detecta la firma de un segundo parque y recibe a Topotina. La entrada de Topotina aparece con remitente y avatar propios: Topotino no parafrasea sus mensajes. No la recuerda ni acepta inmediatamente el parentesco; conserva la duda de manera cómica mientras admite que sus datos encajan. Resolver Curia solo guarda la ruta. La expedición no se muestra hasta que el dispositivo está a menos de 5 km del Hotel do Parque; al llegar, Topotina confirma el bloqueo y continúa su diálogo con Topotino. La misión no depende de piscina. Después, Topotina propone adelantar Buçaco porque una señal cercana pierde intensidad; no revela ni resuelve el destino. Buçaco se juega de forma breve y física y deja para mañana Portugal dos Pequenitos, Batalha y Fátima. Conversa a nivel intelectual aproximado de diez años con frases concretas. El Cuaderno es privado. No pide agua de atracciones, piscinas o lago. No conoce el museo, Granada ni los doce leones.
 
 ## Fuentes documentales
 
@@ -326,3 +329,4 @@ Topotino recuerda todo desde el eclipse y consulta la memoria de viaje persisten
 - https://magikland.pt/informacoes-uteis/
 - https://www.cm-anadia.pt/visitar/alojamento/hoteis/poi/hotel-do-parque
 - https://www.booking.com/hotel/pt/do-parque-anadia.en-gb.html
+- https://fmb.pt/fundacao/informacoes/horarios/

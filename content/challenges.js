@@ -1,6 +1,8 @@
 const optionIds = ['a', 'b', 'c', 'd'];
 
 const ARRIVAL_LOCATIONS = Object.freeze({
+  bucaco: { lat: 40.3755835, lng: -8.3619487, radiusMeters: 5000, label: 'Mata Nacional do Buçaco' },
+  portugalPequenitos: { lat: 40.202478, lng: -8.434375, radiusMeters: 700, label: 'Portugal dos Pequenitos, Coimbra' },
   batalha: { lat: 39.6594, lng: -8.8254, radiusMeters: 700, label: 'Monasterio de Batalha' },
   fatima: { lat: 39.6321, lng: -8.6719, radiusMeters: 1000, label: 'Santuario de Fátima' },
   mira: { lat: 39.5434, lng: -8.7046, radiusMeters: 700, label: 'Grutas de Mira de Aire' },
@@ -198,11 +200,10 @@ packs['006-magikland-curia'] = {
       'Buscad la localidad termal vinculada a un Hotel do Parque inaugurado en 1922.'
     ), { effects: { setFlags: ['ruta_curia_descubierta'] } }),
     ...withOrder(
-      Object.assign(expedition('curia-expedicion', 'Hotel do Parque · Curia', 'Partes antiguas y partes nuevas', 'Ya estáis en Curia. Id al Hotel do Parque y recorred sus jardines con los adultos.', [
+      Object.assign(expedition('curia-expedicion', 'Hotel do Parque · Curia', 'Partes antiguas y partes nuevas', 'Ya estáis en el Hotel do Parque. Esta investigación se hace dentro y con un vistazo al jardín; no necesita buen tiempo.', [
         'Mirad la fachada y localizad dos detalles que parezcan de otra época.',
         'Dentro, con los adultos, buscad algo moderno que permita usar hoy el edificio como hotel.',
-        'Salid al jardín y comparad una zona construida con una zona vegetal.',
-        'Buscad un reflejo seguro en cristal, piscina o agua, sin acercaros a ningún borde.'
+        'Desde dentro o el jardín, buscad un reflejo en una ventana, puerta de cristal o espejo.'
       ], [
         'El hotel abrió en 1922. Conserva partes antiguas, como la fachada, la madera o la decoración, y también tiene instalaciones modernas.',
         'Un edificio puede cambiar y seguir mostrando cómo era antes. Topoloco quiere borrar esas diferencias y dejar una sola historia.'
@@ -219,15 +220,45 @@ packs['006-magikland-curia'] = {
         ]
       }),
       [
-        question('curia-q1', 'Hotel do Parque · Curia', '¿Qué opción describe mejor el hotel que habéis observado?', ['Todo sigue exactamente como en 1922', 'Conserva partes antiguas y también tiene elementos modernos', 'Es antiguo porque nadie puede entrar'], 1, 'Exacto. Habéis encontrado partes de dos épocas en el mismo edificio.', 'La fachada, la madera o la decoración pueden ser antiguas; la recepción, la piscina o la iluminación permiten usarlo hoy.', 'Comparad una parte antigua con una parte moderna que hayáis visto.'),
-        question('curia-q2', 'Hotel do Parque · Curia', 'Si el agua se mueve y la imagen reflejada cambia, ¿qué se ha movido de verdad?', ['El agua, que cambia la imagen', 'El edificio entero', 'La fecha de construcción'], 0, 'Muy bien. Se mueve el agua y por eso cambia la imagen.', 'El edificio puede seguir quieto aunque su reflejo se estire, se corte o tiemble.', 'Mirad el edificio y después la superficie del agua.')
+        question('curia-q1', 'Hotel do Parque · Curia', '¿Qué opción describe mejor el hotel que habéis observado?', ['Todo sigue exactamente como en 1922', 'Conserva partes antiguas y también tiene elementos modernos', 'Es antiguo porque nadie puede entrar'], 1, 'Exacto. Habéis encontrado partes de dos épocas en el mismo edificio.', 'La fachada, la madera o la decoración pueden ser antiguas; la recepción, la iluminación o los servicios permiten usarlo hoy.', 'Comparad una parte antigua con una parte moderna que hayáis visto.'),
+        question('curia-q2', 'Hotel do Parque · Curia', 'Al moveros delante de un cristal, cambia lo que aparece en el reflejo. ¿Qué explica mejor el cambio?', ['Ha cambiado vuestra posición respecto al cristal', 'El hotel se ha desplazado', 'La fecha del edificio ha cambiado'], 0, 'Muy bien. Ha cambiado el lugar desde el que miráis.', 'El edificio sigue quieto. El cristal combina lo que tiene delante con el ángulo desde el que lo observáis.', 'Dad dos pasos seguros hacia un lado y mirad de nuevo el mismo cristal.')
       ]
     ),
-    recovery('recuperacion-dia14', 'Para bajar la Sombra: ¿qué hemos comprobado hoy?', ['En Magikland recordamos un momento importante y en el hotel vimos partes antiguas junto a partes nuevas', 'Magikland y el hotel fueron construidos en 1922', 'Los dos lugares son bosques'], 0, 'Sombra reducida. Habéis explicado con dos ejemplos cómo algo cambia sin perder todo lo anterior.', 'La Sombra sigue igual. Mañana podremos intentarlo con otra pregunta.'),
-    route('ruta-dia15', 'Una nueva pista muestra un bosque con convento, ermitas, una batalla y un palacio; después, un monasterio nacido de una promesa y una gran explanada de peregrinos. ¿Qué ruta es?', ['Buçaco, Batalha y Fátima', 'Sintra, Nazaré y Leiria', 'Oporto, Guimarães y Braga'], 0, [
-      'Ruta encontrada: Mata Nacional do Buçaco, Monasterio de Batalha y Fátima.',
-      'Seguimos esa ruta porque Topoloco confunde lo más grande con lo más importante. Mañana veremos promesas muy distintas.',
-      'Preparad calzado cómodo, agua y algo para lluvia o sol. Será un día largo: bosque, piedra y una gran explanada. Descansad.'
+    Object.assign(question('bucaco-hoy-ruta', 'Señal urgente de Topotina', 'Topotina ve cerca un bosque con convento, palacio y memoria de una batalla. ¿Qué lugar es?', ['Mata Nacional do Buçaco', 'Bosque de Monsanto', 'Parque da Curia'], 0, 'Exacto: la Mata Nacional do Buçaco.', [
+      { from: 'topotina', text: 'He comparado la señal del hotel con el mapa. Buçaco está cerca y su lectura pierde intensidad al caer la tarde.' },
+      { from: 'topotino', text: '¿Has cambiado mi ruta?' },
+      { from: 'topotina', text: 'He cambiado el orden, hermano. Las pistas siguen siendo las mismas. Tu ruta tenía más rodeos que un cable en tu bolsillo.' },
+      { from: 'topotino', text: 'Mis cables siguen un sistema. Un sistema muy enredado.' },
+      { from: 'topotina', text: 'Los accesos figuran hasta las 19:00 en horario de verano. Id solo si los adultos confirman que llegáis sin correr.' },
+      { from: 'topotino', text: 'La misión no aparecerá hasta que lleguéis. Será breve: palacio, convento y bosque.' }
+    ], 'El lugar está junto a Luso y reúne un bosque histórico, un convento y un Palace Hotel.'), { effects: { setFlags: ['ruta_bucaco_adelantada_t20a7'] } }),
+    ...withOrder(
+      onArrival(expedition('bucaco-expedicion', 'Mata Nacional do Buçaco', 'Expedición breve de las tres épocas', 'No intentéis recorrer toda la mata. Con poco tiempo basta una comparación bien hecha.', [
+        'Desde una zona permitida, comparad el exterior del Palace Hotel con el Convento de Santa Cruz.',
+        'Buscad una diferencia de material o forma y otra de función: para qué servía cada edificio.',
+        'Elegid un elemento construido y un elemento vivo del bosque que compartan el mismo espacio.'
+      ], [
+        'Hecho. En pocos metros habéis encontrado bosque, retiro carmelita y palacio de épocas y usos distintos.',
+        'Los carmelitas comenzaron su retiro aquí en 1628. El palacio llegó mucho después. Estar juntos no significa pertenecer al mismo momento.'
+      ]), ARRIVAL_LOCATIONS.bucaco, [
+        { from: 'topotina', text: 'Señal de Buçaco confirmada. El cambio de orden ha funcionado.' },
+        { from: 'topotino', text: 'Sigo sin recordar haber diseñado rutas contigo.' },
+        { from: 'topotina', text: 'Y yo sigo sin recordar que fueras tan dramático. Empate.' },
+        { from: 'topotino', text: 'Mirad solo el Palace Hotel, el convento y el bosque. Nada de correr para verlo todo.' }
+      ]),
+      [
+        question('bucaco-q1', 'Mata Nacional do Buçaco', '¿Qué edificio encaja mejor con el retiro de los carmelitas?', ['El Convento de Santa Cruz', 'El Palace Hotel', 'Una estación de tren'], 0, 'Correcto: el Convento de Santa Cruz.', 'El convento se construyó para una vida religiosa retirada; el palacio pertenece a una transformación muy posterior del bosque.', 'Comparad el aspecto y la función de los dos edificios.'),
+        question('bucaco-q2', 'Mata Nacional do Buçaco', '¿Qué demuestra ver juntos palacio, convento y bosque?', ['Que distintas épocas y usos pueden convivir en un lugar', 'Que todo se construyó el mismo año', 'Que los árboles son decorados'], 0, 'Exacto. El lugar conserva diferencias en vez de convertirse en una sola fecha.', [
+          'Topotina ha recuperado otra imagen del mapa: varios monumentos portugueses reducidos al tamaño de los niños.',
+          'No es el original de cada edificio. Parece un lugar construido para comparar representaciones.'
+        ], 'Buscad la opción que permite que el lugar haya cambiado con el tiempo.')
+      ]
+    ),
+    recovery('recuperacion-dia14', 'Para bajar la Sombra: ¿qué hemos comprobado hoy?', ['Magikland mostró cómo nace un recuerdo; el hotel y Buçaco conservan épocas distintas', 'Magikland, el hotel y Buçaco se construyeron en 1922', 'Los tres lugares son parques acuáticos'], 0, 'Sombra reducida. Habéis unido recuerdo, cambio y varias épocas sin borrar sus diferencias.', 'La Sombra sigue igual. Mañana podremos intentarlo con otra pregunta.'),
+    route('ruta-dia15', 'La imagen muestra Portugal en miniatura; después, un monasterio nacido de una promesa y una gran explanada de peregrinos. ¿Qué ruta es?', ['Portugal dos Pequenitos, Batalha y Fátima', 'Sintra, Nazaré y Leiria', 'Oporto, Guimarães y Braga'], 0, [
+      'Ruta encontrada: Portugal dos Pequenitos, Monasterio de Batalha y Fátima.',
+      'Primero veremos cómo una representación pequeña selecciona partes de un país. Después compararemos tamaño, promesa e importancia en dos lugares reales.',
+      'Volved al Hotel do Parque con los adultos. Mañana Portugal dos Pequenitos abre a las 10:00; preparad calzado cómodo, agua y algo para sol. Ahora descansad.'
     ], { setFlags: ['completado_magikland_curia'], water: 'Agua de la Risa', formulaWord: 'RIO' })
   ]
 };
@@ -235,23 +266,32 @@ packs['006-magikland-curia'] = {
 packs['007-bucaco-batalha-fatima'] = {
   shadowActor: 'Borrón',
   openingMessages: [
-    'Buenos días. Ayer descubristeis tres paradas: Buçaco, Batalha y Fátima.',
-    'Topoloco sostiene que solo importa lo enorme y terminado. Hoy vamos a demostrar que una promesa, una obra incompleta y un lugar pequeño pueden guardar mucha memoria.'
+    'Buenos días. Ayer Topotina adelantó la señal de Buçaco y descubristeis la ruta nueva: Portugal dos Pequenitos, Batalha y Fátima.',
+    'Hoy separaremos una representación de un edificio original. Después veremos por qué lo grande, lo pequeño y lo inacabado pueden importar por razones diferentes.'
   ],
   steps: [
     ...withOrder(
-      expedition('bucaco-expedicion', 'Mata Nacional do Buçaco', 'Expedición del bosque con capas', 'El bosque no es un decorado: cada parte pertenece a una época y a un uso.', [
-        'Localizad el Palace Hotel y comparadlo con el Convento de Santa Cruz.',
-        'Buscad una ermita o capilla separada del convento.',
-        'Llegad a Fonte Fria y observad cómo baja el agua por la escalinata.',
-        'Encontrad una señal, placa o vista relacionada con la batalla de 1810.'
+      onArrival(expedition('portugal-pequenitos-expedicion', 'Portugal dos Pequenitos', 'Expedición de un país representado', 'No estáis viendo todo Portugal ni los edificios originales. Investigad qué conserva y qué cambia esta representación.', [
+        'Recorred Casas Regionales y Portugal Monumental; elegid una casa y un monumento.',
+        'Buscad dos pistas de escala: puertas, ventanas o alturas comparadas con vuestro cuerpo.',
+        'Elegid un detalle que la reproducción conserva y otro que reduce, omite o cambia de lugar.',
+        'Localizad el núcleo de Coimbra y comprobad cómo reúne varios edificios en poco espacio.'
       ], [
-        'Ya está. Habéis recorrido cuatro capas del mismo bosque.',
-        'Los carmelitas construyeron aquí su retiro desde 1628; la batalla llegó en 1810 y el palacio pertenece a otra transformación posterior.'
+        'Expedición completada. El parque abrió en 1940 y fue proyectado por Cassiano Branco para enseñar mediante edificios a escala infantil.',
+        'Una representación puede conservar formas y detalles, pero reduce tamaños, distancias y parte del contexto. Sirve para comparar; no sustituye al original.'
+      ]), ARRIVAL_LOCATIONS.portugalPequenitos, [
+        { from: 'topotina', text: 'Coordenada de Coimbra confirmada. Anoche movimos Buçaco; esta es la señal que ocupaba su lugar en el mapa de hoy.' },
+        { from: 'topotino', text: 'O sea, ¿Portugal entero se ha encogido?' },
+        { from: 'topotina', text: 'No. Es una representación a escala.' },
+        { from: 'topotino', text: 'Lo sabía. Estaba comprobando si la técnica misteriosa mantenía la calma.' },
+        { from: 'topotina', text: 'Comparad lo que conserva con lo que reduce o cambia. Yo solo vigilaré la señal.' }
       ]),
       [
-        question('bucaco-q1', 'Mata Nacional do Buçaco', '¿Qué elemento pertenece mejor a la vida retirada de los carmelitas?', ['Una ermita apartada', 'El gran Palace Hotel', 'Una atracción mecánica'], 0, 'Correcto. La ermita permitía retirarse de la comunidad.', 'Las pequeñas ermitas tenían espacios mínimos para oración y vida cotidiana. Su tamaño ayudaba a su función.', 'Recordad cuál de los lugares estaba pensado para estar separado.'),
-        question('bucaco-q2', 'Mata Nacional do Buçaco', '¿Qué muestra mejor Fonte Fria?', ['Que el agua organiza un recorrido construido dentro del bosque', 'Que el bosque no necesita agua', 'Que la fuente es anterior a toda presencia humana'], 0, 'Sí. Naturaleza y construcción trabajan juntas.', 'La fuente tiene origen carmelita y fue transformada; su aspecto actual también cuenta cambios posteriores.', 'Seguid con la vista el camino del agua por escalones, canales y estanques.')
+        question('portugal-pequenitos-q1', 'Portugal dos Pequenitos', '¿Qué estáis viendo al mirar una Torre de Belém pequeña?', ['Una representación construida del monumento', 'La torre original trasladada a Coimbra', 'Una fotografía sin volumen'], 0, 'Correcto: es una representación construida.', 'Conserva rasgos reconocibles, pero cambia la escala y el lugar. El original continúa en Belém y tiene su propia historia y función.', 'Comparad la puerta o las ventanas con vuestro tamaño.'),
+        question('portugal-pequenitos-q2', 'Portugal dos Pequenitos', '¿Para qué sirve mejor una maqueta o reproducción honesta?', ['Para comparar formas explicando qué ha reducido o cambiado', 'Para demostrar que ya no hace falta visitar originales', 'Para fingir que todo Portugal cabe realmente allí'], 0, 'Exacto. Enseña si reconoce sus límites.', [
+          'Topoloco intenta que una copia parezca la única versión. Vosotros acabáis de demostrar que una representación es útil cuando dice qué conserva y qué transforma.',
+          'Guardad esta diferencia: más adelante encontraremos modelos de seres desaparecidos y escenarios que representan otra época.'
+        ], 'Elegid la opción que permite aprender sin confundir representación y original.')
       ]
     ),
     ...withOrder(
@@ -266,8 +306,8 @@ packs['007-bucaco-batalha-fatima'] = {
       ]),
       [
         onArrival(question('batalha-q1', 'Monasterio de Batalha', '¿Por qué se empezó a construir el monasterio?', ['Por una promesa ligada a una victoria', 'Para ocultar un parque acuático', 'Porque las Capelas Imperfeitas ya existían'], 0, 'Exacto. La promesa y la victoria están en el origen del monumento.', 'La construcción comenzó en 1388 y convirtió una decisión histórica en un lugar de memoria.', 'Pensad qué hecho y qué promesa explican su nombre y su origen.'), ARRIVAL_LOCATIONS.batalha, [
-          { from: 'topotino', text: 'Buçaco nos ha enseñado que un lugar guarda varias épocas. Esta pista termina en una promesa convertida en piedra.' },
-          { from: 'topotino', text: 'Ahora sí: estáis ante el Monasterio de Batalha. Primero averiguaremos por qué empezó a construirse.' }
+          { from: 'topotino', text: 'En Coimbra habéis visto un monasterio representado a escala. La señal nos lleva ahora ante un monasterio real nacido de una promesa.' },
+          { from: 'topotino', text: 'Ahora sí: estáis ante el Monasterio de Batalha. Comparad lo que una reproducción puede mostrar con los materiales, el tamaño y el espacio del edificio real.' }
         ]),
         question('batalha-q2', 'Monasterio de Batalha', '¿Qué enseñan las Capelas Imperfeitas?', ['Que una obra incompleta también puede tener valor e historia', 'Que nunca se comenzó a trabajar en ellas', 'Que todo el monasterio está sin techo'], 0, 'Muy bien. Incompleto no significa vacío.', 'Las capillas fueron concebidas como panteón y conservan el rastro de un proyecto que cambió.', 'Mirad qué partes existen aunque el conjunto no se terminara como estaba previsto.')
       ],
@@ -291,7 +331,7 @@ packs['007-bucaco-batalha-fatima'] = {
         question('fatima-q2', 'Fátima', '¿Para qué sirve una explanada tan grande?', ['Para conectar y reunir a muchas personas', 'Para esconder la Capelinha', 'Para demostrar que una basílica es más verdadera'], 0, 'Sí. Organiza movimientos y encuentros de una comunidad numerosa.', 'Un espacio abierto también tiene función: permite ceremonias, recorridos y reuniones sin sustituir los lugares pequeños.', 'Mirad cómo circulan las personas y qué edificios conecta.')
       ]
     ),
-    recovery('recuperacion-dia15', '¿Qué idea derrota mejor la frase «solo importa lo grande y terminado»?', ['Una ermita, una capilla inacabada y la Capelinha pueden conservar memoria', 'Todos los lugares importantes son enormes', 'Solo cuentan los edificios nuevos'], 0, 'Sombra retirada. Habéis encontrado el hilo común de las tres paradas.', 'Borrón conserva una mancha, pero ya sabemos reconocer su truco.'),
+    recovery('recuperacion-dia15', '¿Qué idea derrota mejor la frase «solo importa lo grande, original y terminado»?', ['Una reproducción honesta, una capilla inacabada y la Capelinha pueden enseñar o conservar memoria', 'Todos los lugares importantes son enormes', 'Una copia siempre sustituye al original'], 0, 'Sombra retirada. Habéis distinguido escala, original, función e importancia.', 'Borrón conserva una mancha, pero ya sabemos reconocer su truco.'),
     route('ruta-dia16', 'Mañana seguiremos rastros de un animal desaparecido, entraremos donde el agua trabaja bajo tierra y dormiremos dentro de una ciudad amurallada. ¿Qué ruta es?', ['Pegadas de Dinossáurios, Mira de Aire y Óbidos', 'Coímbra, Aveiro y Oporto', 'Nazaré, Peniche y Cascais'], 0, [
       'Exacto: huellas de dinosaurios, Grutas de Mira de Aire y Óbidos.',
       'La conexión es clara: aprenderemos a reconstruir algo ausente por las marcas que dejó.',
@@ -372,6 +412,7 @@ packs['009-dinoparque-lisboa'] = {
   shadowActor: 'Topoloco',
   openingMessages: [
     'Buenos días. Hoy iremos al Dino Parque y después a Lisboa, como descubristeis anoche.',
+    'En Portugal dos Pequenitos aprendisteis que una reproducción debe reconocer qué cambia. Hoy añadiremos fósiles y trabajo científico a esa comparación.',
     'Topoloco ha preparado una reconstrucción perfecta. Quiere que olvidemos preguntar qué parte es fósil, qué parte es modelo y qué parte es hipótesis.'
   ],
   steps: [
@@ -386,7 +427,7 @@ packs['009-dinoparque-lisboa'] = {
         'Ninguno basta solo. La reconstrucción más espectacular sigue necesitando pruebas.'
       ]),
       [
-        question('dinoparque-q1', 'Dino Parque Lourinhã', '¿Cuál es evidencia material del pasado?', ['La pieza fósil', 'El color elegido para un modelo', 'La música del parque'], 0, 'Correcto: el fósil.', 'Puede estar incompleto, pero procede del organismo o de su actividad. El modelo combina evidencias con decisiones de reconstrucción.', 'Pensad cuál de los elementos no fue fabricado para la visita.'),
+        question('dinoparque-q1', 'Dino Parque Lourinhã', '¿Cuál es evidencia material del pasado?', ['La pieza fósil', 'El color elegido para un modelo', 'La música del parque'], 0, 'Correcto: el fósil.', 'En Coimbra comparasteis reproducción y original. Aquí el fósil añade evidencia material; el modelo combina esa evidencia con decisiones de reconstrucción.', 'Pensad cuál de los elementos no fue fabricado para la visita.'),
         question('dinoparque-q2', 'Dino Parque Lourinhã', 'Si dos modelos muestran colores distintos, ¿qué conclusión es más honesta?', ['Uno de los colores debe ser una mentira', 'El color puede ser una hipótesis si no hay evidencia suficiente', 'Los dinosaurios cambiaban de color cada hora'], 1, 'Exacto. Una reconstrucción debe mostrar dónde empieza la hipótesis.', 'La ciencia puede proponer alternativas y corregirlas. El museo de Topoloco quiere esconder esas dudas.', '¿Habéis encontrado una prueba directa del color en el fósil elegido?')
       ]
     ),
@@ -808,6 +849,7 @@ packs['017-isla-magica'] = {
   shadowActor: 'Niebla',
   openingMessages: [
     'Buenos días. Hoy entramos en Isla Mágica y Agua Mágica.',
+    'Recordad Portugal dos Pequenitos: representar una época no convierte el escenario en un edificio original, pero puede enseñar si explica sus límites.',
     'Es la estación gemela de Magikland. Capitán Pico y América os esperan como exploradores; Krim vigilará que Niebla no convierta una emoción en una orden.'
   ],
   steps: [
@@ -822,7 +864,7 @@ packs['017-isla-magica'] = {
         'Capitán Pico y América os nombran exploradores. Han encontrado dos rutas de Niebla: una llama mucho la atención y otra permite comprobar y corregir.'
       ]),
       [
-        question('isla-q1', 'Isla Mágica y Agua Mágica', '¿Qué diferencia un escenario histórico de una fuente original?', ['El escenario representa una época con elementos actuales', 'El escenario estuvo necesariamente allí en el siglo XVI', 'No puede enseñar nada'], 0, 'Correcto. Representar no es falsificar si se explica con claridad.', 'Un decorado puede ayudar a imaginar y aprender; una fuente original aporta otro tipo de evidencia.', 'Mirad qué elementos funcionan para visitantes actuales.'),
+        question('isla-q1', 'Isla Mágica y Agua Mágica', '¿Qué diferencia un escenario histórico de una fuente original?', ['El escenario representa una época con elementos actuales', 'El escenario estuvo necesariamente allí en el siglo XVI', 'No puede enseñar nada'], 0, 'Correcto. Representar no es falsificar si se explica con claridad.', 'Como en Portugal dos Pequenitos, un escenario selecciona y transforma. Puede ayudar a imaginar y aprender, pero no sustituye una fuente original.', 'Mirad qué elementos funcionan para visitantes actuales.'),
         question('isla-q2', 'Isla Mágica y Agua Mágica', 'Niebla ofrece dos rutas. ¿Cuál es más segura intelectualmente?', ['La más urgente y llamativa, sin comprobar nada', 'La que permite comprobar una afirmación y corregir si falla', 'La que prohíbe cambiar de opinión'], 1, 'Exacto. Comprobar y conservar una salida derrota la urgencia.', 'Krim ha detectado la emoción sin dejar que mande. Capitán Pico hace que Niebla siga la ruta llamativa y América recupera la señal.', 'Elegid la ruta que permite volver atrás si la evidencia no encaja.')
       ],
       'question-first'

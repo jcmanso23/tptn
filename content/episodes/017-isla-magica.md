@@ -15,14 +15,14 @@
 
 # Contexto narrativo
 
-Isla Mágica representa los siglos XVI y XVII y es la estación gemela de Magikland. Capitán Pico y América no son mascotas decorativas: son aliados de Topotino y convierten a Paula y Hugo en pequeños exploradores para buscar dos partes de la señal. Krim, duende del Mundo de los Colores, ayuda a separar emoción y decisión mediante color, cuento y juego. Niebla combina ruido, emoción y urgencia en una trampa basada en cómo deciden los niños. Paula y Hugo la vuelven contra él y el fallo revela Granada y doce guardianes.
+Isla Mágica representa los siglos XVI y XVII y es la estación gemela de Magikland. Retoma la distinción aprendida en Portugal dos Pequenitos: una representación puede enseñar sin convertirse en el edificio o la época original. Capitán Pico y América no son mascotas decorativas: son aliados de Topotino y convierten a Paula y Hugo en pequeños exploradores para buscar dos partes de la señal. Krim, duende del Mundo de los Colores, ayuda a separar emoción y decisión mediante color, cuento y juego. Niebla combina ruido, emoción y urgencia en una trampa basada en cómo deciden los niños. Paula y Hugo la vuelven contra él y el fallo revela Granada y doce guardianes.
 
 ## Mensajes iniciales
 
 ```json
 [
   { "from": "topotino", "time": "auto", "text": "Buenos días. Isla Mágica no es el siglo XVI: lo representa. Elegid dos zonas separadas del mapa y caminad de una a otra." },
-  { "from": "topotino", "time": "auto", "text": "En cada zona buscad ambientación, un objeto con función real hoy y una afirmación histórica verificable. Explicad por qué no valen igual como evidencia." }
+  { "from": "topotino", "time": "auto", "text": "Aplicad lo aprendido en Portugal dos Pequenitos: buscad ambientación, un objeto con función real hoy y una afirmación histórica verificable." }
 ]
 ```
 
