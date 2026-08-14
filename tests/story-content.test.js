@@ -170,7 +170,7 @@ test('los días 13 y 14 conservan su cadena narrativa y adaptan solo tras un imp
   assert.doesNotMatch(childFacingText, /(foto|fotografía).{0,30}(cuaderno|diario)/i);
 });
 
-test('la edición T-20A7 compacta la experiencia móvil y adapta Curia, Buçaco y Coimbra', async () => {
+test('la edición T-20A8 compacta la experiencia móvil y revela los destinos de uno en uno', async () => {
   const files = ['index.html', 'app.js', 'admin.js', 'content/episodes/001-reconexion.md'];
   const combined = (await Promise.all(files.map((file) => readFile(join(root, file), 'utf8')))).join('\n');
   const app = await readFile(join(root, 'app.js'), 'utf8');
@@ -183,14 +183,14 @@ test('la edición T-20A7 compacta la experiencia móvil y adapta Curia, Buçaco 
 
   const styles = await readFile(join(root, 'styles.css'), 'utf8');
 
-  assert.match(combined, /T-20A7/);
+  assert.match(combined, /T-20A8/);
   assert.doesNotMatch(combined, /T-12A9/);
   assert.match(app, /splitTopotinoMessages/);
   assert.match(app, /CHALLENGE_PACKS/);
   assert.match(app, /els\.channelCode\.textContent = APP_VERSION_CODE/);
-  assert.match(serviceWorker, /topotino-offline-v30/);
-  assert.match(serviceWorker, /chat-format\.js\?v=memory-v45/);
-  assert.match(serviceWorker, /content\/challenges\.js\?v=memory-v45/);
+  assert.match(serviceWorker, /topotino-offline-v31/);
+  assert.match(serviceWorker, /chat-format\.js\?v=memory-v46/);
+  assert.match(serviceWorker, /content\/challenges\.js\?v=memory-v46/);
   assert.match(serviceWorker, /images\/topotina\.png\?v=topotina-v1/);
   assert.match(app, /topotina: \{ name: 'Topotina'/);
   assert.match(app, /Topotina está escribiendo/);
@@ -306,10 +306,14 @@ test('el viaje completo del 15 al 27 está publicado, enlazado y termina de noch
     const markdown = await readFile(join(root, source), 'utf8');
     const episode = parseEpisode(markdown, source);
     assert.equal(episode.meta.activation.date.on, date, `${id}: fecha incorrecta`);
-    assert.equal(episode.meta.activation.mode, 'all', `${id}: la fecha y la llegada deben cumplirse juntas`);
-    assert.ok(Number.isFinite(episode.meta.activation.location?.lat), `${id}: falta latitud de llegada`);
-    assert.ok(Number.isFinite(episode.meta.activation.location?.lng), `${id}: falta longitud de llegada`);
-    assert.ok([1000, 5000].includes(episode.meta.activation.location?.radiusMeters), `${id}: radio no permitido`);
+    assert.equal(episode.meta.activation.mode, 'all', `${id}: modo de activación incorrecto`);
+    if (id === '007-bucaco-batalha-fatima') {
+      assert.equal(episode.meta.activation.location, undefined, `${id}: el resumen matinal no debe esperar a Coimbra`);
+    } else {
+      assert.ok(Number.isFinite(episode.meta.activation.location?.lat), `${id}: falta latitud de llegada`);
+      assert.ok(Number.isFinite(episode.meta.activation.location?.lng), `${id}: falta longitud de llegada`);
+      assert.ok([1000, 5000].includes(episode.meta.activation.location?.radiusMeters), `${id}: radio no permitido`);
+    }
     assert.equal(episode.meta.activation.time, undefined, `${id}: conserva una hora rígida`);
     assert.ok(episode.sections['Respuestas guiadas'].length >= 2, `${id}: aventura demasiado vacía`);
     allChildText.push(...episode.sections['Mensajes iniciales'].map((message) => message.text));
@@ -349,7 +353,7 @@ test('todas las jornadas activas recorren lugares reales después de la llegada'
       ...episode.sections['Respuestas guiadas'].flatMap((response) => (response.messages || []).map((message) => message.text))
     ].join(' ');
 
-    assert.ok(episode.meta.activation.location, `${id}: no se abre por llegada`);
+    if (id !== '007-bucaco-batalha-fatima') assert.ok(episode.meta.activation.location, `${id}: no se abre por llegada`);
     assert.match(childText, /recorred|cruzad|seguid|bajad|subid|moveos|caminad|pasad|salid|viajad|rumbo|al llegar/i, `${id}: no conduce entre puntos reales`);
   }
 });

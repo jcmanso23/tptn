@@ -26,6 +26,9 @@ test('la conversación libre usa Luna y conserva los turnos con sus roles', asyn
   assert.match(source, /No pidas que enseñen, describan, fotografíen o transcriban sus páginas/);
   assert.match(source, /memoria de viaje persistente/);
   assert.match(source, /memoriaDeViaje:/);
+  assert.match(source, /desafioActual:/);
+  assert.match(source, /esperaDeLlegada:/);
+  assert.match(source, /Nunca enumeres el plan del día ni varias paradas futuras/);
   assert.match(source, /Recuerdas con normalidad todo lo sucedido desde que despertaste/);
   assert.match(source, /agradécelo de forma concreta/);
   assert.match(source, /interpreta a Topoloco como inteligente, huidizo/);
@@ -47,8 +50,11 @@ test('las respuestas conversacionales usan silencios naturales y pueden no conte
   assert.match(source, /nextTypingMin: 2500/);
   assert.match(source, /activeEpisodes: \[activeEpisode\]\.map/);
   assert.match(source, /storyMemory: state\.storyMemory\.slice\(-36\)/);
+  assert.match(source, /currentChallenge: summarizeChallengeForAi/);
+  assert.match(source, /pendingArrival: summarizeArrivalForAi/);
   assert.match(source, /function recordStoryMemory/);
   assert.match(source, /function eligibleMessages/);
+  assert.match(source, /toTopotinoMessages\(pack\.openingMessages\)/);
   assert.match(source, /const episode = getActiveEpisode\(\)/);
   assert.match(source, /isEpisodeCompleted\(episode\)/);
   assert.match(source, /!isEpisodeCompleted\(activeEpisode\) && activeEpisode\.softResponses\.length/);

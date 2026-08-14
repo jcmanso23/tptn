@@ -1,5 +1,5 @@
-import { splitTopotinoMessages } from './chat-format.js?v=memory-v45';
-import { CHALLENGE_PACKS, displayChallengeOptions } from './content/challenges.js?v=memory-v45';
+import { splitTopotinoMessages } from './chat-format.js?v=memory-v46';
+import { CHALLENGE_PACKS, displayChallengeOptions } from './content/challenges.js?v=memory-v46';
 
 const STORAGE_KEYS = {
   auth: 'topotino_chat_auth_v1',
@@ -7,9 +7,9 @@ const STORAGE_KEYS = {
 };
 
 const LEGACY_STATE_KEY = 'topotino_chat_state_v1';
-const APP_VERSION_CODE = 'T-20A7';
+const APP_VERSION_CODE = 'T-20A8';
 const PASSPHRASE_HASH = 'a64716bd9f4e8added1bf47f80b97c3fc7b70a15b8043cdab083e1ddf85f3794';
-const EPISODES_MANIFEST = 'content/episodes.json?v=memory-v45';
+const EPISODES_MANIFEST = 'content/episodes.json?v=memory-v46';
 const LIVE_STORY_ENDPOINT = '/api/story';
 const AMARANTE_TRAVEL_DATE = '2026-08-13';
 const AMARANTE_ROUTE_EPISODE_ID = '004b-rumbo-amarante';
@@ -445,7 +445,7 @@ async function evaluateActivations({ reason, collectMessages = false } = {}) {
 function episodeOpeningMessages(episode) {
   const pack = CHALLENGE_PACKS[episode.meta.id];
   const messages = pack?.openingMessages?.length
-    ? pack.openingMessages.map((text) => ({ from: 'topotino', time: 'auto', text }))
+    ? toTopotinoMessages(pack.openingMessages)
     : eligibleMessages(episode.initialMessages);
   return messages;
 }
@@ -1040,6 +1040,8 @@ async function askAiFallback(text) {
         waters: state.waters,
         formulaWords: state.formulaWords,
         storyMemory: state.storyMemory.slice(-36),
+        currentChallenge: summarizeChallengeForAi(getActiveChallenge()),
+        pendingArrival: summarizeArrivalForAi(getPendingArrivalChallenge()),
         recentMessages: state.messages.slice(-14)
       })
     });
@@ -1065,6 +1067,25 @@ async function askAiFallback(text) {
   await deliverTopotinoMessages(responsePromise, { mode: 'conversation' });
   saveState();
   renderAll();
+}
+
+function summarizeChallengeForAi(challenge) {
+  if (!challenge) return null;
+  return {
+    id: challenge.id,
+    kind: challenge.kind,
+    place: challenge.place || '',
+    title: challenge.title || '',
+    prompt: challenge.prompt || ''
+  };
+}
+
+function summarizeArrivalForAi(challenge) {
+  if (!challenge?.location) return null;
+  return {
+    challengeId: challenge.id,
+    discoveredPlace: challenge.location.label || challenge.place || ''
+  };
 }
 
 function findGuidedResponse(text) {
@@ -1477,7 +1498,7 @@ function renderChallenge() {
   const title = document.createElement('strong');
   title.textContent = challenge.title || {
     choice: 'Elegid una respuesta',
-    destination: 'Descubrid la ruta completa de mañana',
+    destination: 'Descubrid la siguiente señal',
     'daily-recovery': 'Recordad lo que habéis visto hoy'
   }[challenge.kind] || 'Decisión de la aventura';
   const toggle = document.createElement('button');

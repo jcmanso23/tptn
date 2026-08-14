@@ -64,6 +64,9 @@ export default async function handler(req, res) {
     'El Contexto para IA de la fase activa es la autoridad sobre tu memoria y conocimiento actual. Las flags indican qué partes de esa fase ya sucedieron; nunca recuperes hechos porque aparezcan en mensajes muy antiguos o porque parezcan lógicos.',
     'Distingue siempre entre lo que sabes, lo que sospechas y lo que todavía ignoras. No conviertas una sospecha en una explicación segura.',
     'No desbloquees capítulos, no confirmes respuestas clave y no reveles destinos futuros.',
+    'Nunca enumeres el plan del día ni varias paradas futuras. El canon interno no es un itinerario conocido por los niños.',
+    'Solo puedes nombrar como siguiente destino el que aparezca de forma explícita en desafioActual o esperaDeLlegada. Si no aparece ahí, di que todavía falta una pista.',
+    'No adelantes qué tendrán que hacer al llegar. Primero se descubre un único lugar; la misión se explica únicamente después de confirmar la llegada.',
     'No digas "misión desbloqueada" ni nombres internos de capítulos. Habla siempre como amigo cercano, no como interfaz de juego.',
     'No reveles Granada, la Alhambra ni los 12 leones antes de que el Contexto para IA de la fase lo autorice.',
     'Las Doce Aguas son el nombre de una red representada por un mapa de doce ventanas. No inventes nombres poéticos para cada parada ni menciones valores internos de agua que conserva la aplicación, salvo que el contexto de la fase autorice expresamente un nombre narrativo ya presentado a los niños, como Agua del Puente después de recoger la muestra de Amarante.',
@@ -133,6 +136,8 @@ export default async function handler(req, res) {
     flags: body.flags || [],
     ventanasMapaRecuperadas: Array.isArray(body.waters) ? body.waters.length : 0,
     formula: body.formulaWords || [],
+    desafioActual: body.currentChallenge || null,
+    esperaDeLlegada: body.pendingArrival || null,
     memoriaDeViaje: Array.isArray(body.storyMemory)
       ? body.storyMemory.slice(-36).map((item) => ({
         episodio: String(item?.episodeTitle || item?.episodeId || '').slice(0, 120),

@@ -74,7 +74,7 @@ test('cada jornada recuerda la ruta, permite recuperar Sombra y prepara el día 
       assert.match(pack.openingMessages.join(' '), /Buenos días/i, `${episodeId}: falta recordatorio de mañana`);
     }
     assert.ok(pack.steps.some((step) => step.kind === 'daily-recovery'), `${episodeId}: falta recuperación diaria`);
-    const route = pack.steps.find((step) => step.kind === 'destination');
+    const route = pack.steps.find((step) => step.id.startsWith('ruta-dia'));
     assert.ok(route, `${episodeId}: falta ruta del día siguiente`);
     assert.match(route.successMessages.map(messageText).join(' '), /preparad|tened|llevad/i, `${episodeId}: falta preparación`);
     assert.match(route.successMessages.map(messageText).join(' '), /descansad|guardad energía/i, `${episodeId}: falta cierre del día`);
@@ -102,9 +102,9 @@ test('el día 14 revela Magikland antes que Curia y conserva la continuidad', ()
   assert.match(day14.steps[curiaRoute].successMessages.map(messageText).join(' '), /Curia|Hotel do Parque/i);
   assert.match(day14.steps[bucacoRoute].successMessages.map(messageText).join(' '), /Topotina|19:00|orden/i);
   assert.deepEqual(tomorrowRoute.options.map((option) => option.text), [
-    'Portugal dos Pequenitos, Batalha y Fátima',
-    'Sintra, Nazaré y Leiria',
-    'Oporto, Guimarães y Braga'
+    'Portugal dos Pequenitos',
+    'Mini-Europe de Bruselas',
+    'Castillo de Guimarães'
   ]);
 
   const topotinaEntrance = day14.steps.find((step) => step.id === 'magikland-q2').successMessages;
@@ -178,14 +178,59 @@ test('el cambio real mueve Buçaco al día 14 y abre el día 15 en Portugal dos 
   assert.ok(day14Ids.includes('bucaco-q1'));
   assert.ok(day14Ids.includes('bucaco-q2'));
   assert.equal(day15Ids.some((id) => id.startsWith('bucaco-')), false);
-  assert.deepEqual(day15Ids.slice(0, 3), [
+  assert.deepEqual(day15Ids.slice(0, 5), [
     'portugal-pequenitos-expedicion',
     'portugal-pequenitos-q1',
-    'portugal-pequenitos-q2'
+    'portugal-pequenitos-q2',
+    'portugal-pequenitos-q3',
+    'portugal-pequenitos-q4'
   ]);
-  assert.match(day15.openingMessages.join(' '), /Topotina.*adelantó.*Buçaco/i);
-  assert.ok(day15Ids.indexOf('portugal-pequenitos-q2') < day15Ids.indexOf('batalha-q1'));
-  assert.ok(day15Ids.indexOf('batalha-q2') < day15Ids.indexOf('fatima-expedicion'));
+  assert.match(day15.openingMessages.map(messageText).join(' '), /eclipse.*Amarante.*Magikland.*Topotino.*Hotel do Parque.*Buçaco/is);
+  assert.ok(day15.openingMessages.filter((message) => message?.from === 'topotina').length >= 2);
+  assert.match(messageText(day15.openingMessages.at(-1)), /única pista.*Portugal dos Pequenitos/i);
+  assert.ok(day15Ids.indexOf('portugal-pequenitos-q4') < day15Ids.indexOf('dia15-pista-batalha'));
+  assert.ok(day15Ids.indexOf('dia15-pista-batalha') < day15Ids.indexOf('batalha-q1'));
+  assert.ok(day15Ids.indexOf('batalha-q2') < day15Ids.indexOf('dia15-pista-fatima'));
+  assert.ok(day15Ids.indexOf('dia15-pista-fatima') < day15Ids.indexOf('fatima-expedicion'));
+});
+
+test('cada lugar revela solo la siguiente parada y nunca el itinerario completo', () => {
+  const forbidden = [
+    'Portugal dos Pequenitos, Batalha y Fátima',
+    'Pegadas de Dinossáurios, Mira de Aire y Óbidos',
+    'Dino Parque Lourinhã y después Lisboa',
+    'Pavilhão do Conhecimento, Oceanário y Tajo',
+    'Castelo de São Jorge, Alfama y Baixa, y después Belém',
+    'Badoca y después Lagos',
+    'Ponta da Piedade, Algar Seco y la jaima',
+    'Real Alcázar, Catedral y Alhambra'
+  ];
+  const visibleText = Object.values(CHALLENGE_PACKS).flatMap((pack) => [
+    ...pack.openingMessages.map(messageText),
+    ...pack.steps.flatMap((step) => [
+      step.prompt,
+      ...(step.successMessages || []).map(messageText)
+    ])
+  ]).filter(Boolean).join(' ');
+
+  for (const phrase of forbidden) assert.doesNotMatch(visibleText, new RegExp(phrase, 'i'));
+
+  const expectedTransitions = {
+    '007-bucaco-batalha-fatima': ['dia15-pista-batalha', 'dia15-pista-fatima'],
+    '008-huellas-mira-obidos': ['dia16-pista-mira', 'dia16-pista-obidos'],
+    '009-dinoparque-lisboa': ['dia17-pista-lisboa'],
+    '010-lisboa-ciencia-oceanario': ['dia18-pista-oceanario', 'dia18-pista-tejo'],
+    '011-lisboa-historia-belem': ['dia19-pista-alfama', 'dia19-pista-belem'],
+    '012-badoca-lagos': ['dia20-pista-lagos'],
+    '013-delfines-benagil-sagres': ['dia21-pista-sagres'],
+    '014-piedade-algar-jaima': ['dia22-pista-algar', 'dia22-pista-jaima'],
+    '016-tavira-sevilla': ['dia24-pista-sevilla'],
+    '018-sevilla-alhambra-noche': ['dia26-pista-catedral', 'dia26-pista-alhambra']
+  };
+  for (const [episodeId, ids] of Object.entries(expectedTransitions)) {
+    const steps = CHALLENGE_PACKS[episodeId].steps.map((step) => step.id);
+    for (const id of ids) assert.ok(steps.includes(id), `${episodeId}: falta ${id}`);
+  }
 });
 
 test('las pruebas son breves, físicas y enseñan después de elegir', () => {

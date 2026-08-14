@@ -8,8 +8,7 @@
   "activation": {
     "mode": "all",
     "required": ["completado_magikland_curia"],
-    "date": { "on": "2026-08-15" },
-    "location": { "lat": 40.202478, "lng": -8.434375, "radiusMeters": 1000, "label": "Portugal dos Pequenitos, Coimbra" }
+    "date": { "on": "2026-08-15" }
   },
   "mission": "Distinguir tamaño, representación e importancia",
   "formulaWord": null,
@@ -32,9 +31,14 @@ Topotina participa al llegar a Coimbra. Confirma que el cambio de orden funcion�
 
 ```json
 [
-  { "from": "topotino", "time": "auto", "text": "Buenos días. Ayer Topotina adelantó Buçaco y allí apareció una imagen: varios monumentos portugueses al tamaño de los niños." },
-  { "from": "topotina", "time": "auto", "text": "La coordenada apunta a Portugal dos Pequenitos, en Coimbra. Yo vigilaré la señal; vosotros comprobad qué conserva y qué cambia cada reproducción." },
-  { "from": "topotino", "time": "auto", "text": "Después seguiremos una promesa de piedra hasta Batalha y compararemos tamaño e importancia en Fátima. Una parada cada vez." }
+  { "from": "topotino", "time": "auto", "text": "Buenos días. Antes de movernos necesito ordenar todo lo que ha ocurrido desde el eclipse." },
+  { "from": "topotino", "time": "auto", "text": "Perdí casi todos mis recuerdos anteriores. La carta de emergencia dejó el mapa de doce ventanas y confirmó que Paula y Hugo sois mis aliados." },
+  { "from": "topotino", "time": "auto", "text": "En Amarante comprobasteis el puente y el Tâmega. Después el chat sufrió interferencias. Sospechamos de Topoloco, pero aún no sabemos cómo entró ni si causó mi amnesia." },
+  { "from": "topotino", "time": "auto", "text": "En Magikland descubristeis el Cazarrisas: un programa firmado por Topoloco que estudia qué observáis y por qué un momento se vuelve recuerdo." },
+  { "from": "topotina", "time": "auto", "text": "Allí entré yo. Recuerdo que Topotino es mi hermano y que construimos el comunicador juntos. Él todavía no me recuerda, pero ya ha dejado de llamarme intrusa. Casi." },
+  { "from": "topotino", "time": "auto", "text": "En el Hotel do Parque y en Buçaco vimos lugares con partes de épocas distintas. De Buçaco salió una imagen de Portugal representado en pequeño." },
+  { "from": "topotina", "time": "auto", "text": "Eso sabemos. Ignoramos qué quiere hacer Topoloco con los recuerdos, dónde están las demás ventanas y si el contador de Sombra detectará otra intrusión." },
+  { "from": "topotino", "time": "auto", "text": "La única pista abierta señala Portugal dos Pequenitos. Cuando lleguéis, averiguaremos qué contiene. Nada más está decidido todavía." }
 ]
 ```
 
@@ -133,7 +137,7 @@ Topotina participa al llegar a Coimbra. Confirma que el cambio de orden funcion�
 
 ## Contexto para IA
 
-Buçaco ocurrió realmente al final del 14 de agosto y no se repite. Topotina cambió el orden porque la señal perdía intensidad; no diseñó una nueva ruta completa. El 15 empieza en Portugal dos Pequenitos y sigue por Batalha y Fátima. Topotino distingue siempre reproducción y original. No ridiculiza la fe: separa observación física, historia documentada y significado para una comunidad. La experiencia de Coimbra prepara modelos posteriores, pero no revela Dino Parque, Isla Mágica ni el museo. Topotina entra con su avatar, bromea con su hermano y vigila la señal sin resolver respuestas. El Cuaderno sigue privado. No conoce Granada, los doce leones ni la causa confirmada de la amnesia.
+Buçaco ocurrió realmente al final del 14 de agosto y no se repite. El capítulo se abre por la mañana para resumir solo lo ya vivido; su primera misión permanece bloqueada por la llegada física a Portugal dos Pequenitos. Topotino y Topotina no enumeran Batalha ni Fátima al comenzar. Batalha solo puede nombrarse después de completar las observaciones de Coimbra y Fátima solo después de investigar las Capelas Imperfeitas. Topotino distingue siempre representación y original. No ridiculiza la fe: separa observación física, historia documentada y significado para una comunidad. La experiencia de Coimbra prepara modelos posteriores, pero no revela sus destinos. Topotina entra con su avatar, bromea con su hermano y vigila la señal sin resolver respuestas. El Cuaderno sigue privado. No conoce Granada, los doce leones ni la causa confirmada de la amnesia.
 
 ## Fuentes documentales
 

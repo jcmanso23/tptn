@@ -1,6 +1,6 @@
 # Guía maestra de coherencia narrativa · Las Doce Aguas
 
-**Versión canónica:** 14 de agosto de 2026 · edición T-20A7
+**Versión canónica:** 14 de agosto de 2026 · edición T-20A8
 **Final principal:** Alhambra, Palacios Nazaríes, noche del 26 de agosto
 **Epílogo:** Generalife, 27 de agosto; no abre otra amenaza
 
@@ -224,6 +224,12 @@ Memoria y Sombra son visibles. Nunca borran progreso, cambian el itinerario real
 
 La noche anterior se descubre mediante opciones solo la parte de la ruta que la historia ya permite deducir. Un destino posterior no se revela hasta que una consecuencia de la investigación actual lo hace necesario. Topotino explica por qué cada desplazamiento continúa la investigación y da la preparación práctica cuando corresponde. Al comenzar la jornada recuerda la conexión antes de presentar la primera parada.
 
+Esta regla es literal: **nunca se enumera el plan completo de un día**. La víspera solo se descubre la primera parada. Al terminarla, un hallazgo visible, una lectura de Topotina, un rastro de Topoloco o una interferencia de un Oscurno permite deducir una única parada nueva. Los lugares internos del canon sirven a los adultos y al motor, pero Topotino no los conoce ni los recita antes de tiempo.
+
+Al comenzar cada mañana, Topotino resume la aventura ya vivida, no el itinerario futuro. El resumen separa cuatro cosas con frases breves: qué ocurrió, qué aprendieron, qué sospechan y qué siguen sin saber. Termina recordando la pista concreta que justifica únicamente la primera parada de ese día. El 15 de agosto este resumen es deliberadamente más amplio porque la amnesia, las interferencias y la llegada de Topotina han dejado a Paula y Hugo desorientados.
+
+Aprender mucho no significa recibir un discurso largo. Cada lugar reparte el conocimiento entre observaciones físicas, decisiones con opciones y conversaciones breves. Topotino o un aliado explica después de cada hallazgo un dato histórico, científico, natural o cultural verificable; Topotina puede ordenar datos, detectar contradicciones o bromear con su hermano, pero nunca sustituye la observación de Paula y Hugo.
+
 ## 13. Ruta narrativa completa
 
 | Día | Lugares | Función dentro del plan | Lo que deja para después |
@@ -335,6 +341,16 @@ Antes de publicar un cambio:
 - [ ] El final continúa en la Alhambra nocturna y el Generalife es solo epílogo.
 
 ## 19. Registro de decisiones
+
+### 14 de agosto de 2026 · T-20A8
+
+- Se elimina la idea visible de «ruta completa del día». La víspera solo se descubre la primera parada; las siguientes aparecen de una en una como consecuencia de lo investigado en el lugar anterior.
+- Los nombres internos de los episodios y la tabla adulta pueden conservar varias localizaciones, pero ni los mensajes automáticos ni Luna pueden convertirlos en un itinerario conocido por los niños.
+- El 15 de agosto el episodio se activa por fecha y progreso, sin esperar a Coimbra, para que Topotino y Topotina hagan por la mañana un resumen completo de lo vivido. La expedición de Portugal dos Pequenitos continúa bloqueada hasta la llegada física.
+- El resumen del día 15 recuerda eclipse y amnesia, paquete y mapa, Amarante e interferencias, Cazarrisas en Magikland, llegada de Topotina, Hotel do Parque y Buçaco. Distingue hechos, sospechas y preguntas abiertas y solo autoriza la pista de Portugal dos Pequenitos.
+- Curia, Buçaco, Portugal dos Pequenitos, Batalha y Fátima reciben más aprendizaje distribuido en preguntas, observaciones y conversaciones cómicas. No se añaden párrafos enciclopédicos ni se adelantan las tareas del lugar siguiente.
+- La misma protección se aplica a todas las jornadas posteriores: las transiciones internas revelan una sola parada y la conversación libre recibe explícitamente cuál es el paso narrativo autorizado.
+- Se conservan todos los IDs, flags, aguas, palabras y progreso ya vivido; los nuevos pasos intermedios solo afectan a contenido aún no realizado.
 
 ### 14 de agosto de 2026 · T-20A7
 
