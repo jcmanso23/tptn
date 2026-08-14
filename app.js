@@ -1,5 +1,5 @@
-import { splitTopotinoMessages } from './chat-format.js?v=memory-v41';
-import { CHALLENGE_PACKS } from './content/challenges.js?v=memory-v41';
+import { splitTopotinoMessages } from './chat-format.js?v=memory-v42';
+import { CHALLENGE_PACKS, displayChallengeOptions } from './content/challenges.js?v=memory-v42';
 
 const STORAGE_KEYS = {
   auth: 'topotino_chat_auth_v1',
@@ -7,9 +7,9 @@ const STORAGE_KEYS = {
 };
 
 const LEGACY_STATE_KEY = 'topotino_chat_state_v1';
-const APP_VERSION_CODE = 'T-20A3';
+const APP_VERSION_CODE = 'T-20A4';
 const PASSPHRASE_HASH = 'a64716bd9f4e8added1bf47f80b97c3fc7b70a15b8043cdab083e1ddf85f3794';
-const EPISODES_MANIFEST = 'content/episodes.json?v=memory-v41';
+const EPISODES_MANIFEST = 'content/episodes.json?v=memory-v42';
 const LIVE_STORY_ENDPOINT = '/api/story';
 const AMARANTE_TRAVEL_DATE = '2026-08-13';
 const AMARANTE_ROUTE_EPISODE_ID = '004b-rumbo-amarante';
@@ -163,6 +163,8 @@ let activationInterval = null;
 let adultLaunchTimer = null;
 let locationRefreshInFlight = false;
 let startupRescueMessages = [];
+let challengePanelCollapsed = false;
+let renderedChallengeId = null;
 
 const els = {};
 const params = new URLSearchParams(window.location.search);
@@ -1404,6 +1406,7 @@ function renderChallenge() {
   if (busy) {
     els.challengePanel.innerHTML = '';
     els.challengePanel.hidden = true;
+    els.challengePanel.classList.remove('is-collapsed');
     return;
   }
   const challenge = getActiveChallenge();
@@ -1415,8 +1418,14 @@ function renderChallenge() {
   els.challengePanel.hidden = !challenge;
   if (!challenge) return;
 
+  if (challenge.id !== renderedChallengeId) {
+    challengePanelCollapsed = false;
+    renderedChallengeId = challenge.id;
+  }
+  els.challengePanel.classList.toggle('is-collapsed', challengePanelCollapsed);
+
   const card = document.createElement('section');
-  card.className = `challenge-card challenge-${challenge.kind}`;
+  card.className = `challenge-card challenge-${challenge.kind}${challengePanelCollapsed ? ' is-collapsed' : ''}`;
 
   const heading = document.createElement('div');
   heading.className = 'challenge-heading';
@@ -1429,32 +1438,47 @@ function renderChallenge() {
     destination: 'Descubrid la ruta completa de mañana',
     'daily-recovery': 'Recordad lo que habéis visto hoy'
   }[challenge.kind] || 'Decisión de la aventura';
-  heading.append(place, title);
+  const toggle = document.createElement('button');
+  toggle.type = 'button';
+  toggle.className = 'challenge-toggle';
+  toggle.textContent = challengePanelCollapsed ? 'Ver prueba' : 'Ocultar';
+  toggle.setAttribute('aria-expanded', String(!challengePanelCollapsed));
+  toggle.addEventListener('click', () => {
+    challengePanelCollapsed = !challengePanelCollapsed;
+    renderChallenge();
+    window.requestAnimationFrame(() => {
+      els.messages.scrollTop = els.messages.scrollHeight;
+    });
+  });
+  heading.append(place, title, toggle);
   card.appendChild(heading);
+
+  const content = document.createElement('div');
+  content.className = 'challenge-content';
 
   const attempts = state.challengeAttempts[challenge.id] || 0;
   const recoveryMode = attempts >= 2 && Boolean(challenge.recovery);
   if (recoveryMode) {
     const explanation = document.createElement('p');
     explanation.textContent = 'Dos intentos no han bastado. Haced esta comprobación y continuamos sin examen.';
-    card.appendChild(explanation);
-    card.appendChild(renderActionList(challenge.recovery.actions || []));
-    card.appendChild(challengeCompleteButton('Ya hemos hecho la comprobación', challenge));
+    content.appendChild(explanation);
+    content.appendChild(renderActionList(challenge.recovery.actions || []));
+    content.appendChild(challengeCompleteButton('Ya hemos hecho la comprobación', challenge));
   } else if (challenge.kind === 'expedition' || challenge.kind === 'ending') {
     const intro = document.createElement('p');
     intro.textContent = challenge.intro || 'Realizad estas acciones con calma.';
-    card.appendChild(intro);
-    card.appendChild(renderActionList(challenge.actions || []));
-    card.appendChild(challengeCompleteButton(challenge.kind === 'ending' ? 'Abrir las doce ventanas' : 'Ya lo hemos hecho', challenge));
+    content.appendChild(intro);
+    content.appendChild(renderActionList(challenge.actions || []));
+    content.appendChild(challengeCompleteButton(challenge.kind === 'ending' ? 'Abrir las doce ventanas' : 'Ya lo hemos hecho', challenge));
   } else {
     const prompt = document.createElement('p');
     prompt.className = 'challenge-prompt';
     prompt.textContent = challenge.prompt;
-    card.appendChild(prompt);
+    content.appendChild(prompt);
     const options = document.createElement('div');
     options.className = 'challenge-options';
     const wrongOptions = state.challengeWrongOptions[challenge.id] || [];
-    (challenge.options || []).forEach((option) => {
+    displayChallengeOptions(challenge).forEach((option) => {
       const button = document.createElement('button');
       button.type = 'button';
       button.dataset.challengeOption = option.id;
@@ -1467,12 +1491,13 @@ function renderChallenge() {
       });
       options.appendChild(button);
     });
-    card.appendChild(options);
+    content.appendChild(options);
     const help = document.createElement('small');
     help.textContent = 'Podéis tocar una opción o escribir vuestra respuesta a Topotino.';
-    card.appendChild(help);
+    content.appendChild(help);
   }
 
+  card.appendChild(content);
   els.challengePanel.appendChild(card);
 }
 
@@ -2422,6 +2447,6 @@ function applyTestingParams() {
 
 function registerServiceWorker() {
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('service-worker.js?v=offline-v26').catch(() => {});
+    navigator.serviceWorker.register('service-worker.js?v=offline-v27').catch(() => {});
   }
 }

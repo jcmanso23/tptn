@@ -1,5 +1,23 @@
 const optionIds = ['a', 'b', 'c', 'd'];
 
+export function displayChallengeOptions(challenge) {
+  const options = [...(challenge?.options || [])];
+  if (options.length < 2 || !challenge?.correctOptionId) return options;
+
+  const correct = options.find((option) => option.id === challenge.correctOptionId);
+  if (!correct) return options;
+
+  let hash = 2166136261;
+  for (const character of String(challenge.id || '')) {
+    hash ^= character.charCodeAt(0);
+    hash = Math.imul(hash, 16777619);
+  }
+  const targetIndex = (hash >>> 0) % options.length;
+  const reordered = options.filter((option) => option.id !== challenge.correctOptionId);
+  reordered.splice(targetIndex, 0, correct);
+  return reordered;
+}
+
 function question(id, place, prompt, options, correctIndex, success, learn, hint, recoveryActions) {
   return {
     id,

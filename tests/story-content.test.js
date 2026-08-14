@@ -170,7 +170,7 @@ test('los días 13 y 14 conservan su cadena narrativa y adaptan solo tras un imp
   assert.doesNotMatch(childFacingText, /(foto|fotografía).{0,30}(cuaderno|diario)/i);
 });
 
-test('la edición T-20A3 usa lenguaje concreto, protege el canal e identifica a Topotina', async () => {
+test('la edición T-20A4 compacta la experiencia móvil sin perder seguridad ni personajes', async () => {
   const files = ['index.html', 'app.js', 'admin.js', 'content/episodes/001-reconexion.md'];
   const combined = (await Promise.all(files.map((file) => readFile(join(root, file), 'utf8')))).join('\n');
   const app = await readFile(join(root, 'app.js'), 'utf8');
@@ -181,18 +181,25 @@ test('la edición T-20A3 usa lenguaje concreto, protege el canal e identifica a 
     'content/episodes/001-reconexion.md'
   );
 
-  assert.match(combined, /T-20A3/);
+  const styles = await readFile(join(root, 'styles.css'), 'utf8');
+
+  assert.match(combined, /T-20A4/);
   assert.doesNotMatch(combined, /T-12A9/);
   assert.match(app, /splitTopotinoMessages/);
   assert.match(app, /CHALLENGE_PACKS/);
   assert.match(app, /els\.channelCode\.textContent = APP_VERSION_CODE/);
-  assert.match(serviceWorker, /topotino-offline-v26/);
-  assert.match(serviceWorker, /chat-format\.js\?v=memory-v41/);
-  assert.match(serviceWorker, /content\/challenges\.js\?v=memory-v41/);
+  assert.match(serviceWorker, /topotino-offline-v27/);
+  assert.match(serviceWorker, /chat-format\.js\?v=memory-v42/);
+  assert.match(serviceWorker, /content\/challenges\.js\?v=memory-v42/);
   assert.match(serviceWorker, /images\/topotina\.png\?v=topotina-v1/);
   assert.match(app, /topotina: \{ name: 'Topotina'/);
   assert.match(app, /Topotina está escribiendo/);
   assert.match(app, /chat-event/);
+  assert.match(app, /displayChallengeOptions\(challenge\)/);
+  assert.match(app, /challengePanelCollapsed/);
+  assert.match(styles, /max-height: 38dvh/);
+  assert.match(styles, /grid-template-rows: auto auto minmax\(112px, 1fr\)/);
+  assert.doesNotMatch(combined, /Memoria recuperada · riesgo de interferencia en el canal/);
   assert.match(app, /seguridad_t20a1_anunciada/);
   assert.match(app, /seguridad_t20a1_confirmada/);
   assert.match(app, /No empezaré hasta comprobar que este mensaje os ha llegado entero/);

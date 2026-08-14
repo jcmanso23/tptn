@@ -2,7 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
-import { CHALLENGE_PACKS } from '../content/challenges.js';
+import { CHALLENGE_PACKS, displayChallengeOptions } from '../content/challenges.js';
 
 const root = process.cwd();
 const messageText = (message) => typeof message === 'string' ? message : message?.text || '';
@@ -46,6 +46,25 @@ test('todo el viaje futuro tiene un paquete de retos completo y sin ids duplicad
       }
     }
   }
+});
+
+test('las respuestas correctas se reparten de forma estable entre las posiciones', () => {
+  const positions = [];
+  for (const pack of Object.values(CHALLENGE_PACKS)) {
+    for (const challenge of pack.steps) {
+      if (!challenge.options) continue;
+      const firstOrder = displayChallengeOptions(challenge);
+      const secondOrder = displayChallengeOptions(challenge);
+      assert.deepEqual(secondOrder, firstOrder, `${challenge.id}: el orden cambia al volver a renderizar`);
+      positions.push(firstOrder.findIndex((option) => option.id === challenge.correctOptionId));
+    }
+  }
+
+  const counts = positions.reduce((total, position) => {
+    total[position] = (total[position] || 0) + 1;
+    return total;
+  }, {});
+  assert.ok(counts[0] >= 20 && counts[1] >= 20 && counts[2] >= 20, `reparto desequilibrado: ${JSON.stringify(counts)}`);
 });
 
 test('cada jornada recuerda la ruta, permite recuperar Sombra y prepara el día siguiente', () => {
