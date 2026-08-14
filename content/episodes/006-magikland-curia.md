@@ -26,6 +26,8 @@ Es 14 de agosto. Antes de cualquier prueba, Topotino reconoce las interferencias
 
 La jornada contrapone movimiento y quietud, pero no mediante una lista simple. Magikland funciona como laboratorio de mecánica: Paula y Hugo identifican tipos de movimiento, hacen una predicción causal y distinguen ruido, emoción y recuerdo. En Curia analizan un paisaje construido, naturaleza y reflejos. Las pruebas tienen una exigencia intelectual aproximada de diez años y necesitan observación física. La llegada a Magikland abre el capítulo, pero la ubicación nunca valida las respuestas.
 
+El lenguaje infantil nombra siempre lo que ocurre: qué pieza gira, qué objeto se mueve, qué parte del hotel parece antigua y qué superficie cambia el reflejo. Los términos técnicos se explican en la misma frase. La dificultad está en comparar y razonar, no en interpretar metáforas de Topotino.
+
 Magikland se divide en África, Mundo da Confusão, Aldeia Medieval, Refúgio dos Piratas, Far-West y Souk. Ofrece rotaciones, oscilaciones, desplazamientos, subidas, bajadas y recorridos de agua. Ninguna fase exige montar en una atracción concreta. Topoloco ha dejado un Cazarrisas Hidráulico que intenta separar el sonido de una risa, la causa y el recuerdo que deja. Su primer fracaso registra su propio grito, pero el segundo le permite aprender que Paula y Hugo recuperan conexiones al interpretar lo vivido. La máquina comparte firma con otra estación todavía no localizada dentro de un segundo parque de aventuras.
 
 Después de que Paula y Hugo confirmen que los seis mundos existen, llega la primera transmisión de Topotina. Explica que es la hermana de Topotino y que ayudó a preparar el sistema de investigación, pero no la ruta: dividieron la información para que nadie pudiera robarla completa. Topotino no la recuerda. Ella responde: «No necesito que me recuerdes para seguir siendo tu hermana».
@@ -134,7 +136,7 @@ El Cuaderno de la Memoria continúa privado. Topotino no pide que cuenten qué e
     "setFlags": ["magikland_movimientos"],
     "remember": { "kind": "field_classification", "label": "Clasificación de movimientos observados en Magikland" },
     "messages": [
-      { "from": "topotino", "time": "auto", "text": "Gracias. Habéis clasificado mecanismos distintos y defendido dónde se aprecia mejor el cambio de dirección. El Cazarrisas ha registrado trayectorias, pero todavía confunde movimiento con emoción." },
+      { "from": "topotino", "time": "auto", "text": "Gracias. Habéis clasificado tres mecanismos y explicado cuál cambia de dirección con más claridad. El Cazarrisas ha grabado los movimientos, pero todavía confunde el ruido de una atracción con vuestra reacción." },
       { "from": "topotino", "time": "auto", "text": "Segunda investigación. Elegid uno de esos movimientos antes de verlo completar otro ciclo. Predecid en qué parte irá más rápido y en cuál más despacio. Después observadlo y decid si la predicción se sostiene, usando altura, gravedad, impulso, rozamiento o corriente como explicación." }
     ]
   },
@@ -151,7 +153,7 @@ El Cuaderno de la Memoria continúa privado. Topotino no pide que cuenten qué e
     "messages": [
       { "from": "topotino", "time": "auto", "text": "Eso sí es una investigación: predicción, observación y corrección. Acierto o error inicial importan menos que explicar por qué cambió vuestra hipótesis." },
       { "from": "topotino", "time": "auto", "text": "El Cazarrisas de Topoloco también se ha activado, pero su primera grabación dice: «AAAAAA, PARAD ESTA COSA». Ha clasificado su propio grito como descubrimiento científico. Vanidad uno, método cero." },
-      { "from": "topotino", "time": "auto", "text": "Tercera investigación. Elegid un momento real del parque y separad tres capas: qué sonido o movimiento ocurrió, qué lo causó y por qué podría convertirse en un recuerdo dentro de varios años. No busco el momento más ruidoso, sino el más significativo." }
+      { "from": "topotino", "time": "auto", "text": "Tercera investigación. Elegid un momento real del parque. Decid qué ocurrió, qué lo causó y por qué creéis que lo recordaréis dentro de varios años. No tiene que ser el momento más ruidoso." }
     ]
   },
   {
@@ -165,7 +167,7 @@ El Cuaderno de la Memoria continúa privado. Topotino no pide que cuenten qué e
     "setFlags": ["magikland_recuerdo_elegido"],
     "remember": { "kind": "meaningful_event", "label": "Momento significativo de Magikland y explicación de su causa" },
     "messages": [
-      { "from": "topotino", "time": "auto", "text": "Gracias. Habéis separado el fenómeno, su causa y el significado. El aparato reacciona al significado del recuerdo, no a sus decibelios. Acaba de imprimir «MUESTRA VÁLIDA · AJUSTAR SIGUIENTE CAPTURA». Topoloco no solo estaba midiendo el parque: está aprendiendo de cómo razonáis." },
+      { "from": "topotino", "time": "auto", "text": "Gracias. Habéis dicho qué ocurrió, qué lo causó y por qué os importó. La máquina reacciona cuando un momento os importa, no cuando solo hay mucho ruido. Acaba de imprimir: «MUESTRA VÁLIDA»." },
       { "from": "topotino", "time": "auto", "text": "La máquina tiene una segunda firma, como si estuviera emparejada con otro parque. No aparece el nombre. Solo una brújula, un barco y colores muy intensos." },
       { "from": "topotino", "time": "auto", "text": "Un mensaje acaba de entrar en el canal: «Soy Topotina. Soy tu hermana. Yo diseñé las ventanas, pero tú escondiste la ruta»." },
       { "from": "topotino", "time": "auto", "text": "No la recuerdo. Se lo he dicho. Ha contestado: «No necesito que me recuerdes para seguir siendo tu hermana». Vale. Eso me ha dejado los bigotes bastante quietos." },
@@ -200,8 +202,8 @@ El Cuaderno de la Memoria continúa privado. Topotino no pide que cuenten qué e
     "setFlags": ["curia_llegada"],
     "messages": [
       { "from": "topotino", "time": "auto", "text": "Edificio localizado. El Hotel do Parque abrió en 1922 y después fue restaurado." },
-      { "from": "topotino", "time": "auto", "text": "Empezad fuera: buscad en la fachada dos señales de su época original. Después entrad con los adultos y elegid otra en la madera o la decoración." },
-      { "from": "topotino", "time": "auto", "text": "Terminaremos en el jardín o el patio. Buscad allí una adaptación actual y explicad cómo distinguís las capas." }
+      { "from": "topotino", "time": "auto", "text": "Empezad fuera: buscad en la fachada dos partes que parezcan antiguas. Después entrad con los adultos y buscad otra en la madera o la decoración." },
+      { "from": "topotino", "time": "auto", "text": "Terminaremos en el jardín o el patio. Buscad algo moderno y explicad qué detalle os permite distinguirlo de las partes antiguas." }
     ]
   },
   {
@@ -215,7 +217,7 @@ El Cuaderno de la Memoria continúa privado. Topotino no pide que cuenten qué e
     "setFlags": ["curia_paisaje_razonado"],
     "remember": { "kind": "architectural_reasoning", "label": "Lectura de las capas históricas y actuales del Hotel do Parque" },
     "messages": [
-      { "from": "topotino", "time": "auto", "text": "Bien razonado. El edificio no está congelado en 1922: conserva señales antiguas mientras incorpora usos nuevos. Una memoria fiable funciona igual; no borra lo anterior, pero admite capas posteriores." },
+      { "from": "topotino", "time": "auto", "text": "Bien razonado. El hotel conserva partes de 1922 y también tiene elementos modernos para recibir huéspedes hoy. Cambiar no obliga a borrar todo lo anterior." },
       { "from": "topotino", "time": "auto", "text": "Última investigación. En el jardín, junto a la piscina o ante una ventana, elegid un reflejo seguro. Observadlo desde un punto y cambiad después vuestra posición unos pasos, siempre con los adultos. Decid qué cambió, qué permaneció y si cambió el objeto, el reflejo o el observador. Añadid un sonido pequeño que solo percibisteis al deteneros." }
     ]
   },
@@ -259,7 +261,7 @@ El Cuaderno de la Memoria continúa privado. Topotino no pide que cuenten qué e
     "water": "Agua de la Risa",
     "formulaWord": "RIO",
     "messages": [
-      { "from": "topotino", "time": "auto", "text": "Gracias. Habéis distinguido objeto, reflejo y punto de vista, y además habéis detectado un sonido que el ruido del parque ocultaba. El Cazarrisas registra volumen; vosotros habéis explicado experiencia." },
+      { "from": "topotino", "time": "auto", "text": "Gracias. Habéis distinguido el objeto real, su imagen en el agua y el lugar desde el que mirabais. También habéis oído un sonido pequeño al quedaros quietos." },
       { "from": "topotino", "time": "auto", "text": "He recordado una sensación de Londres: los tres nos reíamos porque algo había salido rematadamente mal. No veo dónde estábamos ni qué ocurrió, pero recuerdo cómo era reírme con vosotros. No completaré el hueco con una invención." },
       { "from": "topotino", "time": "auto", "text": "La tercera ventana del mapa se ha aclarado. No uséis agua del parque, del lago ni de la piscina: la conexión apareció al comprender por qué un momento se convierte en recuerdo." },
       { "from": "topotino", "time": "auto", "text": "Topotina confirma que las ventanas forman una red. Ella construyó el sistema; yo escondí los destinos. Ninguno tenía el plan completo." },
@@ -312,7 +314,7 @@ El Cuaderno de la Memoria continúa privado. Topotino no pide que cuenten qué e
 
 ## Contexto para IA
 
-Topotino recuerda todo desde el eclipse y consulta la memoria de viaje persistente. Si falta `completado_amarante`, reconoce que no abrieron la ventana anterior y no atribuye deducciones que no hicieron. Al inicio conoce el plano firmado `TOP O LOCO` y el Cazarrisas; la firma aumenta la sospecha, pero no demuestra quién causó la amnesia. Tras `magikland_recuerdo_elegido`, sabe que el aparato aprende de cómo se forma un recuerdo, detecta la firma de un segundo parque y recibe a Topotina. No la recuerda, pero acepta como hecho nuevo que afirma ser su hermana y diseñó el mapa. Tras `curia_paisaje_razonado`, sabe qué huellas de 1922 y qué adaptación actual identificaron en el Hotel do Parque. Tras `curia_quietud_observada`, recupera solo la sensación de haberse reído con ellos en Londres y ve aclararse la tercera ventana. Conversa a nivel intelectual aproximado de diez años. El Cuaderno es privado. No pide agua de atracciones, piscinas o lago. No conoce el museo, Granada ni los doce leones. Al cerrar conduce mediante una imagen precisa del bosque y pide descanso.
+Topotino recuerda todo desde el eclipse y consulta la memoria de viaje persistente. Si falta `completado_amarante`, reconoce que no abrieron la ventana anterior y no atribuye deducciones que no hicieron. Al inicio conoce el plano firmado `TOP O LOCO` y el Cazarrisas; la firma aumenta la sospecha, pero no demuestra quién causó la amnesia. Tras `magikland_recuerdo_elegido`, sabe que el aparato graba qué observan, qué eligen y qué recuerdan después; detecta la firma de un segundo parque y recibe a Topotina. No la recuerda, pero acepta como hecho nuevo que afirma ser su hermana y diseñó el mapa. Tras `curia_paisaje_razonado`, sabe qué partes de 1922 y qué elemento moderno identificaron en el Hotel do Parque. Tras `curia_quietud_observada`, recupera solo la sensación de haberse reído con ellos en Londres y ve aclararse la tercera ventana. Conversa a nivel intelectual aproximado de diez años con frases concretas: nombra el objeto, la acción y el resultado, y define cualquier término técnico con un ejemplo. El Cuaderno es privado. No pide agua de atracciones, piscinas o lago. No conoce el museo, Granada ni los doce leones. Al cerrar conduce mediante una imagen precisa del bosque y pide descanso.
 
 ## Fuentes documentales
 

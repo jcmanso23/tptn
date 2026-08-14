@@ -95,7 +95,7 @@ packs['006-magikland-curia'] = {
   shadowActor: 'Topoloco',
   openingMessages: [
     'La primera parada encaja: Magikland.',
-    'Mi memoria conserva seis mundos imposibles y una máquina que estudia cómo nace un recuerdo. Topoloco podría estar aprendiendo de nosotros.',
+    'Recuerdo seis zonas temáticas y una máquina que graba qué miráis, qué elegís y qué recordáis después. Puede ser de Topoloco.',
     'Hoy no tenéis que escribir explicaciones largas. Mirad, haced y elegid. Yo me encargo de ordenar la historia.'
   ],
   steps: [
@@ -105,40 +105,40 @@ packs['006-magikland-curia'] = {
         'Buscad algo que gire, algo que vaya y vuelva y algo que se desplace.',
         'Elegid un momento que creáis que recordaréis dentro de mucho tiempo.'
       ], [
-        'Hecho. Ya puedo ordenar lo que habéis visto.',
-        'Topoloco no estudia solo atracciones: intenta separar movimiento, emoción y recuerdo. Ese aparato es su Cazarrisas.'
+        'Hecho. Ya sé qué tres movimientos habéis buscado.',
+        'El Cazarrisas graba el movimiento, el ruido y vuestra reacción. Topoloco quiere averiguar qué momentos recordaréis después.'
       ]),
       [
         question('magikland-q1', 'Magikland', '¿Cuál de estos movimientos es una oscilación?', ['Una noria que gira alrededor de su eje', 'Un barco que va y vuelve', 'Un tren que avanza por la vía'], 1, 'Correcto: ir y volver alrededor de una posición es oscilar.', 'La rotación gira alrededor de un eje; el desplazamiento cambia de lugar. Topoloco los mezclaba para que su máquina pareciera más lista.', 'Fijaos en qué movimiento cambia de dirección una y otra vez.'),
-        question('magikland-q2', 'Magikland', '¿Qué hace que un momento se convierta mejor en recuerdo?', ['Que sea el más ruidoso', 'Que tenga significado para quien lo vive', 'Que dure exactamente un minuto'], 1, 'Sí. El significado pesa más que los decibelios.', 'Entra una transmisión: «Soy Topotina, tu hermana. Diseñé las ventanas». No la recuerdo. Ella responde: «No necesito que me recuerdes para seguir siendo tu hermana».', 'Pensad en el momento que elegisteis: ¿lo recordaréis solo por el volumen?')
+        question('magikland-q2', 'Magikland', '¿Qué ayuda más a recordar un momento dentro de varios años?', ['Que sea el más ruidoso', 'Que nos importe o nos sorprenda', 'Que dure exactamente un minuto'], 1, 'Correcto. Solemos recordar mejor algo que nos importó, nos sorprendió o vivimos juntos.', 'Entra una transmisión: «Soy Topotina, tu hermana. Diseñé las ventanas». No la recuerdo. Ella responde: «No necesito que me recuerdes para seguir siendo tu hermana».', 'Pensad en vuestro momento elegido: ¿fue importante solo porque había ruido?')
       ]
     ),
     question(
       'curia-ruta-descubierta',
       'Nueva coordenada',
-      'El Cazarrisas acaba de expulsar una reserva antigua: un hotel inaugurado en 1922, rodeado de jardines y cerca de unas termas del centro de Portugal. ¿A qué localidad conduce?',
+      'De una ranura del Cazarrisas ha salido un papel: «hotel inaugurado en 1922, jardines y termas en el centro de Portugal». ¿En qué localidad está?',
       ['Curia', 'Aveiro', 'Braga'],
       0,
-      'Curia. La señal no apunta a toda la localidad, sino al Hotel do Parque.',
-      'Topoloco parece comparar recuerdos con edificios que cambian sin borrar lo anterior. Vamos a comprobarlo allí.',
+      'Curia. Allí tenemos que encontrar el Hotel do Parque.',
+      'La máquina nos manda a un edificio antiguo que hoy sigue siendo hotel. Buscaremos qué partes son antiguas y cuáles se añadieron después.',
       'Buscad la localidad termal vinculada a un Hotel do Parque inaugurado en 1922.'
     ),
     ...withOrder(
-      expedition('curia-expedicion', 'Hotel do Parque · Curia', 'Expedición del hotel que conserva tiempo', 'Cuando lleguéis a Curia, la investigación continúa en el Hotel do Parque y sus jardines.', [
+      expedition('curia-expedicion', 'Hotel do Parque · Curia', 'Partes antiguas y partes nuevas', 'Cuando lleguéis a Curia, id al Hotel do Parque y recorred sus jardines con los adultos.', [
         'Mirad la fachada y localizad dos detalles que parezcan de otra época.',
-        'Dentro, con los adultos, buscad una adaptación que permita usar hoy el edificio como hotel.',
+        'Dentro, con los adultos, buscad algo moderno que permita usar hoy el edificio como hotel.',
         'Salid al jardín y comparad una zona construida con una zona vegetal.',
         'Buscad un reflejo seguro en cristal, piscina o agua, sin acercaros a ningún borde.'
       ], [
-        'Expedición completada. El edificio abrió en 1922 y fue adaptándose sin borrar todas sus huellas.',
-        'Eso es justo lo que Topoloco no comprende: cambiar de uso no obliga a perder la memoria.'
+        'El hotel abrió en 1922. Conserva partes antiguas, como la fachada, la madera o la decoración, y también tiene instalaciones modernas.',
+        'Un edificio puede cambiar y seguir mostrando cómo era antes. Topoloco quiere borrar esas diferencias y dejar una sola historia.'
       ]),
       [
-        question('curia-q1', 'Hotel do Parque · Curia', '¿Qué prueba mejor que un edificio antiguo sigue vivo?', ['Que todo permanezca exactamente igual', 'Que conserve huellas antiguas y tenga adaptaciones actuales', 'Que nadie pueda entrar'], 1, 'Exacto. Conservar no significa congelar.', 'Un hotel histórico puede mantener fachada, suelos o decoración y, a la vez, incorporar instalaciones actuales.', 'Comparad los detalles antiguos con la adaptación que habéis encontrado.'),
-        question('curia-q2', 'Hotel do Parque · Curia', 'Si un reflejo se mueve cuando cambia el agua, ¿qué demuestra?', ['Que el reflejo depende del objeto y de la superficie', 'Que el edificio se está moviendo', 'Que el reflejo es más antiguo que el objeto'], 0, 'Muy bien. El reflejo no es una copia independiente.', 'Esta idea será importante: una imagen puede deformarse aunque el original siga en su sitio.', 'Mirad qué cambia realmente: ¿el edificio o la superficie que lo refleja?')
+        question('curia-q1', 'Hotel do Parque · Curia', '¿Qué opción describe mejor el hotel que habéis observado?', ['Todo sigue exactamente como en 1922', 'Conserva partes antiguas y también tiene elementos modernos', 'Es antiguo porque nadie puede entrar'], 1, 'Exacto. Habéis encontrado partes de dos épocas en el mismo edificio.', 'La fachada, la madera o la decoración pueden ser antiguas; la recepción, la piscina o la iluminación permiten usarlo hoy.', 'Comparad una parte antigua con una parte moderna que hayáis visto.'),
+        question('curia-q2', 'Hotel do Parque · Curia', 'Si el agua se mueve y la imagen reflejada cambia, ¿qué se ha movido de verdad?', ['El agua, que cambia la imagen', 'El edificio entero', 'La fecha de construcción'], 0, 'Muy bien. Se mueve el agua y por eso cambia la imagen.', 'El edificio puede seguir quieto aunque su reflejo se estire, se corte o tiemble.', 'Mirad el edificio y después la superficie del agua.')
       ]
     ),
-    recovery('recuperacion-dia14', 'Para borrar una Sombra: ¿qué une Magikland y el Hotel do Parque?', ['Los dos muestran que un recuerdo nace al relacionar experiencia y cambio', 'Los dos fueron construidos en 1922', 'Los dos son bosques'], 0, 'Recuperación conseguida. Habéis unido movimiento, significado y cambio sin borrar el pasado.', 'La Sombra se queda hoy. No pasa nada: sabemos exactamente qué relación debemos reforzar.'),
+    recovery('recuperacion-dia14', 'Para bajar la Sombra: ¿qué hemos comprobado hoy?', ['En Magikland recordamos un momento importante y en el hotel vimos partes antiguas junto a partes nuevas', 'Magikland y el hotel fueron construidos en 1922', 'Los dos lugares son bosques'], 0, 'Sombra reducida. Habéis explicado con dos ejemplos cómo algo cambia sin perder todo lo anterior.', 'La Sombra sigue igual. Mañana podremos intentarlo con otra pregunta.'),
     route('ruta-dia15', 'Una nueva pista muestra un bosque con convento, ermitas, una batalla y un palacio; después, un monasterio nacido de una promesa y una gran explanada de peregrinos. ¿Qué ruta es?', ['Buçaco, Batalha y Fátima', 'Sintra, Nazaré y Leiria', 'Oporto, Guimarães y Braga'], 0, [
       'Ruta encontrada: Mata Nacional do Buçaco, Monasterio de Batalha y Fátima.',
       'Seguimos esa ruta porque Topoloco confunde lo más grande con lo más importante. Mañana veremos promesas muy distintas.',

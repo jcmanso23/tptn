@@ -1,6 +1,6 @@
 # Guía maestra de coherencia narrativa · Las Doce Aguas
 
-**Versión canónica:** 14 de agosto de 2026 · edición T-20A1
+**Versión canónica:** 14 de agosto de 2026 · edición T-20A2
 **Final principal:** Alhambra, Palacios Nazaríes, noche del 26 de agosto
 **Epílogo:** Generalife, 27 de agosto; no abre otra amenaza
 
@@ -191,6 +191,17 @@ La geolocalización abre la conversación, no resuelve la prueba. Primero se pro
 
 Las respuestas deben exigir evidencia y razonamiento, pero los mensajes de Topotino son breves, como WhatsApp. Una instrucción compleja se divide en varios mensajes.
 
+La dificultad está en pensar, no en descifrar cómo habla Topotino. Su lenguaje infantil debe ser concreto:
+
+- nombra el objeto o lugar exacto que deben mirar;
+- usa verbos de acción: buscad, caminad, comparad, contad, elegid, escuchad;
+- explica primero qué ha ocurrido y después por qué importa;
+- sustituye metáforas vagas por hechos visibles: no dice «el significado pesa», sino «recordamos mejor un momento cuando nos importó o nos sorprendió»;
+- no usa sola una palabra abstracta como `capa`, `conexión`, `sistema`, `evidencia`, `hipótesis` o `perspectiva`; la define inmediatamente con un ejemplo del lugar;
+- da una sola instrucción principal por mensaje.
+
+Paula y Hugo pueden resolver preguntas difíciles si entienden qué se les pregunta. Topotino nunca sacrifica precisión ni conocimiento, pero traduce cualquier término técnico al español cotidiano en la misma burbuja.
+
 Desde T-20A0 cada parada del itinerario se juega con un sistema claro:
 
 1. Topotino recuerda por qué la aventura conduce hasta allí y qué está en juego.
@@ -306,6 +317,14 @@ Antes de publicar un cambio:
 - [ ] El final continúa en la Alhambra nocturna y el Generalife es solo epílogo.
 
 ## 19. Registro de decisiones
+
+### 14 de agosto de 2026 · T-20A2
+
+- Se separa dificultad intelectual de dificultad lingüística: los retos siguen exigiendo observación y razonamiento de unos diez años, pero Topotino usa objetos, acciones y consecuencias concretas.
+- Todas las preguntas cerradas muestran entre tres y cuatro opciones que se pueden tocar. Las expediciones no son preguntas: agrupan acciones y se completan con «Ya lo hemos hecho».
+- Luna debe responder primero de forma directa, definir cualquier palabra técnica y evitar metáforas sin traducción física.
+- El día de Magikland y Curia se reescribe con esta regla sin cambiar IDs, respuestas correctas ni progreso ya guardado.
+- Los aliados siguen siendo citados por Topotino hasta que existan imágenes y una presentación visual aprobada para cada participante del chat.
 
 ### 14 de agosto de 2026 · T-20A1
 

@@ -75,6 +75,20 @@ test('el día 14 revela Magikland antes que Curia y conserva la continuidad', ()
   assert.ok(magiklandEnd >= 0 && magiklandEnd < curiaRoute);
   assert.ok(curiaRoute < curiaExpedition);
   assert.match(day14.steps[curiaRoute].successMessages.join(' '), /Curia|Hotel do Parque/i);
+
+  const visibleDay14Text = [
+    ...day14.openingMessages,
+    ...day14.steps.flatMap((step) => [
+      step.prompt,
+      step.title,
+      step.intro,
+      ...(step.actions || []),
+      ...(step.successMessages || []),
+      ...(step.doneMessages || []),
+      ...(step.options || []).map((option) => option.text)
+    ])
+  ].filter(Boolean).join(' ');
+  assert.doesNotMatch(visibleDay14Text, /el significado pesa|conserva tiempo|expulsar una reserva|relacionar experiencia y cambio/i);
 });
 
 test('las pruebas son breves, físicas y enseñan después de elegir', () => {
