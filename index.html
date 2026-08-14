@@ -11,7 +11,7 @@
   <link rel="manifest" href="manifest.json">
   <link rel="apple-touch-icon" href="icons/icon-192.png">
   <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=memory-v42">
+  <link rel="stylesheet" href="styles.css?v=memory-v43">
 </head>
 <body>
   <main class="app-shell" aria-live="polite">
@@ -48,7 +48,7 @@
           </div>
           <div class="channel-code">
             <small>Código</small>
-            <strong id="channel-code">T-20A4</strong>
+            <strong id="channel-code">T-20A5</strong>
           </div>
         </header>
 
@@ -80,11 +80,18 @@
         <section class="adventure-meter" aria-label="Estado de la aventura">
           <div class="meter-value meter-memory">
             <span>Memoria</span>
-            <strong id="memory-score">1</strong>
+            <strong><b id="memory-score">1</b> <small>hallazgos</small></strong>
           </div>
+          <details class="meter-help">
+            <summary>¿Qué significa?</summary>
+            <div>
+              <p><strong>Memoria</strong> suma hallazgos cuando observáis, hacéis una misión o resolvéis una pregunta.</p>
+              <p><strong>Sombra</strong> cuenta interferencias de Topoloco tras un error. Se pueden reducir y nunca borran la aventura.</p>
+            </div>
+          </details>
           <div class="meter-value meter-shadow">
             <span>Sombra</span>
-            <strong id="shadow-score">0</strong>
+            <strong><b id="shadow-score">0</b> <small>interferencias</small></strong>
           </div>
         </section>
 
@@ -151,6 +158,6 @@
     </aside>
   </main>
 
-  <script src="app.js?v=memory-v42" type="module"></script>
+  <script src="app.js?v=memory-v43" type="module"></script>
 </body>
 </html>

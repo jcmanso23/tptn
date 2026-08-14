@@ -1,5 +1,5 @@
-import { splitTopotinoMessages } from './chat-format.js?v=memory-v42';
-import { CHALLENGE_PACKS, displayChallengeOptions } from './content/challenges.js?v=memory-v42';
+import { splitTopotinoMessages } from './chat-format.js?v=memory-v43';
+import { CHALLENGE_PACKS, displayChallengeOptions } from './content/challenges.js?v=memory-v43';
 
 const STORAGE_KEYS = {
   auth: 'topotino_chat_auth_v1',
@@ -7,9 +7,9 @@ const STORAGE_KEYS = {
 };
 
 const LEGACY_STATE_KEY = 'topotino_chat_state_v1';
-const APP_VERSION_CODE = 'T-20A4';
+const APP_VERSION_CODE = 'T-20A5';
 const PASSPHRASE_HASH = 'a64716bd9f4e8added1bf47f80b97c3fc7b70a15b8043cdab083e1ddf85f3794';
-const EPISODES_MANIFEST = 'content/episodes.json?v=memory-v42';
+const EPISODES_MANIFEST = 'content/episodes.json?v=memory-v43';
 const LIVE_STORY_ENDPOINT = '/api/story';
 const AMARANTE_TRAVEL_DATE = '2026-08-13';
 const AMARANTE_ROUTE_EPISODE_ID = '004b-rumbo-amarante';
@@ -18,6 +18,7 @@ const AMARANTE_RESCUE_MARKER = 'rescate-cierre-amarante-t19b5';
 const SECURITY_CHECKIN_DATE = '2026-08-14';
 const SECURITY_ANNOUNCED_FLAG = 'seguridad_t20a1_anunciada';
 const SECURITY_CONFIRMED_FLAG = 'seguridad_t20a1_confirmada';
+const MACHINE_CLARIFIED_FLAG = 'maquina_topotina_aclarada_t20a5';
 const SECURITY_CHECKIN_MESSAGES = [
   'Buenos días, Paula y Hugo.',
   'Antes de seguir tengo que contaros algo. Ayer el chat secreto estaba estropeado: llegaban mensajes tarde, se mezclaban y yo respondía a cosas anteriores.',
@@ -187,6 +188,7 @@ async function init() {
     applyTravelDayRescue();
     applyAmaranteCompletionRescue();
     applyDay14SecurityCheckIn();
+    applyDay14MachineClarification();
   } catch (error) {
     console.error(error);
     showUnlockError('No se pudo cargar el comunicador. Revisad la conexión.');
@@ -315,11 +317,12 @@ async function enterChat() {
     ? []
     : await evaluateActivations({ reason: 'enter', collectMessages: true });
   renderAll();
+  const challengeArrivalMessages = collectChallengeArrivalMessages();
   if (!activationInterval) {
     activationInterval = setInterval(() => runActivationCheck('tick'), ACTIVATION_TICK_MS);
   }
   scheduleNextAdultLaunchTimer();
-  const incomingMessages = [...startupRescueMessages, ...liveMessages, ...activationMessages];
+  const incomingMessages = [...startupRescueMessages, ...liveMessages, ...activationMessages, ...challengeArrivalMessages];
   startupRescueMessages = [];
   if (incomingMessages.length) {
     await deliverTopotinoMessages(incomingMessages, { mode: 'activation' });
@@ -336,7 +339,9 @@ async function runActivationCheck(reason) {
   if (routePending) return;
   await refreshLocationForPendingActivations();
   const activationMessages = await evaluateActivations({ reason, collectMessages: true });
-  const incomingMessages = [...liveMessages, ...activationMessages];
+  renderAll();
+  const challengeArrivalMessages = collectChallengeArrivalMessages();
+  const incomingMessages = [...liveMessages, ...activationMessages, ...challengeArrivalMessages];
   if (incomingMessages.length) {
     await deliverTopotinoMessages(incomingMessages, { mode: 'activation' });
   }
@@ -550,7 +555,9 @@ function episodeCanActivateExceptLocation(episode) {
 
 async function refreshLocationForPendingActivations() {
   if (!navigator.geolocation) return;
-  if (!episodes.some((episode) => episodeCanActivateExceptLocation(episode))) return;
+  const hasPendingEpisode = episodes.some((episode) => episodeCanActivateExceptLocation(episode));
+  const hasPendingChallenge = Boolean(getPendingArrivalChallenge());
+  if (!hasPendingEpisode && !hasPendingChallenge) return;
   if (locationRefreshInFlight || lastLocationIsFresh(LOCATION_REFRESH_COOLDOWN_MS)) return;
 
   locationRefreshInFlight = true;
@@ -671,10 +678,7 @@ function getChallengePack(episodeId = getActiveEpisode()?.meta?.id) {
   return episodeId ? CHALLENGE_PACKS[episodeId] || null : null;
 }
 
-function getActiveChallenge() {
-  if (isSecurityCheckInPending()) {
-    return { ...SECURITY_CHECKIN_CHALLENGE, episodeId: getActiveEpisode()?.meta?.id };
-  }
+function getNextChallengeStep() {
   const episode = getActiveEpisode();
   const pack = getChallengePack(episode?.meta?.id);
   if (!pack) return null;
@@ -685,6 +689,31 @@ function getActiveChallenge() {
     return { ...step, episodeId: episode.meta.id, shadowActor: pack.shadowActor || 'Topoloco' };
   }
   return null;
+}
+
+function getPendingArrivalChallenge() {
+  const challenge = getNextChallengeStep();
+  if (!challenge?.location || locationMatches(challenge.location)) return null;
+  return challenge;
+}
+
+function getActiveChallenge() {
+  if (isSecurityCheckInPending()) {
+    return { ...SECURITY_CHECKIN_CHALLENGE, episodeId: getActiveEpisode()?.meta?.id };
+  }
+  const challenge = getNextChallengeStep();
+  if (challenge?.location && !locationMatches(challenge.location)) return null;
+  return challenge;
+}
+
+function collectChallengeArrivalMessages() {
+  const challenge = getNextChallengeStep();
+  if (!challenge?.location || !locationMatches(challenge.location)) return [];
+  if (!challenge.arrivalMarker || state.seenBroadcastIds.includes(challenge.arrivalMarker)) return [];
+
+  state.seenBroadcastIds.push(challenge.arrivalMarker);
+  saveState();
+  return toTopotinoMessages(challenge.arrivalMessages || []);
 }
 
 function isSecurityCheckInPending() {
@@ -1285,9 +1314,10 @@ async function refreshLocation() {
     };
     state.locationStatus = `Señal actualizada (${state.lastKnownPosition.accuracy || '?'} m).`;
     const activationMessages = await evaluateActivations({ reason: 'location', collectMessages: true });
+    const challengeArrivalMessages = collectChallengeArrivalMessages();
     saveState();
-    if (activationMessages.length) {
-      await deliverTopotinoMessages(activationMessages, { mode: 'activation' });
+    if (activationMessages.length || challengeArrivalMessages.length) {
+      await deliverTopotinoMessages([...activationMessages, ...challengeArrivalMessages], { mode: 'activation' });
     }
   } catch (error) {
     state.locationStatus = locationErrorMessage(error);
@@ -1663,6 +1693,30 @@ function applyDay14SecurityCheckIn() {
     .filter((message) => !existingTexts.has(message))
     .map((text) => ({ from: 'topotino', time: 'auto', text }));
   startupRescueMessages = [...startupRescueMessages, ...missingMessages];
+  saveState();
+  return true;
+}
+
+function applyDay14MachineClarification() {
+  if (!state.unlocked) return false;
+  if (formatDate(getRuntimeNow()) !== SECURITY_CHECKIN_DATE) return false;
+  if (state.flags.includes(MACHINE_CLARIFIED_FLAG)) return false;
+  if (!state.completedChallengeIds.includes('magikland-q2')) return false;
+
+  addUniqueMany(state.flags, [MACHINE_CLARIFIED_FLAG]);
+  startupRescueMessages = [...startupRescueMessages,
+    { from: 'topotino', time: 'auto', text: 'Alto, agentes. Antes de seguir tengo que explicar bien lo que acabamos de descubrir. Lo conté fatal.' },
+    { from: 'topotino', time: 'auto', text: 'No había una máquina física que vosotros debierais encontrar en Magikland.' },
+    { from: 'topotino', time: 'auto', text: 'Mientras observabais los movimientos, mis aparatos recibieron un programa escondido en la señal del mapa. Marcaba GIRO, IDA Y VUELTA, DESPLAZAMIENTO y RECUERDO.' },
+    { from: 'topotino', time: 'auto', text: 'El programa se llama Cazarrisas. Topoloco lo usa para aprender qué convierte un momento vivido en un recuerdo que dura.' },
+    { from: 'system', time: 'auto', text: 'Una conexión externa solicita acceso: TOPOTINA.' },
+    { from: 'topotina', time: 'auto', text: 'Hola otra vez, Paula y Hugo. Soy Topotina. Y sí, Topotino: soy tu hermana.' },
+    { from: 'topotino', time: 'auto', text: 'Eso todavía está por demostrar. Podrías ser una técnica muy informada.' },
+    { from: 'topotina', time: 'auto', text: 'Yo construí las doce ventanas. Tú escondiste las rutas. Además guardas una galleta detrás del transmisor.' },
+    { from: 'topotino', time: 'auto', text: '¡Información reservada! De acuerdo: «técnica misteriosa con mis orejas».' },
+    { from: 'topotina', time: 'auto', text: 'Son nuestras orejas, hermano cabezota. He separado una coordenada del Cazarrisas y la ruta de Curia ya está guardada.' },
+    { from: 'topotino', time: 'auto', text: 'Curia está descubierta, pero la misión del hotel seguirá cerrada hasta que lleguéis. Esta vez no me adelanto.' }
+  ];
   saveState();
   return true;
 }
@@ -2447,6 +2501,6 @@ function applyTestingParams() {
 
 function registerServiceWorker() {
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('service-worker.js?v=offline-v27').catch(() => {});
+    navigator.serviceWorker.register('service-worker.js?v=offline-v28').catch(() => {});
   }
 }

@@ -443,8 +443,9 @@ input {
 
 .adventure-meter {
   grid-row: 2;
+  position: relative;
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr auto 1fr;
   gap: 14px;
   align-items: center;
   padding: 9px 30px;
@@ -453,9 +454,8 @@ input {
 }
 
 .meter-value {
-  display: flex;
-  gap: 8px;
-  align-items: baseline;
+  display: grid;
+  gap: 1px;
   text-transform: uppercase;
   letter-spacing: .08em;
   font-size: 11px;
@@ -463,12 +463,79 @@ input {
 }
 
 .meter-value strong {
+  display: flex;
+  gap: 5px;
+  align-items: baseline;
+  color: var(--text);
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.meter-value b {
+  color: currentColor;
   font-size: 20px;
+  line-height: 1;
+}
+
+.meter-value small {
+  color: #c8d9e5;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.meter-help {
+  position: static;
+  justify-self: center;
+}
+
+.meter-help summary {
+  padding: 5px 9px;
+  border: 1px solid rgba(142, 176, 200, .36);
+  border-radius: 999px;
+  color: #b9cfde;
+  cursor: pointer;
+  font-size: 10px;
+  font-weight: 800;
+  list-style: none;
+}
+
+.meter-help summary::-webkit-details-marker {
+  display: none;
+}
+
+.meter-help[open] summary {
+  border-color: var(--gold);
+  color: var(--gold2);
+}
+
+.meter-help > div {
+  position: absolute;
+  z-index: 8;
+  top: calc(100% + 6px);
+  left: 18px;
+  right: 18px;
+  padding: 11px 13px;
+  border: 1px solid rgba(246, 168, 23, .65);
+  border-radius: 14px;
+  background: rgba(2, 18, 31, .98);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, .42);
+}
+
+.meter-help p {
+  margin: 0;
+  color: #dbeaf4;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.meter-help p + p {
+  margin-top: 6px;
 }
 
 .meter-memory { color: var(--mint); }
 .meter-shadow {
   justify-self: end;
+  text-align: right;
   color: #d7a8ff;
 }
 
@@ -1067,18 +1134,25 @@ input {
   }
 
   .adventure-meter {
-    gap: 8px;
-    padding: 5px 12px;
+    gap: 5px;
+    padding: 6px 12px;
   }
 
   .meter-value {
-    display: flex;
-    gap: 5px;
     font-size: 9px;
   }
 
-  .meter-value strong {
+  .meter-value b {
     font-size: 14px;
+  }
+
+  .meter-value small {
+    font-size: 8px;
+  }
+
+  .meter-help summary {
+    padding: 4px 7px;
+    font-size: 8px;
   }
 
   .messages {

@@ -1,6 +1,6 @@
 # Guía maestra de coherencia narrativa · Las Doce Aguas
 
-**Versión canónica:** 14 de agosto de 2026 · edición T-20A3
+**Versión canónica:** 14 de agosto de 2026 · edición T-20A5
 **Final principal:** Alhambra, Palacios Nazaríes, noche del 26 de agosto
 **Epílogo:** Generalife, 27 de agosto; no abre otra amenaza
 
@@ -319,6 +319,16 @@ Antes de publicar un cambio:
 - [ ] El final continúa en la Alhambra nocturna y el Generalife es solo epílogo.
 
 ## 19. Registro de decisiones
+
+### 14 de agosto de 2026 · T-20A5
+
+- Descubrir una localidad y llegar físicamente dejan de ser el mismo estado. Resolver la pista de Curia solo guarda el destino; la expedición del Hotel do Parque permanece oculta hasta que la señal del dispositivo entra en un radio de 5 km del hotel.
+- El bloqueo por llegada se aplica en el motor de retos sin cambiar IDs ni borrar progreso. Una partida que ya resolvió `curia-ruta-descubierta` queda esperando la llegada, no salta a `curia-expedicion`.
+- El Cazarrisas se presenta paso a paso como un programa oculto en la señal del mapa, visible en los aparatos de Topotino: Paula y Hugo no tenían que encontrar una máquina física dentro de Magikland.
+- La entrada de Topotina se amplía como diálogo cómico y verificable. Topotino no acepta de inmediato que sea su hermana; la llama provisionalmente «técnica misteriosa con mis orejas» mientras ella demuestra que conoce la división del sistema.
+- Al llegar a Curia, Topotina confirma el bloqueo geográfico y continúa la relación entre ambos antes de abrir la misión. La tecnología sirve para explicar una transición narrativa, no para resolver ninguna prueba.
+- Los marcadores superiores dejan de ser números sin unidad: Memoria muestra `hallazgos` y Sombra muestra `interferencias`. Un desplegable breve explica cómo sube cada marcador y que ningún error borra la aventura.
+- Se añade una aclaración única para partidas que ya habían superado Magikland con una versión anterior: Topotino corrige su explicación, reconstruye el descubrimiento del Cazarrisas y presenta de nuevo a Topotina sin repetir ninguna prueba.
 
 ### 14 de agosto de 2026 · T-20A3
 

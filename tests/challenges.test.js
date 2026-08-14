@@ -97,9 +97,15 @@ test('el día 14 revela Magikland antes que Curia y conserva la continuidad', ()
   assert.match(day14.steps[curiaRoute].successMessages.map(messageText).join(' '), /Curia|Hotel do Parque/i);
 
   const topotinaEntrance = day14.steps.find((step) => step.id === 'magikland-q2').successMessages;
-  assert.equal(topotinaEntrance.findIndex((message) => message?.from === 'system'), 1);
-  assert.equal(topotinaEntrance.filter((message) => message?.from === 'topotina').length, 3);
-  assert.ok(topotinaEntrance.some((message) => message?.from === 'topotino' && /No te recuerdo/.test(message.text)));
+  assert.equal(topotinaEntrance.findIndex((message) => message?.from === 'system'), 2);
+  assert.ok(topotinaEntrance.filter((message) => message?.from === 'topotina').length >= 4);
+  assert.ok(topotinaEntrance.some((message) => message?.from === 'topotino' && /técnica misteriosa/.test(message.text)));
+  assert.ok(topotinaEntrance.some((message) => message?.from === 'topotina' && /No necesito que me recuerdes/.test(message.text)));
+
+  const curiaArrival = day14.steps.find((step) => step.id === 'curia-expedicion');
+  assert.equal(curiaArrival.location.radiusMeters, 5000);
+  assert.ok(curiaArrival.arrivalMessages.some((message) => message?.from === 'topotina'));
+  assert.match(curiaArrival.arrivalMessages.map(messageText).join(' '), /no se ha abierto hasta vuestra llegada/i);
 
   const visibleDay14Text = [
     ...day14.openingMessages,

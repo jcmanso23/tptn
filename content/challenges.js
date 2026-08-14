@@ -124,31 +124,51 @@ packs['006-magikland-curia'] = {
         'Elegid un momento que creáis que recordaréis dentro de mucho tiempo.'
       ], [
         'Hecho. Ya sé qué tres movimientos habéis buscado.',
-        'El Cazarrisas graba el movimiento, el ruido y vuestra reacción. Topoloco quiere averiguar qué momentos recordaréis después.'
+        'Mientras mirabais el parque, en mi pantalla aparecieron tres lecturas: GIRO, IDA Y VUELTA y DESPLAZAMIENTO.',
+        'No teníais que encontrar una máquina física. Es un programa escondido dentro de la señal del mapa y está enviando datos a mis aparatos.',
+        'En una esquina pone «CAZARRISAS». Topoloco quiere aprender qué convierte un momento en recuerdo. Primero vamos a comprobar qué entiende de los movimientos.'
       ]),
       [
-        question('magikland-q1', 'Magikland', '¿Cuál de estos movimientos es una oscilación?', ['Una noria que gira alrededor de su eje', 'Un barco que va y vuelve', 'Un tren que avanza por la vía'], 1, 'Correcto: ir y volver alrededor de una posición es oscilar.', 'La rotación gira alrededor de un eje; el desplazamiento cambia de lugar. Topoloco los mezclaba para que su máquina pareciera más lista.', 'Fijaos en qué movimiento cambia de dirección una y otra vez.'),
-        question('magikland-q2', 'Magikland', '¿Qué ayuda más a recordar un momento dentro de varios años?', ['Que sea el más ruidoso', 'Que nos importe o nos sorprenda', 'Que dure exactamente un minuto'], 1, 'Correcto. Solemos recordar mejor algo que nos importó, nos sorprendió o vivimos juntos.', [
-          { from: 'system', text: 'Topotina se ha unido al canal.' },
-          { from: 'topotina', text: 'Hola, Paula y Hugo. Soy Topotina.' },
-          { from: 'topotina', text: 'Topotino, soy tu hermana. Yo diseñé las ventanas del mapa y tú escondiste la ruta. Así nadie podía robar toda la información.' },
-          { from: 'topotino', text: 'No te recuerdo. Lo siento.' },
-          { from: 'topotina', text: 'No necesito que me recuerdes para seguir siendo tu hermana.' }
-        ], 'Pensad en vuestro momento elegido: ¿fue importante solo porque había ruido?')
+        question('magikland-q1', 'Magikland', '¿Cuál de estos movimientos es una oscilación?', ['Una noria que gira alrededor de su eje', 'Un barco que va y vuelve', 'Un tren que avanza por la vía'], 1, 'Correcto: ir y volver alrededor de una posición es oscilar.', [
+          'La rotación gira alrededor de un eje; el desplazamiento cambia de lugar.',
+          'Primera rueda del Cazarrisas descifrada. Ahora la pantalla separa movimiento de ruido. Le falta entender por qué un momento se queda en la memoria.'
+        ], 'Fijaos en qué movimiento cambia de dirección una y otra vez.'),
+        Object.assign(question('magikland-q2', 'Magikland', '¿Qué ayuda más a recordar un momento dentro de varios años?', ['Que sea el más ruidoso', 'Que nos importe o nos sorprenda', 'Que dure exactamente un minuto'], 1, [
+          'Correcto. Solemos recordar mejor algo que nos importó, nos sorprendió o vivimos juntos.',
+          'La pantalla acaba de escribir «MUESTRA VÁLIDA». El Cazarrisas no buscaba la risa más fuerte: estaba aprendiendo qué momentos se quedan con nosotros.'
+        ], [
+          { from: 'system', text: 'Una conexión externa solicita acceso: TOPOTINA.' },
+          { from: 'topotino', text: 'Quietos. Nadie entra en mi canal diciendo que es familia.' },
+          { from: 'topotina', text: 'Hola, Paula y Hugo. Soy Topotina. Y sí, Topotino: soy tu hermana.' },
+          { from: 'topotino', text: 'Eso es exactamente lo que diría alguien que intenta colarse.' },
+          { from: 'topotina', text: 'Yo construí las doce ventanas del mapa. Tú escondiste las rutas. Separaste la información para que nadie pudiera robarla completa.' },
+          { from: 'topotino', text: 'Eso encaja con mis notas. Pero también podrías haberlas leído.' },
+          { from: 'topotina', text: 'También ordenas los tornillos por tamaño y guardas una galleta de emergencia detrás del transmisor.' },
+          { from: 'topotino', text: 'Lo de los tornillos es sentido común. Lo de la galleta… es información reservada.' },
+          { from: 'topotina', text: 'No necesito que me recuerdes para seguir siendo tu hermana. Ayudaré a Paula y Hugo mientras tu memoria vuelve.' },
+          { from: 'topotino', text: 'De acuerdo. De momento te llamaré «técnica misteriosa con mis orejas».' },
+          { from: 'topotina', text: 'Son nuestras orejas, hermano cabezota.' },
+          { from: 'topotino', text: 'La técnica misteriosa ha encontrado una línea de salida del Cazarrisas. Veamos adónde conduce.' }
+        ], 'Pensad en vuestro momento elegido: ¿fue importante solo porque había ruido?'), {
+          effects: { setFlags: ['maquina_topotina_aclarada_t20a5'] }
+        })
       ]
     ),
-    question(
+    Object.assign(question(
       'curia-ruta-descubierta',
       'Nueva coordenada',
-      'De una ranura del Cazarrisas ha salido un papel: «hotel inaugurado en 1922, jardines y termas en el centro de Portugal». ¿En qué localidad está?',
+      'Topotina ha aislado esta línea del Cazarrisas: «hotel inaugurado en 1922, jardines y termas en el centro de Portugal». ¿En qué localidad está?',
       ['Curia', 'Aveiro', 'Braga'],
       0,
-      'Curia. Allí tenemos que encontrar el Hotel do Parque.',
-      'La máquina nos manda a un edificio antiguo que hoy sigue siendo hotel. Buscaremos qué partes son antiguas y cuáles se añadieron después.',
+      'Correcto: Curia. Allí tenemos que encontrar el Hotel do Parque.',
+      [
+        'Ruta guardada. No voy a abrir la misión del hotel todavía.',
+        'Cuando el comunicador detecte que habéis llegado a Curia, Topotina comprobará la coordenada y os explicaré qué hay que investigar.'
+      ],
       'Buscad la localidad termal vinculada a un Hotel do Parque inaugurado en 1922.'
-    ),
+    ), { effects: { setFlags: ['ruta_curia_descubierta'] } }),
     ...withOrder(
-      expedition('curia-expedicion', 'Hotel do Parque · Curia', 'Partes antiguas y partes nuevas', 'Cuando lleguéis a Curia, id al Hotel do Parque y recorred sus jardines con los adultos.', [
+      Object.assign(expedition('curia-expedicion', 'Hotel do Parque · Curia', 'Partes antiguas y partes nuevas', 'Ya estáis en Curia. Id al Hotel do Parque y recorred sus jardines con los adultos.', [
         'Mirad la fachada y localizad dos detalles que parezcan de otra época.',
         'Dentro, con los adultos, buscad algo moderno que permita usar hoy el edificio como hotel.',
         'Salid al jardín y comparad una zona construida con una zona vegetal.',
@@ -156,7 +176,18 @@ packs['006-magikland-curia'] = {
       ], [
         'El hotel abrió en 1922. Conserva partes antiguas, como la fachada, la madera o la decoración, y también tiene instalaciones modernas.',
         'Un edificio puede cambiar y seguir mostrando cómo era antes. Topoloco quiere borrar esas diferencias y dejar una sola historia.'
-      ]),
+      ]), {
+        location: { lat: 40.42377, lng: -8.46321, radiusMeters: 5000, label: 'Curia · Hotel do Parque' },
+        arrivalMarker: 'llegada-curia-t20a5',
+        arrivalMessages: [
+          { from: 'system', text: 'Coordenada de Curia confirmada. Misión disponible.' },
+          { from: 'topotina', text: 'El bloqueo ha funcionado: la misión no se ha abierto hasta vuestra llegada.' },
+          { from: 'topotino', text: '¿Has puesto tú ese bloqueo en mi comunicador?' },
+          { from: 'topotina', text: 'Lo programamos juntos. Tú insististe en llamarlo «candado de patas cortas».' },
+          { from: 'topotino', text: 'Nombre excelente. Eso sí parece una prueba bastante seria de parentesco.' },
+          { from: 'topotina', text: 'Vas mejorando, hermano. Ahora buscad el Hotel do Parque: la señal apunta a su edificio y sus jardines.' }
+        ]
+      }),
       [
         question('curia-q1', 'Hotel do Parque · Curia', '¿Qué opción describe mejor el hotel que habéis observado?', ['Todo sigue exactamente como en 1922', 'Conserva partes antiguas y también tiene elementos modernos', 'Es antiguo porque nadie puede entrar'], 1, 'Exacto. Habéis encontrado partes de dos épocas en el mismo edificio.', 'La fachada, la madera o la decoración pueden ser antiguas; la recepción, la piscina o la iluminación permiten usarlo hoy.', 'Comparad una parte antigua con una parte moderna que hayáis visto.'),
         question('curia-q2', 'Hotel do Parque · Curia', 'Si el agua se mueve y la imagen reflejada cambia, ¿qué se ha movido de verdad?', ['El agua, que cambia la imagen', 'El edificio entero', 'La fecha de construcción'], 0, 'Muy bien. Se mueve el agua y por eso cambia la imagen.', 'El edificio puede seguir quieto aunque su reflejo se estire, se corte o tiemble.', 'Mirad el edificio y después la superficie del agua.')
