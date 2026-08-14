@@ -1,6 +1,6 @@
 # Guía maestra de coherencia narrativa · Las Doce Aguas
 
-**Versión canónica:** 14 de agosto de 2026 · edición T-20A2
+**Versión canónica:** 14 de agosto de 2026 · edición T-20A3
 **Final principal:** Alhambra, Palacios Nazaríes, noche del 26 de agosto
 **Epílogo:** Generalife, 27 de agosto; no abre otra amenaza
 
@@ -84,6 +84,8 @@ Topotina es la hermana de Topotino y experta en tecnología. Antes del eclipse, 
 - Paula y Hugo conservan recuerdos vividos fuera de cualquier máquina.
 
 Topotina recuerda a su hermano y la arquitectura del sistema, pero no conoce la ruta completa. Por eso no puede resolverla desde un ordenador. Su primera aparición se produce después de que el mapa responda en Magikland. Topotino no la reconoce. Ella no dramatiza ni exige que la recuerde: «No necesito que me recuerdes para seguir siendo tu hermana». En el final, Topotino recupera espontáneamente el nombre íntimo «Tina».
+
+Topotina entra realmente en el Comunicador Subterráneo. La interfaz anuncia «Topotina se ha unido al canal» y sus mensajes muestran su nombre y su propio avatar: topo de pelo castaño recogido, gafas claras, auriculares rosas con micrófono, peto azul y dispositivo tecnológico en la mano. No habla a través de citas de Topotino. Los mensajes anteriores conservan su remitente original.
 
 ## 6. El paquete físico y el Mapa de las Doce Aguas
 
@@ -317,6 +319,14 @@ Antes de publicar un cambio:
 - [ ] El final continúa en la Alhambra nocturna y el Generalife es solo epílogo.
 
 ## 19. Registro de decisiones
+
+### 14 de agosto de 2026 · T-20A3
+
+- Se incorpora la imagen entregada por la familia como avatar oficial de Topotina.
+- La primera transmisión de Magikland se convierte en una conversación real de varios participantes: aviso de entrada, mensajes de Topotina y respuesta separada de Topotino.
+- Topotino sigue sin reconocerla. Topotina se identifica, explica solo que diseñó las ventanas y mantiene la frase «No necesito que me recuerdes para seguir siendo tu hermana».
+- El guardado admite remitentes distintos sin migrar ni reiniciar la partida; los mensajes antiguos siguen siendo compatibles.
+- Mientras se entregan los mensajes que explican un acierto, la siguiente pregunta permanece oculta y solo aparece al terminar la conversación.
 
 ### 14 de agosto de 2026 · T-20A2
 

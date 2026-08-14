@@ -1,5 +1,5 @@
-import { splitTopotinoMessages } from './chat-format.js?v=memory-v40';
-import { CHALLENGE_PACKS } from './content/challenges.js?v=memory-v40';
+import { splitTopotinoMessages } from './chat-format.js?v=memory-v41';
+import { CHALLENGE_PACKS } from './content/challenges.js?v=memory-v41';
 
 const STORAGE_KEYS = {
   auth: 'topotino_chat_auth_v1',
@@ -7,9 +7,9 @@ const STORAGE_KEYS = {
 };
 
 const LEGACY_STATE_KEY = 'topotino_chat_state_v1';
-const APP_VERSION_CODE = 'T-20A2';
+const APP_VERSION_CODE = 'T-20A3';
 const PASSPHRASE_HASH = 'a64716bd9f4e8added1bf47f80b97c3fc7b70a15b8043cdab083e1ddf85f3794';
-const EPISODES_MANIFEST = 'content/episodes.json?v=memory-v40';
+const EPISODES_MANIFEST = 'content/episodes.json?v=memory-v41';
 const LIVE_STORY_ENDPOINT = '/api/story';
 const AMARANTE_TRAVEL_DATE = '2026-08-13';
 const AMARANTE_ROUTE_EPISODE_ID = '004b-rumbo-amarante';
@@ -42,6 +42,10 @@ const ADULT_PHASE_DELAY_MS = 5 * 60 * 1000;
 const ADULT_PIN_HASH = '0f8eb4b72b6e0c9e88b388eb967b49e067ef1004bf07bffc22c3acb13b43580a';
 const ADULT_SESSION_KEY = 'topotino_adult_unlocked_v1';
 const TOPOTINO_IMAGE = 'images/topotino.png?v=marco-v1';
+const CHAT_SENDERS = {
+  topotino: { name: 'Topotino', image: TOPOTINO_IMAGE },
+  topotina: { name: 'Topotina', image: 'images/topotina.png?v=topotina-v1' }
+};
 const CHATTER_LIMIT_CHARS = 500;
 const CHATTER_LIMIT_MESSAGES = 8;
 const CHATTER_WINDOW_MS = 60 * 1000;
@@ -839,7 +843,7 @@ async function askChallengeValidation(challenge, text) {
           prompt: challenge.prompt,
           options: challenge.options,
           correctOptionId: challenge.correctOptionId,
-          explanation: (challenge.successMessages || []).join(' ')
+          explanation: (challenge.successMessages || []).map(chatMessageText).join(' ')
         }
       })
     });
@@ -915,7 +919,21 @@ function endingMessages(variant) {
 }
 
 function toTopotinoMessages(texts) {
-  return texts.filter(Boolean).map((text) => ({ from: 'topotino', time: nowTime(), text }));
+  return texts.filter(Boolean).map((message) => {
+    if (typeof message === 'string') {
+      return { from: 'topotino', time: nowTime(), text: message };
+    }
+    return {
+      ...message,
+      from: message.from || 'topotino',
+      time: message.time || nowTime(),
+      text: message.text || ''
+    };
+  });
+}
+
+function chatMessageText(message) {
+  return typeof message === 'string' ? message : message?.text || '';
 }
 
 async function applyGuidedResponse(guided, sourceEpisode, userText = '') {
@@ -1127,6 +1145,7 @@ function nextChatterWarning() {
 
 async function deliverTopotinoMessages(messagesOrPromise, options = {}) {
   setBusy(true, false);
+  renderChallenge();
 
   try {
     const messagesPromise = Promise.resolve(messagesOrPromise);
@@ -1149,12 +1168,13 @@ async function deliverTopotinoMessages(messagesOrPromise, options = {}) {
       if (index < normalizedMessages.length - 1) {
         setBusy(true, false);
         await wait(randomInt(timing.staggerMin, timing.staggerMax));
-        setBusy(true, true);
+        setBusy(true, true, normalizedMessages[index + 1]?.from);
         await wait(randomInt(timing.nextTypingMin, timing.nextTypingMax));
       }
     }
   } finally {
     setBusy(false, false);
+    renderChallenge();
   }
 }
 
@@ -1304,18 +1324,39 @@ function renderMessages() {
       lastDateKey = dateKey;
     }
 
-    const row = document.createElement('article');
-    row.className = `message-row ${message.from === 'user' ? 'user' : 'topotino'}`;
+    if (message.from === 'system') {
+      const event = document.createElement('div');
+      event.className = 'chat-event';
+      event.textContent = message.text;
+      fragment.appendChild(event);
+      return;
+    }
 
-    if (message.from !== 'user') {
+    const isUser = message.from === 'user';
+    const sender = CHAT_SENDERS[message.from] || CHAT_SENDERS.topotino;
+    const row = document.createElement('article');
+    row.className = `message-row ${isUser ? 'user' : 'topotino'} sender-${message.from || 'topotino'}`;
+
+    if (!isUser) {
       const avatar = document.createElement('div');
       avatar.className = 'message-avatar';
-      avatar.innerHTML = `<img src="${TOPOTINO_IMAGE}" alt="Topotino" onerror="this.style.display='none'">`;
+      const image = document.createElement('img');
+      image.src = sender.image;
+      image.alt = sender.name;
+      image.addEventListener('error', () => { image.style.display = 'none'; });
+      avatar.appendChild(image);
       row.appendChild(avatar);
     }
 
     const bubble = document.createElement('div');
     bubble.className = 'message-bubble';
+
+    if (!isUser && message.from !== 'topotino') {
+      const senderName = document.createElement('div');
+      senderName.className = 'message-sender';
+      senderName.textContent = sender.name;
+      bubble.appendChild(senderName);
+    }
 
     const text = document.createElement('div');
     text.className = 'message-text';
@@ -1360,6 +1401,11 @@ function renderProgress() {
 
 function renderChallenge() {
   if (!els.challengePanel) return;
+  if (busy) {
+    els.challengePanel.innerHTML = '';
+    els.challengePanel.hidden = true;
+    return;
+  }
   const challenge = getActiveChallenge();
   els.challengePanel.innerHTML = '';
   if (challenge?.kind === 'check-in') {
@@ -1843,10 +1889,14 @@ function nowTime() {
   return formatRealTime(new Date());
 }
 
-function setBusy(nextBusy, showTyping = nextBusy) {
+function setBusy(nextBusy, showTyping = nextBusy, senderId = 'topotino') {
   busy = nextBusy;
   if (showTyping && els.typingText) {
-    els.typingText.textContent = nextTypingMessage();
+    els.typingText.textContent = senderId === 'topotina'
+      ? 'Topotina está escribiendo...'
+      : senderId === 'system'
+        ? 'El canal está conectando a alguien...'
+        : nextTypingMessage();
   }
   els.typing.hidden = !showTyping;
   els.sendButton.disabled = nextBusy;
@@ -2372,6 +2422,6 @@ function applyTestingParams() {
 
 function registerServiceWorker() {
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('service-worker.js?v=offline-v25').catch(() => {});
+    navigator.serviceWorker.register('service-worker.js?v=offline-v26').catch(() => {});
   }
 }

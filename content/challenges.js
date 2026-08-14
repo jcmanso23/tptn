@@ -8,7 +8,7 @@ function question(id, place, prompt, options, correctIndex, success, learn, hint
     prompt,
     options: options.map((text, index) => ({ id: optionIds[index], text })),
     correctOptionId: optionIds[correctIndex],
-    successMessages: [success, learn],
+    successMessages: [success, learn].flat().filter(Boolean),
     hint,
     recovery: {
       title: 'Comprobación sobre el terreno',
@@ -110,7 +110,13 @@ packs['006-magikland-curia'] = {
       ]),
       [
         question('magikland-q1', 'Magikland', '¿Cuál de estos movimientos es una oscilación?', ['Una noria que gira alrededor de su eje', 'Un barco que va y vuelve', 'Un tren que avanza por la vía'], 1, 'Correcto: ir y volver alrededor de una posición es oscilar.', 'La rotación gira alrededor de un eje; el desplazamiento cambia de lugar. Topoloco los mezclaba para que su máquina pareciera más lista.', 'Fijaos en qué movimiento cambia de dirección una y otra vez.'),
-        question('magikland-q2', 'Magikland', '¿Qué ayuda más a recordar un momento dentro de varios años?', ['Que sea el más ruidoso', 'Que nos importe o nos sorprenda', 'Que dure exactamente un minuto'], 1, 'Correcto. Solemos recordar mejor algo que nos importó, nos sorprendió o vivimos juntos.', 'Entra una transmisión: «Soy Topotina, tu hermana. Diseñé las ventanas». No la recuerdo. Ella responde: «No necesito que me recuerdes para seguir siendo tu hermana».', 'Pensad en vuestro momento elegido: ¿fue importante solo porque había ruido?')
+        question('magikland-q2', 'Magikland', '¿Qué ayuda más a recordar un momento dentro de varios años?', ['Que sea el más ruidoso', 'Que nos importe o nos sorprenda', 'Que dure exactamente un minuto'], 1, 'Correcto. Solemos recordar mejor algo que nos importó, nos sorprendió o vivimos juntos.', [
+          { from: 'system', text: 'Topotina se ha unido al canal.' },
+          { from: 'topotina', text: 'Hola, Paula y Hugo. Soy Topotina.' },
+          { from: 'topotina', text: 'Topotino, soy tu hermana. Yo diseñé las ventanas del mapa y tú escondiste la ruta. Así nadie podía robar toda la información.' },
+          { from: 'topotino', text: 'No te recuerdo. Lo siento.' },
+          { from: 'topotina', text: 'No necesito que me recuerdes para seguir siendo tu hermana.' }
+        ], 'Pensad en vuestro momento elegido: ¿fue importante solo porque había ruido?')
       ]
     ),
     question(

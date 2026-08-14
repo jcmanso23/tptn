@@ -5,6 +5,7 @@ import { join } from 'node:path';
 import { CHALLENGE_PACKS } from '../content/challenges.js';
 
 const root = process.cwd();
+const messageText = (message) => typeof message === 'string' ? message : message?.text || '';
 const futureEpisodeIds = [
   '005-amarante-puente',
   '006-magikland-curia',
@@ -56,8 +57,8 @@ test('cada jornada recuerda la ruta, permite recuperar Sombra y prepara el día 
     assert.ok(pack.steps.some((step) => step.kind === 'daily-recovery'), `${episodeId}: falta recuperación diaria`);
     const route = pack.steps.find((step) => step.kind === 'destination');
     assert.ok(route, `${episodeId}: falta ruta del día siguiente`);
-    assert.match(route.successMessages.join(' '), /preparad|tened|llevad/i, `${episodeId}: falta preparación`);
-    assert.match(route.successMessages.join(' '), /descansad|guardad energía/i, `${episodeId}: falta cierre del día`);
+    assert.match(route.successMessages.map(messageText).join(' '), /preparad|tened|llevad/i, `${episodeId}: falta preparación`);
+    assert.match(route.successMessages.map(messageText).join(' '), /descansad|guardad energía/i, `${episodeId}: falta cierre del día`);
   }
 });
 
@@ -74,7 +75,12 @@ test('el día 14 revela Magikland antes que Curia y conserva la continuidad', ()
   assert.doesNotMatch([firstRoute.prompt, ...firstRoute.successMessages, ...day14.openingMessages].join(' '), /Curia|Hotel do Parque/i);
   assert.ok(magiklandEnd >= 0 && magiklandEnd < curiaRoute);
   assert.ok(curiaRoute < curiaExpedition);
-  assert.match(day14.steps[curiaRoute].successMessages.join(' '), /Curia|Hotel do Parque/i);
+  assert.match(day14.steps[curiaRoute].successMessages.map(messageText).join(' '), /Curia|Hotel do Parque/i);
+
+  const topotinaEntrance = day14.steps.find((step) => step.id === 'magikland-q2').successMessages;
+  assert.equal(topotinaEntrance.findIndex((message) => message?.from === 'system'), 1);
+  assert.equal(topotinaEntrance.filter((message) => message?.from === 'topotina').length, 3);
+  assert.ok(topotinaEntrance.some((message) => message?.from === 'topotino' && /No te recuerdo/.test(message.text)));
 
   const visibleDay14Text = [
     ...day14.openingMessages,
@@ -83,8 +89,8 @@ test('el día 14 revela Magikland antes que Curia y conserva la continuidad', ()
       step.title,
       step.intro,
       ...(step.actions || []),
-      ...(step.successMessages || []),
-      ...(step.doneMessages || []),
+      ...(step.successMessages || []).map(messageText),
+      ...(step.doneMessages || []).map(messageText),
       ...(step.options || []).map((option) => option.text)
     ])
   ].filter(Boolean).join(' ');
@@ -99,8 +105,8 @@ test('las pruebas son breves, físicas y enseñan después de elegir', () => {
         step.title,
         step.intro,
         ...(step.actions || []),
-        ...(step.successMessages || []),
-        ...(step.doneMessages || []),
+        ...(step.successMessages || []).map(messageText),
+        ...(step.doneMessages || []).map(messageText),
         ...(step.options || []).map((option) => option.text)
       ].filter(Boolean);
       assert.ok(childTexts.every((text) => text.length <= 220), `${step.id}: mensaje demasiado largo`);

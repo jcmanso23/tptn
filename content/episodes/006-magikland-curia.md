@@ -169,8 +169,11 @@ El Cuaderno de la Memoria continúa privado. Topotino no pide que cuenten qué e
     "messages": [
       { "from": "topotino", "time": "auto", "text": "Gracias. Habéis dicho qué ocurrió, qué lo causó y por qué os importó. La máquina reacciona cuando un momento os importa, no cuando solo hay mucho ruido. Acaba de imprimir: «MUESTRA VÁLIDA»." },
       { "from": "topotino", "time": "auto", "text": "La máquina tiene una segunda firma, como si estuviera emparejada con otro parque. No aparece el nombre. Solo una brújula, un barco y colores muy intensos." },
-      { "from": "topotino", "time": "auto", "text": "Un mensaje acaba de entrar en el canal: «Soy Topotina. Soy tu hermana. Yo diseñé las ventanas, pero tú escondiste la ruta»." },
-      { "from": "topotino", "time": "auto", "text": "No la recuerdo. Se lo he dicho. Ha contestado: «No necesito que me recuerdes para seguir siendo tu hermana». Vale. Eso me ha dejado los bigotes bastante quietos." },
+      { "from": "system", "time": "auto", "text": "Topotina se ha unido al canal." },
+      { "from": "topotina", "time": "auto", "text": "Hola, Paula y Hugo. Soy Topotina." },
+      { "from": "topotina", "time": "auto", "text": "Topotino, soy tu hermana. Yo diseñé las ventanas del mapa y tú escondiste la ruta. Así nadie podía robar toda la información." },
+      { "from": "topotino", "time": "auto", "text": "No te recuerdo. Lo siento." },
+      { "from": "topotina", "time": "auto", "text": "No necesito que me recuerdes para seguir siendo tu hermana." },
       { "from": "topotino", "time": "auto", "text": "La siguiente coordenada no señala Curia entera. Señala un edificio que abrió en 1922 y todavía recibe viajeros. Cuando encontréis el Hotel do Parque, escribid HOTEL DO PARQUE. Allí comprobaremos si un lugar puede conservar memoria aunque cambie de uso." }
     ]
   },
@@ -314,7 +317,7 @@ El Cuaderno de la Memoria continúa privado. Topotino no pide que cuenten qué e
 
 ## Contexto para IA
 
-Topotino recuerda todo desde el eclipse y consulta la memoria de viaje persistente. Si falta `completado_amarante`, reconoce que no abrieron la ventana anterior y no atribuye deducciones que no hicieron. Al inicio conoce el plano firmado `TOP O LOCO` y el Cazarrisas; la firma aumenta la sospecha, pero no demuestra quién causó la amnesia. Tras `magikland_recuerdo_elegido`, sabe que el aparato graba qué observan, qué eligen y qué recuerdan después; detecta la firma de un segundo parque y recibe a Topotina. No la recuerda, pero acepta como hecho nuevo que afirma ser su hermana y diseñó el mapa. Tras `curia_paisaje_razonado`, sabe qué partes de 1922 y qué elemento moderno identificaron en el Hotel do Parque. Tras `curia_quietud_observada`, recupera solo la sensación de haberse reído con ellos en Londres y ve aclararse la tercera ventana. Conversa a nivel intelectual aproximado de diez años con frases concretas: nombra el objeto, la acción y el resultado, y define cualquier término técnico con un ejemplo. El Cuaderno es privado. No pide agua de atracciones, piscinas o lago. No conoce el museo, Granada ni los doce leones. Al cerrar conduce mediante una imagen precisa del bosque y pide descanso.
+Topotino recuerda todo desde el eclipse y consulta la memoria de viaje persistente. Si falta `completado_amarante`, reconoce que no abrieron la ventana anterior y no atribuye deducciones que no hicieron. Al inicio conoce el plano firmado `TOP O LOCO` y el Cazarrisas; la firma aumenta la sospecha, pero no demuestra quién causó la amnesia. Tras `magikland_recuerdo_elegido`, sabe que el aparato graba qué observan, qué eligen y qué recuerdan después; detecta la firma de un segundo parque y recibe a Topotina. La entrada de Topotina aparece con remitente y avatar propios: Topotino no parafrasea sus mensajes. No la recuerda, pero acepta como hecho nuevo que afirma ser su hermana y diseñó el mapa. Tras `curia_paisaje_razonado`, sabe qué partes de 1922 y qué elemento moderno identificaron en el Hotel do Parque. Tras `curia_quietud_observada`, recupera solo la sensación de haberse reído con ellos en Londres y ve aclararse la tercera ventana. Conversa a nivel intelectual aproximado de diez años con frases concretas: nombra el objeto, la acción y el resultado, y define cualquier término técnico con un ejemplo. El Cuaderno es privado. No pide agua de atracciones, piscinas o lago. No conoce el museo, Granada ni los doce leones. Al cerrar conduce mediante una imagen precisa del bosque y pide descanso.
 
 ## Fuentes documentales
 

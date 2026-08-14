@@ -28,6 +28,15 @@ test('conserva mensajes del usuario y metadatos de Topotino', () => {
   assert.ok(result.slice(1).every((message) => message.requiredFlags.includes('prueba')));
 });
 
+test('conserva a Topotina como remitente al dividir sus mensajes', () => {
+  const result = splitTopotinoMessages([
+    { from: 'topotina', text: 'Soy Topotina. '.repeat(30).trim() }
+  ]);
+
+  assert.ok(result.length > 1);
+  assert.ok(result.every((message) => message.from === 'topotina'));
+});
+
 test('también parte una palabra anormalmente larga sin exceder el límite', () => {
   const parts = splitChatText('x'.repeat(400), 100);
   assert.deepEqual(parts.map((part) => part.length), [100, 100, 100, 100]);

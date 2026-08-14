@@ -516,6 +516,36 @@ input {
   text-shadow: 0 2px 8px rgba(0, 0, 0, .4);
 }
 
+.message-sender {
+  margin: -4px 0 8px;
+  color: #ff8ed8;
+  font-size: 14px;
+  font-weight: 900;
+  letter-spacing: .04em;
+}
+
+.sender-topotina .message-avatar {
+  border-color: #ff6fc6;
+  background: #fff;
+}
+
+.sender-topotina .message-avatar img {
+  object-position: center 18%;
+}
+
+.sender-topotina .message-bubble {
+  border-color: rgba(255, 111, 198, .78);
+  background: linear-gradient(135deg, rgba(58, 35, 82, .98), rgba(12, 33, 57, .98));
+}
+
+.sender-topotina.message-row.topotino .message-bubble::before {
+  border-right-color: rgba(255, 111, 198, .78);
+}
+
+.sender-topotina.message-row.topotino .message-bubble::after {
+  border-right-color: #382450;
+}
+
 .message-row.topotino .message-bubble::before {
   content: "";
   position: absolute;
@@ -564,6 +594,20 @@ input {
   font-weight: 800;
   letter-spacing: .04em;
   text-transform: uppercase;
+}
+
+.chat-event {
+  width: fit-content;
+  max-width: 82%;
+  margin: 4px auto 20px;
+  padding: 8px 16px;
+  border: 1px solid rgba(255, 111, 198, .45);
+  border-radius: 999px;
+  background: rgba(33, 16, 47, .78);
+  color: #ffd4ef;
+  font-size: 13px;
+  font-weight: 800;
+  text-align: center;
 }
 
 .message-text {
