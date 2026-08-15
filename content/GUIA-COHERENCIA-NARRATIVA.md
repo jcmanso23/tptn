@@ -1,6 +1,6 @@
 # Guía maestra de coherencia narrativa · Las Doce Aguas
 
-**Versión canónica:** 15 de agosto de 2026 · edición T-20A9
+**Versión canónica:** 15 de agosto de 2026 · edición T-20B0
 **Final principal:** Alhambra, Palacios Nazaríes, noche del 26 de agosto
 **Epílogo:** Generalife, 27 de agosto; no abre otra amenaza
 
@@ -226,6 +226,8 @@ La noche anterior se descubre mediante opciones solo la parte de la ruta que la 
 
 Esta regla es literal: **nunca se enumera el plan completo de un día**. La víspera solo se descubre la primera parada. Al terminarla, un hallazgo visible, una lectura de Topotina, un rastro de Topoloco o una interferencia de un Oscurno permite deducir una única parada nueva. Los lugares internos del canon sirven a los adultos y al motor, pero Topotino no los conoce ni los recita antes de tiempo.
 
+Existe una excepción razonada el 15 de agosto. Portugal dos Pequenitos funciona como un índice físico de monumentos: Paula y Hugo localizan allí la representación documentada del Monasterio de Batalha y descubren que Topoloco ha superpuesto en la señal una falsa representación de Fátima, que no figura en el inventario histórico del proyecto. Así recuperan juntos los dos nombres que Topoloco había mezclado, pero no reciben dos misiones: solo se abre la coordenada de Batalha. La visita al monasterio real permite ordenar la información y desbloquear después la coordenada de Fátima.
+
 Al comenzar cada mañana, Topotino resume la aventura ya vivida, no el itinerario futuro. El resumen separa cuatro cosas con frases breves: qué ocurrió, qué aprendieron, qué sospechan y qué siguen sin saber. Termina recordando la pista concreta que justifica únicamente la primera parada de ese día. El 15 de agosto este resumen es deliberadamente más amplio porque la amnesia, las interferencias y la llegada de Topotina han dejado a Paula y Hugo desorientados.
 
 Aprender mucho no significa recibir un discurso largo. Cada lugar reparte el conocimiento entre observaciones físicas, decisiones con opciones y conversaciones breves. Topotino o un aliado explica después de cada hallazgo un dato histórico, científico, natural o cultural verificable; Topotina puede ordenar datos, detectar contradicciones o bromear con su hermano, pero nunca sustituye la observación de Paula y Hugo.
@@ -237,7 +239,7 @@ Aprender mucho no significa recibir un discurso largo. Cada lugar reparte el con
 | Antes | Luanco y eclipse | Primera ventana marcada; ataque y amnesia | Paquete, cuaderno y pista del Tâmega |
 | 13 | Amarante | Primer transmisor; historia pública, tradición y paisaje | Recuerdo incompleto de seis mundos y máquina de atención |
 | 14 | Magikland, Hotel do Parque, Buçaco breve | Topoloco aprende cómo nace un recuerdo; aparece Topotina; edificio y bosque con épocas distintas | Un Portugal representado a escala, una promesa y un lugar pequeño |
-| 15 | Portugal dos Pequenitos, Batalha, Fátima | Distinguir representación y original; promesa, obra incompleta y escala | Rastros de animal y agua bajo tierra |
+| 15 | Portugal dos Pequenitos, Batalha, Fátima | Deshacer la mezcla de Topoloco entre una representación real y otra falsa; comprobar promesa, obra incompleta y escala en los originales | Rastros de animal y agua bajo tierra |
 | 16 | Huellas, Mira de Aire, Óbidos | Borrón deja pistas; rastros, procesos y diferencia dato/interpretación | Los recuerdos fueron extraídos; fósiles y reconstrucción |
 | 17 | Dino Parque, Lisboa | Original, modelo e inferencia; aparece el Museo Topoloco | Laboratorio de adaptaciones y océano conectado |
 | 18 | Pavilhão, Oceanário, Tejo | Vasco enseña Protocolo Azul; doce nodos son una red | Leer una ciudad por capas |
@@ -341,6 +343,16 @@ Antes de publicar un cambio:
 - [ ] El final continúa en la Alhambra nocturna y el Generalife es solo epílogo.
 
 ## 19. Registro de decisiones
+
+### 15 de agosto de 2026 · T-20B0
+
+- Buçaco deja dos fragmentos arquitectónicos sin nombre. Topotina propone Portugal dos Pequenitos porque reúne en un solo recinto representaciones de monumentos portugueses y permite identificarlos sin conocer previamente la ruta.
+- La documentación del proyecto confirma la representación del Monasterio de Batalha. Fátima no figura en ese inventario: Topoloco ha añadido su silueta a la transmisión para fundir ambos lugares bajo una sola etiqueta y ocultar qué parte es fuente y cuál es manipulación.
+- Paula y Hugo deben comprobar físicamente el conjunto monumental, localizar Batalha y buscar Fátima en planos o placas. La ausencia no prueba que Fátima no exista; demuestra que esa parte concreta de la señal no procede del parque.
+- En Portugal dos Pequenitos descubren los nombres Batalha y Fátima y que Topoloco los mezcló. Solo se abre la coordenada de Batalha. Las Capelas Imperfeitas permiten ordenar las dos señales y desbloquear después Fátima, cuya misión sigue esperando la llegada física.
+- La excepción no convierte la jornada en un itinerario anunciado: los niños descubren dos piezas de una misma manipulación sobre el terreno, pero reciben una sola ruta activa cada vez.
+- Cuando Gotas entra en el canal, Topotino se enfada cómicamente porque parece que cualquiera puede acceder a su chat secreto. Topotina aclara que Gotas usa una invitación de un solo uso firmada por el propio Topotino antes del eclipse; no existe una brecha nueva.
+- Se conservan IDs, flags, aguas y progreso. Las partidas que ya hayan superado una parte del día no repiten retos.
 
 ### 15 de agosto de 2026 · T-20A9
 

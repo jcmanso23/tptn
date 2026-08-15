@@ -192,6 +192,19 @@ test('el cambio real mueve Buçaco al día 14 y abre el día 15 en Portugal dos 
   assert.ok(day15Ids.indexOf('dia15-pista-batalha') < day15Ids.indexOf('batalha-q1'));
   assert.ok(day15Ids.indexOf('batalha-q2') < day15Ids.indexOf('dia15-pista-fatima'));
   assert.ok(day15Ids.indexOf('dia15-pista-fatima') < day15Ids.indexOf('fatima-expedicion'));
+
+  const portugalExpedition = day15.steps.find((step) => step.id === 'portugal-pequenitos-expedicion');
+  const portugalQ3 = day15.steps.find((step) => step.id === 'portugal-pequenitos-q3');
+  const portugalQ4 = day15.steps.find((step) => step.id === 'portugal-pequenitos-q4');
+  const batalhaRoute = day15.steps.find((step) => step.id === 'dia15-pista-batalha');
+  const fatimaRoute = day15.steps.find((step) => step.id === 'dia15-pista-fatima');
+
+  assert.match(portugalExpedition.actions.join(' '), /Monasterio de Batalha.*Santuario de Fátima/is);
+  assert.match(portugalExpedition.doneMessages.map(messageText).join(' '), /confirma Batalha.*Fátima no figura.*Topoloco/is);
+  assert.match(portugalQ3.prompt, /monumento.*plano.*placa/i);
+  assert.match(portugalQ4.prompt, /Fátima.*señal de Topoloco.*inventario/i);
+  assert.match(batalhaRoute.successMessages.map(messageText).join(' '), /dos nombres.*solo Batalha.*coordenada/is);
+  assert.match(fatimaRoute.successMessages.map(messageText).join(' '), /Ahora sí.*coordenada.*Fátima/is);
 });
 
 test('Gotas se anuncia después de las huellas y solo entra al llegar a Mira de Aire', () => {
@@ -207,11 +220,13 @@ test('Gotas se anuncia después de las huellas y solo entra al llegar a Mira de 
   assert.ok(miraArrival.location, 'la entrada de Gotas debe esperar la llegada física');
   assert.ok(miraArrival.arrivalMessages.some((message) => message?.from === 'system' && /Gotas se ha unido/i.test(message.text)));
   assert.ok(miraArrival.arrivalMessages.filter((message) => message?.from === 'gotas').length >= 2);
+  assert.ok(miraArrival.arrivalMessages.some((message) => message?.from === 'topotino' && /cualquiera.*CHAT SECRETO/i.test(message.text)));
+  assert.ok(miraArrival.arrivalMessages.some((message) => message?.from === 'topotina' && /invitación de un solo uso.*firmada por ti/i.test(message.text)));
   assert.ok(miraArrival.arrivalMessages.some((message) => message?.from === 'topotina' && /Firma verificada/i.test(message.text)));
   assert.ok(miraExpedition.doneMessages.some((message) => message?.from === 'gotas'));
 });
 
-test('cada lugar revela solo la siguiente parada y nunca el itinerario completo', () => {
+test('cada lugar revela solo el paso accionable siguiente y nunca el itinerario completo', () => {
   const forbidden = [
     'Portugal dos Pequenitos, Batalha y Fátima',
     'Pegadas de Dinossáurios, Mira de Aire y Óbidos',

@@ -142,7 +142,7 @@ Huellas, cueva y ciudad amurallada enseñan a inferir procesos ausentes mediante
 
 ## Contexto para IA
 
-Gotas aparece en tres pasos: firma incompleta tras las huellas, identidad verificada por Topotina al llegar y explicación de su función. Usa avatar y remitente propios. Puede saludar y corregir una confusión geológica, pero no resuelve las pruebas. Borrón es reconocido por su rastro, no capturado. Topotino admite límites. No pide material físico ni el cuaderno. Al final sabe que los recuerdos fueron extraídos y repartidos, sin conocer museo ni destino final.
+Gotas aparece en tres pasos: firma incompleta tras las huellas, acceso con una invitación de un solo uso firmada por Topotino antes del eclipse e identidad verificada por Topotina al llegar. Topotino se enfada cómicamente porque parece que cualquiera entra en su chat secreto; Topotina aclara que no existe una brecha nueva. Gotas usa avatar y remitente propios, explica su función y puede corregir una confusión geológica, pero no resuelve las pruebas. Borrón es reconocido por su rastro, no capturado. Topotino admite límites. No pide material físico ni el cuaderno. Al final sabe que los recuerdos fueron extraídos y repartidos, sin conocer museo ni destino final.
 
 ## Fuentes documentales
 

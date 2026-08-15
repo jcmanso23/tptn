@@ -294,26 +294,28 @@ packs['007-bucaco-batalha-fatima'] = {
     'En Magikland descubristeis el Cazarrisas: un programa firmado por Topoloco que estudia qué miráis y por qué un momento se convierte en recuerdo.',
     { from: 'topotina', text: 'En Magikland entré yo. Recuerdo que Topotino es mi hermano y demostré que construimos el comunicador juntos. Él todavía no me recuerda.' },
     { from: 'topotino', text: 'Es bastante incómodo. Sobre todo porque también ha recordado exactamente cuántos cables tengo sin ordenar.' },
-    'En el Hotel do Parque y en Buçaco comprobasteis que un lugar puede conservar partes de épocas distintas. Buçaco dejó una imagen de Portugal representado a escala.',
+    'En el Hotel do Parque y en Buçaco comprobasteis que un lugar puede conservar partes de épocas distintas. Buçaco dejó dos fragmentos de monumentos portugueses mezclados y sin nombre.',
     { from: 'topotina', text: 'Eso es lo que sabemos. Ignoramos qué quiere hacer Topoloco con los recuerdos, dónde están las demás ventanas y si el contador de Sombra detectará otra intrusión.' },
     'La única pista abierta señala Portugal dos Pequenitos. Cuando lleguéis, veremos qué necesita que comprobéis allí.'
   ],
   steps: [
     ...withOrder(
       onArrival(expedition('portugal-pequenitos-expedicion', 'Portugal dos Pequenitos', 'Expedición de un país representado', 'No estáis viendo todo Portugal ni los edificios originales. Investigad qué conserva y qué cambia esta representación.', [
-        'Recorred Casas Regionales y Portugal Monumental; elegid una casa y un monumento.',
-        'Buscad dos pistas de escala: puertas, ventanas o alturas comparadas con vuestro cuerpo.',
-        'Elegid un detalle que la reproducción conserva y otro que reduce, omite o cambia de lugar.',
-        'Localizad el núcleo de Coimbra y comprobad cómo reúne varios edificios en poco espacio.'
+        'Entrad en Portugal Monumental y usad sus placas o plano para localizar la representación del Monasterio de Batalha.',
+        'Buscad en ella dos detalles que permitan reconocer el edificio sin confundirlo con el original.',
+        'Revisad las placas o el plano para comprobar si también figura el Santuario de Fátima. No deis por cierto lo que muestra mi pantalla.',
+        'Comparad una puerta o ventana reducida con vuestro cuerpo y decid qué ha cambiado la representación.'
       ], [
         'Expedición completada. El parque abrió en 1940 y fue proyectado por Cassiano Branco para enseñar mediante edificios a escala infantil.',
-        'Una representación puede conservar formas y detalles, pero reduce tamaños, distancias y parte del contexto. Sirve para comparar; no sustituye al original.'
+        'El archivo del proyecto confirma Batalha entre los monumentos representados. Fátima no figura en ese inventario: esa segunda silueta apareció solo en la señal de Topoloco.',
+        { from: 'topotina', text: 'Perfecto. No habéis confundido «no está en este inventario» con «no existe». Habéis descubierto qué parte de la señal fue añadida.' },
+        { from: 'topotino', text: 'Topoloco ha pegado dos lugares como quien arregla un mapa con chicle. Y luego presume de precisión.' }
       ]), ARRIVAL_LOCATIONS.portugalPequenitos, [
         { from: 'topotina', text: 'Coordenada de Coimbra confirmada. Anoche movimos Buçaco; esta es la señal que ocupaba su lugar en el mapa de hoy.' },
         { from: 'topotino', text: 'O sea, ¿Portugal entero se ha encogido?' },
         { from: 'topotina', text: 'No. Es una representación a escala.' },
         { from: 'topotino', text: 'Lo sabía. Estaba comprobando si la técnica misteriosa mantenía la calma.' },
-        { from: 'topotina', text: 'Comparad lo que conserva con lo que reduce o cambia. Yo solo vigilaré la señal.' }
+        { from: 'topotina', text: 'Buçaco devolvió dos fragmentos sin nombre. Este parque reúne monumentos de todo Portugal: buscad cuáles son reales y cuál ha añadido Topoloco a la señal.' }
       ]),
       [
         question('portugal-pequenitos-q1', 'Portugal dos Pequenitos', '¿Por qué se inauguró este parque-jardín en 1940?', ['Como espacio educativo y de juego pensado para la infancia', 'Para guardar los edificios originales de Portugal', 'Como base secreta de Topoloco'], 0, 'Correcto: nació como espacio educativo y de juego.', [
@@ -322,20 +324,20 @@ packs['007-bucaco-batalha-fatima'] = {
           { from: 'topotino', text: 'Anotado: medir primero. Mi último túnel salió con una curva que nadie había pedido.' }
         ], 'Buscad una opción que explique por qué los edificios están adaptados al tamaño infantil.'),
         question('portugal-pequenitos-q2', 'Portugal dos Pequenitos', '¿Qué estáis viendo al mirar una Torre de Belém pequeña?', ['Una representación construida del monumento', 'La torre original trasladada a Coimbra', 'Una fotografía sin volumen'], 0, 'Correcto: es una representación construida.', 'Conserva rasgos reconocibles, pero cambia la escala y el lugar. El original continúa en Belém y tiene su propia historia y función.', 'Comparad la puerta o las ventanas con vuestro tamaño.'),
-        question('portugal-pequenitos-q3', 'Portugal dos Pequenitos', 'Las casas regionales muestran diferencias de norte a sur. ¿Qué ha hecho el parque?', ['Seleccionar rasgos de varias arquitecturas para poder compararlas', 'Demostrar que todas las casas portuguesas son idénticas', 'Trasladar pueblos completos a Coimbra'], 0, 'Exacto: ha seleccionado rasgos para compararlos.', [
-          'Los tejados, materiales, colores y formas responden a climas y tradiciones distintas. Una selección ayuda a comparar, pero no contiene todas las casas de una región.',
-          { from: 'topotina', text: 'Acaba de reaccionar una miniatura de monasterio. La señal insiste en buscar el edificio real relacionado con una promesa y una victoria.' }
-        ], 'Comparad dos casas de regiones distintas y localizad una diferencia visible.'),
-        question('portugal-pequenitos-q4', 'Portugal dos Pequenitos', '¿Para qué sirve mejor una maqueta o reproducción honesta?', ['Para comparar formas explicando qué ha reducido o cambiado', 'Para demostrar que ya no hace falta visitar originales', 'Para fingir que todo Portugal cabe realmente allí'], 0, 'Exacto. Enseña si reconoce sus límites.', [
-          'Topoloco intenta que una copia parezca la única versión. Vosotros acabáis de demostrar que una representación es útil cuando dice qué conserva y qué transforma.',
-          'La miniatura del monasterio ha dejado una palabra: PROMESA. Esa es la siguiente pista; todavía no sabemos qué encontraremos allí.'
-        ], 'Elegid la opción que permite aprender sin confundir representación y original.')
+        question('portugal-pequenitos-q3', 'Portugal dos Pequenitos', '¿Qué monumento confirma el plano o la placa que está representado aquí?', ['El Monasterio de Batalha', 'El Santuario de Fátima', 'La Alhambra'], 0, 'Exacto: habéis localizado la representación de Batalha.', [
+          'Cassiano Branco reunió rasgos del monasterio dentro del conjunto de las Beiras. La piedra, el espacio interior y las Capelas Imperfeitas solo podrán comprobarse en el edificio real.',
+          { from: 'topotina', text: 'Al tocar la señal de Batalha aparece la palabra PROMESA. El primer fragmento ya tiene nombre.' }
+        ], 'Usad la placa o el plano del parque, no solo el parecido visual.'),
+        question('portugal-pequenitos-q4', 'Portugal dos Pequenitos', 'Si Fátima aparece en la señal de Topoloco pero no en el inventario que habéis comprobado, ¿qué demuestra?', ['Que Topoloco añadió esa parte a la señal', 'Que Fátima no existe', 'Que todos los edificios religiosos son el mismo'], 0, 'Exacto. La ausencia en este inventario delata la manipulación, no borra el lugar real.', [
+          'Topoloco ha superpuesto una capilla pequeña y una gran explanada sobre la representación de Batalha. Quiere reducir dos historias distintas a una sola etiqueta: EDIFICIO RELIGIOSO.',
+          { from: 'topotina', text: 'Habéis recuperado dos nombres: Batalha y Fátima. Ahora hay que separarlos y averiguar qué comprueba cada lugar real.' }
+        ], 'Distinguid «no está representado aquí» de «no existe»; son afirmaciones diferentes.')
       ]
     ),
-    nextStop('dia15-pista-batalha', 'La miniatura señala un monasterio real iniciado tras una victoria y una promesa de D. João I. ¿Cuál es?', ['Monasterio de Batalha', 'Palacio da Pena', 'Catedral de Oporto'], 0, [
-      'La señal encaja con el Monasterio de Batalha.',
-      { from: 'topotino', text: 'No estaba en un plan que yo recuerde. Es la miniatura y la palabra PROMESA las que nos llevan hasta allí.' },
-      { from: 'topotina', text: 'He enviado una sola coordenada. La siguiente seguirá cerrada hasta que encontréis qué dejó Topoloco en Batalha.' }
+    nextStop('dia15-pista-batalha', 'Topoloco mezcló Batalha y Fátima. ¿Cuál debemos comprobar primero porque su representación real ha dado la palabra PROMESA?', ['Monasterio de Batalha', 'Santuario de Fátima', 'Los dos a la vez'], 0, [
+      'Primero comprobaremos el Monasterio de Batalha.',
+      { from: 'topotino', text: 'Habéis descubierto los dos nombres vosotros, buscando dentro del parque. Pero solo Batalha ha abierto una coordenada.' },
+      { from: 'topotina', text: 'Fátima queda anotada, no activada. Batalha debe decirnos por qué Topoloco las colocó juntas y cuál es el orden correcto.' }
     ]),
     ...withOrder(
       expedition('batalha-expedicion', 'Monasterio de Batalha', 'Expedición de la promesa de piedra', 'Buscad cómo una victoria y una promesa se convirtieron en un edificio trabajado durante generaciones.', [
@@ -349,7 +351,7 @@ packs['007-bucaco-batalha-fatima'] = {
       ]),
       [
         onArrival(question('batalha-q1', 'Monasterio de Batalha', '¿Por qué se empezó a construir el monasterio?', ['Por una promesa ligada a una victoria', 'Para ocultar un parque acuático', 'Porque las Capelas Imperfeitas ya existían'], 0, 'Exacto. La promesa y la victoria están en el origen del monumento.', 'La construcción comenzó en 1388 y convirtió una decisión histórica en un lugar de memoria.', 'Pensad qué hecho y qué promesa explican su nombre y su origen.'), ARRIVAL_LOCATIONS.batalha, [
-          { from: 'topotino', text: 'En Coimbra habéis visto un monasterio representado a escala. La señal nos lleva ahora ante un monasterio real nacido de una promesa.' },
+          { from: 'topotino', text: 'En Coimbra separasteis la representación real de Batalha de la falsa superposición de Fátima. Ahora comprobaremos el primero de los dos originales.' },
           { from: 'topotino', text: 'Ahora sí: estáis ante el Monasterio de Batalha. Comparad lo que una reproducción puede mostrar con los materiales, el tamaño y el espacio del edificio real.' }
         ]),
         question('batalha-q2', 'Monasterio de Batalha', '¿Qué enseñan las Capelas Imperfeitas?', ['Que una obra incompleta también puede tener valor e historia', 'Que nunca se comenzó a trabajar en ellas', 'Que todo el monasterio está sin techo'], 0, 'Muy bien. Incompleto no significa vacío.', [
@@ -361,9 +363,9 @@ packs['007-bucaco-batalha-fatima'] = {
       ],
       'question-first'
     ),
-    nextStop('dia15-pista-fatima', 'La nueva pista habla de una gran explanada cuyo corazón es una capilla pequeña. ¿Qué lugar encaja?', ['Santuario de Fátima', 'Estadio de Coimbra', 'Castillo de Leiria'], 0, [
-      'La pista señala el Santuario de Fátima.',
-      { from: 'topotino', text: 'Batalha nos ha enseñado que el tamaño y el acabado no deciden por sí solos el valor. La señal quiere que comprobemos ahora si el centro de un lugar puede ser lo más pequeño.' },
+    nextStop('dia15-pista-fatima', 'En Coimbra quedó pendiente el segundo nombre. ¿Qué lugar debemos comprobar ahora para entender una capilla pequeña dentro de una explanada enorme?', ['Santuario de Fátima', 'Estadio de Coimbra', 'Castillo de Leiria'], 0, [
+      'Ahora sí: la coordenada del Santuario de Fátima queda confirmada.',
+      { from: 'topotino', text: 'Las Capelas Imperfeitas demuestran que inacabado no significa inútil. Eso ha separado la señal de Fátima de la de Batalha.' },
       { from: 'topotina', text: 'Coordenada enviada. No hay ninguna parada más visible detrás.' }
     ]),
     ...withOrder(
@@ -442,9 +444,12 @@ packs['008-huellas-mira-obidos'] = {
         onArrival(question('mira-q1', 'Grutas de Mira de Aire', '¿Cuál crece desde el techo?', ['La estalactita', 'La estalagmita', 'El lago'], 0, 'Correcto: la estalactita cuelga del techo.', 'La estalagmita crece desde el suelo por las gotas que caen. Si llegan a unirse, pueden formar una columna.', 'Recordad la forma que habéis visto colgar.'), ARRIVAL_LOCATIONS.mira, [
           { from: 'topotino', text: 'Las huellas conservan un paso sobre la superficie. La nueva pista apunta a marcas creadas gota a gota bajo tierra.' },
           { from: 'system', text: 'Gotas se ha unido al canal.' },
-          { from: 'gotas', text: '¡Paula, Hugo! Soy Gotas. Conozco estas cuevas y recuerdo a Topotino, aunque él tenga ahora la memoria como un colador.' },
-          { from: 'topotino', text: 'Objeción: mis coladores están perfectamente archivados. A ti, en cambio, no te recuerdo.' },
-          { from: 'topotina', text: 'Firma verificada. Es Gotas, nuestro enlace en Mira de Aire. Su clave coincide con la red anterior al eclipse.' },
+          { from: 'topotino', text: '¿¡Cómo que Gotas se ha unido!? ¿Puede entrar cualquiera en mi CHAT SECRETO? ¡Topotina!' },
+          { from: 'topotina', text: 'No cualquiera. Ha usado una invitación de un solo uso, firmada por ti antes del eclipse y verificada por mí.' },
+          { from: 'topotino', text: '¿Mi yo anterior repartía llaves del chat? Cada minuto me cae un poco peor ese individuo.' },
+          { from: 'gotas', text: 'Hola, Paula y Hugo. Soy Gotas. Conozco estas cuevas y recuerdo a Topotino, aunque él tenga ahora la memoria como un colador.' },
+          { from: 'topotino', text: 'Mis coladores están perfectamente archivados. A ti, en cambio, todavía no te recuerdo.' },
+          { from: 'topotina', text: 'Firma verificada. Es Gotas, nuestro enlace en Mira de Aire. No hay ninguna brecha nueva en el canal.' },
           { from: 'gotas', text: 'Yo explicaré lo que hace el agua después de que observéis. No responderé por vosotros. Primero mirad techo y suelo.' },
           { from: 'topotino', text: 'Un experto que no hace los deberes ajenos. Estupendo: ya me cae bien por segunda vez.' }
         ]),
