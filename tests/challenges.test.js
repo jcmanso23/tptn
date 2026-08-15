@@ -194,6 +194,23 @@ test('el cambio real mueve Buçaco al día 14 y abre el día 15 en Portugal dos 
   assert.ok(day15Ids.indexOf('dia15-pista-fatima') < day15Ids.indexOf('fatima-expedicion'));
 });
 
+test('Gotas se anuncia después de las huellas y solo entra al llegar a Mira de Aire', () => {
+  const day16 = CHALLENGE_PACKS['008-huellas-mira-obidos'];
+  const routeToMira = day16.steps.find((step) => step.id === 'dia16-pista-mira');
+  const miraArrival = day16.steps.find((step) => step.id === 'mira-q1');
+  const miraExpedition = day16.steps.find((step) => step.id === 'mira-expedicion');
+  const openingText = day16.openingMessages.map(messageText).join(' ');
+
+  assert.doesNotMatch(openingText, /Gotas/i);
+  assert.ok(routeToMira.successMessages.some((message) => message?.from === 'topotina' && /firma aliada: GOTAS/i.test(message.text)));
+  assert.equal(routeToMira.successMessages.some((message) => message?.from === 'gotas'), false);
+  assert.ok(miraArrival.location, 'la entrada de Gotas debe esperar la llegada física');
+  assert.ok(miraArrival.arrivalMessages.some((message) => message?.from === 'system' && /Gotas se ha unido/i.test(message.text)));
+  assert.ok(miraArrival.arrivalMessages.filter((message) => message?.from === 'gotas').length >= 2);
+  assert.ok(miraArrival.arrivalMessages.some((message) => message?.from === 'topotina' && /Firma verificada/i.test(message.text)));
+  assert.ok(miraExpedition.doneMessages.some((message) => message?.from === 'gotas'));
+});
+
 test('cada lugar revela solo la siguiente parada y nunca el itinerario completo', () => {
   const forbidden = [
     'Portugal dos Pequenitos, Batalha y Fátima',

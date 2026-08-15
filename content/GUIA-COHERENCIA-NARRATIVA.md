@@ -1,6 +1,6 @@
 # Guía maestra de coherencia narrativa · Las Doce Aguas
 
-**Versión canónica:** 14 de agosto de 2026 · edición T-20A8
+**Versión canónica:** 15 de agosto de 2026 · edición T-20A9
 **Final principal:** Alhambra, Palacios Nazaríes, noche del 26 de agosto
 **Epílogo:** Generalife, 27 de agosto; no abre otra amenaza
 
@@ -146,7 +146,7 @@ Sus apariciones deben dejar rastros coherentes. No son monstruos terroríficos; 
 - **Marga Mapas:** cartógrafa de la red de topos. Custodia el paquete y puede confirmar rutas, nunca resolver pruebas.
 - **Rufino Tuercas:** experto en máquinas, ruidoso y cómico. Analiza piezas, pero necesita evidencias de campo.
 - **Sira:** enlace con aliados de la superficie.
-- **Gotas:** conoce las cuevas de Mira de Aire y ayuda a comprender el trabajo del agua.
+- **Gotas:** conoce las cuevas de Mira de Aire y ayuda a comprender el trabajo del agua. Entra realmente en el chat con su propio avatar: una gota azul sonriente, con mochila marrón, guantes claros y botas. Su firma puede detectarse al resolver las huellas, pero no habla hasta confirmar la llegada a las cuevas. Topotina verifica su identidad; Gotas explica qué sabe y deja claro que Paula y Hugo deberán observar y decidir por sí mismos.
 - **Vasco:** aliado del Oceanário. Nació simbólicamente el 8 de junio, le encanta bucear y enseña a observar y proteger el océano.
 - **Corvinho:** joven cuervo ligado a Sagres; ayuda a mantener abiertas hipótesis rivales.
 - **Capitán Pico y América:** exploradores de Isla Mágica. Reclutan a Paula y Hugo como pequeños exploradores y recuperan piezas de la pista final.
@@ -341,6 +341,14 @@ Antes de publicar un cambio:
 - [ ] El final continúa en la Alhambra nocturna y el Generalife es solo epílogo.
 
 ## 19. Registro de decisiones
+
+### 15 de agosto de 2026 · T-20A9
+
+- Se incorpora la imagen entregada por la familia como avatar oficial de Gotas.
+- Gotas no se adelanta al día 15 ni revela Mira de Aire. Su firma aparece únicamente después de resolver las huellas del día 16 y su primera intervención ocurre al confirmar físicamente la llegada a las cuevas.
+- Su presentación respeta los tres pasos de cualquier aliado: aparece una transmisión firmada, Topotina verifica su identidad y Gotas explica que conoce la cueva y el trabajo del agua, pero no resuelve las pruebas.
+- Gotas participa con mensajes breves propios y humor con Topotino. Sus explicaciones se reparten después de observaciones o respuestas para que el aprendizaje no se convierta en un discurso.
+- Se conservan los identificadores, flags, aguas y progreso de los días 15 y 16. La incorporación visual no reinicia ni adelanta ninguna misión.
 
 ### 14 de agosto de 2026 · T-20A8
 

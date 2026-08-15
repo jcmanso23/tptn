@@ -423,7 +423,9 @@ packs['008-huellas-mira-obidos'] = {
     ),
     nextStop('dia16-pista-mira', 'Las huellas conservan una acción en la superficie. La nueva señal muestra agua dejando marcas muy lentamente bajo tierra. ¿Adónde conduce?', ['Grutas de Mira de Aire', 'Grutas de Santo António', 'Mina de Sal-Gema de Loulé'], 0, [
       'La señal conduce a las Grutas de Mira de Aire.',
-      'Las huellas guardaron un paso; ahora investigaremos un rastro que se forma gota a gota. No sabemos qué aparecerá después.'
+      'Las huellas guardaron un paso; ahora investigaremos un rastro que se forma gota a gota. No sabemos qué aparecerá después.',
+      { from: 'topotina', text: 'La transmisión lleva una firma aliada: GOTAS. Está incompleta. Solo podré verificarla cuando lleguéis.' },
+      { from: 'topotino', text: '¿Gotas? No recuerdo a nadie con nombre de lluvia. No voy a fingir: esperaremos a comprobar quién es.' }
     ]),
     ...withOrder(
       expedition('mira-expedicion', 'Grutas de Mira de Aire', 'Expedición del agua invisible', 'Gotas nos pide observar el trabajo del agua sin tocar las formaciones.', [
@@ -432,15 +434,26 @@ packs['008-huellas-mira-obidos'] = {
         'Observad un lago, curso o zona húmeda del recorrido.',
         'Comparad una formación fina con otra más ancha.'
       ], [
-        'Hecho. El agua se filtra por la caliza, disuelve minerales y vuelve a depositarlos gota a gota.',
-        'La cueva demuestra que una acción lenta puede construir formas enormes sin que veamos todo el proceso.'
+        { from: 'gotas', text: 'Hecho. El agua de lluvia absorbe dióxido de carbono, entra por grietas y puede disolver lentamente parte de la roca caliza.' },
+        { from: 'gotas', text: 'Cuando el agua pierde ese gas, deja carbonato cálcico. Repetido gota a gota, el depósito va construyendo las formaciones.' },
+        { from: 'topotino', text: 'O sea: primero transporta material y después lo deja. Gotas es pequeño, pero sus explicaciones no vienen diluidas.' }
       ]),
       [
         onArrival(question('mira-q1', 'Grutas de Mira de Aire', '¿Cuál crece desde el techo?', ['La estalactita', 'La estalagmita', 'El lago'], 0, 'Correcto: la estalactita cuelga del techo.', 'La estalagmita crece desde el suelo por las gotas que caen. Si llegan a unirse, pueden formar una columna.', 'Recordad la forma que habéis visto colgar.'), ARRIVAL_LOCATIONS.mira, [
           { from: 'topotino', text: 'Las huellas conservan un paso sobre la superficie. La nueva pista apunta a marcas creadas gota a gota bajo tierra.' },
-          { from: 'topotino', text: 'Ya estáis en las Grutas de Mira de Aire. Dentro, mirad techo y suelo antes de elegir.' }
+          { from: 'system', text: 'Gotas se ha unido al canal.' },
+          { from: 'gotas', text: '¡Paula, Hugo! Soy Gotas. Conozco estas cuevas y recuerdo a Topotino, aunque él tenga ahora la memoria como un colador.' },
+          { from: 'topotino', text: 'Objeción: mis coladores están perfectamente archivados. A ti, en cambio, no te recuerdo.' },
+          { from: 'topotina', text: 'Firma verificada. Es Gotas, nuestro enlace en Mira de Aire. Su clave coincide con la red anterior al eclipse.' },
+          { from: 'gotas', text: 'Yo explicaré lo que hace el agua después de que observéis. No responderé por vosotros. Primero mirad techo y suelo.' },
+          { from: 'topotino', text: 'Un experto que no hace los deberes ajenos. Estupendo: ya me cae bien por segunda vez.' }
         ]),
-        question('mira-q2', 'Grutas de Mira de Aire', '¿Por qué no deben tocarse las formaciones?', ['Porque son decorados de papel', 'Porque crecen muy despacio y podemos alterarlas', 'Porque se mueven solas'], 1, 'Muy bien. El proceso es lento y delicado.', 'La grasa y la suciedad de las manos pueden afectar superficies que tardaron muchísimo en formarse.', 'Pensad cuánto tarda una gota en dejar una capa diminuta.')
+        question('mira-q2', 'Grutas de Mira de Aire', '¿Por qué no deben tocarse las formaciones?', ['Porque son decorados de papel', 'Porque crecen muy despacio y podemos alterarlas', 'Porque se mueven solas'], 1, [
+          { from: 'gotas', text: 'Muy bien. El proceso es lentísimo y delicado.' }
+        ], [
+          { from: 'gotas', text: 'La grasa y la suciedad de las manos pueden alterar la superficie donde debería seguir depositándose el mineral.' },
+          { from: 'topotino', text: 'Regla clara: ojos curiosos, manos quietas. Esa sí puedo recordarla.' }
+        ], 'Pensad cuánto tarda una gota en dejar una capa diminuta.')
       ],
       'question-first'
     ),

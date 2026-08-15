@@ -609,6 +609,32 @@ input {
   border-right-color: #382450;
 }
 
+.sender-gotas .message-avatar {
+  border-color: #43d8ff;
+  background: #fff;
+}
+
+.sender-gotas .message-avatar img {
+  object-position: center;
+}
+
+.sender-gotas .message-sender {
+  color: #70e6ff;
+}
+
+.sender-gotas .message-bubble {
+  border-color: rgba(67, 216, 255, .78);
+  background: linear-gradient(135deg, rgba(7, 67, 105, .98), rgba(8, 34, 61, .98));
+}
+
+.sender-gotas.message-row.topotino .message-bubble::before {
+  border-right-color: rgba(67, 216, 255, .78);
+}
+
+.sender-gotas.message-row.topotino .message-bubble::after {
+  border-right-color: #084161;
+}
+
 .message-row.topotino .message-bubble::before {
   content: "";
   position: absolute;

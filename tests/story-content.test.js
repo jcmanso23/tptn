@@ -170,7 +170,7 @@ test('los días 13 y 14 conservan su cadena narrativa y adaptan solo tras un imp
   assert.doesNotMatch(childFacingText, /(foto|fotografía).{0,30}(cuaderno|diario)/i);
 });
 
-test('la edición T-20A8 compacta la experiencia móvil y revela los destinos de uno en uno', async () => {
+test('la edición T-20A9 compacta la experiencia móvil, revela destinos de uno en uno e incorpora a Gotas', async () => {
   const files = ['index.html', 'app.js', 'admin.js', 'content/episodes/001-reconexion.md'];
   const combined = (await Promise.all(files.map((file) => readFile(join(root, file), 'utf8')))).join('\n');
   const app = await readFile(join(root, 'app.js'), 'utf8');
@@ -183,17 +183,20 @@ test('la edición T-20A8 compacta la experiencia móvil y revela los destinos de
 
   const styles = await readFile(join(root, 'styles.css'), 'utf8');
 
-  assert.match(combined, /T-20A8/);
+  assert.match(combined, /T-20A9/);
   assert.doesNotMatch(combined, /T-12A9/);
   assert.match(app, /splitTopotinoMessages/);
   assert.match(app, /CHALLENGE_PACKS/);
   assert.match(app, /els\.channelCode\.textContent = APP_VERSION_CODE/);
-  assert.match(serviceWorker, /topotino-offline-v31/);
-  assert.match(serviceWorker, /chat-format\.js\?v=memory-v46/);
-  assert.match(serviceWorker, /content\/challenges\.js\?v=memory-v46/);
+  assert.match(serviceWorker, /topotino-offline-v32/);
+  assert.match(serviceWorker, /chat-format\.js\?v=memory-v47/);
+  assert.match(serviceWorker, /content\/challenges\.js\?v=memory-v47/);
   assert.match(serviceWorker, /images\/topotina\.png\?v=topotina-v1/);
+  assert.match(serviceWorker, /images\/gotas\.jpg\?v=gotas-v1/);
   assert.match(app, /topotina: \{ name: 'Topotina'/);
+  assert.match(app, /gotas: \{ name: 'Gotas'/);
   assert.match(app, /Topotina está escribiendo/);
+  assert.match(app, /Gotas está escribiendo/);
   assert.match(app, /chat-event/);
   assert.match(app, /displayChallengeOptions\(challenge\)/);
   assert.match(app, /challengePanelCollapsed/);

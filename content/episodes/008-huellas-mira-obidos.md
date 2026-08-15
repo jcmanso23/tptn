@@ -15,7 +15,7 @@
 
 # Contexto narrativo
 
-Huellas, cueva y ciudad amurallada enseñan a inferir procesos ausentes mediante rastros. Borrón ha pasado por las tres paradas alterando orientación, etiquetas y figuras, pero siempre deja una mancha oscura que Paula y Hugo pueden detectar al contrastar. Gotas, aliado de Topotino en Mira de Aire, ayuda una vez. Topoloco intenta confundir copia con memoria desplazada.
+Huellas, cueva y ciudad amurallada enseñan a inferir procesos ausentes mediante rastros. Borrón ha pasado por las tres paradas alterando orientación, etiquetas y figuras, pero siempre deja una mancha oscura que Paula y Hugo pueden detectar al contrastar. Gotas, aliado de Topotino en Mira de Aire, entra en el canal con su avatar propio después de que la señal de las huellas revele su firma y la llegada permita a Topotina verificarla. Ayuda a explicar el trabajo del agua, pero no responde por Paula y Hugo. Topoloco intenta confundir copia con memoria desplazada.
 
 ## Mensajes iniciales
 
@@ -42,7 +42,8 @@ Huellas, cueva y ciudad amurallada enseñan a inferir procesos ausentes mediante
     "messages": [
       { "from": "topotino", "time": "auto", "text": "Gracias. Una huella permite inferir dirección y modo de desplazamiento, pero no autoriza a inventar color, carácter o rugido. Topoloco ha dibujado bigote al saurópodo. Queda científicamente suspendido." },
       { "from": "topotino", "time": "auto", "text": "La mancha de Borrón señalaba al revés. Al corregirla aparece una montaña hueca descubierta en 1947." },
-      { "from": "topotino", "time": "auto", "text": "Dentro os espera Gotas, amigo de Topotino y experto en caminos subterráneos. Yo aún no lo recuerdo, pero él sí se acuerda de nosotros." },
+      { "from": "topotina", "time": "auto", "text": "La transmisión lleva una firma aliada: GOTAS. Está incompleta; solo podré verificarla cuando lleguéis." },
+      { "from": "topotino", "time": "auto", "text": "No recuerdo a nadie con nombre de lluvia. Esperaremos a comprobar quién es." },
       { "from": "topotino", "time": "auto", "text": "Durante el descenso, localizad en dos tramos distintos una forma que cuelgue y otra que crezca desde el suelo. Explicad qué hace el agua en ambas." }
     ]
   },
@@ -56,7 +57,8 @@ Huellas, cueva y ciudad amurallada enseñan a inferir procesos ausentes mediante
     "setFlags": ["mira_aire_formaciones"],
     "remember": { "kind": "geology_explanation", "label": "Formación de estalactitas y estalagmitas" },
     "messages": [
-      { "from": "topotino", "time": "auto", "text": "Gotas confirma vuestra explicación: el agua primero disuelve y transporta; después deja mineral. Quitar y construir pueden ser fases del mismo proceso." },
+      { "from": "gotas", "time": "auto", "text": "Lo habéis visto: el agua puede disolver y transportar parte de la caliza; después deja mineral al perder dióxido de carbono." },
+      { "from": "topotino", "time": "auto", "text": "Primero transporta y después deposita. Gotas es pequeño, pero sus explicaciones no vienen diluidas." },
       { "from": "topotino", "time": "auto", "text": "Medid ahora el tiempo sin reloj: elegid una formación gruesa y otra fina y proponed dos explicaciones posibles para la diferencia. Después decid qué observación adicional necesitaríais para escoger entre ellas." }
     ]
   },
@@ -71,7 +73,8 @@ Huellas, cueva y ciudad amurallada enseñan a inferir procesos ausentes mediante
     "remember": { "kind": "multiple_hypotheses", "label": "Hipótesis rivales sobre formaciones de Mira de Aire" },
     "messages": [
       { "from": "topotino", "time": "auto", "text": "Excelente: dos hipótesis y una prueba capaz de separarlas. Eso impide enamorarse de la primera explicación." },
-      { "from": "topotino", "time": "auto", "text": "Gotas ha limpiado la última mancha. La salida de la cueva proyecta una puerta pintada y una calle que sube hacia un castillo. Es Óbidos." },
+      { "from": "gotas", "time": "auto", "text": "He limpiado la última mancha. La salida proyecta una puerta pintada y una calle que sube hacia un castillo." },
+      { "from": "topotino", "time": "auto", "text": "La pista encaja con Óbidos. Eso sí lo hemos deducido nosotros, no la sonrisa acuática de Gotas." },
       { "from": "topotino", "time": "auto", "text": "Recorred desde Porta da Vila hacia Rua Direita. Localizad tres soportes de memoria: defensa, religión o arte, y un uso cultural actual. Explicad cómo cambia la función sin borrar el pasado." }
     ]
   },
@@ -139,7 +142,7 @@ Huellas, cueva y ciudad amurallada enseñan a inferir procesos ausentes mediante
 
 ## Contexto para IA
 
-Gotas puede saludar y corregir una confusión geológica, pero no resuelve las pruebas. Borrón es reconocido por su rastro, no capturado. Topotino admite límites. No pide material físico ni el cuaderno. Al final sabe que los recuerdos fueron extraídos y repartidos, sin conocer museo ni destino final.
+Gotas aparece en tres pasos: firma incompleta tras las huellas, identidad verificada por Topotina al llegar y explicación de su función. Usa avatar y remitente propios. Puede saludar y corregir una confusión geológica, pero no resuelve las pruebas. Borrón es reconocido por su rastro, no capturado. Topotino admite límites. No pide material físico ni el cuaderno. Al final sabe que los recuerdos fueron extraídos y repartidos, sin conocer museo ni destino final.
 
 ## Fuentes documentales
 

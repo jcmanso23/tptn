@@ -1,5 +1,5 @@
-import { splitTopotinoMessages } from './chat-format.js?v=memory-v46';
-import { CHALLENGE_PACKS, displayChallengeOptions } from './content/challenges.js?v=memory-v46';
+import { splitTopotinoMessages } from './chat-format.js?v=memory-v47';
+import { CHALLENGE_PACKS, displayChallengeOptions } from './content/challenges.js?v=memory-v47';
 
 const STORAGE_KEYS = {
   auth: 'topotino_chat_auth_v1',
@@ -7,9 +7,9 @@ const STORAGE_KEYS = {
 };
 
 const LEGACY_STATE_KEY = 'topotino_chat_state_v1';
-const APP_VERSION_CODE = 'T-20A8';
+const APP_VERSION_CODE = 'T-20A9';
 const PASSPHRASE_HASH = 'a64716bd9f4e8added1bf47f80b97c3fc7b70a15b8043cdab083e1ddf85f3794';
-const EPISODES_MANIFEST = 'content/episodes.json?v=memory-v46';
+const EPISODES_MANIFEST = 'content/episodes.json?v=memory-v47';
 const LIVE_STORY_ENDPOINT = '/api/story';
 const AMARANTE_TRAVEL_DATE = '2026-08-13';
 const AMARANTE_ROUTE_EPISODE_ID = '004b-rumbo-amarante';
@@ -45,7 +45,8 @@ const ADULT_SESSION_KEY = 'topotino_adult_unlocked_v1';
 const TOPOTINO_IMAGE = 'images/topotino.png?v=marco-v1';
 const CHAT_SENDERS = {
   topotino: { name: 'Topotino', image: TOPOTINO_IMAGE },
-  topotina: { name: 'Topotina', image: 'images/topotina.png?v=topotina-v1' }
+  topotina: { name: 'Topotina', image: 'images/topotina.png?v=topotina-v1' },
+  gotas: { name: 'Gotas', image: 'images/gotas.jpg?v=gotas-v1' }
 };
 const CHATTER_LIMIT_CHARS = 500;
 const CHATTER_LIMIT_MESSAGES = 8;
@@ -1215,12 +1216,12 @@ async function deliverTopotinoMessages(messagesOrPromise, options = {}) {
     const messagesPromise = Promise.resolve(messagesOrPromise);
     const timing = getReplyTiming(options.mode);
     await wait(getInitialReplyDelay(timing, options.mode));
-    setBusy(true, true);
-
-    const [messages] = await Promise.all([
-      messagesPromise,
-      wait(randomInt(timing.typingMin, timing.typingMax))
-    ]);
+    const messages = await messagesPromise;
+    const firstSender = Array.isArray(messages)
+      ? messages.find(Boolean)?.from
+      : 'topotino';
+    setBusy(true, true, firstSender);
+    await wait(randomInt(timing.typingMin, timing.typingMax));
 
     const normalizedMessages = splitTopotinoMessages(
       Array.isArray(messages) ? messages.filter(Boolean) : []
@@ -2004,11 +2005,15 @@ function nowTime() {
 function setBusy(nextBusy, showTyping = nextBusy, senderId = 'topotino') {
   busy = nextBusy;
   if (showTyping && els.typingText) {
-    els.typingText.textContent = senderId === 'topotina'
-      ? 'Topotina está escribiendo...'
+    els.typingText.textContent = senderId === 'topotino'
+      ? nextTypingMessage()
       : senderId === 'system'
         ? 'El canal está conectando a alguien...'
-        : nextTypingMessage();
+        : senderId === 'topotina'
+          ? 'Topotina está escribiendo...'
+          : senderId === 'gotas'
+            ? 'Gotas está escribiendo...'
+            : 'Alguien está escribiendo...';
   }
   els.typing.hidden = !showTyping;
   els.sendButton.disabled = nextBusy;
