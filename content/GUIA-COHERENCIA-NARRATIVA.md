@@ -1,6 +1,6 @@
 # Guía maestra de coherencia narrativa · Las Doce Aguas
 
-**Versión canónica:** 15 de agosto de 2026 · edición T-20B0
+**Versión canónica:** 15 de agosto de 2026 · edición T-20B1
 **Final principal:** Alhambra, Palacios Nazaríes, noche del 26 de agosto
 **Epílogo:** Generalife, 27 de agosto; no abre otra amenaza
 
@@ -226,7 +226,7 @@ La noche anterior se descubre mediante opciones solo la parte de la ruta que la 
 
 Esta regla es literal: **nunca se enumera el plan completo de un día**. La víspera solo se descubre la primera parada. Al terminarla, un hallazgo visible, una lectura de Topotina, un rastro de Topoloco o una interferencia de un Oscurno permite deducir una única parada nueva. Los lugares internos del canon sirven a los adultos y al motor, pero Topotino no los conoce ni los recita antes de tiempo.
 
-Existe una excepción razonada el 15 de agosto. Portugal dos Pequenitos funciona como un índice físico de monumentos: Paula y Hugo localizan allí la representación documentada del Monasterio de Batalha y descubren que Topoloco ha superpuesto en la señal una falsa representación de Fátima, que no figura en el inventario histórico del proyecto. Así recuperan juntos los dos nombres que Topoloco había mezclado, pero no reciben dos misiones: solo se abre la coordenada de Batalha. La visita al monasterio real permite ordenar la información y desbloquear después la coordenada de Fátima.
+El 15 de agosto Portugal dos Pequenitos funciona como un índice físico de monumentos. Paula y Hugo reciben rasgos arquitectónicos sin nombre, buscan la representación que coincide y solo entonces leen su placa para deducir el Monasterio de Batalha. Fátima no se menciona en Coimbra. Al llegar a Batalha, la fecha, los protagonistas y el origen del monasterio no encajan con la clave original: Topoloco había sustituido el destino por un señuelo parecido, pues ambos relatos están vinculados a la Virgen. Tras aprender sobre Batalha y detectar el engaño, reaparece la pista auténtica —1917, tres niños pastores y unas apariciones marianas— y Paula y Hugo deducen Fátima. Solo existe un destino accionable cada vez.
 
 Al comenzar cada mañana, Topotino resume la aventura ya vivida, no el itinerario futuro. El resumen separa cuatro cosas con frases breves: qué ocurrió, qué aprendieron, qué sospechan y qué siguen sin saber. Termina recordando la pista concreta que justifica únicamente la primera parada de ese día. El 15 de agosto este resumen es deliberadamente más amplio porque la amnesia, las interferencias y la llegada de Topotina han dejado a Paula y Hugo desorientados.
 
@@ -239,7 +239,7 @@ Aprender mucho no significa recibir un discurso largo. Cada lugar reparte el con
 | Antes | Luanco y eclipse | Primera ventana marcada; ataque y amnesia | Paquete, cuaderno y pista del Tâmega |
 | 13 | Amarante | Primer transmisor; historia pública, tradición y paisaje | Recuerdo incompleto de seis mundos y máquina de atención |
 | 14 | Magikland, Hotel do Parque, Buçaco breve | Topoloco aprende cómo nace un recuerdo; aparece Topotina; edificio y bosque con épocas distintas | Un Portugal representado a escala, una promesa y un lugar pequeño |
-| 15 | Portugal dos Pequenitos, Batalha, Fátima | Deshacer la mezcla de Topoloco entre una representación real y otra falsa; comprobar promesa, obra incompleta y escala en los originales | Rastros de animal y agua bajo tierra |
+| 15 | Portugal dos Pequenitos, Batalha, Fátima | Identificar Batalha mediante su representación; descubrir allí el señuelo de Topoloco comparando fecha y protagonistas; reconstruir la pista auténtica de Fátima | Rastros de animal y agua bajo tierra |
 | 16 | Huellas, Mira de Aire, Óbidos | Borrón deja pistas; rastros, procesos y diferencia dato/interpretación | Los recuerdos fueron extraídos; fósiles y reconstrucción |
 | 17 | Dino Parque, Lisboa | Original, modelo e inferencia; aparece el Museo Topoloco | Laboratorio de adaptaciones y océano conectado |
 | 18 | Pavilhão, Oceanário, Tejo | Vasco enseña Protocolo Azul; doce nodos son una red | Leer una ciudad por capas |
@@ -343,6 +343,15 @@ Antes de publicar un cambio:
 - [ ] El final continúa en la Alhambra nocturna y el Generalife es solo epílogo.
 
 ## 19. Registro de decisiones
+
+### 15 de agosto de 2026 · T-20B1
+
+- Portugal dos Pequenitos no menciona Fátima ni entrega el nombre de Batalha de antemano. Paula y Hugo localizan una representación mediante arcos apuntados, piedra tallada y otros rasgos visibles; la placa confirma después que se trata del Monasterio de Batalha.
+- La señal abre únicamente la coordenada de Batalha. Allí conocen el voto de D. João I, la victoria de Aljubarrota de 1385, el gótico, la Capela do Fundador y las Capelas Imperfeitas.
+- Después de contrastar el edificio real aparece la contradicción: la clave anterior al eclipse conservaba `3 · 13 · 1917`, mientras Batalha corresponde a un rey, un voto y 1385. Topoloco cambió el destino por un señuelo relacionado también con la Virgen para retrasarlos sin dejar una falsificación obvia.
+- La pista auténtica solo se reconstruye después de descubrir el engaño: un lugar donde, según el relato de los tres pastorinhos y la tradición católica, la Virgen se apareció en 1917. Paula y Hugo deben deducir Fátima mediante opciones; hasta entonces no se pronuncia su nombre.
+- En Fátima comprueban los nombres de Lúcia, Francisco y Jacinta, la fecha de 1917 y la relación entre la pequeña Capelinha y el gran recinto. Topotino distingue el relato religioso, su documentación histórica y la observación física del santuario.
+- Se conservan todos los IDs, flags, aguas y progreso. Si una partida llegó a leer la versión T-20B0, la contradicción se absorbe como parte de la señal alterada por Topoloco y no se repite ninguna prueba.
 
 ### 15 de agosto de 2026 · T-20B0
 

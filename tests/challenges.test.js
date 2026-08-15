@@ -199,12 +199,28 @@ test('el cambio real mueve Buçaco al día 14 y abre el día 15 en Portugal dos 
   const batalhaRoute = day15.steps.find((step) => step.id === 'dia15-pista-batalha');
   const fatimaRoute = day15.steps.find((step) => step.id === 'dia15-pista-fatima');
 
-  assert.match(portugalExpedition.actions.join(' '), /Monasterio de Batalha.*Santuario de Fátima/is);
-  assert.match(portugalExpedition.doneMessages.map(messageText).join(' '), /confirma Batalha.*Fátima no figura.*Topoloco/is);
-  assert.match(portugalQ3.prompt, /monumento.*plano.*placa/i);
-  assert.match(portugalQ4.prompt, /Fátima.*señal de Topoloco.*inventario/i);
-  assert.match(batalhaRoute.successMessages.map(messageText).join(' '), /dos nombres.*solo Batalha.*coordenada/is);
-  assert.match(fatimaRoute.successMessages.map(messageText).join(' '), /Ahora sí.*coordenada.*Fátima/is);
+  assert.match(portugalExpedition.actions.join(' '), /arcos apuntados.*piedra tallada.*placa/is);
+  assert.doesNotMatch([
+    ...portugalExpedition.actions,
+    ...portugalExpedition.doneMessages.map(messageText),
+    portugalQ3.prompt
+  ].join(' '), /Batalha|Fátima/i);
+  assert.match(portugalQ3.prompt, /rasgo visible.*representación/i);
+  assert.match(portugalQ4.prompt, /nombre.*placa.*representación/i);
+  assert.match(portugalQ4.successMessages.map(messageText).join(' '), /Monasterio de Batalha.*PROMESA.*1385/is);
+  assert.doesNotMatch(portugalQ4.successMessages.map(messageText).join(' '), /Fátima/i);
+  assert.match(batalhaRoute.successMessages.map(messageText).join(' '), /arquitectura.*placa.*única coordenada/is);
+
+  const batalhaExpedition = day15.steps.find((step) => step.id === 'batalha-expedicion');
+  const beforeFatima = day15.steps.slice(0, day15.steps.indexOf(fatimaRoute)).flatMap((step) => [
+    step.prompt,
+    ...(step.successMessages || []).map(messageText),
+    ...(step.doneMessages || []).map(messageText)
+  ]).filter(Boolean).join(' ');
+  assert.doesNotMatch(beforeFatima, /Fátima/i);
+  assert.match(batalhaExpedition.doneMessages.map(messageText).join(' '), /3 · 13 · 1917.*rey.*1385.*Topoloco cambió el destino/is);
+  assert.match(fatimaRoute.prompt, /1917.*tres niños pastores.*Virgen/i);
+  assert.match(fatimaRoute.successMessages.map(messageText).join(' '), /señala Fátima.*coordenada de Fátima/is);
 });
 
 test('Gotas se anuncia después de las huellas y solo entra al llegar a Mira de Aire', () => {

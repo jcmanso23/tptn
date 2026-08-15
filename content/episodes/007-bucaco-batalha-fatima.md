@@ -19,11 +19,11 @@
 
 # Contexto narrativo
 
-Buçaco ya se investigó de forma breve al final del 14 de agosto. Topotina cambió el orden porque la señal del bosque perdía intensidad al caer la tarde; no inventó un destino ni resolvió la prueba. De Buçaco salieron dos fragmentos arquitectónicos mezclados y sin nombre. Topotina propone Portugal dos Pequenitos porque reúne en un solo recinto representaciones de monumentos de todo Portugal y permite identificar el origen de los fragmentos sin conocer previamente la ruta.
+Buçaco ya se investigó de forma breve al final del 14 de agosto. Topotina cambió el orden porque la señal del bosque perdía intensidad al caer la tarde; no inventó un destino ni resolvió la prueba. De Buçaco salió un fragmento con arcos apuntados, pináculos, piedra tallada y el nombre borrado. Topotina propone Portugal dos Pequenitos porque reúne en un solo recinto representaciones de monumentos de todo Portugal y permite identificar el original sin conocer previamente la ruta.
 
-La documentación histórica del proyecto confirma que el Monasterio de Batalha forma parte del Portugal Monumental. Fátima no figura en ese inventario. Topoloco ha superpuesto en la transmisión una capilla pequeña y una gran explanada sobre la representación de Batalha para convertir dos lugares distintos en una sola etiqueta. Paula y Hugo deben comprobar físicamente planos o placas, localizar Batalha y descubrir que la señal de Fátima fue añadida. Así recuperan ambos nombres, pero solo se abre primero la coordenada de Batalha.
+La documentación histórica del proyecto confirma que el Monasterio de Batalha forma parte del Portugal Monumental. Paula y Hugo deben localizar su representación por sus rasgos visibles antes de leer la placa. Solo entonces descubren el nombre de Batalha y abren esa coordenada. En Coimbra no se nombra Fátima ni se anuncia una segunda parada.
 
-En Batalha comparan la representación con un monasterio real originado por una promesa y trabajado durante generaciones, incluidas las Capelas Imperfeitas. Ese hallazgo ordena las dos señales y desbloquea Fátima. Allí separan tamaño físico de centralidad: la Capelinha es pequeña y ocupa un lugar fundamental dentro de un recinto enorme.
+En Batalha comparan la representación con un monasterio real originado por el voto de D. João I antes de la batalla de Aljubarrota y trabajado durante generaciones, incluidas las Capelas Imperfeitas. Al completar la comprobación descubren que el destino era un señuelo: el fragmento anterior al eclipse conserva `3 · 13 · 1917`, incompatible con un rey y 1385. Topoloco mantuvo la relación con la Virgen para que el engaño resultara verosímil, pero cambió protagonistas y fecha. La pista auténtica habla de tres niños pastores y de unas apariciones marianas en 1917; Paula y Hugo deducen Fátima. Allí comprueban los nombres de Lúcia, Francisco y Jacinta y separan tamaño físico de centralidad: la Capelinha es pequeña y ocupa un lugar fundamental dentro de un recinto enorme.
 
 Topoloco intenta imponer la frase «solo importa lo grande, original y terminado». La respuesta no es que una reproducción y un original sean iguales. Una reproducción puede enseñar si reconoce sus límites; una obra inacabada conserva decisiones y trabajo; un espacio pequeño puede ser central para una comunidad. Esta distinción prepara Dino Parque —modelo, fósil y estudio— e Isla Mágica —escenario histórico, función actual y fuente original— sin adelantar esos destinos.
 
@@ -38,7 +38,7 @@ Topotina participa al llegar a Coimbra. Confirma que el cambio de orden funcion�
   { "from": "topotino", "time": "auto", "text": "En Amarante comprobasteis el puente y el Tâmega. Después el chat sufrió interferencias. Sospechamos de Topoloco, pero aún no sabemos cómo entró ni si causó mi amnesia." },
   { "from": "topotino", "time": "auto", "text": "En Magikland descubristeis el Cazarrisas: un programa firmado por Topoloco que estudia qué observáis y por qué un momento se vuelve recuerdo." },
   { "from": "topotina", "time": "auto", "text": "Allí entré yo. Recuerdo que Topotino es mi hermano y que construimos el comunicador juntos. Él todavía no me recuerda, pero ya ha dejado de llamarme intrusa. Casi." },
-  { "from": "topotino", "time": "auto", "text": "En el Hotel do Parque y en Buçaco vimos lugares con partes de épocas distintas. De Buçaco salieron dos fragmentos de monumentos portugueses mezclados y sin nombre." },
+  { "from": "topotino", "time": "auto", "text": "En el Hotel do Parque y en Buçaco vimos lugares con partes de épocas distintas. De Buçaco salió un fragmento con arcos apuntados, piedra tallada y un nombre borrado." },
   { "from": "topotina", "time": "auto", "text": "Eso sabemos. Ignoramos qué quiere hacer Topoloco con los recuerdos, dónde están las demás ventanas y si el contador de Sombra detectará otra intrusión." },
   { "from": "topotino", "time": "auto", "text": "La única pista abierta señala Portugal dos Pequenitos. Cuando lleguéis, averiguaremos qué contiene. Nada más está decidido todavía." }
 ]
@@ -58,8 +58,8 @@ Topotina participa al llegar a Coimbra. Confirma que el cambio de orden funcion�
     "remember": { "kind": "representation_scale", "label": "Límites de una representación arquitectónica a escala" },
     "messages": [
       { "from": "topotino", "time": "auto", "text": "Bien visto. La reproducción conserva formas reconocibles, pero reduce tamaño y distancia y puede omitir partes." },
-      { "from": "topotina", "time": "auto", "text": "Habéis encontrado Batalha en el parque. Fátima solo aparece en la transmisión: Topoloco ha mezclado dos lugares bajo una sola etiqueta." },
-      { "from": "topotino", "time": "auto", "text": "Los dos nombres los habéis descubierto vosotros. Solo la palabra PROMESA abre ahora la coordenada de Batalha; Fátima queda pendiente." }
+      { "from": "topotina", "time": "auto", "text": "Habéis encontrado la representación por su arquitectura y la placa confirma el nombre: Monasterio de Batalha." },
+      { "from": "topotino", "time": "auto", "text": "PROMESA, CORONA y 1385 abren una sola coordenada. Comprobaremos el edificio real antes de creer nada más." }
     ]
   },
   {
@@ -84,7 +84,8 @@ Topotina participa al llegar a Coimbra. Confirma que el cambio de orden funcion�
     "remember": { "kind": "heritage_reasoning", "label": "Promesa y obra inacabada en Batalha" },
     "messages": [
       { "from": "topotino", "time": "auto", "text": "Gracias. El monasterio recuerda una promesa; las capillas muestran que una intención puede quedar abierta sin perder su historia." },
-      { "from": "topotino", "time": "auto", "text": "Topoloco ha escrito: «lo mayor siempre es el centro». En Fátima compararemos una capilla pequeña con una explanada y dos basílicas." }
+      { "from": "topotina", "time": "auto", "text": "La clave anterior al eclipse dice 3 · 13 · 1917. No coincide con un rey y 1385: Topoloco nos envió a un señuelo." },
+      { "from": "topotino", "time": "auto", "text": "La pista auténtica habla de tres niños pastores y apariciones de la Virgen. Ahora nos toca deducir el lugar." }
     ]
   },
   {
@@ -120,9 +121,9 @@ Topotina participa al llegar a Coimbra. Confirma que el cambio de orden funcion�
 
 ```json
 [
-  "En Portugal dos Pequenitos decid qué conserva la reproducción y qué reduce, omite o cambia.",
-  "En Batalha unid promesa, monasterio y Capelas Imperfeitas.",
-  "En Fátima comparad espacio físico con centralidad simbólica."
+  "En Portugal dos Pequenitos comparad los arcos y la piedra del fragmento; leed la placa solo después.",
+  "En el monasterio comparad la fecha y los protagonistas con 3 · 13 · 1917.",
+  "Cuando reconstruyáis la pista auténtica, comprobad allí nombres, fecha y lugar."
 ]
 ```
 
@@ -131,15 +132,15 @@ Topotina participa al llegar a Coimbra. Confirma que el cambio de orden funcion�
 ```json
 [
   "Una puerta al tamaño de Hugo demuestra que el edificio no es el original trasladado.",
-  "Una reproducción puede enseñar formas aunque cambie tamaño, distancia y contexto.",
-  "Buscad en Batalha las capillas que permanecen abiertas al cielo.",
-  "La Capelinha es mucho menor que las basílicas, pero ocupa el corazón del recinto."
+  "Los arcos apuntados y la piedra muy tallada ayudan a encontrar la representación antes de leer su placa.",
+  "En el edificio real, comparad un rey y 1385 con los números 3 · 13 · 1917.",
+  "Cuando sepáis qué lugar señala 1917, buscad los tres nombres y la pequeña capilla."
 ]
 ```
 
 ## Contexto para IA
 
-Buçaco ocurrió realmente al final del 14 de agosto y no se repite. El capítulo se abre por la mañana para resumir solo lo ya vivido; su primera misión permanece bloqueada por la llegada física a Portugal dos Pequenitos. Topotino y Topotina no enumeran Batalha ni Fátima al comenzar. Ambos nombres solo aparecen cuando Paula y Hugo comprueban físicamente que Batalha figura en el parque y que la supuesta Fátima pertenece a la transmisión manipulada. Conocer los dos nombres no activa dos misiones: solo Batalha abre coordenada. Fátima permanece como pieza pendiente hasta investigar las Capelas Imperfeitas. Topotino distingue siempre representación, original, ausencia y manipulación. No ridiculiza la fe: separa observación física, historia documentada y significado para una comunidad. La experiencia de Coimbra prepara modelos posteriores, pero no revela sus destinos. Topotina entra con su avatar, bromea con su hermano y vigila la señal sin resolver respuestas. El Cuaderno sigue privado. No conoce Granada, los doce leones ni la causa confirmada de la amnesia.
+Buçaco ocurrió realmente al final del 14 de agosto y no se repite. El capítulo se abre por la mañana para resumir solo lo ya vivido; su primera misión permanece bloqueada por la llegada física a Portugal dos Pequenitos. Topotino y Topotina no nombran Batalha hasta que Paula y Hugo localizan físicamente su representación y leen la placa. Fátima está totalmente prohibida en Coimbra. Solo se revela que Batalha era un señuelo después de aprender allí el voto, la fecha y los protagonistas y contrastarlos con `3 · 13 · 1917`. La pista de los tres pastorinhos permite entonces que Paula y Hugo deduzcan Fátima. Topotino distingue representación, original, relato religioso, documentación histórica y observación física. No ridiculiza la fe ni presenta una creencia como prueba científica. La experiencia de Coimbra prepara modelos posteriores, pero no revela sus destinos. Topotina entra con su avatar, bromea con su hermano y vigila la señal sin resolver respuestas. El Cuaderno sigue privado. No conoce Granada, los doce leones ni la causa confirmada de la amnesia.
 
 ## Fuentes documentales
 

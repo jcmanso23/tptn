@@ -29,8 +29,9 @@ test('la conversación libre usa Luna y conserva los turnos con sus roles', asyn
   assert.match(source, /desafioActual:/);
   assert.match(source, /esperaDeLlegada:/);
   assert.match(source, /Nunca enumeres el plan del día ni varias paradas futuras/);
-  assert.match(source, /Excepción cerrada de Portugal dos Pequenitos/);
-  assert.match(source, /únicamente Batalha queda como destino accionable/);
+  assert.match(source, /Regla cerrada del día 15/);
+  assert.match(source, /No nombres Fátima allí/);
+  assert.match(source, /contradicción entre 1385 y la clave 3 · 13 · 1917/);
   assert.match(source, /Recuerdas con normalidad todo lo sucedido desde que despertaste/);
   assert.match(source, /agradécelo de forma concreta/);
   assert.match(source, /interpreta a Topoloco como inteligente, huidizo/);
