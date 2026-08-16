@@ -15,7 +15,7 @@
 
 # Contexto narrativo
 
-Zoomarine sirve para diferenciar observación, educación, rescate y rehabilitación. Vasco reaparece mediante el comunicador para conectar el Protocolo Azul con Porto d’Abrigo. Topotina analiza la tecnología encontrada por Eco. El eje ético es que cuidar no otorga propiedad. Las pruebas no dependen de ver un animal concreto.
+La orden de Eco conduce a Zoomarine porque Topoloco alimenta la máquina con la mentira «si cuidas algo, te pertenece». Observación, educación, rescate, rehabilitación y posible devolución la refutan. Vasco conecta el Protocolo Azul con Porto d’Abrigo y Topotina analiza la tecnología de Eco. Al unir motivo, conducta y resultado, Topotino puede concluir —sin adelantarse antes— que Topoloco provocó la amnesia. Borrón reacciona alterando la etiqueta del puente de Tavira.
 
 ## Mensajes iniciales
 

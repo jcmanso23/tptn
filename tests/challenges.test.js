@@ -71,7 +71,7 @@ test('cada jornada recuerda la ruta, permite recuperar Sombra y prepara el día 
   for (const episodeId of futureEpisodeIds.slice(1, -2)) {
     const pack = CHALLENGE_PACKS[episodeId];
     if (episodeId !== '006-magikland-curia') {
-      assert.match(pack.openingMessages.join(' '), /Buenos días/i, `${episodeId}: falta recordatorio de mañana`);
+      assert.match(pack.openingMessages.map(messageText).join(' '), /Buenos días/i, `${episodeId}: falta recordatorio de mañana`);
     }
     assert.ok(pack.steps.some((step) => step.kind === 'daily-recovery'), `${episodeId}: falta recuperación diaria`);
     const route = pack.steps.find((step) => step.id.startsWith('ruta-dia'));
@@ -240,6 +240,59 @@ test('Gotas se anuncia después de las huellas y solo entra al llegar a Mira de 
   assert.ok(miraArrival.arrivalMessages.some((message) => message?.from === 'topotina' && /invitación de un solo uso.*firmada por ti/i.test(message.text)));
   assert.ok(miraArrival.arrivalMessages.some((message) => message?.from === 'topotina' && /Firma verificada/i.test(message.text)));
   assert.ok(miraExpedition.doneMessages.some((message) => message?.from === 'gotas'));
+});
+
+test('Louri se insinúa el 16, entra y se despide definitivamente el 17', () => {
+  const day16 = CHALLENGE_PACKS['008-huellas-mira-obidos'];
+  const day17 = CHALLENGE_PACKS['009-dinoparque-lisboa'];
+  const later = futureEpisodeIds.slice(futureEpisodeIds.indexOf('010-lisboa-ciencia-oceanario'))
+    .flatMap((id) => [
+      ...CHALLENGE_PACKS[id].openingMessages.map(messageText),
+      ...CHALLENGE_PACKS[id].steps.flatMap((step) => [
+        ...(step.successMessages || []).map(messageText),
+        ...(step.doneMessages || []).map(messageText),
+        ...(step.arrivalMessages || []).map(messageText)
+      ])
+    ]).join(' ');
+
+  const day16Text = [
+    ...day16.openingMessages.map(messageText),
+    ...day16.steps.flatMap((step) => [step.prompt, ...(step.doneMessages || []).map(messageText)])
+  ].join(' ');
+  assert.match(day16Text, /espía.*dinosaurio|dinosaurio.*espía/is);
+  assert.doesNotMatch(day16Text, /Burger King|Soy Louri/i);
+
+  const entrance = day17.steps.find((step) => step.id === 'dinoparque-q1').successMessages;
+  const crisis = day17.steps.find((step) => step.id === 'dinoparque-q2').successMessages;
+  const farewell = day17.steps.find((step) => step.id === 'louri-cambio-bando').successMessages;
+  assert.ok(entrance.some((message) => message?.from === 'system' && /LOURI/i.test(message.text)));
+  assert.ok(entrance.some((message) => message?.from === 'louri' && /Burger King/i.test(message.text)));
+  assert.ok(crisis.some((message) => /defectuosa/i.test(messageText(message))));
+  assert.ok(farewell.some((message) => message?.from === 'system' && /ha salido del canal/i.test(message.text)));
+  assert.ok(farewell.some((message) => message?.from === 'topotina' && /cerrado definitivamente/i.test(message.text)));
+  assert.doesNotMatch(later, /from.?['"]?:.?['"]?louri|Louri está escribiendo|Louri se ha unido/i);
+});
+
+test('el arco posterior encadena acciones de Topoloco y revela la Alhambra en Isla Mágica', () => {
+  const causalChecks = [
+    ['010-lisboa-ciencia-oceanario', /módulo.*separar causas|separar causas.*módulo/is],
+    ['011-lisboa-historia-belem', /archivo histórico.*Lisboa|Lisboa.*archivo histórico/is],
+    ['012-badoca-lagos', /receptor.*Badoca|Badoca.*receptor/is],
+    ['013-delfines-benagil-sagres', /receptor.*embarcación|embarcación.*receptor/is],
+    ['014-piedade-algar-jaima', /Eco.*copiando la voz|voz.*Eco/is],
+    ['015-zoomarine', /Eco.*Cuaderno|Cuaderno.*Eco/is],
+    ['016-tavira-sevilla', /Borrón.*puente|puente.*Borrón/is],
+    ['017-isla-magica', /firma gemela.*Magikland|Magikland.*firma gemela/is]
+  ];
+
+  for (const [id, pattern] of causalChecks) {
+    assert.match(CHALLENGE_PACKS[id].openingMessages.map(messageText).join(' '), pattern, `${id}: apertura sin causa narrativa`);
+  }
+
+  const islandRoute = CHALLENGE_PACKS['017-isla-magica'].steps.find((step) => step.id === 'ruta-dia26');
+  const cathedralRoute = CHALLENGE_PACKS['018-sevilla-alhambra-noche'].steps.find((step) => step.id === 'dia26-pista-alhambra');
+  assert.match(islandRoute.prompt, /Alhambra de noche/i);
+  assert.doesNotMatch(cathedralRoute.successMessages.map(messageText).join(' '), /primera vez|no sabíamos|acabamos de descubrir/i);
 });
 
 test('cada lugar revela solo el paso accionable siguiente y nunca el itinerario completo', () => {

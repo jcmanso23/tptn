@@ -2,11 +2,11 @@
 {
   "id": "009-dinoparque-lisboa",
   "order": 9,
-  "title": "Día 5 · Los huesos que no mienten",
-  "channelCode": "T-53D9",
+  "title": "Día 5 · El secreto de Louri",
+  "channelCode": "T-21A0",
   "startsUnlocked": false,
   "activation": { "mode": "all", "date": { "on": "2026-08-17" }, "location": { "lat": 39.2790352, "lng": -9.2916689, "radiusMeters": 5000, "label": "Dino Parque Lourinhã" } },
-  "mission": "Reconstruir sin inventar",
+  "mission": "Identificar al espía y descubrir la máquina",
   "formulaWord": null,
   "water": null,
   "ai": { "enabled": true, "mode": "fallback" }
@@ -15,14 +15,35 @@
 
 # Contexto narrativo
 
-Dino Parque recupera la distinción iniciada en Portugal dos Pequenitos: una representación puede enseñar si reconoce qué transforma. Aquí se añade evidencia material y trabajo científico para separar fósil, modelo e inferencia. Topoloco planta una reconstrucción perfecta para demostrar que una historia convincente puede sustituir la evidencia. Al fracasar deja la primera mención del Museo Topoloco de los Recuerdos Robados.
+La misión comienza con un único objetivo: identificar al dinosaurio que trabaja para Topoloco. Dino Parque se utiliza como investigación científica real. Paula y Hugo distinguen fósil, réplica, modelo y reconstrucción; observan cómo la paleontología usa huesos, huellas, huevos, nidos y embriones; y comprenden que `probablemente`, `según las evidencias` y `todavía no sabemos` son expresiones honestas.
+
+A mitad de la investigación entra **LOURI**, un pequeño T-Rex rojo, presumido, pedante, dramático y adorable. Su avatar es la imagen roja aportada por la familia. Topoloco estaba presente cuando salió del huevo, le dijo que era su padre y lo educó como una reconstrucción perfecta y espía excepcional. Lo infiltró como el juguete de Burger King que Hugo recibió la noche del 15.
+
+La entrada provoca la discusión cómica de la contraseña `topotino1234`. Louri empieza a dudar al comparar las certezas absolutas de Topoloco con la honestidad científica. Una orden interceptada lo declara defectuoso por hacer demasiadas preguntas. Paula y Hugo le enseñan que dudar, revisar y cambiar de opinión no significa estar roto.
+
+Louri abandona a Topoloco y revela información incompleta: existe una **Máquina de los Recuerdos** capaz de capturar recuerdos, separarlos de sus relaciones y almacenar una sola versión en el Museo Topoloco de los Recuerdos Robados. Hay una operación en Lisboa, relacionada con una ciudad destruida y reconstruida y con la decisión de qué conservar.
+
+Louri entrega un fragmento de plano que señala Lisboa y se queda en Dino Parque para descubrir quién es entre científicos que admiten lo que aún no saben. Se despide de Paula y Hugo, sale del chat y Topotina cierra definitivamente su canal. No viaja con ellos y no vuelve a intervenir desde el 18 de agosto.
+
+## Secuencia canónica
+
+1. Modelos a tamaño real: separar evidencia e interpretación.
+2. Fósil, réplica y laboratorio: comprender cómo se construye conocimiento.
+3. Huevos, nidos y embriones de dinosaurios portugueses: inferir sin exagerar.
+4. Entrada cómica de Louri y revelación del juguete de Burger King.
+5. Crisis ante las palabras `hipótesis`, `probablemente` y `desconocemos`.
+6. Orden de Topoloco que lo declara defectuoso.
+7. Paula y Hugo le ayudan a corregir su idea; Louri cambia de bando.
+8. Revelación de la máquina y del museo.
+9. Despedida definitiva y cierre técnico del canal Louri.
+10. El fragmento conduce a Lisboa; allí se confirma la reconstrucción posterior a 1755 y el módulo de la máquina señala el Pavilhão do Conhecimento para el día 18.
 
 ## Mensajes iniciales
 
 ```json
 [
-  { "from": "topotino", "time": "auto", "text": "Buenos días. Recorred primero una ruta exterior hasta un modelo. Fijaos en tamaño, piel y postura." },
-  { "from": "topotino", "time": "auto", "text": "En Coimbra comparasteis reproducción y original. Hoy añadiremos una pieza fósil y el trabajo científico que los relaciona con el modelo." }
+  { "from": "topotino", "time": "auto", "text": "Buenos días. Identificaremos al dinosaurio que trabaja para Topoloco. Recorred modelos, museo y laboratorio." },
+  { "from": "topotina", "time": "auto", "text": "Buscad un fósil, una réplica, una reconstrucción y huevos o embriones. Separad lo que sabemos de lo que todavía no sabemos." }
 ]
 ```
 
@@ -31,67 +52,28 @@ Dino Parque recupera la distinción iniciada en Portugal dos Pequenitos: una rep
 ```json
 [
   {
-    "id": "dinoparque-modelo-fosil",
-    "blockedFlags": ["dinoparque_modelo_fosil"],
-    "openAnswer": true,
-    "minWords": 15,
-    "containsAnyGroups": [["modelo", "reconstrucción", "reconstruccion", "escala", "color"], ["fósil", "fosil", "hueso", "huevo", "resto", "original"], ["laboratorio", "limpia", "roca", "estudia", "científico", "cientifico"], ["diferencia", "porque", "evidencia"]],
-    "setFlags": ["dinoparque_modelo_fosil"],
-    "remember": { "kind": "evidence_classification", "label": "Diferencia entre modelo, fósil y trabajo científico" },
+    "id": "louri-entrada-y-verdad",
+    "containsAny": ["fósil", "fosil", "réplica", "replica", "hipótesis", "hipotesis"],
+    "setFlags": ["louri_descubierto", "louri_libre"],
     "messages": [
-      { "from": "topotino", "time": "auto", "text": "Clasificación correcta. El modelo comunica una hipótesis; el fósil es una parte material; el laboratorio hace visible el proceso que los relaciona." },
-      { "from": "topotino", "time": "auto", "text": "Buscad la información sobre Lourinhanosaurus: nido, huevos y huesos de embriones. Construid una cadena de tres pasos: evidencia encontrada, inferencia razonable y una pregunta que aún quede abierta. Si vuestra conclusión afirma más que la evidencia, Topoloco gana." }
+      { "from": "system", "time": "auto", "text": "Louri se ha unido al canal." },
+      { "from": "louri", "time": "auto", "text": "Soy Louri. Tyrannosaurus Rex. Espía profesional. Rugidor de élite. Era yo." },
+      { "from": "louri", "time": "auto", "text": "Topoloco dijo que era mi padre. Me infiltró como el juguete de Burger King de Hugo. Ahora sé que me ocultó las pruebas." },
+      { "from": "topotina", "time": "auto", "text": "Tener preguntas no significa estar roto. Comparar pruebas y corregirse es investigar." }
     ]
   },
   {
-    "id": "dinoparque-cadena-evidencia",
-    "requiredFlags": ["dinoparque_modelo_fosil"],
-    "blockedFlags": ["dinoparque_cadena"],
-    "openAnswer": true,
-    "minWords": 15,
-    "containsAnyGroups": [["nido", "huevo", "embrión", "embrion", "hueso"], ["evidencia", "encontraron", "hallaron"], ["inferimos", "podría", "podria", "indica"], ["pregunta", "no sabemos", "falta"]],
-    "setFlags": ["dinoparque_cadena"],
-    "remember": { "kind": "evidence_chain", "label": "Cadena evidencia-inferencia-pregunta sobre Lourinhanosaurus" },
+    "id": "louri-despedida-lisboa",
+    "requiredFlags": ["louri_libre"],
+    "containsAny": ["lisboa", "máquina", "maquina", "plano"],
+    "setFlags": ["louri_canal_cerrado", "completado_dinoparque_lisboa"],
     "messages": [
-      { "from": "topotino", "time": "auto", "text": "Gracias. Habéis reconstruido sin fingir certeza total. Ahora buscad un modelo cuya piel, color o sonido no pueda conocerse directamente por los huesos. Proponed dos versiones posibles y decid qué parte es ciencia y qué parte es elección del reconstruidor." }
+      { "from": "louri", "time": "auto", "text": "La máquina captura recuerdos, separa sus partes y guarda una sola versión. Su próxima operación está en Lisboa." },
+      { "from": "louri", "time": "auto", "text": "Me quedo aquí para descubrir quién soy. Aunque sospecho que soy extraordinario." },
+      { "from": "system", "time": "auto", "text": "Louri ha salido del canal." },
+      { "from": "topotina", "time": "auto", "text": "Canal Louri cerrado definitivamente." },
+      { "from": "topotino", "time": "auto", "text": "Viajad rumbo a Lisboa. Preparad calzado cómodo y una prenda ligera. Mañana seguiremos el plano en Pavilhão do Conhecimento. Descansad." }
     ]
-  },
-  {
-    "id": "dinoparque-dos-reconstrucciones",
-    "requiredFlags": ["dinoparque_cadena"],
-    "blockedFlags": ["dinoparque_reconstrucciones"],
-    "openAnswer": true,
-    "minWords": 13,
-    "containsAnyGroups": [["piel", "color", "sonido", "plumas", "modelo"], ["podría", "podria", "otra", "dos", "versión", "version"], ["evidencia", "elección", "eleccion", "hipótesis", "hipotesis"]],
-    "setFlags": ["dinoparque_reconstrucciones"],
-    "remember": { "kind": "uncertain_reconstruction", "label": "Dos reconstrucciones compatibles con la evidencia" },
-    "messages": [
-      { "from": "topotino", "time": "auto", "text": "Perfecto. La evidencia limita las historias posibles, pero a veces no escoge una sola. Eso acaba de romper la trampa de Topoloco: había dejado una reconstrucción «completamente segura» sin indicar qué partes eran supuestas." },
-      { "from": "topotino", "time": "auto", "text": "Su etiqueta falsa dice: «Museo Topoloco de los Recuerdos Robados». Primera vez que aparece ese nombre. No sabemos dónde está ni qué guarda, pero lo de «robados» no parece un accidente tipográfico." },
-      { "from": "topotino", "time": "auto", "text": "Al llegar a Lisboa, orientaos en Rossio o Baixa: identificad una dirección hacia el río usando pendiente, apertura de calles, aire, luz o señalización. Dad dos indicios independientes; no vale mirar solo el mapa." }
-    ]
-  },
-  {
-    "id": "lisboa-orientacion",
-    "requiredFlags": ["dinoparque_reconstrucciones"],
-    "blockedFlags": ["completado_dinoparque_lisboa"],
-    "openAnswer": true,
-    "minWords": 10,
-    "containsAnyGroups": [["río", "rio", "tejo", "agua"], ["pendiente", "calle", "aire", "luz", "señal", "senal", "abierta", "dirección", "direccion"], ["dos", "también", "además", "ademas", "porque"]],
-    "setFlags": ["completado_dinoparque_lisboa"],
-    "remember": { "kind": "urban_orientation", "label": "Orientación física hacia el Tejo" },
-    "messages": [
-      { "from": "topotino", "time": "auto", "text": "Bien orientados: dos señales independientes son más resistentes a una pista falsa. Topoloco ya sabe que no puede engañaros con un cartel bonito." },
-      { "from": "topotino", "time": "auto", "text": "Hoy no se abre una ventana. Eso también importa: ya sabemos que Topoloco está construyendo un museo con recuerdos ajenos." },
-      { "from": "topotino", "time": "auto", "text": "La etiqueta lleva una dirección incompleta hacia un laboratorio de adaptaciones y un océano que pretende ser uno solo. Mañana seguiremos esa pista." },
-      { "from": "topotino", "time": "auto", "text": "Descansad. Lisboa tiene muchas capas y ninguna piensa colocarse en fila solo para nosotros." }
-    ]
-  },
-  {
-    "id": "dia17-impedimento",
-    "blockedFlags": ["completado_dinoparque_lisboa"],
-    "containsAny": ["no podemos", "cerrado", "cambio de plan"],
-    "messages": [{ "from": "topotino", "time": "auto", "text": "Decidme si ha fallado Dino Parque o la llegada a Lisboa. Cambiaré el soporte, no la exigencia: original, modelo, inferencia y límite deberán seguir separados." }]
   }
 ]
 ```
@@ -100,9 +82,8 @@ Dino Parque recupera la distinción iniciada en Portugal dos Pequenitos: una rep
 
 ```json
 [
-  "Nombrad una diferencia entre modelo, fósil y trabajo de laboratorio.",
-  "La cadena es: qué encontraron, qué permite inferir y qué sigue sin saberse.",
-  "En Lisboa dad dos señales físicas distintas que apunten hacia el Tejo."
+  "Buscad qué está etiquetado como fósil, réplica, modelo o reconstrucción.",
+  "Decir «todavía no sabemos» permite seguir investigando; fingir seguridad cierra la pregunta."
 ]
 ```
 
@@ -110,17 +91,24 @@ Dino Parque recupera la distinción iniciada en Portugal dos Pequenitos: una rep
 
 ```json
 [
-  "Un modelo completo no es un cuerpo original.",
-  "Los embriones apoyan una inferencia sobre reproducción, no sobre el color de la madre.",
-  "La Baixa se abre hacia Praça do Comércio y el Tejo."
+  "Un modelo completo puede reunir huesos conocidos y partes interpretadas.",
+  "La orden de Topoloco llama defecto a una pregunta. Ese es el engaño que Louri debe descubrir.",
+  "El fragmento final habla de una ciudad destruida y reconstruida: Lisboa."
 ]
 ```
 
 ## Contexto para IA
 
-Topotino conoce por primera vez el nombre Museo Topoloco de los Recuerdos Robados, pero no su ubicación, contenido ni finalidad exacta. No debe convertir hipótesis en hechos. Este día no abre ventana. Cuaderno privado.
+- Louri solo puede hablar entre su entrada y su salida explícitas de este episodio.
+- Después de `Canal Louri cerrado definitivamente`, Luna nunca redacta mensajes de Louri ni lo presenta como acompañante.
+- Louri quiere a Topoloco al principio; es un niño engañado, no un villano.
+- No llamar a Topoloco padre real: es la mentira que Louri creyó.
+- No afirmar que Louri es una reconstrucción científicamente perfecta.
+- El fragmento de Lisboa es incompleto: no revela aún el mecanismo total ni la Alhambra.
+- El Cuaderno permanece privado.
 
 ## Fuentes documentales
 
+- https://www.dinoparque.pt/
 - https://www.dinoparque.pt/sobre/
 - https://www.dinoparque.pt/cientifico/

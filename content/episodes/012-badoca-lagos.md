@@ -15,7 +15,7 @@
 
 # Contexto narrativo
 
-Badoca introduce un etograma simple y la separación entre conducta e intención. Niebla, uno de los Oscurnos, se mantiene lejos porque reconoce a Paula y Hugo de Francia, pero usa un receptor para estudiar cómo observan y corrigen. En Lagos, la orientación marítima revela el propósito del dispositivo.
+Niebla huyó de Lisboa con un receptor de la máquina y lo escondió en Badoca para grabar cómo deciden Paula y Hugo ante animales en movimiento. Un etograma simple separa conducta e intención y alimenta el receptor con observaciones que no puede convertir en predicciones seguras. Al descubrirlo, Niebla lo activa y huye a la marina de Lagos para embarcarlo. La orientación marítima permite seguirlo sin adelantar la salida del día siguiente.
 
 ## Mensajes iniciales
 

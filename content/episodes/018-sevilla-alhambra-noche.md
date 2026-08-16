@@ -15,7 +15,7 @@
 
 # Contexto narrativo
 
-Alcázar y Catedral preparan la lectura de capas antes de la Alhambra nocturna. Topotina coordina la apertura de la última ventana, pero necesita la evidencia de Paula y Hugo. En Mexuar, Arrayanes, Comares y Leones se resuelve el plan. El reflejo de Arrayanes revela el mecanismo del eclipse; los doce leones distintos prueban autoría compartida; el Cuaderno aporta una historia privada que la máquina nunca copió. Las Doce Aguas eran una red de experiencias, no objetos. Topoloco es derrotado sin dejar de ser inteligente y huidizo.
+Isla Mágica ya reveló la Alhambra nocturna y dos cerraduras previas. Alcázar prueba que varias épocas pueden convivir; Catedral y Giralda prueban que una estructura puede cambiar de función sin perder toda su memoria. No son desvíos ni nuevas adivinanzas. En Mexuar, Arrayanes, Comares y Leones se resuelve el plan. Arrayanes revela el mecanismo del eclipse; los doce leones distintos prueban autoría compartida; el Cuaderno aporta una historia privada que la máquina nunca copió. Topoloco es derrotado sin dejar de ser inteligente y huidizo.
 
 ## Mensajes iniciales
 

@@ -407,43 +407,51 @@ packs['007-bucaco-batalha-fatima'] = {
 };
 
 packs['008-huellas-mira-obidos'] = {
-  shadowActor: 'Borrón',
+  shadowActor: 'Topoloco',
   openingMessages: [
-    'Buenos días. La única señal abierta muestra huellas enormes impresas en roca, pero ningún hueso.',
-    'Borrón intenta invertir rastros y cambiar etiquetas. Nosotros distinguiremos lo que vemos de lo que deducimos.'
+    { from: 'topotina', text: 'Buenos días. He detectado algo raro en el canal. No quiero escribirlo de forma normal por si alguien está mirando.' },
+    { from: 'topotina', text: 'OCOLOPOT ED AÍPSE NU SOMENET EUQ OERC' },
+    { from: 'topotino', text: '¿Ahora hablamos del revés? Genial. Bastante trabajo me cuesta recordar hacia delante.' },
+    { from: 'topotina', text: 'Leedlo desde el final: CREO QUE TENEMOS UN ESPÍA DE TOPOLOCO.' },
+    { from: 'topotina', text: 'Y hay algo más. Creo que es un dinosaurio.' },
+    { from: 'topotino', text: 'Claro. Un dinosaurio espía. Seguro que también lleva gabardina y sombrero.' },
+    { from: 'topotino', text: 'Solo tenemos una pista comprobable: unas huellas enormes en roca. Vamos a investigar si ha pasado por allí.' }
   ],
   steps: [
     ...withOrder(
-      expedition('pegadas-expedicion', 'Pegadas de Dinossáurios', 'Expedición de las huellas gigantes', 'Las huellas son icnofósiles: fósiles de actividad, no huesos del animal.', [
+      expedition('pegadas-expedicion', 'Pegadas de Dinossáurios', 'Operación: encontrar al espía', 'Buscad rastros reales. No convirtáis una sospecha en un hecho.', [
         'Seguid el circuito hasta ver una pista de saurópodo desde dos puntos.',
         'Buscad huellas delanteras y traseras o diferencias de tamaño dentro del rastro.',
         'Usad un panel para localizar la antigüedad aproximada del yacimiento.',
-        'Elegid algo que las huellas permiten saber y algo que no pueden contar.'
+        'Decid qué sabéis por las marcas y qué solo estáis suponiendo.'
       ], [
         'Expedición completada. La losa conserva cerca de veinte pistas y una de ellas alcanza 147 metros.',
-        'Las marcas tienen unos 175 millones de años. No vemos al animal, pero sí parte de su movimiento.'
+        'Las marcas tienen unos 175 millones de años. Permiten estimar dirección, tamaño y forma de moverse, pero no el color ni las intenciones.',
+        { from: 'topotina', text: 'He detectado una marca reciente de tres garras y una nota: «TRABAJO DE ESPÍA EXTRAORDINARIO». Demasiado reciente y demasiado presumida.' },
+        { from: 'topotino', text: 'Eso no demuestra que sea un dinosaurio. Sí demuestra que alguien necesita abuela.' }
       ]),
       [
         question('pegadas-q1', 'Pegadas de Dinossáurios', '¿Qué es una huella fosilizada?', ['Un fósil de la actividad del animal', 'Un hueso del pie', 'Una escultura moderna'], 0, 'Correcto. Conserva una acción: pisar.', 'Por eso se llama icnofósil. Informa del movimiento sin conservar el cuerpo.', 'Pensad si estáis viendo una parte del cuerpo o la marca que produjo.'),
         question('pegadas-q2', 'Pegadas de Dinossáurios', '¿Qué NO puede asegurar una pista por sí sola?', ['La dirección aproximada del movimiento', 'Que el animal apoyó allí los pies', 'El color exacto de su piel'], 2, 'Exacto. La piel no dejó esa información en las pisadas.', 'Una buena investigación dice también qué desconoce. Borrón gana cuando una deducción se presenta como observación.', 'Buscad qué dato no dejó ninguna marca en la roca.')
       ]
     ),
-    nextStop('dia16-pista-mira', 'Las huellas conservan una acción en la superficie. La nueva señal muestra agua dejando marcas muy lentamente bajo tierra. ¿Adónde conduce?', ['Grutas de Mira de Aire', 'Grutas de Santo António', 'Mina de Sal-Gema de Loulé'], 0, [
+    nextStop('dia16-pista-mira', 'No hemos encontrado al espía. Gotas ha enviado una pista: «Si no está en la superficie, buscad en las entrañas de la Tierra, donde el agua abre galerías». ¿Adónde vamos?', ['Grutas de Mira de Aire', 'Grutas de Santo António', 'Mina de Sal-Gema de Loulé'], 0, [
       'La señal conduce a las Grutas de Mira de Aire.',
-      'Las huellas guardaron un paso; ahora investigaremos un rastro que se forma gota a gota. No sabemos qué aparecerá después.',
+      'Es una búsqueda, no un salto: comprobaremos si el espía se ha ocultado bajo tierra.',
       { from: 'topotina', text: 'La transmisión lleva una firma aliada: GOTAS. Está incompleta. Solo podré verificarla cuando lleguéis.' },
-      { from: 'topotino', text: '¿Gotas? No recuerdo a nadie con nombre de lluvia. No voy a fingir: esperaremos a comprobar quién es.' }
+      { from: 'topotino', text: 'Gotas añade: no correr, no lamer estalactitas, no adoptar murciélagos y no comprobar personalmente la profundidad de ningún agujero.' }
     ]),
     ...withOrder(
-      expedition('mira-expedicion', 'Grutas de Mira de Aire', 'Expedición del agua invisible', 'Gotas nos pide observar el trabajo del agua sin tocar las formaciones.', [
+      expedition('mira-expedicion', 'Grutas de Mira de Aire', 'Rastreo en las entrañas de la Tierra', 'Buscad al espía mientras observáis cómo el agua construye la cueva.', [
         'Localizad una estalactita que baje del techo y una estalagmita que suba del suelo.',
         'Buscad una columna o un punto donde ambas formas casi se unan.',
         'Observad un lago, curso o zona húmeda del recorrido.',
-        'Comparad una formación fina con otra más ancha.'
+        'Buscad una marca reciente, una sombra o un escondite posible sin salir del recorrido.'
       ], [
         { from: 'gotas', text: 'Hecho. El agua de lluvia absorbe dióxido de carbono, entra por grietas y puede disolver lentamente parte de la roca caliza.' },
         { from: 'gotas', text: 'Cuando el agua pierde ese gas, deja carbonato cálcico. Repetido gota a gota, el depósito va construyendo las formaciones.' },
-        { from: 'topotino', text: 'O sea: primero transporta material y después lo deja. Gotas es pequeño, pero sus explicaciones no vienen diluidas.' }
+        { from: 'topotino', text: 'No hay dinosaurio. Ni siquiera uno con brazos ridículamente pequeños. Pero alguien ha seguido leyendo el canal.' },
+        { from: 'gotas', text: 'Entonces necesitamos reorganizarnos en un lugar que controle entradas y salidas. Yo votaría por algo con murallas. Muchas murallas.' }
       ]),
       [
         onArrival(question('mira-q1', 'Grutas de Mira de Aire', '¿Cuál crece desde el techo?', ['La estalactita', 'La estalagmita', 'El lago'], 0, 'Correcto: la estalactita cuelga del techo.', 'La estalagmita crece desde el suelo por las gotas que caen. Si llegan a unirse, pueden formar una columna.', 'Recordad la forma que habéis visto colgar.'), ARRIVAL_LOCATIONS.mira, [
@@ -467,32 +475,34 @@ packs['008-huellas-mira-obidos'] = {
       ],
       'question-first'
     ),
-    nextStop('dia16-pista-obidos', 'Borrón ha dejado la silueta de una puerta fortificada y una calle dentro de murallas. ¿Qué lugar encaja?', ['Óbidos', 'Guimarães', 'Marvão'], 0, [
+    nextStop('dia16-pista-obidos', 'Gotas busca un refugio cercano: ciudad medieval en alto, una puerta principal, murallas, castillo y calles estrechas. ¿Qué lugar encaja?', ['Óbidos', 'Guimarães', 'Marvão'], 0, [
       'La silueta encaja con Óbidos.',
-      'En la cueva habéis leído el tiempo en la roca. Allí comprobaremos si Borrón también mezcla lo que está escrito con lo que imagina.'
+      'Óbidos será EL REFUGIO. Allí comprobaremos si podemos vigilar las entradas antes de hablar del espía.'
     ]),
     ...withOrder(
-      onArrival(expedition('obidos-expedicion', 'Óbidos', 'Expedición de la ciudad escrita', 'En Óbidos, Borrón mezcla soportes reales con interpretaciones apresuradas.', [
-        'Entrad por Porta da Vila y observad qué protege y qué anuncia.',
-        'Recorred Rua Direita hasta localizar una iglesia, tienda o librería dentro de un edificio antiguo.',
-        'Mirad la muralla y el castillo desde un lugar seguro; no caminéis por zonas que os parezcan peligrosas.',
-        'Elegid un detalle medieval y otro que muestre un uso actual.'
+      onArrival(expedition('obidos-expedicion', 'Óbidos', 'Comprobar EL REFUGIO', 'Pensad como defensores medievales: vigilad accesos, altura y recorridos.', [
+        'Entrad por Porta da Vila: observad por qué una puerta concentra el riesgo aunque exista toda una muralla.',
+        'Recorred una calle estrecha y localizad desde dónde se podría ver a alguien acercarse.',
+        'Mirad murallas, posición elevada y castillo desde un punto seguro; decid qué ventaja ofrece cada uno.',
+        'Entrad en la Livraria de Santiago: una antigua iglesia que ahora protege historias.'
       ], [
         'Expedición cerrada. Óbidos conserva muralla, puertas y trazado, pero también viviendas, comercio y cultura actuales.',
-        'Una ciudad histórica no es una maqueta inmóvil. Sus usos nuevos escriben sin borrar por completo lo anterior.'
+        'Una puerta permite controlar el acceso; la altura amplía la vista; las murallas frenan y canalizan la entrada.',
+        'La Livraria de Santiago cambió de función sin perder su memoria: antes protegía una comunidad religiosa; hoy guarda historias.'
       ]), ARRIVAL_LOCATIONS.obidos, [
-        { from: 'topotino', text: 'En la gruta leísteis el tiempo en la roca. Borrón ha llevado la misma trampa a una ciudad: mezcla lo que está escrito con lo que él quiere que creamos.' },
-        { from: 'topotino', text: 'Habéis llegado a Óbidos. Ahora sí: muralla, calles y textos nos dirán qué es evidencia y qué es interpretación.' }
+        { from: 'topotino', text: 'Habéis llegado a Óbidos. Desde ahora, la casa donde dormís es EL REFUGIO.' },
+        { from: 'topotina', text: 'Comprobad puerta, altura, murallas y calles. Si el espía nos sigue, quiero saber por dónde podría entrar y desde dónde lo veríamos.' }
       ]),
       [
         question('obidos-q1', 'Óbidos', '¿Qué demuestra mejor que Óbidos sigue siendo una ciudad viva?', ['Que dentro de edificios antiguos hay usos actuales', 'Que nadie puede entrar', 'Que todas las calles están vacías'], 0, 'Exacto. El uso actual convive con la estructura heredada.', 'Vivir en un lugar histórico implica adaptar, cuidar y reinterpretar, no congelarlo.', 'Pensad en la tienda, iglesia o librería que habéis localizado.'),
         question('obidos-q2', 'Óbidos', '¿Cuál es una observación y no una interpretación?', ['La puerta tiene azulejos y un paso estrecho', 'La puerta parece enfadada', 'La muralla quiere esconder secretos'], 0, 'Correcto. Describe rasgos que otra persona puede comprobar.', 'Las interpretaciones pueden ser divertidas, pero deben distinguirse de la evidencia visible.', 'Elegid la frase que una fotografía también podría comprobar.')
       ]
     ),
-    recovery('recuperacion-dia16', '¿Qué une huellas, cueva y ciudad?', ['Permiten reconstruir procesos mediante rastros visibles', 'Fueron creadas por dinosaurios', 'Están todas bajo tierra'], 0, 'Una Sombra menos. Borrón no puede borrar una relación que habéis comprobado tres veces.', 'La mancha sigue en el mapa, pero ya no puede cambiar el sentido de la ruta.'),
+    recovery('recuperacion-dia16', '¿Qué regla nos protege mejor de un espía que quiere engañarnos?', ['Separar lo observado de lo que suponemos', 'Inventar la explicación más emocionante', 'Aceptar cualquier nota firmada por un dinosaurio'], 0, 'Sombra retirada. Topoloco no puede convertir una sospecha en una falsa certeza.', 'El espía conserva ventaja, pero ya no puede obligarnos a inventar pruebas.'),
     route('ruta-dia17', 'La próxima señal muestra dinosaurios completos por fuera, fósiles y científicos trabajando por dentro. ¿Cuál es la primera parada?', ['Dino Parque Lourinhã', 'Museu da Lourinhã', 'Castillo de Leiria'], 0, [
       'Primera señal encontrada: Dino Parque Lourinhã.',
-      'Allí separaremos modelo, fósil e investigación. Lo que venga después tendrá que aparecer durante esa investigación.',
+      'Allí hay modelos, fósiles, huevos, embriones, científicos y laboratorio. Si el espía es un dinosaurio, podremos descubrir quién es y qué partes de su historia son verdad.',
+      { from: 'topotina', text: 'La última marca de tres garras apunta en esa dirección. Mañana podemos identificarlo.' },
       'Preparad calzado cómodo, agua y protector solar para el recorrido exterior. Descansad.'
     ], { setFlags: ['completado_huellas_mira_obidos'], water: 'Agua del Tiempo Profundo' })
   ]
@@ -501,29 +511,73 @@ packs['008-huellas-mira-obidos'] = {
 packs['009-dinoparque-lisboa'] = {
   shadowActor: 'Topoloco',
   openingMessages: [
-    'Buenos días. La señal abierta nos lleva únicamente al Dino Parque.',
-    'En Portugal dos Pequenitos aprendisteis que una reproducción debe reconocer qué cambia. Hoy añadiremos fósiles y trabajo científico a esa comparación.',
-    'Topoloco ha preparado una reconstrucción perfecta. Quiere que olvidemos preguntar qué parte es fósil, qué parte es modelo y qué parte es hipótesis.'
+    'Buenos días. Hoy tenemos una misión clara: identificar al dinosaurio que espía para Topoloco.',
+    'La marca de tres garras termina en Dino Parque. Allí hay modelos a tamaño real, fósiles, huevos, embriones y científicos trabajando.',
+    { from: 'topotina', text: 'No buscamos el dinosaurio más impresionante. Buscamos pruebas que separen lo real, la reconstrucción y lo que todavía no sabemos.' },
+    { from: 'topotino', text: 'Y si encontráis uno pequeño, rojo y muy presumido, avisad. Lo de pequeño no se lo digáis a la cara.' }
   ],
   steps: [
     ...withOrder(
-      expedition('dinoparque-expedicion', 'Dino Parque Lourinhã', 'Expedición de original, modelo y estudio', 'Recorred una parte exterior y después el museo o laboratorio.', [
-        'Elegid un modelo exterior y observad tamaño, postura y piel representada.',
-        'Buscad una pieza fósil original o identificada como réplica.',
-        'Localizad una herramienta, mesa o explicación del trabajo científico.',
-        'Comparad qué información aporta cada uno de los tres.'
+      expedition('dinoparque-expedicion', 'Dino Parque Lourinhã', 'Investigación: ¿quién es el espía?', 'Recorred modelos, museo y zona de trabajo científico.', [
+        'Elegid un modelo a tamaño real y buscad qué partes proceden de pruebas y cuáles son reconstrucción.',
+        'Localizad un fósil real y una réplica; comprobad cómo están identificados.',
+        'Buscad el laboratorio o una explicación de cómo limpian, comparan y estudian fósiles.',
+        'Encontrad información sobre nidos, huevos o embriones de dinosaurios portugueses.'
       ], [
-        'Expedición completada. Un modelo permite imaginar el conjunto; un fósil conserva evidencia material; el laboratorio muestra cómo se estudia.',
-        'Ninguno basta solo. La reconstrucción más espectacular sigue necesitando pruebas.'
+        'Un fósil es evidencia material. Una réplica copia una pieza. Un modelo reúne evidencias e interpretación para mostrar un animal completo.',
+        'Los huevos y embriones de Lourinhanosaurus permiten estudiar su desarrollo. El laboratorio muestra que cada conclusión necesita trabajo, comparación y revisión.',
+        { from: 'topotina', text: 'Movimiento dentro del canal. Alguien está intentando escribir con... dos brazos extremadamente cortos.' }
       ]),
       [
-        question('dinoparque-q1', 'Dino Parque Lourinhã', '¿Cuál es evidencia material del pasado?', ['La pieza fósil', 'El color elegido para un modelo', 'La música del parque'], 0, 'Correcto: el fósil.', 'En Coimbra comparasteis reproducción y original. Aquí el fósil añade evidencia material; el modelo combina esa evidencia con decisiones de reconstrucción.', 'Pensad cuál de los elementos no fue fabricado para la visita.'),
-        question('dinoparque-q2', 'Dino Parque Lourinhã', 'Si dos modelos muestran colores distintos, ¿qué conclusión es más honesta?', ['Uno de los colores debe ser una mentira', 'El color puede ser una hipótesis si no hay evidencia suficiente', 'Los dinosaurios cambiaban de color cada hora'], 1, 'Exacto. Una reconstrucción debe mostrar dónde empieza la hipótesis.', 'La ciencia puede proponer alternativas y corregirlas. El museo de Topoloco quiere esconder esas dudas.', '¿Habéis encontrado una prueba directa del color en el fósil elegido?')
+        question('dinoparque-q1', 'Dino Parque Lourinhã', '¿Todo modelo muestra exactamente cómo era el animal?', ['Sí, los científicos conocen cada detalle', 'No: combina evidencias con interpretaciones revisables', 'No: todos los modelos son inventados'], 1, [
+          'Correcto. Una reconstrucción científica usa evidencias, pero debe reconocer lo que interpreta.',
+          { from: 'system', text: 'Un participante desconocido se ha unido al canal: LOURI.' },
+          { from: 'topotino', text: '¡¿CÓMO HA ENTRADO?! ¡Topotina, cambia la contraseña!' },
+          { from: 'topotina', text: 'Ya la he cambiado.' },
+          { from: 'topotino', text: '¿Por cuál?' },
+          { from: 'topotina', text: 'topotino1234' },
+          { from: 'topotino', text: 'ESO NO ES CAMBIARLA.' },
+          { from: 'louri', text: 'Soy Louri. Tyrannosaurus Rex. Espía profesional. Rugidor de élite. Infiltrador extraordinario.' },
+          { from: 'louri', text: 'Y sí. Era yo. Lo de extraordinario lo digo yo, pero normalmente tengo razón.' },
+          { from: 'topotino', text: '¿Tú eres el espía? Tienes los brazos tan cortos que casi no llegas al teclado.' },
+          { from: 'louri', text: 'Son brazos tácticos. Reducen mi superficie detectable.' },
+          { from: 'louri', text: 'Topoloco me convirtió en juguete de Burger King. Hugo me consiguió la noche del 15. Os he vigilado desde entonces.' },
+          { from: 'topotino', text: '¿NOS HAN INFILTRADO UN ESPÍA A TRAVÉS DE UN MENÚ INFANTIL?' },
+          { from: 'topotina', text: 'Técnicamente fue bastante eficaz.' },
+          { from: 'topotino', text: '¡NO LE DES IDEAS!' }
+        ], 'No confundáis una reconstrucción completa con un cuerpo conservado.'),
+        question('dinoparque-q2', 'Dino Parque Lourinhã', 'Cuando faltan pruebas, ¿qué respuesta es más científica?', ['Inventar el detalle y afirmarlo con seguridad', 'Decir probablemente, según las evidencias o todavía no sabemos', 'No volver a investigar'], 1, [
+          'Exacto. Reconocer un límite hace que una conclusión sea más honesta, no más débil.',
+          { from: 'louri', text: 'Eso no encaja. Padre dice que me creó perfecto. Que conoce cada color, cada rugido y cada escama.' },
+          { from: 'louri', text: 'Cuando salí del huevo, Topoloco era la primera persona que vi. Me dijo: «Yo soy tu padre».' },
+          { from: 'louri', text: 'Nunca habló de fósiles. Ni de hipótesis. Decía que dudar era un fallo.' },
+          { from: 'system', text: 'Orden interceptada: «UNIDAD LOURI. Desviación detectada. Hace demasiadas preguntas. Si continúa dudando, será considerada defectuosa».' },
+          { from: 'louri', text: '¿Defectuosa? Pero soy su hijo.' },
+          { from: 'topotina', text: 'Tener preguntas no significa estar roto. Significa que estás comprobando lo que te contaron.' },
+          { from: 'topotino', text: 'Si hacer preguntas fuera un defecto, yo habría sido retirado del mercado hace años.' }
+        ], 'Buscad en los paneles palabras que reconozcan un límite del conocimiento.')
       ]
     ),
+    question('louri-cambio-bando', 'Dino Parque Lourinhã', '¿Qué debe hacer Louri al descubrir pruebas que contradicen a Topoloco?', ['Ignorarlas para seguir sintiéndose perfecto', 'Compararlas, hacer preguntas y corregir su idea', 'Romper todos los modelos'], 1, [
+      { from: 'louri', text: 'He decidido no volver a trabajar para Topoloco.' },
+      { from: 'louri', text: 'A menos que me pida perdón. Y me dé algo muy bueno.' },
+      { from: 'topotina', text: 'Louri.' },
+      { from: 'louri', text: 'Vale. No vuelvo.' },
+      { from: 'louri', text: 'Escuché su plan. Construye una máquina que captura recuerdos, separa unas partes de otras y guarda una sola versión en su museo.' },
+      { from: 'louri', text: 'Tiene una operación en Lisboa. Repetía: «ciudad destruida, ciudad reconstruida, decidir qué conservar».' },
+      { from: 'louri', text: 'No sé cómo funciona toda la máquina. Solo tengo un fragmento del plano y una coordenada.' },
+      { from: 'louri', text: 'Creo que me quedaré aquí. Necesito descubrir quién soy.' },
+      { from: 'louri', text: 'Aunque sospecho que soy extraordinario.' },
+      { from: 'topotino', text: 'Eso sí parece bastante confirmado.' },
+      { from: 'louri', text: 'Paula, Hugo: si alguien vuelve a esconderse en un juguete de comida rápida, miradle los ojos. Los espías pestañeamos fatal.' },
+      { from: 'system', text: 'Louri ha salido del canal.' },
+      { from: 'topotina', text: 'Canal Louri cerrado definitivamente. Su fragmento señala LISBOA.' },
+      { from: 'topotino', text: 'Gracias, Louri. Y esta vez cambia la contraseña de verdad, Topotina.' }
+    ], 'Cambiar una idea ante nuevas pruebas no es un defecto.'),
     nextStop('dia17-pista-lisboa', 'El rótulo de Topoloco mezcla una reconstrucción con una cuadrícula de calles y dos grandes plazas. ¿Qué ciudad debemos comprobar?', ['Lisboa', 'Oporto', 'Setúbal'], 0, [
       'La pista señala Lisboa.',
-      'El Dino Parque nos ha obligado a separar original, modelo e interpretación. En Lisboa buscaremos una reconstrucción a escala de ciudad, no sabemos aún qué dejará allí Topoloco.'
+      'No vamos porque aparezca en un cartel al azar. Es la coordenada que Louri robó de la máquina: una ciudad destruida y reconstruida donde Topoloco tiene un módulo.',
+      'Louri se queda en Dino Parque. Su parte en esta aventura ha terminado.'
     ]),
     ...withOrder(
       expedition('lisboa-llegada-expedicion', 'Lisboa · Baixa y Rossio', 'Expedición de orientación', 'Al llegar, leeremos la ciudad sin convertir el paseo en otro examen largo.', [
@@ -533,21 +587,21 @@ packs['009-dinoparque-lisboa'] = {
         'Desde un punto seguro, identificad una subida que conduzca hacia otra parte de la ciudad.'
       ], [
         'Ya está. Las calles rectas de la Baixa ayudan a orientarse y pertenecen a una reconstrucción posterior al terremoto de 1755.',
-        'Topoloco acaba de dejar un rótulo: «Museo Topoloco de los Recuerdos Robados». Ya sabemos qué pretende construir.'
+        'El plano de Louri encaja con la reconstrucción posterior al terremoto de 1755. Topoloco estudia cómo una ciudad decide qué cambia y qué conserva.'
       ]),
       [
         onArrival(question('lisboa-llegada-q1', 'Lisboa · Baixa y Rossio', '¿Qué ayuda más a orientarse en la Baixa?', ['La relación entre calles rectas y plazas', 'Cerrar los ojos', 'Seguir siempre la calle más empinada'], 0, 'Correcto. La estructura urbana crea conexiones legibles.', 'La Baixa fue reconstruida con una trama regular. Mañana compararemos esa organización con otros sistemas.', 'Mirad qué calles permiten ver o alcanzar otra plaza.'), ARRIVAL_LOCATIONS.rossio, [
-          { from: 'topotino', text: 'En Dino Parque separasteis fósil, réplica y reconstrucción. La señal nos trae ahora a una ciudad reconstruida que también conserva pistas de lo anterior.' },
+        { from: 'topotino', text: 'La coordenada de Louri termina aquí. Topoloco ha escondido en la Baixa una pieza de la Máquina de los Recuerdos.' },
           { from: 'topotino', text: 'Ya estáis en Rossio. Antes de investigar Lisboa, vamos a aprender a orientarnos en su trazado real.' }
         ]),
         question('lisboa-llegada-q2', 'Lisboa · Baixa y Rossio', '¿Qué revela un edificio antiguo con uso actual?', ['Que una ciudad puede cambiar sin borrar todas sus capas', 'Que el edificio nunca cambió', 'Que el pasado ya no importa'], 0, 'Sí. Uso nuevo y huella antigua pueden convivir.', 'Esta idea contradice el museo de una sola versión que prepara Topoloco.', 'Comparad lo que conserva el edificio con lo que se hace hoy dentro.')
       ],
       'question-first'
     ),
-    recovery('recuperacion-dia17', '¿Qué error comete el museo de Topoloco?', ['Presentar una reconstrucción como si fuera la única verdad', 'Conservar fósiles con información', 'Explicar cuándo existe una duda'], 0, 'Interferencia retirada. Una historia honesta puede contener hipótesis y correcciones.', 'Topoloco conserva ventaja hoy, pero ya conocemos el nombre de su plan.'),
-    route('ruta-dia18', 'El rótulo del museo esconde un esquema de experimentos donde se cambia una sola cosa cada vez. ¿Cuál es la primera señal de mañana?', ['Pavilhão do Conhecimento', 'Museu da Ciência de Coimbra', 'Planetário do Porto'], 0, [
+    recovery('recuperacion-dia17', '¿Qué ha liberado a Louri del engaño?', ['Distinguir evidencias, hipótesis y cosas que aún no sabemos', 'Aceptar la voz más segura', 'Dejar de hacer preguntas'], 0, 'Interferencia retirada. Topoloco pierde un espía porque Paula y Hugo comprobaron sus afirmaciones.', 'Topoloco conserva ventaja, pero ya conocemos su máquina y su operación en Lisboa.'),
+    route('ruta-dia18', 'El plano de Louri marca el módulo que separa causas y coincidencias. Está en un centro de Lisboa lleno de experimentos para tocar y probar. ¿Cuál es la primera señal de mañana?', ['Pavilhão do Conhecimento', 'Museu da Ciência de Coimbra', 'Planetário do Porto'], 0, [
       'Primera señal encontrada: Pavilhão do Conhecimento.',
-      'Allí comprobaremos cómo se distingue una causa de una simple coincidencia. No hay otra parada visible todavía.',
+      'Topoloco usa ese módulo para cortar las conexiones entre recuerdos. Si aprendemos cómo prueba causas y efectos, podremos estropearlo. No hay otra parada visible todavía.',
       'Preparad calzado cómodo y una prenda ligera para interiores. Descansad.'
     ], { setFlags: ['completado_dinoparque_lisboa'] })
   ]
@@ -556,8 +610,9 @@ packs['009-dinoparque-lisboa'] = {
 packs['010-lisboa-ciencia-oceanario'] = {
   shadowActor: 'Niebla',
   openingMessages: [
-    'Buenos días. La señal del museo apunta primero al Pavilhão do Conhecimento.',
-    'Topoloco guarda recuerdos como objetos separados. Nosotros vamos a demostrar que un cambio en una parte puede afectar a toda una red.'
+    'Buenos días. Louri cerró su canal ayer, pero su plano sigue siendo nuestra única ventaja.',
+    'Señala el Pavilhão do Conhecimento: allí está el módulo que Topoloco usa para separar causas y coincidencias.',
+    'Si aprendemos cómo decide qué produjo cada cambio, podremos sabotearlo sin que Topoloco sepa qué dato le falló.'
   ],
   steps: [
     ...withOrder(
@@ -575,7 +630,7 @@ packs['010-lisboa-ciencia-oceanario'] = {
         question('pavilhao-q2', 'Pavilhão do Conhecimento', 'Si la predicción falla, ¿qué conviene hacer?', ['Ocultarla', 'Compararla con el resultado y corregir la idea', 'Culpar al módulo'], 1, 'Muy bien. Corregir es parte de investigar.', 'Una predicción equivocada puede enseñar más que un acierto casual. La máquina de Topoloco no sabe presumir de una corrección.', 'Pensad qué información nueva os dio el resultado real.')
       ]
     ),
-    nextStop('dia18-pista-oceanario', 'Al repetir el experimento aparece un círculo azul rodeado de especies marinas y una letra V. ¿Qué lugar encaja?', ['Oceanário de Lisboa', 'Aquário Vasco da Gama', 'Sea Life Porto'], 0, [
+    nextStop('dia18-pista-oceanario', 'El módulo dañado intenta separar seres vivos como si no dependieran unos de otros. Su salida muestra un océano conectado y la firma VASCO. ¿Dónde podemos demostrar que se equivoca?', ['Oceanário de Lisboa', 'Aquário Vasco da Gama', 'Sea Life Porto'], 0, [
       'La señal conduce al Oceanário de Lisboa.',
       { from: 'topotino', text: 'La letra V podría pertenecer a un aliado. No sé quién es todavía. Tendremos que comprobar la transmisión al llegar.' },
       { from: 'topotina', text: 'Una coordenada, hermano. Ni una más.' }
@@ -633,8 +688,9 @@ packs['010-lisboa-ciencia-oceanario'] = {
 packs['011-lisboa-historia-belem'] = {
   shadowActor: 'Topoloco',
   openingMessages: [
-    'Buenos días. La única señal abierta nos lleva al Castelo de São Jorge.',
-    'Topoloco dice que conservar significa no cambiar. Lisboa va a desmontar esa idea calle a calle.'
+    'Buenos días. Ayer estropeamos el módulo que separaba causas y relaciones.',
+    'Topoloco ha movido los datos al archivo histórico de Lisboa. Quiere guardar una ciudad sin terremoto, reconstrucción ni voces distintas.',
+    'La señal empieza en el Castelo de São Jorge: desde arriba veremos la versión general antes de comprobar a pie lo que oculta.'
   ],
   steps: [
     ...withOrder(
@@ -698,7 +754,7 @@ packs['011-lisboa-historia-belem'] = {
       ]
     ),
     recovery('recuperacion-dia19', '¿Qué hizo Lisboa para seguir existiendo?', ['Cambió, reconstruyó y conservó capas distintas', 'Permaneció idéntica', 'Borró todos sus barrios antiguos'], 0, 'Sombra retirada. Topoloco ya no puede confundir permanencia con inmovilidad.', 'La versión única gana terreno, pero aún conserváis las diferencias.'),
-    route('ruta-dia20', 'La nueva señal muestra animales africanos en grandes espacios y una advertencia: «describid lo que hacen, no lo que imagináis». ¿Cuál es la primera parada?', ['Badoca Safari Park', 'Oceanário', 'Tapada Nacional de Mafra'], 0, [
+    route('ruta-dia20', 'Al conservar las capas reales de Lisboa, Niebla huye con un receptor de la máquina. Su señal aparece entre animales africanos en grandes espacios. ¿Dónde lo buscamos mañana?', ['Badoca Safari Park', 'Oceanário', 'Tapada Nacional de Mafra'], 0, [
       'Primera señal encontrada: Badoca Safari Park.',
       'Niebla quiere convertir cualquier movimiento animal en un cuento falso. Nosotros separaremos conducta visible e interpretación.',
       'Preparad agua, protector solar, prismáticos si tenéis y ropa cómoda. Lo demás sigue oculto. Descansad.'
@@ -709,8 +765,9 @@ packs['011-lisboa-historia-belem'] = {
 packs['012-badoca-lagos'] = {
   shadowActor: 'Niebla',
   openingMessages: [
-    'Buenos días. La única señal abierta nos lleva a Badoca Safari Park.',
-    'Niebla está observando cómo pensáis. Hoy no le regalaremos emociones inventadas: primero hechos, después hipótesis.'
+    'Buenos días. Niebla escapó de Lisboa con un receptor de la máquina y lo ha escondido en Badoca.',
+    'Quiere grabar cómo decidís cuando un animal se mueve y así anticipar vuestra próxima elección.',
+    'Describid conductas visibles sin inventar intenciones: si el receptor recibe suposiciones, Niebla gana.'
   ],
   steps: [
     ...withOrder(
@@ -728,7 +785,7 @@ packs['012-badoca-lagos'] = {
         question('badoca-q2', 'Badoca Safari Park', 'Si dos especies se mueven de forma distinta, ¿qué explicación es más prudente?', ['Su cuerpo y entorno pueden favorecer movimientos distintos', 'Una especie es buena y la otra mala', 'Todos los individuos actúan siempre igual'], 0, 'Muy bien. Relacionar cuerpo, conducta y entorno crea una hipótesis comprobable.', 'Una observación breve no resume toda una especie. Hay que mantener abiertas alternativas.', 'Descartad las opciones que convierten una diferencia en juicio moral.')
       ]
     ),
-    nextStop('dia20-pista-lagos', 'El receptor de Niebla apunta a una ciudad con marina, murallas y salidas hacia el Atlántico. ¿Cuál es?', ['Lagos', 'Sines', 'Sesimbra'], 0, [
+    nextStop('dia20-pista-lagos', 'Habéis encontrado el receptor. Niebla lo activa y huye hacia un puerto con marina, murallas y salidas al Atlántico. ¿Dónde intentará embarcarlo?', ['Lagos', 'Sines', 'Sesimbra'], 0, [
       'La pista conduce a Lagos.',
       'En Badoca habéis descrito animales sin inventar sus pensamientos. En una marina tendremos que aplicar la misma prudencia a una búsqueda en el mar.'
     ]),
@@ -763,8 +820,9 @@ packs['012-badoca-lagos'] = {
 packs['013-delfines-benagil-sagres'] = {
   shadowActor: 'Topoloco',
   openingMessages: [
-    'Buenos días. La única señal abierta comienza en el barco de Lagos.',
-    'Topoloco promete resultados para parecer poderoso. Nosotros investigaremos algo más difícil: lo que puede ocurrir sin fingir que está garantizado.'
+    'Buenos días. Niebla llevó el receptor hasta una embarcación de Lagos.',
+    'Topoloco necesita respuestas seguras sobre algo que nadie puede ordenar: que aparezcan delfines y cómo actúe el mar.',
+    'Aplicaremos el Protocolo Azul. Una observación limitada y honesta hará que su máquina aprenda una certeza falsa.'
   ],
   steps: [
     ...withOrder(
@@ -782,7 +840,7 @@ packs['013-delfines-benagil-sagres'] = {
         question('barco-q2', 'Barco · delfines y Benagil', '¿Qué conducta respeta mejor el Protocolo Azul?', ['Mantener distancia y seguir a la tripulación', 'Perseguir al grupo para acercarse', 'Darles comida para que vuelvan'], 0, 'Exacto. Observar no significa controlar.', 'Reducir molestias permite que el encuentro, si ocurre, dependa del comportamiento natural del animal.', 'Pensad quién debe decidir la distancia segura.')
       ]
     ),
-    nextStop('dia21-pista-sagres', 'Desde el mar aparece un promontorio con fortaleza, una gran figura circular y un cabo frente al Atlántico. ¿Qué lugar encaja?', ['Sagres y Cabo de São Vicente', 'Belém', 'Cascais'], 0, [
+    nextStop('dia21-pista-sagres', 'En Benagil, el receptor confunde «hueco» con «nada». Al corregirlo interceptamos una orden enviada a un promontorio con fortaleza y un cabo frente al Atlántico. ¿Dónde espera Eco?', ['Sagres y Cabo de São Vicente', 'Belém', 'Cascais'], 0, [
       'La señal conduce a Sagres y al Cabo de São Vicente.',
       'En el barco habéis observado sin controlar el resultado. Desde tierra alta comprobaremos qué información añade una vista amplia y qué incertidumbres siguen abiertas.'
     ]),
@@ -817,8 +875,8 @@ packs['013-delfines-benagil-sagres'] = {
 packs['014-piedade-algar-jaima'] = {
   shadowActor: 'Eco',
   openingMessages: [
-    'Buenos días. La única señal abierta nos lleva a Ponta da Piedade.',
-    'Topoloco necesita copiar formas y voces. Nosotros aprenderemos qué permanece cuando el agua abre huecos y cómo se reconoce a un amigo de verdad.'
+    'Buenos días. En Sagres interceptamos la orden de Topoloco: Eco está copiando la voz de Topotino.',
+    'Necesita sonidos, palabras y patrones. Las formas de Ponta da Piedade pueden enseñarnos a distinguir dos cosas parecidas antes de que intente suplantarlo.'
   ],
   steps: [
     ...withOrder(
@@ -895,8 +953,9 @@ packs['014-piedade-algar-jaima'] = {
 packs['015-zoomarine'] = {
   shadowActor: 'Topoloco',
   openingMessages: [
-    'Buenos días. Hoy investigamos Zoomarine y Porto d’Abrigo.',
-    'Eco dejó una idea peligrosa: «si cuidas algo, te pertenece». Vasco nos ayudará a desmontarla, pero la evidencia está en el parque.'
+    'Buenos días. Eco se delató al pedir una foto del Cuaderno: Topotino nunca lo haría.',
+    'Su orden de retirada viene de Zoomarine. Topoloco intenta alimentar la máquina con una mentira: «si cuidas algo, te pertenece».',
+    'Vamos a demostrar que rescatar, rehabilitar y devolver al mar es cuidar sin convertirse en dueño.'
   ],
   steps: [
     ...withOrder(
@@ -926,8 +985,9 @@ packs['015-zoomarine'] = {
 packs['016-tavira-sevilla'] = {
   shadowActor: 'Borrón',
   openingMessages: [
-    'Buenos días. La única señal abierta nos lleva al puente de Tavira.',
-    'Borrón ha escrito «romano» sobre el puente de siete arcos. No vamos a borrar el puente: vamos a corregir la etiqueta con respeto y evidencia.'
+    'Buenos días. Ayer unimos motivo, conducta y resultado: Topoloco provocó la amnesia para dejar de perder contra nosotros.',
+    'Borrón ha reaccionado escribiendo «romano» sobre el puente de siete arcos de Tavira.',
+    'El Cuaderno nos ayudará, en privado, a recordar cómo se corrige una etiqueta sin borrar el lugar.'
   ],
   steps: [
     ...withOrder(
@@ -980,9 +1040,9 @@ packs['016-tavira-sevilla'] = {
 packs['017-isla-magica'] = {
   shadowActor: 'Niebla',
   openingMessages: [
-    'Buenos días. Hoy entramos en Isla Mágica y Agua Mágica.',
-    'Recordad Portugal dos Pequenitos: representar una época no convierte el escenario en un edificio original, pero puede enseñar si explica sus límites.',
-    'Es la estación gemela de Magikland. No sabemos todavía quién está emitiendo desde dentro ni qué intenta hacer Niebla.'
+    'Buenos días. Al corregir a Borrón en Tavira y comparar los puentes de Sevilla, reapareció la firma gemela de Magikland.',
+    'Conduce a Isla Mágica. Niebla ha combinado ruido, emoción y urgencia para que elijáis sin comprobar.',
+    'Capitán Pico, América y Krim están dentro. No resolverán la trampa, pero nos ayudarán a hacer que Niebla siga una respuesta falsa.'
   ],
   steps: [
     ...withOrder(
@@ -1002,7 +1062,7 @@ packs['017-isla-magica'] = {
       'question-first'
     ),
     recovery('recuperacion-dia25', '¿Qué hace un buen explorador cuando siente mucha prisa?', ['Nombra la emoción, comprueba y mantiene una salida', 'Obedece la primera señal', 'Finge que no siente nada'], 0, 'Sombra retirada. Krim dice que Niebla ha salido color verde mareado.', 'Niebla mantiene una ventaja, pero la contratrampa ha recuperado la señal principal.'),
-    route('ruta-dia26', 'La señal recuperada muestra un palacio sevillano donde edificios y jardines conservan cambios de muchas épocas. ¿Cuál es la primera parada?', ['Real Alcázar de Sevilla', 'Palacio de las Dueñas', 'Castillo de Gibralfaro'], 0, [
+    route('ruta-dia26', 'La contratrampa revela el final —la Alhambra de noche— pero mantiene dos cerraduras previas. La primera es un palacio sevillano con edificios y jardines de muchas épocas. ¿Cuál es?', ['Real Alcázar de Sevilla', 'Palacio de las Dueñas', 'Castillo de Gibralfaro'], 0, [
       'Primera señal encontrada: Real Alcázar de Sevilla.',
       'Solo sabemos que allí debemos comprobar cómo varias épocas pueden convivir sin que una borre a las demás.',
       'Tened agua y calzado cómodo. Guardad energía; la red sigue ocultando el resto.'
@@ -1013,8 +1073,9 @@ packs['017-isla-magica'] = {
 packs['018-sevilla-alhambra-noche'] = {
   shadowActor: 'Topoloco',
   openingMessages: [
-    'Buenos días. La señal abierta nos lleva al Real Alcázar de Sevilla.',
-    'Topoloco intenta encerrar una sola versión. Primero comprobaremos si un edificio puede conservar cambios de muchas épocas.'
+    'Buenos días. Ayer engañasteis a Niebla y apareció el destino final: la Alhambra de noche.',
+    'No podemos abrirla aún. La máquina exige dos pruebas sevillanas: varias épocas juntas y un edificio que cambió de función sin perder toda su memoria.',
+    'La primera cerradura está en el Real Alcázar. La segunda solo aparecerá cuando la resolvamos.'
   ],
   steps: [
     ...withOrder(

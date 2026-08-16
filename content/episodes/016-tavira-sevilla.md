@@ -15,7 +15,7 @@
 
 # Contexto narrativo
 
-Tavira corrige la memoria popular de su puente: no puede demostrarse romano, sí medieval y reconstruido. Sevilla amplía la comparación entre puente, canal, representación y territorio. Al completar la relación, Topotina localiza la segunda firma de parque detectada en Magikland. El cuaderno solo se consulta para producir una conclusión.
+Borrón responde a la acusación contra Topoloco escribiendo «romano» sobre el puente de Tavira. El Cuaderno se consulta en privado para recordar un método de corrección. Tavira permite demostrar que el puente es medieval y fue reconstruido; Sevilla amplía la comparación entre puente, canal, representación y territorio. Al completar la relación, Topotina reactiva la firma gemela de Magikland y descubre Isla Mágica. El Cuaderno nunca se muestra ni se transcribe.
 
 ## Mensajes iniciales
 

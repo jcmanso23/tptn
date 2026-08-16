@@ -15,7 +15,7 @@
 
 # Contexto narrativo
 
-Isla Mágica representa los siglos XVI y XVII y es la estación gemela de Magikland. Retoma la distinción aprendida en Portugal dos Pequenitos: una representación puede enseñar sin convertirse en el edificio o la época original. Capitán Pico y América no son mascotas decorativas: son aliados de Topotino y convierten a Paula y Hugo en pequeños exploradores para buscar dos partes de la señal. Krim, duende del Mundo de los Colores, ayuda a separar emoción y decisión mediante color, cuento y juego. Niebla combina ruido, emoción y urgencia en una trampa basada en cómo deciden los niños. Paula y Hugo la vuelven contra él y el fallo revela Granada y doce guardianes.
+La firma recuperada en Sevilla confirma que Isla Mágica es la estación gemela de Magikland. Niebla combina ruido, emoción y urgencia para forzar una decisión irreflexiva. Capitán Pico y América convierten a Paula y Hugo en exploradores y Krim separa emoción de decisión. Los niños alimentan la máquina con una respuesta falsa, reversible y comprobable; Niebla cae en la contratrampa. El fallo revela la Alhambra nocturna como destino final y dos cerraduras previas: Real Alcázar y Catedral. Desde este momento Granada ya es conocida y no debe «redescubrirse» en la Catedral.
 
 ## Mensajes iniciales
 

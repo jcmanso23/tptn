@@ -15,7 +15,7 @@
 
 # Contexto narrativo
 
-Pavilhão y Oceanário convierten módulos y especies en relaciones causales. Vasco es un aliado de Topotino y educador del océano: nació simbólicamente el 8 de junio, le encanta bucear y descubrir el mundo submarino. Enseña el Protocolo Azul sin resolver las pruebas. Aparece el número doce como nodos conectados y se comprende por primera vez que el mapa representa una red.
+Louri ya ha cerrado su canal y no participa. Su fragmento conduce al módulo de la Máquina de los Recuerdos que separa causas y relaciones. Pavilhão permite sabotear su clasificador cambiando una variable cada vez. El fallo señala al Oceanário porque el módulo intenta separar especies que dependen unas de otras. Vasco enseña el Protocolo Azul sin resolver las pruebas. El Tajo demuestra que la red continúa fuera del tanque y revela que Topoloco ha trasladado los datos al archivo histórico de Lisboa.
 
 ## Mensajes iniciales
 

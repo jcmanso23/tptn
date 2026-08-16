@@ -15,7 +15,7 @@
 
 # Contexto narrativo
 
-Ponta da Piedade y Algar Seco permiten ordenar procesos sin afirmar una secuencia universal. En la HolaJaima, Eco, uno de los Oscurnos, suplanta a Topotino por orden de Topoloco y pide la marca privada del cuaderno. La petición misma lo delata. El verdadero Topotino pronuncia la única palabrota leve del arco y se disculpa.
+La orden interceptada en Sagres confirma que Eco copia la voz de Topotino. Ponta da Piedade y Algar Seco enseñan a distinguir fractura, cueva, arco y pilar para preparar a Paula y Hugo contra dos apariencias parecidas. Eco reúne sonido y vocabulario durante el recorrido. En la HolaJaima suplanta a Topotino y pide la marca privada del Cuaderno; la petición misma lo delata. Su orden de retirada señala Zoomarine.
 
 ## Mensajes iniciales
 

@@ -635,6 +635,32 @@ input {
   border-right-color: #084161;
 }
 
+.sender-louri .message-avatar {
+  border-color: #ff665d;
+  background: #fff;
+}
+
+.sender-louri .message-avatar img {
+  object-position: center;
+}
+
+.sender-louri .message-sender {
+  color: #ff9b72;
+}
+
+.sender-louri .message-bubble {
+  border-color: rgba(255, 102, 93, .8);
+  background: linear-gradient(135deg, rgba(92, 31, 28, .98), rgba(35, 24, 38, .98));
+}
+
+.sender-louri.message-row.topotino .message-bubble::before {
+  border-right-color: rgba(255, 102, 93, .8);
+}
+
+.sender-louri.message-row.topotino .message-bubble::after {
+  border-right-color: #5a201e;
+}
+
 .message-row.topotino .message-bubble::before {
   content: "";
   position: absolute;

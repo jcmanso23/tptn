@@ -2,12 +2,12 @@
 {
   "id": "008-huellas-mira-obidos",
   "order": 8,
-  "title": "Día 4 · El animal ausente y la ciudad escrita",
-  "channelCode": "T-47G2",
+  "title": "Día 4 · El espía de Topoloco",
+  "channelCode": "T-21A0",
   "startsUnlocked": false,
   "activation": { "mode": "all", "date": { "on": "2026-08-16" }, "location": { "lat": 39.5678412, "lng": -8.5899740, "radiusMeters": 5000, "label": "Monumento Natural das Pegadas de Dinossáurios" } },
-  "mission": "Leer lo que ya no está",
-  "formulaWord": null,
+  "mission": "Descubrir quién vigila el canal",
+  "formulaWord": "PREGUNTO",
   "water": "Agua del Tiempo Profundo",
   "ai": { "enabled": true, "mode": "fallback" }
 }
@@ -15,15 +15,32 @@
 
 # Contexto narrativo
 
-Huellas, cueva y ciudad amurallada enseñan a inferir procesos ausentes mediante rastros. Borrón ha pasado por las tres paradas alterando orientación, etiquetas y figuras, pero siempre deja una mancha oscura que Paula y Hugo pueden detectar al contrastar. Gotas, aliado de Topotino en Mira de Aire, entra en el canal con su avatar propio después de que la señal de las huellas revele su firma y la llegada permita a Topotina verificarla. Ayuda a explicar el trabajo del agua, pero no responde por Paula y Hugo. Topoloco intenta confundir copia con memoria desplazada.
+No se cambia nada anterior al 16 de agosto. Topotina detecta vigilancia, escribe al revés `OCOLOPOT ED AÍPSE NU SOMENET EUQ OERC` y después aclara: «CREO QUE TENEMOS UN ESPÍA DE TOPOLOCO». Sospecha que es un dinosaurio. Topotino responde con incredulidad y humor.
+
+El día es una sola persecución. En el yacimiento Paula y Hugo buscan al espía mientras aprenden a distinguir observación, deducción y suposición. Encuentran una marca reciente de tres garras y una nota presuntuosa, pero no al responsable. Gotas propone buscar en las entrañas de la Tierra y conduce a Mira de Aire. Allí explica con humor y precisión cómo el agua disuelve caliza, abre galerías y deposita mineral; el espía vuelve a escapar. Gotas propone un refugio amurallado y la investigación conduce lógicamente a Óbidos.
+
+La casa familiar en Óbidos pasa a llamarse **EL REFUGIO**. Porta da Vila, las murallas, la altura, el castillo, las calles estrechas y los accesos permiten pensar como defensores medievales. La Livraria de Santiago muestra que una antigua iglesia puede proteger hoy historias: un lugar cambia de función sin perder memoria. Por la noche una marca de tres garras conduce a Dino Parque, donde fósiles, reconstrucciones, huevos, embriones y científicos pueden identificar al espía.
+
+Louri no entra en el chat ni es nombrado durante este episodio.
+
+## Secuencia canónica
+
+1. Advertencia invertida de Topotina y sospecha del dinosaurio.
+2. Expedición física en las huellas: dirección, tamaño, velocidad posible y límites de la evidencia.
+3. Señal reciente de tres garras y nota vanidosa; el espía no aparece.
+4. Gotas conduce a Mira de Aire porque el escondite podría estar bajo tierra.
+5. Investigación de estalactitas, estalagmitas, galerías y tiempo geológico.
+6. Al no encontrarlo, Gotas exige un refugio defendible: Óbidos.
+7. Comprobación de accesos, muralla, altura, castillo y Livraria de Santiago.
+8. La pista final identifica Dino Parque como el laboratorio donde podrán descubrir quién es el espía.
 
 ## Mensajes iniciales
 
 ```json
 [
-  { "from": "topotino", "time": "auto", "text": "Buenos días. Marga ha encontrado manchas de Borrón sobre la ventana siguiente. Alguien ha intentado invertir un rastro de dinosaurio." },
-  { "from": "topotino", "time": "auto", "text": "Seguid el recorrido hasta ver una pista de saurópodo desde dos puntos distintos." },
-  { "from": "topotino", "time": "auto", "text": "Elegid un rastro: decid hacia dónde avanzaba, qué descarta el sentido contrario y qué NO podemos saber solo con esas huellas." }
+  { "from": "topotina", "time": "auto", "text": "Buenos días. OCOLOPOT ED AÍPSE NU SOMENET EUQ OERC" },
+  { "from": "topotina", "time": "auto", "text": "Leedlo desde el final: CREO QUE TENEMOS UN ESPÍA DE TOPOLOCO. Creo que es un dinosaurio." },
+  { "from": "topotino", "time": "auto", "text": "Un dinosaurio espía. Claro. Seguid las huellas con los adultos y separad lo que veis de lo que suponéis." }
 ]
 ```
 
@@ -32,88 +49,24 @@ Huellas, cueva y ciudad amurallada enseñan a inferir procesos ausentes mediante
 ```json
 [
   {
-    "id": "huellas-inferencia",
-    "blockedFlags": ["huellas_inferencia"],
-    "openAnswer": true,
-    "minWords": 14,
-    "containsAnyGroups": [["huella", "pisada", "rastro"], ["dirección", "direccion", "avanzaba", "dedos", "talón", "talon", "separación", "separacion"], ["no sabemos", "no se puede", "color", "sonido", "edad", "velocidad", "porque"]],
+    "id": "dia16-rastreo-continuo",
+    "containsAny": ["huellas", "garras", "dirección", "direccion"],
     "setFlags": ["huellas_inferencia"],
-    "remember": { "kind": "trace_inference", "label": "Inferencia y límite de evidencia en las huellas" },
     "messages": [
-      { "from": "topotino", "time": "auto", "text": "Gracias. Una huella permite inferir dirección y modo de desplazamiento, pero no autoriza a inventar color, carácter o rugido. Topoloco ha dibujado bigote al saurópodo. Queda científicamente suspendido." },
-      { "from": "topotino", "time": "auto", "text": "La mancha de Borrón señalaba al revés. Al corregirla aparece una montaña hueca descubierta en 1947." },
-      { "from": "topotina", "time": "auto", "text": "La transmisión lleva una firma aliada: GOTAS. Está incompleta; solo podré verificarla cuando lleguéis." },
-      { "from": "topotino", "time": "auto", "text": "No recuerdo a nadie con nombre de lluvia. Esperaremos a comprobar quién es." },
-      { "from": "topotino", "time": "auto", "text": "Durante el descenso, localizad en dos tramos distintos una forma que cuelgue y otra que crezca desde el suelo. Explicad qué hace el agua en ambas." }
+      { "from": "topotino", "time": "auto", "text": "Bien: una huella conserva una acción, no el color ni las intenciones. Seguid hacia Mira de Aire; Gotas cree que el espía se oculta bajo tierra." },
+      { "from": "gotas", "time": "auto", "text": "Al llegar, recorred la cueva sin correr, lamer estalactitas, adoptar murciélagos ni medir agujeros personalmente." }
     ]
   },
   {
-    "id": "mira-aire-formaciones",
+    "id": "dia16-refugio-cierre",
     "requiredFlags": ["huellas_inferencia"],
-    "blockedFlags": ["mira_aire_formaciones"],
-    "openAnswer": true,
-    "minWords": 12,
-    "containsAnyGroups": [["estalactita", "cuelga", "techo"], ["estalagmita", "suelo", "crece"], ["agua", "gota", "caliza", "disuelve", "deposita", "mineral"]],
-    "setFlags": ["mira_aire_formaciones"],
-    "remember": { "kind": "geology_explanation", "label": "Formación de estalactitas y estalagmitas" },
-    "messages": [
-      { "from": "gotas", "time": "auto", "text": "Lo habéis visto: el agua puede disolver y transportar parte de la caliza; después deja mineral al perder dióxido de carbono." },
-      { "from": "topotino", "time": "auto", "text": "Primero transporta y después deposita. Gotas es pequeño, pero sus explicaciones no vienen diluidas." },
-      { "from": "topotino", "time": "auto", "text": "Medid ahora el tiempo sin reloj: elegid una formación gruesa y otra fina y proponed dos explicaciones posibles para la diferencia. Después decid qué observación adicional necesitaríais para escoger entre ellas." }
-    ]
-  },
-  {
-    "id": "mira-aire-hipotesis",
-    "requiredFlags": ["mira_aire_formaciones"],
-    "blockedFlags": ["mira_aire_hipotesis"],
-    "openAnswer": true,
-    "minWords": 14,
-    "containsAnyGroups": [["gruesa", "fina", "grande", "pequeña", "pequena"], ["agua", "tiempo", "gota", "mineral", "caudal", "edad"], ["hipótesis", "hipotesis", "podría", "podria", "necesitamos", "comparar", "medir"]],
-    "setFlags": ["mira_aire_hipotesis"],
-    "remember": { "kind": "multiple_hypotheses", "label": "Hipótesis rivales sobre formaciones de Mira de Aire" },
-    "messages": [
-      { "from": "topotino", "time": "auto", "text": "Excelente: dos hipótesis y una prueba capaz de separarlas. Eso impide enamorarse de la primera explicación." },
-      { "from": "gotas", "time": "auto", "text": "He limpiado la última mancha. La salida proyecta una puerta pintada y una calle que sube hacia un castillo." },
-      { "from": "topotino", "time": "auto", "text": "La pista encaja con Óbidos. Eso sí lo hemos deducido nosotros, no la sonrisa acuática de Gotas." },
-      { "from": "topotino", "time": "auto", "text": "Recorred desde Porta da Vila hacia Rua Direita. Localizad tres soportes de memoria: defensa, religión o arte, y un uso cultural actual. Explicad cómo cambia la función sin borrar el pasado." }
-    ]
-  },
-  {
-    "id": "obidos-soportes",
-    "requiredFlags": ["mira_aire_hipotesis"],
-    "blockedFlags": ["obidos_soportes"],
-    "openAnswer": true,
-    "minWords": 16,
-    "containsAnyGroups": [["muralla", "puerta", "castillo", "defensa"], ["iglesia", "santa maria", "azulejo", "josefa", "arte"], ["libro", "librería", "libreria", "tienda", "cultura", "actual"], ["cambió", "cambio", "función", "funcion", "conserva", "pasado"]],
-    "setFlags": ["obidos_soportes"],
-    "remember": { "kind": "urban_memory", "label": "Tres soportes de memoria en Óbidos" },
-    "messages": [
-      { "from": "topotino", "time": "auto", "text": "Muy bien. Muralla, iglesia y librería guardan de forma distinta: proteger, representar y reinterpretar. Una memoria puede cambiar de soporte sin desaparecer." },
-      { "from": "topotino", "time": "auto", "text": "Última comprobación: en Santa Maria buscad una escena o figura entre los azulejos y el arte. Describid dos detalles visibles y separad observación de interpretación: «veo…» frente a «creo que significa…»." }
-    ]
-  },
-  {
-    "id": "obidos-observacion-interpretacion",
-    "requiredFlags": ["obidos_soportes"],
-    "blockedFlags": ["completado_huellas_mira_obidos"],
-    "openAnswer": true,
-    "minWords": 12,
-    "containsAnyGroups": [["veo", "observamos", "detalle", "color", "figura", "azulejo", "cuadro"], ["creo", "interpretamos", "significa", "podría", "podria", "porque"]],
+    "containsAny": ["óbidos", "obidos", "refugio", "livraria"],
     "setFlags": ["completado_huellas_mira_obidos"],
-    "remember": { "kind": "observation_interpretation", "label": "Separación de observación e interpretación en Óbidos" },
     "water": "Agua del Tiempo Profundo",
     "messages": [
-      { "from": "topotino", "time": "auto", "text": "Gracias. Habéis marcado la frontera entre dato e interpretación. Topoloco cruza esa frontera corriendo y luego finge que nunca existió." },
-      { "from": "topotino", "time": "auto", "text": "La quinta ventana se ha aclarado. Y ahora recuerdo algo: mis recuerdos no fueron destruidos. Los extrajeron y los repartieron en soportes distintos. Aún no sé dónde." },
-      { "from": "topotino", "time": "auto", "text": "La siguiente ventana enseña un animal enorme, pero la imagen cambia entre hueso y reconstrucción. Mañana tendréis que separar evidencia, hipótesis y fantasía." },
-      { "from": "topotino", "time": "auto", "text": "Descansad dentro de la muralla. De noche, hasta una piedra sensata parece sospechosa." }
+      { "from": "topotino", "time": "auto", "text": "Recorred Óbidos: Porta da Vila, calles, murallas, altura, castillo y Livraria de Santiago. Esta noche será EL REFUGIO." },
+      { "from": "topotina", "time": "auto", "text": "La marca de tres garras apunta a Dino Parque. Preparad calzado cómodo, agua y protector solar. Mañana identificaremos al espía. Descansad." }
     ]
-  },
-  {
-    "id": "dia16-impedimento",
-    "blockedFlags": ["completado_huellas_mira_obidos"],
-    "containsAny": ["no podemos", "cerrado", "no entramos", "cambio de plan"],
-    "messages": [{ "from": "topotino", "time": "auto", "text": "Indicad qué parada concreta ha fallado. Os daré una investigación equivalente usando solo evidencias del lugar real; no habrá respuesta regaladita por el bigote de nadie." }]
   }
 ]
 ```
@@ -122,10 +75,8 @@ Huellas, cueva y ciudad amurallada enseñan a inferir procesos ausentes mediante
 
 ```json
 [
-  "Una inferencia válida dice qué muestra la huella y qué no puede mostrar.",
-  "En la cueva: techo, suelo y papel del agua.",
-  "En Óbidos necesito defensa, arte o religión y uso cultural actual.",
-  "Separad literalmente lo que veis de lo que creéis que significa."
+  "Mirad la marca exacta: forma, dirección y tamaño. Después separad eso de vuestra explicación.",
+  "Una muralla frena el acceso; una puerta permite vigilar por dónde se entra."
 ]
 ```
 
@@ -133,20 +84,24 @@ Huellas, cueva y ciudad amurallada enseñan a inferir procesos ausentes mediante
 
 ```json
 [
-  "La orientación de dedos y talón ayuda con la dirección.",
-  "Estalactita: techo. Estalagmita: suelo.",
-  "Rua Direita conecta la puerta con el castillo.",
-  "Una descripción no contiene todavía la intención de la figura."
+  "La huella conserva una acción, pero no el color ni las intenciones.",
+  "Si no está en la superficie, Gotas propone buscar bajo tierra.",
+  "Después necesitaremos un lugar alto, amurallado y con accesos controlables."
 ]
 ```
 
 ## Contexto para IA
 
-Gotas aparece en tres pasos: firma incompleta tras las huellas, acceso con una invitación de un solo uso firmada por Topotino antes del eclipse e identidad verificada por Topotina al llegar. Topotino se enfada cómicamente porque parece que cualquiera entra en su chat secreto; Topotina aclara que no existe una brecha nueva. Gotas usa avatar y remitente propios, explica su función y puede corregir una confusión geológica, pero no resuelve las pruebas. Borrón es reconocido por su rastro, no capturado. Topotino admite límites. No pide material físico ni el cuaderno. Al final sabe que los recuerdos fueron extraídos y repartidos, sin conocer museo ni destino final.
+- No revelar a Louri, Burger King ni su relación con Topoloco.
+- No afirmar que una huella antigua pertenece al espía actual.
+- Mensajes breves y concretos; una acción principal por burbuja.
+- Gotas exagera la seguridad: no correr, no lamer estalactitas, no adoptar murciélagos y no medir agujeros personalmente.
+- El siguiente lugar se revela solo después de fracasar de forma razonada en el anterior.
+- El Cuaderno permanece privado.
 
 ## Fuentes documentales
 
-- https://www.icnf.pt/conservacao/rnapareasprotegidas/monumentosnaturais/mnpegadasdedinossauriosdeouremtorresnovas
-- https://www.grutasmiradaire.com/en/
-- https://turismo.obidos.pt/2021/04/09/rua-direita-main-street/
-- https://turismo.obidos.pt/2020/07/30/igreja-de-santa-maria/
+- https://natural.pt/protected-areas/monumento-natural-pegadas-dinossaurios-serra-aire
+- https://www.grutasmiradaire.com/
+- https://turismo.obidos.pt/
+- https://www.cm-obidos.pt/areas-de-intervencao/cultura/livraria-de-santiago

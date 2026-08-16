@@ -1,5 +1,5 @@
-import { splitTopotinoMessages } from './chat-format.js?v=memory-v49';
-import { CHALLENGE_PACKS, displayChallengeOptions } from './content/challenges.js?v=memory-v49';
+import { splitTopotinoMessages } from './chat-format.js?v=memory-v50';
+import { CHALLENGE_PACKS, displayChallengeOptions } from './content/challenges.js?v=memory-v50';
 
 const STORAGE_KEYS = {
   auth: 'topotino_chat_auth_v1',
@@ -7,9 +7,9 @@ const STORAGE_KEYS = {
 };
 
 const LEGACY_STATE_KEY = 'topotino_chat_state_v1';
-const APP_VERSION_CODE = 'T-20B1';
+const APP_VERSION_CODE = 'T-21A0';
 const PASSPHRASE_HASH = 'a64716bd9f4e8added1bf47f80b97c3fc7b70a15b8043cdab083e1ddf85f3794';
-const EPISODES_MANIFEST = 'content/episodes.json?v=memory-v49';
+const EPISODES_MANIFEST = 'content/episodes.json?v=memory-v50';
 const LIVE_STORY_ENDPOINT = '/api/story';
 const AMARANTE_TRAVEL_DATE = '2026-08-13';
 const AMARANTE_ROUTE_EPISODE_ID = '004b-rumbo-amarante';
@@ -46,7 +46,8 @@ const TOPOTINO_IMAGE = 'images/topotino.png?v=marco-v1';
 const CHAT_SENDERS = {
   topotino: { name: 'Topotino', image: TOPOTINO_IMAGE },
   topotina: { name: 'Topotina', image: 'images/topotina.png?v=topotina-v1' },
-  gotas: { name: 'Gotas', image: 'images/gotas.jpg?v=gotas-v1' }
+  gotas: { name: 'Gotas', image: 'images/gotas.jpg?v=gotas-v1' },
+  louri: { name: 'Louri', image: 'images/louri.jpg?v=louri-v1' }
 };
 const CHATTER_LIMIT_CHARS = 500;
 const CHATTER_LIMIT_MESSAGES = 8;
@@ -2013,7 +2014,9 @@ function setBusy(nextBusy, showTyping = nextBusy, senderId = 'topotino') {
           ? 'Topotina está escribiendo...'
           : senderId === 'gotas'
             ? 'Gotas está escribiendo...'
-            : 'Alguien está escribiendo...';
+            : senderId === 'louri'
+              ? 'Louri está escribiendo con sus brazos tácticos...'
+              : 'Alguien está escribiendo...';
   }
   els.typing.hidden = !showTyping;
   els.sendButton.disabled = nextBusy;

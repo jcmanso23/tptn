@@ -15,7 +15,7 @@
 
 # Contexto narrativo
 
-El barco convierte la incertidumbre en prueba. Si no hay delfines, la ausencia es un resultado válido. Benagil y Sagres enseñan erosión y ambigüedad. Corvinho, del relato oficial de la fortaleza, es amigo puntual.
+Niebla ha llevado el receptor al barco de Lagos. Topoloco necesita certezas sobre un avistamiento que no puede controlar. El Protocolo Azul convierte la incertidumbre en sabotaje: si no hay delfines, la ausencia del avistamiento sigue siendo un resultado válido. Benagil demuestra que un hueco puede conservar un proceso geológico y no equivale a «nada». Al corregir ese error se intercepta en Sagres una orden para que Eco copie la voz de Topotino. Corvinho ayuda a comparar hipótesis sin resolverlas.
 
 ## Mensajes iniciales
 

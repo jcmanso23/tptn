@@ -1,6 +1,6 @@
 # Guía maestra de coherencia narrativa · Las Doce Aguas
 
-**Versión canónica:** 15 de agosto de 2026 · edición T-20B1
+**Versión canónica:** 16 de agosto de 2026 · edición T-21A0
 **Final principal:** Alhambra, Palacios Nazaríes, noche del 26 de agosto
 **Epílogo:** Generalife, 27 de agosto; no abre otra amenaza
 
@@ -151,6 +151,32 @@ Sus apariciones deben dejar rastros coherentes. No son monstruos terroríficos; 
 - **Corvinho:** joven cuervo ligado a Sagres; ayuda a mantener abiertas hipótesis rivales.
 - **Capitán Pico y América:** exploradores de Isla Mágica. Reclutan a Paula y Hugo como pequeños exploradores y recuperan piezas de la pista final.
 - **Krim:** duende del Mundo de los Colores. Ayuda a distinguir lo que se siente de la decisión que se toma bajo esa emoción.
+
+### Louri: arco cerrado de los días 16 y 17
+
+Louri es un pequeño T-Rex rojo, divertido, presumido, pedante y dramático. Topoloco estaba presente cuando salió del huevo y le hizo creer que era su padre, su creador y el único científico capaz de reconstruir dinosaurios sin ninguna duda. Lo educó como espía de Paula y Hugo y lo infiltró como el juguete de Burger King que Hugo recibió la noche del 15 de agosto.
+
+El 16 Topotina detecta al espía, pero Louri solo se insinúa mediante vigilancia, tres garras y notas presuntuosas. No entra en el chat. Huellas, Mira de Aire y Óbidos forman una persecución continua: primero se investiga un posible rastro, después se busca bajo tierra y finalmente se establece un refugio amurallado. En Óbidos se descubre Dino Parque como el único lugar capaz de identificar científicamente al espía.
+
+El 17 Louri entra en el chat durante la investigación de fósiles, réplicas, modelos, huevos, embriones y reconstrucciones. Comprende que Topoloco le mintió cuando descubre que una ciencia honesta distingue evidencia, hipótesis y desconocimiento. Una orden interceptada lo declara defectuoso por preguntar. Paula y Hugo le hacen comprender que dudar y corregirse no significa estar roto. Louri cambia de bando, revela que Topoloco construye una máquina que captura recuerdos, separa sus relaciones y guarda una sola versión en su museo, y entrega una pista hacia una operación en Lisboa relacionada con una ciudad destruida y reconstruida.
+
+Louri se queda en Dino Parque para aprender quién es. Su canal se cierra definitivamente al final del 17. Desde el 18 no participa, no acompaña al grupo, no resuelve misiones y no vuelve como aliado activo. Puede ser recordado como fuente de la pista de Lisboa, nunca como recurso presente.
+
+### Cadena causal desde Lisboa hasta el final
+
+Cada desplazamiento posterior responde a una pieza concreta de la máquina y a una acción de Topoloco:
+
+- **Lisboa, ciencia, Oceanário y Tajo:** el archivo de Louri conduce al módulo que separa causas y relaciones. Pavilhão permite sabotear su clasificador de causa; Vasco y el Oceanário demuestran que una red viva no es una colección de piezas; el Tajo revela que el módulo envía datos al archivo histórico de Lisboa.
+- **Castelo, Alfama, Baixa y Belém:** Topoloco intenta convertir la reconstrucción de 1755 y los relatos marítimos en una única versión heroica. Comparar vista general, calles reales y monumentos obliga a la máquina a conservar cambios, voces y funciones. La fuga de Niebla conduce al receptor de Badoca.
+- **Badoca y Lagos:** Niebla estudia cómo eligen Paula y Hugo y oculta un receptor entre rastros animales. Al detectarlo, huye hacia el puerto de Lagos, donde Topoloco necesita observaciones inciertas que no controla.
+- **Delfines, Benagil y Sagres:** el Protocolo Azul impide que la máquina convierta ausencia en certeza. Benagil demuestra que un hueco puede conservar historia sin ser un vacío. En Sagres se intercepta la orden de Eco para copiar la voz de Topotino.
+- **Ponta da Piedade, Algar Seco y jaima:** las formas costeras enseñan a distinguir arco, pilar y cueva mientras Eco reúne palabras y tono. En la jaima la petición del Cuaderno lo delata; su orden de retirada señala Zoomarine.
+- **Zoomarine:** el cuidado real y la devolución al mar desmontan la mentira «si lo cuidas, te pertenece». Al unir motivo, método y resultado, Topotino concluye que Topoloco provocó su amnesia. Borrón altera entonces la etiqueta del puente de Tavira.
+- **Tavira y Sevilla:** consultar en privado el Cuaderno permite corregir la falsa etiqueta. La corrección abre Plaza de España y reactiva la firma gemela de Magikland, que conduce a Isla Mágica.
+- **Isla Mágica:** Niebla intenta forzar una decisión urgente. Capitán Pico, América y Krim ayudan a Paula y Hugo a preparar una respuesta falsa, reversible y comprobable. La contratrampa revela la Alhambra como destino final y dos cerraduras previas en el Real Alcázar y la Catedral.
+- **Real Alcázar, Catedral y Alhambra:** las dos primeras visitas no son desvíos, sino preparación necesaria para abrir Mexuar, Arrayanes, Comares y Leones. La máquina falla ante transformaciones, reflejos dependientes, recuerdos que se corrigen entre sí, autoría compartida y el Cuaderno privado.
+
+Esta cadena sustituye cualquier transición basada únicamente en una imagen bonita, una palabra abstracta o una adivinanza sin causa. La pista de salida de cada lugar debe mostrar qué hizo Topoloco, qué consiguieron Paula y Hugo y por qué el único movimiento lógico es el siguiente.
 
 Topotino puede decir que son amigos o colaboradores. Nunca los presenta como simples mascotas ni permite que hagan el trabajo de los niños.
 
