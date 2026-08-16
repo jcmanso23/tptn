@@ -1,5 +1,5 @@
-import { splitTopotinoMessages } from './chat-format.js?v=memory-v50';
-import { CHALLENGE_PACKS, displayChallengeOptions } from './content/challenges.js?v=memory-v50';
+import { splitTopotinoMessages } from './chat-format.js?v=memory-v51';
+import { CHALLENGE_PACKS, displayChallengeOptions } from './content/challenges.js?v=memory-v51';
 
 const STORAGE_KEYS = {
   auth: 'topotino_chat_auth_v1',
@@ -7,9 +7,9 @@ const STORAGE_KEYS = {
 };
 
 const LEGACY_STATE_KEY = 'topotino_chat_state_v1';
-const APP_VERSION_CODE = 'T-21A0';
+const APP_VERSION_CODE = 'T-21A1';
 const PASSPHRASE_HASH = 'a64716bd9f4e8added1bf47f80b97c3fc7b70a15b8043cdab083e1ddf85f3794';
-const EPISODES_MANIFEST = 'content/episodes.json?v=memory-v50';
+const EPISODES_MANIFEST = 'content/episodes.json?v=memory-v51';
 const LIVE_STORY_ENDPOINT = '/api/story';
 const AMARANTE_TRAVEL_DATE = '2026-08-13';
 const AMARANTE_ROUTE_EPISODE_ID = '004b-rumbo-amarante';
@@ -19,6 +19,10 @@ const SECURITY_CHECKIN_DATE = '2026-08-14';
 const SECURITY_ANNOUNCED_FLAG = 'seguridad_t20a1_anunciada';
 const SECURITY_CONFIRMED_FLAG = 'seguridad_t20a1_confirmada';
 const MACHINE_CLARIFIED_FLAG = 'maquina_topotina_aclarada_t20a5';
+const OBIDOS_RESCUE_DATE = '2026-08-16';
+const OBIDOS_EPISODE_ID = '008-huellas-mira-obidos';
+const OBIDOS_RESCUE_MARKER = 'rescate-llegada-obidos-t21a1';
+const OBIDOS_ARRIVAL_MARKER = 'llegada-obidos-expedicion-t20a6';
 const SECURITY_CHECKIN_MESSAGES = [
   'Buenos días, Paula y Hugo.',
   'Antes de seguir tengo que contaros algo. Ayer el chat secreto estaba estropeado: llegaban mensajes tarde, se mezclaban y yo respondía a cosas anteriores.',
@@ -191,6 +195,7 @@ async function init() {
     applyAmaranteCompletionRescue();
     applyDay14SecurityCheckIn();
     applyDay14MachineClarification();
+    applyObidosArrivalRescue();
   } catch (error) {
     console.error(error);
     showUnlockError('No se pudo cargar el comunicador. Revisad la conexión.');
@@ -1751,6 +1756,65 @@ function applyDay14MachineClarification() {
     { from: 'topotino', time: 'auto', text: '¡Información reservada! De acuerdo: «técnica misteriosa con mis orejas».' },
     { from: 'topotina', time: 'auto', text: 'Son nuestras orejas, hermano cabezota. He separado una coordenada del Cazarrisas y la ruta de Curia ya está guardada.' },
     { from: 'topotino', time: 'auto', text: 'Curia está descubierta, pero la misión del hotel seguirá cerrada hasta que lleguéis. Esta vez no me adelanto.' }
+  ];
+  saveState();
+  return true;
+}
+
+function applyObidosArrivalRescue() {
+  if (!state.unlocked) return false;
+  if (formatDate(getRuntimeNow()) !== OBIDOS_RESCUE_DATE) return false;
+  if (state.seenBroadcastIds.includes(OBIDOS_RESCUE_MARKER)) return false;
+  if (!state.unlockedEpisodeIds.includes(OBIDOS_EPISODE_ID)) return false;
+
+  const reachedObidos = state.completedChallengeIds.includes('dia16-pista-obidos') ||
+    state.completedChallengeIds.some((id) => id.startsWith('obidos-')) ||
+    state.flags.includes('obidos_llegada') ||
+    state.flags.includes('completado_huellas_mira_obidos');
+  if (!reachedObidos) return false;
+
+  const completedBeforeArrival = [
+    'pegadas-expedicion',
+    'pegadas-q1',
+    'pegadas-q2',
+    'dia16-pista-mira',
+    'mira-q1',
+    'mira-expedicion',
+    'mira-q2',
+    'dia16-pista-obidos'
+  ];
+  const resetChallengeIds = [
+    'obidos-expedicion',
+    'obidos-q1',
+    'obidos-q2',
+    'recuperacion-dia16',
+    'ruta-dia17'
+  ];
+
+  addUniqueMany(state.completedChallengeIds, completedBeforeArrival);
+  state.completedChallengeIds = state.completedChallengeIds.filter((id) => !resetChallengeIds.includes(id));
+  resetChallengeIds.forEach((id) => {
+    delete state.challengeAttempts[id];
+    delete state.challengeWrongOptions[id];
+  });
+  state.flags = state.flags.filter((flag) => !['obidos_llegada', 'completado_huellas_mira_obidos'].includes(flag));
+  state.waters = state.waters.filter((water) => water !== 'Agua del Tiempo Profundo');
+  state.storyMemory = state.storyMemory.filter((item) => !String(item?.responseId || '').includes('obidos'));
+  state.seenBroadcastIds = state.seenBroadcastIds.filter((id) => id !== OBIDOS_ARRIVAL_MARKER);
+  state.seenBroadcastIds.push(OBIDOS_RESCUE_MARKER);
+  state.activeEpisodeId = OBIDOS_EPISODE_ID;
+  state.lastKnownPosition = {
+    lat: 39.3605,
+    lng: -9.1570,
+    accuracy: 20,
+    capturedAt: new Date().toISOString(),
+    source: 'obidos-rescue-t21a1'
+  };
+  state.locationStatus = 'Llegada confirmada: Óbidos.';
+  startupRescueMessages = [...startupRescueMessages,
+    { from: 'topotina', time: 'auto', text: 'He recuperado la señal de llegada. Huellas y Mira de Aire siguen guardadas. Solo reinicio la misión de Óbidos.' },
+    { from: 'topotino', time: 'auto', text: '¡Paula, Hugo: acabamos de llegar a Óbidos! Antes de investigar las murallas, hay una noticia importante.' },
+    { from: 'topotino', time: 'auto', text: 'Topotino del pasado os dejó un refugio dentro de la muralla: Segredos da Muralha, Rua do Facho 35.' }
   ];
   saveState();
   return true;

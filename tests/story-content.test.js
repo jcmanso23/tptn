@@ -170,7 +170,7 @@ test('los días 13 y 14 conservan su cadena narrativa y adaptan solo tras un imp
   assert.doesNotMatch(childFacingText, /(foto|fotografía).{0,30}(cuaderno|diario)/i);
 });
 
-test('la edición T-21A0 enlaza el señuelo, Gotas y el arco cerrado de Louri', async () => {
+test('la edición T-21A1 enlaza el arco de Louri y rescata la llegada a Óbidos', async () => {
   const files = ['index.html', 'app.js', 'admin.js', 'content/episodes/001-reconexion.md'];
   const combined = (await Promise.all(files.map((file) => readFile(join(root, file), 'utf8')))).join('\n');
   const app = await readFile(join(root, 'app.js'), 'utf8');
@@ -183,14 +183,14 @@ test('la edición T-21A0 enlaza el señuelo, Gotas y el arco cerrado de Louri', 
 
   const styles = await readFile(join(root, 'styles.css'), 'utf8');
 
-  assert.match(combined, /T-21A0/);
+  assert.match(combined, /T-21A1/);
   assert.doesNotMatch(combined, /T-12A9/);
   assert.match(app, /splitTopotinoMessages/);
   assert.match(app, /CHALLENGE_PACKS/);
   assert.match(app, /els\.channelCode\.textContent = APP_VERSION_CODE/);
-  assert.match(serviceWorker, /topotino-offline-v35/);
-  assert.match(serviceWorker, /chat-format\.js\?v=memory-v50/);
-  assert.match(serviceWorker, /content\/challenges\.js\?v=memory-v50/);
+  assert.match(serviceWorker, /topotino-offline-v36/);
+  assert.match(serviceWorker, /chat-format\.js\?v=memory-v51/);
+  assert.match(serviceWorker, /content\/challenges\.js\?v=memory-v51/);
   assert.match(serviceWorker, /images\/topotina\.png\?v=topotina-v1/);
   assert.match(serviceWorker, /images\/gotas\.jpg\?v=gotas-v1/);
   assert.match(serviceWorker, /images\/louri\.jpg\?v=louri-v1/);
@@ -199,6 +199,11 @@ test('la edición T-21A0 enlaza el señuelo, Gotas y el arco cerrado de Louri', 
   assert.match(app, /louri: \{ name: 'Louri'/);
   assert.match(app, /Topotina está escribiendo/);
   assert.match(app, /Gotas está escribiendo/);
+  assert.match(app, /function applyObidosArrivalRescue\(\)/);
+  assert.match(app, /rescate-llegada-obidos-t21a1/);
+  assert.match(app, /Segredos da Muralha, Rua do Facho 35/);
+  assert.match(app, /'obidos-expedicion',[\s\S]*'ruta-dia17'/);
+  assert.match(app, /'pegadas-expedicion',[\s\S]*'dia16-pista-obidos'/);
   assert.match(ai, /Nunca enumeres el plan del día ni varias paradas futuras/i);
   assert.match(app, /chat-event/);
   assert.match(app, /displayChallengeOptions\(challenge\)/);

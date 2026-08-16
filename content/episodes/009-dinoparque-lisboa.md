@@ -3,7 +3,7 @@
   "id": "009-dinoparque-lisboa",
   "order": 9,
   "title": "Día 5 · El secreto de Louri",
-  "channelCode": "T-21A0",
+  "channelCode": "T-21A1",
   "startsUnlocked": false,
   "activation": { "mode": "all", "date": { "on": "2026-08-17" }, "location": { "lat": 39.2790352, "lng": -9.2916689, "radiusMeters": 5000, "label": "Dino Parque Lourinhã" } },
   "mission": "Identificar al espía y descubrir la máquina",

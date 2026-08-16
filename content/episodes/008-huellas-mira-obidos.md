@@ -3,7 +3,7 @@
   "id": "008-huellas-mira-obidos",
   "order": 8,
   "title": "Día 4 · El espía de Topoloco",
-  "channelCode": "T-21A0",
+  "channelCode": "T-21A1",
   "startsUnlocked": false,
   "activation": { "mode": "all", "date": { "on": "2026-08-16" }, "location": { "lat": 39.5678412, "lng": -8.5899740, "radiusMeters": 5000, "label": "Monumento Natural das Pegadas de Dinossáurios" } },
   "mission": "Descubrir quién vigila el canal",

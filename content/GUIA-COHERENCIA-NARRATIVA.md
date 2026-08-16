@@ -1,6 +1,6 @@
 # Guía maestra de coherencia narrativa · Las Doce Aguas
 
-**Versión canónica:** 16 de agosto de 2026 · edición T-21A0
+**Versión canónica:** 16 de agosto de 2026 · edición T-21A1
 **Final principal:** Alhambra, Palacios Nazaríes, noche del 26 de agosto
 **Epílogo:** Generalife, 27 de agosto; no abre otra amenaza
 
@@ -157,6 +157,8 @@ Sus apariciones deben dejar rastros coherentes. No son monstruos terroríficos; 
 Louri es un pequeño T-Rex rojo, divertido, presumido, pedante y dramático. Topoloco estaba presente cuando salió del huevo y le hizo creer que era su padre, su creador y el único científico capaz de reconstruir dinosaurios sin ninguna duda. Lo educó como espía de Paula y Hugo y lo infiltró como el juguete de Burger King que Hugo recibió la noche del 15 de agosto.
 
 El 16 Topotina detecta al espía, pero Louri solo se insinúa mediante vigilancia, tres garras y notas presuntuosas. No entra en el chat. Huellas, Mira de Aire y Óbidos forman una persecución continua: primero se investiga un posible rastro, después se busca bajo tierra y finalmente se establece un refugio amurallado. Al llegar a Óbidos, Topotino anuncia primero la casita dentro de la muralla, en Rua do Facho 35; el código de entrada llega por el canal de los adultos y no se comparte en el chat. En Óbidos se descubre Dino Parque como el único lugar capaz de identificar científicamente al espía.
+
+**Rescate T-21A1:** si una partida del 16 ya había consumido la llegada de Óbidos antes de publicarse el anuncio del refugio, la aplicación conserva huellas y Mira de Aire, retira únicamente el progreso de Óbidos y vuelve a situar la narración justo en la llegada. El rescate se ejecuta una sola vez, anuncia `Segredos da Muralha · Rua do Facho 35`, vuelve a emitir el acceso ya publicado y deja activa la expedición de Porta da Vila, murallas, castillo y Livraria de Santiago. No reinicia el día completo ni altera Memoria, Sombra, respuestas anteriores o códigos de recuperación.
 
 El 17 Louri entra en el chat durante la investigación de fósiles, réplicas, modelos, huevos, embriones y reconstrucciones. Comprende que Topoloco le mintió cuando descubre que una ciencia honesta distingue evidencia, hipótesis y desconocimiento. Una orden interceptada lo declara defectuoso por preguntar. Paula y Hugo le hacen comprender que dudar y corregirse no significa estar roto. Louri cambia de bando, revela que Topoloco construye una máquina que captura recuerdos, separa sus relaciones y guarda una sola versión en su museo, y entrega una pista hacia una operación en Lisboa relacionada con una ciudad destruida y reconstruida.
 
