@@ -490,7 +490,8 @@ packs['008-huellas-mira-obidos'] = {
         'Una puerta permite controlar el acceso; la altura amplía la vista; las murallas frenan y canalizan la entrada.',
         'La Livraria de Santiago cambió de función sin perder su memoria: antes protegía una comunidad religiosa; hoy guarda historias.'
       ]), ARRIVAL_LOCATIONS.obidos, [
-        { from: 'topotino', text: 'Habéis llegado a Óbidos. Desde ahora, la casa donde dormís es EL REFUGIO.' },
+        { from: 'topotino', text: '¡Hemos llegado a Óbidos! Antes de seguir al castillo, tengo una noticia importante: os he cogido una casita dentro de la muralla. Desde ahora, la casa donde dormís es EL REFUGIO.' },
+        { from: 'topotino', text: 'Está en Rua do Facho 35. Para entrar, usad el candado del medio: la clave es 7549. Topoloco tiene demasiada afición por las puertas ajenas, así que usadlo con los adultos y no lo escribáis en el chat.' },
         { from: 'topotina', text: 'Comprobad puerta, altura, murallas y calles. Si el espía nos sigue, quiero saber por dónde podría entrar y desde dónde lo veríamos.' }
       ]),
       [
