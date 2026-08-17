@@ -1,5 +1,5 @@
-import { splitTopotinoMessages } from './chat-format.js?v=memory-v51';
-import { CHALLENGE_PACKS, displayChallengeOptions } from './content/challenges.js?v=memory-v51';
+import { splitTopotinoMessages } from './chat-format.js?v=memory-v52';
+import { CHALLENGE_PACKS, displayChallengeOptions } from './content/challenges.js?v=memory-v52';
 
 const STORAGE_KEYS = {
   auth: 'topotino_chat_auth_v1',
@@ -7,9 +7,9 @@ const STORAGE_KEYS = {
 };
 
 const LEGACY_STATE_KEY = 'topotino_chat_state_v1';
-const APP_VERSION_CODE = 'T-21A1';
+const APP_VERSION_CODE = 'T-21A2';
 const PASSPHRASE_HASH = 'a64716bd9f4e8added1bf47f80b97c3fc7b70a15b8043cdab083e1ddf85f3794';
-const EPISODES_MANIFEST = 'content/episodes.json?v=memory-v51';
+const EPISODES_MANIFEST = 'content/episodes.json?v=memory-v52';
 const LIVE_STORY_ENDPOINT = '/api/story';
 const AMARANTE_TRAVEL_DATE = '2026-08-13';
 const AMARANTE_ROUTE_EPISODE_ID = '004b-rumbo-amarante';
@@ -329,7 +329,8 @@ async function enterChat() {
     activationInterval = setInterval(() => runActivationCheck('tick'), ACTIVATION_TICK_MS);
   }
   scheduleNextAdultLaunchTimer();
-  const incomingMessages = [...startupRescueMessages, ...liveMessages, ...activationMessages, ...challengeArrivalMessages];
+  const conversationMessages = collectStoryConversationPromptMessages();
+  const incomingMessages = [...startupRescueMessages, ...liveMessages, ...activationMessages, ...challengeArrivalMessages, ...conversationMessages];
   startupRescueMessages = [];
   if (incomingMessages.length) {
     await deliverTopotinoMessages(incomingMessages, { mode: 'activation' });
@@ -348,7 +349,8 @@ async function runActivationCheck(reason) {
   const activationMessages = await evaluateActivations({ reason, collectMessages: true });
   renderAll();
   const challengeArrivalMessages = collectChallengeArrivalMessages();
-  const incomingMessages = [...liveMessages, ...activationMessages, ...challengeArrivalMessages];
+  const conversationMessages = collectStoryConversationPromptMessages();
+  const incomingMessages = [...liveMessages, ...activationMessages, ...challengeArrivalMessages, ...conversationMessages];
   if (incomingMessages.length) {
     await deliverTopotinoMessages(incomingMessages, { mode: 'activation' });
   }
@@ -628,6 +630,10 @@ async function handleUserMessage(text) {
       await resolveSecurityCheckIn();
       return;
     }
+    if (challenge.kind === 'conversation') {
+      await resolveStoryConversation(challenge);
+      return;
+    }
     if (challengeNeedsPhysicalConfirmation(challenge) && isChallengeCompletionMessage(text)) {
       await resolveChallengeCompletion(challenge);
       return;
@@ -721,6 +727,16 @@ function collectChallengeArrivalMessages() {
   state.seenBroadcastIds.push(challenge.arrivalMarker);
   saveState();
   return toTopotinoMessages(challenge.arrivalMessages || []);
+}
+
+function collectStoryConversationPromptMessages() {
+  const challenge = getNextChallengeStep();
+  if (challenge?.kind !== 'conversation') return [];
+  const marker = `dialogo-abierto-${challenge.id}`;
+  if (state.seenBroadcastIds.includes(marker)) return [];
+  state.seenBroadcastIds.push(marker);
+  saveState();
+  return toTopotinoMessages(challenge.promptMessages || []);
 }
 
 function challengeArrivalWasConfirmed(challenge) {
@@ -820,6 +836,8 @@ async function resolveChallengeCompletion(challenge) {
   saveState();
   renderAll();
   await deliverTopotinoMessages(toTopotinoMessages(messages), { mode: 'challenge' });
+  const conversationMessages = collectStoryConversationPromptMessages();
+  if (conversationMessages.length) await deliverTopotinoMessages(conversationMessages, { mode: 'conversation' });
   saveState();
   renderAll();
 }
@@ -830,6 +848,18 @@ async function resolveChallengeSuccess(challenge) {
   saveState();
   renderAll();
   await deliverTopotinoMessages(toTopotinoMessages(challenge.successMessages || ['Correcto. Muy bien observado.']), { mode: 'challenge' });
+  const conversationMessages = collectStoryConversationPromptMessages();
+  if (conversationMessages.length) await deliverTopotinoMessages(conversationMessages, { mode: 'conversation' });
+  saveState();
+  renderAll();
+}
+
+async function resolveStoryConversation(challenge) {
+  if (state.completedChallengeIds.includes(challenge.id)) return;
+  await deliverTopotinoMessages(toTopotinoMessages(challenge.replyMessages || [
+    'Gracias por contármelo. Esta parte de la aventura también importa.'
+  ]), { mode: 'conversation' });
+  addUniqueMany(state.completedChallengeIds, [challenge.id]);
   saveState();
   renderAll();
 }
@@ -856,6 +886,8 @@ async function resolveChallengeIncorrect(challenge, optionId = null, modelReply 
   saveState();
   renderAll();
   await deliverTopotinoMessages(toTopotinoMessages(messages), { mode: 'challenge' });
+  const conversationMessages = collectStoryConversationPromptMessages();
+  if (conversationMessages.length) await deliverTopotinoMessages(conversationMessages, { mode: 'conversation' });
   saveState();
   renderAll();
 }
@@ -1481,7 +1513,7 @@ function renderChallenge() {
   }
   const challenge = getActiveChallenge();
   els.challengePanel.innerHTML = '';
-  if (challenge?.kind === 'check-in') {
+  if (challenge?.kind === 'check-in' || challenge?.kind === 'conversation') {
     els.challengePanel.hidden = true;
     return;
   }

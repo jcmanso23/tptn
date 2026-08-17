@@ -74,6 +74,10 @@ function expedition(id, place, title, intro, actions, doneMessages) {
   return { id, kind: 'expedition', place, title, intro, actions, doneMessages };
 }
 
+function conversation(id, place, promptMessages, replyMessages) {
+  return { id, kind: 'conversation', place, promptMessages, replyMessages };
+}
+
 function recovery(id, prompt, options, correctIndex, success, failure) {
   return {
     id,
@@ -542,7 +546,7 @@ packs['009-dinoparque-lisboa'] = {
           { from: 'louri', text: 'Y sí. Era yo. Lo de extraordinario lo digo yo, pero normalmente tengo razón.' },
           { from: 'topotino', text: '¿Tú eres el espía? Tienes los brazos tan cortos que casi no llegas al teclado.' },
           { from: 'louri', text: 'Son brazos tácticos. Reducen mi superficie detectable.' },
-          { from: 'louri', text: 'Topoloco me convirtió en juguete de Burger King. Hugo me consiguió la noche del 15. Os he vigilado desde entonces.' },
+          { from: 'louri', text: 'Topoloco escondió un comunicador mío dentro del dinosaurio rojo de Burger King. Yo estaba al otro lado. Sus ojos eran mi cámara.' },
           { from: 'topotino', text: '¿NOS HAN INFILTRADO UN ESPÍA A TRAVÉS DE UN MENÚ INFANTIL?' },
           { from: 'topotina', text: 'Técnicamente fue bastante eficaz.' },
           { from: 'topotino', text: '¡NO LE DES IDEAS!' }
@@ -566,14 +570,7 @@ packs['009-dinoparque-lisboa'] = {
       { from: 'louri', text: 'Vale. No vuelvo.' },
       { from: 'louri', text: 'Escuché su plan. Construye una máquina que captura recuerdos, separa unas partes de otras y guarda una sola versión en su museo.' },
       { from: 'louri', text: 'Tiene una operación en Lisboa. Repetía: «ciudad destruida, ciudad reconstruida, decidir qué conservar».' },
-      { from: 'louri', text: 'No sé cómo funciona toda la máquina. Solo tengo un fragmento del plano y una coordenada.' },
-      { from: 'louri', text: 'Creo que me quedaré aquí. Necesito descubrir quién soy.' },
-      { from: 'louri', text: 'Aunque sospecho que soy extraordinario.' },
-      { from: 'topotino', text: 'Eso sí parece bastante confirmado.' },
-      { from: 'louri', text: 'Paula, Hugo: si alguien vuelve a esconderse en un juguete de comida rápida, miradle los ojos. Los espías pestañeamos fatal.' },
-      { from: 'system', text: 'Louri ha salido del canal.' },
-      { from: 'topotina', text: 'Canal Louri cerrado definitivamente. Su fragmento señala LISBOA.' },
-      { from: 'topotino', text: 'Gracias, Louri. Y esta vez cambia la contraseña de verdad, Topotina.' }
+      { from: 'louri', text: 'No sé cómo funciona toda la máquina. Solo tengo un fragmento del plano y una coordenada.' }
     ], 'Cambiar una idea ante nuevas pruebas no es un defecto.'),
     nextStop('dia17-pista-lisboa', 'El rótulo de Topoloco mezcla una reconstrucción con una cuadrícula de calles y dos grandes plazas. ¿Qué ciudad debemos comprobar?', ['Lisboa', 'Oporto', 'Setúbal'], 0, [
       'La pista señala Lisboa.',
@@ -1175,5 +1172,135 @@ packs['019-epilogo-generalife'] = {
     ])
   ]
 };
+
+const STORY_CONVERSATIONS = Object.freeze({
+  'dia17-pista-lisboa': {
+    place: 'Dino Parque · despedida de Louri',
+    prompt: [
+      { from: 'topotina', text: 'He revisado el dinosaurio rojo de Hugo. Topoloco escondió dentro un comunicador conectado con Louri. Sus ojos eran una cámara y he recuperado dos grabaciones.' },
+      { from: 'louri', text: 'Yo estaba al otro lado de la señal. Era espionaje remoto de altísimo nivel. Y no tuve que mover ni uno de mis diminutos brazos.' },
+      { from: 'topotino', text: 'Hugo, he visto tu actuación en la plaza y me encantó. Paula, también vi cómo te orientabas ayer por Óbidos: me gusta mucho cómo encuentras el camino.' },
+      { from: 'topotino', text: 'Antes de despedirnos: ¿estáis escribiendo y dibujando el Cuaderno de la Memoria?' }
+    ],
+    reply: [
+      { from: 'topotino', text: 'Gracias por responder. Si vais poco a poco, está bien. No quiero verlo ni saber qué habéis puesto: el Cuaderno es vuestro y debe quedar fuera de esta red.' },
+      { from: 'louri', text: 'Creo que me quedaré aquí. Necesito descubrir quién soy. Aunque sospecho que soy extraordinario.' },
+      { from: 'topotino', text: 'Eso sí parece bastante confirmado.' },
+      { from: 'louri', text: 'Paula, Hugo: si alguien vuelve a espiaros mediante un juguete de comida rápida, miradle los ojos. Las cámaras pestañean fatal.' },
+      { from: 'system', text: 'Louri ha salido del canal.' },
+      { from: 'topotina', text: 'Canal Louri cerrado definitivamente. Su fragmento señala LISBOA.' },
+      { from: 'topotino', text: 'Gracias, Louri. Y esta vez cambia la contraseña de verdad, Topotina.' }
+    ]
+  },
+  'ruta-dia18': {
+    place: 'Lisboa · cierre del día',
+    prompt: [{ from: 'topotina', text: 'Habéis llegado siguiendo una coordenada que ayer no existía para nosotros. ¿Qué os ha sorprendido más de las calles de Lisboa?' }],
+    reply: [{ from: 'topotino', text: 'Me lo guardo. Una ciudad reconstruida no es una maqueta: se entiende caminándola. Ahora veamos qué módulo señaló Louri para mañana.' }]
+  },
+  'dia18-pista-oceanario': {
+    place: 'Pavilhão · módulo saboteado',
+    prompt: [{ from: 'topotina', text: 'El módulo de Topoloco acaba de fallar. ¿Hubo algún experimento que no saliera como esperabais?' }],
+    reply: [{ from: 'topotino', text: 'Eso es justo lo que su máquina no soporta: probar, sorprenderse y corregir. El fallo ha dejado una nueva señal.' }]
+  },
+  'dia18-pista-tejo': {
+    place: 'Oceanário · mensaje de Vasco',
+    prompt: [{ from: 'topotino', text: 'Vasco quiere saber una cosa: ¿qué animal o relación del Oceanário os llamó más la atención?' }],
+    reply: [{ from: 'topotino', text: 'Vasco dice que una respuesta personal vale más que una lista de especies. Y ha marcado una salida desde el tanque hacia agua real.' }]
+  },
+  'ruta-dia19': {
+    place: 'Tajo · red confirmada',
+    prompt: [{ from: 'topotina', text: 'El tanque y el Tajo pertenecen a escalas muy distintas. ¿Os pareció el río más grande de lo que imaginabais?' }],
+    reply: [{ from: 'topotino', text: 'Topoloco intentó separar las dos cosas y habéis vuelto a unirlas. La señal huye ahora hacia la parte antigua de Lisboa.' }]
+  },
+  'dia19-pista-alfama': {
+    place: 'Castelo de São Jorge',
+    prompt: [{ from: 'topotino', text: 'Desde arriba todo parece ordenado. ¿Qué detalle no esperabais ver desde el castillo?' }],
+    reply: [{ from: 'topotina', text: 'Una vista alta ayuda, pero también oculta lo que ocurre entre las casas. La señal nos obliga a bajar y comprobarlo a pie.' }]
+  },
+  'dia19-pista-belem': {
+    place: 'Alfama y Baixa',
+    prompt: [{ from: 'topotina', text: 'Habéis caminado dos trazados muy distintos. ¿En cuál os resultó más fácil orientaros?' }],
+    reply: [{ from: 'topotino', text: 'No hay respuesta mala: cada trazado cuenta una forma distinta de crecer o reconstruir una ciudad. La marca sigue el Tajo.' }]
+  },
+  'ruta-dia20': {
+    place: 'Belém · archivo recuperado',
+    prompt: [{ from: 'topotino', text: 'Después de tantos monumentos, ¿qué historia de Belém os gustaría recordar dentro de años?' }],
+    reply: [{ from: 'topotina', text: 'Esa elección vuestra es justo lo que Topoloco no puede decidir por vosotros. Niebla ha huido con un receptor y ya tengo su rastro.' }]
+  },
+  'dia20-pista-lagos': {
+    place: 'Badoca · receptor localizado',
+    prompt: [{ from: 'topotino', text: 'Niebla quería que inventarais emociones. ¿Qué animal os costó más observar sin imaginar lo que pensaba?' }],
+    reply: [{ from: 'topotina', text: 'Buena observación. El receptor no ha podido predecir vuestra respuesta y Niebla acaba de activarlo para escapar.' }]
+  },
+  'ruta-dia21': {
+    place: 'Lagos · junto al Atlántico',
+    prompt: [{ from: 'topotina', text: 'Habéis seguido un aparato desde un safari hasta una marina. ¿Creéis que Niebla esperaba que llegarais tan lejos?' }],
+    reply: [{ from: 'topotino', text: 'Yo tampoco. Bueno, sí. Casi. El receptor termina en una salida de barco y mañana sabremos qué quiere grabar.' }]
+  },
+  'dia21-pista-sagres': {
+    place: 'Barco y Benagil',
+    prompt: [{ from: 'topotino', text: 'Vasco pregunta: ¿qué fue más emocionante, encontrar animales o no saber qué iba a aparecer?' }],
+    reply: [{ from: 'topotina', text: 'La incertidumbre también forma parte de una experiencia real. Al corregir el error sobre Benagil hemos interceptado una orden de Eco.' }]
+  },
+  'ruta-dia22': {
+    place: 'Sagres · mensaje de Corvinho',
+    prompt: [{ from: 'topotino', text: 'Corvinho grazna una pregunta: ¿qué hipótesis cambiasteis después de mirar mejor?' }],
+    reply: [{ from: 'topotino', text: 'Corvinho dice «craa»; creo que significa que acepta la respuesta. Eco ha escapado con sonidos de la costa.' }]
+  },
+  'dia22-pista-algar': {
+    place: 'Ponta da Piedade',
+    prompt: [{ from: 'topotina', text: 'Entre cuevas, arcos y pilares, ¿qué forma os engañó primero?' }],
+    reply: [{ from: 'topotino', text: 'Confundirse al principio no estropea la misión. Mirar otra vez sí cambia la historia. Eco ha dejado otra forma costera en la señal.' }]
+  },
+  'dia22-pista-jaima': {
+    place: 'Algar Seco',
+    prompt: [{ from: 'topotino', text: '¿Qué ventana o hueco de la roca os pareció más raro? Eco está copiando formas igual que copia voces.' }],
+    reply: [{ from: 'topotina', text: 'He comparado vuestra respuesta con su señal. Eco no está en la roca: ha escondido la voz en el lugar donde dormiréis.' }]
+  },
+  'ruta-dia23': {
+    place: 'HolaJaima · Eco descubierto',
+    prompt: [{ from: 'topotino', text: 'Ese farsante pidió el Cuaderno. ¿Hubo alguna palabra o detalle que os hiciera desconfiar antes?' }],
+    reply: [{ from: 'topotino', text: 'Hicisteis bien en parar. Un amigo no necesita una contraseña privada para demostrar que lo es. Eco dejó su orden de retirada.' }]
+  },
+  'ruta-dia24': {
+    place: 'Zoomarine · conclusión',
+    prompt: [{ from: 'topotina', text: 'Después de ver rescate y rehabilitación, ¿qué significa para vosotros cuidar sin poseer?' }],
+    reply: [{ from: 'topotino', text: 'Gracias. Esa respuesta me ha ayudado a unir el motivo, el método y mi amnesia. Borrón acaba de atacar la siguiente ventana.' }]
+  },
+  'dia24-pista-sevilla': {
+    place: 'Tavira · etiqueta corregida',
+    prompt: [{ from: 'topotino', text: '¿Qué os parece más peligroso: equivocarse o repetir un nombre sin comprobarlo?' }],
+    reply: [{ from: 'topotina', text: 'Corregir no borra el puente; mejora lo que sabemos de él. Borrón ha perdido la etiqueta y la señal cruza la frontera.' }]
+  },
+  'ruta-dia25': {
+    place: 'Plaza de España · dos orillas',
+    prompt: [{ from: 'topotina', text: 'Habéis comparado puentes reales y simbólicos. ¿Cuál os ayudó más a entender para qué sirve cruzar?' }],
+    reply: [{ from: 'topotino', text: 'Me gusta esa respuesta. Al unir las dos orillas ha reaparecido una firma que ya vimos en Magikland.' }]
+  },
+  'ruta-dia26': {
+    place: 'Isla Mágica · contratrampa',
+    prompt: [{ from: 'topotino', text: 'Capitán Pico, América y Krim quieren saber: ¿qué os ayudó a no elegir con prisa?' }],
+    reply: [{ from: 'topotina', text: 'Niebla siguió la opción falsa y reversible. Vuestra respuesta ha quedado fuera de su trampa y la señal final empieza a abrirse.' }]
+  },
+  'dia26-pista-catedral': {
+    place: 'Real Alcázar · primera cerradura',
+    prompt: [{ from: 'topotino', text: 'Después de patios, palacios y jardines, ¿qué cambio os pareció que conservaba mejor lo anterior?' }],
+    reply: [{ from: 'topotina', text: 'Esa diferencia abre la primera cerradura. La segunda pide una torre que cambió de función.' }]
+  },
+  'dia26-pista-alhambra': {
+    place: 'Catedral y Giralda · segunda cerradura',
+    prompt: [{ from: 'topotina', text: 'La Giralda cambió sin dejar de ser reconocible. ¿Qué parte antigua y qué añadido recordaréis?' }],
+    reply: [{ from: 'topotino', text: 'Perfecto. Ya tenemos las dos ideas que Topoloco intentaba separar. Ahora la frase final puede leerse completa.' }]
+  }
+});
+
+for (const [episodeId, pack] of Object.entries(packs)) {
+  if (Number(episodeId.slice(0, 3)) < 9) continue;
+  pack.steps = pack.steps.flatMap((step) => {
+    const bridge = STORY_CONVERSATIONS[step.id];
+    if (!bridge) return [step];
+    return [conversation(`dialogo-${step.id}`, bridge.place, bridge.prompt, bridge.reply), step];
+  });
+}
 
 export const CHALLENGE_PACKS = Object.freeze(packs);

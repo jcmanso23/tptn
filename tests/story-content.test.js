@@ -170,7 +170,7 @@ test('los días 13 y 14 conservan su cadena narrativa y adaptan solo tras un imp
   assert.doesNotMatch(childFacingText, /(foto|fotografía).{0,30}(cuaderno|diario)/i);
 });
 
-test('la edición T-21A1 enlaza el arco de Louri y rescata la llegada a Óbidos', async () => {
+test('la edición T-21A2 enlaza el arco de Louri y añade puentes conversacionales', async () => {
   const files = ['index.html', 'app.js', 'admin.js', 'content/episodes/001-reconexion.md'];
   const combined = (await Promise.all(files.map((file) => readFile(join(root, file), 'utf8')))).join('\n');
   const app = await readFile(join(root, 'app.js'), 'utf8');
@@ -183,14 +183,14 @@ test('la edición T-21A1 enlaza el arco de Louri y rescata la llegada a Óbidos'
 
   const styles = await readFile(join(root, 'styles.css'), 'utf8');
 
-  assert.match(combined, /T-21A1/);
+  assert.match(combined, /T-21A2/);
   assert.doesNotMatch(combined, /T-12A9/);
   assert.match(app, /splitTopotinoMessages/);
   assert.match(app, /CHALLENGE_PACKS/);
   assert.match(app, /els\.channelCode\.textContent = APP_VERSION_CODE/);
-  assert.match(serviceWorker, /topotino-offline-v36/);
-  assert.match(serviceWorker, /chat-format\.js\?v=memory-v51/);
-  assert.match(serviceWorker, /content\/challenges\.js\?v=memory-v51/);
+  assert.match(serviceWorker, /topotino-offline-v37/);
+  assert.match(serviceWorker, /chat-format\.js\?v=memory-v52/);
+  assert.match(serviceWorker, /content\/challenges\.js\?v=memory-v52/);
   assert.match(serviceWorker, /images\/topotina\.png\?v=topotina-v1/);
   assert.match(serviceWorker, /images\/gotas\.jpg\?v=gotas-v1/);
   assert.match(serviceWorker, /images\/louri\.jpg\?v=louri-v1/);
@@ -210,6 +210,14 @@ test('la edición T-21A1 enlaza el arco de Louri y rescata la llegada a Óbidos'
   assert.match(app, /challengePanelCollapsed/);
   assert.match(app, /function getPendingArrivalChallenge/);
   assert.match(app, /function collectChallengeArrivalMessages/);
+  assert.match(app, /challenge\.kind === 'conversation'/);
+  assert.match(app, /function collectStoryConversationPromptMessages/);
+  assert.match(app, /function resolveStoryConversation/);
+  assert.ok(
+    app.indexOf("await deliverTopotinoMessages(toTopotinoMessages(challenge.replyMessages") <
+      app.indexOf("addUniqueMany(state.completedChallengeIds, [challenge.id]);", app.indexOf('async function resolveStoryConversation')),
+    'el siguiente destino no debe aparecer antes de terminar la respuesta del personaje'
+  );
   assert.match(app, /function challengeArrivalWasConfirmed/);
   assert.match(app, /function challengeLocationMatches/);
   assert.match(app, /state\.seenBroadcastIds\.includes\(challenge\.arrivalMarker\)/);
@@ -223,7 +231,7 @@ test('la edición T-21A1 enlaza el arco de Louri y rescata la llegada a Óbidos'
   assert.match(app, /seguridad_t20a1_confirmada/);
   assert.match(app, /No empezaré hasta comprobar que este mensaje os ha llegado entero/);
   assert.match(app, /if \(challenge\.kind === 'check-in'\)/);
-  assert.match(app, /if \(challenge\?\.kind === 'check-in'\)/);
+  assert.match(app, /challenge\?\.kind === 'check-in' \|\| challenge\?\.kind === 'conversation'/);
   assert.match(app, /El contador de Sombra sigue estable/);
   assert.match(ai, /Escribe como en WhatsApp/);
   assert.match(ai, /Usa sujeto, verbo y objeto/);

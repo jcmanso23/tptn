@@ -1,6 +1,6 @@
 # Guía maestra de coherencia narrativa · Las Doce Aguas
 
-**Versión canónica:** 16 de agosto de 2026 · edición T-21A1
+**Versión canónica:** 17 de agosto de 2026 · edición T-21A2
 **Final principal:** Alhambra, Palacios Nazaríes, noche del 26 de agosto
 **Epílogo:** Generalife, 27 de agosto; no abre otra amenaza
 
@@ -164,6 +164,10 @@ El 17 Louri entra en el chat durante la investigación de fósiles, réplicas, m
 
 Louri se queda en Dino Parque para aprender quién es. Su canal se cierra definitivamente al final del 17. Desde el 18 no participa, no acompaña al grupo, no resuelve misiones y no vuelve como aliado activo. Puede ser recordado como fuente de la pista de Lisboa, nunca como recurso presente.
 
+La revelación física se sostiene con recuerdos comprobables, no con una transformación visible del juguete. Louri explica que Topoloco escondió en la carcasa del dinosaurio rojo un comunicador conectado con él y usó sus ojos como cámara. Louri estaba al otro lado de esa señal; no era el plástico que Hugo llevaba. Por eso puede conocer dos detalles reales del 16: la actuación de Hugo en la plaza y la manera en que Paula se orientó por Óbidos. Topotina recupera esas grabaciones y confirma que la señal del juguete coincide con la del nuevo participante. Al cerrar el canal, el juguete queda como un dinosaurio normal y puede seguir con Hugo. No se pide a los niños que finjan haber visto moverse al muñeco ni que lo entreguen o hagan desaparecer.
+
+Antes de despedir a Louri, Topotino dice a Hugo que le encantó su actuación en la plaza y a Paula que le gusta cómo se orienta, algo que volvió a comprobar en Óbidos. Después pregunta a ambos si están escribiendo y dibujando el Cuaderno de la Memoria. Cualquier respuesta es válida; nunca pide páginas, contenido, fotografías ni demostración. La pregunta refuerza la continuidad, no es una prueba.
+
 ### Cadena causal desde Lisboa hasta el final
 
 Cada desplazamiento posterior responde a una pieza concreta de la máquina y a una acción de Topoloco:
@@ -216,6 +220,16 @@ Cada capítulo activo debe contener:
 5. una pista hacia el siguiente lugar;
 6. preparación práctica si hace falta;
 7. petición de descanso al cambiar de día.
+
+Desde el 17 de agosto existe además un **puente conversacional obligatorio** al terminar las pruebas de cada lugar. Antes de mostrar la elección del siguiente destino, Topotino, Topotina o el aliado presente:
+
+1. comenta un detalle concreto de lo que acaba de ocurrir;
+2. hace una pregunta humana breve —qué sorprendió, qué sintieron, qué elegirían o cómo están—;
+3. acepta cualquier respuesta sin evaluarla como correcta o incorrecta;
+4. responde con humor, afecto o una reacción del personaje;
+5. solo entonces permite que aparezca la pista causal del siguiente lugar.
+
+Este diálogo no suma Memoria ni Sombra, no usa Luna para decidir el avance y no puede quedar bloqueado por la redacción de Paula o Hugo. Su objetivo es cerrar la escena y hacer que la historia respire antes del desplazamiento.
 
 La geolocalización abre la conversación, no resuelve la prueba. Primero se propone la prueba principal. Solo si Paula o Hugo comunican un obstáculo concreto se ofrece una adaptación equivalente. No se muestran alternativas de antemano.
 

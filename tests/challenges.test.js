@@ -39,6 +39,9 @@ test('todo el viaje futuro tiene un paquete de retos completo y sin ids duplicad
 
       if (step.kind === 'expedition' || step.kind === 'ending') {
         assert.ok(step.actions.length >= 2 && step.actions.length <= 4, `${step.id}: la expedición debe tener de 2 a 4 acciones`);
+      } else if (step.kind === 'conversation') {
+        assert.ok(step.promptMessages?.length, `${step.id}: falta la pregunta del diálogo`);
+        assert.ok(step.replyMessages?.length, `${step.id}: falta la reacción del personaje`);
       } else {
         assert.ok(['choice', 'destination', 'daily-recovery'].includes(step.kind), `${step.id}: tipo desconocido`);
         assert.ok(step.options.length >= 3 && step.options.length <= 4, `${step.id}: opciones fuera de rango`);
@@ -245,15 +248,17 @@ test('Gotas se anuncia después de las huellas y solo entra al llegar a Mira de 
 test('Louri se insinúa el 16, entra y se despide definitivamente el 17', () => {
   const day16 = CHALLENGE_PACKS['008-huellas-mira-obidos'];
   const day17 = CHALLENGE_PACKS['009-dinoparque-lisboa'];
-  const later = futureEpisodeIds.slice(futureEpisodeIds.indexOf('010-lisboa-ciencia-oceanario'))
+  const laterMessages = futureEpisodeIds.slice(futureEpisodeIds.indexOf('010-lisboa-ciencia-oceanario'))
     .flatMap((id) => [
-      ...CHALLENGE_PACKS[id].openingMessages.map(messageText),
+      ...CHALLENGE_PACKS[id].openingMessages,
       ...CHALLENGE_PACKS[id].steps.flatMap((step) => [
-        ...(step.successMessages || []).map(messageText),
-        ...(step.doneMessages || []).map(messageText),
-        ...(step.arrivalMessages || []).map(messageText)
+        ...(step.successMessages || []),
+        ...(step.doneMessages || []),
+        ...(step.arrivalMessages || []),
+        ...(step.promptMessages || []),
+        ...(step.replyMessages || [])
       ])
-    ]).join(' ');
+    ]);
 
   const day16Text = [
     ...day16.openingMessages.map(messageText),
@@ -264,13 +269,47 @@ test('Louri se insinúa el 16, entra y se despide definitivamente el 17', () => 
 
   const entrance = day17.steps.find((step) => step.id === 'dinoparque-q1').successMessages;
   const crisis = day17.steps.find((step) => step.id === 'dinoparque-q2').successMessages;
-  const farewell = day17.steps.find((step) => step.id === 'louri-cambio-bando').successMessages;
+  const farewell = day17.steps.find((step) => step.id === 'dialogo-dia17-pista-lisboa').replyMessages;
   assert.ok(entrance.some((message) => message?.from === 'system' && /LOURI/i.test(message.text)));
   assert.ok(entrance.some((message) => message?.from === 'louri' && /Burger King/i.test(message.text)));
   assert.ok(crisis.some((message) => /defectuosa/i.test(messageText(message))));
   assert.ok(farewell.some((message) => message?.from === 'system' && /ha salido del canal/i.test(message.text)));
   assert.ok(farewell.some((message) => message?.from === 'topotina' && /cerrado definitivamente/i.test(message.text)));
-  assert.doesNotMatch(later, /from.?['"]?:.?['"]?louri|Louri está escribiendo|Louri se ha unido/i);
+  assert.equal(laterMessages.some((message) => message?.from === 'louri'), false);
+  assert.doesNotMatch(laterMessages.map(messageText).join(' '), /Louri está escribiendo|Louri se ha unido/i);
+});
+
+test('cada cambio de destino desde el día 17 tiene antes un diálogo narrativo', () => {
+  const destinationIds = new Set([
+    'dia17-pista-lisboa', 'ruta-dia18', 'dia18-pista-oceanario', 'dia18-pista-tejo',
+    'ruta-dia19', 'dia19-pista-alfama', 'dia19-pista-belem', 'ruta-dia20',
+    'dia20-pista-lagos', 'ruta-dia21', 'dia21-pista-sagres', 'ruta-dia22',
+    'dia22-pista-algar', 'dia22-pista-jaima', 'ruta-dia23', 'ruta-dia24',
+    'dia24-pista-sevilla', 'ruta-dia25', 'ruta-dia26', 'dia26-pista-catedral',
+    'dia26-pista-alhambra'
+  ]);
+
+  for (const episodeId of futureEpisodeIds.slice(futureEpisodeIds.indexOf('009-dinoparque-lisboa'))) {
+    const steps = CHALLENGE_PACKS[episodeId].steps;
+    for (let index = 0; index < steps.length; index += 1) {
+      if (!destinationIds.has(steps[index].id)) continue;
+      const bridge = steps[index - 1];
+      assert.equal(bridge?.kind, 'conversation', `${steps[index].id}: falta diálogo anterior`);
+      assert.equal(bridge.id, `dialogo-${steps[index].id}`);
+      assert.ok(bridge.promptMessages.some((message) => /\?/.test(messageText(message))), `${bridge.id}: falta pregunta humana`);
+      assert.ok(bridge.replyMessages.length, `${bridge.id}: falta reacción narrativa`);
+    }
+  }
+
+  const today = CHALLENGE_PACKS['009-dinoparque-lisboa'].steps
+    .find((step) => step.id === 'dialogo-dia17-pista-lisboa');
+  const prompt = today.promptMessages.map(messageText).join(' ');
+  const reply = today.replyMessages.map(messageText).join(' ');
+  assert.match(prompt, /Hugo.*actuación.*plaza/is);
+  assert.match(prompt, /Paula.*te orientabas.*Óbidos/is);
+  assert.match(prompt, /escribiendo.*dibujando.*Cuaderno de la Memoria/is);
+  assert.match(prompt, /comunicador.*cámara.*otro lado/is);
+  assert.match(reply, /No quiero verlo.*Cuaderno es vuestro/is);
 });
 
 test('el arco posterior encadena acciones de Topoloco y revela la Alhambra en Isla Mágica', () => {
@@ -344,6 +383,8 @@ test('las pruebas son breves, físicas y enseñan después de elegir', () => {
         ...(step.actions || []),
         ...(step.successMessages || []).map(messageText),
         ...(step.doneMessages || []).map(messageText),
+        ...(step.promptMessages || []).map(messageText),
+        ...(step.replyMessages || []).map(messageText),
         ...(step.options || []).map((option) => option.text)
       ].filter(Boolean);
       assert.ok(childTexts.every((text) => text.length <= 220), `${step.id}: mensaje demasiado largo`);
