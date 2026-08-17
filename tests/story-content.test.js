@@ -170,7 +170,7 @@ test('los días 13 y 14 conservan su cadena narrativa y adaptan solo tras un imp
   assert.doesNotMatch(childFacingText, /(foto|fotografía).{0,30}(cuaderno|diario)/i);
 });
 
-test('la edición T-21A2 enlaza el arco de Louri y añade puentes conversacionales', async () => {
+test('la edición T-21A3 cierra Dino Parque al llegar a Lisboa sin retroceder', async () => {
   const files = ['index.html', 'app.js', 'admin.js', 'content/episodes/001-reconexion.md'];
   const combined = (await Promise.all(files.map((file) => readFile(join(root, file), 'utf8')))).join('\n');
   const app = await readFile(join(root, 'app.js'), 'utf8');
@@ -183,14 +183,14 @@ test('la edición T-21A2 enlaza el arco de Louri y añade puentes conversacional
 
   const styles = await readFile(join(root, 'styles.css'), 'utf8');
 
-  assert.match(combined, /T-21A2/);
+  assert.match(combined, /T-21A3/);
   assert.doesNotMatch(combined, /T-12A9/);
   assert.match(app, /splitTopotinoMessages/);
   assert.match(app, /CHALLENGE_PACKS/);
   assert.match(app, /els\.channelCode\.textContent = APP_VERSION_CODE/);
-  assert.match(serviceWorker, /topotino-offline-v37/);
-  assert.match(serviceWorker, /chat-format\.js\?v=memory-v52/);
-  assert.match(serviceWorker, /content\/challenges\.js\?v=memory-v52/);
+  assert.match(serviceWorker, /topotino-offline-v38/);
+  assert.match(serviceWorker, /chat-format\.js\?v=memory-v53/);
+  assert.match(serviceWorker, /content\/challenges\.js\?v=memory-v53/);
   assert.match(serviceWorker, /images\/topotina\.png\?v=topotina-v1/);
   assert.match(serviceWorker, /images\/gotas\.jpg\?v=gotas-v1/);
   assert.match(serviceWorker, /images\/louri\.jpg\?v=louri-v1/);
@@ -213,6 +213,19 @@ test('la edición T-21A2 enlaza el arco de Louri y añade puentes conversacional
   assert.match(app, /challenge\.kind === 'conversation'/);
   assert.match(app, /function collectStoryConversationPromptMessages/);
   assert.match(app, /function resolveStoryConversation/);
+  assert.match(app, /function applyLisbonArrivalRescue\(\)/);
+  assert.match(app, /rescate-llegada-lisboa-t21a3/);
+  assert.match(app, /LISBON_RESCUE_LOCATION = \{ lat: 38\.7223, lng: -9\.1393, radiusMeters: 18000 \}/);
+  assert.match(app, /step\.kind === 'conversation' && state\.completedChallengeIds\.includes\(steps\[index \+ 1\]\?\.id\)/);
+  const lisbonRescue = app.slice(
+    app.indexOf('function applyLisbonArrivalRescue()'),
+    app.indexOf('function isStaleLuancoEpisode')
+  );
+  assert.match(lisbonRescue, /dialogo-dia17-pista-lisboa/);
+  assert.match(lisbonRescue, /dia17-pista-lisboa/);
+  assert.match(lisbonRescue, /Dino Parque queda atrás/);
+  assert.match(lisbonRescue, /Ya estamos donde termina la coordenada/);
+  assert.doesNotMatch(lisbonRescue, /state\.(memoryScore|shadowScore|recoveredShadow|waters)\s*=/);
   assert.ok(
     app.indexOf("await deliverTopotinoMessages(toTopotinoMessages(challenge.replyMessages") <
       app.indexOf("addUniqueMany(state.completedChallengeIds, [challenge.id]);", app.indexOf('async function resolveStoryConversation')),

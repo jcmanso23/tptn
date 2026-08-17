@@ -1,5 +1,5 @@
-import { splitTopotinoMessages } from './chat-format.js?v=memory-v52';
-import { CHALLENGE_PACKS, displayChallengeOptions } from './content/challenges.js?v=memory-v52';
+import { splitTopotinoMessages } from './chat-format.js?v=memory-v53';
+import { CHALLENGE_PACKS, displayChallengeOptions } from './content/challenges.js?v=memory-v53';
 
 const STORAGE_KEYS = {
   auth: 'topotino_chat_auth_v1',
@@ -7,9 +7,9 @@ const STORAGE_KEYS = {
 };
 
 const LEGACY_STATE_KEY = 'topotino_chat_state_v1';
-const APP_VERSION_CODE = 'T-21A2';
+const APP_VERSION_CODE = 'T-21A3';
 const PASSPHRASE_HASH = 'a64716bd9f4e8added1bf47f80b97c3fc7b70a15b8043cdab083e1ddf85f3794';
-const EPISODES_MANIFEST = 'content/episodes.json?v=memory-v52';
+const EPISODES_MANIFEST = 'content/episodes.json?v=memory-v53';
 const LIVE_STORY_ENDPOINT = '/api/story';
 const AMARANTE_TRAVEL_DATE = '2026-08-13';
 const AMARANTE_ROUTE_EPISODE_ID = '004b-rumbo-amarante';
@@ -23,6 +23,10 @@ const OBIDOS_RESCUE_DATE = '2026-08-16';
 const OBIDOS_EPISODE_ID = '008-huellas-mira-obidos';
 const OBIDOS_RESCUE_MARKER = 'rescate-llegada-obidos-t21a1';
 const OBIDOS_ARRIVAL_MARKER = 'llegada-obidos-expedicion-t20a6';
+const LISBON_RESCUE_DATE = '2026-08-17';
+const LISBON_RESCUE_MARKER = 'rescate-llegada-lisboa-t21a3';
+const LISBON_RESCUE_EPISODE_ID = '009-dinoparque-lisboa';
+const LISBON_RESCUE_LOCATION = { lat: 38.7223, lng: -9.1393, radiusMeters: 18000 };
 const SECURITY_CHECKIN_MESSAGES = [
   'Buenos días, Paula y Hugo.',
   'Antes de seguir tengo que contaros algo. Ayer el chat secreto estaba estropeado: llegaban mensajes tarde, se mezclaban y yo respondía a cosas anteriores.',
@@ -316,6 +320,8 @@ async function enterChat() {
     els.internalProgress.hidden = false;
     els.internalProgress.setAttribute('aria-hidden', 'false');
   }
+  await refreshLocationForLisbonArrivalRescue();
+  applyLisbonArrivalRescue();
   const securityPending = isSecurityCheckInPending();
   const routePending = !securityPending && getActiveChallenge()?.kind === 'destination';
   const liveMessages = await refreshLiveStory({ collectBroadcasts: !securityPending && !routePending });
@@ -340,6 +346,8 @@ async function enterChat() {
 }
 
 async function runActivationCheck(reason) {
+  await refreshLocationForLisbonArrivalRescue();
+  applyLisbonArrivalRescue();
   const securityPending = isSecurityCheckInPending();
   const routePending = !securityPending && getActiveChallenge()?.kind === 'destination';
   const liveMessages = await refreshLiveStory({ collectBroadcasts: !securityPending && !routePending });
@@ -350,7 +358,9 @@ async function runActivationCheck(reason) {
   renderAll();
   const challengeArrivalMessages = collectChallengeArrivalMessages();
   const conversationMessages = collectStoryConversationPromptMessages();
-  const incomingMessages = [...liveMessages, ...activationMessages, ...challengeArrivalMessages, ...conversationMessages];
+  const rescueMessages = [...startupRescueMessages];
+  startupRescueMessages = [];
+  const incomingMessages = [...rescueMessages, ...liveMessages, ...activationMessages, ...challengeArrivalMessages, ...conversationMessages];
   if (incomingMessages.length) {
     await deliverTopotinoMessages(incomingMessages, { mode: 'activation' });
   }
@@ -696,8 +706,11 @@ function getNextChallengeStep() {
   const pack = getChallengePack(episode?.meta?.id);
   if (!pack) return null;
 
-  for (const step of pack.steps || []) {
+  const steps = pack.steps || [];
+  for (let index = 0; index < steps.length; index += 1) {
+    const step = steps[index];
     if (state.completedChallengeIds.includes(step.id)) continue;
+    if (step.kind === 'conversation' && state.completedChallengeIds.includes(steps[index + 1]?.id)) continue;
     if (step.kind === 'daily-recovery' && getNetShadow() <= 0) continue;
     return { ...step, episodeId: episode.meta.id, shadowActor: pack.shadowActor || 'Topoloco' };
   }
@@ -1385,11 +1398,14 @@ async function refreshLocation() {
       source: 'device'
     };
     state.locationStatus = `Señal actualizada (${state.lastKnownPosition.accuracy || '?'} m).`;
+    applyLisbonArrivalRescue();
     const activationMessages = await evaluateActivations({ reason: 'location', collectMessages: true });
     const challengeArrivalMessages = collectChallengeArrivalMessages();
+    const rescueMessages = [...startupRescueMessages];
+    startupRescueMessages = [];
     saveState();
-    if (activationMessages.length || challengeArrivalMessages.length) {
-      await deliverTopotinoMessages([...activationMessages, ...challengeArrivalMessages], { mode: 'activation' });
+    if (rescueMessages.length || activationMessages.length || challengeArrivalMessages.length) {
+      await deliverTopotinoMessages([...rescueMessages, ...activationMessages, ...challengeArrivalMessages], { mode: 'activation' });
     }
   } catch (error) {
     state.locationStatus = locationErrorMessage(error);
@@ -1847,6 +1863,66 @@ function applyObidosArrivalRescue() {
     { from: 'topotina', time: 'auto', text: 'He recuperado la señal de llegada. Huellas y Mira de Aire siguen guardadas. Solo reinicio la misión de Óbidos.' },
     { from: 'topotino', time: 'auto', text: '¡Paula, Hugo: acabamos de llegar a Óbidos! Antes de investigar las murallas, hay una noticia importante.' },
     { from: 'topotino', time: 'auto', text: 'Topotino del pasado os dejó un refugio dentro de la muralla: Segredos da Muralha, Rua do Facho 35.' }
+  ];
+  saveState();
+  return true;
+}
+
+function shouldCheckLisbonArrivalRescue() {
+  if (!state.unlocked) return false;
+  if (formatDate(getRuntimeNow()) < LISBON_RESCUE_DATE) return false;
+  if (state.seenBroadcastIds.includes(LISBON_RESCUE_MARKER)) return false;
+  return state.activeEpisodeId === LISBON_RESCUE_EPISODE_ID;
+}
+
+async function refreshLocationForLisbonArrivalRescue() {
+  if (!shouldCheckLisbonArrivalRescue() || !navigator.geolocation) return;
+  if (lastLocationIsFresh(LOCATION_REFRESH_COOLDOWN_MS)) return;
+
+  try {
+    const position = await getCurrentPosition({
+      enableHighAccuracy: true,
+      timeout: 8000,
+      maximumAge: 30000
+    });
+    state.lastKnownPosition = {
+      lat: position.coords.latitude,
+      lng: position.coords.longitude,
+      accuracy: Math.round(position.coords.accuracy || 0),
+      capturedAt: new Date().toISOString(),
+      source: 'lisbon-continuity-rescue'
+    };
+    state.locationStatus = `Señal actualizada (${state.lastKnownPosition.accuracy || '?'} m).`;
+    saveState();
+  } catch (error) {
+    state.locationStatus = locationErrorMessage(error);
+  }
+}
+
+function applyLisbonArrivalRescue() {
+  if (!shouldCheckLisbonArrivalRescue()) return false;
+  if (!locationMatches(LISBON_RESCUE_LOCATION)) return false;
+
+  addUniqueMany(state.completedChallengeIds, [
+    'dinoparque-expedicion',
+    'dinoparque-q1',
+    'dinoparque-q2',
+    'louri-cambio-bando',
+    'dialogo-dia17-pista-lisboa',
+    'dia17-pista-lisboa'
+  ]);
+  addUniqueMany(state.flags, ['louri_descubierto', 'louri_libre', 'louri_canal_cerrado']);
+  addUniqueMany(state.seenBroadcastIds, [
+    LISBON_RESCUE_MARKER,
+    'dialogo-abierto-dialogo-dia17-pista-lisboa'
+  ]);
+  state.activeEpisodeId = LISBON_RESCUE_EPISODE_ID;
+  state.locationStatus = 'Llegada confirmada: Lisboa.';
+  startupRescueMessages = [...startupRescueMessages,
+    { from: 'topotina', time: 'auto', text: 'Coordenada confirmada: LISBOA. La señal se había quedado enganchada a la última transmisión de Louri. Ya la he cortado.' },
+    { from: 'topotino', time: 'auto', text: 'Dino Parque queda atrás. El canal de Louri está cerrado y no repetiremos nada de allí.' },
+    { from: 'topotino', time: 'auto', text: 'Su fragmento nos ha traído hasta Lisboa. Topoloco estudia cómo esta ciudad se reconstruyó después de ser destruida.' },
+    { from: 'topotino', time: 'auto', text: 'Ya estamos donde termina la coordenada. Ahora vamos a orientarnos en la Baixa y comprobar qué parte de la máquina escondió aquí.' }
   ];
   saveState();
   return true;

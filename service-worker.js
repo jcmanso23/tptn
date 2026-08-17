@@ -1,11 +1,11 @@
-const CACHE_NAME = 'topotino-offline-v37';
+const CACHE_NAME = 'topotino-offline-v38';
 const CORE_ASSETS = [
   '/',
   '/index.html',
-  '/styles.css?v=memory-v52',
-  '/app.js?v=memory-v52',
-  '/chat-format.js?v=memory-v52',
-  '/content/challenges.js?v=memory-v52',
+  '/styles.css?v=memory-v53',
+  '/app.js?v=memory-v53',
+  '/chat-format.js?v=memory-v53',
+  '/content/challenges.js?v=memory-v53',
   '/manifest.json',
   '/icons/icon.svg',
   '/icons/icon-192.png',
@@ -14,7 +14,7 @@ const CORE_ASSETS = [
   '/images/topotina.png?v=topotina-v1',
   '/images/gotas.jpg?v=gotas-v1',
   '/images/louri.jpg?v=louri-v1',
-  '/content/episodes.json?v=memory-v52'
+  '/content/episodes.json?v=memory-v53'
 ];
 
 self.addEventListener('install', (event) => {
@@ -49,10 +49,10 @@ async function precacheStory() {
   await Promise.allSettled(CORE_ASSETS.map((asset) => cacheOne(cache, asset)));
 
   try {
-    const response = await fetch('/content/episodes.json?v=memory-v52', { cache: 'no-store' });
+    const response = await fetch('/content/episodes.json?v=memory-v53', { cache: 'no-store' });
     if (!response.ok) return;
     const manifest = await response.clone().json();
-    await cache.put('/content/episodes.json?v=memory-v52', response);
+    await cache.put('/content/episodes.json?v=memory-v53', response);
     await Promise.allSettled(
       manifest.map((episode) => cacheOne(cache, `/${episode.file}`))
     );

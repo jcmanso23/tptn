@@ -3,7 +3,7 @@
   "id": "009-dinoparque-lisboa",
   "order": 9,
   "title": "Día 5 · El secreto de Louri",
-  "channelCode": "T-21A2",
+  "channelCode": "T-21A3",
   "startsUnlocked": false,
   "activation": { "mode": "all", "date": { "on": "2026-08-17" }, "location": { "lat": 39.2790352, "lng": -9.2916689, "radiusMeters": 5000, "label": "Dino Parque Lourinhã" } },
   "mission": "Identificar al espía y descubrir la máquina",
@@ -113,6 +113,7 @@ Louri entrega un fragmento de plano que señala Lisboa y se queda en Dino Parque
 - El Cuaderno permanece privado.
 - La pregunta sobre el Cuaderno es un puente conversacional: se acepta cualquier respuesta y después continúa la despedida.
 - Desde este episodio, toda prueba final de un lugar termina con comentario concreto, pregunta humana, reacción del personaje y solo entonces la pista del siguiente destino.
+- Si la ubicación confirma que Paula y Hugo ya están en Lisboa, todo diálogo pendiente de Dino Parque queda cerrado sin repetirse. Topotino continúa desde la llegada a Lisboa.
 
 ## Fuentes documentales
 

@@ -1,6 +1,6 @@
 # Guía maestra de coherencia narrativa · Las Doce Aguas
 
-**Versión canónica:** 17 de agosto de 2026 · edición T-21A2
+**Versión canónica:** 17 de agosto de 2026 · edición T-21A3
 **Final principal:** Alhambra, Palacios Nazaríes, noche del 26 de agosto
 **Epílogo:** Generalife, 27 de agosto; no abre otra amenaza
 
@@ -385,6 +385,14 @@ Antes de publicar un cambio:
 - [ ] El final continúa en la Alhambra nocturna y el Generalife es solo epílogo.
 
 ## 19. Registro de decisiones
+
+### 17 de agosto de 2026 · T-21A3
+
+- Una partida real que ya ha llegado a Lisboa nunca vuelve a Dino Parque aunque una actualización haya añadido después un diálogo intermedio pendiente.
+- La aplicación comprueba una llegada amplia a Lisboa mientras el día 17 sigue activo. Si la detecta, conserva todo el estado, da por cerrados únicamente los pasos restantes de Dino Parque, cierra el canal de Louri y sitúa la narración en la expedición de orientación de Lisboa.
+- El rescate se ejecuta una sola vez. Topotina explica brevemente que la señal había quedado enganchada a la última transmisión de Louri; no repite su entrada, su crisis, la pregunta del Cuaderno, la despedida ni la elección de Lisboa.
+- La llegada física no completa ninguna observación de Lisboa. Solo abre la expedición de Baixa y Rossio, que Paula y Hugo todavía deben vivir allí.
+- No se alteran Memoria, Sombra, aguas, respuestas, códigos de recuperación ni misiones posteriores.
 
 ### 15 de agosto de 2026 · T-20B1
 
