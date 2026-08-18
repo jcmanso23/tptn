@@ -304,6 +304,40 @@ input {
   box-shadow: 0 0 22px rgba(97, 232, 152, .62);
 }
 
+.location-refresh-compact {
+  justify-self: start;
+  display: inline-flex;
+  gap: 5px;
+  align-items: center;
+  padding: 5px 8px;
+  border: 1px solid rgba(56, 209, 208, .42);
+  border-radius: 999px;
+  background: rgba(3, 31, 48, .72);
+  color: var(--teal);
+  font: inherit;
+  font-size: 10px;
+  line-height: 1;
+  letter-spacing: .02em;
+  text-transform: none;
+  cursor: pointer;
+}
+
+.location-refresh-compact b {
+  color: var(--mint);
+  font-size: 14px;
+  line-height: .8;
+}
+
+.location-refresh-compact:focus-visible {
+  outline: 2px solid var(--gold2);
+  outline-offset: 2px;
+}
+
+.location-refresh-compact:disabled {
+  opacity: .55;
+  cursor: wait;
+}
+
 .channel-code {
   min-width: 132px;
   padding: 16px 20px;
@@ -1140,7 +1174,9 @@ input {
     grid-column: 2;
     grid-row: 2;
     min-width: 0;
-    display: block;
+    display: flex;
+    gap: 7px;
+    align-items: center;
     padding: 1px 0 0;
     border: 0;
     background: transparent;
@@ -1158,6 +1194,17 @@ input {
   .header-status i {
     width: 8px;
     height: 8px;
+  }
+
+  .location-refresh-compact {
+    flex: 0 0 auto;
+    min-height: 28px;
+    padding: 4px 7px;
+    font-size: 8px;
+  }
+
+  .location-refresh-compact b {
+    font-size: 11px;
   }
 
   .channel-code {

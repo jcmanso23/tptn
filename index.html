@@ -11,7 +11,7 @@
   <link rel="manifest" href="manifest.json">
   <link rel="apple-touch-icon" href="icons/icon-192.png">
   <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=memory-v53">
+  <link rel="stylesheet" href="styles.css?v=memory-v54">
 </head>
 <body>
   <main class="app-shell" aria-live="polite">
@@ -45,10 +45,14 @@
           <div class="header-status" aria-label="Estado de seguridad">
             <span><i></i> Señal segura</span>
             <span>▣ Encriptado</span>
+            <button id="location-refresh" class="location-refresh-compact" type="button" title="Actualizar señal de ubicación">
+              <b aria-hidden="true">⌖</b> Actualizar señal
+            </button>
+            <p id="location-status" class="sr-only" aria-live="polite">Sin posición actualizada.</p>
           </div>
           <div class="channel-code">
             <small>Código</small>
-            <strong id="channel-code">T-21A3</strong>
+            <strong id="channel-code">T-21A4</strong>
           </div>
         </header>
 
@@ -67,11 +71,6 @@
               <span>Fórmula</span>
               <p id="formula-display">???, ???, ???, ???, ???, ???, ???, ???, ???, ???, ???, ???</p>
               <em>Doce ventanas, una historia compartida.</em>
-            </div>
-            <div class="signal-card">
-              <span>Señal de ubicación</span>
-              <p id="location-status">Sin posición actualizada.</p>
-              <button id="location-refresh" type="button">Actualizar señal</button>
             </div>
             <div class="waters-list" id="waters-list"></div>
           </div>
@@ -158,6 +157,6 @@
     </aside>
   </main>
 
-  <script src="app.js?v=memory-v53" type="module"></script>
+  <script src="app.js?v=memory-v54" type="module"></script>
 </body>
 </html>

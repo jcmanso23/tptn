@@ -1,5 +1,5 @@
-import { splitTopotinoMessages } from './chat-format.js?v=memory-v53';
-import { CHALLENGE_PACKS, displayChallengeOptions } from './content/challenges.js?v=memory-v53';
+import { splitTopotinoMessages } from './chat-format.js?v=memory-v54';
+import { CHALLENGE_PACKS, displayChallengeOptions } from './content/challenges.js?v=memory-v54';
 
 const STORAGE_KEYS = {
   auth: 'topotino_chat_auth_v1',
@@ -7,9 +7,9 @@ const STORAGE_KEYS = {
 };
 
 const LEGACY_STATE_KEY = 'topotino_chat_state_v1';
-const APP_VERSION_CODE = 'T-21A3';
+const APP_VERSION_CODE = 'T-21A4';
 const PASSPHRASE_HASH = 'a64716bd9f4e8added1bf47f80b97c3fc7b70a15b8043cdab083e1ddf85f3794';
-const EPISODES_MANIFEST = 'content/episodes.json?v=memory-v53';
+const EPISODES_MANIFEST = 'content/episodes.json?v=memory-v54';
 const LIVE_STORY_ENDPOINT = '/api/story';
 const AMARANTE_TRAVEL_DATE = '2026-08-13';
 const AMARANTE_ROUTE_EPISODE_ID = '004b-rumbo-amarante';
@@ -27,6 +27,7 @@ const LISBON_RESCUE_DATE = '2026-08-17';
 const LISBON_RESCUE_MARKER = 'rescate-llegada-lisboa-t21a3';
 const LISBON_RESCUE_EPISODE_ID = '009-dinoparque-lisboa';
 const LISBON_RESCUE_LOCATION = { lat: 38.7223, lng: -9.1393, radiusMeters: 18000 };
+const DAY18_MACHINE_EPISODE_ID = '010-lisboa-ciencia-oceanario';
 const SECURITY_CHECKIN_MESSAGES = [
   'Buenos días, Paula y Hugo.',
   'Antes de seguir tengo que contaros algo. Ayer el chat secreto estaba estropeado: llegaban mensajes tarde, se mezclaban y yo respondía a cosas anteriores.',
@@ -323,7 +324,7 @@ async function enterChat() {
   await refreshLocationForLisbonArrivalRescue();
   applyLisbonArrivalRescue();
   const securityPending = isSecurityCheckInPending();
-  const routePending = !securityPending && getActiveChallenge()?.kind === 'destination';
+  const routePending = !securityPending && getActiveChallenge()?.kind === 'destination' && !isDay18MachineActivationDue();
   const liveMessages = await refreshLiveStory({ collectBroadcasts: !securityPending && !routePending });
   if (!securityPending && !routePending) await refreshLocationForPendingActivations();
   const activationMessages = securityPending || routePending
@@ -349,7 +350,7 @@ async function runActivationCheck(reason) {
   await refreshLocationForLisbonArrivalRescue();
   applyLisbonArrivalRescue();
   const securityPending = isSecurityCheckInPending();
-  const routePending = !securityPending && getActiveChallenge()?.kind === 'destination';
+  const routePending = !securityPending && getActiveChallenge()?.kind === 'destination' && !isDay18MachineActivationDue();
   const liveMessages = await refreshLiveStory({ collectBroadcasts: !securityPending && !routePending });
   if (securityPending) return;
   if (routePending) return;
@@ -503,6 +504,11 @@ function episodeCanActivate(episode) {
 
   if (!checks.length) return false;
   return activation.mode === 'any' ? checks.some(Boolean) : checks.every(Boolean);
+}
+
+function isDay18MachineActivationDue() {
+  const episode = getEpisode(DAY18_MACHINE_EPISODE_ID);
+  return Boolean(episode && !isEpisodeUnlocked(episode.meta.id) && episodeCanActivate(episode));
 }
 
 function collectDueAdultLaunches() {
@@ -1870,7 +1876,7 @@ function applyObidosArrivalRescue() {
 
 function shouldCheckLisbonArrivalRescue() {
   if (!state.unlocked) return false;
-  if (formatDate(getRuntimeNow()) < LISBON_RESCUE_DATE) return false;
+  if (formatDate(getRuntimeNow()) !== LISBON_RESCUE_DATE) return false;
   if (state.seenBroadcastIds.includes(LISBON_RESCUE_MARKER)) return false;
   return state.activeEpisodeId === LISBON_RESCUE_EPISODE_ID;
 }

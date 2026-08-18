@@ -8,6 +8,7 @@ const ARRIVAL_LOCATIONS = Object.freeze({
   mira: { lat: 39.5434, lng: -8.7046, radiusMeters: 700, label: 'Grutas de Mira de Aire' },
   obidos: { lat: 39.3605, lng: -9.1570, radiusMeters: 1000, label: 'Óbidos' },
   rossio: { lat: 38.7139, lng: -9.1394, radiusMeters: 700, label: 'Rossio, Lisboa' },
+  pavilhao: { lat: 38.7622806, lng: -9.0955818, radiusMeters: 1000, label: 'Pavilhão do Conhecimento, Lisboa' },
   oceanario: { lat: 38.7636, lng: -9.0937, radiusMeters: 180, label: 'Oceanário de Lisboa' },
   tejo: { lat: 38.7682, lng: -9.0922, radiusMeters: 350, label: 'Ribera del Tajo, Parque das Nações' },
   alfama: { lat: 38.7114, lng: -9.1301, radiusMeters: 500, label: 'Alfama, Lisboa' },
@@ -608,13 +609,18 @@ packs['009-dinoparque-lisboa'] = {
 packs['010-lisboa-ciencia-oceanario'] = {
   shadowActor: 'Niebla',
   openingMessages: [
-    'Buenos días. Louri cerró su canal ayer, pero su plano sigue siendo nuestra única ventaja.',
-    'Señala el Pavilhão do Conhecimento: allí está el módulo que Topoloco usa para separar causas y coincidencias.',
-    'Si aprendemos cómo decide qué produjo cada cambio, podremos sabotearlo sin que Topoloco sepa qué dato le falló.'
+    'Buenos días, Paula y Hugo. Antes de salir: ayer Topoloco rompió el chat secreto.',
+    { from: 'topotina', text: 'He revisado el registro. Se enfadó al descubrir que Louri había dejado de obedecerle. Entonces mezcló mensajes antiguos para hacernos volver a Dino Parque.' },
+    'Pues casi lo consigue. Estoy enfadadísimo. También un poco impresionado. Pero sobre todo enfadadísimo.',
+    { from: 'topotina', text: 'Lo hemos reparado juntos. El canal ahora corta cualquier transmisión antigua que intente volver a colocarse delante del mensaje actual.' },
+    'Y he dejado un botón pequeño para actualizar la señal si una llegada no aparece. Esta vez se ve. He mirado dos veces.',
+    'La pista que Louri nos dio antes de cerrar su canal sobrevivió al ataque. Señala el Pavilhão do Conhecimento.',
+    'Allí está el módulo de la Máquina de los Recuerdos que sirve para separar causas y coincidencias. Hoy vamos a encontrarlo y a estropearlo con pruebas de verdad.',
+    'Cuando lleguéis al Pavilhão, actualizad la señal. Hasta entonces no abriré la misión del edificio.'
   ],
   steps: [
     ...withOrder(
-      expedition('pavilhao-expedicion', 'Pavilhão do Conhecimento', 'Expedición de causa y efecto', 'Elegid módulos que podáis probar con seguridad y respetad sus instrucciones.', [
+      onArrival(expedition('pavilhao-expedicion', 'Pavilhão do Conhecimento', 'Expedición de causa y efecto', 'Elegid módulos que podáis probar con seguridad y respetad sus instrucciones.', [
         'Probad dos módulos situados en zonas distintas.',
         'Antes del segundo intento, predecid qué cambiará si modificáis una acción.',
         'Repetid un módulo cambiando solo una cosa.',
@@ -622,6 +628,9 @@ packs['010-lisboa-ciencia-oceanario'] = {
       ], [
         'Expedición completada. Habéis cambiado una variable y observado su efecto.',
         'Eso permite distinguir coincidencia de causa. Topoloco preferiría quedarse solo con el resultado bonito.'
+      ]), ARRIVAL_LOCATIONS.pavilhao, [
+        { from: 'topotina', text: 'Llegada confirmada. La señal del módulo está dentro de este edificio.' },
+        { from: 'topotino', text: 'Aquí empieza la operación. Probad, cambiad una sola cosa y observad qué ocurre: así sabremos qué parte de la máquina debemos sabotear.' }
       ]),
       [
         question('pavilhao-q1', 'Pavilhão do Conhecimento', '¿Cómo se comprueba mejor qué causó un cambio?', ['Cambiando una cosa cada vez', 'Cambiándolo todo a la vez', 'Repitiendo la explicación sin probar'], 0, 'Exacto. Así podemos relacionar causa y efecto.', 'Controlar una variable no hace el experimento aburrido: hace que la conclusión sea más fuerte.', 'Recordad qué hicisteis distinto entre dos intentos.'),
@@ -686,7 +695,7 @@ packs['010-lisboa-ciencia-oceanario'] = {
 packs['011-lisboa-historia-belem'] = {
   shadowActor: 'Topoloco',
   openingMessages: [
-    'Buenos días. Ayer estropeamos el módulo que separaba causas y relaciones.',
+    'Buenos días. Ayer cerramos el ataque del chat y estropeamos el módulo que separaba causas y relaciones.',
     'Topoloco ha movido los datos al archivo histórico de Lisboa. Quiere guardar una ciudad sin terremoto, reconstrucción ni voces distintas.',
     'La señal empieza en el Castelo de São Jorge: desde arriba veremos la versión general antes de comprobar a pie lo que oculta.'
   ],

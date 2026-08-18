@@ -148,6 +148,7 @@ test('cada cambio de lugar futuro espera la llegada física antes de mostrar su 
     'batalha-q1', 'fatima-expedicion',
     'mira-q1', 'obidos-expedicion',
     'lisboa-llegada-q1',
+    'pavilhao-expedicion',
     'oceanario-q1', 'tejo-expedicion',
     'alfama-q1', 'belem-expedicion',
     'lagos-q1', 'sagres-q1',
@@ -332,6 +333,27 @@ test('el arco posterior encadena acciones de Topoloco y revela la Alhambra en Is
   const cathedralRoute = CHALLENGE_PACKS['018-sevilla-alhambra-noche'].steps.find((step) => step.id === 'dia26-pista-alhambra');
   assert.match(islandRoute.prompt, /Alhambra de noche/i);
   assert.doesNotMatch(cathedralRoute.successMessages.map(messageText).join(' '), /primera vez|no sabíamos|acabamos de descubrir/i);
+});
+
+test('el día 18 explica el sabotaje, abre solo el encargo y espera la llegada al Pavilhão', () => {
+  const day18 = CHALLENGE_PACKS['010-lisboa-ciencia-oceanario'];
+  const opening = day18.openingMessages.map(messageText).join(' ');
+  const firstStep = day18.steps[0];
+  const day19 = CHALLENGE_PACKS['011-lisboa-historia-belem'];
+
+  assert.match(opening, /Topoloco.*rompi[oó].*chat|rompi[oó].*chat.*Topoloco/is);
+  assert.match(opening, /enfad.*Louri|Louri.*enfad/is);
+  assert.match(opening, /reparado|bloqueado.*transmisi/is);
+  assert.match(opening, /Pavilhão do Conhecimento/i);
+  assert.match(opening, /módulo.*Máquina de los Recuerdos|Máquina de los Recuerdos.*módulo/is);
+  assert.match(opening, /actualizar la señal/i);
+  assert.doesNotMatch(opening, /Oceanário|Tajo|Tejo/i);
+
+  assert.equal(firstStep.id, 'pavilhao-expedicion');
+  assert.equal(firstStep.location.label, 'Pavilhão do Conhecimento, Lisboa');
+  assert.ok(firstStep.arrivalMarker);
+  assert.match(firstStep.arrivalMessages.map(messageText).join(' '), /Llegada confirmada.*módulo/is);
+  assert.match(day19.openingMessages.map(messageText).join(' '), /cerramos el ataque.*estropeamos el módulo/is);
 });
 
 test('cada lugar revela solo el paso accionable siguiente y nunca el itinerario completo', () => {

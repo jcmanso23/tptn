@@ -3,9 +3,9 @@
   "id": "010-lisboa-ciencia-oceanario",
   "order": 10,
   "title": "Día 6 · Un océano hecho de relaciones",
-  "channelCode": "T-68O4",
+  "channelCode": "T-21A4",
   "startsUnlocked": false,
-  "activation": { "mode": "all", "date": { "on": "2026-08-18" }, "location": { "lat": 38.7622806, "lng": -9.0955818, "radiusMeters": 1000, "label": "Pavilhão do Conhecimento, Lisboa" } },
+  "activation": { "mode": "all", "date": { "on": "2026-08-18" } },
   "mission": "Ver la red",
   "formulaWord": null,
   "water": "Agua del Océano Único",
@@ -15,14 +15,18 @@
 
 # Contexto narrativo
 
-Louri ya ha cerrado su canal y no participa. Su fragmento conduce al módulo de la Máquina de los Recuerdos que separa causas y relaciones. Pavilhão permite sabotear su clasificador cambiando una variable cada vez. El fallo señala al Oceanário porque el módulo intenta separar especies que dependen unas de otras. Vasco enseña el Protocolo Azul sin resolver las pruebas. El Tajo demuestra que la red continúa fuera del tanque y revela que Topoloco ha trasladado los datos al archivo histórico de Lisboa.
+Louri ya ha cerrado su canal y no participa. Al descubrir que había dejado de obedecerle, Topoloco atacó el chat e inyectó mensajes antiguos de Dino Parque para impedir que el grupo avanzara. Topotina confirma el ataque en el registro y repara el orden del canal con Topotino. El fragmento que Louri dejó antes de marcharse sobrevive y conduce al módulo de la Máquina de los Recuerdos que separa causas y relaciones. Pavilhão permite sabotear su clasificador cambiando una variable cada vez. El fallo señala después al Oceanário porque el módulo intenta separar especies que dependen unas de otras. Vasco enseña el Protocolo Azul sin resolver las pruebas. El Tajo demuestra que la red continúa fuera del tanque y revela que Topoloco ha trasladado los datos al archivo histórico de Lisboa.
+
+La explicación del sabotaje se activa por la fecha aunque la familia todavía no esté en el Pavilhão. La misión física del edificio permanece oculta hasta confirmar su llegada. Por la mañana solo se nombra el Pavilhão; Oceanário y Tajo se descubren después, uno a uno.
 
 ## Mensajes iniciales
 
 ```json
 [
-  { "from": "topotino", "time": "auto", "text": "Buenos días. En Superbichos, buscad dos módulos de animales situados en partes distintas de la exposición." },
-  { "from": "topotino", "time": "auto", "text": "Antes de usarlos, predecid qué adaptación representan. Después probadlos y corregid al menos una parte con la evidencia." }
+  { "from": "topotino", "time": "auto", "text": "Buenos días, Paula y Hugo. Ayer Topoloco rompió el chat secreto porque se enfadó al saber que Louri había dejado de obedecerle." },
+  { "from": "topotina", "time": "auto", "text": "Mezcló mensajes antiguos para hacernos volver a Dino Parque. Topotino y yo hemos reparado el orden del canal y bloqueado esas transmisiones." },
+  { "from": "topotino", "time": "auto", "text": "La pista de Louri sobrevivió. Señala el Pavilhão do Conhecimento y un módulo de la Máquina de los Recuerdos. Hoy vamos a encontrarlo y sabotearlo." },
+  { "from": "topotino", "time": "auto", "text": "Cuando lleguéis, pulsad Actualizar señal. Hasta entonces no abriré la misión del edificio." }
 ]
 ```
 

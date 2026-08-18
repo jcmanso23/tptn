@@ -1,6 +1,6 @@
 # Guía maestra de coherencia narrativa · Las Doce Aguas
 
-**Versión canónica:** 17 de agosto de 2026 · edición T-21A3
+**Versión canónica:** 18 de agosto de 2026 · edición T-21A4
 **Final principal:** Alhambra, Palacios Nazaríes, noche del 26 de agosto
 **Epílogo:** Generalife, 27 de agosto; no abre otra amenaza
 
@@ -54,6 +54,10 @@ Al comienzo solo se sabe que ocurrió algo durante el eclipse. La atribución pr
 Topotino no debe adelantarse a esta escalera.
 
 Durante Amarante el comunicador funcionó mal: hubo interferencias, mensajes retrasados y respuestas que parecían contestar a turnos anteriores. El 14 de agosto Topotino interpreta el fallo con prudencia: **parece** que Topoloco ha encontrado la frecuencia e intentado entrar, pero todavía no sabe cómo ni puede vincular este incidente con la amnesia. Ha reforzado el canal y añade un contador de **Sombra** como alarma experimental. Explica que una subida puede indicar que Topoloco o un Oscurno se acerca de nuevo a la conversación; no afirma que el contador sea infalible.
+
+La noche del 17, después de descubrir que Louri ha dejado de obedecerle y ha entregado la pista de Lisboa, Topoloco ataca deliberadamente el Comunicador Subterráneo. Esta vez Topotina puede demostrarlo en el registro técnico: el ataque reinyecta mensajes antiguos de Dino Parque para impedir que el grupo avance. Al comenzar el 18, Topotino lo cuenta con enfado y humor; Topotina confirma que ambos han reparado el orden del canal y han añadido un corte automático para transmisiones antiguas. El ataque no reabre a Louri ni lo convierte en participante activo.
+
+La pista de Louri sobrevive al sabotaje y señala únicamente el **Pavilhão do Conhecimento**, donde está el módulo de la Máquina de los Recuerdos que intenta separar causas de simples coincidencias. Esta explicación abre el día 18 desde cualquier lugar una vez llegada la fecha, pero la misión del Pavilhão permanece oculta hasta confirmar físicamente la llegada. Oceanário y Tajo no se anuncian por la mañana: se descubren después, uno a uno, como consecuencias de la investigación.
 
 ## 4. Lo que Topotino recuerda
 
@@ -385,6 +389,17 @@ Antes de publicar un cambio:
 - [ ] El final continúa en la Alhambra nocturna y el Generalife es solo epílogo.
 
 ## 19. Registro de decisiones
+
+### 18 de agosto de 2026 · T-21A4
+
+- El atasco que repetía Dino Parque entra en la continuidad como un ataque deliberado de Topoloco, enfadado porque Louri dejó de obedecerle y entregó la pista de Lisboa. Topotina lo confirma mediante el registro técnico; Topotino y Topotina reparan juntos el orden del canal y bloquean la reinyección de mensajes antiguos.
+- El primer acceso del día 18 cuenta el sabotaje en mensajes breves, concretos y con humor. Louri no vuelve al canal: solo se menciona como causa del enfado de Topoloco y como fuente de la pista que sobrevivió.
+- El día 18 se activa por fecha para que la explicación pueda leerse antes de llegar. Solo descubre el Pavilhão do Conhecimento y el módulo de la Máquina de los Recuerdos que separa causas y coincidencias; la tarjeta de su misión continúa bloqueada hasta la llegada física.
+- Si el canal todavía conserva como activo un paso o una pregunta de ruta del día 17, la llegada de la fecha 18 tiene prioridad y abre esta explicación sin repetir Dino Parque ni el paseo de orientación. No se dan por realizadas observaciones antiguas: simplemente dejan de gobernar el canal activo.
+- Oceanário y Tajo no forman parte de un plan anunciado. Aparecen después como consecuencias de lo comprobado en el Pavilhão, conservando la cadena de una sola parada cada vez.
+- El día 19 parte de dos consecuencias reales del 18: el canal ya resiste el ataque y el clasificador de causa queda saboteado. Topoloco responde trasladando información al archivo histórico de Lisboa.
+- `Actualizar señal` pasa a ser un control pequeño pero siempre visible en la cabecera del chat. Permite volver a comprobar la llegada sin abrir el panel adulto ni mostrar la estructura interna del viaje.
+- Se conservan todos los IDs, flags, aguas, respuestas, puntuaciones, conversaciones y códigos de recuperación.
 
 ### 17 de agosto de 2026 · T-21A3
 

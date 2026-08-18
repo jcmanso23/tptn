@@ -170,7 +170,7 @@ test('los días 13 y 14 conservan su cadena narrativa y adaptan solo tras un imp
   assert.doesNotMatch(childFacingText, /(foto|fotografía).{0,30}(cuaderno|diario)/i);
 });
 
-test('la edición T-21A3 cierra Dino Parque al llegar a Lisboa sin retroceder', async () => {
+test('la edición T-21A4 entra en el día 18 sin retroceder y deja visible la actualización de señal', async () => {
   const files = ['index.html', 'app.js', 'admin.js', 'content/episodes/001-reconexion.md'];
   const combined = (await Promise.all(files.map((file) => readFile(join(root, file), 'utf8')))).join('\n');
   const app = await readFile(join(root, 'app.js'), 'utf8');
@@ -183,14 +183,17 @@ test('la edición T-21A3 cierra Dino Parque al llegar a Lisboa sin retroceder', 
 
   const styles = await readFile(join(root, 'styles.css'), 'utf8');
 
-  assert.match(combined, /T-21A3/);
+  assert.match(combined, /T-21A4/);
   assert.doesNotMatch(combined, /T-12A9/);
   assert.match(app, /splitTopotinoMessages/);
   assert.match(app, /CHALLENGE_PACKS/);
   assert.match(app, /els\.channelCode\.textContent = APP_VERSION_CODE/);
-  assert.match(serviceWorker, /topotino-offline-v38/);
-  assert.match(serviceWorker, /chat-format\.js\?v=memory-v53/);
-  assert.match(serviceWorker, /content\/challenges\.js\?v=memory-v53/);
+  assert.match(serviceWorker, /topotino-offline-v39/);
+  assert.match(serviceWorker, /chat-format\.js\?v=memory-v54/);
+  assert.match(serviceWorker, /content\/challenges\.js\?v=memory-v54/);
+  assert.match(combined, /id="location-refresh"/);
+  assert.ok(combined.indexOf('id="location-refresh"') < combined.indexOf('</header>'));
+  assert.doesNotMatch(styles, /\.location-refresh-compact\s*\{[^}]*display:\s*none/is);
   assert.match(serviceWorker, /images\/topotina\.png\?v=topotina-v1/);
   assert.match(serviceWorker, /images\/gotas\.jpg\?v=gotas-v1/);
   assert.match(serviceWorker, /images\/louri\.jpg\?v=louri-v1/);
@@ -216,6 +219,9 @@ test('la edición T-21A3 cierra Dino Parque al llegar a Lisboa sin retroceder', 
   assert.match(app, /function applyLisbonArrivalRescue\(\)/);
   assert.match(app, /rescate-llegada-lisboa-t21a3/);
   assert.match(app, /LISBON_RESCUE_LOCATION = \{ lat: 38\.7223, lng: -9\.1393, radiusMeters: 18000 \}/);
+  assert.match(app, /function isDay18MachineActivationDue\(\)/);
+  assert.match(app, /routePending[\s\S]{0,180}!isDay18MachineActivationDue\(\)/);
+  assert.match(app, /formatDate\(getRuntimeNow\(\)\) !== LISBON_RESCUE_DATE/);
   assert.match(app, /step\.kind === 'conversation' && state\.completedChallengeIds\.includes\(steps\[index \+ 1\]\?\.id\)/);
   const lisbonRescue = app.slice(
     app.indexOf('function applyLisbonArrivalRescue()'),
@@ -339,8 +345,8 @@ test('el viaje completo del 15 al 27 está publicado, enlazado y termina de noch
     const episode = parseEpisode(markdown, source);
     assert.equal(episode.meta.activation.date.on, date, `${id}: fecha incorrecta`);
     assert.equal(episode.meta.activation.mode, 'all', `${id}: modo de activación incorrecto`);
-    if (id === '007-bucaco-batalha-fatima') {
-      assert.equal(episode.meta.activation.location, undefined, `${id}: el resumen matinal no debe esperar a Coimbra`);
+    if (['007-bucaco-batalha-fatima', '010-lisboa-ciencia-oceanario'].includes(id)) {
+      assert.equal(episode.meta.activation.location, undefined, `${id}: el mensaje matinal no debe esperar a la primera parada`);
     } else {
       assert.ok(Number.isFinite(episode.meta.activation.location?.lat), `${id}: falta latitud de llegada`);
       assert.ok(Number.isFinite(episode.meta.activation.location?.lng), `${id}: falta longitud de llegada`);
@@ -385,7 +391,9 @@ test('todas las jornadas activas recorren lugares reales después de la llegada'
       ...episode.sections['Respuestas guiadas'].flatMap((response) => (response.messages || []).map((message) => message.text))
     ].join(' ');
 
-    if (id !== '007-bucaco-batalha-fatima') assert.ok(episode.meta.activation.location, `${id}: no se abre por llegada`);
+    if (!['007-bucaco-batalha-fatima', '010-lisboa-ciencia-oceanario'].includes(id)) {
+      assert.ok(episode.meta.activation.location, `${id}: no se abre por llegada`);
+    }
     assert.match(childText, /recorred|cruzad|seguid|bajad|subid|moveos|caminad|pasad|salid|viajad|rumbo|al llegar/i, `${id}: no conduce entre puntos reales`);
   }
 });
