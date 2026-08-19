@@ -5,7 +5,7 @@
   "title": "Día 6 · Un océano hecho de relaciones",
   "channelCode": "T-21A4",
   "startsUnlocked": false,
-  "activation": { "mode": "all", "date": { "on": "2026-08-18" } },
+  "activation": { "mode": "all", "date": { "from": "2026-08-18" } },
   "mission": "Ver la red",
   "formulaWord": null,
   "water": "Agua del Océano Único",
