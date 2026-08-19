@@ -15,14 +15,14 @@
 
 # Contexto narrativo
 
-Tras fracasar su ataque contra el chat y perder el módulo que separaba causas y relaciones, Topoloco traslada sus datos al archivo histórico de Lisboa para fabricar una ciudad sin terremoto, reconstrucción ni voces distintas. Castelo ofrece la versión general; Alfama y Baixa muestran a pie lo que esa vista oculta; Belém obliga a comparar funciones y relatos. Resolverlo conserva las capas reales y hace huir a Niebla con un receptor de la máquina hacia Badoca. Un pavo real del castillo es conocido de Topotino, pero no se alimenta ni da soluciones.
+Tras fracasar su ataque contra el chat y perder el módulo que separaba causas y relaciones, Topoloco huye de Alfama hacia el archivo histórico de Lisboa para fabricar una ciudad sin terremoto, reconstrucción ni voces distintas. Los Jerónimos abren la nueva investigación sobre viajes, religión y poder; después el Castelo ofrece la versión general y Belém obliga a comparar funciones y relatos. Resolverlo conserva las capas reales y hace huir a Niebla con un receptor de la máquina hacia Badoca. Un pavo real del castillo es conocido de Topotino, pero no se alimenta ni da soluciones.
 
 ## Mensajes iniciales
 
 ```json
 [
   { "from": "topotino", "time": "auto", "text": "Buenos días. Ayer cerramos el ataque del chat y estropeamos el módulo que separaba causas y relaciones." },
-  { "from": "topotino", "time": "auto", "text": "Topoloco ha movido sus datos al archivo histórico de Lisboa. La señal empieza en el Castelo de São Jorge; la misión se abrirá cuando lleguéis." }
+  { "from": "topotino", "time": "auto", "text": "Topoloco ha huido de Alfama y ha movido sus datos al archivo histórico de Lisboa. La señal empieza en el Mosteiro dos Jerónimos; la misión se abrirá cuando lleguéis." }
 ]
 ```
 

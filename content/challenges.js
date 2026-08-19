@@ -661,33 +661,32 @@ packs['010-lisboa-ciencia-oceanario'] = {
       ],
       'question-first'
     ),
-    nextStop('dia18-pista-tejo', 'Vasco ha marcado una salida: «El océano del tanque continúa fuera del edificio por un gran río». ¿Dónde comprobamos esa conexión?', ['Ribera del Tajo', 'Castillo de Óbidos', 'Grutas de Mira de Aire'], 0, [
-      'La pista señala la ribera del Tajo.',
-      'Dentro habéis visto una representación cuidada de relaciones marinas. Ahora comprobaremos cómo Lisboa se conecta con agua real.'
-    ]),
     ...withOrder(
-      onArrival(expedition('tejo-expedicion', 'Ribera del Tajo', 'Expedición del río que llega al océano', 'Al salir, conectaremos el mundo interior del Oceanário con el paisaje real.', [
-        'Mirad la anchura del Tajo desde la ribera.',
-        'Buscad una embarcación o infraestructura relacionada con el agua.',
-        'Localizad una señal de marea, viento o corriente.',
-        'Comparad el agua real con el tanque central sin acercaros al borde.'
+      onArrival(expedition('alfama-visita-expedicion', 'Rossio · visita guiada de Alfama', 'Expulsar a Topoloco del barrio antiguo', 'Topotino ha descubierto que Topoloco se refugia en Alfama. Reuníos con el grupo a las 10:30 en la Praça Dom Pedro IV, junto a la estatua central y los paraguas blancos de Live History. Durante la visita, escuchad y observad: después tendréis que reconstruir lo que realmente os contaron.', [
+        'A las 10:30, comprobad que estáis en la Praça Dom Pedro IV, no en la estación de Rossio.',
+        'Durante el recorrido, anotad mentalmente dos historias o leyendas y separadlas de los datos históricos.',
+        'Fijaos en cómo cambian las calles al pasar de Baixa a Mouraria y Alfama: anchura, pendientes, curvas y murallas.',
+        'Recordad al menos dos lugares visitados, una explicación sobre el terremoto de 1755 y una referencia al fado o a la mezcla cultural del barrio.'
       ], [
-        'Expedición terminada. El Tajo no acaba en Lisboa: se abre hacia el Atlántico.',
-        'La sexta ventana confirma que las doce marcas del mapa son nodos de una red, no doce objetos aislados.'
-      ]), ARRIVAL_LOCATIONS.tejo, [
-        { from: 'topotino', text: 'Vasco avisa: dentro habéis visto una red marina; ahora toca comprobar dónde conecta esa historia con agua real.' },
-        { from: 'topotino', text: 'Estáis junto al Tajo. Seguid el río con la vista y buscad cómo la ciudad se relaciona con él.' }
+        'Expedición completada. Habéis recorrido los barrios antiguos sin confundir una leyenda entretenida con una prueba histórica.',
+        'Alfama y Mouraria conservaron buena parte de su trazado porque sobrevivieron al terremoto de 1755. Sus callejuelas, pendientes, miradores y mezcla cultural cuentan una historia distinta a la cuadrícula de la Baixa.',
+        { from: 'topotino', text: 'Topoloco ha salido por una escalera tan estrecha que hasta su ego ha tenido que ponerse de lado. Pero ha dejado una señal: Jerónimos.' }
+      ]), ARRIVAL_LOCATIONS.rossio, [
+        { from: 'topotino', text: '¡Alerta! Hemos visto a Topoloco escondiéndose en el barrio antiguo de Lisboa, Alfama. No vamos a perseguirlo a ciegas: iremos con un grupo y escucharemos cada explicación.' },
+        { from: 'topotino', text: 'La visita empieza a las 10:30 en la Praça Dom Pedro IV, la plaza grande de Rossio, junto a la estatua y los paraguas blancos. Atención: no es la estación de tren.' },
+        { from: 'topotina', text: 'Después os preguntaré por lo que habéis oído y visto. Si Topoloco mezcla historia, leyenda y opinión, vosotros tendréis que separarlas.' }
       ]),
       [
-        question('tejo-q1', 'Ribera del Tajo', '¿Qué conecta mejor el Tajo con el Oceanário?', ['Ambos permiten estudiar relaciones del agua con seres vivos y personas', 'Ambos tienen paredes de cristal', 'Ambos son piscinas'], 0, 'Sí. Uno es paisaje real y otro una representación cuidada, pero ambos muestran conexiones.', 'Las representaciones ayudan a observar; el río recuerda que el sistema continúa fuera del edificio.', 'Buscad una relación, no una semejanza de forma.'),
-        question('tejo-q2', 'Ribera del Tajo', 'Si cambia la marea, ¿qué demuestra?', ['Que el borde entre río y océano es dinámico', 'Que Lisboa se mueve de sitio', 'Que el tanque controla el Tajo'], 0, 'Correcto. La relación cambia con el tiempo.', 'Una red viva no permanece idéntica. Topoloco quiere fijar una versión única y por eso siempre pierde información.', 'Fijaos en marcas, movimiento del agua o embarcaciones.')
+        question('alfama-q1', 'Alfama · visita guiada', '¿Qué diferencia hay entre un dato histórico y una leyenda contada durante la visita?', ['El dato puede contrastarse con fuentes; la leyenda forma parte del relato y puede no estar demostrada', 'La leyenda siempre es falsa y el dato siempre es aburrido', 'Son exactamente lo mismo si el guía lo cuenta'], 0, 'Correcto. Escuchar una leyenda es interesante, pero no obliga a convertirla en un hecho.', 'Una visita puede reunir historia, memoria local y relatos populares. La clave es saber qué tipo de afirmación estamos escuchando.', 'Recordad si la explicación se presentó como documento, tradición o interpretación.'),
+        question('alfama-q2', 'Alfama · visita guiada', '¿Qué observación ayuda a reconocer Alfama frente a la Baixa?', ['Calles estrechas, curvas y pendientes frente a la cuadrícula más recta de la Baixa', 'Todas las calles tienen exactamente la misma forma', 'Alfama no tiene relación con el río ni con los miradores'], 0, 'Muy bien. El trazado también conserva información sobre cómo creció la ciudad.', 'Alfama y Mouraria permiten caminar por una Lisboa más irregular, mientras la Baixa muestra la reconstrucción posterior al terremoto.', 'Elegid la opción que podríais comprobar caminando.'),
+        question('alfama-q3', 'Alfama · visita guiada', '¿Qué debemos hacer si dos explicaciones de la visita no encajan del todo?', ['Recordar qué se observó, distinguir fuentes y mantener abierta la corrección', 'Elegir la versión más emocionante', 'Aceptar la primera versión para no molestar a Topoloco'], 0, 'Exacto. Una buena investigación escucha, compara y puede corregirse.', 'Eso es precisamente lo que expulsa a Topoloco: no puede controlar una historia cuando vosotros distinguís evidencia, memoria y relato.', 'Pensad qué parte visteis directamente y cuál os contaron.')
       ]
     ),
-    recovery('recuperacion-dia18', '¿Qué palabra une experimentos, especies y Tajo?', ['Relación', 'Colección', 'Inmovilidad'], 0, 'Sombra retirada. Las doce ventanas empiezan a comportarse como una red.', 'Niebla conserva terreno, pero ya no puede presentar los nodos como piezas separadas.'),
-    route('ruta-dia19', 'La nueva ventana muestra una fortaleza sobre una colina desde la que Lisboa se ve como un mapa. ¿Cuál es la primera parada?', ['Castelo de São Jorge', 'Oceanário', 'Dino Parque'], 0, [
-      'Primera señal encontrada: Castelo de São Jorge.',
-      'Desde allí buscaremos qué partes de la ciudad permite entender una vista alta y qué detalles oculta. El resto sigue cerrado.',
-      'Llevad calzado cómodo para cuestas, agua y protector solar. Descansad.'
+    recovery('recuperacion-dia18', '¿Qué protege mejor la visita de Alfama?', ['Escuchar, distinguir historia y leyenda, y corregir si una afirmación no encaja', 'Repetir la historia más llamativa', 'Seguir a Topoloco por cualquier calle'], 0, 'Sombra retirada. Topoloco ya no puede esconderse dentro de una historia sin que comprobéis sus capas.', 'La señal sigue activa, pero habéis recuperado el control del relato.'),
+    route('ruta-dia19', 'La señal que dejó Topoloco apunta a un monasterio relacionado con los viajes, el poder y el río. ¿Cuál es la primera prueba de mañana?', ['Mosteiro dos Jerónimos', 'Castelo de São Jorge', 'Oceanário de Lisboa'], 0, [
+      'Primera señal encontrada: el Mosteiro dos Jerónimos.',
+      'Después de expulsarlo de Alfama, seguiremos la pista de los viajes y comprobaremos qué función cumple cada monumento de Belém.',
+      'Llevad calzado cómodo, agua y protección para el sol. Descansad.'
     ], { setFlags: ['completado_lisboa_ciencia_oceanario'], water: 'Agua del Océano Único' })
   ]
 };
@@ -697,9 +696,31 @@ packs['011-lisboa-historia-belem'] = {
   openingMessages: [
     'Buenos días. Ayer cerramos el ataque del chat y estropeamos el módulo que separaba causas y relaciones.',
     'Topoloco ha movido los datos al archivo histórico de Lisboa. Quiere guardar una ciudad sin terremoto, reconstrucción ni voces distintas.',
-    'La señal empieza en el Castelo de São Jorge: desde arriba veremos la versión general antes de comprobar a pie lo que oculta.'
+    'La señal empieza en el Mosteiro dos Jerónimos: Topoloco ha huido de Alfama hacia un lugar donde los viajes, la fe y el poder dejaron marcas en la piedra.'
   ],
   steps: [
+    ...withOrder(
+      onArrival(expedition('jeronimos-expedicion', 'Mosteiro dos Jerónimos', 'Expedición de piedra, viajes y poder', 'Movedos con los adultos y observad el exterior y los espacios permitidos sin convertir cada detalle en una certeza automática.', [
+        'Localizad un detalle de piedra trabajado y describidlo sin inventar su significado.',
+        'Buscad una referencia a viajes, navegación, religión o poder.',
+        'Comparad una decoración repetida con una figura o elemento diferente.',
+        'Separad lo que podéis observar de lo que el monumento pretende contar.'
+      ], [
+        'Expedición completada. Los Jerónimos reúnen arquitectura, memoria religiosa y relatos de viajes y poder.',
+        'La piedra trabajada muestra decisiones de muchas manos; una decoración o un monumento puede transmitir un relato, pero no cuenta por sí solo toda la historia.',
+        { from: 'topotino', text: 'Topoloco quería esconderse detrás de una fachada monumental. Mala suerte: las fachadas no saben guardar secretos cuando las observan dos exploradores atentos.' }
+      ]), ARRIVAL_LOCATIONS.belem, [
+        { from: 'topotino', text: 'La señal de Alfama termina aquí. Habéis llegado al Mosteiro dos Jerónimos: ahora comprobaremos qué parte de la historia cuenta la piedra y qué parte debemos investigar.' }
+      ]),
+      [
+        question('jeronimos-q1', 'Mosteiro dos Jerónimos', '¿Qué tipo de afirmación es más segura después de observar un detalle de piedra?', ['Describir su forma y después separar la interpretación de la evidencia', 'Afirmar automáticamente quién lo talló y qué pensaba', 'Decir que toda la historia del edificio está en ese detalle'], 0, 'Correcto. Primero describimos; después interpretamos con cautela.', 'Un detalle puede abrir una pregunta histórica, pero no resolverla por sí solo.', 'Elegid la opción que otra persona podría comprobar mirando lo mismo.'),
+        question('jeronimos-q2', 'Mosteiro dos Jerónimos', '¿Qué relación debemos comprobar en los Jerónimos?', ['La relación entre arquitectura, religión, viajes y poder', 'Que todas las piedras tengan exactamente la misma función', 'Que un monumento solo pueda tener una historia'], 0, 'Muy bien. Un monumento puede reunir varias capas y relatos.', 'Topoloco quiere reducirlo todo a una sola versión; vosotros conservaréis las conexiones y las diferencias.', 'Pensad qué elementos del lugar hablan de cada una de esas capas.')
+      ]
+    ),
+    nextStop('dia19-pista-castelo', 'Desde los Jerónimos, la señal sube hacia una fortaleza en una colina desde la que Lisboa se ve como un mapa. ¿Dónde debemos seguir?', ['Castelo de São Jorge', 'Alfama', 'Parque das Nações'], 0, [
+      'La señal conduce al Castelo de São Jorge.',
+      'Desde arriba Lisboa parecía un mapa. Ahora necesitamos comprobar a pie lo que esa vista ocultaba.'
+    ]),
     ...withOrder(
       expedition('castelo-expedicion', 'Castelo de São Jorge', 'Expedición de la colina vigilante', 'Subid con los adultos y movedos solo por zonas permitidas.', [
         'Buscad una vista que incluya río, tejados y una pendiente.',
@@ -713,32 +734,10 @@ packs['011-lisboa-historia-belem'] = {
       [
         question('castelo-q1', 'Castelo de São Jorge', '¿Qué ventaja ofrece la colina para una fortificación?', ['Ver accesos y movimientos desde lejos', 'Ocultar por completo el río', 'Evitar todas las pendientes'], 0, 'Correcto. La altura amplía la vista.', 'También tiene costes: subir materiales y personas resulta más difícil. Una posición estratégica siempre combina ventajas y límites.', 'Usad la vista real: ¿qué podéis observar desde arriba?'),
         question('castelo-q2', 'Castelo de São Jorge', '¿Qué demuestra una capa arqueológica bajo un uso posterior?', ['Que el lugar tuvo más de una historia', 'Que todo se construyó el mismo día', 'Que lo más antiguo dejó de existir por completo'], 0, 'Exacto. Una capa puede permanecer bajo otra.', 'Conservar vestigios permite corregir relatos y comprender cambios de ocupación.', 'Pensad qué parte visible pertenece a un momento distinto.')
-      ]
-    ),
-    nextStop('dia19-pista-alfama', 'Desde el castillo, la señal baja hacia calles estrechas, curvas y pendientes antes de llegar a una cuadrícula recta. ¿Dónde debemos empezar esa comparación?', ['Alfama', 'Graça', 'Parque das Nações'], 0, [
-      'La señal baja hacia Alfama.',
-      'Desde arriba Lisboa parecía un mapa. Ahora necesitamos comprobar a pie lo que esa vista ocultaba.'
-    ]),
-    ...withOrder(
-      expedition('alfama-baixa-expedicion', 'Alfama y Baixa', 'Expedición de dos trazados', 'Bajad con calma y comparad cómo se mueve una persona por cada barrio.', [
-        'En Alfama, seguid una calle estrecha o con curva y observad qué oculta.',
-        'Buscad un mirador o cruce desde el que aparezca el Tajo.',
-        'En Baixa, recorred una calle recta entre dos plazas.',
-        'Comparad orientación, pendiente y anchura de ambos trazados.'
-      ], [
-        'Hecho. Alfama conserva un trazado más irregular; la Baixa fue reconstruida con calles más regulares después de 1755.',
-        'La ciudad sobrevivió cambiando. Topoloco confunde supervivencia con inmovilidad.'
-      ]),
-      [
-        onArrival(question('alfama-q1', 'Alfama y Baixa', '¿En qué trazado es más fácil ver de lejos el final de una calle?', ['En la cuadrícula recta de Baixa', 'En cualquier curva de Alfama', 'En una escalera cerrada'], 0, 'Correcto. La línea recta facilita orientación y perspectiva.', 'El trazado irregular puede adaptarse a pendientes y crear recorridos distintos. No hay una forma única de ciudad.', 'Recordad en cuál de los dos barrios veíais otra plaza al fondo.'), ARRIVAL_LOCATIONS.alfama, [
-          { from: 'topotino', text: 'Desde el castillo habéis visto Lisboa como un mapa. Ahora bajaremos a comprobar lo que esa vista alta no podía enseñar.' },
-          { from: 'topotino', text: 'Ya estáis en Alfama. Comparad sus curvas y pendientes con las calles rectas de la Baixa.' }
-        ]),
-        question('alfama-q2', 'Alfama y Baixa', '¿Qué prueba mejor que Lisboa se reconstruyó?', ['La diferencia entre trazados y edificios de distintas épocas', 'Que todas las calles son iguales', 'Que el terremoto no cambió nada'], 0, 'Sí. La diferencia visible conserva el cambio.', 'Reconstruir no borra necesariamente lo anterior: puede dejar contrastes que ayudan a entender la catástrofe y la respuesta.', 'Comparad, no busquéis una sola calle aislada.')
       ],
       'question-first'
     ),
-    nextStop('dia19-pista-belem', 'La cuadrícula de la Baixa deja una marca que sigue el Tajo hacia una torre defensiva y monumentos relacionados con viajes. ¿Qué zona es?', ['Belém', 'Alfama', 'Rossio'], 0, [
+    nextStop('dia19-pista-belem', 'Desde la colina, la señal sigue el Tajo hacia una torre defensiva y monumentos relacionados con viajes. ¿Qué zona debemos comprobar?', ['Belém', 'Alfama', 'Rossio'], 0, [
       'La señal continúa hacia Belém.',
       'Lisboa cambió después de 1755. En la ribera comprobaremos cómo monumentos de épocas y funciones distintas cuentan relaciones con el río.'
     ]),
@@ -752,7 +751,7 @@ packs['011-lisboa-historia-belem'] = {
         'Expedición cerrada. Jerónimos, Padrão y Torre cuentan relaciones distintas con los viajes, el poder y el río.',
         'Topoloco intenta guardarlos como una sola versión heroica; vuestra comparación mantiene funciones y épocas diferentes.'
       ]), ARRIVAL_LOCATIONS.belem, [
-        { from: 'topotino', text: 'Alfama y Baixa muestran que una ciudad cambia sin volverse una sola historia. La siguiente señal sigue el Tajo hacia los viajes que también la transformaron.' },
+          { from: 'topotino', text: 'Los Jerónimos y el castillo muestran que una ciudad cambia sin volverse una sola historia. La siguiente señal sigue el Tajo hacia los viajes que también la transformaron.' },
         { from: 'topotino', text: 'Habéis llegado a Belém. Ahora sí: buscad cómo la piedra, el río y los viajes se explican entre sí.' }
       ]),
       [
@@ -1211,25 +1210,25 @@ const STORY_CONVERSATIONS = Object.freeze({
     prompt: [{ from: 'topotina', text: 'El módulo de Topoloco acaba de fallar. ¿Hubo algún experimento que no saliera como esperabais?' }],
     reply: [{ from: 'topotino', text: 'Eso es justo lo que su máquina no soporta: probar, sorprenderse y corregir. El fallo ha dejado una nueva señal.' }]
   },
-  'dia18-pista-tejo': {
-    place: 'Oceanário · mensaje de Vasco',
-    prompt: [{ from: 'topotino', text: 'Vasco quiere saber una cosa: ¿qué animal o relación del Oceanário os llamó más la atención?' }],
-    reply: [{ from: 'topotino', text: 'Vasco dice que una respuesta personal vale más que una lista de especies. Y ha marcado una salida desde el tanque hacia agua real.' }]
+  'alfama-visita-expedicion': {
+    place: 'Rossio · visita guiada de Alfama',
+    prompt: [{ from: 'topotino', text: 'Topoloco se esconde en Alfama. Durante la visita de las 10:30, escuchad con atención: ¿qué historia, lugar o detalle os parece más importante?' }],
+    reply: [{ from: 'topotino', text: 'Guardadlo y separad lo que visteis de lo que os contaron. Después comprobaremos si Topoloco ha mezclado historia, leyenda y opinión.' }]
   },
   'ruta-dia19': {
-    place: 'Tajo · red confirmada',
-    prompt: [{ from: 'topotina', text: 'El tanque y el Tajo pertenecen a escalas muy distintas. ¿Os pareció el río más grande de lo que imaginabais?' }],
-    reply: [{ from: 'topotino', text: 'Topoloco intentó separar las dos cosas y habéis vuelto a unirlas. La señal huye ahora hacia la parte antigua de Lisboa.' }]
+    place: 'Alfama · señal recuperada',
+    prompt: [{ from: 'topotina', text: 'Topoloco ha salido de Alfama, pero dejó una señal relacionada con viajes, poder y piedra. ¿Qué lugar de Belém debemos investigar?' }],
+    reply: [{ from: 'topotino', text: 'Correcto: los Jerónimos. Después de escuchar el barrio antiguo, iremos a comprobar cómo un monumento cuenta —y también selecciona— una historia.' }]
   },
-  'dia19-pista-alfama': {
-    place: 'Castelo de São Jorge',
-    prompt: [{ from: 'topotino', text: 'Desde arriba todo parece ordenado. ¿Qué detalle no esperabais ver desde el castillo?' }],
-    reply: [{ from: 'topotina', text: 'Una vista alta ayuda, pero también oculta lo que ocurre entre las casas. La señal nos obliga a bajar y comprobarlo a pie.' }]
+  'dia19-pista-castelo': {
+    place: 'Jerónimos · siguiente señal',
+    prompt: [{ from: 'topotino', text: 'Después de los Jerónimos, la señal sube hacia una fortaleza. ¿Qué puede enseñar una vista alta que no vemos desde la calle?' }],
+    reply: [{ from: 'topotina', text: 'Una vista alta amplía la información, pero también puede ocultar lo que ocurre entre las casas. Comprobadlo en el castillo.' }]
   },
   'dia19-pista-belem': {
-    place: 'Alfama y Baixa',
-    prompt: [{ from: 'topotina', text: 'Habéis caminado dos trazados muy distintos. ¿En cuál os resultó más fácil orientaros?' }],
-    reply: [{ from: 'topotino', text: 'No hay respuesta mala: cada trazado cuenta una forma distinta de crecer o reconstruir una ciudad. La marca sigue el Tajo.' }]
+    place: 'Castelo · señal hacia Belém',
+    prompt: [{ from: 'topotina', text: 'Desde la colina la señal sigue el Tajo. ¿Qué zona reúne una torre defensiva y monumentos relacionados con viajes?' }],
+    reply: [{ from: 'topotino', text: 'Belém. Allí compararemos defensa, conmemoración, viajes y río sin mezclarlos en una sola historia.' }]
   },
   'ruta-dia20': {
     place: 'Belém · archivo recuperado',

@@ -15,9 +15,9 @@
 
 # Contexto narrativo
 
-Louri ya ha cerrado su canal y no participa. Al descubrir que había dejado de obedecerle, Topoloco atacó el chat e inyectó mensajes antiguos de Dino Parque para impedir que el grupo avanzara. Topotina confirma el ataque en el registro y repara el orden del canal con Topotino. El fragmento que Louri dejó antes de marcharse sobrevive y conduce al módulo de la Máquina de los Recuerdos que separa causas y relaciones. Pavilhão permite sabotear su clasificador cambiando una variable cada vez. El fallo señala después al Oceanário porque el módulo intenta separar especies que dependen unas de otras. Vasco enseña el Protocolo Azul sin resolver las pruebas. El Tajo demuestra que la red continúa fuera del tanque y revela que Topoloco ha trasladado los datos al archivo histórico de Lisboa.
+Louri ya ha cerrado su canal y no participa. Al descubrir que había dejado de obedecerle, Topoloco atacó el chat e inyectó mensajes antiguos de Dino Parque para impedir que el grupo avanzara. Topotina confirma el ataque en el registro y repara el orden del canal con Topotino. El fragmento que Louri dejó antes de marcharse sobrevive y conduce al módulo de la Máquina de los Recuerdos que separa causas y relaciones. Pavilhão permite sabotear su clasificador cambiando una variable cada vez. El fallo señala después al Oceanário porque el módulo intenta separar especies que dependen unas de otras. Vasco enseña el Protocolo Azul sin resolver las pruebas. Después, el grupo descubre que Topoloco se refugia en Alfama y debe expulsarlo escuchando y contrastando una visita guiada desde Rossio. La siguiente señal apunta a los Jerónimos.
 
-La explicación del sabotaje se activa por la fecha aunque la familia todavía no esté en el Pavilhão. La misión física del edificio permanece oculta hasta confirmar su llegada. Por la mañana solo se nombra el Pavilhão; Oceanário y Tajo se descubren después, uno a uno.
+La explicación del sabotaje se activa por la fecha aunque la familia todavía no esté en el Pavilhão. La misión física del edificio permanece oculta hasta confirmar su llegada. Por la mañana solo se nombra el Pavilhão; Oceanário y la visita de Alfama se descubren después, uno a uno.
 
 ## Mensajes iniciales
 
@@ -124,7 +124,7 @@ La explicación del sabotaje se activa por la fecha aunque la familia todavía n
   "La respuesta debe incluir predicción, prueba y una corrección.",
   "Una adaptación es ventaja solo respecto a un ambiente.",
   "Relacionad tres especies por forma, zona y una conexión.",
-  "Comparad tanque y Tejo: una semejanza, dos diferencias, una conexión."
+  "Comparad el tanque y la visita de Alfama: una semejanza, dos diferencias y una conexión sobre cómo se construye un relato."
 ]
 ```
 
@@ -135,13 +135,13 @@ La explicación del sabotaje se activa por la fecha aunque la familia todavía n
   "No importa acertar primero; importa usar el resultado para corregir.",
   "Fijaos en superficie, columna de agua y fondo.",
   "Una red cambia si una relación deja de funcionar.",
-  "El Tejo desemboca en el Atlántico."
+  "Alfama y Mouraria conservaron parte de su trazado y reúnen historia, leyendas y memoria cultural."
 ]
 ```
 
 ## Contexto para IA
 
-Vasco es aliado y nunca resuelve una misión. Enseña el Protocolo Azul, que Topotino recordará en la búsqueda de delfines y Zoomarine. Topotino comprende que las doce ventanas forman una red, pero no conoce el destino final. No confunde exhibición con océano real. Cuaderno privado.
+Vasco es aliado y nunca resuelve una misión. Enseña el Protocolo Azul, que Topotino recordará en la búsqueda de delfines y Zoomarine. Después, Topoloco se refugia en Alfama y el grupo debe escuchar una visita guiada desde Rossio, distinguir historia de leyenda y expulsarlo del barrio. La siguiente señal apunta a los Jerónimos. Cuaderno privado.
 
 ## Fuentes documentales
 
@@ -149,3 +149,4 @@ Vasco es aliado y nunca resuelve una misión. Enseña el Protocolo Azul, que Top
 - https://oceanario.pt/vasco/
 - https://oceanario.pt/vasco/diverte-te-e-aprende/
 - https://oceanario.pt/en/conservation/what-we-do-at-oceanario/center-for-species-survival/
+- https://www.freetour.com/lisbon/alfama-free-walking-tour
