@@ -662,7 +662,7 @@ packs['010-lisboa-ciencia-oceanario'] = {
       'question-first'
     ),
     ...withOrder(
-      onArrival(expedition('alfama-visita-expedicion', 'Rossio · visita guiada de Alfama', 'Expulsar a Topoloco del barrio antiguo', 'Topotino ha descubierto que Topoloco se refugia en Alfama. Reuníos con el grupo a las 10:30 en la Praça Dom Pedro IV, junto a la estatua central y los paraguas blancos de Live History. Durante la visita, escuchad y observad: después tendréis que reconstruir lo que realmente os contaron.', [
+      onArrival(expedition('alfama-visita-expedicion', 'Rossio · visita guiada de Alfama', 'Investigar Alfama a fondo', 'Topotino ha descubierto que Topoloco se refugia en Alfama, pero las interferencias están rompiendo el canal. Reuníos con el grupo a las 10:30 en la Praça Dom Pedro IV, junto a la estatua central y los paraguas blancos de Live History. Escuchad y observad todo: necesitaremos una investigación completa para expulsarlo.', [
         'A las 10:30, comprobad que estáis en la Praça Dom Pedro IV, no en la estación de Rossio.',
         'Durante el recorrido, anotad mentalmente dos historias o leyendas y separadlas de los datos históricos.',
         'Fijaos en cómo cambian las calles al pasar de Baixa a Mouraria y Alfama: anchura, pendientes, curvas y murallas.',
@@ -670,11 +670,11 @@ packs['010-lisboa-ciencia-oceanario'] = {
       ], [
         'Expedición completada. Habéis recorrido los barrios antiguos sin confundir una leyenda entretenida con una prueba histórica.',
         'Alfama y Mouraria conservaron buena parte de su trazado porque sobrevivieron al terremoto de 1755. Sus callejuelas, pendientes, miradores y mezcla cultural cuentan una historia distinta a la cuadrícula de la Baixa.',
-        { from: 'topotino', text: 'Topoloco ha salido por una escalera tan estrecha que hasta su ego ha tenido que ponerse de lado. Pero ha dejado una señal: Jerónimos.' }
+        { from: 'topotino', text: 'He recuperado una línea segura. Topoloco ha salido por una escalera tan estrecha que hasta su ego ha tenido que ponerse de lado. Esta tarde seguiremos su señal hasta los Jerónimos.' }
       ]), ARRIVAL_LOCATIONS.rossio, [
-        { from: 'topotino', text: '¡Alerta! Hemos visto a Topoloco escondiéndose en el barrio antiguo de Lisboa, Alfama. No vamos a perseguirlo a ciegas: iremos con un grupo y escucharemos cada explicación.' },
+        { from: 'topotino', text: '¡Interferencias! Topoloco está bloqueando mi señal y no consigo comunicarme bien. Solo he podido recuperar una coordenada: se está refugiando en Alfama.' },
         { from: 'topotino', text: 'La visita empieza a las 10:30 en la Praça Dom Pedro IV, la plaza grande de Rossio, junto a la estatua y los paraguas blancos. Atención: no es la estación de tren.' },
-        { from: 'topotina', text: 'Después os preguntaré por lo que habéis oído y visto. Si Topoloco mezcla historia, leyenda y opinión, vosotros tendréis que separarlas.' }
+        { from: 'topotino', text: 'Investigad Alfama a fondo con el grupo y estad atentos a todo lo que cuenten. Yo corto ahora la comunicación hasta encontrar una solución segura. No sigáis ninguna señal que pretenda hablar en mi nombre.' }
       ]),
       [
         question('alfama-q1', 'Alfama · visita guiada', '¿Qué diferencia hay entre un dato histórico y una leyenda contada durante la visita?', ['El dato puede contrastarse con fuentes; la leyenda forma parte del relato y puede no estar demostrada', 'La leyenda siempre es falsa y el dato siempre es aburrido', 'Son exactamente lo mismo si el guía lo cuenta'], 0, 'Correcto. Escuchar una leyenda es interesante, pero no obliga a convertirla en un hecho.', 'Una visita puede reunir historia, memoria local y relatos populares. La clave es saber qué tipo de afirmación estamos escuchando.', 'Recordad si la explicación se presentó como documento, tradición o interpretación.'),
@@ -683,10 +683,10 @@ packs['010-lisboa-ciencia-oceanario'] = {
       ]
     ),
     recovery('recuperacion-dia18', '¿Qué protege mejor la visita de Alfama?', ['Escuchar, distinguir historia y leyenda, y corregir si una afirmación no encaja', 'Repetir la historia más llamativa', 'Seguir a Topoloco por cualquier calle'], 0, 'Sombra retirada. Topoloco ya no puede esconderse dentro de una historia sin que comprobéis sus capas.', 'La señal sigue activa, pero habéis recuperado el control del relato.'),
-    route('ruta-dia19', 'La señal que dejó Topoloco apunta a un monasterio relacionado con los viajes, el poder y el río. ¿Cuál es la primera prueba de mañana?', ['Mosteiro dos Jerónimos', 'Castelo de São Jorge', 'Oceanário de Lisboa'], 0, [
+    nextStop('ruta-dia19', 'La señal que dejó Topoloco apunta a un monasterio relacionado con los viajes, el poder y el río. ¿Cuál es la prueba de esta tarde?', ['Mosteiro dos Jerónimos', 'Castelo de São Jorge', 'Oceanário de Lisboa'], 0, [
       'Primera señal encontrada: el Mosteiro dos Jerónimos.',
-      'Después de expulsarlo de Alfama, seguiremos la pista de los viajes y comprobaremos qué función cumple cada monumento de Belém.',
-      'Llevad calzado cómodo, agua y protección para el sol. Descansad.'
+      'Después de investigar Alfama, seguiremos esta tarde la pista de los viajes y comprobaremos qué función cumple cada monumento de Belém.',
+      'Llevad calzado cómodo, agua y protección para el sol. Manteneos atentos: las interferencias todavía no han desaparecido.'
     ], { setFlags: ['completado_lisboa_ciencia_oceanario'], water: 'Agua del Océano Único' })
   ]
 };

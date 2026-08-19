@@ -5,7 +5,7 @@
   "title": "Día 7 · La ciudad que volvió a levantarse",
   "channelCode": "T-72L1",
   "startsUnlocked": false,
-  "activation": { "mode": "all", "date": { "on": "2026-08-19" }, "location": { "lat": 38.7139258, "lng": -9.1334830, "radiusMeters": 1000, "label": "Castelo de São Jorge, Lisboa" } },
+  "activation": { "mode": "all", "date": { "on": "2026-08-19" }, "location": { "lat": 38.6977, "lng": -9.2068, "radiusMeters": 1000, "label": "Mosteiro dos Jerónimos, Lisboa" } },
   "mission": "Leer una ciudad por capas",
   "formulaWord": null,
   "water": "Agua de la Ciudad que Regresa",
@@ -21,8 +21,8 @@ Tras fracasar su ataque contra el chat y perder el módulo que separaba causas y
 
 ```json
 [
-  { "from": "topotino", "time": "auto", "text": "Buenos días. Ayer cerramos el ataque del chat y estropeamos el módulo que separaba causas y relaciones." },
-  { "from": "topotino", "time": "auto", "text": "Topoloco ha huido de Alfama y ha movido sus datos al archivo histórico de Lisboa. La señal empieza en el Mosteiro dos Jerónimos; la misión se abrirá cuando lleguéis." }
+  { "from": "topotino", "time": "auto", "text": "La comunicación vuelve a estar segura. Las interferencias de Topoloco no han conseguido borrar lo que investigasteis en Alfama." },
+  { "from": "topotino", "time": "auto", "text": "Esta tarde la señal empieza en el Mosteiro dos Jerónimos; la misión se abrirá cuando lleguéis." }
 ]
 ```
 
