@@ -88,7 +88,8 @@ export default async function handler(req, res) {
   const requestedSpeakers = Array.isArray(body.allowedSpeakers)
     ? body.allowedSpeakers.map(String).filter((speaker) => CHAT_SPEAKERS.includes(speaker))
     : [];
-  const exactSpeakerMode = body.speakerMode === 'exact' && body.narrativeScene?.id;
+  const exactSpeakerMode = body.speakerMode === 'exact' &&
+    body.narrativeScene?.id === 'topoloco-toma-canal-2026-08-20';
   const allowedSpeakers = [...new Set(exactSpeakerMode ? requestedSpeakers : ['topotino', ...requestedSpeakers])]
     .filter((speaker) => speaker !== 'louri' || !(body.flags || []).includes('louri_canal_cerrado'));
   const personalityContext = allowedSpeakers.map((speaker) => CHARACTER_PERSONALITIES[speaker]).filter(Boolean);
