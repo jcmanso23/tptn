@@ -109,3 +109,23 @@ test('el asalto del día 20 aísla personajes, turnos y la única emergencia de 
   assert.match(app, /finalRouteLocked/);
   assert.match(app, /\['granada', 'sevilla-night'\]/);
 });
+
+test('Doctora Tecla entra por la tarde, conversa varios turnos y se marcha sin adelantar la ruta', async () => {
+  const api = await readFile(join(root, 'api/chat.js'), 'utf8');
+  const app = await readFile(join(root, 'app.js'), 'utf8');
+  const styles = await readFile(join(root, 'styles.css'), 'utf8');
+  const episode = await readFile(join(root, 'content/episodes/012-badoca-lagos.md'), 'utf8');
+
+  assert.match(api, /'doctora_tecla'/);
+  assert.match(api, /Doctora Tecla: mujer de Topoloco y hacker excepcional/);
+  assert.match(app, /const TECLA_SCENE_HOUR = 16/);
+  assert.match(app, /const TECLA_SCENE_TURNS = 3/);
+  assert.match(app, /function startDoctoraTeclaScene/);
+  assert.match(app, /function finishDoctoraTeclaScene/);
+  assert.match(app, /allowedSpeakers: \['topoloco', 'doctora_tecla'\]/);
+  assert.match(app, /teclaInteractionCount/);
+  assert.match(app, /Diecisiete mensajes y tres audios diciendo «porfi»/);
+  assert.match(app, /Doctora Tecla ha abandonado el canal y ha revocado su acceso/);
+  assert.match(styles, /\.sender-doctora_tecla/);
+  assert.match(episode, /no revela futuras paradas/i);
+});

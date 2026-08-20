@@ -744,6 +744,33 @@ input {
   border-right-color: #394b0c;
 }
 
+.sender-doctora_tecla .message-avatar {
+  border-color: #ff4fc3;
+  background: #fff;
+  box-shadow: 0 0 18px rgba(0, 231, 255, .28);
+}
+
+.sender-doctora_tecla .message-avatar img {
+  object-position: center;
+}
+
+.sender-doctora_tecla .message-sender {
+  color: #ff8ed8;
+}
+
+.sender-doctora_tecla .message-bubble {
+  border-color: rgba(255, 79, 195, .84);
+  background: linear-gradient(135deg, rgba(66, 15, 64, .98), rgba(7, 48, 65, .99));
+}
+
+.sender-doctora_tecla.message-row.topotino .message-bubble::before {
+  border-right-color: rgba(255, 79, 195, .84);
+}
+
+.sender-doctora_tecla.message-row.topotino .message-bubble::after {
+  border-right-color: #3d123d;
+}
+
 .message-row.topotino .message-bubble::before {
   content: "";
   position: absolute;

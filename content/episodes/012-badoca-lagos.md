@@ -3,7 +3,7 @@
   "id": "012-badoca-lagos",
   "order": 12,
   "title": "Día 8 · Topoloco toma el canal",
-  "channelCode": "T-21A6",
+  "channelCode": "T-21A7",
   "startsUnlocked": false,
   "activation": { "mode": "all", "date": { "on": "2026-08-20" } },
   "mission": "Recuperar el chat secreto",
@@ -17,7 +17,9 @@
 
 Topoloco invade el Comunicador Subterráneo y presenta el Corrector Definitivo de la Historia: quiere borrar dudas y voces diferentes para aparecer como héroe de todas las aventuras. Topotina intenta expulsarlo mientras Topotino protesta con una indignación poco útil. Paula y Hugo pueden distraer a Topoloco con cualquier mensaje.
 
-Louri utiliza una única conexión de emergencia del comunicador oculto en el juguete. Revela que el safari terrestre fue un señuelo y que las cuevas son marinas. La señal de Topoloco conduce a delfines salvajes, cuevas del mar y un puerto del Algarve. Los niños deducen Lagos. Topoloco expulsa a todos y se queda solo intentando reclutarlos hasta la mañana siguiente. Esta excepción no reabre el arco de Louri: su canal queda cerrado definitivamente después del aviso.
+Louri utiliza una única conexión de emergencia del comunicador oculto en el juguete. Revela que el safari terrestre fue un señuelo y que las cuevas son marinas. La señal de Topoloco conduce a delfines salvajes, cuevas del mar y un puerto del Algarve. Los niños deducen Lagos. Topoloco expulsa a todos y se queda solo intentando reclutarlos.
+
+Esa tarde entra Doctora Tecla, su mujer y la verdadera hacker que abrió el canal después de que él se lo suplicara. Busca a Topoloco porque le toca bajar la basura. Paula y Hugo pueden preguntar libremente mientras la pareja discute: Tecla corrige las exageraciones de Topoloco y confirma que el Corrector necesita las doce ventanas y observaciones auténticas. No revela destinos futuros. Finalmente revoca su acceso y se marcha más enfadada que él. Topoloco continúa ocupando el canal hasta la mañana siguiente. La excepción de Louri no reabre su arco: su canal queda cerrado definitivamente después del aviso.
 
 ## Mensajes iniciales
 
@@ -70,7 +72,7 @@ Louri utiliza una única conexión de emergencia del comunicador oculto en el ju
 
 ## Contexto para IA
 
-Esta fase está controlada por la escena persistente de la aplicación. Topoloco es un doctor loco brillante, vanidoso y teatral. Durante la toma final solo habla él y ofrece cargos o ventajas absurdas para reclutar a Paula y Hugo. No revela futuras paradas ni recupera misiones de Lisboa, Dino Parque o Badoca. Louri solo pronuncia la alerta preescrita por la aplicación y no vuelve después. El día 21 Topotina recupera el canal y Vasco activa el Protocolo Azul.
+Esta fase está controlada por la escena persistente de la aplicación. Topoloco es un doctor loco brillante, vanidoso y teatral. Cuando está solo ofrece cargos o ventajas absurdas para reclutar a Paula y Hugo. Durante la visita de Doctora Tecla solo hablan ellos dos; Paula y Hugo pueden preguntar sin ser evaluados. Tecla es la hacker más competente, fuerte y directa de la pareja, no una aliada. La discusión puede confirmar los límites ya conocidos del Corrector, pero no revela futuras paradas ni recupera misiones de Lisboa, Dino Parque o Badoca. Louri solo pronuncia la alerta preescrita por la aplicación y no vuelve después. El día 21 Topotina recupera el canal y Vasco activa el Protocolo Azul.
 
 ## Fuentes documentales
 

@@ -1,5 +1,5 @@
-import { splitTopotinoMessages } from './chat-format.js?v=memory-v57';
-import { CHALLENGE_PACKS, displayChallengeOptions } from './content/challenges.js?v=memory-v57';
+import { splitTopotinoMessages } from './chat-format.js?v=memory-v58';
+import { CHALLENGE_PACKS, displayChallengeOptions } from './content/challenges.js?v=memory-v58';
 
 const STORAGE_KEYS = {
   auth: 'topotino_chat_auth_v1',
@@ -7,9 +7,9 @@ const STORAGE_KEYS = {
 };
 
 const LEGACY_STATE_KEY = 'topotino_chat_state_v1';
-const APP_VERSION_CODE = 'T-21A6';
+const APP_VERSION_CODE = 'T-21A7';
 const PASSPHRASE_HASH = 'a64716bd9f4e8added1bf47f80b97c3fc7b70a15b8043cdab083e1ddf85f3794';
-const EPISODES_MANIFEST = 'content/episodes.json?v=memory-v57';
+const EPISODES_MANIFEST = 'content/episodes.json?v=memory-v58';
 const LIVE_STORY_ENDPOINT = '/api/story';
 const AMARANTE_TRAVEL_DATE = '2026-08-13';
 const AMARANTE_ROUTE_EPISODE_ID = '004b-rumbo-amarante';
@@ -34,6 +34,8 @@ const TOPOLOCO_RECOVERY_DATE = '2026-08-21';
 const TOPOLOCO_SCENE_EPISODE_ID = '012-badoca-lagos';
 const TOPOLOCO_ROUTE_FLAG = 'lagos_descubierto_por_louri';
 const TOPOLOCO_RECOVERED_FLAG = 'canal_recuperado_dia21';
+const TECLA_SCENE_HOUR = 16;
+const TECLA_SCENE_TURNS = 3;
 const DEFAULT_FINAL_ROUTE = 'granada';
 const SECURITY_CHECKIN_MESSAGES = [
   'Buenos días, Paula y Hugo.',
@@ -65,6 +67,7 @@ const CHAT_SENDERS = {
   gotas: { name: 'Gotas', image: 'images/gotas.jpg?v=gotas-v1' },
   louri: { name: 'Louri', image: 'images/louri.jpg?v=louri-v1' },
   topoloco: { name: 'Doctor Topoloco', image: 'images/topoloco.jpg?v=topoloco-v1' },
+  doctora_tecla: { name: 'Doctora Tecla', image: 'images/doctora-tecla.jpg?v=tecla-v1' },
   vasco: { name: 'Vasco', initial: 'V' },
   corvinho: { name: 'Corvinho', initial: 'C' },
   capitan_pico: { name: 'Capitán Pico', initial: 'CP' },
@@ -475,13 +478,27 @@ function showScreen(name) {
 function initializeTopolocoScene() {
   if (!state.unlocked || state.flags.includes(TOPOLOCO_RECOVERED_FLAG)) return;
   const today = formatDate(getRuntimeNow());
-  if (state.narrativeScene?.id === TOPOLOCO_SCENE_ID) return;
+  if (state.narrativeScene?.id === TOPOLOCO_SCENE_ID) {
+    let changed = false;
+    if (!state.narrativeScene.teclaStage) {
+      state.narrativeScene.teclaStage = 'pending';
+      changed = true;
+    }
+    if (!Number.isFinite(Number(state.narrativeScene.teclaInteractionCount))) {
+      state.narrativeScene.teclaInteractionCount = 0;
+      changed = true;
+    }
+    if (changed) saveState();
+    return;
+  }
   if (today !== TOPOLOCO_SCENE_DATE && today !== TOPOLOCO_RECOVERY_DATE) return;
 
   state.narrativeScene = {
     id: TOPOLOCO_SCENE_ID,
     stage: today === TOPOLOCO_SCENE_DATE ? 'intro' : 'recovery',
-    resumeAt: null
+    resumeAt: null,
+    teclaStage: 'pending',
+    teclaInteractionCount: 0
   };
   if (!state.unlockedEpisodeIds.includes(TOPOLOCO_SCENE_EPISODE_ID)) {
     state.unlockedEpisodeIds.push(TOPOLOCO_SCENE_EPISODE_ID);
@@ -553,6 +570,16 @@ async function runNarrativeScene() {
     return true;
   }
 
+  if (
+    scene.stage === 'takeover' &&
+    scene.teclaStage === 'pending' &&
+    today === TOPOLOCO_SCENE_DATE &&
+    getRuntimeNow().getHours() >= TECLA_SCENE_HOUR
+  ) {
+    await startDoctoraTeclaScene();
+    return true;
+  }
+
   if (scene.stage === 'recovery') {
     scene.stage = 'complete';
     scene.resumeAt = null;
@@ -590,11 +617,68 @@ function scheduleNarrativeSceneTimer() {
   window.clearTimeout(narrativeSceneTimer);
   narrativeSceneTimer = null;
   const scene = state.narrativeScene;
-  if (scene?.stage !== 'waiting-louri' || !scene.resumeAt) return;
-  narrativeSceneTimer = window.setTimeout(
-    () => runNarrativeScene(),
-    Math.max(0, Number(scene.resumeAt) - Date.now())
-  );
+  if (scene?.stage === 'waiting-louri' && scene.resumeAt) {
+    narrativeSceneTimer = window.setTimeout(
+      () => runNarrativeScene(),
+      Math.max(0, Number(scene.resumeAt) - Date.now())
+    );
+    return;
+  }
+  if (
+    scene?.stage === 'takeover' &&
+    scene.teclaStage === 'pending' &&
+    formatDate(getRuntimeNow()) === TOPOLOCO_SCENE_DATE
+  ) {
+    const startsAt = new Date(getRuntimeNow());
+    startsAt.setHours(TECLA_SCENE_HOUR, 0, 0, 0);
+    narrativeSceneTimer = window.setTimeout(
+      () => runNarrativeScene(),
+      Math.max(0, startsAt.getTime() - getRuntimeNow().getTime())
+    );
+  }
+}
+
+async function startDoctoraTeclaScene() {
+  const scene = state.narrativeScene;
+  if (scene?.stage !== 'takeover' || scene.teclaStage !== 'pending') return;
+  scene.teclaStage = 'chat';
+  scene.teclaInteractionCount = 0;
+  saveState();
+  await deliverTopotinoMessages([
+    { from: 'system', text: '⚠ Nuevo acceso no autorizado.' },
+    { from: 'doctora_tecla', text: '¿Topoloco? ¿Estás aquí?' },
+    { from: 'topoloco', text: '¡TECLA! Estoy ejecutando una conquista histórica. No me interrumpas.' },
+    { from: 'doctora_tecla', text: 'Llevo dos horas buscándote. Te toca bajar la basura.' },
+    { from: 'topoloco', text: '¡Soy el Doctor Topoloco! No puedo abandonar mi trono digital por una bolsa.' },
+    { from: 'doctora_tecla', text: 'Tu «trono digital» es el canal que abrí yo porque me lo suplicaste.' },
+    { from: 'topoloco', text: 'No supliqué. Presenté una petición científica muy insistente.' },
+    { from: 'doctora_tecla', text: 'Diecisiete mensajes y tres audios diciendo «porfi».' },
+    { from: 'topoloco', text: '¡Eso era una contraseña vocal!' },
+    { from: 'doctora_tecla', text: 'Paula, Hugo: ¿ya os ha dicho que hackeó esto él solo?' },
+    { from: 'doctora_tecla', text: 'Preguntad lo que queráis mientras averiguo dónde se ha escondido. Cuando presume, se le escapan datos.' }
+  ], { mode: 'scene' });
+  renderAll();
+}
+
+async function finishDoctoraTeclaScene() {
+  const scene = state.narrativeScene;
+  if (scene?.stage !== 'takeover' || scene.teclaStage !== 'chat') return;
+  scene.teclaStage = 'complete';
+  saveState();
+  await deliverTopotinoMessages([
+    { from: 'doctora_tecla', text: 'Y deja de fingir que el Corrector funciona solo. Sin las doce ventanas y sin observaciones verdaderas, rellena los huecos con disparates.' },
+    { from: 'topoloco', text: '¡TECLA! ¡ESO ERA INFORMACIÓN RESERVADA!' },
+    { from: 'doctora_tecla', text: 'También era reservado que yo abrí el canal. Hasta que te pusiste la medalla.' },
+    { from: 'topoloco', text: '¡Este es MI momento de gloria!' },
+    { from: 'doctora_tecla', text: 'Pues disfruta de tu momento, de tu canal y de tu basura. Revoco mi acceso. La próxima vez te hackeas tú solo.' },
+    { from: 'topoloco', text: '¡Soy un científico de prestigio! No recibo órdenes domésticas delante de mis futuros ayudantes.' },
+    { from: 'doctora_tecla', text: 'En diez minutos serás un científico de prestigio durmiendo junto al cubo de reciclaje.' },
+    { from: 'system', text: 'Doctora Tecla ha abandonado el canal y ha revocado su acceso.' },
+    { from: 'topoloco', text: 'No pienso comentar nada de lo ocurrido.' },
+    { from: 'topoloco', text: 'Paula, Hugo: mi oferta de empleo sigue en pie. La bolsa de basura no forma parte del contrato.' }
+  ], { mode: 'scene' });
+  saveState();
+  renderAll();
 }
 
 async function revealLouriEmergency() {
@@ -863,6 +947,26 @@ async function handleUserMessage(text) {
     return;
   }
   if (sceneStage === 'takeover') {
+    if (state.narrativeScene.teclaStage === 'chat') {
+      const interactionNumber = Number(state.narrativeScene.teclaInteractionCount || 0) + 1;
+      await askNarrativeSceneAi(text, {
+        stage: sceneStage,
+        allowedSpeakers: ['topoloco', 'doctora_tecla'],
+        context: [
+          'Doctora Tecla ha entrado buscando a Topoloco porque le toca bajar la basura.',
+          'Ella es la hacker competente que abrió el canal después de que Topoloco se lo suplicara; él intenta atribuirse el mérito y mantener su grandeza.',
+          `Este es el turno libre ${interactionNumber} de ${TECLA_SCENE_TURNS} para Paula y Hugo. Responde primero a lo que acaban de preguntar y haz avanzar una discusión cómica entre la pareja.`,
+          'Dosifica únicamente estos datos ya autorizados: el Corrector necesita las doce ventanas, observaciones auténticas y comparar versiones; no puede inventar recuerdos convincentes desde cero.',
+          'No reveles ningún destino posterior a Lagos, ninguna solución futura ni el desenlace. Tecla no es aliada y Topoloco no abandona el canal.',
+          'Usa una a tres burbujas cortas. Puede contestar uno y reaccionar el otro; evita discursos y listas.'
+        ].join(' ')
+      });
+      if (state.narrativeScene?.stage !== 'takeover' || state.narrativeScene.teclaStage !== 'chat') return;
+      state.narrativeScene.teclaInteractionCount = interactionNumber;
+      saveState();
+      if (interactionNumber >= TECLA_SCENE_TURNS) await finishDoctoraTeclaScene();
+      return;
+    }
     await askNarrativeSceneAi(text, {
       stage: sceneStage,
       allowedSpeakers: ['topoloco'],
@@ -1452,6 +1556,7 @@ async function completeTopolocoRoute() {
   ], { mode: 'scene' });
   saveState();
   renderAll();
+  scheduleNarrativeSceneTimer();
 }
 
 function recentMessagesForEpisode(episodeId) {
@@ -3137,6 +3242,6 @@ function applyTestingParams() {
 
 function registerServiceWorker() {
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('service-worker.js?v=offline-v31').catch(() => {});
+    navigator.serviceWorker.register('service-worker.js?v=offline-v32').catch(() => {});
   }
 }

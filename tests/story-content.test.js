@@ -170,7 +170,7 @@ test('los días 13 y 14 conservan su cadena narrativa y adaptan solo tras un imp
   assert.doesNotMatch(childFacingText, /(foto|fotografía).{0,30}(cuaderno|diario)/i);
 });
 
-test('la edición T-21A6 añade el asalto de Topoloco sin retroceder y mantiene visible la actualización de señal', async () => {
+test('la edición T-21A7 añade a Doctora Tecla sin retroceder y mantiene visible la actualización de señal', async () => {
   const files = ['index.html', 'app.js', 'admin.js', 'content/episodes/001-reconexion.md'];
   const combined = (await Promise.all(files.map((file) => readFile(join(root, file), 'utf8')))).join('\n');
   const app = await readFile(join(root, 'app.js'), 'utf8');
@@ -183,14 +183,14 @@ test('la edición T-21A6 añade el asalto de Topoloco sin retroceder y mantiene 
 
   const styles = await readFile(join(root, 'styles.css'), 'utf8');
 
-  assert.match(combined, /T-21A6/);
+  assert.match(combined, /T-21A7/);
   assert.doesNotMatch(combined, /T-12A9/);
   assert.match(app, /splitTopotinoMessages/);
   assert.match(app, /CHALLENGE_PACKS/);
   assert.match(app, /els\.channelCode\.textContent = APP_VERSION_CODE/);
-  assert.match(serviceWorker, /topotino-offline-v42/);
-  assert.match(serviceWorker, /chat-format\.js\?v=memory-v57/);
-  assert.match(serviceWorker, /content\/challenges\.js\?v=memory-v57/);
+  assert.match(serviceWorker, /topotino-offline-v43/);
+  assert.match(serviceWorker, /chat-format\.js\?v=memory-v58/);
+  assert.match(serviceWorker, /content\/challenges\.js\?v=memory-v58/);
   assert.match(combined, /id="location-refresh"/);
   assert.ok(combined.indexOf('id="location-refresh"') < combined.indexOf('</header>'));
   assert.doesNotMatch(styles, /\.location-refresh-compact\s*\{[^}]*display:\s*none/is);
@@ -198,10 +198,12 @@ test('la edición T-21A6 añade el asalto de Topoloco sin retroceder y mantiene 
   assert.match(serviceWorker, /images\/gotas\.jpg\?v=gotas-v1/);
   assert.match(serviceWorker, /images\/louri\.jpg\?v=louri-v1/);
   assert.match(serviceWorker, /images\/topoloco\.jpg\?v=topoloco-v1/);
+  assert.match(serviceWorker, /images\/doctora-tecla\.jpg\?v=tecla-v1/);
   assert.match(app, /topotina: \{ name: 'Topotina'/);
   assert.match(app, /gotas: \{ name: 'Gotas'/);
   assert.match(app, /louri: \{ name: 'Louri'/);
   assert.match(app, /topoloco: \{ name: 'Doctor Topoloco'/);
+  assert.match(app, /doctora_tecla: \{ name: 'Doctora Tecla'/);
   assert.match(app, /Topotina está escribiendo/);
   assert.match(app, /Gotas está escribiendo/);
   assert.match(app, /function applyObidosArrivalRescue\(\)/);

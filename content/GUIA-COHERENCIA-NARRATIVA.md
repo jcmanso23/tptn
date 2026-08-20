@@ -1,6 +1,6 @@
 # Guía maestra de coherencia narrativa · Las Doce Aguas
 
-**Versión canónica:** 20 de agosto de 2026 · edición T-21A6
+**Versión canónica:** 20 de agosto de 2026 · edición T-21A7
 **Final principal:** Alhambra, Palacios Nazaríes, noche del 26 de agosto
 **Final alternativo adulto:** Isla Mágica, noche del 25 de agosto
 **Epílogo:** Generalife, 27 de agosto; no abre otra amenaza
@@ -138,6 +138,14 @@ Eco se delata en la jaima precisamente porque, imitando a Topotino, pide la marc
 
 Es listo, huidizo, vanidoso y capaz de aprender. No es un torpe constante. Puede cometer errores por ego, pero adapta sus trampas a los razonamientos de los niños. Huye de ellos porque sabe que ya frustraron a los Oscurnos en Francia. No se vuelve bueno ni es capturado al final.
 
+### Doctora Tecla
+
+Doctora Tecla es la mujer de Topoloco, una hacker brillante, directa y de carácter muy fuerte. Ella es el verdadero cerebro técnico de la pareja: Topoloco diseña planes grandiosos y se atribuye todos los méritos; Tecla consigue que sus dispositivos funcionen y no tolera que él presente su trabajo como propio. Su humor es seco y su autoridad nace de su competencia, no de ridiculizarla como una simple esposa enfadada.
+
+Topoloco no consiguió entrar solo en el Comunicador Subterráneo. Le suplicó ayuda a Tecla mediante numerosos mensajes y ella abrió la brecha. Tecla no comparte su obsesión por convertirse en héroe de todas las historias y no es una nueva aliada de los niños: ayuda a Topoloco cuando le apetece, discute con él y protege sus propios intereses.
+
+La tarde del 20 entra en el canal ocupado porque no encuentra a Topoloco por ningún otro medio y le toca bajar la basura. Topoloco intenta mantener su imagen de genio ante Paula y Hugo; Tecla corrige sus exageraciones. Los niños pueden preguntar libremente durante varios turnos. La discusión confirma, sin revelar el itinerario futuro, que el Corrector necesita las doce ventanas y observaciones auténticas porque no sabe inventar recuerdos convincentes. Al enfadarse por las filtraciones y porque Topoloco se atribuye el hackeo, Tecla revoca su propio acceso, le ordena ocuparse de la basura y abandona el canal. No se convierte en participante recurrente ni resuelve las misiones.
+
 ### Los Oscurnos
 
 Son criaturas de sombra derrotadas anteriormente por Paula y Hugo. Huyen si deben enfrentarse a ellos directamente, así que actúan mediante dispositivos, voces y pistas.
@@ -181,7 +189,7 @@ Cada desplazamiento posterior responde a una pieza concreta de la máquina y a u
 
 - **Lisboa, ciencia, Oceanário y Tajo:** el archivo de Louri conduce al módulo que separa causas y relaciones. Pavilhão permite sabotear su clasificador de causa; Vasco y el Oceanário demuestran que una red viva no es una colección de piezas; el Tajo revela que el módulo envía datos al archivo histórico de Lisboa.
 - **Castelo, Alfama, Baixa y Belém:** Topoloco intenta convertir la reconstrucción de 1755 y los relatos marítimos en una única versión heroica. Comparar vista general, calles reales y monumentos obliga a la máquina a conservar cambios, voces y funciones. Después introduce el falso rastro de un safari terrestre.
-- **Asalto del chat y Lagos:** Topoloco entra en el Comunicador y revela el Corrector Definitivo de la Historia, módulo final de la Máquina de los Recuerdos. Quiere imponer una versión en la que él fue el héroe. Louri utiliza su única conexión de emergencia para revelar que el safari era un señuelo y que las cuevas son marinas. Paula y Hugo deducen Lagos; Topoloco expulsa a todos y ocupa el canal hasta que Topotina lo recupera el día 21.
+- **Asalto del chat y Lagos:** Topoloco entra en el Comunicador y revela el Corrector Definitivo de la Historia, módulo final de la Máquina de los Recuerdos. Quiere imponer una versión en la que él fue el héroe. Louri utiliza su única conexión de emergencia para revelar que el safari era un señuelo y que las cuevas son marinas. Paula y Hugo deducen Lagos; Topoloco expulsa a todos y ocupa el canal. Esa tarde Doctora Tecla entra buscando a Topoloco para que baje la basura, revela que ella abrió la brecha porque él se lo suplicó y, durante su discusión, confirma límites concretos del Corrector. Se marcha enfadada y Topoloco conserva el canal hasta que Topotina lo recupera el día 21.
 - **Delfines, Benagil y Sagres:** el Protocolo Azul impide que la máquina convierta ausencia en certeza. Benagil demuestra que un hueco puede conservar historia sin ser un vacío. En Sagres se intercepta la orden de Eco para copiar la voz de Topotino.
 - **Ponta da Piedade, Algar Seco y jaima:** las formas costeras enseñan a distinguir arco, pilar y cueva mientras Eco reúne palabras y tono. En la jaima la petición del Cuaderno lo delata; su orden de retirada señala Zoomarine.
 - **Zoomarine:** el cuidado real y la devolución al mar desmontan la mentira «si lo cuidas, te pertenece». Al unir motivo, método y resultado, Topotino concluye que Topoloco provocó su amnesia. Borrón altera entonces la etiqueta del puente de Tavira.
@@ -293,7 +301,7 @@ Aprender mucho no significa recibir un discurso largo. Cada lugar reparte el con
 | 17 | Dino Parque, Lisboa | Original, modelo e inferencia; aparece el Museo Topoloco | Laboratorio de adaptaciones y océano conectado |
 | 18 | Pavilhão, Oceanário, Tejo | Vasco enseña Protocolo Azul; doce nodos son una red | Leer una ciudad por capas |
 | 19 | Lisboa, Belém | Supervivencia, reconstrucción y cambio de uso; museo de versión única | Observar animales sin inventar intención |
-| 20 | Asalto del chat, pista de Lagos | Topoloco revela el Corrector; Louri desmonta el señuelo terrestre | Barco, delfines y cuevas marinas |
+| 20 | Asalto del chat, pista de Lagos, discusión de Tecla | Topoloco revela el Corrector; Louri desmonta el señuelo terrestre; Tecla confirma quién abrió la brecha y qué necesita la máquina | Barco, delfines y cuevas marinas |
 | 21 | Delfines, Benagil, Sagres | Aplicar Protocolo Azul; erosión e hipótesis; Topoloco admite que aprende | Dos costas y una voz en la lona |
 | 22 | Piedade, Algar Seco, jaima | Hueco/soporte; Eco suplanta a Topotino y es descubierto | «Si cuidas algo, te pertenece» |
 | 23 | Zoomarine | Vasco y Porto d’Abrigo: rescatar, rehabilitar y devolver | Concluir que Topoloco causó la amnesia; puente mal nombrado |
@@ -392,6 +400,15 @@ Antes de publicar un cambio:
 - [ ] El final continúa en la Alhambra nocturna y el Generalife es solo epílogo.
 
 ## 19. Registro de decisiones
+
+### 20 de agosto de 2026 · T-21A7
+
+- Se incorpora a Doctora Tecla, mujer de Topoloco y verdadera especialista técnica de la pareja, con el avatar proporcionado por la familia.
+- La escena se abre la tarde del 20 solo después de que Topoloco haya ocupado el canal. Tecla entra porque no logra localizarlo y le toca bajar la basura; no conoce ni anuncia un itinerario familiar.
+- Tecla confirma que ella hackeó el Comunicador después de que Topoloco se lo suplicara. La discusión cómica deja ver que el Corrector necesita las doce ventanas y observaciones auténticas, pero no revela destinos posteriores a Lagos ni soluciones futuras.
+- Paula y Hugo disponen de varios turnos libres para preguntar. Luna interpreta únicamente a Topoloco y Tecla con personalidades separadas; sus respuestas no alteran el progreso ni evalúan a los niños.
+- El avance de la conversación queda guardado. Una recarga no repite la entrada y la despedida solo ocurre después de la interacción. Tecla se marcha más enfadada que Topoloco, revoca su acceso y no queda como aliada o personaje recurrente.
+- La recuperación del canal del día 21 mantiene prioridad. No se modifican IDs, flags, puntuaciones, ventanas, rutas finales, códigos de recuperación ni conversaciones anteriores.
 
 ### 18 de agosto de 2026 · T-21A4
 
