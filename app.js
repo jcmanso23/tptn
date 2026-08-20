@@ -1,5 +1,5 @@
-import { splitTopotinoMessages } from './chat-format.js?v=memory-v55';
-import { CHALLENGE_PACKS, displayChallengeOptions } from './content/challenges.js?v=memory-v55';
+import { splitTopotinoMessages } from './chat-format.js?v=memory-v56';
+import { CHALLENGE_PACKS, displayChallengeOptions } from './content/challenges.js?v=memory-v56';
 
 const STORAGE_KEYS = {
   auth: 'topotino_chat_auth_v1',
@@ -7,9 +7,9 @@ const STORAGE_KEYS = {
 };
 
 const LEGACY_STATE_KEY = 'topotino_chat_state_v1';
-const APP_VERSION_CODE = 'T-21A4';
+const APP_VERSION_CODE = 'T-21A5';
 const PASSPHRASE_HASH = 'a64716bd9f4e8added1bf47f80b97c3fc7b70a15b8043cdab083e1ddf85f3794';
-const EPISODES_MANIFEST = 'content/episodes.json?v=memory-v55';
+const EPISODES_MANIFEST = 'content/episodes.json?v=memory-v56';
 const LIVE_STORY_ENDPOINT = '/api/story';
 const AMARANTE_TRAVEL_DATE = '2026-08-13';
 const AMARANTE_ROUTE_EPISODE_ID = '004b-rumbo-amarante';
@@ -56,8 +56,28 @@ const CHAT_SENDERS = {
   topotino: { name: 'Topotino', image: TOPOTINO_IMAGE },
   topotina: { name: 'Topotina', image: 'images/topotina.png?v=topotina-v1' },
   gotas: { name: 'Gotas', image: 'images/gotas.jpg?v=gotas-v1' },
-  louri: { name: 'Louri', image: 'images/louri.jpg?v=louri-v1' }
+  louri: { name: 'Louri', image: 'images/louri.jpg?v=louri-v1' },
+  vasco: { name: 'Vasco', initial: 'V' },
+  corvinho: { name: 'Corvinho', initial: 'C' },
+  capitan_pico: { name: 'Capitán Pico', initial: 'CP' },
+  america: { name: 'América', initial: 'A' },
+  krim: { name: 'Krim', initial: 'K' }
 };
+const EPISODE_AI_SPEAKERS = Object.freeze({
+  '006-magikland-curia': ['topotina'],
+  '007-bucaco-coimbra-batalha-fatima': ['topotina'],
+  '008-huellas-mira-obidos': ['topotina', 'gotas'],
+  '009-dinoparque-lisboa': ['topotina', 'louri'],
+  '010-lisboa-ciencia-oceanario': ['topotina', 'vasco'],
+  '011-lisboa-historia-belem': ['topotina', 'vasco'],
+  '012-badoca-lagos': ['topotina'],
+  '013-delfines-benagil-sagres': ['topotina', 'gotas', 'vasco', 'corvinho'],
+  '014-piedade-algar-jaima': ['topotina', 'gotas', 'corvinho'],
+  '015-zoomarine': ['topotina', 'gotas', 'vasco'],
+  '016-tavira-sevilla': ['topotina', 'corvinho'],
+  '017-isla-magica': ['topotina', 'capitan_pico', 'america', 'krim'],
+  '018-sevilla-alhambra-noche': ['topotina']
+});
 const CHATTER_LIMIT_CHARS = 500;
 const CHATTER_LIMIT_MESSAGES = 8;
 const CHATTER_WINDOW_MS = 60 * 1000;
@@ -177,6 +197,7 @@ let locationRefreshInFlight = false;
 let startupRescueMessages = [];
 let challengePanelCollapsed = false;
 let renderedChallengeId = null;
+let activeConversationTurnId = null;
 
 const els = {};
 const params = new URLSearchParams(window.location.search);
@@ -647,7 +668,7 @@ async function handleUserMessage(text) {
       return;
     }
     if (challenge.kind === 'conversation') {
-      await resolveStoryConversation(challenge);
+      await resolveStoryConversation(challenge, text);
       return;
     }
     if (challengeNeedsPhysicalConfirmation(challenge) && isChallengeCompletionMessage(text)) {
@@ -677,7 +698,7 @@ async function handleUserMessage(text) {
     return;
   }
 
-  const progressiveHint = nextProgressiveHint();
+  const progressiveHint = isExplicitHintRequest(text) ? nextProgressiveHint({ immediate: true }) : null;
   if (progressiveHint) {
     await deliverTopotinoMessages([{
       from: 'topotino',
@@ -873,11 +894,12 @@ async function resolveChallengeSuccess(challenge) {
   renderAll();
 }
 
-async function resolveStoryConversation(challenge) {
+async function resolveStoryConversation(challenge, userText) {
   if (state.completedChallengeIds.includes(challenge.id)) return;
-  await deliverTopotinoMessages(toTopotinoMessages(challenge.replyMessages || [
-    'Gracias por contármelo. Esta parte de la aventura también importa.'
-  ]), { mode: 'conversation' });
+  await askAiFallback(userText, {
+    conversationChallenge: challenge,
+    fallbackMessages: challenge.replyMessages
+  });
   addUniqueMany(state.completedChallengeIds, [challenge.id]);
   saveState();
   renderAll();
@@ -1066,7 +1088,7 @@ async function applyGuidedResponse(guided, sourceEpisode, userText = '') {
   renderAll();
 }
 
-async function askAiFallback(text) {
+async function askAiFallback(text, options = {}) {
   const activeEpisode = getActiveEpisode();
   if (!activeEpisode || activeEpisode.meta.ai?.enabled === false) {
     await deliverTopotinoMessages([{
@@ -1079,12 +1101,16 @@ async function askAiFallback(text) {
     return;
   }
 
+  const requestedEpisodeId = activeEpisode.meta.id;
+  const turnId = `${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+  activeConversationTurnId = turnId;
   const responsePromise = (async () => {
     const response = await fetch('/api/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         message: text,
+        turnId,
         activeEpisodeId: activeEpisode.meta.id,
         activeEpisodeTitle: activeEpisode.meta.title,
         activeEpisodes: [activeEpisode].map((episode) => ({
@@ -1100,31 +1126,59 @@ async function askAiFallback(text) {
         storyMemory: state.storyMemory.slice(-36),
         currentChallenge: summarizeChallengeForAi(getActiveChallenge()),
         pendingArrival: summarizeArrivalForAi(getPendingArrivalChallenge()),
-        recentMessages: state.messages.slice(-14)
+        conversation: summarizeConversationForAi(options.conversationChallenge),
+        allowedSpeakers: getAllowedAiSpeakers(activeEpisode, options.conversationChallenge),
+        recentMessages: recentMessagesForEpisode(activeEpisode.meta.id)
       })
     });
 
     if (!response.ok) throw new Error('AI request failed');
     const data = await response.json();
-    return [{
-      from: 'topotino',
+    if (data.turnId !== turnId || data.episodeId !== requestedEpisodeId) throw new Error('STALE_AI_RESPONSE');
+    if (activeConversationTurnId !== turnId || getActiveEpisode()?.meta?.id !== requestedEpisodeId) return [];
+    return (data.messages || []).map((message) => ({
+      from: CHAT_SENDERS[message.from] ? message.from : 'topotino',
       time: nowTime(),
-      text: data.reply || 'He recibido interferencias. Repetidlo más despacio, agentes.'
-    }];
+      text: message.text || ''
+    })).filter((message) => message.text);
   })().catch(() => {
-    const soft = activeEpisode && !isEpisodeCompleted(activeEpisode) && activeEpisode.softResponses.length
-      ? nextSoftResponse(activeEpisode)
-      : null;
-    return [{
-      from: 'topotino',
-      time: nowTime(),
-      text: soft || 'La señal se me ha escondido debajo de una piedra mojada. No os preocupéis: probad dentro de un ratito con un mensaje cortito.'
-    }];
+    if (activeConversationTurnId !== turnId) return [];
+    const fallback = Array.isArray(options.fallbackMessages) && options.fallbackMessages.length
+      ? options.fallbackMessages
+      : [{ from: 'topotino', text: 'Vuestro último mensaje me ha llegado cortado. Repetid solo esa frase; no voy a contestar a ninguna conversación anterior.' }];
+    return toTopotinoMessages(fallback);
   });
 
   await deliverTopotinoMessages(responsePromise, { mode: 'conversation' });
   saveState();
   renderAll();
+}
+
+function recentMessagesForEpisode(episodeId) {
+  return state.messages
+    .filter((message) => message.episodeId === episodeId)
+    .slice(-10);
+}
+
+function summarizeConversationForAi(challenge) {
+  if (!challenge) return null;
+  return {
+    id: challenge.id,
+    place: challenge.place || '',
+    prompt: (challenge.promptMessages || []).map(chatMessageText).join(' '),
+    purpose: 'Reacciona a la respuesta de Paula y Hugo. No la evalúes como examen y no reveles todavía el siguiente destino.'
+  };
+}
+
+function getAllowedAiSpeakers(episode, challenge = null) {
+  const candidates = EPISODE_AI_SPEAKERS[episode?.meta?.id] || [];
+  const introduced = new Set(state.messages.map((message) => message.from));
+  (challenge?.promptMessages || []).forEach((message) => introduced.add(message?.from));
+  return ['topotino', ...candidates.filter((speaker) => {
+    if (speaker === 'topotina') return introduced.has('topotina') || state.flags.includes(MACHINE_CLARIFIED_FLAG);
+    if (speaker === 'louri' && state.flags.includes('louri_canal_cerrado')) return false;
+    return introduced.has(speaker);
+  })];
 }
 
 function summarizeChallengeForAi(challenge) {
@@ -1220,7 +1274,7 @@ function nextSoftResponse(episode) {
   return response;
 }
 
-function nextProgressiveHint() {
+function nextProgressiveHint(options = {}) {
   const activeEpisode = getActiveEpisode();
   if (!activeEpisode || isEpisodeCompleted(activeEpisode)) return null;
   const hints = activeEpisode?.progressiveHints || [];
@@ -1230,8 +1284,13 @@ function nextProgressiveHint() {
   const misses = (state.hintMissCursor[key] || 0) + 1;
   state.hintMissCursor[key] = misses;
 
-  if (misses < 3) return null;
-  return hints[(misses - 3) % hints.length];
+  if (!options.immediate && misses < 3) return null;
+  return hints[options.immediate ? (misses - 1) % hints.length : (misses - 3) % hints.length];
+}
+
+function isExplicitHintRequest(text) {
+  const normalized = normalizeText(text);
+  return /\b(pista|ayuda|ayudanos|ayudame|no sabemos|no lo sabemos|no entendemos|no entiendo)\b/.test(normalized);
 }
 
 function shouldWarnAboutChatter(text) {
@@ -1466,11 +1525,18 @@ function renderMessages() {
     if (!isUser) {
       const avatar = document.createElement('div');
       avatar.className = 'message-avatar';
-      const image = document.createElement('img');
-      image.src = sender.image;
-      image.alt = sender.name;
-      image.addEventListener('error', () => { image.style.display = 'none'; });
-      avatar.appendChild(image);
+      if (sender.image) {
+        const image = document.createElement('img');
+        image.src = sender.image;
+        image.alt = sender.name;
+        image.addEventListener('error', () => { image.style.display = 'none'; });
+        avatar.appendChild(image);
+      } else {
+        const initial = document.createElement('span');
+        initial.className = 'message-avatar-initial';
+        initial.textContent = sender.initial || sender.name.slice(0, 1);
+        avatar.appendChild(initial);
+      }
       row.appendChild(avatar);
     }
 
@@ -1713,7 +1779,8 @@ function appendMessage(message) {
     from: message.from || 'topotino',
     time: formatRealTime(new Date(createdAt)),
     text: message.text || '',
-    createdAt
+    createdAt,
+    episodeId: message.episodeId || getActiveEpisode()?.meta?.id || null
   });
 }
 
@@ -2194,7 +2261,9 @@ function setBusy(nextBusy, showTyping = nextBusy, senderId = 'topotino') {
             ? 'Gotas está escribiendo...'
             : senderId === 'louri'
               ? 'Louri está escribiendo con sus brazos tácticos...'
-              : 'Alguien está escribiendo...';
+              : CHAT_SENDERS[senderId]
+                ? `${CHAT_SENDERS[senderId].name} está escribiendo...`
+                : 'Alguien está escribiendo...';
   }
   els.typing.hidden = !showTyping;
   els.sendButton.disabled = nextBusy;
@@ -2720,6 +2789,6 @@ function applyTestingParams() {
 
 function registerServiceWorker() {
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('service-worker.js?v=offline-v29').catch(() => {});
+    navigator.serviceWorker.register('service-worker.js?v=offline-v30').catch(() => {});
   }
 }

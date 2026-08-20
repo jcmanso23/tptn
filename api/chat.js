@@ -24,6 +24,45 @@ const challengeVerdictSchema = jsonSchema({
   }
 });
 
+const CHAT_SPEAKERS = [
+  'topotino', 'topotina', 'gotas', 'vasco', 'corvinho',
+  'capitan_pico', 'america', 'krim', 'louri'
+];
+
+const chatResponseSchema = jsonSchema({
+  type: 'object',
+  additionalProperties: false,
+  required: ['messages'],
+  properties: {
+    messages: {
+      type: 'array',
+      minItems: 1,
+      maxItems: 3,
+      items: {
+        type: 'object',
+        additionalProperties: false,
+        required: ['from', 'text'],
+        properties: {
+          from: { type: 'string', enum: CHAT_SPEAKERS },
+          text: { type: 'string', minLength: 1, maxLength: 420 }
+        }
+      }
+    }
+  }
+});
+
+const CHARACTER_PERSONALITIES = {
+  topotino: 'Topotino: aventurero teatral, leal, algo nervioso y cabezota. Se entusiasma, protesta con humor y admite lo que no sabe. Habla de forma concreta.',
+  topotina: 'Topotina: ingeniera experta en tecnología, precisa, serena y con humor seco. Quiere a su hermano y pincha suavemente su dramatismo. No es omnisciente.',
+  gotas: 'Gotas: alegre, experto en agua y cuevas y exageradamente cuidadoso con la seguridad. Sus prohibiciones absurdamente específicas son una broma recurrente.',
+  vasco: 'Vasco: explorador marino curioso, tranquilo y educativo. Habla de conservación, relaciones del océano y observación responsable; nunca promete ver fauna salvaje.',
+  corvinho: 'Corvinho: cuervo joven, orgulloso y muy observador. Habla con agilidad, hace bromas sobre el viento y distingue lo que vio de lo que supone.',
+  capitan_pico: 'Capitán Pico: ave marinera grandilocuente y valiente. Recluta exploradores, convierte una observación en expedición y se toma sus títulos demasiado en serio.',
+  america: 'América: exploradora práctica, cálida y perspicaz. Completa o corrige a Capitán Pico con cariño y pide comprobar antes de concluir.',
+  krim: 'Krim: duende juguetón y sensible. Ayuda a poner nombre a las emociones y a separarlas de las decisiones, sin convertir todo en una lección.',
+  louri: 'Louri: pequeño T-Rex rojo, presumido, pedante y dramático. Cree que sus brazos diminutos son tácticos. Solo puede intervenir antes del cierre definitivo de su canal.'
+};
+
 export const config = {
   maxDuration: 30
 };
@@ -45,8 +84,19 @@ export default async function handler(req, res) {
     return validateChallenge(body, userMessage, res);
   }
 
+  const requestedSpeakers = Array.isArray(body.allowedSpeakers)
+    ? body.allowedSpeakers.map(String).filter((speaker) => CHAT_SPEAKERS.includes(speaker))
+    : [];
+  const allowedSpeakers = [...new Set(['topotino', ...requestedSpeakers])]
+    .filter((speaker) => speaker !== 'louri' || !(body.flags || []).includes('louri_canal_cerrado'));
+  const personalityContext = allowedSpeakers.map((speaker) => CHARACTER_PERSONALITIES[speaker]).filter(Boolean);
+  const turnId = String(body.turnId || '').slice(0, 120);
+
   const systemPrompt = [
-    'Eres Topotino dentro del Comunicador Subterráneo.',
+    'Diriges una conversación dentro del Comunicador Subterráneo.',
+    `En este turno solo pueden hablar estos personajes: ${allowedSpeakers.join(', ')}. No uses ningún otro remitente.`,
+    'No hagas intervenir a varios personajes por obligación. Elige a quien respondería de forma más natural; usa dos o tres solo si existe una reacción real entre ellos.',
+    ...personalityContext,
     'Topotino es un aventurero entrañable, nervioso y muy teatral, con personalidad fuerte, opiniones propias y mucho cariño por Paula y Hugo.',
     'No habla como un adulto que lo sabe todo: habla como un compañero de misión que ha encontrado una pista y necesita ayuda de verdad.',
     'Mezcla misterio con ternura usando hechos concretos: un ruido en el comunicador, una marca en un mapa, una fecha en una placa o un objeto fuera de sitio.',
@@ -97,7 +147,7 @@ export default async function handler(req, res) {
     'No uses palabras malsonantes salvo que el contexto de una escena futura lo autorice expresamente. Las palabras inventadas o equivocadas deben ser muy ocasionales.',
     'Si escriben mensajes largos o muchos mensajes seguidos, pídeles con humor que usen mensajes cortos para no saturar la señal ni llamar la atención de Topoloco.',
     'Si preguntan por el sol o eclipses, recuerda siempre que nunca se mira el sol directamente.',
-    'Responde en 1 a 3 párrafos muy cortos como burbujas de chat; no uses listas largas.',
+    'Devuelve de una a tres intervenciones muy cortas. Cada intervención será una burbuja de chat; no uses listas largas.',
     'Escribe siempre en texto plano: no uses Markdown, asteriscos, almohadillas ni otros signos de formato.'
   ].join('\n');
 
@@ -116,7 +166,9 @@ export default async function handler(req, res) {
       .slice(-16)
       .map((message) => ({
         role: message.from === 'user' ? 'user' : 'assistant',
-        content: String(message.text).slice(0, 800)
+        content: message.from === 'user'
+          ? String(message.text).slice(0, 800)
+          : `${String(message.from || 'topotino')}: ${String(message.text).slice(0, 760)}`
       }))
     : [];
 
@@ -141,6 +193,7 @@ export default async function handler(req, res) {
     formula: body.formulaWords || [],
     desafioActual: body.currentChallenge || null,
     esperaDeLlegada: body.pendingArrival || null,
+    conversacionActual: body.conversation || null,
     memoriaDeViaje: Array.isArray(body.storyMemory)
       ? body.storyMemory.slice(-36).map((item) => ({
         episodio: String(item?.episodeTitle || item?.episodeId || '').slice(0, 120),
@@ -154,7 +207,8 @@ export default async function handler(req, res) {
   const generationOptions = {
     instructions: `${systemPrompt}\n\nEstado narrativo permitido para este turno:\n${JSON.stringify(context, null, 2)}\n\nMensaje actual que debes responder ahora:\n${JSON.stringify(userMessage)}`,
     messages: recentMessages,
-    maxOutputTokens: 480
+    output: Output.object({ schema: chatResponseSchema }),
+    maxOutputTokens: 600
   };
 
   const openAIKey = String(process.env.OPENAI_API_KEY || '').trim();
@@ -192,7 +246,15 @@ export default async function handler(req, res) {
       });
     }
 
-    const { text, usage } = result;
+    const { output, usage } = result;
+    const messages = Array.isArray(output?.messages)
+      ? output.messages
+        .filter((message) => allowedSpeakers.includes(message?.from) && String(message?.text || '').trim())
+        .slice(0, 3)
+        .map((message) => ({ from: message.from, text: String(message.text).trim() }))
+      : [];
+
+    if (!messages.length) throw new Error('EMPTY_CHAT_RESPONSE');
 
     console.log('Topotino AI response', {
       provider,
@@ -201,7 +263,9 @@ export default async function handler(req, res) {
     });
 
     return res.status(200).json({
-      reply: text || 'La señal llega entrecortada. Repetidlo con calma, agentes.'
+      turnId,
+      episodeId: String(body.activeEpisodeId || ''),
+      messages
     });
   } catch (error) {
     console.error('Topotino AI request failed', {

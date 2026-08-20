@@ -18,7 +18,11 @@ test('la conversación libre usa Luna y conserva los turnos con sus roles', asyn
   assert.match(source, /String\(process\.env\.OPENAI_API_KEY \|\| ''\)\.trim\(\)/);
   assert.match(source, /provider = openAIKey \? 'openai-direct' : 'vercel-ai-gateway'/);
   assert.match(source, /reasoningEffort: 'none'/);
-  assert.match(source, /maxOutputTokens: 480/);
+  assert.match(source, /output: Output\.object\(\{ schema: chatResponseSchema \}\)/);
+  assert.match(source, /maxOutputTokens: 600/);
+  assert.match(source, /CHARACTER_PERSONALITIES/);
+  assert.match(source, /allowedSpeakers/);
+  assert.match(source, /turnId/);
   assert.match(source, /Escribe siempre en texto plano/);
   assert.match(source, /Cuaderno de la Memoria/);
   assert.match(source, /No infantilizas a Paula y Hugo/);
@@ -60,7 +64,11 @@ test('las respuestas conversacionales usan silencios naturales y pueden no conte
   assert.match(source, /toTopotinoMessages\(pack\.openingMessages\)/);
   assert.match(source, /const episode = getActiveEpisode\(\)/);
   assert.match(source, /isEpisodeCompleted\(episode\)/);
-  assert.match(source, /!isEpisodeCompleted\(activeEpisode\) && activeEpisode\.softResponses\.length/);
+  assert.match(source, /recentMessagesForEpisode\(activeEpisode\.meta\.id\)/);
+  assert.match(source, /data\.turnId !== turnId/);
+  assert.match(source, /data\.episodeId !== requestedEpisodeId/);
+  assert.match(source, /isExplicitHintRequest\(text\) \? nextProgressiveHint/);
+  assert.doesNotMatch(source, /const soft = activeEpisode/);
   assert.match(source, /if \(!activeEpisode \|\| isEpisodeCompleted\(activeEpisode\)\) return null/);
   assert.doesNotMatch(source, /const available = getUnlockedEpisodes\(\)\.slice\(\)\.reverse\(\)/);
   assert.match(source, /storyMemory: normalizeStoryMemory\(saved\.storyMemory\)/);

@@ -51,6 +51,12 @@ La `storyMemory` conserva únicamente respuestas guiadas del comunicador marcada
 
 El modelo puede reaccionar a preguntas, adaptar una acción a un imprevisto y validar semánticamente una respuesta escrita. Recibe únicamente el conocimiento permitido, el estado actual, la memoria de viaje y los mensajes recientes.
 
+Cada mensaje nuevo queda etiquetado con el episodio en el que nació. Luna recibe únicamente los últimos turnos de ese episodio, nunca una mezcla de días. Cada petición lleva además un identificador único de turno y el episodio de origen; si la etapa cambia mientras la IA responde, la respuesta se descarta.
+
+La conversación admite varias voces. Luna puede devolver de una a tres burbujas y asignarlas solo a personajes autorizados para esa escena. Topotino está siempre disponible; Topotina y los aliados solo hablan después de su entrada real. Cada uno tiene una ficha de personalidad, conocimientos y límites. Louri queda bloqueado tras el cierre definitivo de su canal.
+
+No se fuerza un diálogo coral en cada respuesta. Habla el personaje que reaccionaría de forma natural y solo intervienen varios si la relación entre ellos aporta humor, emoción o claridad.
+
 En una pregunta con opciones, Paula y Hugo pueden pulsar un botón o escribir con sus propias palabras. Luna devuelve un objeto cerrado con `correct`, `partial`, `incorrect` o `clarify`. Ese veredicto no modifica el estado directamente: el motor aplica las mismas reglas que con los botones. Si Luna no responde, no cuenta como error y los botones mantienen la aventura jugable.
 
 El Cuaderno de la Memoria queda deliberadamente fuera de esta capa. Luna sabe que existe y para qué servirá, pero no recibe, solicita ni deduce sus páginas.
@@ -68,6 +74,8 @@ La conversación sigue esta política:
 Las activaciones por fecha filtran sus mensajes iniciales mediante `requiredFlags` y `blockedFlags`. Si falta una fase anterior, llega un puente de recuperación que reconoce lo no vivido y presenta la evidencia disponible del día actual. Nunca se atribuye a Paula y Hugo una ventana, una deducción o una visita que no completaron.
 
 Las contingencias importantes siguen teniendo respuestas deterministas para funcionar aunque el modelo no esté disponible.
+
+Una caída de Luna nunca puede reutilizar una respuesta suave o una pista narrativa del episodio. En conversación libre se pide repetir solo el último mensaje; en un diálogo de transición se usa únicamente el cierre aprobado de esa misma escena. Las pistas progresivas solo aparecen cuando Paula o Hugo piden ayuda de forma explícita.
 
 ## 4. Por qué no migrar ahora a Agents SDK
 
@@ -88,6 +96,8 @@ El 11 de agosto de 2026 se decidió usar la facturación existente de la API de 
 - Usar Luna como modelo conversacional y conservar Topotino como identidad narrativa.
 - Enviar al modelo solo el `aiContext` de la fase activa, flags y conversación reciente; no mezclar contextos antiguos desbloqueados que contradigan la amnesia actual.
 - Enviar los turnos recientes con roles de usuario y asistente para mantener una conversación real sin repetir el contexto como si fuera una ficha.
+- Aislar esos turnos por episodio y rechazar respuestas cuyo identificador de turno o episodio ya no coincida.
+- Permitir voces de personajes con remitente propio, personalidad estable y autorización por escena.
 - Enviar también la memoria de viaje persistente, separada de los turnos recientes y del cuaderno privado.
 - Mantener el motor de retos para aciertos, progreso, seguridad y contingencias críticas.
 - Usar botones para elecciones, tarjetas para expediciones y salida física después de dos intentos.
