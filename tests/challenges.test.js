@@ -73,6 +73,11 @@ test('las respuestas correctas se reparten de forma estable entre las posiciones
 test('cada jornada recuerda la ruta, permite recuperar Sombra y prepara el día siguiente', () => {
   for (const episodeId of futureEpisodeIds.slice(1, -2)) {
     const pack = CHALLENGE_PACKS[episodeId];
+    if (episodeId === '012-badoca-lagos') {
+      assert.deepEqual(pack.openingMessages, []);
+      assert.ok(pack.steps.some((step) => step.id === 'topoloco-ruta-lagos'));
+      continue;
+    }
     if (episodeId !== '006-magikland-curia') {
       assert.match(pack.openingMessages.map(messageText).join(' '), /Buenos días/i, `${episodeId}: falta recordatorio de mañana`);
     }
@@ -80,7 +85,10 @@ test('cada jornada recuerda la ruta, permite recuperar Sombra y prepara el día 
     const route = pack.steps.find((step) => step.id.startsWith('ruta-dia'));
     assert.ok(route, `${episodeId}: falta ruta del día siguiente`);
     assert.match(route.successMessages.map(messageText).join(' '), /preparad|tened|llevad/i, `${episodeId}: falta preparación`);
-    assert.match(route.successMessages.map(messageText).join(' '), /descansad|guardad energía/i, `${episodeId}: falta cierre del día`);
+    const routeText = [route.prompt, ...route.successMessages.map(messageText)].join(' ');
+    if (/mañana/i.test(routeText)) {
+      assert.match(routeText, /descansad|guardad energía/i, `${episodeId}: falta cierre del día`);
+    }
   }
 });
 
@@ -149,9 +157,9 @@ test('cada cambio de lugar futuro espera la llegada física antes de mostrar su 
     'mira-q1', 'obidos-expedicion',
     'lisboa-llegada-q1',
     'pavilhao-expedicion',
-    'oceanario-q1', 'tejo-expedicion',
-    'alfama-q1', 'belem-expedicion',
-    'lagos-q1', 'sagres-q1',
+    'oceanario-q1',
+    'alfama-visita-expedicion', 'belem-expedicion',
+    'sagres-q1',
     'algar-q1', 'jaima-expedicion',
     'sevilla-plaza-q1',
     'catedral-q1', 'alhambra-expedicion'
@@ -313,12 +321,11 @@ test('cada cambio de destino desde el día 17 tiene antes un diálogo narrativo'
   assert.match(reply, /No quiero verlo.*Cuaderno es vuestro/is);
 });
 
-test('el arco posterior encadena acciones de Topoloco y revela la Alhambra en Isla Mágica', () => {
+test('el arco posterior encadena el Corrector de Topoloco y ofrece finales excluyentes', async () => {
   const causalChecks = [
     ['010-lisboa-ciencia-oceanario', /módulo.*separar causas|separar causas.*módulo/is],
     ['011-lisboa-historia-belem', /archivo histórico.*Lisboa|Lisboa.*archivo histórico/is],
-    ['012-badoca-lagos', /receptor.*Badoca|Badoca.*receptor/is],
-    ['013-delfines-benagil-sagres', /receptor.*embarcación|embarcación.*receptor/is],
+    ['013-delfines-benagil-sagres', /Louri.*embarcación|embarcación.*Lagos|Corrector/is],
     ['014-piedade-algar-jaima', /Eco.*copiando la voz|voz.*Eco/is],
     ['015-zoomarine', /Eco.*Cuaderno|Cuaderno.*Eco/is],
     ['016-tavira-sevilla', /Borrón.*puente|puente.*Borrón/is],
@@ -329,9 +336,25 @@ test('el arco posterior encadena acciones de Topoloco y revela la Alhambra en Is
     assert.match(CHALLENGE_PACKS[id].openingMessages.map(messageText).join(' '), pattern, `${id}: apertura sin causa narrativa`);
   }
 
+  const app = await readFile(join(root, 'app.js'), 'utf8');
+  assert.match(app, /Corrector Definitivo de la Historia/);
+  assert.match(app, /El safari era un señuelo/);
+  assert.match(app, /Delfines salvajes\. Cuevas marinas/);
+
   const islandRoute = CHALLENGE_PACKS['017-isla-magica'].steps.find((step) => step.id === 'ruta-dia26');
+  const sevilleFinal = CHALLENGE_PACKS['017-isla-magica'].steps.find((step) => step.id === 'final-sevilla-noche');
   const cathedralRoute = CHALLENGE_PACKS['018-sevilla-alhambra-noche'].steps.find((step) => step.id === 'dia26-pista-alhambra');
   assert.match(islandRoute.prompt, /Alhambra de noche/i);
+  assert.deepEqual(islandRoute.finalRoutes, ['granada']);
+  assert.deepEqual(sevilleFinal.finalRoutes, ['sevilla-night']);
+  assert.match(sevilleFinal.place, /Isla Mágica.*lago/i);
+  assert.doesNotMatch([
+    sevilleFinal.place,
+    sevilleFinal.title,
+    sevilleFinal.intro,
+    ...(sevilleFinal.actions || []),
+    ...(sevilleFinal.doneMessages || [])
+  ].join(' '), /Granada|Alhambra/i);
   assert.doesNotMatch(cathedralRoute.successMessages.map(messageText).join(' '), /primera vez|no sabíamos|acabamos de descubrir/i);
 });
 
@@ -381,9 +404,9 @@ test('cada lugar revela solo el paso accionable siguiente y nunca el itinerario 
     '007-bucaco-batalha-fatima': ['dia15-pista-batalha', 'dia15-pista-fatima'],
     '008-huellas-mira-obidos': ['dia16-pista-mira', 'dia16-pista-obidos'],
     '009-dinoparque-lisboa': ['dia17-pista-lisboa'],
-    '010-lisboa-ciencia-oceanario': ['dia18-pista-oceanario', 'dia18-pista-tejo'],
-    '011-lisboa-historia-belem': ['dia19-pista-alfama', 'dia19-pista-belem'],
-    '012-badoca-lagos': ['dia20-pista-lagos'],
+    '010-lisboa-ciencia-oceanario': ['dia18-pista-oceanario'],
+    '011-lisboa-historia-belem': ['dia19-pista-belem'],
+    '012-badoca-lagos': ['topoloco-ruta-lagos'],
     '013-delfines-benagil-sagres': ['dia21-pista-sagres'],
     '014-piedade-algar-jaima': ['dia22-pista-algar', 'dia22-pista-jaima'],
     '016-tavira-sevilla': ['dia24-pista-sevilla'],

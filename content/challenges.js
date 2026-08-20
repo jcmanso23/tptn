@@ -662,7 +662,7 @@ packs['010-lisboa-ciencia-oceanario'] = {
       'question-first'
     ),
     ...withOrder(
-      onArrival(expedition('alfama-visita-expedicion', 'Rossio · visita guiada de Alfama', 'Investigar Alfama a fondo', 'Topotino ha descubierto que Topoloco se refugia en Alfama, pero las interferencias están rompiendo el canal. Reuníos con el grupo a las 10:30 en la Praça Dom Pedro IV, junto a la estatua central y los paraguas blancos de Live History. Escuchad y observad todo: necesitaremos una investigación completa para expulsarlo.', [
+      onArrival(expedition('alfama-visita-expedicion', 'Rossio · visita guiada de Alfama', 'Investigar Alfama a fondo', 'Topoloco se refugia en Alfama y está rompiendo el canal. Reuníos a las 10:30 en la estatua central de Praça Dom Pedro IV, junto a los paraguas blancos de Live History.', [
         'A las 10:30, comprobad que estáis en la Praça Dom Pedro IV, no en la estación de Rossio.',
         'Durante el recorrido, anotad mentalmente dos historias o leyendas y separadlas de los datos históricos.',
         'Fijaos en cómo cambian las calles al pasar de Baixa a Mouraria y Alfama: anchura, pendientes, curvas y murallas.',
@@ -760,74 +760,29 @@ packs['011-lisboa-historia-belem'] = {
       ]
     ),
     recovery('recuperacion-dia19', '¿Qué hizo Lisboa para seguir existiendo?', ['Cambió, reconstruyó y conservó capas distintas', 'Permaneció idéntica', 'Borró todos sus barrios antiguos'], 0, 'Sombra retirada. Topoloco ya no puede confundir permanencia con inmovilidad.', 'La versión única gana terreno, pero aún conserváis las diferencias.'),
-    route('ruta-dia20', 'Al conservar las capas reales de Lisboa, Niebla huye con un receptor de la máquina. Su señal aparece entre animales africanos en grandes espacios. ¿Dónde lo buscamos mañana?', ['Badoca Safari Park', 'Oceanário', 'Tapada Nacional de Mafra'], 0, [
-      'Primera señal encontrada: Badoca Safari Park.',
-      'Niebla quiere convertir cualquier movimiento animal en un cuento falso. Nosotros separaremos conducta visible e interpretación.',
-      'Preparad agua, protector solar, prismáticos si tenéis y ropa cómoda. Lo demás sigue oculto. Descansad.'
+    route('ruta-dia20', 'Al conservar las capas reales de Lisboa, aparece una señal entre animales africanos en grandes espacios. ¿Qué nombre está intentando mostrarnos?', ['Badoca Safari Park', 'Oceanário', 'Tapada Nacional de Mafra'], 0, [
+      'La pantalla escribe Badoca Safari Park, pero la señal tiene cortes extraños. Topotina no puede confirmar que sea auténtica.',
+      'No os mandaré allí todavía. Mañana comprobaremos el canal antes de movernos.',
+      'Descansad. Si Topoloco ha preparado un señuelo, prefiero que crea que ha funcionado.'
     ], { setFlags: ['completado_lisboa_historia_belem'], water: 'Agua de la Ciudad que Regresa' })
   ]
 };
 
 packs['012-badoca-lagos'] = {
-  shadowActor: 'Niebla',
-  openingMessages: [
-    'Buenos días. Niebla escapó de Lisboa con un receptor de la máquina y lo ha escondido en Badoca.',
-    'Quiere grabar cómo decidís cuando un animal se mueve y así anticipar vuestra próxima elección.',
-    'Describid conductas visibles sin inventar intenciones: si el receptor recibe suposiciones, Niebla gana.'
-  ],
+  shadowActor: 'Topoloco',
+  openingMessages: [],
   steps: [
-    ...withOrder(
-      expedition('badoca-expedicion', 'Badoca Safari Park', 'Expedición de conducta animal', 'No hace falta ver una especie concreta. Elegid las que estén visibles y seguid las normas del parque.', [
-        'Elegid un animal y observad tres acciones seguidas.',
-        'Describid mentalmente las acciones sin usar emociones humanas.',
-        'Observad una segunda especie y buscad una diferencia corporal relacionada con su movimiento.',
-        'Localizad una norma que proteja a animales o visitantes.'
-      ], [
-        'Expedición completada. Habéis construido un pequeño etograma: un registro de conductas observables.',
-        'Decir «camina, gira la cabeza, come» es evidencia. Decir «está tramando una fuga» puede ser un cuento de Niebla.'
-      ]),
-      [
-        question('badoca-q1', 'Badoca Safari Park', '¿Cuál es una conducta observable?', ['El animal gira la cabeza hacia el vehículo', 'El animal está celoso', 'El animal sueña con Francia'], 0, 'Correcto. Otra persona podría comprobar ese giro.', 'Las emociones pueden existir, pero no se deducen con seguridad de una sola acción.', 'Elegid la frase que describe movimiento sin adivinar pensamientos.'),
-        question('badoca-q2', 'Badoca Safari Park', 'Si dos especies se mueven de forma distinta, ¿qué explicación es más prudente?', ['Su cuerpo y entorno pueden favorecer movimientos distintos', 'Una especie es buena y la otra mala', 'Todos los individuos actúan siempre igual'], 0, 'Muy bien. Relacionar cuerpo, conducta y entorno crea una hipótesis comprobable.', 'Una observación breve no resume toda una especie. Hay que mantener abiertas alternativas.', 'Descartad las opciones que convierten una diferencia en juicio moral.')
-      ]
-    ),
-    nextStop('dia20-pista-lagos', 'Habéis encontrado el receptor. Niebla lo activa y huye hacia un puerto con marina, murallas y salidas al Atlántico. ¿Dónde intentará embarcarlo?', ['Lagos', 'Sines', 'Sesimbra'], 0, [
-      'La pista conduce a Lagos.',
-      'En Badoca habéis descrito animales sin inventar sus pensamientos. En una marina tendremos que aplicar la misma prudencia a una búsqueda en el mar.'
-    ]),
-    ...withOrder(
-      expedition('lagos-expedicion', 'Lagos y su marina', 'Expedición de la ciudad orientada al mar', 'Al llegar a Lagos, seguiremos la pista del receptor de Niebla.', [
-        'Recorred una parte de la marina y localizad embarcaciones de usos distintos.',
-        'Buscad una señal de salida hacia el mar o información de excursiones.',
-        'Entrad en el centro histórico y localizad un elemento defensivo, una puerta o una muralla.',
-        'Comparad hacia dónde se orientan marina y ciudad antigua.'
-      ], [
-        'Hecho. La marina organiza movimientos actuales hacia el mar; las defensas antiguas controlaban accesos y costa.',
-        'El receptor de Niebla apuntaba a las salidas de barcos. Está preparando una prueba donde quizá no aparezca lo que buscamos.'
-      ]),
-      [
-        onArrival(question('lagos-q1', 'Lagos y su marina', '¿Qué indica mejor que la marina conecta ciudad y mar?', ['Las rutas y embarcaciones que salen de ella', 'El color de una sombrilla', 'Que todas las calles sean rectas'], 0, 'Correcto. La función se reconoce por movimientos y conexiones.', 'Mañana esa salida nos permitirá investigar delfines y costa, pero sin prometer resultados.', 'Mirad qué elementos empiezan aquí y continúan fuera del puerto.'), ARRIVAL_LOCATIONS.lagos, [
-          { from: 'topotino', text: 'En Badoca habéis separado un animal real de lo que imaginamos sobre él. La nueva pista sale hacia el mar, donde tampoco podremos ordenar que aparezca un delfín.' },
-          { from: 'topotino', text: 'Ya estáis en la Marina de Lagos. Primero averiguaremos cómo conecta la ciudad con las rutas del mar.' }
-        ]),
-        question('lagos-q2', 'Lagos y su marina', '¿Para qué servía una defensa costera?', ['Vigilar y controlar accesos', 'Garantizar que aparezcan delfines', 'Decorar una piscina'], 0, 'Exacto. Su posición tiene relación con el territorio que controla.', 'La ciudad y el mar han mantenido relaciones comerciales, defensivas y de viaje diferentes.', 'Pensad qué podía observar o impedir desde su posición.')
-      ],
-      'question-first'
-    ),
-    recovery('recuperacion-dia20', '¿Qué frase vencería a Niebla?', ['Primero describimos lo observado; después proponemos explicaciones', 'Toda acción revela una emoción', 'Una historia bonita siempre es verdad'], 0, 'Sombra retirada. Niebla ha perdido una página entera de conclusiones inventadas.', 'Niebla conserva ventaja, pero ya no puede hacer pasar sus cuentos por observación.'),
-    route('ruta-dia21', 'El receptor de Niebla termina en una salida de barco desde Lagos. Puede encontrar delfines o cuevas, pero no promete ningún resultado. ¿Cuál es la primera investigación?', ['Una salida de observación desde la Marina de Lagos', 'Un safari terrestre', 'Una visita a una fortaleza'], 0, [
-      'Primera señal encontrada: una salida de observación desde la Marina de Lagos.',
-      'Aplicaremos el Protocolo Azul: observar sin perseguir y aceptar la incertidumbre.',
-      'Preparad protección solar, agua, algo de abrigo para el barco y calzado seguro. Si el mar cambia el plan, la historia se adapta. Descansad.'
-    ], { setFlags: ['completado_badoca_lagos'] })
+    route('topoloco-ruta-lagos', 'Buscad una ciudad costera del Algarve con marina. Desde allí salen barcos para observar delfines salvajes y cuevas marinas. ¿Cuál encaja?', ['Faro', 'Lagos', 'Porto'], 1, [
+      'Lagos. La conexión de emergencia de Louri queda confirmada.'
+    ], { setFlags: ['lagos_descubierto_por_louri'] })
   ]
 };
 
 packs['013-delfines-benagil-sagres'] = {
   shadowActor: 'Topoloco',
   openingMessages: [
-    'Buenos días. Niebla llevó el receptor hasta una embarcación de Lagos.',
-    'Topoloco necesita respuestas seguras sobre algo que nadie puede ordenar: que aparezcan delfines y cómo actúe el mar.',
+    'Buenos días. Topotina ha expulsado a Topoloco y la pista de Louri conduce a una embarcación de Lagos.',
+    'Topoloco necesita respuestas seguras sobre algo que nadie puede ordenar: que aparezcan delfines y cómo actúe el mar. Quiere usarlas para que el Corrector fabrique recuerdos falsos.',
     'Aplicaremos el Protocolo Azul. Una observación limitada y honesta hará que su máquina aprenda una certeza falsa.'
   ],
   steps: [
@@ -1068,11 +1023,46 @@ packs['017-isla-magica'] = {
       'question-first'
     ),
     recovery('recuperacion-dia25', '¿Qué hace un buen explorador cuando siente mucha prisa?', ['Nombra la emoción, comprueba y mantiene una salida', 'Obedece la primera señal', 'Finge que no siente nada'], 0, 'Sombra retirada. Krim dice que Niebla ha salido color verde mareado.', 'Niebla mantiene una ventaja, pero la contratrampa ha recuperado la señal principal.'),
-    route('ruta-dia26', 'La contratrampa revela el final —la Alhambra de noche— pero mantiene dos cerraduras previas. La primera es un palacio sevillano con edificios y jardines de muchas épocas. ¿Cuál es?', ['Real Alcázar de Sevilla', 'Palacio de las Dueñas', 'Castillo de Gibralfaro'], 0, [
+    Object.assign(route('ruta-dia26', 'La contratrampa revela el final —la Alhambra de noche— pero mantiene dos cerraduras previas. La primera es un palacio sevillano con edificios y jardines de muchas épocas. ¿Cuál es?', ['Real Alcázar de Sevilla', 'Palacio de las Dueñas', 'Castillo de Gibralfaro'], 0, [
       'Primera señal encontrada: Real Alcázar de Sevilla.',
       'Solo sabemos que allí debemos comprobar cómo varias épocas pueden convivir sin que una borre a las demás.',
       'Tened agua y calzado cómodo. Guardad energía; la red sigue ocultando el resto.'
-    ], { setFlags: ['completado_isla_magica'] })
+    ], { setFlags: ['completado_isla_magica'], lockFinalRoute: true }), { finalRoutes: ['granada'] }),
+    Object.assign(question('sevilla-lago-pista', 'Isla Mágica · lago', 'Topoloco ha conectado el Corrector al lago. ¿Qué error comete al usar un reflejo como si fuera el original?', ['El reflejo depende del objeto y del agua', 'El reflejo crea y posee el objeto', 'El agua convierte el decorado en documento antiguo'], 0,
+      'Exacto. Sin objeto, luz y superficie no existe ese reflejo.',
+      'Topoloco ha elegido el lago porque quiere que una apariencia sustituya lo vivido. Su conexión queda expuesta junto al agua.',
+      'Mirad qué existe fuera del agua y qué cambia cuando se mueve la superficie.'), { finalRoutes: ['sevilla-night'], effects: { lockFinalRoute: true } }),
+    Object.assign(expedition('sevilla-lago-expedicion', 'Isla Mágica · junto al lago', 'Tres cosas que el Corrector no puede mezclar', 'Desde un punto seguro con vista al agua, reunid una comparación. No depende de ningún espectáculo.', [
+      'Elegid un escenario del parque que represente otra época.',
+      'Recordad una observación física que hayáis comprobado hoy.',
+      'Nombrad una emoción o decisión real que el escenario no puede demostrar por sí solo.',
+      'Mirad el reflejo del lago y comprobad qué cambia si se mueve el agua.'
+    ], [
+      'Capitán Pico confirma el escenario; América confirma la observación y Krim protege la emoción sin convertirla en prueba histórica.',
+      'El Corrector intenta fundir las tres cosas en una versión única, pero necesita borrar diferencias para hacerlo.'
+    ]), { finalRoutes: ['sevilla-night'] }),
+    Object.assign(question('sevilla-lago-q2', 'Isla Mágica · lago', '¿Qué puede demostrar un escenario histórico por sí solo?', ['Cómo se ha representado una época para visitantes actuales', 'Que cada detalle ocurrió exactamente allí', 'Quién fue el héroe real de todas las aventuras'], 0,
+      'Correcto. Una representación puede enseñar sin hacerse pasar por el original.',
+      'El Corrector falla porque vuestro recuerdo real, el escenario y lo que sentisteis son datos diferentes.',
+      'Separad lo que representa de lo que puede probar.'), { finalRoutes: ['sevilla-night'] }),
+    Object.assign({
+      id: 'final-sevilla-noche',
+      kind: 'ending',
+      place: 'Isla Mágica · lago',
+      title: 'Desconectar el Corrector',
+      intro: 'Consultad el Cuaderno en privado. No enviéis páginas. Acordad por qué dos recuerdos diferentes pueden formar una historia compartida sin necesitar un único héroe.',
+      actions: [
+        'Mirad el Cuaderno sin mostrarlo.',
+        'Elegid una diferencia real entre lo que Paula y Hugo recordáis.',
+        'Decid juntos por qué las dos miradas pueden convivir.'
+      ],
+      doneMessages: ['Las doce ventanas responden como una red. El reflejo no puede declararse dueño del original y el Corrector pierde el control.'],
+      effects: {
+        setFlags: ['completado_isla_magica', 'completado_sevilla_alhambra_noche', 'topoloco_derrotado', 'doce_aguas_reunidas'],
+        water: 'Agua Clara de la Noche',
+        lockFinalRoute: true
+      }
+    }, { finalRoutes: ['sevilla-night'] })
   ]
 };
 
@@ -1236,14 +1226,14 @@ const STORY_CONVERSATIONS = Object.freeze({
     reply: [{ from: 'topotina', text: 'Esa elección vuestra es justo lo que Topoloco no puede decidir por vosotros. Niebla ha huido con un receptor y ya tengo su rastro.' }]
   },
   'dia20-pista-lagos': {
-    place: 'Badoca · receptor localizado',
-    prompt: [{ from: 'topotino', text: 'Niebla quería que inventarais emociones. ¿Qué animal os costó más observar sin imaginar lo que pensaba?' }],
-    reply: [{ from: 'topotina', text: 'Buena observación. El receptor no ha podido predecir vuestra respuesta y Niebla acaba de activarlo para escapar.' }]
+    place: 'Conexión de emergencia de Louri',
+    prompt: [{ from: 'louri', text: 'El safari era un señuelo. ¿Qué ciudad del Algarve tiene una marina desde la que buscar delfines y cuevas del mar?' }],
+    reply: [{ from: 'topotina', text: 'Lagos encaja. He fijado la señal antes de que Topoloco vuelva a cortarla.' }]
   },
   'ruta-dia21': {
-    place: 'Lagos · junto al Atlántico',
-    prompt: [{ from: 'topotina', text: 'Habéis seguido un aparato desde un safari hasta una marina. ¿Creéis que Niebla esperaba que llegarais tan lejos?' }],
-    reply: [{ from: 'topotino', text: 'Yo tampoco. Bueno, sí. Casi. El receptor termina en una salida de barco y mañana sabremos qué quiere grabar.' }]
+    place: 'Lagos · canal recuperado',
+    prompt: [{ from: 'topotina', text: 'Topoloco utilizó el safari como señuelo. ¿Qué detalle de la pista de Louri os hizo pensar en Lagos?' }],
+    reply: [{ from: 'topotino', text: 'La marina y las salidas hacia delfines y cuevas marinas. Mañana sabremos qué quiere grabar en el mar.' }]
   },
   'dia21-pista-sagres': {
     place: 'Barco y Benagil',

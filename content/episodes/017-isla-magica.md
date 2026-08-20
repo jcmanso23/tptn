@@ -15,7 +15,7 @@
 
 # Contexto narrativo
 
-La firma recuperada en Sevilla confirma que Isla Mágica es la estación gemela de Magikland. Niebla combina ruido, emoción y urgencia para forzar una decisión irreflexiva. Capitán Pico y América convierten a Paula y Hugo en exploradores y Krim separa emoción de decisión. Los niños alimentan la máquina con una respuesta falsa, reversible y comprobable; Niebla cae en la contratrampa. El fallo revela la Alhambra nocturna como destino final y dos cerraduras previas: Real Alcázar y Catedral. Desde este momento Granada ya es conocida y no debe «redescubrirse» en la Catedral.
+La firma recuperada en Sevilla confirma que Isla Mágica es la estación gemela de Magikland. Niebla combina ruido, emoción y urgencia para forzar una decisión irreflexiva. Capitán Pico y América convierten a Paula y Hugo en exploradores y Krim separa emoción de decisión. Los niños alimentan la máquina con una respuesta falsa, reversible y comprobable; Niebla cae en la contratrampa. Después, el selector adulto decide una única continuidad invisible para los niños: Granada como final principal o el lago de Isla Mágica como final alternativo esa misma noche. Nunca se muestran las dos posibilidades.
 
 ## Mensajes iniciales
 
@@ -72,8 +72,7 @@ La firma recuperada en Sevilla confirma que Isla Mágica es la estación gemela 
     "messages": [
       { "from": "topotino", "time": "auto", "text": "Contratrampa completada. Elegisteis una afirmación comprobable, reconocisteis la emoción y mantuvisteis una salida. Niebla creyó que la urgencia borraría vuestro método." },
       { "from": "topotino", "time": "auto", "text": "Capitán Pico ha hecho que Niebla siga la ruta llamativa. América ha cerrado la copia en cuanto intentó corregir. Krim dice que el Oscurno salió color «verde mareado»." },
-      { "from": "topotino", "time": "auto", "text": "Capitán Pico ha recuperado un fragmento; América ha encontrado el otro. Juntos dicen: «GRANADA · la ciudad roja · doce guardianes de piedra · cuando el agua refleje la noche»." },
-      { "from": "topotino", "time": "auto", "text": "Ya sabemos el destino final: la Alhambra de Granada, de noche. No sabemos aún qué harán los doce guardianes ni cómo se abre el cierre." },
+      { "from": "topotino", "time": "auto", "text": "Capitán Pico ha recuperado un fragmento y América el otro. Topotina los está uniendo sin mostrar todavía una ruta que no hayamos comprobado." },
       { "from": "topotino", "time": "auto", "text": "Si encontráis a Marsupilami en Agua Mágica, podéis saludarlo; no posee ninguna clave y no hace falta buscarlo. La misión no depende de una aparición." },
       { "from": "topotino", "time": "auto", "text": "Antes de cerrar, formulad una regla de seguridad intelectual para mañana: cómo reconoceréis una afirmación de Topoloco aunque use mi voz o un escenario convincente." }
     ]
@@ -88,10 +87,8 @@ La firma recuperada en Sevilla confirma que Isla Mágica es la estación gemela 
     "setFlags": ["completado_isla_magica"],
     "remember": { "kind": "epistemic_guardrail", "label": "Regla contra una falsificación convincente" },
     "messages": [
-      { "from": "topotino", "time": "auto", "text": "Regla aceptada. Hoy no se abre una ventana: habéis conseguido algo más urgente, el destino final." },
-      { "from": "topotino", "time": "auto", "text": "Mañana veremos dos edificios de Sevilla con varias épocas y después viajaremos a Granada." },
-      { "from": "topotino", "time": "auto", "text": "Tened las entradas preparadas y llevad una capa ligera para la noche. Guardad energía." },
-      { "from": "topotino", "time": "auto", "text": "La entrada nocturna es el desenlace. Ahora descansad." }
+      { "from": "topotino", "time": "auto", "text": "Regla aceptada. Topotina ya puede leer la salida verdadera sin confundirla con la ruta de Niebla." },
+      { "from": "topotino", "time": "auto", "text": "El comunicador mostrará ahora una sola continuación. No os adelantaré ninguna alternativa." }
     ]
   },
   {
@@ -127,7 +124,7 @@ La firma recuperada en Sevilla confirma que Isla Mágica es la estación gemela 
 
 ## Contexto para IA
 
-Capitán Pico y América reclutan a los niños como exploradores y ayudan a reunir la pista, sin resolver las pruebas. Krim ayuda a nombrar la emoción y separarla de la decisión. Niebla cae en una contratrampa reversible y huye. Marsupilami es opcional. Tras la trampa se puede decir Granada, Alhambra y doce guardianes; antes no. Topotino aún no sabe que son los leones. Este día no abre ventana. Cuaderno privado.
+Capitán Pico y América reclutan a los niños como exploradores y ayudan a reunir la pista, sin resolver las pruebas. Krim ayuda a nombrar la emoción y separarla de la decisión. Niebla cae en una contratrampa reversible y huye. Marsupilami es opcional. La aplicación mostrará una sola ruta final. Si es Granada, solo tras la trampa se pueden nombrar Granada, Alhambra y doce guardianes. Si es Sevilla, no se menciona Granada: Topoloco conecta el Corrector al lago y el cierre ocurre esa noche. Cuaderno privado.
 
 ## Fuentes documentales
 

@@ -170,7 +170,7 @@ test('los días 13 y 14 conservan su cadena narrativa y adaptan solo tras un imp
   assert.doesNotMatch(childFacingText, /(foto|fotografía).{0,30}(cuaderno|diario)/i);
 });
 
-test('la edición T-21A5 entra en el día 18 sin retroceder y deja visible la actualización de señal', async () => {
+test('la edición T-21A6 añade el asalto de Topoloco sin retroceder y mantiene visible la actualización de señal', async () => {
   const files = ['index.html', 'app.js', 'admin.js', 'content/episodes/001-reconexion.md'];
   const combined = (await Promise.all(files.map((file) => readFile(join(root, file), 'utf8')))).join('\n');
   const app = await readFile(join(root, 'app.js'), 'utf8');
@@ -183,23 +183,25 @@ test('la edición T-21A5 entra en el día 18 sin retroceder y deja visible la ac
 
   const styles = await readFile(join(root, 'styles.css'), 'utf8');
 
-  assert.match(combined, /T-21A5/);
+  assert.match(combined, /T-21A6/);
   assert.doesNotMatch(combined, /T-12A9/);
   assert.match(app, /splitTopotinoMessages/);
   assert.match(app, /CHALLENGE_PACKS/);
   assert.match(app, /els\.channelCode\.textContent = APP_VERSION_CODE/);
-  assert.match(serviceWorker, /topotino-offline-v41/);
-  assert.match(serviceWorker, /chat-format\.js\?v=memory-v56/);
-  assert.match(serviceWorker, /content\/challenges\.js\?v=memory-v56/);
+  assert.match(serviceWorker, /topotino-offline-v42/);
+  assert.match(serviceWorker, /chat-format\.js\?v=memory-v57/);
+  assert.match(serviceWorker, /content\/challenges\.js\?v=memory-v57/);
   assert.match(combined, /id="location-refresh"/);
   assert.ok(combined.indexOf('id="location-refresh"') < combined.indexOf('</header>'));
   assert.doesNotMatch(styles, /\.location-refresh-compact\s*\{[^}]*display:\s*none/is);
   assert.match(serviceWorker, /images\/topotina\.png\?v=topotina-v1/);
   assert.match(serviceWorker, /images\/gotas\.jpg\?v=gotas-v1/);
   assert.match(serviceWorker, /images\/louri\.jpg\?v=louri-v1/);
+  assert.match(serviceWorker, /images\/topoloco\.jpg\?v=topoloco-v1/);
   assert.match(app, /topotina: \{ name: 'Topotina'/);
   assert.match(app, /gotas: \{ name: 'Gotas'/);
   assert.match(app, /louri: \{ name: 'Louri'/);
+  assert.match(app, /topoloco: \{ name: 'Doctor Topoloco'/);
   assert.match(app, /Topotina está escribiendo/);
   assert.match(app, /Gotas está escribiendo/);
   assert.match(app, /function applyObidosArrivalRescue\(\)/);
@@ -343,9 +345,9 @@ test('el viaje completo del 15 al 27 está publicado, enlazado y termina de noch
     const source = item.file.replace(/\?.*$/, '');
     const markdown = await readFile(join(root, source), 'utf8');
     const episode = parseEpisode(markdown, source);
-    assert.equal(episode.meta.activation.date.on, date, `${id}: fecha incorrecta`);
+    assert.equal(episode.meta.activation.date.on || episode.meta.activation.date.from, date, `${id}: fecha incorrecta`);
     assert.equal(episode.meta.activation.mode, 'all', `${id}: modo de activación incorrecto`);
-    if (['007-bucaco-batalha-fatima', '010-lisboa-ciencia-oceanario'].includes(id)) {
+    if (['007-bucaco-batalha-fatima', '010-lisboa-ciencia-oceanario', '012-badoca-lagos'].includes(id)) {
       assert.equal(episode.meta.activation.location, undefined, `${id}: el mensaje matinal no debe esperar a la primera parada`);
     } else {
       assert.ok(Number.isFinite(episode.meta.activation.location?.lat), `${id}: falta latitud de llegada`);
@@ -391,10 +393,12 @@ test('todas las jornadas activas recorren lugares reales después de la llegada'
       ...episode.sections['Respuestas guiadas'].flatMap((response) => (response.messages || []).map((message) => message.text))
     ].join(' ');
 
-    if (!['007-bucaco-batalha-fatima', '010-lisboa-ciencia-oceanario'].includes(id)) {
+    if (!['007-bucaco-batalha-fatima', '010-lisboa-ciencia-oceanario', '012-badoca-lagos'].includes(id)) {
       assert.ok(episode.meta.activation.location, `${id}: no se abre por llegada`);
     }
-    assert.match(childText, /recorred|cruzad|seguid|bajad|subid|moveos|caminad|pasad|salid|viajad|rumbo|al llegar/i, `${id}: no conduce entre puntos reales`);
+    if (id !== '012-badoca-lagos') {
+      assert.match(childText, /recorred|cruzad|seguid|bajad|subid|moveos|caminad|pasad|salid|viajad|rumbo|al llegar/i, `${id}: no conduce entre puntos reales`);
+    }
   }
 });
 
@@ -529,7 +533,8 @@ test('los hilos de aliados y antagonistas llegan al desenlace sin adelantar el d
   assert.match(magikland, /No necesito que me recuerdes para seguir siendo tu hermana/);
   assert.match(magikland, /segunda firma|firma.*segundo parque/is);
   assert.match(oceanario, /Protocolo Azul/);
-  assert.match(badoca, /Oscurno llamado Niebla/);
+  assert.match(badoca, /Corrector Definitivo de la Historia/);
+  assert.match(badoca, /safari terrestre fue un señuelo/);
   assert.match(jaima, /era Eco, un Oscurno/);
   assert.match(isla, /Capitán Pico/);
   assert.match(isla, /América/);

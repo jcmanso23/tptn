@@ -90,3 +90,22 @@ test('Luna valida respuestas escritas con un veredicto estructurado sin controla
   assert.match(app, /result\.verdict \|\| \{\}/);
   assert.match(app, /No cuenta como error/);
 });
+
+test('el asalto del día 20 aísla personajes, turnos y la única emergencia de Louri', async () => {
+  const api = await readFile(join(root, 'api/chat.js'), 'utf8');
+  const app = await readFile(join(root, 'app.js'), 'utf8');
+
+  assert.match(api, /'louri', 'topoloco'/);
+  assert.match(api, /speakerMode === 'exact'/);
+  assert.match(api, /estadoNarrativoEspecial/);
+  assert.match(api, /única excepción canónica/i);
+  assert.match(app, /TOPOLOCO_SCENE_ID/);
+  assert.match(app, /function initializeTopolocoScene/);
+  assert.match(app, /function runNarrativeScene/);
+  assert.match(app, /function askNarrativeSceneAi/);
+  assert.match(app, /allowedSpeakers: \['topoloco'\]/);
+  assert.match(app, /state\.narrativeScene\.stage = 'takeover'/);
+  assert.match(app, /Canal de emergencia cerrado definitivamente/);
+  assert.match(app, /finalRouteLocked/);
+  assert.match(app, /\['granada', 'sevilla-night'\]/);
+});

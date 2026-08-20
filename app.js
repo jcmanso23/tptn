@@ -1,5 +1,5 @@
-import { splitTopotinoMessages } from './chat-format.js?v=memory-v56';
-import { CHALLENGE_PACKS, displayChallengeOptions } from './content/challenges.js?v=memory-v56';
+import { splitTopotinoMessages } from './chat-format.js?v=memory-v57';
+import { CHALLENGE_PACKS, displayChallengeOptions } from './content/challenges.js?v=memory-v57';
 
 const STORAGE_KEYS = {
   auth: 'topotino_chat_auth_v1',
@@ -7,9 +7,9 @@ const STORAGE_KEYS = {
 };
 
 const LEGACY_STATE_KEY = 'topotino_chat_state_v1';
-const APP_VERSION_CODE = 'T-21A5';
+const APP_VERSION_CODE = 'T-21A6';
 const PASSPHRASE_HASH = 'a64716bd9f4e8added1bf47f80b97c3fc7b70a15b8043cdab083e1ddf85f3794';
-const EPISODES_MANIFEST = 'content/episodes.json?v=memory-v56';
+const EPISODES_MANIFEST = 'content/episodes.json?v=memory-v57';
 const LIVE_STORY_ENDPOINT = '/api/story';
 const AMARANTE_TRAVEL_DATE = '2026-08-13';
 const AMARANTE_ROUTE_EPISODE_ID = '004b-rumbo-amarante';
@@ -28,6 +28,13 @@ const LISBON_RESCUE_MARKER = 'rescate-llegada-lisboa-t21a3';
 const LISBON_RESCUE_EPISODE_ID = '009-dinoparque-lisboa';
 const LISBON_RESCUE_LOCATION = { lat: 38.7223, lng: -9.1393, radiusMeters: 18000 };
 const DAY18_MACHINE_EPISODE_ID = '010-lisboa-ciencia-oceanario';
+const TOPOLOCO_SCENE_ID = 'topoloco-toma-canal-2026-08-20';
+const TOPOLOCO_SCENE_DATE = '2026-08-20';
+const TOPOLOCO_RECOVERY_DATE = '2026-08-21';
+const TOPOLOCO_SCENE_EPISODE_ID = '012-badoca-lagos';
+const TOPOLOCO_ROUTE_FLAG = 'lagos_descubierto_por_louri';
+const TOPOLOCO_RECOVERED_FLAG = 'canal_recuperado_dia21';
+const DEFAULT_FINAL_ROUTE = 'granada';
 const SECURITY_CHECKIN_MESSAGES = [
   'Buenos días, Paula y Hugo.',
   'Antes de seguir tengo que contaros algo. Ayer el chat secreto estaba estropeado: llegaban mensajes tarde, se mezclaban y yo respondía a cosas anteriores.',
@@ -57,6 +64,7 @@ const CHAT_SENDERS = {
   topotina: { name: 'Topotina', image: 'images/topotina.png?v=topotina-v1' },
   gotas: { name: 'Gotas', image: 'images/gotas.jpg?v=gotas-v1' },
   louri: { name: 'Louri', image: 'images/louri.jpg?v=louri-v1' },
+  topoloco: { name: 'Doctor Topoloco', image: 'images/topoloco.jpg?v=topoloco-v1' },
   vasco: { name: 'Vasco', initial: 'V' },
   corvinho: { name: 'Corvinho', initial: 'C' },
   capitan_pico: { name: 'Capitán Pico', initial: 'CP' },
@@ -70,7 +78,7 @@ const EPISODE_AI_SPEAKERS = Object.freeze({
   '009-dinoparque-lisboa': ['topotina', 'louri'],
   '010-lisboa-ciencia-oceanario': ['topotina', 'vasco'],
   '011-lisboa-historia-belem': ['topotina', 'vasco'],
-  '012-badoca-lagos': ['topotina'],
+  '012-badoca-lagos': ['topotina', 'topoloco'],
   '013-delfines-benagil-sagres': ['topotina', 'gotas', 'vasco', 'corvinho'],
   '014-piedade-algar-jaima': ['topotina', 'gotas', 'corvinho'],
   '015-zoomarine': ['topotina', 'gotas', 'vasco'],
@@ -165,6 +173,9 @@ const state = {
   shadowScore: 0,
   recoveredShadow: 0,
   endingVariant: null,
+  finalRoute: DEFAULT_FINAL_ROUTE,
+  finalRouteLocked: false,
+  narrativeScene: null,
   softResponseCursor: {},
   hintMissCursor: {},
   chatterWarningCursor: 0,
@@ -198,6 +209,7 @@ let startupRescueMessages = [];
 let challengePanelCollapsed = false;
 let renderedChallengeId = null;
 let activeConversationTurnId = null;
+let narrativeSceneTimer = null;
 
 const els = {};
 const params = new URLSearchParams(window.location.search);
@@ -222,6 +234,7 @@ async function init() {
     applyDay14SecurityCheckIn();
     applyDay14MachineClarification();
     applyObidosArrivalRescue();
+    initializeTopolocoScene();
   } catch (error) {
     console.error(error);
     showUnlockError('No se pudo cargar el comunicador. Revisad la conexión.');
@@ -273,6 +286,8 @@ function bindElements() {
   els.adultPhaseSelect = document.getElementById('adult-phase-select');
   els.adultSchedulePhase = document.getElementById('adult-schedule-phase');
   els.adultPhaseStatus = document.getElementById('adult-phase-status');
+  els.adultFinalRoute = document.getElementById('adult-final-route');
+  els.adultFinalRouteStatus = document.getElementById('adult-final-route-status');
   els.adultRestoreCode = document.getElementById('adult-restore-code');
   els.adultFileInput = document.getElementById('adult-import-file');
   els.adultMessage = document.getElementById('adult-message');
@@ -329,6 +344,7 @@ function bindEvents() {
   if (els.adultCopy) els.adultCopy.addEventListener('click', copyRecoveryCode);
   if (els.adultSync) els.adultSync.addEventListener('click', () => syncStateNow({ force: true }));
   if (els.adultSchedulePhase) els.adultSchedulePhase.addEventListener('click', scheduleAdultPhaseLaunch);
+  if (els.adultFinalRoute) els.adultFinalRoute.addEventListener('change', updateAdultFinalRoute);
   if (els.adultRestore) els.adultRestore.addEventListener('click', restoreFromAdultCode);
   if (els.adultExport) els.adultExport.addEventListener('click', exportAdultBackup);
   if (els.adultImport) els.adultImport.addEventListener('click', () => els.adultFileInput.click());
@@ -341,6 +357,13 @@ async function enterChat() {
   if (params.get('debug') === '1') {
     els.internalProgress.hidden = false;
     els.internalProgress.setAttribute('aria-hidden', 'false');
+  }
+  initializeTopolocoScene();
+  if (await runNarrativeScene()) {
+    renderAll();
+    scheduleNarrativeSceneTimer();
+    window.setTimeout(() => syncStateNow({ force: state.syncStatus !== 'synced' }), 1000);
+    return;
   }
   await refreshLocationForLisbonArrivalRescue();
   applyLisbonArrivalRescue();
@@ -368,6 +391,12 @@ async function enterChat() {
 }
 
 async function runActivationCheck(reason) {
+  initializeTopolocoScene();
+  if (await runNarrativeScene()) {
+    renderAll();
+    scheduleNarrativeSceneTimer();
+    return;
+  }
   await refreshLocationForLisbonArrivalRescue();
   applyLisbonArrivalRescue();
   const securityPending = isSecurityCheckInPending();
@@ -443,6 +472,151 @@ function showScreen(name) {
   els.chatScreen.classList.toggle('active', name === 'chat');
 }
 
+function initializeTopolocoScene() {
+  if (!state.unlocked || state.flags.includes(TOPOLOCO_RECOVERED_FLAG)) return;
+  const today = formatDate(getRuntimeNow());
+  if (state.narrativeScene?.id === TOPOLOCO_SCENE_ID) return;
+  if (today !== TOPOLOCO_SCENE_DATE && today !== TOPOLOCO_RECOVERY_DATE) return;
+
+  state.narrativeScene = {
+    id: TOPOLOCO_SCENE_ID,
+    stage: today === TOPOLOCO_SCENE_DATE ? 'intro' : 'recovery',
+    resumeAt: null
+  };
+  if (!state.unlockedEpisodeIds.includes(TOPOLOCO_SCENE_EPISODE_ID)) {
+    state.unlockedEpisodeIds.push(TOPOLOCO_SCENE_EPISODE_ID);
+  }
+  if (!state.renderedEpisodes.includes(TOPOLOCO_SCENE_EPISODE_ID)) {
+    state.renderedEpisodes.push(TOPOLOCO_SCENE_EPISODE_ID);
+  }
+  state.activeEpisodeId = TOPOLOCO_SCENE_EPISODE_ID;
+  saveState();
+}
+
+function isTopolocoSceneActive() {
+  const scene = state.narrativeScene;
+  return scene?.id === TOPOLOCO_SCENE_ID && scene.stage !== 'complete';
+}
+
+function getTopolocoRouteChallenge() {
+  if (state.narrativeScene?.stage !== 'route') return null;
+  return {
+    id: 'topoloco-ruta-lagos',
+    kind: 'destination',
+    place: 'Transmisión de emergencia de Louri',
+    title: 'Encontrad el puerto',
+    prompt: 'Buscad una ciudad costera del Algarve con marina. Desde allí salen barcos para observar delfines salvajes y cuevas marinas. ¿Cuál encaja?',
+    options: [
+      { id: 'faro', text: 'Faro' },
+      { id: 'lagos', text: 'Lagos' },
+      { id: 'porto', text: 'Porto' }
+    ],
+    correctOptionId: 'lagos',
+    hint: 'Porto no está en el Algarve. La ciudad correcta tiene una marina junto a la bahía de Lagos.',
+    successMessages: [],
+    effects: { setFlags: [TOPOLOCO_ROUTE_FLAG] }
+  };
+}
+
+async function runNarrativeScene() {
+  if (!isTopolocoSceneActive()) return false;
+  const scene = state.narrativeScene;
+  const today = formatDate(getRuntimeNow());
+
+  if (today >= TOPOLOCO_RECOVERY_DATE && !['recovery', 'complete'].includes(scene.stage)) {
+    scene.stage = 'recovery';
+    scene.resumeAt = null;
+    saveState();
+  }
+
+  if (scene.stage === 'intro') {
+    scene.stage = 'awaiting-children';
+    saveState();
+    await deliverTopotinoMessages([
+      { from: 'system', text: '⚠ ALERTA: conexión no autorizada.' },
+      { from: 'topoloco', text: '¡POR FIN!' },
+      { from: 'topoloco', text: 'He entrado en vuestro ridículo chat secreto. Ya no podréis frustrar mis planes.' },
+      { from: 'topotino', text: '¡¿QUIÉN HA ABIERTO ESA PUERTA?! ¡TOPOLOCO, FUERA DE MI CANAL!' },
+      { from: 'topotina', text: 'Topotino, deja de pulsar botones. Cada golpe añade tres errores al diagnóstico.' },
+      { from: 'topotino', text: '¡NO LOS GOLPEO! Los presiono con indignación técnica.' },
+      { from: 'topoloco', text: 'Soy el DOCTOR Topoloco. Y estoy terminando el Corrector Definitivo de la Historia.' },
+      { from: 'topoloco', text: 'Vuestras aventuras tendrán una versión perfecta: la versión en la que yo fui el inventor, el salvador y el héroe.' },
+      { from: 'topotino', text: 'Eso no es corregir una historia. Es mentir con una bata puesta.' },
+      { from: 'topotina', text: 'Paula, Hugo: decidle cualquier cosa. Necesito que siga hablando mientras busco por dónde ha entrado.' },
+      { from: 'topotino', text: 'Sí. Distraedlo. Su tema favorito es él mismo; tenemos ventaja.' }
+    ], { mode: 'scene' });
+    return true;
+  }
+
+  if (scene.stage === 'waiting-louri' && Number(scene.resumeAt) <= Date.now()) {
+    await revealLouriEmergency();
+    return true;
+  }
+
+  if (scene.stage === 'recovery') {
+    scene.stage = 'complete';
+    scene.resumeAt = null;
+    addUniqueMany(state.flags, [
+      TOPOLOCO_RECOVERED_FLAG,
+      TOPOLOCO_ROUTE_FLAG,
+      'completado_badoca_lagos',
+      'louri_emergencia_cerrada'
+    ]);
+    addUniqueMany(state.completedChallengeIds, ['topoloco-ruta-lagos']);
+    saveState();
+    await deliverTopotinoMessages([
+      { from: 'topoloco', text: '…y mi título completo es Doctor Supremo, Profesor Extraordinario y—' },
+      { from: 'topotino', text: '¿«Extraordinario» lleva seis erres o siete? Es para tu placa.' },
+      { from: 'topoloco', text: '¡NINGUNA! ¿Cómo puedes no saber—?' },
+      { from: 'topotina', text: 'Gracias. Mientras lo deletreabas he revocado tu certificado de acceso.' },
+      { from: 'system', text: 'Doctor Topoloco ha sido expulsado del canal.' },
+      { from: 'topoloco', text: '¡ESTO NO HA TERMINADO! ¡Mi versión será la oficial!' },
+      { from: 'topotino', text: 'Canal recuperado. Esta vez de verdad. Y sí: Topotina lo ha comprobado tres veces porque, según ella, yo cuento como riesgo técnico.' },
+      { from: 'topotina', text: 'Confirmo una reserva para salir en barco desde la Marina de Lagos. La pista de Louri era correcta.' },
+      { from: 'vasco', text: 'Activo el Protocolo Azul. Los delfines son salvajes: quizá aparezcan y quizá no.' },
+      { from: 'vasco', text: 'Si los veis, observad dirección, distancia y conducta sin perseguirlos. Si no aparecen, también será una observación verdadera.' },
+      { from: 'topotino', text: 'Buscad la señal de Topoloco entre los delfines y las cuevas del mar. No inventéis nada para que la misión quede bonita: él cuenta con eso.' }
+    ], { mode: 'scene' });
+    state.narrativeScene.stage = 'complete';
+    saveState();
+    return true;
+  }
+
+  scheduleNarrativeSceneTimer();
+  return true;
+}
+
+function scheduleNarrativeSceneTimer() {
+  window.clearTimeout(narrativeSceneTimer);
+  narrativeSceneTimer = null;
+  const scene = state.narrativeScene;
+  if (scene?.stage !== 'waiting-louri' || !scene.resumeAt) return;
+  narrativeSceneTimer = window.setTimeout(
+    () => runNarrativeScene(),
+    Math.max(0, Number(scene.resumeAt) - Date.now())
+  );
+}
+
+async function revealLouriEmergency() {
+  if (state.narrativeScene?.stage !== 'waiting-louri') return;
+  state.narrativeScene.stage = 'route';
+  state.narrativeScene.resumeAt = null;
+  saveState();
+  await deliverTopotinoMessages([
+    { from: 'system', text: 'Conexión de emergencia detectada en el comunicador del dinosaurio rojo.' },
+    { from: 'louri', text: '¡LOURI AL RESCATE! Espía retirado, rugidor de élite y propietario de dos brazos tácticamente compactos.' },
+    { from: 'topotino', text: '¡¿LOURI?! ¿Mi chat secreto tiene alguna pared?' },
+    { from: 'topotina', text: 'Es el conducto de emergencia del juguete. Un solo uso. Luego lo cierro.' },
+    { from: 'louri', text: 'Topoloco os ha engañado. El safari era un señuelo.' },
+    { from: 'louri', text: 'Y las cuevas no están bajo tierra. Están en el MAR.' },
+    { from: 'louri', text: 'Delfines salvajes. Cuevas marinas. Una señal saliendo desde un puerto del Algarve.' },
+    { from: 'topoloco', text: '¡TRAIDOR DE MENÚ INFANTIL!' },
+    { from: 'louri', text: 'Exmenú infantil. Ahora soy asesor independiente.' },
+    { from: 'topotina', text: 'He proyectado tres lugares. Paula, Hugo: encontrad el puerto antes de que Topoloco cierre la conexión.' }
+  ], { mode: 'scene' });
+  renderAll();
+}
+
 async function evaluateActivations({ reason, collectMessages = false } = {}) {
   let changed = false;
   const queuedMessages = [];
@@ -494,6 +668,9 @@ function episodeOpeningMessages(episode) {
 function episodeCanActivate(episode) {
   if (!state.unlocked) return false;
   if (episode.meta.startsUnlocked) return true;
+  if (Array.isArray(episode.meta.finalRoutes) && !episode.meta.finalRoutes.includes(state.finalRoute || DEFAULT_FINAL_ROUTE)) {
+    return false;
+  }
 
   const activation = episode.meta.activation || {};
   const checks = [];
@@ -661,6 +838,39 @@ async function handleUserMessage(text) {
   saveState();
   renderAll();
 
+  const sceneStage = state.narrativeScene?.id === TOPOLOCO_SCENE_ID
+    ? state.narrativeScene.stage
+    : null;
+  if (sceneStage === 'awaiting-children') {
+    await askNarrativeSceneAi(text, {
+      stage: sceneStage,
+      allowedSpeakers: ['topoloco', 'topotino', 'topotina'],
+      context: 'Paula o Hugo está distrayendo a Topoloco mientras Topotina rastrea su acceso. Reacciona con humor. No evalúes la respuesta ni reveles destinos.'
+    });
+    state.narrativeScene.stage = 'waiting-louri';
+    state.narrativeScene.resumeAt = Date.now() + (params.get('fastReply') === '1' ? 700 : randomInt(25000, 45000));
+    saveState();
+    scheduleNarrativeSceneTimer();
+    return;
+  }
+  if (sceneStage === 'waiting-louri') {
+    await askNarrativeSceneAi(text, {
+      stage: sceneStage,
+      allowedSpeakers: ['topoloco'],
+      context: 'Topoloco sigue presumiendo mientras una conexión de emergencia intenta abrirse. Responde brevemente y no reveles ninguna pista.'
+    });
+    scheduleNarrativeSceneTimer();
+    return;
+  }
+  if (sceneStage === 'takeover') {
+    await askNarrativeSceneAi(text, {
+      stage: sceneStage,
+      allowedSpeakers: ['topoloco'],
+      context: 'Topoloco está solo en el canal e intenta reclutar a Paula y Hugo con cargos y ventajas absurdas. No avanza la historia ni revela el siguiente plan.'
+    });
+    return;
+  }
+
   const challenge = getActiveChallenge();
   if (challenge) {
     if (challenge.kind === 'check-in') {
@@ -736,6 +946,7 @@ function getNextChallengeStep() {
   const steps = pack.steps || [];
   for (let index = 0; index < steps.length; index += 1) {
     const step = steps[index];
+    if (Array.isArray(step.finalRoutes) && !step.finalRoutes.includes(state.finalRoute || DEFAULT_FINAL_ROUTE)) continue;
     if (state.completedChallengeIds.includes(step.id)) continue;
     if (step.kind === 'conversation' && state.completedChallengeIds.includes(steps[index + 1]?.id)) continue;
     if (step.kind === 'daily-recovery' && getNetShadow() <= 0) continue;
@@ -751,6 +962,9 @@ function getPendingArrivalChallenge() {
 }
 
 function getActiveChallenge() {
+  const sceneChallenge = getTopolocoRouteChallenge();
+  if (sceneChallenge) return sceneChallenge;
+  if (isTopolocoSceneActive()) return null;
   if (isSecurityCheckInPending()) {
     return { ...SECURITY_CHECKIN_CHALLENGE, episodeId: getActiveEpisode()?.meta?.id };
   }
@@ -884,6 +1098,11 @@ async function resolveChallengeCompletion(challenge) {
 
 async function resolveChallengeSuccess(challenge) {
   if (state.completedChallengeIds.includes(challenge.id)) return;
+  if (challenge.id === 'topoloco-ruta-lagos') {
+    completeChallenge(challenge, { awardMemory: true });
+    await completeTopolocoRoute();
+    return;
+  }
   completeChallenge(challenge, { awardMemory: true });
   saveState();
   renderAll();
@@ -1008,6 +1227,7 @@ function applyChallengeEffects(effects) {
   addUniqueMany(state.flags, effects.setFlags || []);
   if (effects.water) addWater(effects.water);
   if (effects.formulaWord) addFormulaWord(effects.formulaWord);
+  if (effects.lockFinalRoute) state.finalRouteLocked = true;
   if (effects.nextEpisode) {
     const nextEpisode = getEpisode(effects.nextEpisode);
     if (nextEpisode) unlockEpisode(nextEpisode.meta.id);
@@ -1026,11 +1246,14 @@ function calculateEndingVariant() {
 }
 
 function endingMessages(variant) {
+  const endingPlace = state.finalRoute === 'sevilla-night'
+    ? 'aquí, junto al lago de Isla Mágica'
+    : 'aquí, en la Alhambra de noche';
   const shared = [
     'Las doce ventanas se han abierto como una sola red. Topoloco no puede convertir vuestras dos miradas en una propiedad suya.',
     'Borrón, Eco y Niebla sueltan las conexiones. Topoloco huye por un conducto estrecho, enfadado porque una historia compartida no cabe en su vitrina.',
     'Topotina mantiene el mapa estable. Y yo… Tina. Recuerdo que te llamaba Tina.',
-    'Paula, Hugo: gracias. Habéis observado, elegido, corregido y seguido juntos. La aventura principal termina aquí, en la Alhambra de noche.'
+    `Paula, Hugo: gracias. Habéis observado, elegido, corregido y seguido juntos. La aventura principal termina ${endingPlace}.`
   ];
   if (variant === 'clean') {
     return ['Victoria limpia. La Memoria supera claramente a la Sombra.', ...shared, 'Mis recuerdos regresan con conexiones muy nítidas. Mañana solo queda una despedida tranquila.'];
@@ -1150,6 +1373,83 @@ async function askAiFallback(text, options = {}) {
   });
 
   await deliverTopotinoMessages(responsePromise, { mode: 'conversation' });
+  saveState();
+  renderAll();
+}
+
+async function askNarrativeSceneAi(text, { stage, allowedSpeakers, context }) {
+  const turnId = `${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
+  const requestedStage = stage;
+  activeConversationTurnId = turnId;
+  const responsePromise = (async () => {
+    const response = await fetch('/api/chat', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        message: text,
+        turnId,
+        activeEpisodeId: TOPOLOCO_SCENE_EPISODE_ID,
+        activeEpisodeTitle: 'Asalto al Comunicador Subterráneo',
+        activeEpisodes: [{
+          id: TOPOLOCO_SCENE_EPISODE_ID,
+          title: 'Asalto al Comunicador Subterráneo',
+          mission: 'Impedir que Topoloco controle la historia',
+          aiContext: context
+        }],
+        runtime: getRuntimeContext(),
+        flags: state.flags,
+        waters: state.waters,
+        formulaWords: state.formulaWords,
+        storyMemory: [],
+        currentChallenge: null,
+        pendingArrival: null,
+        conversation: { id: TOPOLOCO_SCENE_ID, stage: requestedStage, purpose: context },
+        narrativeScene: { id: TOPOLOCO_SCENE_ID, stage: requestedStage, context },
+        allowedSpeakers,
+        speakerMode: 'exact',
+        recentMessages: state.messages.slice(-10)
+      })
+    });
+    if (!response.ok) throw new Error('Scene AI request failed');
+    const data = await response.json();
+    if (data.turnId !== turnId || activeConversationTurnId !== turnId) throw new Error('STALE_AI_RESPONSE');
+    if (state.narrativeScene?.stage !== requestedStage) return [];
+    return (data.messages || [])
+      .filter((message) => allowedSpeakers.includes(message.from) && message.text)
+      .map((message) => ({ from: message.from, time: nowTime(), text: message.text }));
+  })().catch(() => {
+    if (state.narrativeScene?.stage !== requestedStage) return [];
+    if (requestedStage === 'takeover' || requestedStage === 'waiting-louri') {
+      return [{ from: 'topoloco', time: nowTime(), text: 'Seguid hablando. Estoy anotando vuestra admiración en la columna correspondiente.' }];
+    }
+    return [
+      { from: 'topoloco', time: nowTime(), text: 'Muy interesante. No tanto como yo, pero interesante.' }
+    ];
+  });
+  await deliverTopotinoMessages(responsePromise, { mode: 'conversation' });
+  saveState();
+  renderAll();
+}
+
+async function completeTopolocoRoute() {
+  if (state.narrativeScene?.stage !== 'route') return;
+  state.narrativeScene.stage = 'takeover';
+  state.narrativeScene.resumeAt = null;
+  addUniqueMany(state.flags, [TOPOLOCO_ROUTE_FLAG, 'louri_emergencia_cerrada']);
+  saveState();
+  renderAll();
+  await deliverTopotinoMessages([
+    { from: 'louri', text: '¡Lagos! Mañana buscad un barco en su marina y seguid la señal entre los delfines y las cuevas del mar.' },
+    { from: 'topotino', text: 'Recibido. Louri, cierra antes de que—' },
+    { from: 'topoloco', text: '¡SE ACABÓ!' },
+    { from: 'topoloco', text: '¡Fuera el dinosaurio! ¡Fuera la ingeniera! ¡Fuera el topo gritón!' },
+    { from: 'system', text: 'Louri ha sido expulsado. Canal de emergencia cerrado definitivamente.' },
+    { from: 'system', text: 'Topotina ha sido expulsada del canal.' },
+    { from: 'system', text: 'Topotino ha sido expulsado del canal.' },
+    { from: 'topoloco', text: 'Ahora sí. Paula y Hugo, hablemos como futuros colegas.' },
+    { from: 'topoloco', text: 'Os ofrezco el cargo de Ayudantes del Ayudante del Doctor Topoloco. Incluye una placa pequeña y descansos de dos minutos y medio.' },
+    { from: 'topoloco', text: 'Solo tenéis que admitir que yo fui el héroe de todas vuestras aventuras. Pensadlo. Yo estaré aquí… ocupando vuestro chat.' }
+  ], { mode: 'scene' });
   saveState();
   renderAll();
 }
@@ -1399,6 +1699,19 @@ function getReplyTiming(mode) {
     };
   }
 
+  if (mode === 'scene') {
+    return {
+      silenceMin: 1200,
+      silenceMax: 3500,
+      typingMin: 900,
+      typingMax: 2400,
+      staggerMin: 700,
+      staggerMax: 1800,
+      nextTypingMin: 900,
+      nextTypingMax: 2600
+    };
+  }
+
   if (mode === 'conversation') {
     return {
       silenceMin: 4000,
@@ -1572,7 +1885,9 @@ function renderProgress() {
   const activeEpisode = getActiveEpisode();
   const meta = activeEpisode ? activeEpisode.meta : {};
   els.channelCode.textContent = APP_VERSION_CODE;
-  els.missionActive.textContent = meta.mission || meta.title || 'Reconexión';
+  els.missionActive.textContent = isTopolocoSceneActive()
+    ? 'Recuperar el chat secreto'
+    : meta.mission || meta.title || 'Reconexión';
   els.watersCount.textContent = `${state.waters.length}/12`;
   els.locationStatus.textContent = state.locationStatus;
   els.formulaDisplay.textContent = FORMULA_WORDS
@@ -2312,6 +2627,7 @@ function renderAdultPanel() {
     ? `Última copia: ${formatDateTime(new Date(state.lastSyncedAt))}`
     : 'Última copia: pendiente';
   renderAdultPhaseLauncher();
+  renderAdultFinalRoute();
 }
 
 function adultSyncLabel() {
@@ -2371,6 +2687,29 @@ function renderAdultPhaseLauncher() {
   els.adultPhaseStatus.textContent = pending.length
     ? `Pendiente: ${pending.map((launch) => `${launch.episodeId} a las ${formatDateTime(new Date(launch.unlockAt))}`).join(' · ')}`
     : 'Sin lanzamientos pendientes.';
+}
+
+function renderAdultFinalRoute() {
+  if (!els.adultFinalRoute || !els.adultFinalRouteStatus) return;
+  els.adultFinalRoute.value = state.finalRoute || DEFAULT_FINAL_ROUTE;
+  els.adultFinalRoute.disabled = Boolean(state.finalRouteLocked);
+  els.adultFinalRouteStatus.textContent = state.finalRouteLocked
+    ? 'Ruta revelada a los niños: la elección ya está bloqueada.'
+    : state.finalRoute === 'sevilla-night'
+      ? 'Final preparado para la noche del 25 en Isla Mágica.'
+      : 'Final principal preparado para la Alhambra nocturna.';
+}
+
+function updateAdultFinalRoute() {
+  if (!isAdultUnlocked() || state.finalRouteLocked) return;
+  const next = els.adultFinalRoute?.value;
+  if (!['granada', 'sevilla-night'].includes(next)) return;
+  state.finalRoute = next;
+  saveState();
+  renderAdultFinalRoute();
+  showAdultMessage(next === 'granada'
+    ? 'Final de Granada seleccionado.'
+    : 'Final alternativo de Sevilla seleccionado.');
 }
 
 function scheduleAdultPhaseLaunch() {
@@ -2502,6 +2841,9 @@ function buildLocalState() {
     shadowScore: state.shadowScore,
     recoveredShadow: state.recoveredShadow,
     endingVariant: state.endingVariant,
+    finalRoute: state.finalRoute,
+    finalRouteLocked: state.finalRouteLocked,
+    narrativeScene: state.narrativeScene,
     softResponseCursor: state.softResponseCursor,
     hintMissCursor: state.hintMissCursor,
     chatterWarningCursor: state.chatterWarningCursor,
@@ -2547,6 +2889,9 @@ function applyRestoredState(remoteState, recoveryCode) {
     shadowScore: Number(remoteState.shadowScore) || 0,
     recoveredShadow: Number(remoteState.recoveredShadow) || 0,
     endingVariant: remoteState.endingVariant || null,
+    finalRoute: ['granada', 'sevilla-night'].includes(remoteState.finalRoute) ? remoteState.finalRoute : DEFAULT_FINAL_ROUTE,
+    finalRouteLocked: Boolean(remoteState.finalRouteLocked),
+    narrativeScene: remoteState.narrativeScene || null,
     softResponseCursor: remoteState.softResponseCursor || {},
     chatterWarningCursor: remoteState.chatterWarningCursor || 0,
     lastChatterWarningAt: remoteState.lastChatterWarningAt || 0,
@@ -2749,6 +3094,9 @@ function loadState() {
       shadowScore: Number(saved.shadowScore) || 0,
       recoveredShadow: Number(saved.recoveredShadow) || 0,
       endingVariant: saved.endingVariant || null,
+      finalRoute: ['granada', 'sevilla-night'].includes(saved.finalRoute) ? saved.finalRoute : DEFAULT_FINAL_ROUTE,
+      finalRouteLocked: Boolean(saved.finalRouteLocked),
+      narrativeScene: saved.narrativeScene || null,
       softResponseCursor: saved.softResponseCursor || {},
       hintMissCursor: saved.hintMissCursor || {},
       chatterWarningCursor: saved.chatterWarningCursor || 0,
@@ -2789,6 +3137,6 @@ function applyTestingParams() {
 
 function registerServiceWorker() {
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('service-worker.js?v=offline-v30').catch(() => {});
+    navigator.serviceWorker.register('service-worker.js?v=offline-v31').catch(() => {});
   }
 }

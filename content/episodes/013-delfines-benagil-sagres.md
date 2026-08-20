@@ -15,13 +15,13 @@
 
 # Contexto narrativo
 
-Niebla ha llevado el receptor al barco de Lagos. Topoloco necesita certezas sobre un avistamiento que no puede controlar. El Protocolo Azul convierte la incertidumbre en sabotaje: si no hay delfines, la ausencia del avistamiento sigue siendo un resultado válido. Benagil demuestra que un hueco puede conservar un proceso geológico y no equivale a «nada». Al corregir ese error se intercepta en Sagres una orden para que Eco copie la voz de Topotino. Corvinho ayuda a comparar hipótesis sin resolverlas.
+Después del asalto al chat, la alerta de Louri conduce al barco de Lagos. Topoloco está calibrando el Corrector con experiencias espontáneas y necesita certezas sobre un avistamiento que no puede controlar. El Protocolo Azul convierte la incertidumbre en sabotaje: si no hay delfines, la ausencia del avistamiento sigue siendo un resultado válido. Benagil demuestra que un hueco puede conservar un proceso geológico y no equivale a «nada». Al corregir ese error se descubre que el aparato marino era un amplificador; su transmisión conduce a Sagres, donde se intercepta una orden para que Eco copie la voz de Topotino. Corvinho ayuda a comparar hipótesis sin resolverlas.
 
 ## Mensajes iniciales
 
 ```json
 [
-  { "from": "topotino", "time": "auto", "text": "Antes de zarpar, Vasco recuerda el Protocolo Azul: un avistamiento no se garantiza y no se persigue molestando." },
+  { "from": "topotino", "time": "auto", "text": "Topotina ha expulsado a Topoloco. Antes de zarpar, Vasco recuerda el Protocolo Azul: un avistamiento no se garantiza y no se persigue molestando." },
   { "from": "topotino", "time": "auto", "text": "Registrad tres señales que use la tripulación. Si aparecen delfines, anotad una conducta comprobable. Si no, explicad por qué no verlos hoy no demuestra que no vivan aquí." }
 ]
 ```

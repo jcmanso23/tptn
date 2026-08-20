@@ -11,7 +11,7 @@
   <link rel="manifest" href="manifest.json">
   <link rel="apple-touch-icon" href="icons/icon-192.png">
   <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="styles.css?v=memory-v56">
+  <link rel="stylesheet" href="styles.css?v=memory-v57">
 </head>
 <body>
   <main class="app-shell" aria-live="polite">
@@ -52,7 +52,7 @@
           </div>
           <div class="channel-code">
             <small>Código</small>
-            <strong id="channel-code">T-21A5</strong>
+            <strong id="channel-code">T-21A6</strong>
           </div>
         </header>
 
@@ -146,6 +146,14 @@
           </div>
           <p id="adult-phase-status">Sin lanzamientos pendientes.</p>
         </div>
+        <div class="adult-launch">
+          <label for="adult-final-route">Final de la aventura</label>
+          <select id="adult-final-route">
+            <option value="granada">Granada · Alhambra nocturna</option>
+            <option value="sevilla-night">Sevilla · noche del 25</option>
+          </select>
+          <p id="adult-final-route-status">Final principal preparado para la Alhambra nocturna.</p>
+        </div>
         <div class="adult-restore">
           <input id="adult-restore-code" type="text" autocomplete="off" spellcheck="false" placeholder="TOPO-XXXX-XXXX">
           <button id="adult-restore" type="button">Restaurar</button>
@@ -157,6 +165,6 @@
     </aside>
   </main>
 
-  <script src="app.js?v=memory-v56" type="module"></script>
+  <script src="app.js?v=memory-v57" type="module"></script>
 </body>
 </html>

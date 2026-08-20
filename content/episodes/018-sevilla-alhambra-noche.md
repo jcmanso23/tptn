@@ -5,6 +5,7 @@
   "title": "Día 14 · Las doce aguas bajo la luna",
   "channelCode": "T-42N0",
   "startsUnlocked": false,
+  "finalRoutes": ["granada"],
   "activation": { "mode": "all", "date": { "on": "2026-08-26" }, "location": { "lat": 37.3832105, "lng": -5.9901835, "radiusMeters": 1000, "label": "Real Alcázar de Sevilla" } },
   "mission": "Devolver la memoria compartida",
   "formulaWord": null,

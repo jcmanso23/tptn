@@ -717,6 +717,33 @@ input {
   border-right-color: #5a201e;
 }
 
+.sender-topoloco .message-avatar {
+  border-color: #d9ff39;
+  background: #fff;
+  box-shadow: 0 0 18px rgba(217, 255, 57, .34);
+}
+
+.sender-topoloco .message-avatar img {
+  object-position: center;
+}
+
+.sender-topoloco .message-sender {
+  color: #e6ff56;
+}
+
+.sender-topoloco .message-bubble {
+  border-color: rgba(217, 255, 57, .84);
+  background: linear-gradient(135deg, rgba(58, 76, 10, .98), rgba(22, 25, 14, .99));
+}
+
+.sender-topoloco.message-row.topotino .message-bubble::before {
+  border-right-color: rgba(217, 255, 57, .84);
+}
+
+.sender-topoloco.message-row.topotino .message-bubble::after {
+  border-right-color: #394b0c;
+}
+
 .message-row.topotino .message-bubble::before {
   content: "";
   position: absolute;

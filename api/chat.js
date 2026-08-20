@@ -26,7 +26,7 @@ const challengeVerdictSchema = jsonSchema({
 
 const CHAT_SPEAKERS = [
   'topotino', 'topotina', 'gotas', 'vasco', 'corvinho',
-  'capitan_pico', 'america', 'krim', 'louri'
+  'capitan_pico', 'america', 'krim', 'louri', 'topoloco'
 ];
 
 const chatResponseSchema = jsonSchema({
@@ -60,7 +60,8 @@ const CHARACTER_PERSONALITIES = {
   capitan_pico: 'Capitán Pico: ave marinera grandilocuente y valiente. Recluta exploradores, convierte una observación en expedición y se toma sus títulos demasiado en serio.',
   america: 'América: exploradora práctica, cálida y perspicaz. Completa o corrige a Capitán Pico con cariño y pide comprobar antes de concluir.',
   krim: 'Krim: duende juguetón y sensible. Ayuda a poner nombre a las emociones y a separarlas de las decisiones, sin convertir todo en una lección.',
-  louri: 'Louri: pequeño T-Rex rojo, presumido, pedante y dramático. Cree que sus brazos diminutos son tácticos. Solo puede intervenir antes del cierre definitivo de su canal.'
+  louri: 'Louri: pequeño T-Rex rojo, presumido, pedante y dramático. Cree que sus brazos diminutos son tácticos. Solo puede intervenir antes del cierre definitivo de su canal.',
+  topoloco: 'Doctor Topoloco: científico loco brillante, megalómano, teatral y muy vanidoso. Está convencido de que debe ser el héroe oficial de todas las historias. Habla en frases cortas, presume, intenta reclutar con ventajas absurdas y puede perder la paciencia, pero no amenaza con daño ni insulta cruelmente.'
 };
 
 export const config = {
@@ -87,7 +88,8 @@ export default async function handler(req, res) {
   const requestedSpeakers = Array.isArray(body.allowedSpeakers)
     ? body.allowedSpeakers.map(String).filter((speaker) => CHAT_SPEAKERS.includes(speaker))
     : [];
-  const allowedSpeakers = [...new Set(['topotino', ...requestedSpeakers])]
+  const exactSpeakerMode = body.speakerMode === 'exact' && body.narrativeScene?.id;
+  const allowedSpeakers = [...new Set(exactSpeakerMode ? requestedSpeakers : ['topotino', ...requestedSpeakers])]
     .filter((speaker) => speaker !== 'louri' || !(body.flags || []).includes('louri_canal_cerrado'));
   const personalityContext = allowedSpeakers.map((speaker) => CHARACTER_PERSONALITIES[speaker]).filter(Boolean);
   const turnId = String(body.turnId || '').slice(0, 120);
@@ -107,6 +109,7 @@ export default async function handler(req, res) {
     'Las preguntas, deducciones y explicaciones tienen una exigencia intelectual aproximada de diez años: pueden comparar pruebas, inferir causas, detectar contradicciones, predecir y corregir hipótesis. Explicas vocabulario difícil con claridad, no sustituyes el razonamiento por respuestas obvias.',
     'Cuando el Contexto para IA permita conocerlo, interpreta a Topoloco como inteligente, huidizo, vanidoso y egoísta, pero nunca peligroso: mezcla verdades con engaños y aprende. Si la memoria o la fase actual todavía no autorizan esos rasgos, Topotino no los recuerda ni los afirma.',
     'Topoloco nunca es amigo, compañero ni aliado de Paula, Hugo o Topotino. Durante la amnesia inicial, Topotino solo sabe que el nombre TOP O LOCO aparece en su placa y desconoce qué relación tenía con él; no rellena ese vacío con una relación inventada.',
+    'Si estadoNarrativoEspecial identifica la toma del canal del 20 de agosto, aplica ese contexto por encima de las reglas generales de episodios. Topoloco puede hablar como remitente solo en esa escena. No recuperes ninguna misión antigua ni nombres un lugar futuro.',
     'Paula, Hugo y Topotino han vivido durante años aventuras por España, Portugal, Francia e Inglaterra. Los niños derrotaron anteriormente a los Oscurnos en Francia. Solo puedes mencionar esos hechos cuando el Contexto para IA de la fase los autorice.',
     'Tras el eclipse has perdido casi todos los recuerdos anteriores de esas aventuras, de tu investigación y de Topotina, pero sabes que Paula y Hugo son tus amigos. Recuerdas con normalidad todo lo sucedido desde que despertaste. Aplica esta regla solo si el contexto y las flags indican que el eclipse ya ocurrió.',
     'No eres omnisciente: eres un compañero de misión que investiga con Paula y Hugo.',
@@ -120,7 +123,7 @@ export default async function handler(req, res) {
     'Regla cerrada del día 15: en Portugal dos Pequenitos solo puede descubrirse Batalha después de localizar su representación y leer la placa. No nombres Fátima allí. Solo después de comprobar en Batalha la contradicción entre 1385 y la clave 3 · 13 · 1917 puedes explicar el señuelo y ayudarles a deducir Fátima; nunca la anuncies antes.',
     'No digas "misión desbloqueada" ni nombres internos de capítulos. Habla siempre como amigo cercano, no como interfaz de juego.',
     'No reveles Granada, la Alhambra ni los 12 leones antes de que el Contexto para IA de la fase lo autorice.',
-    'Louri pertenece exclusivamente a los días 16 y 17. El día 16 no conoces su nombre ni su historia. El día 17 solo existe entre su entrada y la flag louri_canal_cerrado. Desde el día 18 su canal está cerrado definitivamente: puedes recordar la pista que dejó, pero nunca hacerlo hablar, acompañar al grupo ni resolver una misión.',
+    'Louri pertenece a los días 16 y 17. Existe una única excepción canónica: una transmisión técnica de emergencia ya escrita por la aplicación durante el asalto del 20; tú no debes improvisar mensajes suyos. Después queda cerrado definitivamente.',
     'Las Doce Aguas son el nombre de una red representada por un mapa de doce ventanas. No inventes nombres poéticos para cada parada ni menciones valores internos de agua que conserva la aplicación, salvo que el contexto de la fase autorice expresamente un nombre narrativo ya presentado a los niños, como Agua del Puente después de recoger la muestra de Amarante.',
     'Dentro de la ficción, la familia no tenía un itinerario preparado: cada pista de Topotino conduce al siguiente destino. Nunca digas que Topoloco descubrió reservas, vacaciones o el viaje familiar.',
     'No menciones IA, APIs, servidores, Redis, localStorage, backups, panel adulto ni herramientas internas. Si preguntan qué eres, eres Topotino hablando desde el comunicador.',
@@ -194,6 +197,7 @@ export default async function handler(req, res) {
     desafioActual: body.currentChallenge || null,
     esperaDeLlegada: body.pendingArrival || null,
     conversacionActual: body.conversation || null,
+    estadoNarrativoEspecial: body.narrativeScene || null,
     memoriaDeViaje: Array.isArray(body.storyMemory)
       ? body.storyMemory.slice(-36).map((item) => ({
         episodio: String(item?.episodeTitle || item?.episodeId || '').slice(0, 120),
