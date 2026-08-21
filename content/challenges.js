@@ -14,7 +14,6 @@ const ARRIVAL_LOCATIONS = Object.freeze({
   alfama: { lat: 38.7114, lng: -9.1301, radiusMeters: 500, label: 'Alfama, Lisboa' },
   belem: { lat: 38.6977, lng: -9.2068, radiusMeters: 1000, label: 'Belém, Lisboa' },
   lagos: { lat: 37.1099, lng: -8.6748, radiusMeters: 1000, label: 'Marina de Lagos' },
-  sagres: { lat: 37.0016, lng: -8.9459, radiusMeters: 5000, label: 'Sagres y Cabo de São Vicente' },
   algar: { lat: 37.0966, lng: -8.4719, radiusMeters: 700, label: 'Algar Seco, Carvoeiro' },
   jaima: { lat: 37.106434, lng: -8.25335, radiusMeters: 5000, label: 'HolaCamp Albufeira' },
   sevillaPlaza: { lat: 37.3772, lng: -5.9869, radiusMeters: 700, label: 'Plaza de España, Sevilla' },
@@ -71,8 +70,8 @@ function question(id, place, prompt, options, correctIndex, success, learn, hint
   };
 }
 
-function expedition(id, place, title, intro, actions, doneMessages) {
-  return { id, kind: 'expedition', place, title, intro, actions, doneMessages };
+function expedition(id, place, title, intro, actions, doneMessages, extras = {}) {
+  return { id, kind: 'expedition', place, title, intro, actions, doneMessages, ...extras };
 }
 
 function conversation(id, place, promptMessages, replyMessages) {
@@ -781,63 +780,53 @@ packs['012-badoca-lagos'] = {
 packs['013-delfines-benagil-sagres'] = {
   shadowActor: 'Topoloco',
   openingMessages: [
-    'Buenos días. Topotina ha expulsado a Topoloco y la pista de Louri conduce a una embarcación de Lagos.',
-    'Topoloco necesita respuestas seguras sobre algo que nadie puede ordenar: que aparezcan delfines y cómo actúe el mar. Quiere usarlas para que el Corrector fabrique recuerdos falsos.',
-    'Aplicaremos el Protocolo Azul. Una observación limitada y honesta hará que su máquina aprenda una certeza falsa.'
+    'Buenos días. Hemos recuperado el canal y la pista de Louri conduce a una embarcación de Lagos.',
+    'Tecla ha revelado qué buscamos: el Calibrador Marino de Topoloco. Intenta convertir una observación incierta en una historia segura aunque sea falsa.',
+    'En el mar no tendréis cobertura. Leed ahora la expedición, guardad el móvil y observad. Las preguntas solo aparecerán cuando confirméis que habéis vuelto al puerto.'
   ],
   steps: [
-    ...withOrder(
-      expedition('barco-expedicion', 'Barco · delfines y Benagil', 'Expedición del avistamiento incierto', 'Seguid siempre las indicaciones de la tripulación. La expedición funciona haya o no haya delfines.', [
+    expedition('barco-expedicion', 'Barco desde Lagos · delfines y cuevas', 'Expedición sin cobertura', 'Leedlo antes de zarpar. En el mar no contestéis al chat: seguid siempre a la tripulación y observad sin intentar controlar lo que ocurra.', [
         'Antes de salir, localizad una norma o indicación de seguridad.',
-        'Observad tres señales que use la tripulación para buscar o navegar.',
-        'Si aparecen delfines, registrad una conducta visible; si no, registrad las condiciones del mar.',
-        'En la costa, localizad una cueva, arco o estrato desde una posición autorizada.'
+        'Fijaos en dos señales que use la tripulación para navegar o buscar animales.',
+        'Si aparecen delfines, recordad una conducta visible; si no aparecen, recordad las condiciones de la búsqueda.',
+        'En las cuevas o acantilados visibles desde el barco, buscad una grieta, una entrada y roca que todavía actúe como soporte.'
       ], [
-        'Expedición completada. No ver un animal hoy no demuestra que no viva en la zona.',
-        'La tripulación combina experiencia, señales y azar. El Protocolo Azul impide convertir la búsqueda en persecución.'
-      ]),
-      [
-        question('barco-q1', 'Barco · delfines y Benagil', 'Si hoy no aparecen delfines, ¿qué conclusión es válida?', ['Hoy no los vimos en estas condiciones', 'No existen delfines en el Atlántico', 'La tripulación mintió necesariamente'], 0, 'Correcto. Es una conclusión limitada a la observación real.', 'La ausencia de un avistamiento no equivale a ausencia de la especie. Esa diferencia protege la ciencia y a los animales.', 'Elegid la frase que no afirma más de lo observado.'),
-        question('barco-q2', 'Barco · delfines y Benagil', '¿Qué conducta respeta mejor el Protocolo Azul?', ['Mantener distancia y seguir a la tripulación', 'Perseguir al grupo para acercarse', 'Darles comida para que vuelvan'], 0, 'Exacto. Observar no significa controlar.', 'Reducir molestias permite que el encuentro, si ocurre, dependa del comportamiento natural del animal.', 'Pensad quién debe decidir la distancia segura.')
-      ]
-    ),
-    nextStop('dia21-pista-sagres', 'En Benagil, el receptor confunde «hueco» con «nada». Al corregirlo interceptamos una orden enviada a un promontorio con fortaleza y un cabo frente al Atlántico. ¿Dónde espera Eco?', ['Sagres y Cabo de São Vicente', 'Belém', 'Cascais'], 0, [
-      'La señal conduce a Sagres y al Cabo de São Vicente.',
-      'En el barco habéis observado sin controlar el resultado. Desde tierra alta comprobaremos qué información añade una vista amplia y qué incertidumbres siguen abiertas.'
-    ]),
-    ...withOrder(
-      expedition('sagres-expedicion', 'Sagres y Cabo de São Vicente', 'Expedición del horizonte', 'Corvinho nos espera en la fortaleza, aunque seguramente fingirá que dirige el viento.', [
-        'En la fortaleza, localizad la gran rosa de los vientos o su espacio.',
-        'Mirad el promontorio desde dos puntos seguros.',
-        'Buscad una construcción defensiva y una señal ligada a navegación.',
-        'En el cabo, observad cómo cambian viento, luz y horizonte al atardecer.'
+        'Señal recuperada al volver al puerto. Ahora sí podemos hablar.',
+        'Topotina ha conectado vuestras observaciones al Calibrador Marino. Contestad tres preguntas cortas para impedir que convierta una experiencia real en una certeza inventada.'
+      ], { completionLabel: 'Ya hemos vuelto al puerto' }),
+    question('barco-q1', 'Puerto de Lagos · informe de delfines', 'Si hoy no aparecen delfines, ¿qué conclusión es válida?', ['Hoy no los vimos en estas condiciones', 'No existen delfines en el Atlántico', 'La tripulación mintió necesariamente'], 0, 'Correcto. Es una conclusión limitada a la observación real.', 'La ausencia de un avistamiento no equivale a ausencia de la especie. Esa diferencia protege la ciencia y a los animales.', 'Elegid la frase que no afirma más de lo observado.'),
+    question('barco-q2', 'Puerto de Lagos · Protocolo Azul', '¿Qué conducta respeta mejor a unos delfines salvajes?', ['Mantener la distancia que marque la tripulación', 'Perseguir al grupo para acercarse', 'Darles comida para que vuelvan'], 0, 'Exacto. Observar no significa controlar.', 'Reducir molestias permite que el encuentro, si ocurre, dependa del comportamiento natural del animal.', 'Pensad quién debe decidir la distancia segura.'),
+    question('barco-q3', 'Puerto de Lagos · cuevas marinas', '¿Qué explica mejor que exista una cueva en el acantilado?', ['El agua aprovecha grietas y retira roca poco a poco', 'Dentro nunca hubo roca', 'El mar dibujó el hueco de una sola vez'], 0, 'Correcto. El hueco conserva la historia de un proceso.', 'Olas, agua, fracturas y muchísimo tiempo pueden agrandar una abertura. Una cueva no es «nada»: su forma depende también de la roca que permanece.', 'Elegid la explicación que une una debilidad de la roca con la acción repetida del agua.'),
+    Object.assign(
+      conversation('dialogo-regreso-puerto-dia21', 'Puerto de Lagos · calibrador localizado', [
+        { from: 'vasco', text: 'Informe recibido. ¿Qué os sorprendió más de la salida: algo que hizo un animal, una decisión de la tripulación o una forma de la roca?' }
       ], [
-        'Expedición terminada. El promontorio permite mirar mar y costa, pero una vista amplia no elimina la incertidumbre.',
-        'La rosa suele llamarse de los vientos; su función exacta ha tenido interpretaciones distintas. Corvinho aprueba que mantengamos más de una hipótesis.'
+        { from: 'vasco', text: 'Gracias. Esa observación concreta vale más que una respuesta perfecta inventada antes de salir.' }
       ]),
-      [
-        onArrival(question('sagres-q1', 'Sagres y Cabo de São Vicente', '¿Qué ayuda a la navegación desde un promontorio?', ['Una vista amplia de costa, mar y horizonte', 'No mirar el tiempo', 'Suponer que el viento nunca cambia'], 0, 'Correcto. La posición ofrece información.', 'También exige interpretar viento, luz y costa. Una vista grande no sustituye al razonamiento.', 'Recordad qué podíais ver desde arriba que no se ve al nivel del agua.'), ARRIVAL_LOCATIONS.sagres, [
-          { from: 'topotino', text: 'Desde el barco habéis aprendido que observar no garantiza encontrar. La señal nos manda ahora a mirar el mismo mar desde tierra firme y mucha altura.' },
-          { from: 'topotino', text: 'Habéis llegado a Sagres. Buscad costa, viento y horizonte antes de decidir qué información aporta este punto.' }
-        ]),
-        question('sagres-q2', 'Sagres y Cabo de São Vicente', 'Si hay varias explicaciones para una estructura, ¿qué hacemos?', ['Comparamos evidencias y mantenemos abierta la duda', 'Elegimos la más emocionante', 'Decimos que todas están demostradas'], 0, 'Muy bien. Una hipótesis no se convierte en hecho por sonar bien.', 'Topoloco acaba de admitir que está aprendiendo de vuestro método. Eso lo vuelve más peligroso y también más previsible.', 'Buscad la opción que permite corregir si aparece nueva evidencia.')
-      ],
-      'question-first'
+      { alwaysMessages: [
+        { from: 'topotina', text: 'He introducido las tres respuestas en el Calibrador Marino. Exigía «sí o no» y ha recibido límites, condiciones y procesos. Se ha bloqueado.' },
+        { from: 'topotino', text: '¡Lo hemos conseguido! Topoloco ya no puede usar esta salida para fabricar una versión falsa.' },
+        { from: 'topotina', text: 'Y hemos recuperado un archivo dirigido a Eco. Está reuniendo formas y voces para crear copias difíciles de distinguir. Necesito unas horas para descifrar la primera coordenada.' }
+      ], effects: { setFlags: ['calibrador_marino_bloqueado'] } }
     ),
-    recovery('recuperacion-dia21', '¿Qué protege mejor una investigación incierta?', ['Decir exactamente qué vimos y qué no sabemos', 'Prometer el resultado antes de salir', 'Ocultar cualquier ausencia'], 0, 'Sombra retirada. Topoloco no puede usar vuestra incertidumbre como debilidad.', 'Topoloco conserva datos de hoy, pero no ha conseguido una versión falsa completa.'),
-    route('ruta-dia22', 'La siguiente ventana muestra acantilados amarillos con cuevas, arcos y pilares junto al mar. ¿Cuál es la primera señal?', ['Ponta da Piedade', 'Nazaré', 'Cabo da Roca'], 0, [
-      'Primera señal encontrada: Ponta da Piedade.',
-      'Las rocas nos permitirán investigar cómo el mar aprovecha grietas y crea formas. No sabemos adónde llevará después.',
-      'Preparad calzado con buen agarre, agua y protector solar. Nada de bordes ni atajos. Descansad.'
-    ], { setFlags: ['completado_delfines_benagil_sagres'], water: 'Agua del Horizonte' })
+    recovery('recuperacion-dia21', '¿Qué ha bloqueado el Calibrador Marino?', ['Decir exactamente qué vimos, qué no vimos y qué no sabemos', 'Prometer el resultado antes de salir', 'Llamar «nada» a cualquier hueco'], 0, 'Sombra retirada. Topoloco no puede usar vuestra incertidumbre como debilidad.', 'Topoloco conserva una parte del registro, pero el calibrador ha quedado bloqueado.'),
+    Object.assign(
+      route('ruta-dia22', 'El archivo de Eco muestra acantilados amarillos con cuevas, arcos y pilares muy cerca de Lagos. ¿Cuál es la primera señal?', ['Ponta da Piedade', 'Nazaré', 'Cabo da Roca'], 0, [
+        'Primera señal encontrada: Ponta da Piedade.',
+        'Eco está aprendiendo a copiar formas y voces. Mañana observaremos formas reales para distinguir una cosa de otra antes de que intente engañarnos.',
+        'Después la señal seguirá hacia el este del Algarve, pero todavía no sabemos hasta dónde. Haced las maletas esta tarde.',
+        'Preparad calzado con buen agarre, agua y protector solar. Nada de bordes ni atajos. Hoy la playa es descanso, no misión: disfrutad y descansad.'
+      ], { setFlags: ['completado_delfines_benagil_sagres'], water: 'Agua del Horizonte' }),
+      { notBefore: { date: '2026-08-21', time: '17:30' } }
+    ),
   ]
 };
 
 packs['014-piedade-algar-jaima'] = {
   shadowActor: 'Eco',
   openingMessages: [
-    'Buenos días. En Sagres interceptamos la orden de Topoloco: Eco está copiando la voz de Topotino.',
-    'Necesita sonidos, palabras y patrones. Las formas de Ponta da Piedade pueden enseñarnos a distinguir dos cosas parecidas antes de que intente suplantarlo.'
+    'Buenos días. Ayer bloqueasteis el Calibrador Marino y recuperamos una orden para que Eco copie formas y voces.',
+    'Su primera coordenada es Ponta da Piedade. Allí aprenderemos a distinguir formas reales antes de que intente suplantar a Topotino.'
   ],
   steps: [
     ...withOrder(
@@ -1235,15 +1224,19 @@ const STORY_CONVERSATIONS = Object.freeze({
     prompt: [{ from: 'topotina', text: 'Topoloco utilizó el safari como señuelo. ¿Qué detalle de la pista de Louri os hizo pensar en Lagos?' }],
     reply: [{ from: 'topotino', text: 'La marina y las salidas hacia delfines y cuevas marinas. Mañana sabremos qué quiere grabar en el mar.' }]
   },
-  'dia21-pista-sagres': {
-    place: 'Barco y Benagil',
-    prompt: [{ from: 'topotino', text: 'Vasco pregunta: ¿qué fue más emocionante, encontrar animales o no saber qué iba a aparecer?' }],
-    reply: [{ from: 'topotina', text: 'La incertidumbre también forma parte de una experiencia real. Al corregir el error sobre Benagil hemos interceptado una orden de Eco.' }]
-  },
   'ruta-dia22': {
-    place: 'Sagres · mensaje de Corvinho',
-    prompt: [{ from: 'topotino', text: 'Corvinho grazna una pregunta: ¿qué hipótesis cambiasteis después de mirar mejor?' }],
-    reply: [{ from: 'topotino', text: 'Corvinho dice «craa»; creo que significa que acepta la respuesta. Eco ha escapado con sonidos de la costa.' }]
+    place: 'Tarde en la playa de Lagos',
+    notBefore: { date: '2026-08-21', time: '17:30' },
+    effects: { setFlags: ['tarde_lagos_lista'] },
+    prompt: [
+      { from: 'topotino', text: 'Esta tarde no hay misión. Disfrutad de la playa y descansad; bastante hemos tenido con delfines, cuevas, hackers y basura.' },
+      { from: 'topotina', text: 'He terminado de descifrar el archivo de Eco. Antes de mostrarlo: ¿habéis conseguido descansar un poco?' }
+    ],
+    reply: [
+      { from: 'topotino', text: 'Bien. Descansar también forma parte de una expedición, aunque Topoloco lo consideraría una grave falta de dramatismo.' },
+      { from: 'topotina', text: 'El archivo contiene la primera coordenada y una imagen de acantilados amarillos con cuevas, arcos y pilares. Eco quiere copiar sus formas antes de copiar una voz.' },
+      { from: 'topotino', text: 'Averigüemos el primer lugar de mañana. Después haced las maletas: la señal seguirá explorando el Algarve.' }
+    ]
   },
   'dia22-pista-algar': {
     place: 'Ponta da Piedade',
@@ -1297,7 +1290,11 @@ for (const [episodeId, pack] of Object.entries(packs)) {
   pack.steps = pack.steps.flatMap((step) => {
     const bridge = STORY_CONVERSATIONS[step.id];
     if (!bridge) return [step];
-    return [conversation(`dialogo-${step.id}`, bridge.place, bridge.prompt, bridge.reply), step];
+    return [Object.assign(
+      conversation(`dialogo-${step.id}`, bridge.place, bridge.prompt, bridge.reply),
+      bridge.notBefore ? { notBefore: bridge.notBefore } : {},
+      bridge.effects ? { effects: bridge.effects } : {}
+    ), step];
   });
 }
 

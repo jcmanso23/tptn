@@ -2,11 +2,11 @@
 {
   "id": "013-delfines-benagil-sagres",
   "order": 13,
-  "title": "Día 9 · La pista que no puede prometerse",
-  "channelCode": "T-96A3",
+  "title": "Día 9 · El calibrador del mar",
+  "channelCode": "T-21A8",
   "startsUnlocked": false,
   "activation": { "mode": "all", "date": { "on": "2026-08-21" }, "location": { "lat": 37.1098806, "lng": -8.6748233, "radiusMeters": 1000, "label": "Marina de Lagos" } },
-  "mission": "Investigar el horizonte",
+  "mission": "Bloquear el Calibrador Marino",
   "formulaWord": null,
   "water": "Agua del Horizonte",
   "ai": { "enabled": true, "mode": "fallback" }
@@ -15,14 +15,17 @@
 
 # Contexto narrativo
 
-Después del asalto al chat, la alerta de Louri conduce al barco de Lagos. Topoloco está calibrando el Corrector con experiencias espontáneas y necesita certezas sobre un avistamiento que no puede controlar. El Protocolo Azul convierte la incertidumbre en sabotaje: si no hay delfines, la ausencia del avistamiento sigue siendo un resultado válido. Benagil demuestra que un hueco puede conservar un proceso geológico y no equivale a «nada». Al corregir ese error se descubre que el aparato marino era un amplificador; su transmisión conduce a Sagres, donde se intercepta una orden para que Eco copie la voz de Topotino. Corvinho ayuda a comparar hipótesis sin resolverlas.
+Topotina recupera el canal con ayuda involuntaria de la firma que dejó Doctora Tecla. Durante la discusión, Tecla revela que Topoloco conectó un Calibrador Marino al Corrector. Quiere transformar sucesos imprevisibles en afirmaciones seguras: si hoy no aparece un delfín, escribirá que no existen; si encuentra el hueco de una cueva, lo llamará «nada» y borrará el proceso que la formó.
+
+La pista de Louri conduce a una salida en barco desde Lagos. En el mar no hay cobertura. Paula y Hugo leen todas las observaciones antes de zarpar, guardan el móvil y siguen las instrucciones de la tripulación. Solo al regresar al puerto responden tres preguntas. Sus respuestas limitadas y verdaderas bloquean el calibrador. Topotina recupera entonces un archivo dirigido a Eco: está aprendiendo a copiar formas y voces. Después de una tarde sin aventura en la playa, la primera coordenada señala Ponta da Piedade para el día 22.
 
 ## Mensajes iniciales
 
 ```json
 [
-  { "from": "topotino", "time": "auto", "text": "Topotina ha expulsado a Topoloco. Antes de zarpar, Vasco recuerda el Protocolo Azul: un avistamiento no se garantiza y no se persigue molestando." },
-  { "from": "topotino", "time": "auto", "text": "Registrad tres señales que use la tripulación. Si aparecen delfines, anotad una conducta comprobable. Si no, explicad por qué no verlos hoy no demuestra que no vivan aquí." }
+  { "from": "topotino", "time": "auto", "text": "Canal recuperado. Tecla se ha marchado, Topoloco está fuera y sabemos qué buscaba: el Calibrador Marino." },
+  { "from": "vasco", "time": "auto", "text": "El Protocolo Azul no promete delfines. Observar con respeto significa mantener distancia y aceptar también que quizá hoy no aparezcan." },
+  { "from": "topotino", "time": "auto", "text": "En el mar no tendréis cobertura. Leed la expedición antes de salir y guardad el móvil. Las preguntas llegarán cuando volváis al puerto." }
 ]
 ```
 
@@ -34,68 +37,51 @@ Después del asalto al chat, la alerta de Louri conduce al barco de Lagos. Topol
     "id": "delfines-incertidumbre",
     "blockedFlags": ["delfines_incertidumbre"],
     "openAnswer": true,
-    "minWords": 14,
-    "containsAnyGroups": [["delfín", "delfin", "delfines", "no vimos", "no aparecieron"], ["aleta", "grupo", "salto", "respira", "ave", "pez", "tripulación", "tripulacion", "guía", "guia"], ["no demuestra", "incertidumbre", "pueden", "momento", "zona", "porque"]],
+    "minWords": 8,
+    "containsAnyGroups": [["delfín", "delfin", "delfines", "no vimos", "no aparecieron"], ["hoy", "condiciones", "momento", "observamos"], ["no demuestra", "no significa", "pueden", "porque"]],
     "setFlags": ["delfines_incertidumbre"],
     "remember": { "kind": "uncertain_field_observation", "label": "Búsqueda de delfines con resultado abierto" },
     "messages": [
-      { "from": "topotino", "time": "auto", "text": "Investigación válida. Habéis separado no observar de demostrar ausencia. Topoloco odia esa diferencia porque no cabe en sus titulares." },
-      { "from": "topotino", "time": "auto", "text": "En la costa de Benagil elegid una cueva, arco o entrada de luz visible desde el barco. Describid fractura, forma y acción del mar. Proponed qué parte de la roca podría cambiar antes y qué evidencia os hace pensarlo. No toquéis la pared ni inventéis una velocidad exacta." }
+      { "from": "vasco", "time": "auto", "text": "Exacto: contáis lo que ocurrió hoy sin convertirlo en una regla sobre todos los delfines." }
     ]
   },
   {
-    "id": "benagil-erosion",
+    "id": "cuevas-proceso-marino",
     "requiredFlags": ["delfines_incertidumbre"],
-    "blockedFlags": ["benagil_erosion"],
+    "blockedFlags": ["cuevas_proceso_marino"],
     "openAnswer": true,
-    "minWords": 14,
-    "containsAnyGroups": [["cueva", "arco", "agujero", "entrada", "luz", "roca"], ["mar", "ola", "agua", "erosión", "erosion", "fractura"], ["cambiará", "cambiara", "débil", "debil", "antes", "porque", "evidencia"]],
-    "setFlags": ["benagil_erosion"],
-    "remember": { "kind": "geomorphology_prediction", "label": "Predicción de erosión en Benagil" },
+    "minWords": 8,
+    "containsAnyGroups": [["cueva", "hueco", "entrada", "roca"], ["grieta", "fractura", "débil", "debil"], ["mar", "ola", "agua", "erosión", "erosion"], ["tiempo", "poco a poco", "porque"]],
+    "setFlags": ["cuevas_proceso_marino"],
+    "remember": { "kind": "geomorphology_process", "label": "Proceso observado en una cueva marina" },
     "messages": [
-      { "from": "topotino", "time": "auto", "text": "Bien: forma actual, proceso y predicción separados. Ahora rumbo a Sagres, al antiguo Promontorium Sacrum." },
-      { "from": "topotino", "time": "auto", "text": "En la fortaleza buscad primero la gran figura circular de 48 alineaciones. Proponed dos funciones y una observación que apoye o debilite cada una." },
-      { "from": "topotino", "time": "auto", "text": "Después seguid el recorrido hasta un punto seguro frente al horizonte. Corvinho, el cuervo joven del relato, vigila desde arriba." }
+      { "from": "topotina", "time": "auto", "text": "El hueco no es «nada». Conserva el resultado de una grieta, la acción repetida del agua, la roca retirada y la roca que permanece." }
     ]
   },
   {
-    "id": "sagres-rosa-hipotesis",
-    "requiredFlags": ["benagil_erosion"],
-    "blockedFlags": ["sagres_rosa"],
-    "openAnswer": true,
-    "minWords": 17,
-    "containsAnyGroups": [["rosa", "círculo", "circulo", "líneas", "lineas", "48"], ["viento", "dirección", "direccion", "gnomon", "sol", "reloj", "navegación", "navegacion"], ["hipótesis", "hipotesis", "podría", "podria"], ["apoya", "debilita", "observamos", "porque"]],
-    "setFlags": ["sagres_rosa"],
-    "remember": { "kind": "competing_hypotheses", "label": "Hipótesis rivales sobre la figura de Sagres" },
+    "id": "calibrador-marino-bloqueado",
+    "requiredFlags": ["cuevas_proceso_marino"],
+    "blockedFlags": ["calibrador_marino_bloqueado"],
+    "containsAny": ["calibrador bloqueado", "hemos respondido", "tres respuestas", "informe terminado"],
+    "setFlags": ["calibrador_marino_bloqueado"],
     "messages": [
-      { "from": "topotino", "time": "auto", "text": "Corvinho aprueba: una figura enigmática admite hipótesis, no seguridad de cartón. Él insiste en que vuela mejor con viento lateral. No viene al caso, pero es cuervo." },
-      { "from": "topotino", "time": "auto", "text": "Mirad el promontorio y el horizonte. Explicad por qué este punto pudo sentirse como final del mundo conocido y, a la vez, como comienzo de una ruta. Usad dos evidencias físicas y una idea histórica." }
+      { "from": "topotina", "time": "auto", "text": "Calibrador bloqueado. Exigía una historia sin dudas y ha recibido observaciones con límites, condiciones y procesos." },
+      { "from": "topotino", "time": "auto", "text": "Hemos impedido que Topoloco convierta vuestra salida real en una mentira perfecta." },
+      { "from": "topotina", "time": "auto", "text": "He recuperado un archivo dirigido a Eco. Está reuniendo formas y voces para producir copias difíciles de distinguir." }
     ]
   },
   {
-    "id": "sagres-horizonte",
-    "requiredFlags": ["sagres_rosa"],
+    "id": "ruta-dia22-ponta",
+    "requiredFlags": ["calibrador_marino_bloqueado", "tarde_lagos_lista"],
     "blockedFlags": ["completado_delfines_benagil_sagres"],
-    "openAnswer": true,
-    "minWords": 14,
-    "containsAnyGroups": [["horizonte", "mar", "atlántico", "atlantico", "acantilado", "viento"], ["final", "límite", "limite"], ["comienzo", "ruta", "navegar", "puerto", "salir"], ["historia", "porque", "evidencia"]],
+    "containsAny": ["ponta da piedade", "ponta", "acantilados amarillos"],
     "setFlags": ["completado_delfines_benagil_sagres"],
-    "remember": { "kind": "perspective_reframing", "label": "Sagres como final y comienzo" },
     "water": "Agua del Horizonte",
     "messages": [
-      { "from": "topotino", "time": "auto", "text": "Gracias. El mismo horizonte puede ser límite o invitación según la posición y el conocimiento del observador. La octava ventana se ha aclarado." },
-      { "from": "topotino", "time": "auto", "text": "Niebla ha enviado un mensaje de Topoloco: «Ya sé qué pruebas aceptáis. A partir de ahora cada pista parecerá vuestra». Necesitan vuestra experiencia real para fabricar falsificaciones convincentes." },
-      { "from": "topotino", "time": "auto", "text": "Mañana compararemos dos costas de roca y dormiréis en una jaima." },
-      { "from": "topotino", "time": "auto", "text": "Llevad agua para beber y calzado con buena suela. Nada de acercarse a bordes." },
-      { "from": "topotino", "time": "auto", "text": "Guardad vuestra capacidad de detectar contradicciones. Ahora descansad; el viento de Sagres también despeina los pensamientos." }
+      { "from": "topotino", "time": "auto", "text": "Ponta da Piedade. Allí aprenderemos a distinguir formas reales antes de que Eco copie apariencias y voces." },
+      { "from": "topotina", "time": "auto", "text": "La señal continuará después hacia el este del Algarve. Haced las maletas y preparad agua, protector solar y calzado con buen agarre." },
+      { "from": "topotino", "time": "auto", "text": "Hoy la playa es descanso, no misión. Mañana continuamos." }
     ]
-  },
-  {
-    "id": "barco-cancelado",
-    "blockedFlags": ["delfines_incertidumbre"],
-    "containsAny": ["cancelado", "no sale el barco", "mal tiempo", "mala mar", "no podemos embarcar"],
-    "setFlags": ["delfines_incertidumbre"],
-    "messages": [{ "from": "topotino", "time": "auto", "text": "La seguridad manda. Usad desde tierra tres señales para inferir estado del mar y explicad por qué cancelar aporta información. Después continuad con Sagres; no fingiremos delfines ni cuevas vistos desde el barco." }]
   }
 ]
 ```
@@ -104,10 +90,10 @@ Después del asalto al chat, la alerta de Louri conduce al barco de Lagos. Topol
 
 ```json
 [
-  "No ver delfines hoy no prueba que no vivan en esta costa.",
-  "En Benagil: forma, proceso erosivo y predicción con evidencia.",
-  "La figura de Sagres necesita dos hipótesis rivales.",
-  "El horizonte debe funcionar como final y como comienzo."
+  "No ver un delfín hoy no demuestra que no viva en esta costa.",
+  "Una cueva conserva un proceso: grietas, agua, roca retirada, roca que permanece y tiempo.",
+  "Las respuestas se hacen al volver al puerto, nunca durante la navegación.",
+  "La primera imagen de Eco muestra acantilados amarillos muy cerca de Lagos."
 ]
 ```
 
@@ -115,20 +101,19 @@ Después del asalto al chat, la alerta de Louri conduce al barco de Lagos. Topol
 
 ```json
 [
-  "La tripulación combina experiencia y varias señales, no una sola.",
-  "Las fracturas y zonas más expuestas pueden cambiar antes.",
-  "Se ha interpretado como rosa de los vientos y también se ha relacionado con un gnomon.",
-  "Sagres era último puerto antes del Atlántico abierto."
+  "Elegid la frase que no afirma más de lo observado.",
+  "El mar puede agrandar una fractura poco a poco.",
+  "El Calibrador falla cuando una respuesta distingue hechos, límites y dudas.",
+  "La primera coordenada de mañana es Ponta da Piedade."
 ]
 ```
 
 ## Contexto para IA
 
-Corvinho es aliado puntual basado en el relato oficial. No promete fauna. Topotino sabe que Topoloco necesita experiencias reales para falsificar pistas. No revela Granada. Cuaderno privado.
+Topotina y Vasco pueden conversar después del regreso al puerto. En el mar no se pide ninguna respuesta ni se presupone cobertura. El Calibrador Marino de Topoloco intenta convertir incertidumbre en certeza falsa. Las observaciones de Paula y Hugo lo bloquean de verdad y permiten recuperar la orden dirigida a Eco. No se propone ninguna visita adicional durante la tarde en la playa. A las 17:30 se puede preparar únicamente Ponta da Piedade como primera parada del 22 y pedir que hagan las maletas; no se revelan las paradas posteriores. No se revela Granada. El Cuaderno sigue privado.
 
 ## Fuentes documentales
 
 - https://daysofadventure.com/
-- https://fortalezadesagres.pt/sobre-o-promontorio/historia/
-- https://fortalezadesagres.pt/es/sobre-el-promontorio/mapa-interactivo/
-- https://fortalezadesagres.pt/eventos-noticias/os-corvos-e-a-rosa-dos-ventos/
+- https://www.cm-lagos.pt/
+- https://percursos.cm-lagoa.pt/azul/p7

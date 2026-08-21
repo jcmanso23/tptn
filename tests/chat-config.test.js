@@ -129,3 +129,16 @@ test('Doctora Tecla entra por la tarde, conversa varios turnos y se marcha sin a
   assert.match(styles, /\.sender-doctora_tecla/);
   assert.match(episode, /no revela futuras paradas/i);
 });
+
+test('el día 21 Topotina recupera el canal con la última discusión de Tecla', async () => {
+  const app = await readFile(join(root, 'app.js'), 'utf8');
+
+  assert.match(app, /TOPOLOCO_RECOVERY_TECLA_FLAG/);
+  assert.match(app, /stage: 'recovery-tecla'/);
+  assert.match(app, /¿Quién está desmontando mi código\?/);
+  assert.match(app, /Calibrador Marino/);
+  assert.match(app, /Doctora Tecla ha abandonado el canal definitivamente/);
+  assert.match(app, /Doctor Topoloco ha sido expulsado del canal/);
+  assert.match(app, /En el mar no tendréis cobertura/);
+  assert.match(app, /runActivationCheck\('canal-recuperado-dia21'\)/);
+});

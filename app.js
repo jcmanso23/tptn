@@ -1,5 +1,5 @@
-import { splitTopotinoMessages } from './chat-format.js?v=memory-v58';
-import { CHALLENGE_PACKS, displayChallengeOptions } from './content/challenges.js?v=memory-v58';
+import { splitTopotinoMessages } from './chat-format.js?v=memory-v59';
+import { CHALLENGE_PACKS, displayChallengeOptions } from './content/challenges.js?v=memory-v59';
 
 const STORAGE_KEYS = {
   auth: 'topotino_chat_auth_v1',
@@ -7,9 +7,9 @@ const STORAGE_KEYS = {
 };
 
 const LEGACY_STATE_KEY = 'topotino_chat_state_v1';
-const APP_VERSION_CODE = 'T-21A7';
+const APP_VERSION_CODE = 'T-21A8';
 const PASSPHRASE_HASH = 'a64716bd9f4e8added1bf47f80b97c3fc7b70a15b8043cdab083e1ddf85f3794';
-const EPISODES_MANIFEST = 'content/episodes.json?v=memory-v58';
+const EPISODES_MANIFEST = 'content/episodes.json?v=memory-v59';
 const LIVE_STORY_ENDPOINT = '/api/story';
 const AMARANTE_TRAVEL_DATE = '2026-08-13';
 const AMARANTE_ROUTE_EPISODE_ID = '004b-rumbo-amarante';
@@ -34,6 +34,8 @@ const TOPOLOCO_RECOVERY_DATE = '2026-08-21';
 const TOPOLOCO_SCENE_EPISODE_ID = '012-badoca-lagos';
 const TOPOLOCO_ROUTE_FLAG = 'lagos_descubierto_por_louri';
 const TOPOLOCO_RECOVERED_FLAG = 'canal_recuperado_dia21';
+const TOPOLOCO_RECOVERY_TECLA_FLAG = 'recuperacion_tecla_dia21_t21a8';
+const DAY21_EPISODE_ID = '013-delfines-benagil-sagres';
 const TECLA_SCENE_HOUR = 16;
 const TECLA_SCENE_TURNS = 3;
 const DEFAULT_FINAL_ROUTE = 'granada';
@@ -82,7 +84,7 @@ const EPISODE_AI_SPEAKERS = Object.freeze({
   '010-lisboa-ciencia-oceanario': ['topotina', 'vasco'],
   '011-lisboa-historia-belem': ['topotina', 'vasco'],
   '012-badoca-lagos': ['topotina', 'topoloco'],
-  '013-delfines-benagil-sagres': ['topotina', 'gotas', 'vasco', 'corvinho'],
+  '013-delfines-benagil-sagres': ['topotina', 'vasco'],
   '014-piedade-algar-jaima': ['topotina', 'gotas', 'corvinho'],
   '015-zoomarine': ['topotina', 'gotas', 'vasco'],
   '016-tavira-sevilla': ['topotina', 'corvinho'],
@@ -476,8 +478,27 @@ function showScreen(name) {
 }
 
 function initializeTopolocoScene() {
-  if (!state.unlocked || state.flags.includes(TOPOLOCO_RECOVERED_FLAG)) return;
+  if (!state.unlocked) return;
   const today = formatDate(getRuntimeNow());
+  if (today === TOPOLOCO_RECOVERY_DATE && !state.flags.includes(TOPOLOCO_RECOVERY_TECLA_FLAG)) {
+    state.narrativeScene = {
+      id: TOPOLOCO_SCENE_ID,
+      stage: 'recovery-tecla',
+      resumeAt: null,
+      teclaStage: 'complete',
+      teclaInteractionCount: Number(state.narrativeScene?.teclaInteractionCount) || 0
+    };
+    if (!state.unlockedEpisodeIds.includes(TOPOLOCO_SCENE_EPISODE_ID)) {
+      state.unlockedEpisodeIds.push(TOPOLOCO_SCENE_EPISODE_ID);
+    }
+    if (!state.renderedEpisodes.includes(TOPOLOCO_SCENE_EPISODE_ID)) {
+      state.renderedEpisodes.push(TOPOLOCO_SCENE_EPISODE_ID);
+    }
+    state.activeEpisodeId = TOPOLOCO_SCENE_EPISODE_ID;
+    saveState();
+    return;
+  }
+  if (state.flags.includes(TOPOLOCO_RECOVERED_FLAG)) return;
   if (state.narrativeScene?.id === TOPOLOCO_SCENE_ID) {
     let changed = false;
     if (!state.narrativeScene.teclaStage) {
@@ -495,7 +516,7 @@ function initializeTopolocoScene() {
 
   state.narrativeScene = {
     id: TOPOLOCO_SCENE_ID,
-    stage: today === TOPOLOCO_SCENE_DATE ? 'intro' : 'recovery',
+    stage: today === TOPOLOCO_SCENE_DATE ? 'intro' : 'recovery-tecla',
     resumeAt: null,
     teclaStage: 'pending',
     teclaInteractionCount: 0
@@ -540,8 +561,8 @@ async function runNarrativeScene() {
   const scene = state.narrativeScene;
   const today = formatDate(getRuntimeNow());
 
-  if (today >= TOPOLOCO_RECOVERY_DATE && !['recovery', 'complete'].includes(scene.stage)) {
-    scene.stage = 'recovery';
+  if (today >= TOPOLOCO_RECOVERY_DATE && !['recovery-tecla', 'complete'].includes(scene.stage)) {
+    scene.stage = 'recovery-tecla';
     scene.resumeAt = null;
     saveState();
   }
@@ -580,11 +601,12 @@ async function runNarrativeScene() {
     return true;
   }
 
-  if (scene.stage === 'recovery') {
+  if (scene.stage === 'recovery-tecla') {
     scene.stage = 'complete';
     scene.resumeAt = null;
     addUniqueMany(state.flags, [
       TOPOLOCO_RECOVERED_FLAG,
+      TOPOLOCO_RECOVERY_TECLA_FLAG,
       TOPOLOCO_ROUTE_FLAG,
       'completado_badoca_lagos',
       'louri_emergencia_cerrada'
@@ -592,20 +614,40 @@ async function runNarrativeScene() {
     addUniqueMany(state.completedChallengeIds, ['topoloco-ruta-lagos']);
     saveState();
     await deliverTopotinoMessages([
-      { from: 'topoloco', text: '…y mi título completo es Doctor Supremo, Profesor Extraordinario y—' },
-      { from: 'topotino', text: '¿«Extraordinario» lleva seis erres o siete? Es para tu placa.' },
-      { from: 'topoloco', text: '¡NINGUNA! ¿Cómo puedes no saber—?' },
-      { from: 'topotina', text: 'Gracias. Mientras lo deletreabas he revocado tu certificado de acceso.' },
+      { from: 'system', text: 'Acceso de mantenimiento detectado.' },
+      { from: 'topotina', text: 'Estoy dentro. He seguido la firma que dejó el hackeo.' },
+      { from: 'topoloco', text: '¡IMPOSIBLE! ¡Este canal está protegido por mi inteligencia!' },
+      { from: 'topotino', text: 'Y por una contraseña que seguramente contiene tu nombre.' },
+      { from: 'topoloco', text: '¡DOCTORTOPOLOCO1 es una contraseña histórica!' },
+      { from: 'doctora_tecla', text: '¿Quién está desmontando mi código?' },
+      { from: 'topotina', text: 'Yo. Entrada lateral elegante. Cierre desastroso.' },
+      { from: 'doctora_tecla', text: 'La entrada la hice yo. El cierre lo tocó él.' },
+      { from: 'topoloco', text: '¡Yo dirigí la operación!' },
+      { from: 'topotina', text: '¿Con los diecisiete mensajes que decían «porfi»?' },
+      { from: 'topotino', text: 'Me cae bien la ingeniera enemiga. Eso me preocupa bastante.' },
+      { from: 'doctora_tecla', text: 'No soy ingeniera enemiga. Soy la persona que evita que Topoloco conecte cables con cinta adhesiva.' },
+      { from: 'topotina', text: 'Entonces explícame esta salida hacia el mar.' },
+      { from: 'doctora_tecla', text: 'Eso es su Calibrador Marino. Quería obligar al Corrector a dar respuestas seguras sobre delfines salvajes y cuevas.' },
+      { from: 'topoloco', text: '¡TECLA! ¡SECRETO INDUSTRIAL!' },
+      { from: 'doctora_tecla', text: 'No funcionará si Paula y Hugo dicen exactamente qué vieron, qué no vieron y qué no pueden asegurar.' },
+      { from: 'topotina', text: 'Perfecto. Ya tengo la frecuencia del calibrador.' },
+      { from: 'doctora_tecla', text: 'Pues quédatela. Yo me voy. Y tú, Topoloco, bajas la basura cuando consigas salir.' },
+      { from: 'system', text: 'Doctora Tecla ha abandonado el canal definitivamente.' },
+      { from: 'topoloco', text: '¡NADIE ME EXPULSA DE MI PROPIA CONQUISTA!' },
+      { from: 'topotino', text: 'Topoloco, una pregunta: ¿«conquista» lleva seis erres o siete?' },
+      { from: 'topoloco', text: '¡NINGUNA! ¿CÓMO PUEDES NO SABER—?' },
+      { from: 'topotina', text: 'Gracias. Mientras gritabas he revocado tu acceso.' },
       { from: 'system', text: 'Doctor Topoloco ha sido expulsado del canal.' },
-      { from: 'topoloco', text: '¡ESTO NO HA TERMINADO! ¡Mi versión será la oficial!' },
-      { from: 'topotino', text: 'Canal recuperado. Esta vez de verdad. Y sí: Topotina lo ha comprobado tres veces porque, según ella, yo cuento como riesgo técnico.' },
-      { from: 'topotina', text: 'Confirmo una reserva para salir en barco desde la Marina de Lagos. La pista de Louri era correcta.' },
+      { from: 'topotino', text: 'Canal recuperado. Tecla se ha ido, Topoloco está fuera y mi dignidad técnica sigue en paradero desconocido.' },
+      { from: 'topotina', text: 'La pista de Louri era correcta: el calibrador está escuchando una salida en barco desde Lagos.' },
       { from: 'vasco', text: 'Activo el Protocolo Azul. Los delfines son salvajes: quizá aparezcan y quizá no.' },
-      { from: 'vasco', text: 'Si los veis, observad dirección, distancia y conducta sin perseguirlos. Si no aparecen, también será una observación verdadera.' },
-      { from: 'topotino', text: 'Buscad la señal de Topoloco entre los delfines y las cuevas del mar. No inventéis nada para que la misión quede bonita: él cuenta con eso.' }
+      { from: 'topotino', text: 'En el mar no tendréis cobertura. No intentéis contestar allí.' },
+      { from: 'topotino', text: 'Observad a los delfines si aparecen, las decisiones de la tripulación y las formas de las cuevas. Al volver al puerto reuniremos las pruebas y atacaremos el calibrador.' }
     ], { mode: 'scene' });
     state.narrativeScene.stage = 'complete';
+    if (state.unlockedEpisodeIds.includes(DAY21_EPISODE_ID)) state.activeEpisodeId = DAY21_EPISODE_ID;
     saveState();
+    window.setTimeout(() => runActivationCheck('canal-recuperado-dia21'), 500);
     return true;
   }
 
@@ -1052,11 +1094,21 @@ function getNextChallengeStep() {
     const step = steps[index];
     if (Array.isArray(step.finalRoutes) && !step.finalRoutes.includes(state.finalRoute || DEFAULT_FINAL_ROUTE)) continue;
     if (state.completedChallengeIds.includes(step.id)) continue;
+    if (step.notBefore && !challengeNotBeforeIsDue(step.notBefore)) return null;
     if (step.kind === 'conversation' && state.completedChallengeIds.includes(steps[index + 1]?.id)) continue;
     if (step.kind === 'daily-recovery' && getNetShadow() <= 0) continue;
     return { ...step, episodeId: episode.meta.id, shadowActor: pack.shadowActor || 'Topoloco' };
   }
   return null;
+}
+
+function challengeNotBeforeIsDue(rule) {
+  if (!rule?.date) return true;
+  const [year, month, day] = String(rule.date).split('-').map(Number);
+  const [hour = 0, minute = 0] = String(rule.time || '00:00').split(':').map(Number);
+  if (![year, month, day, hour, minute].every(Number.isFinite)) return true;
+  const threshold = new Date(year, month - 1, day, hour, minute, 0, 0);
+  return getRuntimeNow().getTime() >= threshold.getTime();
 }
 
 function getPendingArrivalChallenge() {
@@ -1223,6 +1275,10 @@ async function resolveStoryConversation(challenge, userText) {
     conversationChallenge: challenge,
     fallbackMessages: challenge.replyMessages
   });
+  if (challenge.alwaysMessages?.length) {
+    await deliverTopotinoMessages(toTopotinoMessages(challenge.alwaysMessages), { mode: 'conversation' });
+  }
+  applyChallengeEffects(challenge.effects || {});
   addUniqueMany(state.completedChallengeIds, [challenge.id]);
   saveState();
   renderAll();
@@ -2079,7 +2135,10 @@ function renderChallenge() {
     intro.textContent = challenge.intro || 'Realizad estas acciones con calma.';
     content.appendChild(intro);
     content.appendChild(renderActionList(challenge.actions || []));
-    content.appendChild(challengeCompleteButton(challenge.kind === 'ending' ? 'Abrir las doce ventanas' : 'Ya lo hemos hecho', challenge));
+    content.appendChild(challengeCompleteButton(
+      challenge.completionLabel || (challenge.kind === 'ending' ? 'Abrir las doce ventanas' : 'Ya lo hemos hecho'),
+      challenge
+    ));
   } else {
     const prompt = document.createElement('p');
     prompt.className = 'challenge-prompt';
@@ -3242,6 +3301,6 @@ function applyTestingParams() {
 
 function registerServiceWorker() {
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('service-worker.js?v=offline-v32').catch(() => {});
+    navigator.serviceWorker.register('service-worker.js?v=offline-v33').catch(() => {});
   }
 }

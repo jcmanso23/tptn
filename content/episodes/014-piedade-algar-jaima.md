@@ -15,13 +15,14 @@
 
 # Contexto narrativo
 
-La orden interceptada en Sagres confirma que Eco copia la voz de Topotino. Ponta da Piedade y Algar Seco enseñan a distinguir fractura, cueva, arco y pilar para preparar a Paula y Hugo contra dos apariencias parecidas. Eco reúne sonido y vocabulario durante el recorrido. En la HolaJaima suplanta a Topotino y pide la marca privada del Cuaderno; la petición misma lo delata. Su orden de retirada señala Zoomarine.
+El archivo recuperado al bloquear el Calibrador Marino confirma que Eco está aprendiendo a copiar formas y voces. Ponta da Piedade y Algar Seco enseñan a distinguir fractura, cueva, arco y pilar para preparar a Paula y Hugo contra dos apariencias parecidas. Eco reúne sonido y vocabulario durante el recorrido. En la HolaJaima suplanta a Topotino y pide la marca privada del Cuaderno; la petición misma lo delata. Su orden de retirada señala Zoomarine.
 
 ## Mensajes iniciales
 
 ```json
 [
-  { "from": "topotino", "time": "auto", "text": "Buenos días. Recorred las pasarelas de Ponta da Piedade con los adultos y comparad la costa desde dos miradores seguros." },
+  { "from": "topotino", "time": "auto", "text": "Buenos días. Ayer bloqueasteis el Calibrador Marino y recuperamos una orden para que Eco copie formas y voces. Su primera coordenada es Ponta da Piedade." },
+  { "from": "topotina", "time": "auto", "text": "Recorred las pasarelas con los adultos y comparad la costa desde dos miradores seguros. Necesitamos distinguir formas reales antes de que Eco intente confundirlas." },
   { "from": "topotino", "time": "auto", "text": "Localizad tres formas entre fractura, cueva, arco, pilar o islote. Ordenad una transformación posible y explicad por qué no toda la costa sigue la misma secuencia." }
 ]
 ```

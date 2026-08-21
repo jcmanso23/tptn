@@ -159,7 +159,6 @@ test('cada cambio de lugar futuro espera la llegada física antes de mostrar su 
     'pavilhao-expedicion',
     'oceanario-q1',
     'alfama-visita-expedicion', 'belem-expedicion',
-    'sagres-q1',
     'algar-q1', 'jaima-expedicion',
     'sevilla-plaza-q1',
     'catedral-q1', 'alhambra-expedicion'
@@ -292,7 +291,7 @@ test('cada cambio de destino desde el día 17 tiene antes un diálogo narrativo'
   const destinationIds = new Set([
     'dia17-pista-lisboa', 'ruta-dia18', 'dia18-pista-oceanario', 'dia18-pista-tejo',
     'ruta-dia19', 'dia19-pista-alfama', 'dia19-pista-belem', 'ruta-dia20',
-    'dia20-pista-lagos', 'ruta-dia21', 'dia21-pista-sagres', 'ruta-dia22',
+    'dia20-pista-lagos', 'ruta-dia21', 'ruta-dia22',
     'dia22-pista-algar', 'dia22-pista-jaima', 'ruta-dia23', 'ruta-dia24',
     'dia24-pista-sevilla', 'ruta-dia25', 'ruta-dia26', 'dia26-pista-catedral',
     'dia26-pista-alhambra'
@@ -321,12 +320,49 @@ test('cada cambio de destino desde el día 17 tiene antes un diálogo narrativo'
   assert.match(reply, /No quiero verlo.*Cuaderno es vuestro/is);
 });
 
+test('el día 21 funciona sin cobertura, elimina Sagres y prepara Ponta por la tarde', () => {
+  const day21 = CHALLENGE_PACKS['013-delfines-benagil-sagres'];
+  const ids = day21.steps.map((step) => step.id);
+  const expedition = day21.steps.find((step) => step.id === 'barco-expedicion');
+  const returnConversation = day21.steps.find((step) => step.id === 'dialogo-regreso-puerto-dia21');
+  const afternoonConversation = day21.steps.find((step) => step.id === 'dialogo-ruta-dia22');
+  const route = day21.steps.find((step) => step.id === 'ruta-dia22');
+  const visible = [
+    ...day21.openingMessages.map(messageText),
+    ...day21.steps.flatMap((step) => [
+      step.place,
+      step.prompt,
+      step.intro,
+      ...(step.actions || []),
+      ...(step.successMessages || []).map(messageText),
+      ...(step.doneMessages || []).map(messageText),
+      ...(step.promptMessages || []).map(messageText),
+      ...(step.replyMessages || []).map(messageText),
+      ...(step.alwaysMessages || []).map(messageText)
+    ])
+  ].filter(Boolean).join(' ');
+
+  assert.equal(expedition.completionLabel, 'Ya hemos vuelto al puerto');
+  assert.ok(ids.indexOf('barco-expedicion') < ids.indexOf('barco-q1'));
+  assert.ok(ids.indexOf('barco-q1') < ids.indexOf('barco-q2'));
+  assert.ok(ids.indexOf('barco-q2') < ids.indexOf('barco-q3'));
+  assert.ok(ids.indexOf('barco-q3') < ids.indexOf('dialogo-regreso-puerto-dia21'));
+  assert.match(returnConversation.alwaysMessages.map(messageText).join(' '), /Calibrador Marino.*bloqueado|bloqueado.*Calibrador Marino/is);
+  assert.deepEqual(returnConversation.effects.setFlags, ['calibrador_marino_bloqueado']);
+  assert.deepEqual(afternoonConversation.notBefore, { date: '2026-08-21', time: '17:30' });
+  assert.deepEqual(afternoonConversation.effects.setFlags, ['tarde_lagos_lista']);
+  assert.deepEqual(route.notBefore, { date: '2026-08-21', time: '17:30' });
+  assert.match(route.successMessages.map(messageText).join(' '), /maletas.*este del Algarve|este del Algarve.*maletas/is);
+  assert.match(visible, /sin cobertura|no tendréis cobertura/i);
+  assert.doesNotMatch(visible, /Sagres|Cabo de São Vicente|Corvinho/i);
+});
+
 test('el arco posterior encadena el Corrector de Topoloco y ofrece finales excluyentes', async () => {
   const causalChecks = [
     ['010-lisboa-ciencia-oceanario', /módulo.*separar causas|separar causas.*módulo/is],
     ['011-lisboa-historia-belem', /archivo histórico.*Lisboa|Lisboa.*archivo histórico/is],
     ['013-delfines-benagil-sagres', /Louri.*embarcación|embarcación.*Lagos|Corrector/is],
-    ['014-piedade-algar-jaima', /Eco.*copiando la voz|voz.*Eco/is],
+    ['014-piedade-algar-jaima', /Eco.*copi.*formas y voces|formas y voces.*Eco/is],
     ['015-zoomarine', /Eco.*Cuaderno|Cuaderno.*Eco/is],
     ['016-tavira-sevilla', /Borrón.*puente|puente.*Borrón/is],
     ['017-isla-magica', /firma gemela.*Magikland|Magikland.*firma gemela/is]
@@ -407,7 +443,7 @@ test('cada lugar revela solo el paso accionable siguiente y nunca el itinerario 
     '010-lisboa-ciencia-oceanario': ['dia18-pista-oceanario'],
     '011-lisboa-historia-belem': ['dia19-pista-belem'],
     '012-badoca-lagos': ['topoloco-ruta-lagos'],
-    '013-delfines-benagil-sagres': ['dia21-pista-sagres'],
+    '013-delfines-benagil-sagres': ['ruta-dia22'],
     '014-piedade-algar-jaima': ['dia22-pista-algar', 'dia22-pista-jaima'],
     '016-tavira-sevilla': ['dia24-pista-sevilla'],
     '018-sevilla-alhambra-noche': ['dia26-pista-catedral', 'dia26-pista-alhambra']

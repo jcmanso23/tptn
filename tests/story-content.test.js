@@ -170,7 +170,7 @@ test('los días 13 y 14 conservan su cadena narrativa y adaptan solo tras un imp
   assert.doesNotMatch(childFacingText, /(foto|fotografía).{0,30}(cuaderno|diario)/i);
 });
 
-test('la edición T-21A7 añade a Doctora Tecla sin retroceder y mantiene visible la actualización de señal', async () => {
+test('la edición T-21A8 recupera el canal y adapta el día marítimo sin retroceder', async () => {
   const files = ['index.html', 'app.js', 'admin.js', 'content/episodes/001-reconexion.md'];
   const combined = (await Promise.all(files.map((file) => readFile(join(root, file), 'utf8')))).join('\n');
   const app = await readFile(join(root, 'app.js'), 'utf8');
@@ -183,14 +183,14 @@ test('la edición T-21A7 añade a Doctora Tecla sin retroceder y mantiene visibl
 
   const styles = await readFile(join(root, 'styles.css'), 'utf8');
 
-  assert.match(combined, /T-21A7/);
+  assert.match(combined, /T-21A8/);
   assert.doesNotMatch(combined, /T-12A9/);
   assert.match(app, /splitTopotinoMessages/);
   assert.match(app, /CHALLENGE_PACKS/);
   assert.match(app, /els\.channelCode\.textContent = APP_VERSION_CODE/);
-  assert.match(serviceWorker, /topotino-offline-v43/);
-  assert.match(serviceWorker, /chat-format\.js\?v=memory-v58/);
-  assert.match(serviceWorker, /content\/challenges\.js\?v=memory-v58/);
+  assert.match(serviceWorker, /topotino-offline-v44/);
+  assert.match(serviceWorker, /chat-format\.js\?v=memory-v59/);
+  assert.match(serviceWorker, /content\/challenges\.js\?v=memory-v59/);
   assert.match(combined, /id="location-refresh"/);
   assert.ok(combined.indexOf('id="location-refresh"') < combined.indexOf('</header>'));
   assert.doesNotMatch(styles, /\.location-refresh-compact\s*\{[^}]*display:\s*none/is);
@@ -423,10 +423,10 @@ test('las pruebas nuevas exigen evidencia física, variedad y personajes reales 
   }
 
   const text = combined.join('\n');
-  for (const concept of ['predicción', 'hipótesis', 'comparad', 'evidencia', 'interpretación', 'Vasco', 'Gotas', 'Corvinho', 'Capitán Pico', 'América', 'Krim', 'Topotina', 'Borrón', 'Eco', 'Niebla']) {
+  for (const concept of ['predicción', 'hipótesis', 'comparad', 'evidencia', 'interpretación', 'Vasco', 'Gotas', 'Capitán Pico', 'América', 'Krim', 'Topotina', 'Borrón', 'Eco', 'Niebla']) {
     assert.match(text, new RegExp(concept, 'i'), `falta variedad o personaje: ${concept}`);
   }
-  assert.match(text, /No uséis|No toquéis|no lo alimentéis|no se garantiza/i);
+  assert.match(text, /No uséis|No toquéis|no lo alimentéis|no se garantiza|no promete|sin cobertura/i);
 });
 
 test('la secuencia principal puede recorrerse y reúne exactamente las doce aguas', async () => {

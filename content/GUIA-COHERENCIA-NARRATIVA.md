@@ -1,6 +1,6 @@
 # Guía maestra de coherencia narrativa · Las Doce Aguas
 
-**Versión canónica:** 20 de agosto de 2026 · edición T-21A7
+**Versión canónica:** 21 de agosto de 2026 · edición T-21A8
 **Final principal:** Alhambra, Palacios Nazaríes, noche del 26 de agosto
 **Final alternativo adulto:** Isla Mágica, noche del 25 de agosto
 **Epílogo:** Generalife, 27 de agosto; no abre otra amenaza
@@ -49,7 +49,7 @@ Al comienzo solo se sabe que ocurrió algo durante el eclipse. La atribución pr
 - Óbidos: Topotino comprende que los recuerdos no fueron destruidos, sino extraídos y repartidos.
 - Dino Parque: aparece el nombre del museo.
 - Lisboa: se descubre que el museo congela una única versión.
-- Asalto del chat y Sagres: Topoloco admite que aprende el método de Paula y Hugo.
+- Asalto del chat y regreso al puerto de Lagos: Topoloco admite que el Corrector aprende del método de Paula y Hugo.
 - Jaima: Eco imita la voz de Topotino y confirma que los Oscurnos participan.
 - Zoomarine: motivo, conducta y resultado permiten concluir que Topoloco causó la amnesia.
 - Alhambra: Arrayanes revela el mecanismo completo del eclipse y los reflejos.
@@ -144,7 +144,9 @@ Doctora Tecla es la mujer de Topoloco, una hacker brillante, directa y de carác
 
 Topoloco no consiguió entrar solo en el Comunicador Subterráneo. Le suplicó ayuda a Tecla mediante numerosos mensajes y ella abrió la brecha. Tecla no comparte su obsesión por convertirse en héroe de todas las historias y no es una nueva aliada de los niños: ayuda a Topoloco cuando le apetece, discute con él y protege sus propios intereses.
 
-La tarde del 20 entra en el canal ocupado porque no encuentra a Topoloco por ningún otro medio y le toca bajar la basura. Topoloco intenta mantener su imagen de genio ante Paula y Hugo; Tecla corrige sus exageraciones. Los niños pueden preguntar libremente durante varios turnos. La discusión confirma, sin revelar el itinerario futuro, que el Corrector necesita las doce ventanas y observaciones auténticas porque no sabe inventar recuerdos convincentes. Al enfadarse por las filtraciones y porque Topoloco se atribuye el hackeo, Tecla revoca su propio acceso, le ordena ocuparse de la basura y abandona el canal. No se convierte en participante recurrente ni resuelve las misiones.
+La tarde del 20 entra en el canal ocupado porque no encuentra a Topoloco por ningún otro medio y le toca bajar la basura. Topoloco intenta mantener su imagen de genio ante Paula y Hugo; Tecla corrige sus exageraciones. Los niños pueden preguntar libremente durante varios turnos. La discusión confirma, sin revelar el itinerario futuro, que el Corrector necesita las doce ventanas y observaciones auténticas porque no sabe inventar recuerdos convincentes. Al enfadarse por las filtraciones y porque Topoloco se atribuye el hackeo, Tecla revoca su propio acceso, le ordena ocuparse de la basura y abandona el canal.
+
+La mañana del 21 tiene una única reaparición final. Cuando Topotina empieza a retirar el hackeo, activa una alarma que Tecla dejó en su código. Tecla vuelve para impedir que toquen «su obra» y mantiene con Topotina una discusión de respeto técnico y pullas, con Topotino y Topoloco atrapados en medio. Topoloco presume demasiado y Tecla revela la existencia del calibrador marino. Topotina aprovecha esa información para localizarlo, Tecla abandona definitivamente el canal y Topoloco es expulsado. Después no se convierte en participante recurrente ni resuelve ninguna misión.
 
 ### Los Oscurnos
 
@@ -163,7 +165,7 @@ Sus apariciones deben dejar rastros coherentes. No son monstruos terroríficos; 
 - **Sira:** enlace con aliados de la superficie.
 - **Gotas:** conoce las cuevas de Mira de Aire y ayuda a comprender el trabajo del agua. Entra realmente en el chat con su propio avatar: una gota azul sonriente, con mochila marrón, guantes claros y botas. Su firma puede detectarse al resolver las huellas, pero no habla hasta confirmar la llegada a las cuevas. Topotina verifica su identidad; Gotas explica qué sabe y deja claro que Paula y Hugo deberán observar y decidir por sí mismos.
 - **Vasco:** aliado del Oceanário. Nació simbólicamente el 8 de junio, le encanta bucear y enseña a observar y proteger el océano.
-- **Corvinho:** joven cuervo ligado a Sagres; ayuda a mantener abiertas hipótesis rivales.
+- **Corvinho:** joven cuervo de la red de aliados del Algarve. La ruta real del 21 ya no pasa por Sagres, por lo que no interviene activamente en esta aventura; se conserva como personaje de la red, no como solución narrativa.
 - **Capitán Pico y América:** exploradores de Isla Mágica. Reclutan a Paula y Hugo como pequeños exploradores y recuperan piezas de la pista final.
 - **Krim:** duende del Mundo de los Colores. Ayuda a distinguir lo que se siente de la decisión que se toma bajo esa emoción.
 
@@ -190,8 +192,8 @@ Cada desplazamiento posterior responde a una pieza concreta de la máquina y a u
 - **Lisboa, ciencia, Oceanário y Tajo:** el archivo de Louri conduce al módulo que separa causas y relaciones. Pavilhão permite sabotear su clasificador de causa; Vasco y el Oceanário demuestran que una red viva no es una colección de piezas; el Tajo revela que el módulo envía datos al archivo histórico de Lisboa.
 - **Castelo, Alfama, Baixa y Belém:** Topoloco intenta convertir la reconstrucción de 1755 y los relatos marítimos en una única versión heroica. Comparar vista general, calles reales y monumentos obliga a la máquina a conservar cambios, voces y funciones. Después introduce el falso rastro de un safari terrestre.
 - **Asalto del chat y Lagos:** Topoloco entra en el Comunicador y revela el Corrector Definitivo de la Historia, módulo final de la Máquina de los Recuerdos. Quiere imponer una versión en la que él fue el héroe. Louri utiliza su única conexión de emergencia para revelar que el safari era un señuelo y que las cuevas son marinas. Paula y Hugo deducen Lagos; Topoloco expulsa a todos y ocupa el canal. Esa tarde Doctora Tecla entra buscando a Topoloco para que baje la basura, revela que ella abrió la brecha porque él se lo suplicó y, durante su discusión, confirma límites concretos del Corrector. Se marcha enfadada y Topoloco conserva el canal hasta que Topotina lo recupera el día 21.
-- **Delfines, Benagil y Sagres:** el Protocolo Azul impide que la máquina convierta ausencia en certeza. Benagil demuestra que un hueco puede conservar historia sin ser un vacío. En Sagres se intercepta la orden de Eco para copiar la voz de Topotino.
-- **Ponta da Piedade, Algar Seco y jaima:** las formas costeras enseñan a distinguir arco, pilar y cueva mientras Eco reúne palabras y tono. En la jaima la petición del Cuaderno lo delata; su orden de retirada señala Zoomarine.
+- **Barco desde Lagos y regreso al puerto:** el Protocolo Azul impide que el calibrador marino convierta «hoy no lo vimos» en «no existe» y que llame «nada» al hueco de una cueva. En el mar no hay cobertura: Paula y Hugo solo observan y siguen a la tripulación. Las preguntas y la conversación aparecen al regresar a la Marina de Lagos. Sus respuestas exactas bloquean el calibrador, recuperan un registro de la máquina e interceptan una orden para que Eco copie formas y voces en los acantilados.
+- **Ponta da Piedade, Algar Seco y jaima:** la orden recuperada en el puerto señala primero Ponta da Piedade. Sus formas costeras y las de Algar Seco enseñan a distinguir arco, pilar y cueva mientras Eco reúne palabras y tono. En la jaima la petición del Cuaderno lo delata; su orden de retirada señala Zoomarine.
 - **Zoomarine:** el cuidado real y la devolución al mar desmontan la mentira «si lo cuidas, te pertenece». Al unir motivo, método y resultado, Topotino concluye que Topoloco provocó su amnesia. Borrón altera entonces la etiqueta del puente de Tavira.
 - **Tavira y Sevilla:** consultar en privado el Cuaderno permite corregir la falsa etiqueta. La corrección abre Plaza de España y reactiva la firma gemela de Magikland, que conduce a Isla Mágica.
 - **Isla Mágica:** Niebla intenta forzar una decisión urgente. Capitán Pico, América y Krim ayudan a Paula y Hugo a preparar una respuesta falsa, reversible y comprobable. La ruta elegida en el panel adulto permanece invisible. En la principal, la contratrampa revela la Alhambra y dos cerraduras previas. En la alternativa, Topoloco desvía el Corrector al lago de Isla Mágica y la aventura termina allí la noche del 25.
@@ -210,7 +212,7 @@ Vasco enseña en el Oceanário un método que reaparece en el barco de delfines 
 3. no molestar ni intervenir sin criterio;
 4. cuidar significa proteger y, cuando corresponde, devolver.
 
-Esta continuidad une Oceanário, delfines, Benagil y Porto d’Abrigo. En Zoomarine permite refutar «si cuidas algo, te pertenece».
+Esta continuidad une Oceanário, delfines, cuevas marinas y Porto d’Abrigo. En Zoomarine permite refutar «si cuidas algo, te pertenece».
 
 ## 11. Magikland e Isla Mágica
 
@@ -246,7 +248,7 @@ Desde el 17 de agosto existe además un **puente conversacional obligatorio** al
 
 Este diálogo no suma Memoria ni Sombra, no usa Luna para decidir el avance y no puede quedar bloqueado por la redacción de Paula o Hugo. Su objetivo es cerrar la escena y hacer que la historia respire antes del desplazamiento.
 
-La geolocalización abre la conversación, no resuelve la prueba. Primero se propone la prueba principal. Solo si Paula o Hugo comunican un obstáculo concreto se ofrece una adaptación equivalente. No se muestran alternativas de antemano.
+La geolocalización abre la conversación, no resuelve la prueba. Primero se propone la prueba principal. Solo si Paula o Hugo comunican un obstáculo concreto se ofrece una adaptación equivalente. No se muestran alternativas de antemano. Excepción operativa del 21: en el barco no se exige cobertura ni respuesta. La tarjeta reúne todo lo que deben observar y las preguntas permanecen ocultas hasta que confirman que han regresado al puerto.
 
 Las respuestas deben exigir evidencia y razonamiento, pero los mensajes de Topotino son breves, como WhatsApp. Una instrucción compleja se divide en varios mensajes.
 
@@ -302,7 +304,7 @@ Aprender mucho no significa recibir un discurso largo. Cada lugar reparte el con
 | 18 | Pavilhão, Oceanário, Tejo | Vasco enseña Protocolo Azul; doce nodos son una red | Leer una ciudad por capas |
 | 19 | Lisboa, Belém | Supervivencia, reconstrucción y cambio de uso; museo de versión única | Observar animales sin inventar intención |
 | 20 | Asalto del chat, pista de Lagos, discusión de Tecla | Topoloco revela el Corrector; Louri desmonta el señuelo terrestre; Tecla confirma quién abrió la brecha y qué necesita la máquina | Barco, delfines y cuevas marinas |
-| 21 | Delfines, Benagil, Sagres | Aplicar Protocolo Azul; erosión e hipótesis; Topoloco admite que aprende | Dos costas y una voz en la lona |
+| 21 | Barco desde Lagos, regreso al puerto, tarde de playa | Aplicar Protocolo Azul sin cobertura; bloquear el calibrador marino; recuperar la orden de Eco | Ponta da Piedade y una voz que intenta copiar patrones |
 | 22 | Piedade, Algar Seco, jaima | Hueco/soporte; Eco suplanta a Topotino y es descubierto | «Si cuidas algo, te pertenece» |
 | 23 | Zoomarine | Vasco y Porto d’Abrigo: rescatar, rehabilitar y devolver | Concluir que Topoloco causó la amnesia; puente mal nombrado |
 | 24 | Tavira, Sevilla | Corregir un relato popular; conectar orillas y activar firma del segundo parque | Isla Mágica y la estación gemela |
@@ -401,6 +403,16 @@ Antes de publicar un cambio:
 
 ## 19. Registro de decisiones
 
+### 21 de agosto de 2026 · T-21A8
+
+- Topotina recupera el canal mediante una escena cómica completa. Al retirar el hackeo activa una alarma de Doctora Tecla; ambas discuten de tecnología y autoría mientras Topotino y Topoloco quedan en medio. Tecla revela el calibrador marino, abandona el canal definitivamente y Topoloco es expulsado.
+- El objetivo del barco queda concreto: reunir observaciones que el calibrador no pueda reducir a una certeza falsa. Deben distinguir «hoy no vimos delfines» de «no existen» y reconocer que el hueco de una cueva es el resultado de roca, fracturas, agua y tiempo, no «nada».
+- No se necesita cobertura durante la navegación. Paula y Hugo reciben juntas las observaciones antes de zarpar; la aplicación no muestra preguntas hasta que pulsan «Ya hemos vuelto a puerto».
+- En el puerto, tres decisiones con opciones y una conversación breve convierten lo observado en un sabotaje real: el calibrador queda bloqueado y Topotina recupera una orden dirigida a Eco.
+- Se cancela Sagres dentro de la aventura del 21. No se anuncia como un plan abandonado a los niños ni se finge la visita. La orden de Eco se intercepta en el propio calibrador del barco y conduce a Ponta da Piedade.
+- La tarde queda libre de pruebas en la playa. A partir de las 17:30, y solo después de cerrar el análisis del puerto, Topotino y Topotina preguntan brevemente por la experiencia y presentan la primera señal de mañana. Al deducir Ponta da Piedade explican que buscan aprender a distinguir formas reales antes de que Eco copie apariencias y voces; piden hacer las maletas, llevar agua, protector solar y calzado con agarre, y descansar.
+- Se conservan los IDs técnicos heredados `013-delfines-benagil-sagres` y `completado_delfines_benagil_sagres`, así como Agua del Horizonte, para no romper el progreso. No se conservan mensajes infantiles ni retos que atribuyan una visita a Sagres.
+
 ### 20 de agosto de 2026 · T-21A7
 
 - Se incorpora a Doctora Tecla, mujer de Topoloco y verdadera especialista técnica de la pareja, con el avatar proporcionado por la familia.
@@ -481,7 +493,7 @@ Antes de publicar un cambio:
 - Se confirma la cronología real: el 14 de agosto termina en Curia, donde la familia hace check-in y duerme en el Hotel do Parque; el 15 empieza desde Curia y continúa por Buçaco, Batalha y Fátima.
 - La separación entre destino descubierto y llegada física deja de ser una excepción de Curia y pasa a gobernar todas las paradas posteriores. La primera tarjeta de cada nuevo lugar queda oculta hasta entrar en su radio de llegada.
 - Una llegada confirmada queda guardada. Una variación posterior del GPS no vuelve a ocultar una misión que ya se abrió, pero la ubicación nunca completa una prueba.
-- Las preguntas que por estructura preceden a una expedición también quedan protegidas por la llegada: no se puede ver una pregunta de Batalha, Mira de Aire, Lisboa, Oceanário, Lagos, Sagres, Algar Seco, Sevilla, Isla Mágica, Catedral o Alhambra desde el lugar anterior.
+- Las preguntas que por estructura preceden a una expedición también quedan protegidas por la llegada: no se puede ver una pregunta de Batalha, Mira de Aire, Lisboa, Oceanário, Lagos, Ponta da Piedade, Algar Seco, Sevilla, Isla Mágica, Catedral o Alhambra desde el lugar anterior.
 - Cada aviso de llegada explica con palabras concretas por qué esa parada continúa lo aprendido y qué deben observar allí. Personajes y mecanismos se presentan por pasos y no se dan por entendidos tras una sola mención.
 - Se mantienen todos los IDs y el progreso guardado. Las partidas que ya alcanzaron una parada no repiten retos ni pierden Memoria.
 
