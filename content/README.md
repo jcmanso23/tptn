@@ -185,9 +185,10 @@ Recomendación: usa siempre una ventana privada o entra con `?topoadulto=1&reset
 - `006-magikland-curia`: día 14, Magikland y lectura histórica del Hotel do Parque en Curia.
 - `007` a `009`: Buçaco–Batalha–Fátima, tiempo profundo–Óbidos y Dino Parque–Lisboa.
 - `010` a `012`: ciencia–Oceanário, Lisboa histórica–Belém y Badoca–Lagos.
-- `013` a `015`: delfines–Benagil–Sagres, Ponta–Algar Seco–HolaJaima y Zoomarine.
-- `016` y `017`: Tavira–Sevilla e Isla Mágica.
-- `018-sevilla-alhambra-noche`: cierre principal en la Alhambra nocturna el 26 de agosto.
-- `019-epilogo-generalife`: epílogo voluntario y regreso el 27.
+- `013`: barco desde Lagos, delfines salvajes, cuevas marinas y bloqueo del Calibrador Marino.
+- `014`: Ponta da Piedade, centro antiguo de Albufeira, coordenadas de Louri y Refugio de Lona. Algar Seco es solo una recomendación opcional.
+- `015`: Zoomarine y Porto d’Abrigo, conectados con los delfines salvajes del día anterior.
+- `016`: Tavira y descubrimiento de Sevilla; la tarde queda libre y Plaza de España es opcional.
+- `017-isla-magica`: final único junto al lago de Isla Mágica durante la noche del 25 de agosto.
 
 El arco completo del viaje está publicado. Cada mañana recuerda el motivo de la ruta, cada lugar usa retos breves y físicos, cada noche permite descubrir el destino siguiente y la conversación libre con Luna continúa disponible sin controlar el progreso.

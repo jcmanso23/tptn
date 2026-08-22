@@ -1,5 +1,5 @@
-import { splitTopotinoMessages } from './chat-format.js?v=memory-v59';
-import { CHALLENGE_PACKS, displayChallengeOptions } from './content/challenges.js?v=memory-v59';
+import { splitTopotinoMessages } from './chat-format.js?v=memory-v60';
+import { CHALLENGE_PACKS, displayChallengeOptions } from './content/challenges.js?v=memory-v60';
 
 const STORAGE_KEYS = {
   auth: 'topotino_chat_auth_v1',
@@ -7,9 +7,9 @@ const STORAGE_KEYS = {
 };
 
 const LEGACY_STATE_KEY = 'topotino_chat_state_v1';
-const APP_VERSION_CODE = 'T-21A8';
+const APP_VERSION_CODE = 'T-22A0';
 const PASSPHRASE_HASH = 'a64716bd9f4e8added1bf47f80b97c3fc7b70a15b8043cdab083e1ddf85f3794';
-const EPISODES_MANIFEST = 'content/episodes.json?v=memory-v59';
+const EPISODES_MANIFEST = 'content/episodes.json?v=memory-v60';
 const LIVE_STORY_ENDPOINT = '/api/story';
 const AMARANTE_TRAVEL_DATE = '2026-08-13';
 const AMARANTE_ROUTE_EPISODE_ID = '004b-rumbo-amarante';
@@ -38,7 +38,12 @@ const TOPOLOCO_RECOVERY_TECLA_FLAG = 'recuperacion_tecla_dia21_t21a8';
 const DAY21_EPISODE_ID = '013-delfines-benagil-sagres';
 const TECLA_SCENE_HOUR = 16;
 const TECLA_SCENE_TURNS = 3;
-const DEFAULT_FINAL_ROUTE = 'granada';
+const DEFAULT_FINAL_ROUTE = 'sevilla-night';
+const DAY22_FINALE_MIGRATION_FLAG = 'migracion_final_sevilla_t22a0';
+const DAY22_EPISODE_ID = '014-piedade-algar-jaima';
+const FINAL_EPISODE_ID = '017-isla-magica';
+const RETIRED_FINAL_EPISODE_IDS = new Set(['018-sevilla-alhambra-noche', '019-epilogo-generalife']);
+const EARLY_SEVILLA_FINAL_FLAG = 'final_sevilla_adelantado';
 const SECURITY_CHECKIN_MESSAGES = [
   'Buenos días, Paula y Hugo.',
   'Antes de seguir tengo que contaros algo. Ayer el chat secreto estaba estropeado: llegaban mensajes tarde, se mezclaban y yo respondía a cosas anteriores.',
@@ -85,11 +90,10 @@ const EPISODE_AI_SPEAKERS = Object.freeze({
   '011-lisboa-historia-belem': ['topotina', 'vasco'],
   '012-badoca-lagos': ['topotina', 'topoloco'],
   '013-delfines-benagil-sagres': ['topotina', 'vasco'],
-  '014-piedade-algar-jaima': ['topotina', 'gotas', 'corvinho'],
+  '014-piedade-algar-jaima': ['topotina', 'vasco'],
   '015-zoomarine': ['topotina', 'gotas', 'vasco'],
   '016-tavira-sevilla': ['topotina', 'corvinho'],
-  '017-isla-magica': ['topotina', 'capitan_pico', 'america', 'krim'],
-  '018-sevilla-alhambra-noche': ['topotina']
+  '017-isla-magica': ['topotina', 'capitan_pico', 'america', 'krim']
 });
 const CHATTER_LIMIT_CHARS = 500;
 const CHATTER_LIMIT_MESSAGES = 8;
@@ -234,6 +238,7 @@ async function init() {
     baseEpisodes = await Promise.all(manifest.map((item) => fetchEpisode(item.file)));
     episodes = baseEpisodes.slice().sort((a, b) => (a.meta.order || 0) - (b.meta.order || 0));
     await refreshLiveStory();
+    applyDay22FinaleMigration();
     applyTravelDayRescue();
     applyAmaranteCompletionRescue();
     applyDay14SecurityCheckIn();
@@ -293,6 +298,7 @@ function bindElements() {
   els.adultPhaseStatus = document.getElementById('adult-phase-status');
   els.adultFinalRoute = document.getElementById('adult-final-route');
   els.adultFinalRouteStatus = document.getElementById('adult-final-route-status');
+  els.adultOpenFinal = document.getElementById('adult-open-final');
   els.adultRestoreCode = document.getElementById('adult-restore-code');
   els.adultFileInput = document.getElementById('adult-import-file');
   els.adultMessage = document.getElementById('adult-message');
@@ -350,6 +356,7 @@ function bindEvents() {
   if (els.adultSync) els.adultSync.addEventListener('click', () => syncStateNow({ force: true }));
   if (els.adultSchedulePhase) els.adultSchedulePhase.addEventListener('click', scheduleAdultPhaseLaunch);
   if (els.adultFinalRoute) els.adultFinalRoute.addEventListener('change', updateAdultFinalRoute);
+  if (els.adultOpenFinal) els.adultOpenFinal.addEventListener('click', openSevillaFinalNow);
   if (els.adultRestore) els.adultRestore.addEventListener('click', restoreFromAdultCode);
   if (els.adultExport) els.adultExport.addEventListener('click', exportAdultBackup);
   if (els.adultImport) els.adultImport.addEventListener('click', () => els.adultFileInput.click());
@@ -1094,7 +1101,7 @@ function getNextChallengeStep() {
     const step = steps[index];
     if (Array.isArray(step.finalRoutes) && !step.finalRoutes.includes(state.finalRoute || DEFAULT_FINAL_ROUTE)) continue;
     if (state.completedChallengeIds.includes(step.id)) continue;
-    if (step.notBefore && !challengeNotBeforeIsDue(step.notBefore)) return null;
+    if (step.notBefore && !challengeNotBeforeIsDue(step.notBefore, step)) return null;
     if (step.kind === 'conversation' && state.completedChallengeIds.includes(steps[index + 1]?.id)) continue;
     if (step.kind === 'daily-recovery' && getNetShadow() <= 0) continue;
     return { ...step, episodeId: episode.meta.id, shadowActor: pack.shadowActor || 'Topoloco' };
@@ -1102,7 +1109,8 @@ function getNextChallengeStep() {
   return null;
 }
 
-function challengeNotBeforeIsDue(rule) {
+function challengeNotBeforeIsDue(rule, step = null) {
+  if (step?.allowEarlyFlag && state.flags.includes(step.allowEarlyFlag)) return true;
   if (!rule?.date) return true;
   const [year, month, day] = String(rule.date).split('-').map(Number);
   const [hour = 0, minute = 0] = String(rule.time || '00:00').split(':').map(Number);
@@ -1406,9 +1414,7 @@ function calculateEndingVariant() {
 }
 
 function endingMessages(variant) {
-  const endingPlace = state.finalRoute === 'sevilla-night'
-    ? 'aquí, junto al lago de Isla Mágica'
-    : 'aquí, en la Alhambra de noche';
+  const endingPlace = 'aquí, junto al lago de Isla Mágica';
   const shared = [
     'Las doce ventanas se han abierto como una sola red. Topoloco no puede convertir vuestras dos miradas en una propiedad suya.',
     'Borrón, Eco y Niebla sueltan las conexiones. Topoloco huye por un conducto estrecho, enfadado porque una historia compartida no cabe en su vitrina.',
@@ -1416,12 +1422,12 @@ function endingMessages(variant) {
     `Paula, Hugo: gracias. Habéis observado, elegido, corregido y seguido juntos. La aventura principal termina ${endingPlace}.`
   ];
   if (variant === 'clean') {
-    return ['Victoria limpia. La Memoria supera claramente a la Sombra.', ...shared, 'Mis recuerdos regresan con conexiones muy nítidas. Mañana solo queda una despedida tranquila.'];
+    return ['Victoria limpia. La Memoria supera claramente a la Sombra.', ...shared, 'Mis recuerdos regresan con conexiones muy nítidas. El Cuaderno queda con vosotros y no se abre otra misión.'];
   }
   if (variant === 'close') {
     return ['Victoria ajustada. La Sombra llegó lejos, pero no pudo romper vuestra red.', ...shared, 'Han vuelto los recuerdos importantes. Algunas esquinas siguen borrosas y las ordenaremos sin inventarlas.'];
   }
-  return ['Victoria incompleta, pero victoria al fin. Topoloco pierde el museo; algunas Sombras permanecen pegadas a mis recuerdos.', ...shared, 'Mañana, con la luz del Generalife, necesitaremos una segunda mirada para asentar lo recuperado. No empezamos otra amenaza.'];
+  return ['Victoria incompleta, pero victoria al fin. Topoloco pierde el museo; algunas Sombras permanecen pegadas a mis recuerdos.', ...shared, 'Lo que siga borroso se ordenará sin inventarlo. La aventura termina aquí y no se abre otra amenaza.'];
 }
 
 function toTopotinoMessages(texts) {
@@ -2292,6 +2298,53 @@ function applyTravelDayRescue() {
   return true;
 }
 
+function applyDay22FinaleMigration() {
+  if (!state.unlocked) return false;
+
+  const alreadyMigrated = state.flags.includes(DAY22_FINALE_MIGRATION_FLAG);
+  const hadRetiredRoute = state.finalRoute !== DEFAULT_FINAL_ROUTE ||
+    RETIRED_FINAL_EPISODE_IDS.has(state.activeEpisodeId) ||
+    (state.unlockedEpisodeIds || []).some((id) => RETIRED_FINAL_EPISODE_IDS.has(id));
+  const hadOldDay22Path = (state.completedChallengeIds || []).some((id) => [
+    'dia22-pista-algar', 'algar-expedicion', 'algar-q1', 'algar-q2',
+    'dia22-pista-jaima', 'jaima-expedicion', 'jaima-q1', 'jaima-q2'
+  ].includes(id));
+  const legacyFinalWasCompleted = state.flags.includes('completado_sevilla_alhambra_noche') ||
+    state.flags.includes('topoloco_derrotado');
+
+  state.finalRoute = DEFAULT_FINAL_ROUTE;
+  if (legacyFinalWasCompleted) addUniqueMany(state.flags, ['completado_isla_magica']);
+  state.finalRouteLocked = state.flags.includes('completado_isla_magica');
+  state.unlockedEpisodeIds = (state.unlockedEpisodeIds || [])
+    .filter((id) => !RETIRED_FINAL_EPISODE_IDS.has(id));
+  state.scheduledAdultLaunches = (state.scheduledAdultLaunches || [])
+    .filter((launch) => !RETIRED_FINAL_EPISODE_IDS.has(launch?.episodeId));
+
+  if (RETIRED_FINAL_EPISODE_IDS.has(state.activeEpisodeId)) {
+    addUniqueMany(state.unlockedEpisodeIds, [FINAL_EPISODE_ID]);
+    state.activeEpisodeId = FINAL_EPISODE_ID;
+  }
+
+  if (legacyFinalWasCompleted) {
+    addUniqueMany(state.completedChallengeIds, (CHALLENGE_PACKS[FINAL_EPISODE_ID]?.steps || []).map((step) => step.id));
+  }
+
+  if (!alreadyMigrated) addUniqueMany(state.flags, [DAY22_FINALE_MIGRATION_FLAG]);
+
+  if (!alreadyMigrated && hadOldDay22Path && formatDate(getRuntimeNow()) === '2026-08-22') {
+    startupRescueMessages = [...startupRescueMessages,
+      { from: 'topotina', time: 'auto', text: 'He corregido la señal de hoy. Algar Seco queda solo como una parada opcional; la pista real continúa en el centro antiguo de Albufeira.' },
+      { from: 'topotino', time: 'auto', text: 'No habéis perdido nada de lo que ya hicisteis. Seguimos desde la siguiente pista y sin repetir misiones.' }
+    ];
+  }
+
+  if (!alreadyMigrated || hadRetiredRoute) {
+    saveState({ sync: false });
+    return true;
+  }
+  return false;
+}
+
 function applyAmaranteCompletionRescue() {
   if (!state.unlocked) return false;
   if (formatDate(getRuntimeNow()) !== AMARANTE_TRAVEL_DATE) return false;
@@ -2855,25 +2908,33 @@ function renderAdultPhaseLauncher() {
 
 function renderAdultFinalRoute() {
   if (!els.adultFinalRoute || !els.adultFinalRouteStatus) return;
-  els.adultFinalRoute.value = state.finalRoute || DEFAULT_FINAL_ROUTE;
-  els.adultFinalRoute.disabled = Boolean(state.finalRouteLocked);
+  els.adultFinalRoute.value = DEFAULT_FINAL_ROUTE;
+  els.adultFinalRoute.disabled = true;
   els.adultFinalRouteStatus.textContent = state.finalRouteLocked
-    ? 'Ruta revelada a los niños: la elección ya está bloqueada.'
-    : state.finalRoute === 'sevilla-night'
-      ? 'Final preparado para la noche del 25 en Isla Mágica.'
-      : 'Final principal preparado para la Alhambra nocturna.';
+    ? 'Final completado en Isla Mágica.'
+    : state.flags.includes(EARLY_SEVILLA_FINAL_FLAG)
+      ? 'Cierre nocturno disponible desde ahora.'
+      : 'Final preparado para la noche del 25 en Isla Mágica.';
+  if (els.adultOpenFinal) {
+    els.adultOpenFinal.disabled = Boolean(state.finalRouteLocked || state.flags.includes(EARLY_SEVILLA_FINAL_FLAG));
+  }
 }
 
 function updateAdultFinalRoute() {
-  if (!isAdultUnlocked() || state.finalRouteLocked) return;
-  const next = els.adultFinalRoute?.value;
-  if (!['granada', 'sevilla-night'].includes(next)) return;
-  state.finalRoute = next;
+  if (!isAdultUnlocked()) return;
+  state.finalRoute = DEFAULT_FINAL_ROUTE;
   saveState();
   renderAdultFinalRoute();
-  showAdultMessage(next === 'granada'
-    ? 'Final de Granada seleccionado.'
-    : 'Final alternativo de Sevilla seleccionado.');
+  showAdultMessage('El final único está fijado en Isla Mágica, Sevilla.');
+}
+
+function openSevillaFinalNow() {
+  if (!isAdultUnlocked() || state.finalRouteLocked) return;
+  addUniqueMany(state.flags, [EARLY_SEVILLA_FINAL_FLAG]);
+  saveState();
+  renderAll();
+  renderAdultFinalRoute();
+  showAdultMessage('El diálogo final de Isla Mágica ya puede comenzar cuando llegue su turno.');
 }
 
 function scheduleAdultPhaseLaunch() {
@@ -3053,8 +3114,8 @@ function applyRestoredState(remoteState, recoveryCode) {
     shadowScore: Number(remoteState.shadowScore) || 0,
     recoveredShadow: Number(remoteState.recoveredShadow) || 0,
     endingVariant: remoteState.endingVariant || null,
-    finalRoute: ['granada', 'sevilla-night'].includes(remoteState.finalRoute) ? remoteState.finalRoute : DEFAULT_FINAL_ROUTE,
-    finalRouteLocked: Boolean(remoteState.finalRouteLocked),
+    finalRoute: DEFAULT_FINAL_ROUTE,
+    finalRouteLocked: Boolean(remoteState.finalRouteLocked || (remoteState.flags || []).includes('completado_isla_magica')),
     narrativeScene: remoteState.narrativeScene || null,
     softResponseCursor: remoteState.softResponseCursor || {},
     chatterWarningCursor: remoteState.chatterWarningCursor || 0,
@@ -3073,6 +3134,7 @@ function applyRestoredState(remoteState, recoveryCode) {
     syncStatus: 'synced',
     syncError: null
   });
+  applyDay22FinaleMigration();
 }
 
 function markStateChanged() {
@@ -3258,8 +3320,8 @@ function loadState() {
       shadowScore: Number(saved.shadowScore) || 0,
       recoveredShadow: Number(saved.recoveredShadow) || 0,
       endingVariant: saved.endingVariant || null,
-      finalRoute: ['granada', 'sevilla-night'].includes(saved.finalRoute) ? saved.finalRoute : DEFAULT_FINAL_ROUTE,
-      finalRouteLocked: Boolean(saved.finalRouteLocked),
+      finalRoute: DEFAULT_FINAL_ROUTE,
+      finalRouteLocked: Boolean(saved.finalRouteLocked || (saved.flags || []).includes('completado_isla_magica')),
       narrativeScene: saved.narrativeScene || null,
       softResponseCursor: saved.softResponseCursor || {},
       hintMissCursor: saved.hintMissCursor || {},
@@ -3301,6 +3363,6 @@ function applyTestingParams() {
 
 function registerServiceWorker() {
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('service-worker.js?v=offline-v33').catch(() => {});
+    navigator.serviceWorker.register('service-worker.js?v=offline-v45').catch(() => {});
   }
 }

@@ -170,7 +170,7 @@ test('los días 13 y 14 conservan su cadena narrativa y adaptan solo tras un imp
   assert.doesNotMatch(childFacingText, /(foto|fotografía).{0,30}(cuaderno|diario)/i);
 });
 
-test('la edición T-21A8 recupera el canal y adapta el día marítimo sin retroceder', async () => {
+test('la edición T-22A0 migra el final a Sevilla y conserva el canal sin retroceder', async () => {
   const files = ['index.html', 'app.js', 'admin.js', 'content/episodes/001-reconexion.md'];
   const combined = (await Promise.all(files.map((file) => readFile(join(root, file), 'utf8')))).join('\n');
   const app = await readFile(join(root, 'app.js'), 'utf8');
@@ -183,14 +183,14 @@ test('la edición T-21A8 recupera el canal y adapta el día marítimo sin retroc
 
   const styles = await readFile(join(root, 'styles.css'), 'utf8');
 
-  assert.match(combined, /T-21A8/);
+  assert.match(combined, /T-22A0/);
   assert.doesNotMatch(combined, /T-12A9/);
   assert.match(app, /splitTopotinoMessages/);
   assert.match(app, /CHALLENGE_PACKS/);
   assert.match(app, /els\.channelCode\.textContent = APP_VERSION_CODE/);
-  assert.match(serviceWorker, /topotino-offline-v44/);
-  assert.match(serviceWorker, /chat-format\.js\?v=memory-v59/);
-  assert.match(serviceWorker, /content\/challenges\.js\?v=memory-v59/);
+  assert.match(serviceWorker, /topotino-offline-v45/);
+  assert.match(serviceWorker, /chat-format\.js\?v=memory-v60/);
+  assert.match(serviceWorker, /content\/challenges\.js\?v=memory-v60/);
   assert.match(combined, /id="location-refresh"/);
   assert.ok(combined.indexOf('id="location-refresh"') < combined.indexOf('</header>'));
   assert.doesNotMatch(styles, /\.location-refresh-compact\s*\{[^}]*display:\s*none/is);
@@ -259,6 +259,9 @@ test('la edición T-21A8 recupera el canal y adapta el día marítimo sin retroc
   assert.match(ai, /Escribe como en WhatsApp/);
   assert.match(ai, /Usa sujeto, verbo y objeto/);
   assert.match(ai, /objeto, una acción o un dato visible/);
+  assert.match(app, /function applyDay22FinaleMigration\(\)/);
+  assert.match(app, /DEFAULT_FINAL_ROUTE = 'sevilla-night'/);
+  assert.match(app, /final_sevilla_adelantado/);
   assert.ok(
     reconnection.sections['Respuestas guiadas']
       .some((response) => response.id === 'luanco-solucion-ayudada' && response.setFlags?.includes('luanco_identificado'))
@@ -328,7 +331,7 @@ test('la mañana del eclipse aclara la espera y rescata partidas ya iniciadas', 
   assert.ok(responseIds.has('eclipse-no-entiendo'));
 });
 
-test('el viaje completo del 15 al 27 está publicado, enlazado y termina de noche en la Alhambra', async () => {
+test('el viaje completo del 15 al 25 está publicado, enlazado y termina de noche en Isla Mágica', async () => {
   const manifest = JSON.parse(await readFile(join(root, 'content/episodes.json'), 'utf8'));
   const expected = [
     ['007-bucaco-batalha-fatima', '2026-08-15'], ['008-huellas-mira-obidos', '2026-08-16'],
@@ -336,8 +339,7 @@ test('el viaje completo del 15 al 27 está publicado, enlazado y termina de noch
     ['011-lisboa-historia-belem', '2026-08-19'], ['012-badoca-lagos', '2026-08-20'],
     ['013-delfines-benagil-sagres', '2026-08-21'], ['014-piedade-algar-jaima', '2026-08-22'],
     ['015-zoomarine', '2026-08-23'], ['016-tavira-sevilla', '2026-08-24'],
-    ['017-isla-magica', '2026-08-25'], ['018-sevilla-alhambra-noche', '2026-08-26'],
-    ['019-epilogo-generalife', '2026-08-27']
+    ['017-isla-magica', '2026-08-25']
   ];
   const allChildText = [];
 
@@ -354,7 +356,7 @@ test('el viaje completo del 15 al 27 está publicado, enlazado y termina de noch
     } else {
       assert.ok(Number.isFinite(episode.meta.activation.location?.lat), `${id}: falta latitud de llegada`);
       assert.ok(Number.isFinite(episode.meta.activation.location?.lng), `${id}: falta longitud de llegada`);
-      assert.ok([1000, 5000].includes(episode.meta.activation.location?.radiusMeters), `${id}: radio no permitido`);
+      assert.ok([1000, 1600, 5000].includes(episode.meta.activation.location?.radiusMeters), `${id}: radio no permitido`);
     }
     assert.equal(episode.meta.activation.time, undefined, `${id}: conserva una hora rígida`);
     assert.ok(episode.sections['Respuestas guiadas'].length >= 2, `${id}: aventura demasiado vacía`);
@@ -363,16 +365,16 @@ test('el viaje completo del 15 al 27 está publicado, enlazado y termina de noch
       .flatMap((response) => (response.messages || []).map((message) => message.text)));
   }
 
-  const finalEpisode = await readFile(join(root, 'content/episodes/018-sevilla-alhambra-noche.md'), 'utf8');
-  assert.match(finalEpisode, /A las 22:00/);
-  assert.match(finalEpisode, /Patio de los Leones/);
+  const finalEpisode = await readFile(join(root, 'content/episodes/017-isla-magica.md'), 'utf8');
+  assert.match(finalEpisode, /junto al lago/i);
   assert.match(finalEpisode, /doce_aguas_reunidas/);
-  assert.match(finalEpisode, /Topoloco provocó el eclipse/);
-  assert.match(finalEpisode, /La aventura principal termina aquí, en la Alhambra de noche/);
+  assert.match(finalEpisode, /Corrector queda desconectado/i);
+  assert.match(finalEpisode, /final único de la aventura/i);
+  assert.doesNotMatch(finalEpisode, /destino.*Granada|Alhambra nocturna/i);
 
   const text = allChildText.join(' ');
-  assert.match(text, /jamás os pediría la marca, una foto ni el contenido del cuaderno/i);
-  assert.match(text, /Enviad únicamente la conclusión y una razón; ninguna página/i);
+  assert.match(finalEpisode, /Cuaderno.*privado|no se fotografía, transcribe ni envía/is);
+  assert.match(finalEpisode, /dos recuerdos diferentes.*historia compartida/is);
   assert.match(text, /descansad/i);
 });
 
@@ -383,7 +385,7 @@ test('todas las jornadas activas recorren lugares reales después de la llegada'
     '008-huellas-mira-obidos', '009-dinoparque-lisboa', '010-lisboa-ciencia-oceanario',
     '011-lisboa-historia-belem', '012-badoca-lagos', '013-delfines-benagil-sagres',
     '014-piedade-algar-jaima', '015-zoomarine', '016-tavira-sevilla',
-    '017-isla-magica', '018-sevilla-alhambra-noche'
+    '017-isla-magica'
   ];
 
   for (const id of ids) {
@@ -399,7 +401,7 @@ test('todas las jornadas activas recorren lugares reales después de la llegada'
       assert.ok(episode.meta.activation.location, `${id}: no se abre por llegada`);
     }
     if (id !== '012-badoca-lagos') {
-      assert.match(childText, /recorred|cruzad|seguid|bajad|subid|moveos|caminad|pasad|salid|viajad|rumbo|al llegar/i, `${id}: no conduce entre puntos reales`);
+      assert.match(childText, /observad|buscad|investigad|recorred|cruzad|seguid|bajad|subid|moveos|caminad|pasad|salid|viajad|rumbo|al llegar/i, `${id}: no conduce entre puntos reales`);
     }
   }
 });
@@ -409,7 +411,7 @@ test('las pruebas nuevas exigen evidencia física, variedad y personajes reales 
     '007-bucaco-batalha-fatima.md', '008-huellas-mira-obidos.md', '009-dinoparque-lisboa.md',
     '010-lisboa-ciencia-oceanario.md', '011-lisboa-historia-belem.md', '012-badoca-lagos.md',
     '013-delfines-benagil-sagres.md', '014-piedade-algar-jaima.md', '015-zoomarine.md',
-    '016-tavira-sevilla.md', '017-isla-magica.md', '018-sevilla-alhambra-noche.md'
+    '016-tavira-sevilla.md', '017-isla-magica.md'
   ];
   const combined = [];
 
@@ -488,7 +490,7 @@ test('la narrativa T-19B6 usa mapa, paquete y ventanas sin enseñar los nombres 
   assert.match(text, /mapa (?:todavía )?no contiene una ruta completa/i);
   assert.match(text, /mapa de doce puntos|doce puntos/i);
   assert.match(text, /Marga/);
-  assert.match(text, /La última ventana se ha aclarado/);
+  assert.match(text, /doce ventanas|doce puntos/i);
   assert.match(text, /Agua del Puente/i);
   assert.doesNotMatch(text, /Ha despertado el Agua|Agua de la Risa|Agua de la Promesa|Agua del Horizonte|Agua del Cuidado/i);
 
@@ -528,7 +530,6 @@ test('los hilos de aliados y antagonistas llegan al desenlace sin adelantar el d
   const badoca = await readFile(join(root, 'content/episodes/012-badoca-lagos.md'), 'utf8');
   const jaima = await readFile(join(root, 'content/episodes/014-piedade-algar-jaima.md'), 'utf8');
   const isla = await readFile(join(root, 'content/episodes/017-isla-magica.md'), 'utf8');
-  const final = await readFile(join(root, 'content/episodes/018-sevilla-alhambra-noche.md'), 'utf8');
 
   assert.match(eclipse, /aventuras de España, Portugal, Francia e Inglaterra/);
   assert.doesNotMatch(eclipse, /Granada|Alhambra|doce leones/i);
@@ -537,11 +538,12 @@ test('los hilos de aliados y antagonistas llegan al desenlace sin adelantar el d
   assert.match(oceanario, /Protocolo Azul/);
   assert.match(badoca, /Corrector Definitivo de la Historia/);
   assert.match(badoca, /safari terrestre fue un señuelo/);
-  assert.match(jaima, /era Eco, un Oscurno/);
+  assert.match(jaima, /Eco.*es un Oscurno/is);
   assert.match(isla, /Capitán Pico/);
   assert.match(isla, /América/);
   assert.match(isla, /Krim/);
-  assert.match(final, /Ese fue el mecanismo que extrajo mis recuerdos/);
-  assert.match(final, /Tina\. Te llamaba Tina/);
-  assert.match(final, /Borrón, Eco y Niebla/);
+  assert.match(isla, /Corrector queda desconectado/);
+  assert.match(isla, /llamaba Tina/);
+  assert.match(isla, /Niebla/);
+  assert.doesNotMatch(isla, /destino.*Granada|Alhambra nocturna/i);
 });

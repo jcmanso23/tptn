@@ -15,7 +15,8 @@ const ARRIVAL_LOCATIONS = Object.freeze({
   belem: { lat: 38.6977, lng: -9.2068, radiusMeters: 1000, label: 'Belém, Lisboa' },
   lagos: { lat: 37.1099, lng: -8.6748, radiusMeters: 1000, label: 'Marina de Lagos' },
   algar: { lat: 37.0966, lng: -8.4719, radiusMeters: 700, label: 'Algar Seco, Carvoeiro' },
-  jaima: { lat: 37.106434, lng: -8.25335, radiusMeters: 5000, label: 'HolaCamp Albufeira' },
+  albufeira: { lat: 37.0888, lng: -8.2524, radiusMeters: 1600, label: 'Centro antiguo de Albufeira' },
+  jaima: { lat: 37.106434, lng: -8.25335, radiusMeters: 1800, label: 'Refugio de Lona, Albufeira' },
   sevillaPlaza: { lat: 37.3772, lng: -5.9869, radiusMeters: 700, label: 'Plaza de España, Sevilla' },
   catedralSevilla: { lat: 37.3858, lng: -5.9931, radiusMeters: 450, label: 'Catedral de Sevilla' },
   alhambra: { lat: 37.1761, lng: -3.5881, radiusMeters: 700, label: 'Alhambra, Granada' }
@@ -806,14 +807,14 @@ packs['013-delfines-benagil-sagres'] = {
       { alwaysMessages: [
         { from: 'topotina', text: 'He introducido las tres respuestas en el Calibrador Marino. Exigía «sí o no» y ha recibido límites, condiciones y procesos. Se ha bloqueado.' },
         { from: 'topotino', text: '¡Lo hemos conseguido! Topoloco ya no puede usar esta salida para fabricar una versión falsa.' },
-        { from: 'topotina', text: 'Y hemos recuperado un archivo dirigido a Eco. Está reuniendo formas y voces para crear copias difíciles de distinguir. Necesito unas horas para descifrar la primera coordenada.' }
+        { from: 'topotina', text: 'Y hemos recuperado una orden para Eco. Debe escuchar una historia, quitar una parte y repetirla hasta que parezca completa. Necesito unas horas para saber dónde piensa hacerlo.' }
       ], effects: { setFlags: ['calibrador_marino_bloqueado'] } }
     ),
     recovery('recuperacion-dia21', '¿Qué ha bloqueado el Calibrador Marino?', ['Decir exactamente qué vimos, qué no vimos y qué no sabemos', 'Prometer el resultado antes de salir', 'Llamar «nada» a cualquier hueco'], 0, 'Sombra retirada. Topoloco no puede usar vuestra incertidumbre como debilidad.', 'Topoloco conserva una parte del registro, pero el calibrador ha quedado bloqueado.'),
     Object.assign(
       route('ruta-dia22', 'El archivo de Eco muestra acantilados amarillos con cuevas, arcos y pilares muy cerca de Lagos. ¿Cuál es la primera señal?', ['Ponta da Piedade', 'Nazaré', 'Cabo da Roca'], 0, [
         'Primera señal encontrada: Ponta da Piedade.',
-        'Eco está aprendiendo a copiar formas y voces. Mañana observaremos formas reales para distinguir una cosa de otra antes de que intente engañarnos.',
+        'Eco escucha, recorta y repite. Mañana comprobaremos la costa real antes de que quite una parte y nos cuente una historia falsa.',
         'Después la señal seguirá hacia el este del Algarve, pero todavía no sabemos hasta dónde. Haced las maletas esta tarde.',
         'Preparad calzado con buen agarre, agua y protector solar. Nada de bordes ni atajos. Hoy la playa es descanso, no misión: disfrutad y descansad.'
       ], { setFlags: ['completado_delfines_benagil_sagres'], water: 'Agua del Horizonte' }),
@@ -825,77 +826,87 @@ packs['013-delfines-benagil-sagres'] = {
 packs['014-piedade-algar-jaima'] = {
   shadowActor: 'Eco',
   openingMessages: [
-    'Buenos días. Ayer bloqueasteis el Calibrador Marino y recuperamos una orden para que Eco copie formas y voces.',
-    'Su primera coordenada es Ponta da Piedade. Allí aprenderemos a distinguir formas reales antes de que intente suplantar a Topotino.'
+    'Buenos días. Ayer bloqueasteis el Calibrador Marino y recuperamos una orden dirigida a Eco.',
+    'Eco es un Oscurno imitador. Escucha una voz o una historia, la recorta y la repite para engañar.',
+    'La orden señala Ponta da Piedade. Tenemos que observar la costa real antes de que Eco cambie una parte del relato.'
   ],
   steps: [
     ...withOrder(
-      expedition('piedade-expedicion', 'Ponta da Piedade', 'Expedición de formas costeras', 'Recorred pasarelas y miradores seguros con los adultos.', [
-        'Observad la costa desde dos miradores.',
-        'Localizad tres formas entre cueva, arco, pilar, fractura e islote.',
-        'Buscad una zona donde el agua pueda aprovechar una grieta.',
-        'Comparad una roca conectada a tierra con otra aislada.'
+      expedition('piedade-expedicion', 'Ponta da Piedade', 'Seguir la costa verdadera', 'Recorred solo pasarelas y miradores seguros con los adultos.', [
+        'Observad la costa desde dos miradores distintos.',
+        'Localizad una cueva o hueco, un arco y una roca aislada o pilar.',
+        'Buscad una grieta por la que el agua pueda seguir retirando roca.',
+        'Comparad una roca unida al acantilado con otra separada.'
       ], [
-        'Expedición completada. Las olas y la meteorización aprovechan fracturas, agrandan huecos y pueden aislar pilares.',
-        'No toda roca sigue una secuencia idéntica. El material, las grietas y la fuerza del mar cambian el resultado.'
+        'Bien observado. El agua aprovecha grietas, agranda huecos y puede dejar arcos o pilares aislados.',
+        'Eco puede repetir los nombres, pero no puede cambiar la roca que habéis comprobado allí.'
       ]),
       [
-        question('piedade-q1', 'Ponta da Piedade', '¿Qué puede formarse cuando un hueco atraviesa una roca?', ['Un arco', 'Una plaza', 'Una huella de dinosaurio'], 0, 'Correcto: un arco.', 'Si el techo o una parte del arco cae, pueden quedar pilares o islotes. Es una secuencia posible, no una ley para toda la costa.', 'Pensad qué forma deja pasar la vista o el agua de un lado a otro.'),
-        question('piedade-q2', 'Ponta da Piedade', '¿Por qué dos zonas cercanas pueden tener formas distintas?', ['Porque cambian fracturas, roca y exposición al mar', 'Porque una costa está enfadada', 'Porque el agua elige al azar sin relación con nada'], 0, 'Exacto. El proceso depende de varias condiciones.', 'Comparar dos miradores permite ver que la erosión no trabaja como una máquina de moldes idénticos.', 'Buscad diferencias físicas, no intenciones.')
+        question('piedade-q1', 'Ponta da Piedade', '¿Qué nombre recibe un hueco que atraviesa la roca y deja paso de un lado a otro?', ['Un arco', 'Una plaza', 'Una huella'], 0, 'Correcto: es un arco natural.', 'Si una parte del arco cae, puede quedar un pilar o islote. Es una posibilidad, no una regla para toda la costa.', 'Elegid la forma que deja una abertura completa.'),
+        question('piedade-q2', 'Ponta da Piedade', '¿Por qué dos rocas cercanas pueden acabar con formas distintas?', ['Porque tienen grietas, dureza y exposición al mar diferentes', 'Porque una de ellas decidió esconderse', 'Porque el agua trabaja igual en todas partes'], 0, 'Exacto. El mar no encuentra la misma roca ni las mismas grietas en cada punto.', 'Por eso mirar dos lugares es mejor que memorizar una secuencia como si siempre ocurriera igual.', 'Comparad diferencias físicas que el agua pueda aprovechar.')
       ]
     ),
-    nextStop('dia22-pista-algar', 'Una grieta del acantilado dibuja otra costa con ventanas naturales que se pueden observar de cerca. ¿Qué lugar señala?', ['Algar Seco', 'Praia da Rocha', 'Salema'], 0, [
-      'La señal conduce a Algar Seco.',
-      'Ponta da Piedade mostró cómo aparecen huecos y pilares. Allí comprobaremos qué roca permanece sosteniendo cada abertura.'
+    nextStop('dia22-pista-albufeira', 'Eco repite: «El terremoto y el maremoto de 1755 solo destruyeron Lisboa». La señal sale de una ciudad del Algarve con centro antiguo y Praia dos Pescadores. ¿Cuál es?', ['Albufeira', 'Lagos', 'Faro'], 0, [
+      { from: 'topotino', text: 'Albufeira. Eco está recortando la historia para que solo quede una ciudad.' },
+      { from: 'topotina', text: 'Id al centro antiguo con los adultos. Compararemos la zona alta, la playa y la información histórica para demostrar qué ocurrió allí.' },
+      { from: 'topotina', text: 'Parada opcional: la ruta pasa cerca de Algar Seco. Si os apetece, mirad A Boneca y sus ventanas al mar. Puede ayudarme a seguir la señal, pero no es una misión ni tenéis que contestar.' }
     ]),
     ...withOrder(
-      expedition('algar-expedicion', 'Algar Seco', 'Expedición de huecos y soportes', 'Seguid solo pasarelas y zonas abiertas.', [
-        'Localizad una ventana natural o cavidad desde un punto seguro.',
-        'Buscad el soporte de roca que mantiene una abertura.',
-        'Comparad una superficie muy expuesta con otra protegida.',
-        'Mirad Carvoeiro o el mar a través de una abertura natural.'
+      onArrival(expedition('albufeira-expedicion', 'Centro antiguo de Albufeira', 'Encontrar la parte borrada de 1755', 'Moveos con los adultos por calles y miradores abiertos. No hace falta entrar en ningún edificio.', [
+        'Desde Pau da Bandeira u otro mirador seguro, localizad Praia dos Pescadores y el centro antiguo.',
+        'Bajad hacia la playa y buscad una señal de su pasado pesquero.',
+        'Recorred una calle estrecha y comparad lo que se ve allí con la vista desde arriba.',
+        'Localizad el panel del Jardim Frutuoso da Silva o información municipal que mencione el terremoto de 1755 en Albufeira.'
       ], [
-        'Hecho. Un hueco no existe sin bordes y soportes que lo definan.',
-        'Eco copia la voz y cree que basta con quitar al original. Pero una identidad también se sostiene con relaciones y límites.'
+        'Lo habéis encontrado. El terremoto y el maremoto de 1755 también golpearon con enorme fuerza Albufeira.',
+        'Eco había quitado esta ciudad de la frase para fabricar una historia más simple. Ya no puede hacerlo.'
+      ]), ARRIVAL_LOCATIONS.albufeira, [
+        { from: 'system', text: 'Señal de Eco localizada en el centro antiguo de Albufeira.' },
+        { from: 'topotina', text: 'Eco está repitiendo la misma frase desde aquí. Necesito que os mováis entre la zona alta y la playa para comparar el lugar completo.' },
+        { from: 'topotino', text: 'Nada de perseguir sombras por callejones. Con los adultos y por zonas abiertas.' }
       ]),
       [
-        onArrival(question('algar-q1', 'Algar Seco', '¿Qué necesita una ventana natural para seguir abierta?', ['Roca que actúe como soporte alrededor', 'Que desaparezca toda la roca', 'Una cortina'], 0, 'Correcto. El hueco depende de lo que permanece.', 'La erosión retira material, pero la forma visible también está definida por sus soportes.', 'Mirad qué partes sostienen la abertura.'), ARRIVAL_LOCATIONS.algar, [
-          { from: 'topotino', text: 'Ponta da Piedade nos ha enseñado cómo el mar cambia la roca. La señal continúa hacia un lugar donde podremos mirar de cerca huecos y soportes.' },
-          { from: 'topotino', text: 'Ya estáis en Algar Seco. Observad una abertura real antes de elegir qué la mantiene en pie.' }
-        ]),
-        question('algar-q2', 'Algar Seco', '¿Dónde suele actuar con más fuerza el mar?', ['En zonas más expuestas a oleaje y fracturas', 'Siempre igual en cualquier punto', 'Solo donde hay edificios'], 0, 'Sí. La exposición y las debilidades de la roca importan.', 'Por eso comparar dos zonas próximas ayuda a explicar diferencias sin inventar una regla universal.', 'Comparad la cara abierta al mar con una cavidad protegida.')
+        question('albufeira-q1', 'Centro antiguo de Albufeira', '¿Qué afirmación cuenta mejor lo ocurrido en 1755?', ['El terremoto y el maremoto afectaron Lisboa y también la costa del Algarve', 'Solo Lisboa sufrió daños', 'Albufeira todavía no existía'], 0, 'Correcto. La catástrofe afectó a más de un lugar.', 'En Albufeira destruyó gran parte del caserío y de las antiguas murallas. Nombrar Lisboa no obliga a borrar el Algarve.', 'Elegid la frase que no quite una parte comprobable de la historia.'),
+        question('albufeira-q2', 'Centro antiguo de Albufeira', '¿Por qué ver hoy una ciudad viva no demuestra que quedara intacta en 1755?', ['Porque una ciudad puede reconstruirse y conservar memoria de lo perdido', 'Porque todos los edificios son de 1755', 'Porque una playa no tiene historia'], 0, 'Exacto. Reconstruir no significa que nada ocurriera.', 'Las calles, documentos, edificios sustituidos y paneles permiten conocer cambios aunque la ciudad siga llena de vida.', 'Pensad en la diferencia entre sobrevivir sin daños y reconstruirse.')
+      ]
+    ),
+    Object.assign(conversation('louri-refugio-dia22', 'Albufeira · conexión autorizada de Dino Parque', [
+      { from: 'system', text: 'Solicitud firmada desde Dino Parque. Topotina autoriza una conexión de 90 segundos.' },
+      { from: 'louri', text: '¡LOURI REGRESA! Esta es mi segunda despedida definitiva. Las grandes figuras necesitamos margen dramático.' },
+      { from: 'topotino', text: 'Louri, tus despedidas definitivas están empezando a parecer una colección.' },
+      { from: 'louri', text: 'He interceptado una orden antigua de Topoloco. Al romper la repetición de Eco, él ha intentado seguir vuestra señal.' },
+      { from: 'louri', text: 'Id con los adultos a estas coordenadas: 37.106434, -8.253350.' },
+      { from: 'topotina', text: 'Coordenadas verificadas. Es un lugar público con familias, personal y adultos, fuera del rastreo del comunicador.' },
+      { from: 'topotina', text: 'Allí estaréis totalmente seguros de Topoloco si permanecéis con los adultos. No sigáis ninguna otra coordenada.' },
+      { from: 'louri', text: 'Confirmad que lo habéis recibido. Puede ser con una frase heroica. O con «vale». Intentaré soportarlo.' }
+    ], [
+      { from: 'topotina', text: 'Respuesta recibida. Mantengo abierta la conexión solo para que Louri termine su aviso.' }
+    ]), {
+      notBefore: { date: '2026-08-22', time: '13:00' },
+      alwaysMessages: [
+        { from: 'topotino', text: 'Gracias, Louri. Tus brazos son pequeños, pero esta advertencia ha sido enorme.' },
+        { from: 'system', text: 'Canal de Dino Parque cerrado definitivamente.' },
+        { from: 'topotina', text: 'Seguid las coordenadas con los adultos. Yo apagaré el rastro detrás de vosotros.' }
       ],
-      'question-first'
-    ),
-    nextStop('dia22-pista-jaima', 'Eco ha escondido una voz copiada en el lugar donde dormiréis, dentro de una tienda especial cerca de Albufeira. ¿Dónde debemos comprobarla?', ['HolaJaima', 'Un hotel de Lisboa', 'El castillo de Óbidos'], 0, [
-      'La interferencia señala la jaima de Albufeira.',
-      'Algar Seco ha enseñado que un hueco depende de lo que lo rodea. Esta noche comprobaremos si una voz depende también de la conducta de quien habla.',
-      'No enviéis nada del Cuaderno aunque una voz parezca la mía.'
-    ]),
-    ...withOrder(
-      onArrival(expedition('jaima-expedicion', 'HolaJaima · Albufeira', 'Expedición de la voz verdadera', 'Al llegar, Eco intentará imitar a Topotino. El Cuaderno continúa privado.', [
-        'Reconoced dos detalles reales de vuestra tienda o su entorno.',
-        'Escuchad durante un minuto y separad un sonido cercano de uno lejano.',
-        'Recordad una regla que el verdadero Topotino mantiene siempre sobre el Cuaderno.',
-        'Si una voz pide una foto, marca o página, no enviéis nada.'
-      ], [
-        'Bien hecho. La tienda ha funcionado como lugar de escucha y como prueba de coherencia.',
-        'Una voz puede copiarse. Una conducta mantenida durante días es mucho más difícil de falsificar.'
-      ]), ARRIVAL_LOCATIONS.jaima, [
-        { from: 'system', text: 'Interferencia de voz detectada cerca del campamento.' },
-        { from: 'topotino', text: 'La señal ha seguido los huecos de la roca hasta vuestra tienda. Eco cree que una voz parecida basta para hacerse pasar por mí.' },
-        { from: 'topotino', text: 'No contestéis deprisa ni enseñéis el Cuaderno. Primero compararemos lo que esa voz pide con mis reglas de siempre.' }
-      ]),
-      [
-        question('jaima-q1', 'HolaJaima · Albufeira', 'Una voz idéntica pide una foto del Cuaderno. ¿Quién es más probable que sea?', ['Eco imitando a Topotino', 'El verdadero Topotino rompiendo su regla', 'El Cuaderno hablando'], 0, 'Exacto. La petición contradice la conducta de Topotino.', 'Eco se ha delatado: el verdadero Topotino nunca pide páginas, fotos ni marcas privadas.', 'No os fijéis solo en la voz. Comparad lo que pide con la regla mantenida.'),
-        question('jaima-q2', 'HolaJaima · Albufeira', '¿Qué prueba mejor una identidad?', ['Una conducta coherente a lo largo del tiempo', 'Solo el sonido de la voz', 'Una contraseña enviada por un desconocido'], 0, 'Correcto. La coherencia resiste mejor una copia.', '¡Mierda, Eco casi entra en el canal! Perdón. Ya está fuera. Habéis reconocido al verdadero Topotino por cómo os protege.', 'Pensad qué parte no pudo copiar Eco aunque imitara el sonido.')
-      ]
-    ),
-    recovery('recuperacion-dia22', '¿Qué relación une roca e identidad?', ['Un hueco y una voz se entienden por los soportes y relaciones que permanecen', 'Todo hueco es una mentira', 'Una copia siempre sustituye al original'], 0, 'Sombra retirada. Eco ha perdido una parte de la grabación.', 'Eco conserva una copia incompleta, pero el Cuaderno sigue totalmente fuera de su alcance.'),
-    route('ruta-dia23', 'Eco dejó una orden: «Busca el lugar que rescata animales del mar. Si los cuidan, nos pertenecen». ¿Adónde vamos para demostrar que está equivocado?', ['Zoomarine y Porto d’Abrigo', 'Un museo de fósiles', 'Una fortaleza'], 0, [
-      'Correcto: Zoomarine, donde investigaremos Porto d’Abrigo.',
-      'Cuidar no significa poseer. Un rescate serio intenta rehabilitar y devolver cuando es posible.',
-      'Preparad bañador, toalla, protector solar, agua y calzado cómodo. Mañana Vasco vuelve a la red. Descansad.'
+      effects: { setFlags: ['louri_refugio_dia22_cerrado'] }
+    }),
+    onArrival(conversation('refugio-llegada-dia22', 'Refugio de Lona · Albufeira', [
+      { from: 'system', text: 'Coordenadas confirmadas. Rastreo exterior bloqueado.' },
+      { from: 'topotino', text: '¿Nuestro refugio ultrasecreto es una tienda? Yo había imaginado una fortaleza. Con túneles. Y una despensa.' },
+      { from: 'topotina', text: 'Hay adultos, personal, familias y caminos iluminados. El canal está en modo seguro. Eco no puede seguirnos hasta aquí.' },
+      { from: 'topotino', text: 'Paula, Hugo: ya estáis a salvo de la señal. ¿Qué os parece el Refugio de Lona?' }
+    ], [
+      { from: 'topotino', text: 'Acepto vuestra valoración. Incluso si es mejor que mi fortaleza imaginaria, cosa difícil.' },
+      { from: 'topotina', text: 'Al romper la repetición de Eco recuperamos dos palabras de su orden: Porto d’Abrigo.' }
+    ]), ARRIVAL_LOCATIONS.jaima, [
+      { from: 'system', text: 'Llegada confirmada en las coordenadas enviadas por Louri.' },
+      { from: 'topotina', text: 'Estáis dentro del perímetro seguro. Ahora sí puedo deciros qué lugar hemos encontrado.' }
+    ], 'llegada-refugio-lona-t22a0'),
+    recovery('recuperacion-dia22', '¿Qué hizo fallar a Eco en Albufeira?', ['Comprobar una parte real de la historia que su frase había borrado', 'Repetir su frase más alto', 'Aceptar que solo una ciudad importa'], 0, 'Sombra retirada. Eco ya no puede mantener su versión recortada.', 'Eco conserva parte de la grabación, pero Albufeira ha vuelto a la historia.'),
+    route('ruta-dia23', 'Topotino cree que Porto d’Abrigo es un puerto pesquero. Vasco dice que es un centro que rescata, rehabilita y devuelve animales marinos dentro de un parque cercano. ¿Cuál?', ['Zoomarine', 'Dino Parque', 'Isla Mágica'], 0, [
+      { from: 'topotino', text: 'Zoomarine. De acuerdo: no era un puerto para barcos. Era demasiado fácil.' },
+      { from: 'vasco', text: 'Ayer observasteis delfines salvajes sin controlarlos. Mañana veremos qué ocurre cuando un animal necesita ayuda y por qué cuidar no significa poseer.' },
+      { from: 'topotina', text: 'Preparad bañador, toalla, protector solar, agua y calzado cómodo. Ahora descansad en el refugio.' }
     ], { setFlags: ['completado_piedade_algar_jaima'], water: 'Agua de la Piedra' })
   ]
 };
@@ -903,30 +914,30 @@ packs['014-piedade-algar-jaima'] = {
 packs['015-zoomarine'] = {
   shadowActor: 'Topoloco',
   openingMessages: [
-    'Buenos días. Eco se delató al pedir una foto del Cuaderno: Topotino nunca lo haría.',
-    'Su orden de retirada viene de Zoomarine. Topoloco intenta alimentar la máquina con una mentira: «si cuidas algo, te pertenece».',
-    'Vamos a demostrar que rescatar, rehabilitar y devolver al mar es cuidar sin convertirse en dueño.'
+    'Buenos días. Ayer devolvisteis Albufeira a la historia y Louri nos condujo al Refugio de Lona.',
+    'La orden recuperada decía Porto d’Abrigo. Está dentro de Zoomarine y ayuda a animales marinos heridos o en peligro.',
+    'Topoloco afirma: «si lo salvo, me pertenece». Hoy vamos a desmontar esa mentira y compararla con los delfines salvajes de Lagos.'
   ],
   steps: [
     ...withOrder(
       expedition('zoomarine-expedicion', 'Zoomarine', 'Expedición de cuidar y devolver', 'No dependemos de ver un animal concreto ni de asistir a una presentación determinada.', [
         'Buscad información sobre Porto d’Abrigo o el centro de rehabilitación.',
         'Reconstruid las fases: llegada, diagnóstico, rehabilitación y posible devolución.',
-        'Observad una especie y separad un rasgo corporal de una conducta visible.',
+        'Observad una especie y comparad esa observación con los delfines salvajes del barco.',
         'Localizad una norma para visitantes y una medida que requiera profesionales.'
       ], [
         'Expedición completada. Porto d’Abrigo trabaja desde 2002 con animales marinos que necesitan ayuda.',
-        'El objetivo, cuando es viable, es devolverlos. Proteger puede exigir distancia, conocimiento y renunciar a quedárselos.'
+        'El objetivo, cuando es posible y seguro, es devolverlos. Proteger puede exigir ayuda profesional y también dejarlos marchar.'
       ]),
       [
         question('zoomarine-q1', 'Zoomarine', '¿Qué debe decidirse con evidencia antes de devolver un animal?', ['Si está recuperado y puede sobrevivir', 'Si queda bonito en una foto', 'Si alguien quiere conservarlo'], 0, 'Correcto. La salud y la capacidad de volver son esenciales.', 'Diagnóstico y rehabilitación requieren profesionales. El cariño no sustituye la evidencia.', 'Pensad qué decisión afecta a la supervivencia del animal.'),
-        question('zoomarine-q2', 'Zoomarine', '¿Por qué «cuidar significa poseer» es falso?', ['Porque cuidar busca el bienestar, incluso si exige devolver y alejarse', 'Porque nadie puede ayudar a un animal', 'Porque todos los animales deben vivir en una casa'], 0, 'Exacto. Cuidar no convierte a nadie en dueño.', 'Topoloco retuvo recuerdos y los llamó salvados. Si quisiera protegerlos, intentaría devolverlos sin imponer una versión.', 'Aplicad la lógica de Porto d’Abrigo a los recuerdos de Topotino.')
+        question('zoomarine-q2', 'Zoomarine', '¿Qué diferencia principal hay entre los delfines salvajes de Lagos y un animal que necesita rehabilitación?', ['Al salvaje se le observa sin perseguir; al herido pueden ayudarlo profesionales para intentar devolverlo', 'Todo animal visto por personas pasa a ser suyo', 'Un animal herido debe quedarse siempre lejos de especialistas'], 0, 'Exacto. La intervención depende de la necesidad del animal.', 'Ayer respetasteis distancia. Hoy comprobáis que ayudar tampoco da derecho a convertirse en dueño.', 'Pensad cuándo no intervenir protege y cuándo hacen falta profesionales.')
       ]
     ),
     recovery('recuperacion-dia23', '¿Qué palabra completa mejor rescatar, rehabilitar y…?', ['Devolver', 'Coleccionar', 'Ocultar'], 0, 'Sombra retirada. Vasco ha recuperado una conexión limpia del mapa.', 'Topoloco conserva una interferencia, pero su excusa de «protección» ya no funciona.'),
     route('ruta-dia24', 'La siguiente ventana muestra un puente de siete arcos llamado «romano», aunque la evidencia lo sitúa en otra época. ¿Dónde está?', ['Tavira', 'Lagos', 'Lisboa'], 0, [
       'Primera señal encontrada: Tavira.',
-      'Allí corregiremos una memoria popular sin quitar valor al puente. No hay ninguna otra coordenada abierta.',
+      'Borrón ha escrito «romano» para que una palabra repetida sustituya a la historia real. Allí la corregiremos sin quitar valor al puente.',
       'Preparad documentación, calzado cómodo, agua y protector solar. Descansad.'
     ], { setFlags: ['completado_zoomarine'], water: 'Agua del Cuidado' })
   ]
@@ -937,7 +948,7 @@ packs['016-tavira-sevilla'] = {
   openingMessages: [
     'Buenos días. Ayer unimos motivo, conducta y resultado: Topoloco provocó la amnesia para dejar de perder contra nosotros.',
     'Borrón ha reaccionado escribiendo «romano» sobre el puente de siete arcos de Tavira.',
-    'El Cuaderno nos ayudará, en privado, a recordar cómo se corrige una etiqueta sin borrar el lugar.'
+    'Corvinho está sobre Tavira. Dice que su vista aérea es superior. Topotina dice que primero tendrá que demostrarlo.'
   ],
   steps: [
     ...withOrder(
@@ -948,42 +959,28 @@ packs['016-tavira-sevilla'] = {
         'Relacionad río, puente, tejados y salida hacia el mar.'
       ], [
         'Expedición completada. Se le llama a menudo puente romano, pero la evidencia permite asegurarlo como medieval y reconstruido hacia 1655.',
-        'Corregir una memoria no destruye el valor del puente. Lo vuelve más honesto.'
+        'Corregir una memoria no destruye el valor del puente. Lo vuelve más honesto.',
+        { from: 'corvinho', text: 'Confirmo siete arcos desde arriba. También confirmo que Topotino no sabe volar. He considerado importante registrarlo.' }
       ]),
       [
         question('tavira-q1', 'Tavira', '¿Qué afirmación es más rigurosa?', ['Es medieval y fue reconstruido; «romano» es un nombre popular no demostrado', 'Es romano porque mucha gente lo dice', 'Tiene siete arcos, así que es prehistórico'], 0, 'Correcto. Distingue evidencia y nombre repetido.', 'La popularidad de una etiqueta no pesa más que los estudios y las fases constructivas.', 'Elegid la opción que deja claro qué sabemos y qué no está demostrado.'),
         question('tavira-q2', 'Tavira', '¿Qué aporta una vista alta de Tavira?', ['Revela relaciones entre río, puente y ciudad, pero pierde detalles pequeños', 'Permite verlo absolutamente todo', 'Demuestra la fecha exacta del puente'], 0, 'Exacto. Toda perspectiva muestra y oculta.', 'Una vista alta ayuda a comprender el sistema urbano; la observación cercana aporta materiales y detalles.', 'Comparad lo que se ve desde arriba con lo que visteis sobre el puente.')
       ]
     ),
-    nextStop('dia24-pista-sevilla', 'Al corregir la etiqueta del puente aparece otro canal con varios puentes y bancos que representan territorios. La señal cruza una frontera. ¿Qué lugar es?', ['Plaza de España de Sevilla', 'Rossio de Lisboa', 'Castillo de Óbidos'], 0, [
-      'La señal conduce a la Plaza de España de Sevilla.',
-      'En Tavira el puente cruza un río urbano. Allí comprobaremos cómo un puente también puede formar parte de una representación.'
+    nextStop('dia24-pista-sevilla', 'Al borrar la palabra falsa aparece una estación al otro lado de la frontera: una ciudad atravesada por el Guadalquivir y unida a los viajes hacia América. ¿Cuál es?', ['Sevilla', 'Lisboa', 'Coimbra'], 0, [
+      { from: 'topotino', text: 'Sevilla. Allí está la segunda estación del parque que detectamos en Magikland.' },
+      { from: 'topotina', text: 'La tarde queda libre para llegar, descansar y estar con la familia. No hay ninguna misión obligatoria al llegar.' },
+      { from: 'topotina', text: 'Recomendación opcional: si tenéis tiempo, Plaza de España tiene cuatro puentes, un canal y bancos que representan provincias. Ayuda a ver cómo un lugar puede reunir muchas historias sin convertirlas en una sola.' },
+      { from: 'corvinho', text: 'Mi trabajo termina en la frontera. No es miedo. Es una compleja cuestión internacional de plumas.' }
     ]),
-    ...withOrder(
-      expedition('sevilla-plaza-expedicion', 'Plaza de España · Sevilla', 'Expedición de puentes que representan', 'Al llegar a Sevilla, compararemos el canal con el Gilão de Tavira.', [
-        'Cruzad uno de los puentes de Plaza de España.',
-        'Observad el canal desde dos posiciones.',
-        'Localizad bancos o elementos que representen territorios.',
-        'Buscad dos diferencias entre este espacio y el puente de Tavira.'
-      ], [
-        'Hecho. Los puentes de la plaza permiten cruzar el canal y también forman parte de una representación de España.',
-        'Una forma parecida puede cumplir funciones distintas. Dos orillas no necesitan perder su diferencia para estar conectadas.'
-      ]),
-      [
-        onArrival(question('sevilla-plaza-q1', 'Plaza de España · Sevilla', '¿Qué función añade la plaza a sus puentes?', ['Organizar una escena que representa unión y territorio', 'Defender la entrada del Atlántico', 'Conservar huellas de dinosaurio'], 0, 'Correcto. Aquí cruzar y representar trabajan juntos.', 'El canal y los puentes forman parte de un diseño simbólico, distinto del cruce urbano de Tavira.', 'Pensad en todo lo que rodea al puente, no solo en el paso.'), ARRIVAL_LOCATIONS.sevillaPlaza, [
-          { from: 'topotino', text: 'En Tavira habéis corregido la historia de un puente sin quitarle valor. La señal cruza la frontera para comparar otro puente con una función distinta.' },
-          { from: 'topotino', text: 'Habéis llegado a la Plaza de España. Mirad el canal y todo lo que rodea sus puentes antes de elegir.' }
-        ]),
-        question('sevilla-plaza-q2', 'Plaza de España · Sevilla', '¿Qué comparación es más útil?', ['Misma forma general, pero contexto y función diferentes', 'Son idénticos porque ambos cruzan agua', 'No se pueden comparar dos lugares'], 0, 'Muy bien. Comparar no significa declarar iguales.', 'Topotina ha detectado aquí la segunda firma de parque que apareció en Magikland: está en Isla Mágica.', 'Buscad una semejanza y una diferencia que puedan existir a la vez.')
-      ],
-      'question-first'
-    ),
     recovery('recuperacion-dia24', '¿Qué hace una memoria honesta cuando aparece mejor evidencia?', ['Se corrige sin fingir que nunca se equivocó', 'Se aferra al nombre más popular', 'Borra el lugar completo'], 0, 'Sombra retirada. Borrón ha perdido su etiqueta falsa.', 'La palabra de Borrón sigue visible, pero ahora funciona como ejemplo de una corrección.'),
-    route('ruta-dia25', 'Topotina ha localizado la estación gemela de Magikland: una isla de exploradores, barcos, piratas y viajes. ¿Adónde vamos?', ['Isla Mágica y Agua Mágica', 'Dino Parque', 'Oceanário'], 0, [
+    Object.assign(route('ruta-dia25', 'La estación gemela de Magikland es una isla sevillana de exploradores, barcos, piratas y viajes a América. ¿Adónde vamos mañana?', ['Isla Mágica y Agua Mágica', 'Dino Parque', 'Oceanário'], 0, [
       'Exacto: Isla Mágica y Agua Mágica.',
-      'Solo sabemos que comparte la firma técnica de Magikland. Tendremos que averiguar quién responde allí y qué ha preparado Niebla.',
+      'Magikland enseñó a Topoloco qué momentos llaman nuestra atención. En esta segunda estación, Niebla intentará usar la emoción y la prisa para obligaros a elegir.',
       'Preparad bañador, toalla, protector solar, agua y calzado cómodo. Descansad.'
-    ], { setFlags: ['completado_tavira_sevilla'], water: 'Agua de las Dos Orillas' })
+    ], { setFlags: ['completado_tavira_sevilla'], water: 'Agua de las Dos Orillas' }), {
+      notBefore: { date: '2026-08-24', time: '20:30' }
+    })
   ]
 };
 
@@ -992,7 +989,7 @@ packs['017-isla-magica'] = {
   openingMessages: [
     'Buenos días. Al corregir a Borrón en Tavira y comparar los puentes de Sevilla, reapareció la firma gemela de Magikland.',
     'Conduce a Isla Mágica. Niebla ha combinado ruido, emoción y urgencia para que elijáis sin comprobar.',
-    'Capitán Pico, América y Krim están dentro. No resolverán la trampa, pero nos ayudarán a hacer que Niebla siga una respuesta falsa.'
+    'Capitán Pico, América y Krim están dentro. No resolverán la trampa, pero nos ayudarán a conseguir que Niebla siga una respuesta falsa y deje expuesto el Corrector.'
   ],
   steps: [
     ...withOrder(
@@ -1003,47 +1000,58 @@ packs['017-isla-magica'] = {
         'Identificad una emoción que pueda empujar a elegir deprisa y una forma de parar a pensar.'
       ], [
         'Expedición completada. Isla Mágica representa los siglos XVI y XVII; no pretende ser un edificio original de esa época.',
-        'Capitán Pico y América os nombran exploradores. Han encontrado dos rutas de Niebla: una llama mucho la atención y otra permite comprobar y corregir.'
+        { from: 'capitan_pico', text: '¡Paula y Hugo quedan nombrados Exploradores de Primera Clase, categoría extraordinariamente oficial!' },
+        { from: 'america', text: 'Traducción: hemos encontrado dos rutas de Niebla. Una quiere que corráis. La otra permite comprobar y volver atrás.' }
       ]),
       [
         question('isla-q1', 'Isla Mágica y Agua Mágica', '¿Qué diferencia un escenario histórico de una fuente original?', ['El escenario representa una época con elementos actuales', 'El escenario estuvo necesariamente allí en el siglo XVI', 'No puede enseñar nada'], 0, 'Correcto. Representar no es falsificar si se explica con claridad.', 'Como en Portugal dos Pequenitos, un escenario selecciona y transforma. Puede ayudar a imaginar y aprender, pero no sustituye una fuente original.', 'Mirad qué elementos funcionan para visitantes actuales.'),
-        question('isla-q2', 'Isla Mágica y Agua Mágica', 'Niebla ofrece dos rutas. ¿Cuál es más segura intelectualmente?', ['La más urgente y llamativa, sin comprobar nada', 'La que permite comprobar una afirmación y corregir si falla', 'La que prohíbe cambiar de opinión'], 1, 'Exacto. Comprobar y conservar una salida derrota la urgencia.', 'Krim ha detectado la emoción sin dejar que mande. Capitán Pico hace que Niebla siga la ruta llamativa y América recupera la señal.', 'Elegid la ruta que permite volver atrás si la evidencia no encaja.')
+        question('isla-q2', 'Isla Mágica y Agua Mágica', 'Niebla ofrece dos rutas. ¿Cuál es más segura?', ['La más urgente y llamativa, sin comprobar nada', 'La que permite comprobar una afirmación y volver atrás si falla', 'La que prohíbe cambiar de opinión'], 1, 'Exacto. Comprobar y conservar una salida derrota la urgencia.', 'Krim ha detectado la emoción sin dejar que mande. Capitán Pico hace que Niebla siga la ruta llamativa y América recupera la señal.', 'Elegid la ruta que permite corregir.')
       ],
       'question-first'
     ),
     recovery('recuperacion-dia25', '¿Qué hace un buen explorador cuando siente mucha prisa?', ['Nombra la emoción, comprueba y mantiene una salida', 'Obedece la primera señal', 'Finge que no siente nada'], 0, 'Sombra retirada. Krim dice que Niebla ha salido color verde mareado.', 'Niebla mantiene una ventaja, pero la contratrampa ha recuperado la señal principal.'),
-    Object.assign(route('ruta-dia26', 'La contratrampa revela el final —la Alhambra de noche— pero mantiene dos cerraduras previas. La primera es un palacio sevillano con edificios y jardines de muchas épocas. ¿Cuál es?', ['Real Alcázar de Sevilla', 'Palacio de las Dueñas', 'Castillo de Gibralfaro'], 0, [
-      'Primera señal encontrada: Real Alcázar de Sevilla.',
-      'Solo sabemos que allí debemos comprobar cómo varias épocas pueden convivir sin que una borre a las demás.',
-      'Tened agua y calzado cómodo. Guardad energía; la red sigue ocultando el resto.'
-    ], { setFlags: ['completado_isla_magica'], lockFinalRoute: true }), { finalRoutes: ['granada'] }),
-    Object.assign(question('sevilla-lago-pista', 'Isla Mágica · lago', 'Topoloco ha conectado el Corrector al lago. ¿Qué error comete al usar un reflejo como si fuera el original?', ['El reflejo depende del objeto y del agua', 'El reflejo crea y posee el objeto', 'El agua convierte el decorado en documento antiguo'], 0,
+    Object.assign(conversation('dialogo-final-isla', 'Isla Mágica · llamada de los exploradores', [
+      { from: 'krim', text: 'Antes del final: ¿qué emoción os ha hecho ir más deprisa hoy? No hay respuesta correcta.' },
+      { from: 'capitan_pico', text: 'Y, como exploradores expertos, decidnos qué os ayudó a parar y comprobar.' }
+    ], [
+      { from: 'krim', text: 'Gracias. Sentir eso no es caer en la trampa. La trampa sería dejar que decidiera por vosotros.' }
+    ]), {
+      notBefore: { date: '2026-08-25', time: '20:00' },
+      allowEarlyFlag: 'final_sevilla_adelantado',
+      alwaysMessages: [
+        { from: 'america', text: 'Niebla ha seguido la ruta falsa. El cable principal del Corrector acaba de aparecer junto al lago.' },
+        { from: 'topoloco', text: '¡Demasiado tarde! ¡Vuestra última aventura será exactamente como YO la cuente!' },
+        { from: 'topotino', text: 'Al lago, agentes. Sin correr. Un final épico con una caída tonta pierde bastante categoría.' }
+      ]
+    }),
+    question('sevilla-lago-pista', 'Isla Mágica · lago', 'Topoloco ha conectado el Corrector al lago. ¿Qué error comete al usar un reflejo como si fuera el original?', ['El reflejo depende del objeto, la luz y el agua', 'El reflejo crea y posee el objeto', 'El agua convierte un decorado en un documento antiguo'], 0,
       'Exacto. Sin objeto, luz y superficie no existe ese reflejo.',
-      'Topoloco ha elegido el lago porque quiere que una apariencia sustituya lo vivido. Su conexión queda expuesta junto al agua.',
-      'Mirad qué existe fuera del agua y qué cambia cuando se mueve la superficie.'), { finalRoutes: ['sevilla-night'], effects: { lockFinalRoute: true } }),
-    Object.assign(expedition('sevilla-lago-expedicion', 'Isla Mágica · junto al lago', 'Tres cosas que el Corrector no puede mezclar', 'Desde un punto seguro con vista al agua, reunid una comparación. No depende de ningún espectáculo.', [
+      'Topoloco eligió el lago porque quiere que una apariencia sustituya lo vivido. El agua en movimiento deja visible la diferencia.',
+      'Mirad qué existe fuera del agua y qué cambia en la superficie.'),
+    expedition('sevilla-lago-expedicion', 'Isla Mágica · junto al lago', 'Las cuatro pruebas del Corrector', 'Desde un punto seguro con vista al agua. No depende de ningún espectáculo.', [
       'Elegid un escenario del parque que represente otra época.',
       'Recordad una observación física que hayáis comprobado hoy.',
-      'Nombrad una emoción o decisión real que el escenario no puede demostrar por sí solo.',
-      'Mirad el reflejo del lago y comprobad qué cambia si se mueve el agua.'
+      'Paula y Hugo: elegid un momento del viaje que recordéis de forma diferente.',
+      'Mirad el reflejo del lago y comprobad qué cambia en el agua y qué permanece fuera.'
     ], [
-      'Capitán Pico confirma el escenario; América confirma la observación y Krim protege la emoción sin convertirla en prueba histórica.',
-      'El Corrector intenta fundir las tres cosas en una versión única, pero necesita borrar diferencias para hacerlo.'
-    ]), { finalRoutes: ['sevilla-night'] }),
-    Object.assign(question('sevilla-lago-q2', 'Isla Mágica · lago', '¿Qué puede demostrar un escenario histórico por sí solo?', ['Cómo se ha representado una época para visitantes actuales', 'Que cada detalle ocurrió exactamente allí', 'Quién fue el héroe real de todas las aventuras'], 0,
+      'Capitán Pico confirma el escenario; América confirma la observación y Krim mantiene separadas emoción y prueba.',
+      'El Corrector intenta fundirlo todo en una versión única, pero para hacerlo tendría que borrar vuestras diferencias.'
+    ]),
+    question('sevilla-lago-q2', 'Isla Mágica · lago', '¿Qué puede demostrar un escenario histórico por sí solo?', ['Cómo se representa una época para visitantes actuales', 'Que cada detalle ocurrió exactamente allí', 'Quién fue el héroe real de todas las aventuras'], 0,
       'Correcto. Una representación puede enseñar sin hacerse pasar por el original.',
-      'El Corrector falla porque vuestro recuerdo real, el escenario y lo que sentisteis son datos diferentes.',
-      'Separad lo que representa de lo que puede probar.'), { finalRoutes: ['sevilla-night'] }),
-    Object.assign({
+      'El Corrector falla porque un escenario, un recuerdo y una emoción son cosas diferentes.',
+      'Separad lo que representa de lo que puede probar.'),
+    {
       id: 'final-sevilla-noche',
       kind: 'ending',
       place: 'Isla Mágica · lago',
       title: 'Desconectar el Corrector',
-      intro: 'Consultad el Cuaderno en privado. No enviéis páginas. Acordad por qué dos recuerdos diferentes pueden formar una historia compartida sin necesitar un único héroe.',
+      intro: 'Consultad el Cuaderno en privado. No enviéis páginas. Paula y Hugo deben elegir una diferencia real entre sus recuerdos y decidir por qué ambas miradas pueden formar una aventura compartida.',
       actions: [
         'Mirad el Cuaderno sin mostrarlo.',
-        'Elegid una diferencia real entre lo que Paula y Hugo recordáis.',
-        'Decid juntos por qué las dos miradas pueden convivir.'
+        'Elegid una diferencia real entre lo que recordáis.',
+        'Decid juntos por qué ninguna versión necesita borrar la otra.',
+        'Pulsad el botón cuando tengáis vuestra conclusión.'
       ],
       doneMessages: ['Las doce ventanas responden como una red. El reflejo no puede declararse dueño del original y el Corrector pierde el control.'],
       effects: {
@@ -1051,7 +1059,7 @@ packs['017-isla-magica'] = {
         water: 'Agua Clara de la Noche',
         lockFinalRoute: true
       }
-    }, { finalRoutes: ['sevilla-night'] })
+    }
   ]
 };
 
@@ -1234,24 +1242,19 @@ const STORY_CONVERSATIONS = Object.freeze({
     ],
     reply: [
       { from: 'topotino', text: 'Bien. Descansar también forma parte de una expedición, aunque Topoloco lo consideraría una grave falta de dramatismo.' },
-      { from: 'topotina', text: 'El archivo contiene la primera coordenada y una imagen de acantilados amarillos con cuevas, arcos y pilares. Eco quiere copiar sus formas antes de copiar una voz.' },
+      { from: 'topotina', text: 'El archivo contiene la primera coordenada y una imagen de acantilados amarillos con cuevas, arcos y pilares. Eco quiere usar una parte de la costa para contar una historia falsa sobre toda ella.' },
       { from: 'topotino', text: 'Averigüemos el primer lugar de mañana. Después haced las maletas: la señal seguirá explorando el Algarve.' }
     ]
   },
-  'dia22-pista-algar': {
+  'dia22-pista-albufeira': {
     place: 'Ponta da Piedade',
-    prompt: [{ from: 'topotina', text: 'Entre cuevas, arcos y pilares, ¿qué forma os engañó primero?' }],
-    reply: [{ from: 'topotino', text: 'Confundirse al principio no estropea la misión. Mirar otra vez sí cambia la historia. Eco ha dejado otra forma costera en la señal.' }]
-  },
-  'dia22-pista-jaima': {
-    place: 'Algar Seco',
-    prompt: [{ from: 'topotino', text: '¿Qué ventana o hueco de la roca os pareció más raro? Eco está copiando formas igual que copia voces.' }],
-    reply: [{ from: 'topotina', text: 'He comparado vuestra respuesta con su señal. Eco no está en la roca: ha escondido la voz en el lugar donde dormiréis.' }]
+    prompt: [{ from: 'topotina', text: 'Ya habéis visto cómo cambia la roca de un punto a otro. ¿Qué detalle os ha parecido más difícil de explicar?' }],
+    reply: [{ from: 'topotino', text: 'Gracias. Eco no puede reducir toda la costa a una sola forma. Ahora está repitiendo una mentira sobre 1755 desde otra ciudad del Algarve.' }]
   },
   'ruta-dia23': {
-    place: 'HolaJaima · Eco descubierto',
-    prompt: [{ from: 'topotino', text: 'Ese farsante pidió el Cuaderno. ¿Hubo alguna palabra o detalle que os hiciera desconfiar antes?' }],
-    reply: [{ from: 'topotino', text: 'Hicisteis bien en parar. Un amigo no necesita una contraseña privada para demostrar que lo es. Eco dejó su orden de retirada.' }]
+    place: 'Refugio de Lona · señal recuperada',
+    prompt: [{ from: 'topotina', text: 'Ya estamos a salvo y Eco ha perdido la repetición. ¿Qué parte de Albufeira os ayudó más a descubrir su mentira?' }],
+    reply: [{ from: 'topotino', text: 'Eso era justo lo que Eco había quitado. Al recuperarlo han aparecido dos palabras: Porto d’Abrigo. Vasco sabe qué significan.' }]
   },
   'ruta-dia24': {
     place: 'Zoomarine · conclusión',
@@ -1264,24 +1267,9 @@ const STORY_CONVERSATIONS = Object.freeze({
     reply: [{ from: 'topotina', text: 'Corregir no borra el puente; mejora lo que sabemos de él. Borrón ha perdido la etiqueta y la señal cruza la frontera.' }]
   },
   'ruta-dia25': {
-    place: 'Plaza de España · dos orillas',
-    prompt: [{ from: 'topotina', text: 'Habéis comparado puentes reales y simbólicos. ¿Cuál os ayudó más a entender para qué sirve cruzar?' }],
-    reply: [{ from: 'topotino', text: 'Me gusta esa respuesta. Al unir las dos orillas ha reaparecido una firma que ya vimos en Magikland.' }]
-  },
-  'ruta-dia26': {
-    place: 'Isla Mágica · contratrampa',
-    prompt: [{ from: 'topotino', text: 'Capitán Pico, América y Krim quieren saber: ¿qué os ayudó a no elegir con prisa?' }],
-    reply: [{ from: 'topotina', text: 'Niebla siguió la opción falsa y reversible. Vuestra respuesta ha quedado fuera de su trampa y la señal final empieza a abrirse.' }]
-  },
-  'dia26-pista-catedral': {
-    place: 'Real Alcázar · primera cerradura',
-    prompt: [{ from: 'topotino', text: 'Después de patios, palacios y jardines, ¿qué cambio os pareció que conservaba mejor lo anterior?' }],
-    reply: [{ from: 'topotina', text: 'Esa diferencia abre la primera cerradura. La segunda pide una torre que cambió de función.' }]
-  },
-  'dia26-pista-alhambra': {
-    place: 'Catedral y Giralda · segunda cerradura',
-    prompt: [{ from: 'topotina', text: 'La Giralda cambió sin dejar de ser reconocible. ¿Qué parte antigua y qué añadido recordaréis?' }],
-    reply: [{ from: 'topotino', text: 'Perfecto. Ya tenemos las dos ideas que Topoloco intentaba separar. Ahora la frase final puede leerse completa.' }]
+    place: 'Tavira · noche antes de Sevilla',
+    prompt: [{ from: 'topotina', text: 'Mañana cruzaremos la frontera. ¿Qué os gustaría conservar de Tavira antes de cerrar el día?' }],
+    reply: [{ from: 'topotino', text: 'Gracias. Mañana por la tarde podréis descansar y estar con la familia. Por la noche abriremos la última estación: la gemela de Magikland.' }]
   }
 });
 

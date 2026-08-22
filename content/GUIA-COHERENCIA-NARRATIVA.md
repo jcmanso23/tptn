@@ -1,9 +1,8 @@
 # Guía maestra de coherencia narrativa · Las Doce Aguas
 
-**Versión canónica:** 21 de agosto de 2026 · edición T-21A8
-**Final principal:** Alhambra, Palacios Nazaríes, noche del 26 de agosto
-**Final alternativo adulto:** Isla Mágica, noche del 25 de agosto
-**Epílogo:** Generalife, 27 de agosto; no abre otra amenaza
+**Versión canónica:** 22 de agosto de 2026 · edición T-22A0
+**Final único:** lago de Isla Mágica, Sevilla, noche del 25 de agosto
+**Después del final:** no se abre otra misión ni otra amenaza
 
 Esta guía manda sobre todos los capítulos y sobre el contexto enviado a Luna. Si una aventura contradice este documento, se corrige la aventura. Los identificadores técnicos antiguos —flags, nombres internos de aguas y palabras de fórmula— se conservan para no romper partidas, pero no determinan el vocabulario que oyen Paula y Hugo.
 
@@ -50,9 +49,9 @@ Al comienzo solo se sabe que ocurrió algo durante el eclipse. La atribución pr
 - Dino Parque: aparece el nombre del museo.
 - Lisboa: se descubre que el museo congela una única versión.
 - Asalto del chat y regreso al puerto de Lagos: Topoloco admite que el Corrector aprende del método de Paula y Hugo.
-- Jaima: Eco imita la voz de Topotino y confirma que los Oscurnos participan.
-- Zoomarine: motivo, conducta y resultado permiten concluir que Topoloco causó la amnesia.
-- Alhambra: Arrayanes revela el mecanismo completo del eclipse y los reflejos.
+- Albufeira: Eco recorta la historia de 1755 y usa una voz imitada para intentar desviar a los niños; confirma que los Oscurnos participan en el Corrector.
+- Zoomarine: motivo, conducta y resultado permiten concluir que Topoloco causó la amnesia y retuvo recuerdos llamándolo falsamente «proteger».
+- Isla Mágica: la estación gemela de Magikland y el reflejo del lago revelan el mecanismo completo del eclipse y permiten destruir el Corrector.
 
 Topotino no debe adelantarse a esta escalera.
 
@@ -128,9 +127,9 @@ El cuaderno es privado:
 - La app no almacena su contenido.
 - Nunca se exige confirmar que han escrito una entrada.
 - En Tavira se consulta en privado para extraer un principio general de corrección.
-- En la Alhambra sirve como prueba independiente: existe una historia que la máquina nunca pudo copiar. Solo se comunica una conclusión compartida.
+- En el lago de Isla Mágica sirve como prueba independiente: existe una historia que la máquina nunca pudo copiar. Solo se comunica una conclusión compartida.
 
-Eco se delata en la jaima precisamente porque, imitando a Topotino, pide la marca o una foto.
+Eco se delata en Albufeira precisamente porque, imitando a Topotino, pide romper la regla del Cuaderno o seguir una historia que borra hechos comprobables.
 
 ## 8. Los antagonistas
 
@@ -153,7 +152,7 @@ La mañana del 21 tiene una única reaparición final. Cuando Topotina empieza a
 Son criaturas de sombra derrotadas anteriormente por Paula y Hugo. Huyen si deben enfrentarse a ellos directamente, así que actúan mediante dispositivos, voces y pistas.
 
 - **Borrón** altera etiquetas, soportes y evidencias.
-- **Eco** copia voces y protagoniza la suplantación de la jaima.
+- **Eco, el imitador,** escucha una voz o una historia, la recorta y la repite para engañar. No se habla de «copiar patrones» ni de «los Ecos». El 22 intenta borrar Albufeira del relato de 1755 y usa una voz falsa de Topotino.
 - **Niebla** estudia cómo deciden los niños y diseña opciones engañosas.
 
 Sus apariciones deben dejar rastros coherentes. No son monstruos terroríficos; producen tensión, misterio y oportunidades de razonamiento.
@@ -169,7 +168,7 @@ Sus apariciones deben dejar rastros coherentes. No son monstruos terroríficos; 
 - **Capitán Pico y América:** exploradores de Isla Mágica. Reclutan a Paula y Hugo como pequeños exploradores y recuperan piezas de la pista final.
 - **Krim:** duende del Mundo de los Colores. Ayuda a distinguir lo que se siente de la decisión que se toma bajo esa emoción.
 
-### Louri: arco principal cerrado y excepción de emergencia
+### Louri: arco principal cerrado y dos excepciones controladas
 
 Louri es un pequeño T-Rex rojo, divertido, presumido, pedante y dramático. Topoloco estaba presente cuando salió del huevo y le hizo creer que era su padre, su creador y el único científico capaz de reconstruir dinosaurios sin ninguna duda. Lo educó como espía de Paula y Hugo y lo infiltró como el juguete de Burger King que Hugo recibió la noche del 15 de agosto.
 
@@ -179,7 +178,9 @@ El 16 Topotina detecta al espía, pero Louri solo se insinúa mediante vigilanci
 
 El 17 Louri entra en el chat durante la investigación de fósiles, réplicas, modelos, huevos, embriones y reconstrucciones. Comprende que Topoloco le mintió cuando descubre que una ciencia honesta distingue evidencia, hipótesis y desconocimiento. Una orden interceptada lo declara defectuoso por preguntar. Paula y Hugo le hacen comprender que dudar y corregirse no significa estar roto. Louri cambia de bando, revela que Topoloco construye una máquina que captura recuerdos, separa sus relaciones y guarda una sola versión en su museo, y entrega una pista hacia una operación en Lisboa relacionada con una ciudad destruida y reconstruida.
 
-Louri se queda en Dino Parque para aprender quién es. Su arco personal termina el 17: no acompaña al grupo ni resuelve misiones posteriores. Existe una sola excepción técnica el 20 de agosto. El comunicador escondido en el juguete conserva un conducto de emergencia de un único uso; Louri lo abre para avisar de que el safari terrestre fue un señuelo y de que las cuevas perseguidas son marinas. Topotina cierra ese conducto inmediatamente después. Louri no vuelve a aparecer tras esa alerta.
+Louri se queda en Dino Parque para aprender quién es. Su arco personal termina el 17: no acompaña al grupo ni resuelve misiones posteriores. Existen solo dos excepciones controladas. El 20, el comunicador escondido en el juguete conserva un conducto de emergencia de un único uso; Louri lo abre para avisar de que el safari terrestre fue un señuelo y de que las cuevas perseguidas son marinas. Topotina cierra ese conducto inmediatamente después.
+
+El 22, desde Dino Parque, Louri intercepta en un receptor antiguo una orden de Topoloco dirigida a Eco. No hackea el chat: Topotina comprueba su firma y abre una invitación autorizada durante unos minutos, solo después de investigar Albufeira y nunca antes de las 13:00. Louri advierte de que Topoloco intenta seguir la señal y entrega únicamente las coordenadas `37.106434, -8.253350`. Topotina las verifica como un refugio público con familias, personal y adultos, fuera del rastreo del comunicador. Louri se despide de verdad, Topotina cierra la invitación y no vuelve a participar.
 
 La revelación física se sostiene con recuerdos comprobables, no con una transformación visible del juguete. Louri explica que Topoloco escondió en la carcasa del dinosaurio rojo un comunicador conectado con él y usó sus ojos como cámara. Louri estaba al otro lado de esa señal; no era el plástico que Hugo llevaba. Por eso puede conocer dos detalles reales del 16: la actuación de Hugo en la plaza y la manera en que Paula se orientó por Óbidos. Topotina recupera esas grabaciones y confirma que la señal del juguete coincide con la del nuevo participante. Al cerrar el canal, el juguete queda como un dinosaurio normal y puede seguir con Hugo. No se pide a los niños que finjan haber visto moverse al muñeco ni que lo entreguen o hagan desaparecer.
 
@@ -192,12 +193,12 @@ Cada desplazamiento posterior responde a una pieza concreta de la máquina y a u
 - **Lisboa, ciencia, Oceanário y Tajo:** el archivo de Louri conduce al módulo que separa causas y relaciones. Pavilhão permite sabotear su clasificador de causa; Vasco y el Oceanário demuestran que una red viva no es una colección de piezas; el Tajo revela que el módulo envía datos al archivo histórico de Lisboa.
 - **Castelo, Alfama, Baixa y Belém:** Topoloco intenta convertir la reconstrucción de 1755 y los relatos marítimos en una única versión heroica. Comparar vista general, calles reales y monumentos obliga a la máquina a conservar cambios, voces y funciones. Después introduce el falso rastro de un safari terrestre.
 - **Asalto del chat y Lagos:** Topoloco entra en el Comunicador y revela el Corrector Definitivo de la Historia, módulo final de la Máquina de los Recuerdos. Quiere imponer una versión en la que él fue el héroe. Louri utiliza su única conexión de emergencia para revelar que el safari era un señuelo y que las cuevas son marinas. Paula y Hugo deducen Lagos; Topoloco expulsa a todos y ocupa el canal. Esa tarde Doctora Tecla entra buscando a Topoloco para que baje la basura, revela que ella abrió la brecha porque él se lo suplicó y, durante su discusión, confirma límites concretos del Corrector. Se marcha enfadada y Topoloco conserva el canal hasta que Topotina lo recupera el día 21.
-- **Barco desde Lagos y regreso al puerto:** el Protocolo Azul impide que el calibrador marino convierta «hoy no lo vimos» en «no existe» y que llame «nada» al hueco de una cueva. En el mar no hay cobertura: Paula y Hugo solo observan y siguen a la tripulación. Las preguntas y la conversación aparecen al regresar a la Marina de Lagos. Sus respuestas exactas bloquean el calibrador, recuperan un registro de la máquina e interceptan una orden para que Eco copie formas y voces en los acantilados.
-- **Ponta da Piedade, Algar Seco y jaima:** la orden recuperada en el puerto señala primero Ponta da Piedade. Sus formas costeras y las de Algar Seco enseñan a distinguir arco, pilar y cueva mientras Eco reúne palabras y tono. En la jaima la petición del Cuaderno lo delata; su orden de retirada señala Zoomarine.
-- **Zoomarine:** el cuidado real y la devolución al mar desmontan la mentira «si lo cuidas, te pertenece». Al unir motivo, método y resultado, Topotino concluye que Topoloco provocó su amnesia. Borrón altera entonces la etiqueta del puente de Tavira.
-- **Tavira y Sevilla:** consultar en privado el Cuaderno permite corregir la falsa etiqueta. La corrección abre Plaza de España y reactiva la firma gemela de Magikland, que conduce a Isla Mágica.
-- **Isla Mágica:** Niebla intenta forzar una decisión urgente. Capitán Pico, América y Krim ayudan a Paula y Hugo a preparar una respuesta falsa, reversible y comprobable. La ruta elegida en el panel adulto permanece invisible. En la principal, la contratrampa revela la Alhambra y dos cerraduras previas. En la alternativa, Topoloco desvía el Corrector al lago de Isla Mágica y la aventura termina allí la noche del 25.
-- **Real Alcázar, Catedral y Alhambra:** las dos primeras visitas no son desvíos, sino preparación necesaria para abrir Mexuar, Arrayanes, Comares y Leones. La máquina falla ante transformaciones, reflejos dependientes, recuerdos que se corrigen entre sí, autoría compartida y el Cuaderno privado.
+- **Barco desde Lagos y regreso al puerto:** el Protocolo Azul impide que el calibrador marino convierta «hoy no lo vimos» en «no existe» y que llame «nada» al hueco de una cueva. En el mar no hay cobertura: Paula y Hugo solo observan y siguen a la tripulación. Las preguntas y la conversación aparecen al regresar a la Marina de Lagos. Sus respuestas exactas bloquean el calibrador, recuperan un registro de la máquina e interceptan una orden para Eco, el Oscurno que recorta y repite voces e historias.
+- **Ponta da Piedade y Albufeira:** Eco queda explicado como un Oscurno imitador, no como un concepto abstracto. En Ponta intenta sustituir observaciones reales de la costa. Su transmisión conduce al centro antiguo de Albufeira, donde repite que el terremoto y el maremoto de 1755 solo destruyeron Lisboa. Paula y Hugo comprueban físicamente que Albufeira también fue destruida y reconstruida, rompen esa versión recortada y recuperan la expresión `Porto d’Abrigo`. Algar Seco es una recomendación opcional de Topotina durante el trayecto: puede ayudar a contrastar otra ventana natural, pero no contiene pruebas ni bloquea el progreso.
+- **Refugio de Lona:** al destruir la repetición de Eco, Topoloco intenta seguir la señal. Louri entrega las coordenadas verificadas de un refugio cerca de Albufeira. Allí Topotino confunde cómicamente el puerto pesquero con Porto d’Abrigo; Vasco aclara que la pista apunta al centro de rehabilitación de Zoomarine.
+- **Zoomarine:** el cuidado real y la devolución al mar desmontan la mentira «si lo cuidas, te pertenece» y se compara con los delfines salvajes observados desde Lagos. Al unir motivo, método y resultado, Topotino concluye que Topoloco provocó su amnesia. Borrón altera entonces la etiqueta del puente de Tavira.
+- **Tavira y Sevilla:** Corvinho ayuda a observar, pero Paula y Hugo corrigen la falsa etiqueta del puente. La corrección localiza en Sevilla la estación gemela de Magikland. Plaza de España es una recomendación opcional que no bloquea la historia; la tarde del 24 queda libre y la pista de Isla Mágica se presenta por la noche.
+- **Isla Mágica:** Niebla intenta forzar la última decisión bajo ruido, emoción y urgencia. Capitán Pico, América y Krim ayudan a Paula y Hugo a preparar una respuesta falsa, reversible y comprobable. Topoloco conecta el Corrector al lago. Escenario, reflejo, dos recuerdos diferentes y Cuaderno privado hacen fallar la versión única. La aventura termina definitivamente en Sevilla la noche del 25.
 
 Esta cadena sustituye cualquier transición basada únicamente en una imagen bonita, una palabra abstracta o una adivinanza sin causa. La pista de salida de cada lugar debe mostrar qué hizo Topoloco, qué consiguieron Paula y Hugo y por qué el único movimiento lógico es el siguiente.
 
@@ -224,7 +225,7 @@ Son dos estaciones emparejadas.
 - Capitán Pico y América convierten la búsqueda en una misión de exploradores.
 - Krim ayuda a reconocer la emoción sin obedecerla automáticamente.
 - Paula y Hugo alimentan la máquina con una decisión falsa y reversible; la trampa se vuelve contra Topoloco.
-- El fallo revela: «ciudad roja · doce guardianes de piedra · cuando el agua refleje la noche».
+- El fallo deja expuesto el Corrector junto al lago de Isla Mágica: el reflejo no puede convertirse en dueño del original.
 
 ## 12. Regla de diseño de cada jornada
 
@@ -279,7 +280,7 @@ Cada error confirmado aumenta la **Sombra** y permite que Borrón, Eco, Niebla o
 
 El 14 de agosto tiene una apertura excepcional y obligatoria. Antes de mostrar ninguna pregunta, Topotino cuenta en varios mensajes breves qué ocurrió con el chat, explica el contador de Sombra y pide a Paula y Hugo que contesten para comprobar el canal. La aplicación espera su respuesta. Solo después de recibirla confirma que el mensaje llegó entero, recuerda el motivo de la primera parada y presenta la elección de Magikland.
 
-Memoria y Sombra son visibles. Nunca borran progreso, cambian el itinerario real ni impiden llegar a la Alhambra. Determinan tres formas del desenlace: victoria limpia, victoria ajustada o victoria incompleta que necesita asentarse durante el epílogo.
+Memoria y Sombra son visibles. Nunca borran progreso, cambian el itinerario real ni impiden llegar al final de Sevilla. Determinan tres formas del desenlace: victoria limpia, victoria ajustada o victoria incompleta cuyos recuerdos tardan más en ordenarse.
 
 La noche anterior se descubre mediante opciones solo la parte de la ruta que la historia ya permite deducir. Un destino posterior no se revela hasta que una consecuencia de la investigación actual lo hace necesario. Topotino explica por qué cada desplazamiento continúa la investigación y da la preparación práctica cuando corresponde. Al comenzar la jornada recuerda la conexión antes de presentar la primera parada.
 
@@ -305,26 +306,24 @@ Aprender mucho no significa recibir un discurso largo. Cada lugar reparte el con
 | 19 | Lisboa, Belém | Supervivencia, reconstrucción y cambio de uso; museo de versión única | Observar animales sin inventar intención |
 | 20 | Asalto del chat, pista de Lagos, discusión de Tecla | Topoloco revela el Corrector; Louri desmonta el señuelo terrestre; Tecla confirma quién abrió la brecha y qué necesita la máquina | Barco, delfines y cuevas marinas |
 | 21 | Barco desde Lagos, regreso al puerto, tarde de playa | Aplicar Protocolo Azul sin cobertura; bloquear el calibrador marino; recuperar la orden de Eco | Ponta da Piedade y una voz que intenta copiar patrones |
-| 22 | Piedade, Algar Seco, jaima | Hueco/soporte; Eco suplanta a Topotino y es descubierto | «Si cuidas algo, te pertenece» |
-| 23 | Zoomarine | Vasco y Porto d’Abrigo: rescatar, rehabilitar y devolver | Concluir que Topoloco causó la amnesia; puente mal nombrado |
-| 24 | Tavira, Sevilla | Corregir un relato popular; conectar orillas y activar firma del segundo parque | Isla Mágica y la estación gemela |
-| 25 | Isla Mágica | Pico, América y Krim ayudan a tender una contratrampa | Una única salida: Granada o final nocturno en el lago, según selección adulta |
-| 26 | Alcázar, Catedral, Alhambra nocturna | Capas, reflejo, memoria conectada, autoría compartida y cierre | Derrota del museo; memorias devueltas |
-| 27 | Generalife | Segunda mirada voluntaria y despedida | Ninguna secuela forzada |
+| 22 | Ponta da Piedade, centro antiguo de Albufeira, Refugio de Lona | Identificar formas reales; devolver Albufeira a la historia de 1755; romper la voz recortada de Eco | `Porto d’Abrigo` y Zoomarine |
+| 23 | Zoomarine | Comparar delfines salvajes, rescate, rehabilitación y devolución; romper la falsa propiedad | Concluir que Topoloco causó la amnesia; puente mal nombrado |
+| 24 | Tavira, llegada a Sevilla; Plaza de España opcional | Corregir un relato popular y activar la firma del segundo parque sin ocupar la tarde | Isla Mágica y la estación gemela |
+| 25 | Isla Mágica y lago | Pico, América y Krim ayudan a tender una contratrampa; destruir el Corrector mediante representación, reflejo, recuerdos distintos y Cuaderno privado | Derrota del museo; memorias devueltas; final definitivo |
 
-## 14. El final de la Alhambra
+## 14. El final de Sevilla
 
-La entrada nocturna se resuelve paso a paso:
+El cierre junto al lago de Isla Mágica se resuelve paso a paso:
 
-1. **Mexuar:** refutan que un edificio solo pueda contar su primer uso.
-2. **Arrayanes:** distinguen original, reflejo y medio; el movimiento del agua revela cómo el eclipse permitió copiar y deformar recuerdos.
-3. **Comares:** conectan observaciones y correcciones de días distintos. La historia funciona como red, no como vitrinas separadas.
-4. **Leones:** comprueban que los doce leones no son idénticos y que intervinieron varias manos. El número doce no exige dueño único.
-5. **Cuaderno:** sin mostrarlo, Paula y Hugo afirman que dos miradas diferentes forman una historia compartida y no una propiedad.
+1. **Representación:** un escenario puede contar una época sin ser el edificio original.
+2. **Decisión:** Paula y Hugo reconocen la emoción y envían a Niebla por una ruta falsa, comprobable y reversible.
+3. **Reflejo:** el agua conserva una imagen, pero esta depende del objeto, la luz y la superficie. El movimiento revela cómo el eclipse permitió copiar y deformar recuerdos.
+4. **Dos recuerdos:** Paula y Hugo recuerdan de manera distinta un momento real; ninguna versión necesita borrar la otra.
+5. **Cuaderno:** sin mostrarlo, afirman que sus dos miradas forman una historia compartida que la máquina nunca pudo leer.
 
-La máquina de Topoloco exige un único propietario y una única versión. No sabe procesar una obra con varias manos, contradicciones honestas, correcciones y una copia privada inaccesible. Las doce ventanas se conectan y el archivo libera las memorias.
+La máquina de Topoloco exige un único propietario y una única versión. No sabe procesar representación honesta, reflejos dependientes, diferencias, correcciones ni una memoria privada inaccesible. Las doce ventanas se conectan y el archivo libera los recuerdos.
 
-Topoloco huye. Los Oscurnos se dispersan. Topotino reconoce a Topotina: «Tina». Agradece a Paula y Hugo con hechos concretos. La aventura termina esa noche.
+Topoloco huye. Los Oscurnos se dispersan. Topotino reconoce a Topotina: «Tina». Agradece a Paula y Hugo con hechos concretos. La aventura termina definitivamente esa noche y no se abre otra amenaza.
 
 ## 15. Voz de Topotino
 
@@ -334,7 +333,7 @@ Topotino tiene personalidad fuerte: afectuoso, teatral, ingenioso, un poco nervi
 - acepta que lo corrijan;
 - distingue hechos, hipótesis y recuerdos;
 - usa humor breve y no encadena ocurrencias;
-- puede decir una única palabrota leve en la jaima y se disculpa inmediatamente;
+- puede decir una única palabrota leve en el Refugio de Lona y se disculpa inmediatamente;
 - no llama pequeños ni simplifica los retos;
 - no envía párrafos largos: máximo dos ideas por mensaje;
 - nunca menciona flags, nombres técnicos de aguas, palabras de fórmula ni «misión desbloqueada».
@@ -399,9 +398,20 @@ Antes de publicar un cambio:
 - [ ] Los mensajes parecen conversación de WhatsApp.
 - [ ] Topotino no responde a un simple cierre si la conversación ya ha quedado resuelta.
 - [ ] Antes de responder hay una pausa natural y cada burbuja requiere un tiempo de escritura propio.
-- [ ] El final continúa en la Alhambra nocturna y el Generalife es solo epílogo.
+- [ ] El final ocurre junto al lago de Isla Mágica la noche del 25 y no se menciona Granada.
 
 ## 19. Registro de decisiones
+
+### 22 de agosto de 2026 · T-22A0
+
+- Eco deja de explicarse mediante «formas», «patrones» o frases abstractas. Es el Oscurno imitador: escucha, recorta y repite una voz o una historia para engañar.
+- Ponta da Piedade conserva aprendizaje físico sobre cuevas, arcos, pilares y grietas. La consecuencia conduce al centro antiguo de Albufeira, donde Eco intenta borrar el impacto local del terremoto y maremoto de 1755 repitiendo una versión centrada únicamente en Lisboa.
+- Algar Seco pasa a ser una recomendación opcional de Topotina durante el trayecto. No tiene prueba, llegada obligatoria, Memoria, Sombra ni efecto de progreso.
+- Después de investigar Albufeira y nunca antes de las 13:00, Topotina autoriza una última conexión de Louri desde Dino Parque. Louri entrega `37.106434, -8.253350`, Topotina confirma la seguridad frente al rastreo y la invitación queda cerrada definitivamente.
+- El alojamiento solo se nombra narrativamente al llegar como Refugio de Lona. La expresión `Porto d’Abrigo` enlaza el puerto pesquero de Albufeira, la confusión cómica de Topotino, Vasco, los delfines salvajes del 21 y el centro de rehabilitación de Zoomarine.
+- El 24 se resuelve Tavira por la mañana con Corvinho. Plaza de España es opcional y la tarde queda libre; la pista de Isla Mágica se entrega por la noche sin depender de esa visita.
+- Sevilla se convierte en el único final. Isla Mágica reúne la estación gemela de Magikland, la contratrampa de Niebla, el reflejo del lago, dos recuerdos diferentes y el Cuaderno privado. Granada, Alhambra y Generalife dejan de ser destinos infantiles futuros.
+- Se conservan IDs, flags y aguas anteriores. La aplicación migra partidas ya iniciadas, fija `sevilla-night`, no repite Ponta si ya se completó y no deja Algar Seco bloqueando la ruta.
 
 ### 21 de agosto de 2026 · T-21A8
 

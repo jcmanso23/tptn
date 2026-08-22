@@ -19,16 +19,14 @@ const futureEpisodeIds = [
   '014-piedade-algar-jaima',
   '015-zoomarine',
   '016-tavira-sevilla',
-  '017-isla-magica',
-  '018-sevilla-alhambra-noche',
-  '019-epilogo-generalife'
+  '017-isla-magica'
 ];
 
 test('todo el viaje futuro tiene un paquete de retos completo y sin ids duplicados', () => {
-  assert.deepEqual(Object.keys(CHALLENGE_PACKS), futureEpisodeIds);
   const ids = new Set();
 
-  for (const [episodeId, pack] of Object.entries(CHALLENGE_PACKS)) {
+  for (const episodeId of futureEpisodeIds) {
+    const pack = CHALLENGE_PACKS[episodeId];
     assert.ok(Array.isArray(pack.openingMessages), `${episodeId}: faltan mensajes de mañana`);
     assert.ok(Array.isArray(pack.steps) && pack.steps.length, `${episodeId}: no tiene retos`);
 
@@ -53,7 +51,7 @@ test('todo el viaje futuro tiene un paquete de retos completo y sin ids duplicad
 
 test('las respuestas correctas se reparten de forma estable entre las posiciones', () => {
   const positions = [];
-  for (const pack of Object.values(CHALLENGE_PACKS)) {
+  for (const pack of futureEpisodeIds.map((id) => CHALLENGE_PACKS[id])) {
     for (const challenge of pack.steps) {
       if (!challenge.options) continue;
       const firstOrder = displayChallengeOptions(challenge);
@@ -71,7 +69,7 @@ test('las respuestas correctas se reparten de forma estable entre las posiciones
 });
 
 test('cada jornada recuerda la ruta, permite recuperar Sombra y prepara el día siguiente', () => {
-  for (const episodeId of futureEpisodeIds.slice(1, -2)) {
+  for (const episodeId of futureEpisodeIds.slice(1, -1)) {
     const pack = CHALLENGE_PACKS[episodeId];
     if (episodeId === '012-badoca-lagos') {
       assert.deepEqual(pack.openingMessages, []);
@@ -159,9 +157,7 @@ test('cada cambio de lugar futuro espera la llegada física antes de mostrar su 
     'pavilhao-expedicion',
     'oceanario-q1',
     'alfama-visita-expedicion', 'belem-expedicion',
-    'algar-q1', 'jaima-expedicion',
-    'sevilla-plaza-q1',
-    'catedral-q1', 'alhambra-expedicion'
+    'albufeira-expedicion', 'refugio-llegada-dia22'
   ];
   const allSteps = Object.values(CHALLENGE_PACKS).flatMap((pack) => pack.steps);
   const markers = new Set();
@@ -253,7 +249,7 @@ test('Gotas se anuncia después de las huellas y solo entra al llegar a Mira de 
   assert.ok(miraExpedition.doneMessages.some((message) => message?.from === 'gotas'));
 });
 
-test('Louri se insinúa el 16, entra y se despide definitivamente el 17', () => {
+test('Louri se insinúa el 16, se revela el 17 y solo usa dos conexiones excepcionales posteriores ya escritas', async () => {
   const day16 = CHALLENGE_PACKS['008-huellas-mira-obidos'];
   const day17 = CHALLENGE_PACKS['009-dinoparque-lisboa'];
   const laterMessages = futureEpisodeIds.slice(futureEpisodeIds.indexOf('010-lisboa-ciencia-oceanario'))
@@ -283,8 +279,18 @@ test('Louri se insinúa el 16, entra y se despide definitivamente el 17', () => 
   assert.ok(crisis.some((message) => /defectuosa/i.test(messageText(message))));
   assert.ok(farewell.some((message) => message?.from === 'system' && /ha salido del canal/i.test(message.text)));
   assert.ok(farewell.some((message) => message?.from === 'topotina' && /cerrado definitivamente/i.test(message.text)));
-  assert.equal(laterMessages.some((message) => message?.from === 'louri'), false);
-  assert.doesNotMatch(laterMessages.map(messageText).join(' '), /Louri está escribiendo|Louri se ha unido/i);
+  const laterLouriMessages = laterMessages.filter((message) => message?.from === 'louri');
+  assert.ok(laterLouriMessages.some((message) => /37\.106434, -8\.253350/.test(messageText(message))));
+  const app = await readFile(join(root, 'app.js'), 'utf8');
+  assert.match(app, /El safari era un señuelo/);
+  const day22 = CHALLENGE_PACKS['014-piedade-algar-jaima'];
+  const finalConnection = day22.steps.find((step) => step.id === 'louri-refugio-dia22');
+  assert.deepEqual(finalConnection.notBefore, { date: '2026-08-22', time: '13:00' });
+  assert.match(finalConnection.alwaysMessages.map(messageText).join(' '), /cerrado definitivamente/i);
+  const afterDay22 = futureEpisodeIds.slice(futureEpisodeIds.indexOf('015-zoomarine'))
+    .flatMap((id) => CHALLENGE_PACKS[id].steps)
+    .flatMap((step) => [...(step.successMessages || []), ...(step.doneMessages || []), ...(step.promptMessages || []), ...(step.replyMessages || [])]);
+  assert.equal(afterDay22.some((message) => message?.from === 'louri'), false);
 });
 
 test('cada cambio de destino desde el día 17 tiene antes un diálogo narrativo', () => {
@@ -292,9 +298,8 @@ test('cada cambio de destino desde el día 17 tiene antes un diálogo narrativo'
     'dia17-pista-lisboa', 'ruta-dia18', 'dia18-pista-oceanario', 'dia18-pista-tejo',
     'ruta-dia19', 'dia19-pista-alfama', 'dia19-pista-belem', 'ruta-dia20',
     'dia20-pista-lagos', 'ruta-dia21', 'ruta-dia22',
-    'dia22-pista-algar', 'dia22-pista-jaima', 'ruta-dia23', 'ruta-dia24',
-    'dia24-pista-sevilla', 'ruta-dia25', 'ruta-dia26', 'dia26-pista-catedral',
-    'dia26-pista-alhambra'
+    'dia22-pista-albufeira', 'ruta-dia23', 'ruta-dia24',
+    'dia24-pista-sevilla', 'ruta-dia25'
   ]);
 
   for (const episodeId of futureEpisodeIds.slice(futureEpisodeIds.indexOf('009-dinoparque-lisboa'))) {
@@ -357,13 +362,13 @@ test('el día 21 funciona sin cobertura, elimina Sagres y prepara Ponta por la t
   assert.doesNotMatch(visible, /Sagres|Cabo de São Vicente|Corvinho/i);
 });
 
-test('el arco posterior encadena el Corrector de Topoloco y ofrece finales excluyentes', async () => {
+test('el arco posterior encadena el Corrector de Topoloco y termina únicamente en Isla Mágica', async () => {
   const causalChecks = [
     ['010-lisboa-ciencia-oceanario', /módulo.*separar causas|separar causas.*módulo/is],
     ['011-lisboa-historia-belem', /archivo histórico.*Lisboa|Lisboa.*archivo histórico/is],
     ['013-delfines-benagil-sagres', /Louri.*embarcación|embarcación.*Lagos|Corrector/is],
-    ['014-piedade-algar-jaima', /Eco.*copi.*formas y voces|formas y voces.*Eco/is],
-    ['015-zoomarine', /Eco.*Cuaderno|Cuaderno.*Eco/is],
+    ['014-piedade-algar-jaima', /Eco.*escucha.*recorta.*repite/is],
+    ['015-zoomarine', /Albufeira.*Refugio de Lona|Refugio de Lona.*Albufeira/is],
     ['016-tavira-sevilla', /Borrón.*puente|puente.*Borrón/is],
     ['017-isla-magica', /firma gemela.*Magikland|Magikland.*firma gemela/is]
   ];
@@ -377,13 +382,11 @@ test('el arco posterior encadena el Corrector de Topoloco y ofrece finales exclu
   assert.match(app, /El safari era un señuelo/);
   assert.match(app, /Delfines salvajes\. Cuevas marinas/);
 
-  const islandRoute = CHALLENGE_PACKS['017-isla-magica'].steps.find((step) => step.id === 'ruta-dia26');
   const sevilleFinal = CHALLENGE_PACKS['017-isla-magica'].steps.find((step) => step.id === 'final-sevilla-noche');
-  const cathedralRoute = CHALLENGE_PACKS['018-sevilla-alhambra-noche'].steps.find((step) => step.id === 'dia26-pista-alhambra');
-  assert.match(islandRoute.prompt, /Alhambra de noche/i);
-  assert.deepEqual(islandRoute.finalRoutes, ['granada']);
-  assert.deepEqual(sevilleFinal.finalRoutes, ['sevilla-night']);
   assert.match(sevilleFinal.place, /Isla Mágica.*lago/i);
+  assert.deepEqual(sevilleFinal.effects.setFlags, [
+    'completado_isla_magica', 'completado_sevilla_alhambra_noche', 'topoloco_derrotado', 'doce_aguas_reunidas'
+  ]);
   assert.doesNotMatch([
     sevilleFinal.place,
     sevilleFinal.title,
@@ -391,7 +394,8 @@ test('el arco posterior encadena el Corrector de Topoloco y ofrece finales exclu
     ...(sevilleFinal.actions || []),
     ...(sevilleFinal.doneMessages || [])
   ].join(' '), /Granada|Alhambra/i);
-  assert.doesNotMatch(cathedralRoute.successMessages.map(messageText).join(' '), /primera vez|no sabíamos|acabamos de descubrir/i);
+  assert.match(app, /DEFAULT_FINAL_ROUTE = 'sevilla-night'/);
+  assert.match(app, /Granada y la Alhambra ya no forman parte|RETIRED_FINAL_EPISODE_IDS/);
 });
 
 test('el día 18 explica el sabotaje, abre solo el encargo y espera la llegada al Pavilhão', () => {
@@ -444,9 +448,9 @@ test('cada lugar revela solo el paso accionable siguiente y nunca el itinerario 
     '011-lisboa-historia-belem': ['dia19-pista-belem'],
     '012-badoca-lagos': ['topoloco-ruta-lagos'],
     '013-delfines-benagil-sagres': ['ruta-dia22'],
-    '014-piedade-algar-jaima': ['dia22-pista-algar', 'dia22-pista-jaima'],
+    '014-piedade-algar-jaima': ['dia22-pista-albufeira', 'louri-refugio-dia22'],
     '016-tavira-sevilla': ['dia24-pista-sevilla'],
-    '018-sevilla-alhambra-noche': ['dia26-pista-catedral', 'dia26-pista-alhambra']
+    '017-isla-magica': ['dialogo-final-isla']
   };
   for (const [episodeId, ids] of Object.entries(expectedTransitions)) {
     const steps = CHALLENGE_PACKS[episodeId].steps.map((step) => step.id);
@@ -455,7 +459,7 @@ test('cada lugar revela solo el paso accionable siguiente y nunca el itinerario 
 });
 
 test('las pruebas son breves, físicas y enseñan después de elegir', () => {
-  for (const pack of Object.values(CHALLENGE_PACKS)) {
+  for (const pack of futureEpisodeIds.map((id) => CHALLENGE_PACKS[id])) {
     for (const step of pack.steps) {
       const childTexts = [
         step.prompt,
