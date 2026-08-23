@@ -170,7 +170,7 @@ test('los días 13 y 14 conservan su cadena narrativa y adaptan solo tras un imp
   assert.doesNotMatch(childFacingText, /(foto|fotografía).{0,30}(cuaderno|diario)/i);
 });
 
-test('la edición T-22A0 migra el final a Sevilla y conserva el canal sin retroceder', async () => {
+test('la edición T-22A1 rescata Zoomarine y conserva el final de Sevilla sin retroceder', async () => {
   const files = ['index.html', 'app.js', 'admin.js', 'content/episodes/001-reconexion.md'];
   const combined = (await Promise.all(files.map((file) => readFile(join(root, file), 'utf8')))).join('\n');
   const app = await readFile(join(root, 'app.js'), 'utf8');
@@ -183,14 +183,14 @@ test('la edición T-22A0 migra el final a Sevilla y conserva el canal sin retroc
 
   const styles = await readFile(join(root, 'styles.css'), 'utf8');
 
-  assert.match(combined, /T-22A0/);
+  assert.match(combined, /T-22A1/);
   assert.doesNotMatch(combined, /T-12A9/);
   assert.match(app, /splitTopotinoMessages/);
   assert.match(app, /CHALLENGE_PACKS/);
   assert.match(app, /els\.channelCode\.textContent = APP_VERSION_CODE/);
-  assert.match(serviceWorker, /topotino-offline-v45/);
-  assert.match(serviceWorker, /chat-format\.js\?v=memory-v60/);
-  assert.match(serviceWorker, /content\/challenges\.js\?v=memory-v60/);
+  assert.match(serviceWorker, /topotino-offline-v46/);
+  assert.match(serviceWorker, /chat-format\.js\?v=memory-v61/);
+  assert.match(serviceWorker, /content\/challenges\.js\?v=memory-v61/);
   assert.match(combined, /id="location-refresh"/);
   assert.ok(combined.indexOf('id="location-refresh"') < combined.indexOf('</header>'));
   assert.doesNotMatch(styles, /\.location-refresh-compact\s*\{[^}]*display:\s*none/is);
@@ -254,7 +254,8 @@ test('la edición T-22A0 migra el final a Sevilla y conserva el canal sin retroc
   assert.match(app, /seguridad_t20a1_confirmada/);
   assert.match(app, /No empezaré hasta comprobar que este mensaje os ha llegado entero/);
   assert.match(app, /if \(challenge\.kind === 'check-in'\)/);
-  assert.match(app, /challenge\?\.kind === 'check-in' \|\| challenge\?\.kind === 'conversation'/);
+  assert.match(app, /if \(challenge\?\.kind === 'check-in'\)/);
+  assert.match(app, /challenge\.kind === 'conversation'[\s\S]{0,900}Responder en el chat/);
   assert.match(app, /El contador de Sombra sigue estable/);
   assert.match(ai, /Escribe como en WhatsApp/);
   assert.match(ai, /Usa sujeto, verbo y objeto/);
@@ -262,6 +263,11 @@ test('la edición T-22A0 migra el final a Sevilla y conserva el canal sin retroc
   assert.match(app, /function applyDay22FinaleMigration\(\)/);
   assert.match(app, /DEFAULT_FINAL_ROUTE = 'sevilla-night'/);
   assert.match(app, /final_sevilla_adelantado/);
+  assert.match(app, /function applyZoomarineTransitionRescue\(\)/);
+  assert.match(app, /rescate-transicion-zoomarine-t22a1/);
+  assert.match(app, /function fetchWithTimeout/);
+  assert.match(app, /const AI_REQUEST_TIMEOUT_MS = 18000/);
+  assert.match(app, /Conversación pendiente/);
   assert.ok(
     reconnection.sections['Respuestas guiadas']
       .some((response) => response.id === 'luanco-solucion-ayudada' && response.setFlags?.includes('luanco_identificado'))

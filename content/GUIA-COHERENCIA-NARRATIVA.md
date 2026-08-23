@@ -1,6 +1,6 @@
 # Guía maestra de coherencia narrativa · Las Doce Aguas
 
-**Versión canónica:** 22 de agosto de 2026 · edición T-22A0
+**Versión canónica:** 23 de agosto de 2026 · edición T-22A1
 **Final único:** lago de Isla Mágica, Sevilla, noche del 25 de agosto
 **Después del final:** no se abre otra misión ni otra amenaza
 
@@ -401,6 +401,12 @@ Antes de publicar un cambio:
 - [ ] El final ocurre junto al lago de Isla Mágica la noche del 25 y no se menciona Granada.
 
 ## 19. Registro de decisiones
+
+### 23 de agosto de 2026 · T-22A1
+
+- Una conversación pendiente nunca vuelve a quedar invisible: muestra una tarjeta compacta con la última pregunta y acceso directo al campo de respuesta.
+- Las peticiones a la IA se cancelan a los 18 segundos y usan la respuesta segura de la aplicación. Un cambio de cobertura o una pestaña dormida no puede detener la historia indefinidamente.
+- Las partidas detenidas después de `zoomarine-q2` recuperan automáticamente el diálogo, conservan la respuesta ya dada y muestran la pista de Tavira sin repetir ninguna prueba.
 
 ### 22 de agosto de 2026 · T-22A0
 

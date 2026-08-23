@@ -1,5 +1,5 @@
-import { splitTopotinoMessages } from './chat-format.js?v=memory-v60';
-import { CHALLENGE_PACKS, displayChallengeOptions } from './content/challenges.js?v=memory-v60';
+import { splitTopotinoMessages } from './chat-format.js?v=memory-v61';
+import { CHALLENGE_PACKS, displayChallengeOptions } from './content/challenges.js?v=memory-v61';
 
 const STORAGE_KEYS = {
   auth: 'topotino_chat_auth_v1',
@@ -7,9 +7,9 @@ const STORAGE_KEYS = {
 };
 
 const LEGACY_STATE_KEY = 'topotino_chat_state_v1';
-const APP_VERSION_CODE = 'T-22A0';
+const APP_VERSION_CODE = 'T-22A1';
 const PASSPHRASE_HASH = 'a64716bd9f4e8added1bf47f80b97c3fc7b70a15b8043cdab083e1ddf85f3794';
-const EPISODES_MANIFEST = 'content/episodes.json?v=memory-v60';
+const EPISODES_MANIFEST = 'content/episodes.json?v=memory-v61';
 const LIVE_STORY_ENDPOINT = '/api/story';
 const AMARANTE_TRAVEL_DATE = '2026-08-13';
 const AMARANTE_ROUTE_EPISODE_ID = '004b-rumbo-amarante';
@@ -44,6 +44,8 @@ const DAY22_EPISODE_ID = '014-piedade-algar-jaima';
 const FINAL_EPISODE_ID = '017-isla-magica';
 const RETIRED_FINAL_EPISODE_IDS = new Set(['018-sevilla-alhambra-noche', '019-epilogo-generalife']);
 const EARLY_SEVILLA_FINAL_FLAG = 'final_sevilla_adelantado';
+const ZOOMARINE_TRANSITION_RESCUE_MARKER = 'rescate-transicion-zoomarine-t22a1';
+const AI_REQUEST_TIMEOUT_MS = 18000;
 const SECURITY_CHECKIN_MESSAGES = [
   'Buenos días, Paula y Hugo.',
   'Antes de seguir tengo que contaros algo. Ayer el chat secreto estaba estropeado: llegaban mensajes tarde, se mezclaban y yo respondía a cosas anteriores.',
@@ -239,6 +241,7 @@ async function init() {
     episodes = baseEpisodes.slice().sort((a, b) => (a.meta.order || 0) - (b.meta.order || 0));
     await refreshLiveStory();
     applyDay22FinaleMigration();
+    applyZoomarineTransitionRescue();
     applyTravelDayRescue();
     applyAmaranteCompletionRescue();
     applyDay14SecurityCheckIn();
@@ -1340,7 +1343,7 @@ async function resolveDailyRecovery(challenge, correct) {
 async function askChallengeValidation(challenge, text) {
   setBusy(true, true);
   try {
-    const response = await fetch('/api/chat', {
+    const response = await fetchWithTimeout('/api/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -1477,6 +1480,16 @@ async function applyGuidedResponse(guided, sourceEpisode, userText = '') {
   renderAll();
 }
 
+async function fetchWithTimeout(resource, options = {}, timeoutMs = AI_REQUEST_TIMEOUT_MS) {
+  const controller = new AbortController();
+  const timer = window.setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    return await fetch(resource, { ...options, signal: controller.signal });
+  } finally {
+    window.clearTimeout(timer);
+  }
+}
+
 async function askAiFallback(text, options = {}) {
   const activeEpisode = getActiveEpisode();
   if (!activeEpisode || activeEpisode.meta.ai?.enabled === false) {
@@ -1494,7 +1507,7 @@ async function askAiFallback(text, options = {}) {
   const turnId = `${Date.now()}-${Math.random().toString(36).slice(2, 10)}`;
   activeConversationTurnId = turnId;
   const responsePromise = (async () => {
-    const response = await fetch('/api/chat', {
+    const response = await fetchWithTimeout('/api/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -1548,7 +1561,7 @@ async function askNarrativeSceneAi(text, { stage, allowedSpeakers, context }) {
   const requestedStage = stage;
   activeConversationTurnId = turnId;
   const responsePromise = (async () => {
-    const response = await fetch('/api/chat', {
+    const response = await fetchWithTimeout('/api/chat', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -2083,7 +2096,7 @@ function renderChallenge() {
   }
   const challenge = getActiveChallenge();
   els.challengePanel.innerHTML = '';
-  if (challenge?.kind === 'check-in' || challenge?.kind === 'conversation') {
+  if (challenge?.kind === 'check-in') {
     els.challengePanel.hidden = true;
     return;
   }
@@ -2108,7 +2121,8 @@ function renderChallenge() {
   title.textContent = challenge.title || {
     choice: 'Elegid una respuesta',
     destination: 'Descubrid la siguiente señal',
-    'daily-recovery': 'Recordad lo que habéis visto hoy'
+    'daily-recovery': 'Recordad lo que habéis visto hoy',
+    conversation: 'Conversación pendiente'
   }[challenge.kind] || 'Decisión de la aventura';
   const toggle = document.createElement('button');
   toggle.type = 'button';
@@ -2130,7 +2144,24 @@ function renderChallenge() {
 
   const attempts = state.challengeAttempts[challenge.id] || 0;
   const recoveryMode = attempts >= 2 && Boolean(challenge.recovery);
-  if (recoveryMode) {
+  if (challenge.kind === 'conversation') {
+    const prompt = document.createElement('p');
+    prompt.className = 'challenge-prompt';
+    prompt.textContent = chatMessageText(challenge.promptMessages?.at(-1)) || 'Topotino espera vuestra respuesta para continuar.';
+    content.appendChild(prompt);
+    const help = document.createElement('small');
+    help.textContent = 'Responded con una frase breve. No es un examen y cualquier respuesta sirve.';
+    content.appendChild(help);
+    const focusButton = document.createElement('button');
+    focusButton.type = 'button';
+    focusButton.className = 'challenge-complete';
+    focusButton.textContent = 'Responder en el chat';
+    focusButton.addEventListener('click', () => {
+      els.chatInput.focus();
+      els.chatInput.scrollIntoView({ block: 'nearest' });
+    });
+    content.appendChild(focusButton);
+  } else if (recoveryMode) {
     const explanation = document.createElement('p');
     explanation.textContent = 'Dos intentos no han bastado. Haced esta comprobación y continuamos sin examen.';
     content.appendChild(explanation);
@@ -2343,6 +2374,29 @@ function applyDay22FinaleMigration() {
     return true;
   }
   return false;
+}
+
+function applyZoomarineTransitionRescue() {
+  if (!state.unlocked) return false;
+  if (state.seenBroadcastIds.includes(ZOOMARINE_TRANSITION_RESCUE_MARKER)) return false;
+  if (state.activeEpisodeId !== '015-zoomarine') return false;
+  if (!state.completedChallengeIds.includes('zoomarine-q2')) return false;
+  if (state.completedChallengeIds.includes('ruta-dia24')) return false;
+
+  const conversationId = 'dialogo-ruta-dia24';
+  const conversationWasOpened = state.seenBroadcastIds.includes(`dialogo-abierto-${conversationId}`);
+  if (!conversationWasOpened && !state.completedChallengeIds.includes(conversationId)) return false;
+
+  addUniqueMany(state.completedChallengeIds, [conversationId]);
+  addUniqueMany(state.seenBroadcastIds, [ZOOMARINE_TRANSITION_RESCUE_MARKER]);
+  startupRescueMessages = [...startupRescueMessages,
+    { from: 'system', time: 'auto', text: 'Transición de Zoomarine recuperada. No tenéis que repetir ninguna respuesta.' },
+    { from: 'topotina', time: 'auto', text: 'El canal se cortó justo después de vuestra conclusión, pero quedó guardada correctamente.' },
+    { from: 'topotino', time: 'auto', text: 'Ya lo tengo claro: cuidar no convierte a nadie en dueño. Retener mis recuerdos no fue protegerlos.' },
+    { from: 'topotina', time: 'auto', text: 'Esa conclusión ha hecho reaccionar a Borrón. Ha escrito una palabra falsa sobre un puente de siete arcos. La siguiente pista ya está preparada.' }
+  ];
+  saveState({ sync: false });
+  return true;
 }
 
 function applyAmaranteCompletionRescue() {
@@ -3363,6 +3417,6 @@ function applyTestingParams() {
 
 function registerServiceWorker() {
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('service-worker.js?v=offline-v45').catch(() => {});
+    navigator.serviceWorker.register('service-worker.js?v=offline-v46').catch(() => {});
   }
 }
