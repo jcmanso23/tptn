@@ -1,5 +1,5 @@
-import { splitTopotinoMessages } from './chat-format.js?v=memory-v61';
-import { CHALLENGE_PACKS, displayChallengeOptions } from './content/challenges.js?v=memory-v61';
+import { splitTopotinoMessages } from './chat-format.js?v=memory-v62';
+import { CHALLENGE_PACKS, displayChallengeOptions } from './content/challenges.js?v=memory-v62';
 
 const STORAGE_KEYS = {
   auth: 'topotino_chat_auth_v1',
@@ -7,9 +7,9 @@ const STORAGE_KEYS = {
 };
 
 const LEGACY_STATE_KEY = 'topotino_chat_state_v1';
-const APP_VERSION_CODE = 'T-22A1';
+const APP_VERSION_CODE = 'T-24A0';
 const PASSPHRASE_HASH = 'a64716bd9f4e8added1bf47f80b97c3fc7b70a15b8043cdab083e1ddf85f3794';
-const EPISODES_MANIFEST = 'content/episodes.json?v=memory-v61';
+const EPISODES_MANIFEST = 'content/episodes.json?v=memory-v62';
 const LIVE_STORY_ENDPOINT = '/api/story';
 const AMARANTE_TRAVEL_DATE = '2026-08-13';
 const AMARANTE_ROUTE_EPISODE_ID = '004b-rumbo-amarante';
@@ -45,6 +45,7 @@ const FINAL_EPISODE_ID = '017-isla-magica';
 const RETIRED_FINAL_EPISODE_IDS = new Set(['018-sevilla-alhambra-noche', '019-epilogo-generalife']);
 const EARLY_SEVILLA_FINAL_FLAG = 'final_sevilla_adelantado';
 const ZOOMARINE_TRANSITION_RESCUE_MARKER = 'rescate-transicion-zoomarine-t22a1';
+const FINALE_CLARITY_MIGRATION_FLAG = 'migracion-final-claro-t24a0';
 const AI_REQUEST_TIMEOUT_MS = 18000;
 const SECURITY_CHECKIN_MESSAGES = [
   'Buenos días, Paula y Hugo.',
@@ -79,7 +80,7 @@ const CHAT_SENDERS = {
   doctora_tecla: { name: 'Doctora Tecla', image: 'images/doctora-tecla.jpg?v=tecla-v1' },
   vasco: { name: 'Vasco', initial: 'V' },
   corvinho: { name: 'Corvinho', initial: 'C' },
-  capitan_pico: { name: 'Capitán Pico', initial: 'CP' },
+  capitan_pico: { name: 'Capitán Pico', image: 'images/capitan-pico.jpg?v=capitan-pico-v1' },
   america: { name: 'América', initial: 'A' },
   krim: { name: 'Krim', initial: 'K' }
 };
@@ -94,8 +95,8 @@ const EPISODE_AI_SPEAKERS = Object.freeze({
   '013-delfines-benagil-sagres': ['topotina', 'vasco'],
   '014-piedade-algar-jaima': ['topotina', 'vasco'],
   '015-zoomarine': ['topotina', 'gotas', 'vasco'],
-  '016-tavira-sevilla': ['topotina', 'corvinho'],
-  '017-isla-magica': ['topotina', 'capitan_pico', 'america', 'krim']
+  '016-tavira-sevilla': ['topotina', 'louri', 'doctora_tecla', 'topoloco'],
+  '017-isla-magica': ['topotina', 'capitan_pico', 'topoloco']
 });
 const CHATTER_LIMIT_CHARS = 500;
 const CHATTER_LIMIT_MESSAGES = 8;
@@ -241,6 +242,7 @@ async function init() {
     episodes = baseEpisodes.slice().sort((a, b) => (a.meta.order || 0) - (b.meta.order || 0));
     await refreshLiveStory();
     applyDay22FinaleMigration();
+    applyFinaleClarityMigration();
     applyZoomarineTransitionRescue();
     applyTravelDayRescue();
     applyAmaranteCompletionRescue();
@@ -1282,10 +1284,16 @@ async function resolveChallengeSuccess(challenge) {
 
 async function resolveStoryConversation(challenge, userText) {
   if (state.completedChallengeIds.includes(challenge.id)) return;
+  const hasScriptedReply = challenge.scriptedReply !== false && challenge.replyMessages?.length;
   await askAiFallback(userText, {
     conversationChallenge: challenge,
-    fallbackMessages: challenge.replyMessages
+    fallbackMessages: hasScriptedReply
+      ? [{ from: 'topotino', text: 'Os he leído. Seguid conmigo, que ahora viene la parte importante.' }]
+      : challenge.replyMessages
   });
+  if (hasScriptedReply) {
+    await deliverTopotinoMessages(toTopotinoMessages(challenge.replyMessages), { mode: 'conversation' });
+  }
   if (challenge.alwaysMessages?.length) {
     await deliverTopotinoMessages(toTopotinoMessages(challenge.alwaysMessages), { mode: 'conversation' });
   }
@@ -1417,20 +1425,24 @@ function calculateEndingVariant() {
 }
 
 function endingMessages(variant) {
-  const endingPlace = 'aquí, junto al lago de Isla Mágica';
+  const endingPlace = 'aquí, junto al lago de Isla Mágica, esta tarde';
   const shared = [
-    'Las doce ventanas se han abierto como una sola red. Topoloco no puede convertir vuestras dos miradas en una propiedad suya.',
-    'Borrón, Eco y Niebla sueltan las conexiones. Topoloco huye por un conducto estrecho, enfadado porque una historia compartida no cabe en su vitrina.',
-    'Topotina mantiene el mapa estable. Y yo… Tina. Recuerdo que te llamaba Tina.',
-    `Paula, Hugo: gracias. Habéis observado, elegido, corregido y seguido juntos. La aventura principal termina ${endingPlace}.`
+    { from: 'system', text: 'VENTANAS DEL MAPA: 12/12 · CUADERNO DE BITÁCORA ÚNICO: DESCONECTADO' },
+    { from: 'topoloco', text: '¡NO! ¡Yo tenía el mejor sombrero de almirante! ¡Eso debería contar para algo!' },
+    { from: 'capitan_pico', text: '¡Cuenta como sombrero! Como victoria, no. Paula y Hugo han salvado la expedición.' },
+    { from: 'topotina', text: 'Borrón, Eco y Niebla han perdido las conexiones. El museo está devolviendo cada recuerdo a quien lo vivió.' },
+    { from: 'topotino', text: 'Y yo… Tina. Recuerdo que te llamaba Tina.' },
+    { from: 'topotina', text: 'Ya era hora, hermano.' },
+    { from: 'topotino', text: 'Paula, Hugo: lo hemos conseguido. Desde Amarante hasta este lago, habéis observado, preguntado, corregido y seguido juntos.' },
+    { from: 'topotino', text: `Topoloco puede copiar una imagen, pero nunca podrá decir que vivió la aventura por vosotros. La aventura principal termina ${endingPlace}.` }
   ];
   if (variant === 'clean') {
-    return ['Victoria limpia. La Memoria supera claramente a la Sombra.', ...shared, 'Mis recuerdos regresan con conexiones muy nítidas. El Cuaderno queda con vosotros y no se abre otra misión.'];
+    return [{ from: 'system', text: 'VICTORIA: LAS DOCE AGUAS RECUPERADAS' }, ...shared, { from: 'topotino', text: 'Mis recuerdos vuelven con mucha claridad. El Cuaderno queda con vosotros. No se abre otra misión.' }];
   }
   if (variant === 'close') {
-    return ['Victoria ajustada. La Sombra llegó lejos, pero no pudo romper vuestra red.', ...shared, 'Han vuelto los recuerdos importantes. Algunas esquinas siguen borrosas y las ordenaremos sin inventarlas.'];
+    return [{ from: 'system', text: 'VICTORIA: LAS DOCE AGUAS RECUPERADAS' }, ...shared, { from: 'topotino', text: 'Han vuelto los recuerdos importantes. Algunas esquinas siguen borrosas y las ordenaremos sin inventarlas.' }];
   }
-  return ['Victoria incompleta, pero victoria al fin. Topoloco pierde el museo; algunas Sombras permanecen pegadas a mis recuerdos.', ...shared, 'Lo que siga borroso se ordenará sin inventarlo. La aventura termina aquí y no se abre otra amenaza.'];
+  return [{ from: 'system', text: 'VICTORIA: LAS DOCE AGUAS RECUPERADAS' }, ...shared, { from: 'topotino', text: 'Topoloco ha perdido el museo. Algunos recuerdos tardarán más en ordenarse, pero ya no le pertenecen. No se abre otra amenaza.' }];
 }
 
 function toTopotinoMessages(texts) {
@@ -1530,6 +1542,7 @@ async function askAiFallback(text, options = {}) {
         pendingArrival: summarizeArrivalForAi(getPendingArrivalChallenge()),
         conversation: summarizeConversationForAi(options.conversationChallenge),
         allowedSpeakers: getAllowedAiSpeakers(activeEpisode, options.conversationChallenge),
+        speakerMode: options.conversationChallenge?.allowedSpeakers ? 'exact' : undefined,
         recentMessages: recentMessagesForEpisode(activeEpisode.meta.id)
       })
     });
@@ -1651,14 +1664,23 @@ function summarizeConversationForAi(challenge) {
 }
 
 function getAllowedAiSpeakers(episode, challenge = null) {
-  const candidates = EPISODE_AI_SPEAKERS[episode?.meta?.id] || [];
+  const explicitSpeakers = Array.isArray(challenge?.allowedSpeakers)
+    ? challenge.allowedSpeakers
+    : null;
+  const candidates = explicitSpeakers || ['topotino', ...(EPISODE_AI_SPEAKERS[episode?.meta?.id] || [])];
   const introduced = new Set(state.messages.map((message) => message.from));
   (challenge?.promptMessages || []).forEach((message) => introduced.add(message?.from));
-  return ['topotino', ...candidates.filter((speaker) => {
+  return [...new Set(candidates.filter((speaker) => {
+    if (explicitSpeakers) {
+      if (speaker === 'louri' && state.flags.includes('louri_canal_cerrado')) {
+        return challenge?.allowClosedSpeaker === 'louri';
+      }
+      return true;
+    }
     if (speaker === 'topotina') return introduced.has('topotina') || state.flags.includes(MACHINE_CLARIFIED_FLAG);
     if (speaker === 'louri' && state.flags.includes('louri_canal_cerrado')) return false;
     return introduced.has(speaker);
-  })];
+  }))];
 }
 
 function summarizeChallengeForAi(challenge) {
@@ -2376,6 +2398,41 @@ function applyDay22FinaleMigration() {
   return false;
 }
 
+function applyFinaleClarityMigration() {
+  if (!state.unlocked) return false;
+  if (state.flags.includes(FINALE_CLARITY_MIGRATION_FLAG)) return false;
+
+  const finaleIsOpen = state.unlockedEpisodeIds.includes('016-tavira-sevilla') ||
+    state.unlockedEpisodeIds.includes(FINAL_EPISODE_ID);
+  if (!finaleIsOpen) return false;
+
+  const legacyTextWasShown = state.messages.some((message) =>
+    ['016-tavira-sevilla', FINAL_EPISODE_ID].includes(message.episodeId) &&
+    /Borrón ha reaccionado|Corvinho está sobre Tavira|Capitán Pico, América y Krim|Niebla ha combinado/i.test(message.text || '')
+  );
+
+  const resetConversationIfRoutePending = (conversationId, routeId) => {
+    if (state.completedChallengeIds.includes(routeId)) return;
+    state.completedChallengeIds = state.completedChallengeIds.filter((id) => id !== conversationId);
+    state.seenBroadcastIds = state.seenBroadcastIds.filter((id) => id !== `dialogo-abierto-${conversationId}`);
+  };
+
+  resetConversationIfRoutePending('dialogo-dia24-pista-sevilla', 'dia24-pista-sevilla');
+  resetConversationIfRoutePending('dialogo-ruta-dia25', 'ruta-dia25');
+  addUniqueMany(state.flags, [FINALE_CLARITY_MIGRATION_FLAG]);
+
+  if (legacyTextWasShown && !state.flags.includes('completado_isla_magica')) {
+    startupRescueMessages = [...startupRescueMessages,
+      { from: 'topotina', time: 'auto', text: 'He terminado de identificar la alteración. Antes lo nombramos demasiado pronto: Paula y Hugo no tenían por qué saber quién era Borrón.' },
+      { from: 'topotina', time: 'auto', text: 'Borrón es un Oscurno de Francia. Cambia etiquetas y quita detalles hasta que todos repiten una sola versión. Primero veremos qué hizo; después seguiremos su rastro.' },
+      { from: 'topotino', time: 'auto', text: 'Gracias por aclararlo. Nada de hablar como si los agentes hubieran leído mi archivo secreto, que además yo tampoco recuerdo.' }
+    ];
+  }
+
+  saveState({ sync: false });
+  return true;
+}
+
 function applyZoomarineTransitionRescue() {
   if (!state.unlocked) return false;
   if (state.seenBroadcastIds.includes(ZOOMARINE_TRANSITION_RESCUE_MARKER)) return false;
@@ -2968,7 +3025,7 @@ function renderAdultFinalRoute() {
     ? 'Final completado en Isla Mágica.'
     : state.flags.includes(EARLY_SEVILLA_FINAL_FLAG)
       ? 'Cierre nocturno disponible desde ahora.'
-      : 'Final preparado para la noche del 25 en Isla Mágica.';
+      : 'Final preparado para la tarde del 25 en Isla Mágica.';
   if (els.adultOpenFinal) {
     els.adultOpenFinal.disabled = Boolean(state.finalRouteLocked || state.flags.includes(EARLY_SEVILLA_FINAL_FLAG));
   }
@@ -3189,6 +3246,7 @@ function applyRestoredState(remoteState, recoveryCode) {
     syncError: null
   });
   applyDay22FinaleMigration();
+  applyFinaleClarityMigration();
 }
 
 function markStateChanged() {
@@ -3417,6 +3475,6 @@ function applyTestingParams() {
 
 function registerServiceWorker() {
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('service-worker.js?v=offline-v46').catch(() => {});
+    navigator.serviceWorker.register('service-worker.js?v=offline-v47').catch(() => {});
   }
 }

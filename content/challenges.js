@@ -76,7 +76,7 @@ function expedition(id, place, title, intro, actions, doneMessages, extras = {})
 }
 
 function conversation(id, place, promptMessages, replyMessages) {
-  return { id, kind: 'conversation', place, promptMessages, replyMessages };
+  return { id, kind: 'conversation', place, promptMessages, replyMessages, scriptedReply: true };
 }
 
 function recovery(id, prompt, options, correctIndex, success, failure) {
@@ -947,39 +947,40 @@ packs['016-tavira-sevilla'] = {
   shadowActor: 'Borrón',
   openingMessages: [
     'Buenos días. Ayer unimos motivo, conducta y resultado: Topoloco provocó la amnesia para dejar de perder contra nosotros.',
-    'Borrón ha reaccionado escribiendo «romano» sobre el puente de siete arcos de Tavira.',
-    'Corvinho está sobre Tavira. Dice que su vista aérea es superior. Topotina dice que primero tendrá que demostrarlo.'
+    { from: 'topotina', text: 'Esta mañana ha aparecido una alteración nueva. Alguien ha escrito «ROMANO» sobre la señal de un puente de siete arcos.' },
+    'No sé quién lo hizo ni por qué una sola palabra importa tanto. Primero miraremos el puente, el río y la ciudad. Después acusaremos con pruebas.'
   ],
   steps: [
     ...withOrder(
-      expedition('tavira-expedicion', 'Tavira', 'Expedición del puente corregible', 'Recorred el centro y cruzad solo por pasos permitidos.', [
+      expedition('tavira-expedicion', 'Tavira', 'La palabra que no encaja', 'Seguid el río por el centro y usad únicamente caminos y miradores permitidos.', [
         'Observad el puente antiguo desde una ribera segura y contad sus siete arcos.',
-        'Cruzadlo y localizad tres detalles actuales de su construcción.',
-        'Subid al jardín del castillo o a otra vista alta segura.',
-        'Relacionad río, puente, tejados y salida hacia el mar.'
+        'Cruzadlo y buscad qué une: calles, comercios, casas y las dos orillas.',
+        'Subid al jardín del castillo o a otra vista alta y segura.',
+        'Seguid con la mirada el Gilão desde el puente hacia su salida al mar.'
       ], [
-        'Expedición completada. Se le llama a menudo puente romano, pero la evidencia permite asegurarlo como medieval y reconstruido hacia 1655.',
-        'Corregir una memoria no destruye el valor del puente. Lo vuelve más honesto.',
-        { from: 'corvinho', text: 'Confirmo siete arcos desde arriba. También confirmo que Topotino no sabe volar. He considerado importante registrarlo.' }
+        'Ya veo la trampa. Se le llama muchas veces puente romano, pero los estudios permiten describirlo como medieval y reconstruido hacia 1655. «Romano» es un nombre popular, no una fecha demostrada.',
+        { from: 'topotina', text: 'He comparado la mancha de la señal. Pertenece a Borrón, uno de los Oscurnos que conocimos en Francia.' },
+        { from: 'topotina', text: 'Borrón cambia una etiqueta y quita detalles hasta que todos repiten su versión. No borra el puente: intenta borrar lo que sabemos de él.' },
+        'Borrón… Ese nombre me produce picor detrás de la oreja izquierda. Creo que es un recuerdo. Y creo que me caía fatal.'
       ]),
       [
-        question('tavira-q1', 'Tavira', '¿Qué afirmación es más rigurosa?', ['Es medieval y fue reconstruido; «romano» es un nombre popular no demostrado', 'Es romano porque mucha gente lo dice', 'Tiene siete arcos, así que es prehistórico'], 0, 'Correcto. Distingue evidencia y nombre repetido.', 'La popularidad de una etiqueta no pesa más que los estudios y las fases constructivas.', 'Elegid la opción que deja claro qué sabemos y qué no está demostrado.'),
-        question('tavira-q2', 'Tavira', '¿Qué aporta una vista alta de Tavira?', ['Revela relaciones entre río, puente y ciudad, pero pierde detalles pequeños', 'Permite verlo absolutamente todo', 'Demuestra la fecha exacta del puente'], 0, 'Exacto. Toda perspectiva muestra y oculta.', 'Una vista alta ayuda a comprender el sistema urbano; la observación cercana aporta materiales y detalles.', 'Comparad lo que se ve desde arriba con lo que visteis sobre el puente.')
+        question('tavira-q1', 'Tavira', '¿Qué frase corrige a Borrón sin inventar otra historia?', ['Es medieval y fue reconstruido; «romano» es un nombre popular no demostrado', 'Es romano porque mucha gente lo repite', 'Tiene siete arcos, así que procede de la prehistoria'], 0, 'Correcto. Habéis corregido la etiqueta sin fingir que sabemos más de lo demostrado.', 'Equivocarse no es el problema. El problema sería mantener una palabra después de descubrir que las pruebas no la confirman.', 'Elegid la opción que distingue lo estudiado del nombre popular.'),
+        question('tavira-q2', 'Tavira', 'Desde el castillo se ve el río atravesando la ciudad y continuando hacia el mar. ¿Por qué era importante esa unión?', ['Permitía mover personas, pescado, sal y otras mercancías entre la ciudad y el Atlántico', 'Demostraba que todos los edificios eran barcos', 'Impedía que Tavira tuviera calles'], 0, 'Exacto. El agua funcionaba como una gran vía de transporte.', 'Antes de trenes, carreteras y aviones modernos, los ríos y el mar conectaban puertos, ciudades y mercados. Tavira miraba hacia el Atlántico.', 'Pensad qué podía viajar por el agua además de los peces.')
       ]
     ),
-    nextStop('dia24-pista-sevilla', 'Al borrar la palabra falsa aparece una estación al otro lado de la frontera: una ciudad atravesada por el Guadalquivir y unida a los viajes hacia América. ¿Cuál es?', ['Sevilla', 'Lisboa', 'Coimbra'], 0, [
-      { from: 'topotino', text: 'Sevilla. Allí está la segunda estación del parque que detectamos en Magikland.' },
-      { from: 'topotina', text: 'La tarde queda libre para llegar, descansar y estar con la familia. No hay ninguna misión obligatoria al llegar.' },
-      { from: 'topotina', text: 'Recomendación opcional: si tenéis tiempo, Plaza de España tiene cuatro puentes, un canal y bancos que representan provincias. Ayuda a ver cómo un lugar puede reunir muchas historias sin convertirlas en una sola.' },
-      { from: 'corvinho', text: 'Mi trabajo termina en la frontera. No es miedo. Es una compleja cuestión internacional de plumas.' }
+    nextStop('dia24-pista-sevilla', 'Louri oyó «autopista de agua», «viajes a América» y «una ciudad que guardaba sus documentos». ¿Qué ciudad atravesada por el Guadalquivir encaja?', ['Sevilla', 'Lisboa', 'Coimbra'], 0, [
+      { from: 'topotino', text: 'Sevilla. El Guadalquivir conectaba la ciudad con el Atlántico. Por allí pasaron barcos, mercancías, mapas y noticias de América.' },
+      { from: 'topotina', text: 'El Archivo de Indias conserva muchísimos documentos de aquellos viajes. La Torre del Oro vigilaba una entrada estratégica del río; la Catedral y la Giralda muestran la importancia que alcanzó la ciudad.' },
+      { from: 'topotina', text: 'Esta tarde no hay misión. Llegad, descansad y estad con la familia. Si veis alguno de esos lugares desde fuera, estupendo; si no, la historia continuará igualmente.' }
     ]),
     recovery('recuperacion-dia24', '¿Qué hace una memoria honesta cuando aparece mejor evidencia?', ['Se corrige sin fingir que nunca se equivocó', 'Se aferra al nombre más popular', 'Borra el lugar completo'], 0, 'Sombra retirada. Borrón ha perdido su etiqueta falsa.', 'La palabra de Borrón sigue visible, pero ahora funciona como ejemplo de una corrección.'),
-    Object.assign(route('ruta-dia25', 'La estación gemela de Magikland es una isla sevillana de exploradores, barcos, piratas y viajes a América. ¿Adónde vamos mañana?', ['Isla Mágica y Agua Mágica', 'Dino Parque', 'Oceanário'], 0, [
-      'Exacto: Isla Mágica y Agua Mágica.',
-      'Magikland enseñó a Topoloco qué momentos llaman nuestra atención. En esta segunda estación, Niebla intentará usar la emoción y la prisa para obligaros a elegir.',
-      'Preparad bañador, toalla, protector solar, agua y calzado cómodo. Descansad.'
+    Object.assign(route('ruta-dia25', 'Tecla ha descrito una isla dentro de Sevilla, llena de barcos, exploradores y viajes a América, con la misma firma que Magikland. ¿Dónde está Topoloco?', ['Isla Mágica', 'Dino Parque', 'Oceanário de Lisboa'], 0, [
+      'Exacto: Isla Mágica. Una isla de agua, barcos e imaginación escondida dentro de una ciudad.',
+      'Mañana buscaremos allí el Cuaderno de Bitácora Único antes de que Topoloco cierre nuestra aventura con su nombre.',
+      'Preparad bañador y toalla si queréis usar Agua Mágica, además de protector solar, agua y calzado cómodo. Ninguna prueba obligará a montar ni a entrar en la zona acuática.',
+      'Ahora descansad. Mañana por la tarde terminaremos esto juntos.'
     ], { setFlags: ['completado_tavira_sevilla'], water: 'Agua de las Dos Orillas' }), {
-      notBefore: { date: '2026-08-24', time: '20:30' }
+      notBefore: { date: '2026-08-24', time: '20:00' }
     })
   ]
 };
@@ -987,73 +988,90 @@ packs['016-tavira-sevilla'] = {
 packs['017-isla-magica'] = {
   shadowActor: 'Niebla',
   openingMessages: [
-    'Buenos días. Al corregir a Borrón en Tavira y comparar los puentes de Sevilla, reapareció la firma gemela de Magikland.',
-    'Conduce a Isla Mágica. Niebla ha combinado ruido, emoción y urgencia para que elijáis sin comprobar.',
-    'Capitán Pico, América y Krim están dentro. No resolverán la trampa, pero nos ayudarán a conseguir que Niebla siga una respuesta falsa y deje expuesto el Corrector.'
+    'Buenos días, Paula y Hugo. Hoy necesito que tengamos clarísimo qué estamos haciendo.',
+    'Durante el eclipse, Topoloco robó gran parte de mi memoria. Después utilizó cada lugar para copiar cómo observabais, elegíais y recordabais.',
+    { from: 'topotina', text: 'Ayer Tecla confirmó el último paso: Topoloco quiere guardar una sola versión del viaje, ponerse como capitán y borrar las demás voces.' },
+    'La pista señala una isla de barcos y exploradores escondida dentro de Sevilla. Cuando lleguemos, no empezará una visita normal. Empezará la última expedición.'
   ],
   steps: [
     ...withOrder(
-      expedition('isla-expedicion', 'Isla Mágica y Agua Mágica', 'Expedición de historia, escenario y decisión', 'No hace falta montar en nada que no queráis. El parque ofrece muchas evidencias desde caminos, zonas y espectáculos.', [
-        'Recorred dos zonas temáticas distintas y buscad un cambio claro de ambientación.',
-        'En una zona, localizad algo que represente historia y algo que tenga una función real hoy.',
-        'Comparad un espacio o atracción de agua con otro sin agua.',
-        'Identificad una emoción que pueda empujar a elegir deprisa y una forma de parar a pensar.'
+      onArrival(expedition('isla-expedicion', 'Isla Mágica', 'Exploradores de una isla imposible', 'No hace falta montar ni asistir a ningún espectáculo. Investigad desde caminos, carteles, zonas y puntos seguros junto al agua.', [
+        'Localizad Sevilla, Puerto de Indias en el mapa o en un cartel y buscad barcos, carabelas o elementos del puerto.',
+        'Mirad el lago y decid por qué este lugar puede sentirse como una isla aunque esté dentro de Sevilla.',
+        'Entrad en otra zona temática y buscad un cambio claro en edificios, vegetación, música o personajes.',
+        'Elegid un elemento que represente el pasado y otro que tenga una función real para los visitantes de hoy.'
       ], [
-        'Expedición completada. Isla Mágica representa los siglos XVI y XVII; no pretende ser un edificio original de esa época.',
-        { from: 'capitan_pico', text: '¡Paula y Hugo quedan nombrados Exploradores de Primera Clase, categoría extraordinariamente oficial!' },
-        { from: 'america', text: 'Traducción: hemos encontrado dos rutas de Niebla. Una quiere que corráis. La otra permite comprobar y volver atrás.' }
-      ]),
+        'Expedición completada. El parque tiene seis mundos que representan los siglos XVI y XVII. Sevilla, Puerto de Indias imagina la ciudad que conectaba Europa y América.',
+        'Los barcos, el puerto y el lago permiten imaginar aquel mundo. Son escenarios actuales: ayudan a aprender, pero no son documentos originales del siglo XVI.',
+        { from: 'capitan_pico', text: '¡Exploradores de Primera Clase confirmados! América asiente. Yo también, pero con una inclinación de pico mucho más oficial.' }
+      ]), { lat: 37.4077506, lng: -5.9998062, radiusMeters: 1600, label: 'Isla Mágica, Sevilla' }, [
+        { from: 'topotina', text: 'La señal está dentro del recinto. También hay una transmisión desconocida intentando entrar.' },
+        { from: 'topotino', text: '¿Otra? Este chat secreto tiene más visitas que una estación de tren.' },
+        { from: 'system', text: 'Capitán Pico se ha unido al canal.' },
+        { from: 'capitan_pico', text: '¡Capitán Pico! Ave navegante, aventurero de primer orden y propietario de este magnífico pico. América es mi compañera y vigila sobre el terreno; hoy escribiré yo por los dos.' },
+        { from: 'capitan_pico', text: 'Bienvenidos a una isla imposible: está dentro de Sevilla, pero el agua, los barcos y la imaginación permiten viajar a otros mundos sin salir de la ciudad.' },
+        { from: 'topotina', text: 'Identifico otra señal: Niebla, un Oscurno que conocimos en Francia. Llena las decisiones de ruido y prisa para que elijamos sin comprobar.' },
+        { from: 'topotino', text: 'Perfecto. Un topo sin memoria, un ave capitana y una sombra metiendo prisa. Día completamente normal.' }
+      ], 'llegada-isla-final-t24a0'),
       [
-        question('isla-q1', 'Isla Mágica y Agua Mágica', '¿Qué diferencia un escenario histórico de una fuente original?', ['El escenario representa una época con elementos actuales', 'El escenario estuvo necesariamente allí en el siglo XVI', 'No puede enseñar nada'], 0, 'Correcto. Representar no es falsificar si se explica con claridad.', 'Como en Portugal dos Pequenitos, un escenario selecciona y transforma. Puede ayudar a imaginar y aprender, pero no sustituye una fuente original.', 'Mirad qué elementos funcionan para visitantes actuales.'),
-        question('isla-q2', 'Isla Mágica y Agua Mágica', 'Niebla ofrece dos rutas. ¿Cuál es más segura?', ['La más urgente y llamativa, sin comprobar nada', 'La que permite comprobar una afirmación y volver atrás si falla', 'La que prohíbe cambiar de opinión'], 1, 'Exacto. Comprobar y conservar una salida derrota la urgencia.', 'Krim ha detectado la emoción sin dejar que mande. Capitán Pico hace que Niebla siga la ruta llamativa y América recupera la señal.', 'Elegid la ruta que permite corregir.')
+        question('isla-q1', 'Isla Mágica', '¿Qué podemos aprender de Sevilla, Puerto de Indias sin confundir escenario e historia?', ['Cómo se representa hoy una ciudad de barcos y comercio del siglo XVI', 'Que cada edificio del parque estuvo allí durante los viajes a América', 'Que los decorados sustituyen al Archivo de Indias'], 0, 'Correcto. La imaginación ayuda a entrar en otra época si sabemos qué es representación y qué es prueba histórica.', 'Como en Portugal dos Pequenitos y Dino Parque, un modelo selecciona detalles para explicar. No se convierte por eso en el original.', 'Buscad la opción que permite aprender sin fingir que el parque tiene quinientos años.'),
+        question('isla-q2', 'Isla Mágica', 'Niebla vigila el canal. ¿Qué contratrampa es más segura?', ['Enviar una ruta falsa a un lugar visible, comprobar que Niebla la sigue y poder volver atrás', 'Publicar nuestra posición real y correr', 'Inventar una salida imposible que tampoco podamos comprobar'], 0, [
+          'Exacto. La respuesta falsa es reversible, visible y no entrega vuestra posición real.',
+          { from: 'topotina', text: 'Envío el señuelo ahora. Niebla está siguiéndolo.' },
+          { from: 'capitan_pico', text: '¡Ha picado! Y puedo decirlo porque soy experto en picos. El cable principal del Corrector acaba de quedar visible junto al lago.' }
+        ], 'No se trata de elegir la ruta más valiente, sino la que permite comprobar y corregir sin revelar dónde estáis.', 'Elegid la opción que pueda deshacerse y comprobarse.')
       ],
-      'question-first'
+      'expedition-first'
     ),
-    recovery('recuperacion-dia25', '¿Qué hace un buen explorador cuando siente mucha prisa?', ['Nombra la emoción, comprueba y mantiene una salida', 'Obedece la primera señal', 'Finge que no siente nada'], 0, 'Sombra retirada. Krim dice que Niebla ha salido color verde mareado.', 'Niebla mantiene una ventaja, pero la contratrampa ha recuperado la señal principal.'),
+    recovery('recuperacion-dia25', '¿Qué hace un buen explorador cuando alguien intenta meterle prisa?', ['Comprueba y mantiene una salida', 'Obedece la primera señal', 'Entrega su posición real'], 0, 'Sombra retirada. Niebla ha seguido una ruta vacía y comprobable.', 'Niebla mantiene una ventaja, pero el cable principal ya está localizado.'),
     Object.assign(conversation('dialogo-final-isla', 'Isla Mágica · llamada de los exploradores', [
-      { from: 'krim', text: 'Antes del final: ¿qué emoción os ha hecho ir más deprisa hoy? No hay respuesta correcta.' },
-      { from: 'capitan_pico', text: 'Y, como exploradores expertos, decidnos qué os ayudó a parar y comprobar.' }
+      { from: 'capitan_pico', text: 'Antes de acercarnos al lago: ¿qué parte del parque os ha hecho sentir más dentro de otra aventura? No hay respuesta correcta.' }
     ], [
-      { from: 'krim', text: 'Gracias. Sentir eso no es caer en la trampa. La trampa sería dejar que decidiera por vosotros.' }
+      { from: 'capitan_pico', text: '¡Buena elección! La imaginación abre mundos. El problema empieza cuando alguien intenta declarar que su versión es la única verdadera.' },
+      { from: 'system', text: 'Doctor Topoloco se ha unido al canal.' },
+      { from: 'topoloco', text: '¡Bienvenidos al lanzamiento de mi obra maestra: La Gran Expedición del Almirante Topoloco!' },
+      { from: 'topoloco', text: 'El Cuaderno de Bitácora Único guardará una sola historia. Yo seré el capitán, el descubridor y el héroe. Vosotros apareceréis en una nota al pie muy digna.' },
+      { from: 'topotino', text: '¡Tú no viviste este viaje! No puedes ponerte al mando de nuestros recuerdos.' },
+      { from: 'topoloco', text: 'Detalles administrativos. ¡Tecla, activa la copia final!' },
+      { from: 'system', text: 'Respuesta automática de Tecla: «Robaste el módulo. Lo rompiste tú. No incluye asistencia técnica. Y baja la basura». ' },
+      { from: 'topotina', text: 'Mientras presume, el Corrector ha quedado expuesto junto al lago. Esta es nuestra oportunidad.' }
     ]), {
-      notBefore: { date: '2026-08-25', time: '20:00' },
+      notBefore: { date: '2026-08-25', time: '16:00' },
       allowEarlyFlag: 'final_sevilla_adelantado',
-      alwaysMessages: [
-        { from: 'america', text: 'Niebla ha seguido la ruta falsa. El cable principal del Corrector acaba de aparecer junto al lago.' },
-        { from: 'topoloco', text: '¡Demasiado tarde! ¡Vuestra última aventura será exactamente como YO la cuente!' },
-        { from: 'topotino', text: 'Al lago, agentes. Sin correr. Un final épico con una caída tonta pierde bastante categoría.' }
-      ]
+      allowedSpeakers: ['topotino', 'topotina', 'capitan_pico', 'topoloco'],
+      alwaysMessages: [{ from: 'topotino', text: 'Al lago, agentes. Sin correr. Un final épico con una caída tonta pierde bastante categoría.' }]
     }),
-    question('sevilla-lago-pista', 'Isla Mágica · lago', 'Topoloco ha conectado el Corrector al lago. ¿Qué error comete al usar un reflejo como si fuera el original?', ['El reflejo depende del objeto, la luz y el agua', 'El reflejo crea y posee el objeto', 'El agua convierte un decorado en un documento antiguo'], 0,
-      'Exacto. Sin objeto, luz y superficie no existe ese reflejo.',
-      'Topoloco eligió el lago porque quiere que una apariencia sustituya lo vivido. El agua en movimiento deja visible la diferencia.',
+    question('sevilla-lago-pista', 'Isla Mágica · lago', 'Topoloco está usando el lago como durante el eclipse. ¿Por qué el reflejo no puede convertirse en dueño del original?', ['Porque depende del objeto, la luz y el agua para existir', 'Porque crea y posee todo lo que aparece en él', 'Porque transforma un decorado actual en un documento del siglo XVI'], 0,
+      'Exacto. Sin objeto, luz y superficie no existiría esa imagen.',
+      'Topoloco utilizó la sombra del eclipse y los reflejos para copiar y separar recuerdos. El agua en movimiento demuestra que una copia cambia aunque el objeto real siga fuera.',
       'Mirad qué existe fuera del agua y qué cambia en la superficie.'),
-    expedition('sevilla-lago-expedicion', 'Isla Mágica · junto al lago', 'Las cuatro pruebas del Corrector', 'Desde un punto seguro con vista al agua. No depende de ningún espectáculo.', [
-      'Elegid un escenario del parque que represente otra época.',
-      'Recordad una observación física que hayáis comprobado hoy.',
+    expedition('sevilla-lago-expedicion', 'Isla Mágica · junto al lago', 'Tres pruebas contra la historia falsa', 'Buscad un punto seguro con vista al agua. No depende de ningún espectáculo.', [
+      'Elegid un barco, edificio o escenario del parque que represente otra época.',
+      'Mirad su reflejo y comprobad qué cambia en el agua y qué permanece fuera.',
       'Paula y Hugo: elegid un momento del viaje que recordéis de forma diferente.',
-      'Mirad el reflejo del lago y comprobad qué cambia en el agua y qué permanece fuera.'
+      'Recordad quién estuvo realmente presente en ese momento.'
     ], [
-      'Capitán Pico confirma el escenario; América confirma la observación y Krim mantiene separadas emoción y prueba.',
-      'El Corrector intenta fundirlo todo en una versión única, pero para hacerlo tendría que borrar vuestras diferencias.'
+      { from: 'capitan_pico', text: 'Escenario localizado, reflejo comprobado y dos recuerdos distintos. ¡Eso es una tripulación de verdad, no un almirante hablando consigo mismo!' },
+      'El Corrector intenta convertirlo todo en una versión única. Para conseguirlo tendría que borrar vuestras diferencias y fingir que Topoloco estuvo donde nunca estuvo.'
     ]),
-    question('sevilla-lago-q2', 'Isla Mágica · lago', '¿Qué puede demostrar un escenario histórico por sí solo?', ['Cómo se representa una época para visitantes actuales', 'Que cada detalle ocurrió exactamente allí', 'Quién fue el héroe real de todas las aventuras'], 0,
-      'Correcto. Una representación puede enseñar sin hacerse pasar por el original.',
-      'El Corrector falla porque un escenario, un recuerdo y una emoción son cosas diferentes.',
-      'Separad lo que representa de lo que puede probar.'),
+    question('sevilla-lago-q2', 'Isla Mágica · lago', 'Paula y Hugo recuerdan detalles diferentes del mismo momento. ¿Qué debe guardar una historia honesta?', ['Las dos miradas y aquello en lo que coinciden, sin obligar a borrar una', 'Solo la versión de quien hable más fuerte', 'La versión de Topoloco aunque no estuviera allí'], 0,
+      'Correcto. Recordar algo de forma distinta no convierte automáticamente a uno en dueño y al otro en mentiroso.',
+      'La historia compartida puede conservar coincidencias, diferencias y correcciones. Eso es exactamente lo que el Cuaderno de Bitácora Único no sabe hacer.',
+      'Pensad quiénes vivieron el momento y qué puede aportar cada uno.'),
     {
       id: 'final-sevilla-noche',
       kind: 'ending',
       place: 'Isla Mágica · lago',
-      title: 'Desconectar el Corrector',
-      intro: 'Consultad el Cuaderno en privado. No enviéis páginas. Paula y Hugo deben elegir una diferencia real entre sus recuerdos y decidir por qué ambas miradas pueden formar una aventura compartida.',
+      title: 'Abrir las Doce Aguas',
+      intro: 'Consultad el Cuaderno de la Memoria en privado. No enviéis páginas. Topoloco no pudo leerlo y necesita que una sola versión tenga dueño.',
       actions: [
         'Mirad el Cuaderno sin mostrarlo.',
         'Elegid una diferencia real entre lo que recordáis.',
-        'Decid juntos por qué ninguna versión necesita borrar la otra.',
-        'Pulsad el botón cuando tengáis vuestra conclusión.'
+        'Decid juntos por qué las dos miradas pertenecen a quienes vivieron la aventura.',
+        'Cuando estéis preparados, abrid la última ventana.'
       ],
-      doneMessages: ['Las doce ventanas responden como una red. El reflejo no puede declararse dueño del original y el Corrector pierde el control.'],
+      completionLabel: '¡Abrir la última ventana!',
+      doneMessages: ['Las doce ventanas responden. El reflejo no puede declararse dueño del original y el Corrector pierde el control.'],
       effects: {
         setFlags: ['completado_isla_magica', 'completado_sevilla_alhambra_noche', 'topoloco_derrotado', 'doce_aguas_reunidas'],
         water: 'Agua Clara de la Noche',
@@ -1262,14 +1280,60 @@ const STORY_CONVERSATIONS = Object.freeze({
     reply: [{ from: 'topotino', text: 'Gracias. Esa respuesta me ha ayudado a unir el motivo, el método y mi amnesia. Borrón acaba de atacar la siguiente ventana.' }]
   },
   'dia24-pista-sevilla': {
-    place: 'Tavira · etiqueta corregida',
-    prompt: [{ from: 'topotino', text: '¿Qué os parece más peligroso: equivocarse o repetir un nombre sin comprobarlo?' }],
-    reply: [{ from: 'topotina', text: 'Corregir no borra el puente; mejora lo que sabemos de él. Borrón ha perdido la etiqueta y la señal cruza la frontera.' }]
+    place: 'Tavira · transmisión interceptada',
+    allowedSpeakers: ['topotino', 'topotina', 'louri'],
+    allowClosedSpeaker: 'louri',
+    prompt: [
+      { from: 'system', text: 'Solicitud de entrada: señal sauriana verificada.' },
+      { from: 'topotino', text: 'No. Otra vez no. ¿Louri?' },
+      { from: 'topotina', text: 'Es él. La firma procede de Dino Parque y la conexión durará un minuto.' },
+      { from: 'louri', text: 'He interceptado una frase de Topoloco gracias a mi extraordinario oído científico.' },
+      { from: 'louri', text: 'Dijo: «El último cargamento seguirá la autopista de agua hasta la ciudad que guardaba los viajes a América».' },
+      { from: 'louri', text: 'No sé qué ciudad es. Naturalmente podría averiguarlo, pero deseo comprobar si vosotros también sois extraordinarios. ¿Qué pensáis?' }
+    ],
+    reply: [
+      { from: 'louri', text: 'Interesante. Mi hipótesis personal era «un lugar con agua», lo cual abarca casi todo el planeta y por eso es una hipótesis muy ambiciosa.' },
+      { from: 'topotina', text: 'Tenemos datos más precisos: una ciudad conectada con el Atlántico por un río y un archivo que conserva documentos de viajes a América.' },
+      { from: 'louri', text: 'Mi minuto termina. Recordad: Topoloco habló de un cargamento final. Esto ya no es otra pista suelta.' },
+      { from: 'system', text: 'Louri ha salido del canal.' },
+      { from: 'topotino', text: 'Gracias, Louri. Ahora sí: unamos todas las pistas y elijamos la ciudad.' }
+    ]
   },
   'ruta-dia25': {
-    place: 'Tavira · noche antes de Sevilla',
-    prompt: [{ from: 'topotina', text: 'Mañana cruzaremos la frontera. ¿Qué os gustaría conservar de Tavira antes de cerrar el día?' }],
-    reply: [{ from: 'topotino', text: 'Gracias. Mañana por la tarde podréis descansar y estar con la familia. Por la noche abriremos la última estación: la gemela de Magikland.' }]
+    place: 'Sevilla · intrusión nocturna',
+    notBefore: { date: '2026-08-24', time: '20:00' },
+    allowedSpeakers: ['topotino', 'topotina', 'doctora_tecla', 'topoloco'],
+    prompt: [
+      { from: 'system', text: 'Doctora Tecla ha abierto un acceso antiguo.' },
+      { from: 'topotino', text: '¡TECLA! Se suponía que habías cerrado ese acceso.' },
+      { from: 'doctora_tecla', text: 'Lo cerré. Lo he vuelto a abrir porque busco un módulo que mi marido ha robado de mi taller.' },
+      { from: 'topoloco', text: '¡No lo robé! Lo trasladé sin una montaña de permisos aburridos.' },
+      { from: 'doctora_tecla', text: 'Lo llamé Cuaderno de Bitácora Único y lo bloqueé porque es peligroso. Guarda una sola versión, nombra un capitán y elimina las demás voces.' },
+      { from: 'topoloco', text: 'Una historia necesita orden. Y un retrato mío enorme en la portada.' },
+      { from: 'doctora_tecla', text: 'Paula, Hugo: ¿entendéis por qué sería grave que Topoloco decidiera quién aparece como héroe de todo lo que habéis vivido?' }
+    ],
+    reply: [
+      { from: 'doctora_tecla', text: 'Exacto. Una máquina puede guardar datos, pero no tiene derecho a convertir a quien no estuvo allí en dueño de la experiencia.' },
+      { from: 'topoloco', text: '¡Deja de explicar mi plan en el chat de mis enemigos!' },
+      { from: 'doctora_tecla', text: 'Entonces no robes mis prototipos.' },
+      { from: 'topotina', text: 'He leído la dirección que dejó el módulo: una isla dentro de Sevilla, barcos, exploradores y viajes a América.' },
+      { from: 'doctora_tecla', text: 'Y tiene la misma firma que aquella instalación de Magikland. Hasta aquí puedo decir sin haceros el trabajo.' },
+      { from: 'topoloco', text: '¡No podéis encontrar una isla en mitad de una ciudad!' },
+      { from: 'doctora_tecla', text: 'Yo me voy. Y no pienso repararte nada cuando lo rompas.' },
+      { from: 'system', text: 'Doctora Tecla y Doctor Topoloco han salido del canal.' },
+      { from: 'topotino', text: 'Bien. La discusión ha dejado todas las pistas. Ahora tenemos que descubrir el nombre de esa isla imposible.' }
+    ]
+  },
+  'isla-q1': {
+    place: 'Isla Mágica · seis mundos',
+    allowedSpeakers: ['topotino', 'topotina', 'capitan_pico'],
+    prompt: [
+      { from: 'capitan_pico', text: 'Habéis cruzado de un mundo a otro sin salir de Sevilla. ¿Qué detalle os hizo sentir más claramente ese cambio?' }
+    ],
+    reply: [
+      { from: 'capitan_pico', text: '¡Buen ojo! Un explorador no solo mira lo grande: detecta cuándo cambian los edificios, los sonidos, las plantas o las historias.' },
+      { from: 'topotina', text: 'Ese cambio está preparado para activar la imaginación. Ahora debemos distinguir qué representa el parque y qué puede demostrar sobre la historia real.' }
+    ]
   }
 });
 
@@ -1281,7 +1345,9 @@ for (const [episodeId, pack] of Object.entries(packs)) {
     return [Object.assign(
       conversation(`dialogo-${step.id}`, bridge.place, bridge.prompt, bridge.reply),
       bridge.notBefore ? { notBefore: bridge.notBefore } : {},
-      bridge.effects ? { effects: bridge.effects } : {}
+      bridge.effects ? { effects: bridge.effects } : {},
+      bridge.allowedSpeakers ? { allowedSpeakers: bridge.allowedSpeakers } : {},
+      bridge.allowClosedSpeaker ? { allowClosedSpeaker: bridge.allowClosedSpeaker } : {}
     ), step];
   });
 }

@@ -249,7 +249,7 @@ test('Gotas se anuncia después de las huellas y solo entra al llegar a Mira de 
   assert.ok(miraExpedition.doneMessages.some((message) => message?.from === 'gotas'));
 });
 
-test('Louri se insinúa el 16, se revela el 17 y solo usa dos conexiones excepcionales posteriores ya escritas', async () => {
+test('Louri se insinúa el 16, se revela el 17 y sus conexiones posteriores están justificadas y cerradas', async () => {
   const day16 = CHALLENGE_PACKS['008-huellas-mira-obidos'];
   const day17 = CHALLENGE_PACKS['009-dinoparque-lisboa'];
   const laterMessages = futureEpisodeIds.slice(futureEpisodeIds.indexOf('010-lisboa-ciencia-oceanario'))
@@ -290,7 +290,10 @@ test('Louri se insinúa el 16, se revela el 17 y solo usa dos conexiones excepci
   const afterDay22 = futureEpisodeIds.slice(futureEpisodeIds.indexOf('015-zoomarine'))
     .flatMap((id) => CHALLENGE_PACKS[id].steps)
     .flatMap((step) => [...(step.successMessages || []), ...(step.doneMessages || []), ...(step.promptMessages || []), ...(step.replyMessages || [])]);
-  assert.equal(afterDay22.some((message) => message?.from === 'louri'), false);
+  assert.ok(afterDay22.some((message) => message?.from === 'louri' && /autopista de agua/i.test(messageText(message))));
+  const finalDayMessages = CHALLENGE_PACKS['017-isla-magica'].steps
+    .flatMap((step) => [...(step.successMessages || []), ...(step.doneMessages || []), ...(step.promptMessages || []), ...(step.replyMessages || [])]);
+  assert.equal(finalDayMessages.some((message) => message?.from === 'louri'), false);
 });
 
 test('cada cambio de destino desde el día 17 tiene antes un diálogo narrativo', () => {
@@ -369,8 +372,8 @@ test('el arco posterior encadena el Corrector de Topoloco y termina únicamente 
     ['013-delfines-benagil-sagres', /Louri.*embarcación|embarcación.*Lagos|Corrector/is],
     ['014-piedade-algar-jaima', /Eco.*escucha.*recorta.*repite/is],
     ['015-zoomarine', /Albufeira.*Refugio de Lona|Refugio de Lona.*Albufeira/is],
-    ['016-tavira-sevilla', /Borrón.*puente|puente.*Borrón/is],
-    ['017-isla-magica', /firma gemela.*Magikland|Magikland.*firma gemela/is]
+    ['016-tavira-sevilla', /alguien.*ROMANO.*puente|alteración.*puente/is],
+    ['017-isla-magica', /isla.*barcos.*Sevilla|Topoloco.*una sola versión/is]
   ];
 
   for (const [id, pattern] of causalChecks) {
@@ -482,6 +485,40 @@ test('las pruebas son breves, físicas y enseñan después de elegir', () => {
   }
 });
 
+test('los diálogos críticos del final reaccionan con IA y conservan después su cierre canónico', async () => {
+  const day24 = CHALLENGE_PACKS['016-tavira-sevilla'];
+  const day25 = CHALLENGE_PACKS['017-isla-magica'];
+  const byId = new Map([...day24.steps, ...day25.steps].map((step) => [step.id, step]));
+
+  for (const id of ['dialogo-dia24-pista-sevilla', 'dialogo-ruta-dia25', 'dialogo-isla-q1', 'dialogo-final-isla']) {
+    const dialogue = byId.get(id);
+    assert.ok(dialogue, `falta ${id}`);
+    assert.equal(dialogue.kind, 'conversation');
+    assert.equal(dialogue.scriptedReply, true);
+    assert.ok(dialogue.allowedSpeakers?.length, `${id}: faltan remitentes exactos`);
+  }
+
+  assert.equal(byId.get('dialogo-dia24-pista-sevilla').allowClosedSpeaker, 'louri');
+  assert.deepEqual(byId.get('dialogo-isla-q1').allowedSpeakers, ['topotino', 'topotina', 'capitan_pico']);
+
+  const visibleMessages = [...day24.steps, ...day25.steps].flatMap((step) => [
+    ...(step.promptMessages || []),
+    ...(step.replyMessages || []),
+    ...(step.successMessages || []),
+    ...(step.doneMessages || []),
+    ...(step.arrivalMessages || [])
+  ]);
+  assert.equal(visibleMessages.some((message) => message?.from === 'america'), false);
+
+  const app = await readFile(join(root, 'app.js'), 'utf8');
+  const api = await readFile(join(root, 'api/chat.js'), 'utf8');
+  assert.match(app, /hasScriptedReply[\s\S]*askAiFallback[\s\S]*deliverTopotinoMessages\(toTopotinoMessages\(challenge\.replyMessages\)/);
+  assert.match(app, /speakerMode: options\.conversationChallenge\?\.allowedSpeakers \? 'exact'/);
+  assert.match(api, /EXACT_STORY_CONVERSATIONS/);
+  assert.match(api, /authorizedLouriReturn/);
+  assert.match(api, /América puede estar presente[\s\S]*no escribe en el chat/);
+});
+
 test('la app conserva Memoria, Sombra y tres variantes de victoria', async () => {
   const app = await readFile(join(root, 'app.js'), 'utf8');
   const index = await readFile(join(root, 'index.html'), 'utf8');
@@ -496,7 +533,7 @@ test('la app conserva Memoria, Sombra y tres variantes de victoria', async () =>
   assert.match(app, /return 'clean'/);
   assert.match(app, /return 'close'/);
   assert.match(app, /return 'incomplete'/);
-  assert.match(app, /Victoria limpia/);
-  assert.match(app, /Victoria ajustada/);
-  assert.match(app, /Victoria incompleta/);
+  assert.match(app, /VICTORIA: LAS DOCE AGUAS RECUPERADAS/);
+  assert.match(app, /lo hemos conseguido/);
+  assert.match(app, /Algunos recuerdos tardarán más en ordenarse/);
 });

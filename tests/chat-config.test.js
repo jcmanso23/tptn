@@ -98,7 +98,8 @@ test('el asalto del día 20 aísla personajes y Louri solo usa transmisiones esc
   assert.match(api, /'louri', 'topoloco'/);
   assert.match(api, /speakerMode === 'exact'/);
   assert.match(api, /estadoNarrativoEspecial/);
-  assert.match(api, /dos transmisiones excepcionales ya escritas/i);
+  assert.match(api, /tres transmisiones excepcionales ya escritas/i);
+  assert.match(api, /una última pista verificada del 24/i);
   assert.match(app, /TOPOLOCO_SCENE_ID/);
   assert.match(app, /function initializeTopolocoScene/);
   assert.match(app, /function runNarrativeScene/);

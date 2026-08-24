@@ -170,7 +170,7 @@ test('los días 13 y 14 conservan su cadena narrativa y adaptan solo tras un imp
   assert.doesNotMatch(childFacingText, /(foto|fotografía).{0,30}(cuaderno|diario)/i);
 });
 
-test('la edición T-22A1 rescata Zoomarine y conserva el final de Sevilla sin retroceder', async () => {
+test('la edición T-24A0 conserva rescates anteriores y prepara el final claro de Sevilla', async () => {
   const files = ['index.html', 'app.js', 'admin.js', 'content/episodes/001-reconexion.md'];
   const combined = (await Promise.all(files.map((file) => readFile(join(root, file), 'utf8')))).join('\n');
   const app = await readFile(join(root, 'app.js'), 'utf8');
@@ -183,14 +183,14 @@ test('la edición T-22A1 rescata Zoomarine y conserva el final de Sevilla sin re
 
   const styles = await readFile(join(root, 'styles.css'), 'utf8');
 
-  assert.match(combined, /T-22A1/);
+  assert.match(combined, /T-24A0/);
   assert.doesNotMatch(combined, /T-12A9/);
   assert.match(app, /splitTopotinoMessages/);
   assert.match(app, /CHALLENGE_PACKS/);
   assert.match(app, /els\.channelCode\.textContent = APP_VERSION_CODE/);
-  assert.match(serviceWorker, /topotino-offline-v46/);
-  assert.match(serviceWorker, /chat-format\.js\?v=memory-v61/);
-  assert.match(serviceWorker, /content\/challenges\.js\?v=memory-v61/);
+  assert.match(serviceWorker, /topotino-offline-v47/);
+  assert.match(serviceWorker, /chat-format\.js\?v=memory-v62/);
+  assert.match(serviceWorker, /content\/challenges\.js\?v=memory-v62/);
   assert.match(combined, /id="location-refresh"/);
   assert.ok(combined.indexOf('id="location-refresh"') < combined.indexOf('</header>'));
   assert.doesNotMatch(styles, /\.location-refresh-compact\s*\{[^}]*display:\s*none/is);
@@ -199,6 +199,7 @@ test('la edición T-22A1 rescata Zoomarine y conserva el final de Sevilla sin re
   assert.match(serviceWorker, /images\/louri\.jpg\?v=louri-v1/);
   assert.match(serviceWorker, /images\/topoloco\.jpg\?v=topoloco-v1/);
   assert.match(serviceWorker, /images\/doctora-tecla\.jpg\?v=tecla-v1/);
+  assert.match(serviceWorker, /images\/capitan-pico\.jpg\?v=capitan-pico-v1/);
   assert.match(app, /topotina: \{ name: 'Topotina'/);
   assert.match(app, /gotas: \{ name: 'Gotas'/);
   assert.match(app, /louri: \{ name: 'Louri'/);
@@ -265,6 +266,9 @@ test('la edición T-22A1 rescata Zoomarine y conserva el final de Sevilla sin re
   assert.match(app, /final_sevilla_adelantado/);
   assert.match(app, /function applyZoomarineTransitionRescue\(\)/);
   assert.match(app, /rescate-transicion-zoomarine-t22a1/);
+  assert.match(app, /function applyFinaleClarityMigration\(\)/);
+  assert.match(app, /migracion-final-claro-t24a0/);
+  assert.match(app, /capitan_pico: \{ name: 'Capitán Pico', image:/);
   assert.match(app, /function fetchWithTimeout/);
   assert.match(app, /const AI_REQUEST_TIMEOUT_MS = 18000/);
   assert.match(app, /Conversación pendiente/);
@@ -337,7 +341,7 @@ test('la mañana del eclipse aclara la espera y rescata partidas ya iniciadas', 
   assert.ok(responseIds.has('eclipse-no-entiendo'));
 });
 
-test('el viaje completo del 15 al 25 está publicado, enlazado y termina de noche en Isla Mágica', async () => {
+test('el viaje completo del 15 al 25 está publicado, enlazado y termina por la tarde en Isla Mágica', async () => {
   const manifest = JSON.parse(await readFile(join(root, 'content/episodes.json'), 'utf8'));
   const expected = [
     ['007-bucaco-batalha-fatima', '2026-08-15'], ['008-huellas-mira-obidos', '2026-08-16'],
@@ -357,7 +361,7 @@ test('el viaje completo del 15 al 25 está publicado, enlazado y termina de noch
     const episode = parseEpisode(markdown, source);
     assert.equal(episode.meta.activation.date.on || episode.meta.activation.date.from, date, `${id}: fecha incorrecta`);
     assert.equal(episode.meta.activation.mode, 'all', `${id}: modo de activación incorrecto`);
-    if (['007-bucaco-batalha-fatima', '010-lisboa-ciencia-oceanario', '012-badoca-lagos'].includes(id)) {
+    if (['007-bucaco-batalha-fatima', '010-lisboa-ciencia-oceanario', '012-badoca-lagos', '017-isla-magica'].includes(id)) {
       assert.equal(episode.meta.activation.location, undefined, `${id}: el mensaje matinal no debe esperar a la primera parada`);
     } else {
       assert.ok(Number.isFinite(episode.meta.activation.location?.lat), `${id}: falta latitud de llegada`);
@@ -374,8 +378,8 @@ test('el viaje completo del 15 al 25 está publicado, enlazado y termina de noch
   const finalEpisode = await readFile(join(root, 'content/episodes/017-isla-magica.md'), 'utf8');
   assert.match(finalEpisode, /junto al lago/i);
   assert.match(finalEpisode, /doce_aguas_reunidas/);
-  assert.match(finalEpisode, /Corrector queda desconectado/i);
-  assert.match(finalEpisode, /final único de la aventura/i);
+  assert.match(finalEpisode, /Corrector.*desconectado|Cuaderno de Bitácora.*desconectado/is);
+  assert.match(finalEpisode, /final único/i);
   assert.doesNotMatch(finalEpisode, /destino.*Granada|Alhambra nocturna/i);
 
   const text = allChildText.join(' ');
@@ -403,7 +407,7 @@ test('todas las jornadas activas recorren lugares reales después de la llegada'
       ...episode.sections['Respuestas guiadas'].flatMap((response) => (response.messages || []).map((message) => message.text))
     ].join(' ');
 
-    if (!['007-bucaco-batalha-fatima', '010-lisboa-ciencia-oceanario', '012-badoca-lagos'].includes(id)) {
+    if (!['007-bucaco-batalha-fatima', '010-lisboa-ciencia-oceanario', '012-badoca-lagos', '017-isla-magica'].includes(id)) {
       assert.ok(episode.meta.activation.location, `${id}: no se abre por llegada`);
     }
     if (id !== '012-badoca-lagos') {
@@ -547,8 +551,8 @@ test('los hilos de aliados y antagonistas llegan al desenlace sin adelantar el d
   assert.match(jaima, /Eco.*es un Oscurno/is);
   assert.match(isla, /Capitán Pico/);
   assert.match(isla, /América/);
-  assert.match(isla, /Krim/);
-  assert.match(isla, /Corrector queda desconectado/);
+  assert.match(isla, /América.*no.*escribe|no escribirá.*chat/is);
+  assert.match(isla, /Corrector.*desconectado|Cuaderno de Bitácora.*desconectado/is);
   assert.match(isla, /llamaba Tina/);
   assert.match(isla, /Niebla/);
   assert.doesNotMatch(isla, /destino.*Granada|Alhambra nocturna/i);

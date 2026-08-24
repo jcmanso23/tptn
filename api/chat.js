@@ -29,6 +29,13 @@ const CHAT_SPEAKERS = [
   'capitan_pico', 'america', 'krim', 'louri', 'topoloco', 'doctora_tecla'
 ];
 
+const EXACT_STORY_CONVERSATIONS = new Set([
+  'dialogo-dia24-pista-sevilla',
+  'dialogo-ruta-dia25',
+  'dialogo-isla-q1',
+  'dialogo-final-isla'
+]);
+
 const chatResponseSchema = jsonSchema({
   type: 'object',
   additionalProperties: false,
@@ -89,10 +96,14 @@ export default async function handler(req, res) {
   const requestedSpeakers = Array.isArray(body.allowedSpeakers)
     ? body.allowedSpeakers.map(String).filter((speaker) => CHAT_SPEAKERS.includes(speaker))
     : [];
-  const exactSpeakerMode = body.speakerMode === 'exact' &&
-    body.narrativeScene?.id === 'topoloco-toma-canal-2026-08-20';
+  const conversationId = String(body.conversation?.id || '');
+  const exactSpeakerMode = body.speakerMode === 'exact' && (
+    body.narrativeScene?.id === 'topoloco-toma-canal-2026-08-20' ||
+    EXACT_STORY_CONVERSATIONS.has(conversationId)
+  );
+  const authorizedLouriReturn = conversationId === 'dialogo-dia24-pista-sevilla';
   const allowedSpeakers = [...new Set(exactSpeakerMode ? requestedSpeakers : ['topotino', ...requestedSpeakers])]
-    .filter((speaker) => speaker !== 'louri' || !(body.flags || []).includes('louri_canal_cerrado'));
+    .filter((speaker) => speaker !== 'louri' || !(body.flags || []).includes('louri_canal_cerrado') || authorizedLouriReturn);
   const personalityContext = allowedSpeakers.map((speaker) => CHARACTER_PERSONALITIES[speaker]).filter(Boolean);
   const turnId = String(body.turnId || '').slice(0, 120);
 
@@ -126,7 +137,8 @@ export default async function handler(req, res) {
     'Regla cerrada del día 15: en Portugal dos Pequenitos solo puede descubrirse Batalha después de localizar su representación y leer la placa. No nombres Fátima allí. Solo después de comprobar en Batalha la contradicción entre 1385 y la clave 3 · 13 · 1917 puedes explicar el señuelo y ayudarles a deducir Fátima; nunca la anuncies antes.',
     'No digas "misión desbloqueada" ni nombres internos de capítulos. Habla siempre como amigo cercano, no como interfaz de juego.',
     'Granada y la Alhambra ya no forman parte de esta aventura. No las presentes como destino, pista, final ni alternativa.',
-    'Louri pertenece a los días 16 y 17. La aplicación contiene dos transmisiones excepcionales ya escritas: la emergencia del 20 y una conexión final desde Dino Parque el 22 para entregar unas coordenadas seguras. Tú no debes improvisar mensajes, regresos ni soluciones de Louri. Después su canal queda cerrado definitivamente.',
+    'Louri pertenece a los días 16 y 17. La aplicación contiene tres transmisiones excepcionales ya escritas: la emergencia del 20, la conexión desde Dino Parque del 22 y una última pista verificada del 24. Tú no debes improvisar mensajes, regresos ni soluciones de Louri, y nunca debe hablar el día 25.',
+    'América puede estar presente junto a Capitán Pico el día 25, pero no escribe en el chat. No la uses como remitente.',
     'Eco actúa de una forma concreta: escucha una voz o una historia, quita una parte y repite el resto hasta que parece completo. No hables de sus ecos, patrones o formas sin explicar esa acción visible.',
     'Las Doce Aguas son el nombre de una red representada por un mapa de doce ventanas. No inventes nombres poéticos para cada parada ni menciones valores internos de agua que conserva la aplicación, salvo que el contexto de la fase autorice expresamente un nombre narrativo ya presentado a los niños, como Agua del Puente después de recoger la muestra de Amarante.',
     'Dentro de la ficción, la familia no tenía un itinerario preparado: cada pista de Topotino conduce al siguiente destino. Nunca digas que Topoloco descubrió reservas, vacaciones o el viaje familiar.',

@@ -53,7 +53,9 @@ El modelo puede reaccionar a preguntas, adaptar una acción a un imprevisto y va
 
 Cada mensaje nuevo queda etiquetado con el episodio en el que nació. Luna recibe únicamente los últimos turnos de ese episodio, nunca una mezcla de días. Cada petición lleva además un identificador único de turno y el episodio de origen; si la etapa cambia mientras la IA responde, la respuesta se descarta.
 
-La conversación admite varias voces. Luna puede devolver de una a tres burbujas y asignarlas solo a personajes autorizados para esa escena. Topotino está siempre disponible; Topotina y los aliados solo hablan después de su entrada real. Cada uno tiene una ficha de personalidad, conocimientos y límites. Louri queda bloqueado tras el cierre definitivo de su canal.
+La conversación admite varias voces. Luna puede devolver de una a tres burbujas y asignarlas solo a personajes autorizados para esa escena. Topotino está siempre disponible; Topotina y los aliados solo hablan después de su entrada real. Cada uno tiene una ficha de personalidad, conocimientos y límites. Louri queda bloqueado tras el cierre definitivo de su canal, salvo las transmisiones excepcionales que el motor autoriza con nombre y escena exactos.
+
+Los diálogos críticos usan dos capas consecutivas. Primero Luna responde de forma natural a lo último que escribieron Paula y Hugo. Después el motor entrega siempre el cierre canónico de la escena: el dato, la pista o la despedida imprescindible para que la historia continúe. La lista de remitentes se fija por diálogo; la IA no puede introducir a América, recuperar personajes de otros días ni sustituir el cierre por una improvisación.
 
 No se fuerza un diálogo coral en cada respuesta. Habla el personaje que reaccionaría de forma natural y solo intervienen varios si la relación entre ellos aporta humor, emoción o claridad.
 
