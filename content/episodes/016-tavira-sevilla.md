@@ -3,7 +3,7 @@
   "id": "016-tavira-sevilla",
   "order": 16,
   "title": "Día 12 · La ruta que salía al mar",
-  "channelCode": "T-24A1",
+  "channelCode": "T-24A2",
   "startsUnlocked": false,
   "activation": { "mode": "all", "date": { "on": "2026-08-24" }, "location": { "lat": 37.1268750, "lng": -7.6498436, "radiusMeters": 1600, "label": "Centro de Tavira" } },
   "mission": "Seguir la alteración de Borrón y recuperar lo que ha separado",

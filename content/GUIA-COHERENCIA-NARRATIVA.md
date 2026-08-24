@@ -1,6 +1,6 @@
 # Guía maestra de coherencia narrativa · Las Doce Aguas
 
-**Versión canónica:** 24 de agosto de 2026 · edición T-24A1
+**Versión canónica:** 24 de agosto de 2026 · edición T-24A2
 **Final único:** lago de Isla Mágica, Sevilla, tarde del 25 de agosto
 **Después del final:** no se abre otra misión ni otra amenaza
 
@@ -409,6 +409,12 @@ Antes de publicar un cambio:
 - [ ] El final ocurre junto al lago de Isla Mágica durante la tarde del 25 y no se menciona Granada.
 
 ## 19. Registro de decisiones
+
+### 24 de agosto de 2026 · T-24A2
+
+- Una partida que ya recibió la pista de Calle Sierpes no puede volver a mostrar una tarjeta pendiente de Tavira. La aplicación reconoce el avance visible del chat, cierra únicamente los pasos anteriores incompatibles y continúa desde Sierpes, San Francisco y Plaza Nueva.
+- La reparación se explica dentro de la ficción como una interferencia cruzada de Topoloco. Topotina identifica el sabotaje, Topotino protesta con humor y ambos confirman de forma concreta que Paula y Hugo siguen en Sevilla sin repetir nada.
+- La migración se ejecuta también al restaurar la copia segura, de modo que un estado antiguo del servidor no puede reintroducir la tarjeta equivocada.
 
 ### 24 de agosto de 2026 · T-24A1
 

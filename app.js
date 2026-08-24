@@ -1,5 +1,5 @@
-import { splitTopotinoMessages } from './chat-format.js?v=memory-v63';
-import { CHALLENGE_PACKS, displayChallengeOptions } from './content/challenges.js?v=memory-v63';
+import { splitTopotinoMessages } from './chat-format.js?v=memory-v64';
+import { CHALLENGE_PACKS, displayChallengeOptions } from './content/challenges.js?v=memory-v64';
 
 const STORAGE_KEYS = {
   auth: 'topotino_chat_auth_v1',
@@ -7,9 +7,9 @@ const STORAGE_KEYS = {
 };
 
 const LEGACY_STATE_KEY = 'topotino_chat_state_v1';
-const APP_VERSION_CODE = 'T-24A1';
+const APP_VERSION_CODE = 'T-24A2';
 const PASSPHRASE_HASH = 'a64716bd9f4e8added1bf47f80b97c3fc7b70a15b8043cdab083e1ddf85f3794';
-const EPISODES_MANIFEST = 'content/episodes.json?v=memory-v63';
+const EPISODES_MANIFEST = 'content/episodes.json?v=memory-v64';
 const LIVE_STORY_ENDPOINT = '/api/story';
 const AMARANTE_TRAVEL_DATE = '2026-08-13';
 const AMARANTE_ROUTE_EPISODE_ID = '004b-rumbo-amarante';
@@ -46,6 +46,7 @@ const RETIRED_FINAL_EPISODE_IDS = new Set(['018-sevilla-alhambra-noche', '019-ep
 const EARLY_SEVILLA_FINAL_FLAG = 'final_sevilla_adelantado';
 const ZOOMARINE_TRANSITION_RESCUE_MARKER = 'rescate-transicion-zoomarine-t22a1';
 const FINALE_CLARITY_MIGRATION_FLAG = 'migracion-final-claro-t24a0';
+const SEVILLA_CARD_RESCUE_MARKER = 'rescate-tarjeta-sevilla-t24a2';
 const AI_REQUEST_TIMEOUT_MS = 18000;
 const SECURITY_CHECKIN_MESSAGES = [
   'Buenos días, Paula y Hugo.',
@@ -243,6 +244,7 @@ async function init() {
     await refreshLiveStory();
     applyDay22FinaleMigration();
     applyFinaleClarityMigration();
+    applySevillaCardRescue();
     applyZoomarineTransitionRescue();
     applyTravelDayRescue();
     applyAmaranteCompletionRescue();
@@ -2433,6 +2435,41 @@ function applyFinaleClarityMigration() {
   return true;
 }
 
+function applySevillaCardRescue() {
+  if (!state.unlocked) return false;
+  if (state.seenBroadcastIds.includes(SEVILLA_CARD_RESCUE_MARKER)) return false;
+  if (!state.unlockedEpisodeIds.includes('016-tavira-sevilla')) return false;
+  if (state.flags.includes('completado_isla_magica')) return false;
+
+  const completed = new Set(state.completedChallengeIds || []);
+  const messageText = (state.messages || []).map((message) => message.text || '').join(' ');
+  const hasReachedSierpes = completed.has('sevilla-ruta-sierpes') ||
+    /Calle Sierpes\.\s*Recorredla hacia la Plaza de San Francisco/i.test(messageText);
+  const hasReachedSevilla = hasReachedSierpes ||
+    [...completed].some((id) => id === 'dia24-pista-sevilla' || id.startsWith('sevilla-')) ||
+    /(?:Las Setas|Plaza de la Encarnaci[oó]n|once testigos)/i.test(messageText);
+  if (!hasReachedSevilla) return false;
+
+  const steps = CHALLENGE_PACKS['016-tavira-sevilla']?.steps || [];
+  const lastCompletedIndex = steps.reduce((furthest, step, index) =>
+    completed.has(step.id) && (step.id === 'dia24-pista-sevilla' || step.id.startsWith('sevilla-'))
+      ? Math.max(furthest, index)
+      : furthest, -1);
+  const sierpesIndex = steps.findIndex((step) => step.id === 'sevilla-ruta-sierpes');
+  const rescueThroughIndex = hasReachedSierpes ? Math.max(lastCompletedIndex, sierpesIndex) : lastCompletedIndex;
+  addUniqueMany(state.completedChallengeIds, steps.slice(0, rescueThroughIndex + 1).map((step) => step.id));
+  addUniqueMany(state.seenBroadcastIds, [SEVILLA_CARD_RESCUE_MARKER]);
+  state.activeEpisodeId = '016-tavira-sevilla';
+  startupRescueMessages = [...startupRescueMessages,
+    { from: 'system', time: 'auto', text: '⚠ Interferencia cruzada retirada: una tarjeta antigua de Tavira se había pegado al canal de Sevilla.' },
+    { from: 'topotina', time: 'auto', text: 'Topoloco mezcló dos casillas del mapa. Técnicamente es sabotaje. Técnicamente también es ordenar la historia como un cajón de calcetines.' },
+    { from: 'topotino', time: 'auto', text: '¡Y encima ponía «señal segura»! Mi comunicador tiene la sinceridad de una tostadora. No repitáis Tavira: estamos en Sevilla y seguimos desde aquí.' },
+    ...(hasReachedSierpes ? [{ from: 'topotina', time: 'auto', text: 'Posición narrativa recuperada: Calle Sierpes. Seguid hacia Plaza de San Francisco; la tarjeta correcta ya está fijada.' }] : [])
+  ];
+  saveState();
+  return true;
+}
+
 function applyZoomarineTransitionRescue() {
   if (!state.unlocked) return false;
   if (state.seenBroadcastIds.includes(ZOOMARINE_TRANSITION_RESCUE_MARKER)) return false;
@@ -3247,6 +3284,7 @@ function applyRestoredState(remoteState, recoveryCode) {
   });
   applyDay22FinaleMigration();
   applyFinaleClarityMigration();
+  applySevillaCardRescue();
 }
 
 function markStateChanged() {
@@ -3475,6 +3513,6 @@ function applyTestingParams() {
 
 function registerServiceWorker() {
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('service-worker.js?v=offline-v48').catch(() => {});
+    navigator.serviceWorker.register('service-worker.js?v=offline-v49').catch(() => {});
   }
 }

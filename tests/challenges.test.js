@@ -574,6 +574,18 @@ test('una partida T-24A0 que ya descubrió Sevilla continúa en el primer testig
   assert.ok(steps.indexOf(next) < steps.findIndex((step) => step.id === 'ruta-dia25'));
 });
 
+test('la reparación T-24A2 convierte la pantalla de Tavira en la misión de Sierpes ya alcanzada', () => {
+  const steps = CHALLENGE_PACKS['016-tavira-sevilla'].steps;
+  const sierpesIndex = steps.findIndex((step) => step.id === 'sevilla-ruta-sierpes');
+  const rescued = new Set(steps.slice(0, sierpesIndex + 1).map((step) => step.id));
+  const next = steps.find((step) => !rescued.has(step.id));
+
+  assert.ok(rescued.has('tavira-expedicion'));
+  assert.ok(rescued.has('sevilla-ruta-sierpes'));
+  assert.equal(next?.id, 'sevilla-centro-expedicion');
+  assert.equal(next?.place, 'Sierpes, San Francisco y Plaza Nueva');
+});
+
 test('la app conserva Memoria, Sombra y tres variantes de victoria', async () => {
   const app = await readFile(join(root, 'app.js'), 'utf8');
   const index = await readFile(join(root, 'index.html'), 'utf8');

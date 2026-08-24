@@ -3,7 +3,7 @@
   "id": "017-isla-magica",
   "order": 17,
   "title": "Día 13 · La última bitácora",
-  "channelCode": "T-24A1",
+  "channelCode": "T-24A2",
   "startsUnlocked": false,
   "finalRoutes": ["sevilla-night"],
   "activation": { "mode": "all", "required": ["completado_tavira_sevilla"], "date": { "on": "2026-08-25" } },
