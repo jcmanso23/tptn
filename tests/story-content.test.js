@@ -170,7 +170,7 @@ test('los días 13 y 14 conservan su cadena narrativa y adaptan solo tras un imp
   assert.doesNotMatch(childFacingText, /(foto|fotografía).{0,30}(cuaderno|diario)/i);
 });
 
-test('la edición T-24A0 conserva rescates anteriores y prepara el final claro de Sevilla', async () => {
+test('la edición T-24A1 conserva rescates anteriores y prepara el final claro de Sevilla', async () => {
   const files = ['index.html', 'app.js', 'admin.js', 'content/episodes/001-reconexion.md'];
   const combined = (await Promise.all(files.map((file) => readFile(join(root, file), 'utf8')))).join('\n');
   const app = await readFile(join(root, 'app.js'), 'utf8');
@@ -183,14 +183,14 @@ test('la edición T-24A0 conserva rescates anteriores y prepara el final claro d
 
   const styles = await readFile(join(root, 'styles.css'), 'utf8');
 
-  assert.match(combined, /T-24A0/);
+  assert.match(combined, /T-24A1/);
   assert.doesNotMatch(combined, /T-12A9/);
   assert.match(app, /splitTopotinoMessages/);
   assert.match(app, /CHALLENGE_PACKS/);
   assert.match(app, /els\.channelCode\.textContent = APP_VERSION_CODE/);
-  assert.match(serviceWorker, /topotino-offline-v47/);
-  assert.match(serviceWorker, /chat-format\.js\?v=memory-v62/);
-  assert.match(serviceWorker, /content\/challenges\.js\?v=memory-v62/);
+  assert.match(serviceWorker, /topotino-offline-v48/);
+  assert.match(serviceWorker, /chat-format\.js\?v=memory-v63/);
+  assert.match(serviceWorker, /content\/challenges\.js\?v=memory-v63/);
   assert.match(combined, /id="location-refresh"/);
   assert.ok(combined.indexOf('id="location-refresh"') < combined.indexOf('</header>'));
   assert.doesNotMatch(styles, /\.location-refresh-compact\s*\{[^}]*display:\s*none/is);

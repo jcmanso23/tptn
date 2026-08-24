@@ -3,10 +3,10 @@
   "id": "016-tavira-sevilla",
   "order": 16,
   "title": "Día 12 · La ruta que salía al mar",
-  "channelCode": "T-24A0",
+  "channelCode": "T-24A1",
   "startsUnlocked": false,
   "activation": { "mode": "all", "date": { "on": "2026-08-24" }, "location": { "lat": 37.1268750, "lng": -7.6498436, "radiusMeters": 1600, "label": "Centro de Tavira" } },
-  "mission": "Descubrir quién ha cambiado el puente y adónde conduce el río",
+  "mission": "Seguir la alteración de Borrón y recuperar lo que ha separado",
   "formulaWord": null,
   "water": "Agua de las Dos Orillas",
   "ai": { "enabled": true, "mode": "fallback" }
@@ -21,7 +21,11 @@ La expedición conecta puente, río Gilão, castillo, calles y salida hacia el m
 
 Después de derrotar la alteración, Topotina abre durante un minuto una señal verificada de Louri. Él ha interceptado una frase de Topoloco: «el último cargamento seguirá la autopista de agua hasta la ciudad que guardaba los viajes a América». Louri no sabe la respuesta. Paula y Hugo deben relacionar mar, Guadalquivir, comercio y archivo para deducir Sevilla.
 
-La tarde en Sevilla queda completamente libre. Si la familia pasa junto al Guadalquivir, la Torre del Oro, la Giralda o el Archivo de Indias, Topotina puede explicar su relación con el río y los viajes; no es una misión y nada se bloquea si no los ven.
+Al llegar a Sevilla, Topotina detecta once cortes en el registro de Borrón. No conoce de antemano una ruta familiar: comprende que el Oscurno está intentando separar lugares que, juntos, demuestran que una ciudad conserva varias épocas y funciones. Paula y Hugo recuperan los puntos de uno en uno, siempre después de una conversación que deja la siguiente pista.
+
+El recorrido avanza en cinco tramos. Las Setas reúnen estructura contemporánea, mercado actual y restos antiguos. Sierpes conduce a las dos fachadas del Ayuntamiento entre San Francisco y Plaza Nueva. La Avenida de la Constitución desemboca en Catedral, Giralda y los tres testigos de Plaza del Triunfo. Santa Cruz demuestra cómo un trazado medieval responde al calor. La Fábrica de Tabacos cambió de industria a Universidad. María Luisa y Plaza de España cierran el recorrido con la Exposición Iberoamericana de 1929 y una nueva mirada hacia América.
+
+En Plaza del Triunfo aparece una señal con plumas. Topotina la verifica y entra Capitán Pico. Se presenta con varios títulos inventados y presenta a América, que investiga fuera del chat y nunca escribe. Ambos interceptaron «tres testigos alrededor de un triunfo». Pico ayuda con humor, pero Paula y Hugo siguen siendo quienes observan y deciden.
 
 Por la noche entra Tecla buscando un módulo que Topoloco le ha robado. Durante una conversación cómica explica que el **Cuaderno de Bitácora Único** guardará una sola versión de la aventura, nombrará a Topoloco capitán y reducirá a todos los demás a acompañantes. Antes de la pregunta aparecen tres pistas: una isla dentro de Sevilla, barcos y viajes a América, y la firma gemela de Magikland. Paula y Hugo deducen Isla Mágica. Tecla se niega a arreglar el módulo, se marcha y no participa mañana.
 
@@ -46,6 +50,15 @@ Por la noche entra Tecla buscando un módulo que Topoloco le ha robado. Durante 
     "messages": [
       { "from": "topotina", "time": "auto", "text": "No deberíais conocerlo todavía. Solo tengo una firma oscura y una palabra cambiada. Cuando comprobemos qué ha hecho en Tavira os diré si coincide con alguien de Francia." },
       { "from": "topotino", "time": "auto", "text": "Bien preguntado. Nada de fingir que ya sabemos lo que todavía estamos investigando." }
+    ]
+  },
+  {
+    "id": "sevilla-quien-es-pico",
+    "blockedFlags": ["completado_tavira_sevilla"],
+    "containsAny": ["quién es capitán pico", "quien es capitan pico", "quién es pico", "quien es pico", "quién es américa", "quien es america"],
+    "messages": [
+      { "from": "topotina", "time": "auto", "text": "Todavía no lo sabemos. Solo tengo una señal con plumas cerca de Plaza del Triunfo. Primero comprobaré la firma; después dejaremos que se presente él mismo, que parece muy dispuesto." },
+      { "from": "topotino", "time": "auto", "text": "Demasiado dispuesto. Ya ha enviado una tarjeta que dice «Capitán, almirante y probablemente leyenda»." }
     ]
   },
   {
@@ -75,7 +88,8 @@ Por la noche entra Tecla buscando un módulo que Topoloco le ha robado. Durante 
 [
   "Empezad por algo visible: el puente cruza un río y ese río continúa hacia el mar.",
   "No hace falta conocer ningún personaje de antemano. Primero descubrimos qué ha ocurrido y después ponemos nombre al responsable.",
-  "La ciudad final debe estar conectada con el Atlántico por un río y conservar documentos de viajes a América."
+  "La ciudad final debe estar conectada con el Atlántico por un río y conservar documentos de viajes a América.",
+  "En Sevilla no busquéis once sitios a la vez. El chat mostrará un único tramo y la siguiente conversación dejará otra pista."
 ]
 ```
 
@@ -86,16 +100,32 @@ Por la noche entra Tecla buscando un módulo que Topoloco le ha robado. Durante 
   "Desde una vista alta, seguid con la mirada el Gilão desde el puente hacia la salida de la ciudad.",
   "El responsable cambia palabras y quita detalles para que solo quede su versión. Topotina recuerda a un Oscurno que hacía eso en Francia.",
   "La ciudad de la pista está atravesada por el Guadalquivir y conserva el Archivo de Indias.",
+  "Una estructura moderna que parece un grupo de hongos protege un mercado y se levanta sobre restos mucho más antiguos.",
+  "Una calle con nombre de serpiente lleva hasta un Ayuntamiento con dos caras de épocas distintas.",
+  "Tres edificios alrededor de Plaza del Triunfo conservan poder, religión y documentos: ninguno cuenta solo toda la ciudad.",
+  "El último tramo une un parque público con una plaza construida para la Exposición Iberoamericana de 1929.",
   "La isla de mañana está dentro de Sevilla, representa viajes y comparte una firma técnica con Magikland."
 ]
 ```
 
 ## Contexto para IA
 
-Mensajes cortos, concretos y conversacionales. Borrón no es conocido al inicio: solo después de observar la alteración Topotina lo presenta como un Oscurno de Francia que cambia etiquetas y elimina detalles. No usar «perspectiva», «capas», «red» o «autoría» sin un ejemplo visible inmediato. Louri entra mediante una invitación verificada de un minuto, aporta una frase interceptada y desconoce la respuesta. La ruta a Sevilla solo se pregunta después de esa conversación. La tarde de Sevilla queda libre; Torre del Oro, Giralda, Catedral y Archivo de Indias son observaciones exteriores opcionales. Tecla entra por la noche, conversa con humor y explica el Cuaderno de Bitácora Único antes de dejar pistas de Isla Mágica. No presentar a Krim, Marga, Rufino, Corvinho ni América en el chat. El Cuaderno de la Memoria sigue privado.
+Mensajes cortos, concretos y conversacionales. Borrón no es conocido al inicio: solo después de observar la alteración Topotina lo presenta como un Oscurno de Francia que cambia etiquetas y elimina detalles. No usar «perspectiva», «capas», «red» o «autoría» sin un ejemplo visible inmediato. Louri entra mediante una invitación verificada de un minuto, aporta una frase interceptada y desconoce la respuesta. La ruta a Sevilla solo se pregunta después de esa conversación.
+
+En Sevilla solo se nombra el tramo ya descubierto. Nunca enumerar los once puntos ni adelantar el siguiente. El objetivo es recuperar once testigos que Borrón separó: cada edificio, calle o plaza demuestra una época, función o voz distinta. El aprendizaje procede de observaciones exteriores y del espacio público. Vigilar el tranvía en la Avenida de la Constitución y caminar siempre con adultos.
+
+Capitán Pico aparece por primera vez en Plaza del Triunfo, después de que Topotina verifique la señal. Es grandilocuente, valiente, algo presumido y concede títulos navales absurdos. Presenta a América como compañera sobre el terreno; América no escribe ni aparece como remitente. Pico aporta «tres testigos alrededor de un triunfo», pero no conoce el plan completo ni resuelve pruebas. Tecla entra por la noche y explica el Cuaderno de Bitácora Único antes de dejar pistas de Isla Mágica. No presentar a Krim, Marga, Rufino o Corvinho. El Cuaderno de la Memoria sigue privado.
 
 ## Fuentes documentales
 
 - https://visitartavira.pt/en/cultural-heritage/old-bridge/
 - https://visitasevilla.es/torre-del-oro/
 - https://www.cultura.gob.es/cultura/areas/archivos/mc/archivos/agi/portada.html
+- https://visitasevilla.es/setas-y-mercado-de-la-encarnacion/
+- https://visitasevilla.es/calle-sierpes-y-ayuntamiento/
+- https://visitasevilla.es/ayuntamiento/
+- https://whc.unesco.org/es/list/383
+- https://visitasevilla.es/barrio-de-santa-cruz/
+- https://www.us.es/actualidad-de-la-us/la-fabrica-de-tabacos-de-sevilla-historia-de-un-edificio-unico
+- https://visitasevilla.es/parque-de-maria-luisa-2/
+- https://visitasevilla.es/plaza-de-espana-2/

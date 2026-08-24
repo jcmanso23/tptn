@@ -519,6 +519,61 @@ test('los diálogos críticos del final reaccionan con IA y conservan después s
   assert.match(api, /América puede estar presente[\s\S]*no escribe en el chat/);
 });
 
+test('la tarde de Sevilla recupera once testigos en orden sin anunciar el recorrido completo', () => {
+  const day24 = CHALLENGE_PACKS['016-tavira-sevilla'];
+  const ids = day24.steps.map((step) => step.id);
+  const ordered = [
+    'sevilla-ruta-setas', 'sevilla-setas-expedicion', 'sevilla-setas-q1',
+    'sevilla-ruta-sierpes', 'sevilla-centro-expedicion', 'sevilla-centro-q1',
+    'sevilla-ruta-constitucion', 'sevilla-monumental-expedicion', 'dialogo-capitan-pico-sevilla', 'sevilla-monumental-q1',
+    'sevilla-ruta-santa-cruz', 'sevilla-santa-cruz-expedicion', 'sevilla-santa-cruz-q1',
+    'sevilla-ruta-fabrica', 'sevilla-fabrica-expedicion', 'sevilla-fabrica-q1',
+    'sevilla-ruta-parque', 'sevilla-parque-expedicion', 'sevilla-parque-q1', 'sevilla-parque-q2',
+    'dialogo-sevilla-cierre', 'dialogo-ruta-dia25', 'ruta-dia25'
+  ];
+
+  for (const id of ordered) assert.ok(ids.includes(id), `falta ${id}`);
+  for (let index = 1; index < ordered.length; index += 1) {
+    assert.ok(ids.indexOf(ordered[index - 1]) < ids.indexOf(ordered[index]), `${ordered[index]} aparece fuera de orden`);
+  }
+
+  const setas = day24.steps.find((step) => step.id === 'sevilla-setas-expedicion');
+  assert.ok(setas.location, 'la primera misión sevillana debe esperar a Las Setas');
+  assert.match(setas.location.label, /Setas de Sevilla/);
+
+  const allText = day24.steps.flatMap((step) => [
+    step.prompt, ...(step.actions || []),
+    ...(step.promptMessages || []).map(messageText),
+    ...(step.replyMessages || []).map(messageText),
+    ...(step.successMessages || []).map(messageText),
+    ...(step.doneMessages || []).map(messageText)
+  ]).filter(Boolean).join(' ');
+  for (const place of ['Setas', 'Sierpes', 'San Francisco', 'Plaza Nueva', 'Constitución', 'Giralda', 'Archivo de Indias', 'Santa Cruz', 'Fábrica de Tabacos', 'María Luisa', 'Plaza de España']) {
+    assert.match(allText, new RegExp(place, 'i'), `falta el testigo ${place}`);
+  }
+
+  const captainEntrance = day24.steps.find((step) => step.id === 'dialogo-capitan-pico-sevilla');
+  assert.ok(captainEntrance.promptMessages.some((message) => message?.from === 'system' && /se ha unido/.test(message.text)));
+  assert.ok(captainEntrance.promptMessages.some((message) => message?.from === 'capitan_pico' && /América/.test(message.text)));
+  assert.equal(day24.steps.flatMap((step) => [...(step.promptMessages || []), ...(step.replyMessages || [])]).some((message) => message?.from === 'america'), false);
+  assert.ok(ids.indexOf('dialogo-capitan-pico-sevilla') > ids.indexOf('sevilla-monumental-expedicion'));
+  assert.ok(ids.indexOf('dialogo-capitan-pico-sevilla') < ids.indexOf('sevilla-ruta-santa-cruz'));
+});
+
+test('una partida T-24A0 que ya descubrió Sevilla continúa en el primer testigo sin repetir Tavira', () => {
+  const steps = CHALLENGE_PACKS['016-tavira-sevilla'].steps;
+  const oldCompleted = new Set([
+    'tavira-expedicion', 'tavira-q1', 'tavira-q2',
+    'dialogo-dia24-pista-sevilla', 'dia24-pista-sevilla',
+    'recuperacion-dia24', 'dialogo-ruta-dia25', 'ruta-dia25'
+  ]);
+  const next = steps.find((step) => !oldCompleted.has(step.id));
+
+  assert.equal(next?.id, 'dialogo-sevilla-arranque');
+  assert.ok(steps.indexOf(next) > steps.findIndex((step) => step.id === 'dia24-pista-sevilla'));
+  assert.ok(steps.indexOf(next) < steps.findIndex((step) => step.id === 'ruta-dia25'));
+});
+
 test('la app conserva Memoria, Sombra y tres variantes de victoria', async () => {
   const app = await readFile(join(root, 'app.js'), 'utf8');
   const index = await readFile(join(root, 'index.html'), 'utf8');

@@ -3,7 +3,7 @@
   "id": "017-isla-magica",
   "order": 17,
   "title": "Día 13 · La última bitácora",
-  "channelCode": "T-24A0",
+  "channelCode": "T-24A1",
   "startsUnlocked": false,
   "finalRoutes": ["sevilla-night"],
   "activation": { "mode": "all", "required": ["completado_tavira_sevilla"], "date": { "on": "2026-08-25" } },
@@ -16,9 +16,9 @@
 
 # Contexto narrativo
 
-El capítulo se activa por la mañana desde cualquier lugar para resumir con claridad el conflicto, pero la expedición permanece oculta hasta confirmar la llegada física a Isla Mágica. Paula y Hugo ya saben que Topoloco robó el Cuaderno de Bitácora Único y que la pista conduce a una isla imposible dentro de Sevilla, conectada con Magikland.
+El capítulo se activa por la mañana desde cualquier lugar para resumir con claridad el conflicto, pero la expedición permanece oculta hasta confirmar la llegada física a Isla Mágica. Paula y Hugo ya recorrieron los once testigos de Sevilla, conocieron a Capitán Pico y saben que América trabaja fuera del chat. También saben que Topoloco robó el Cuaderno de Bitácora Único y que la pista conduce a una isla imposible conectada con Magikland.
 
-Al llegar aparece una transmisión desconocida. Topotina verifica su procedencia y Capitán Pico se presenta como aventurero del parque. Presenta a América como su compañera, que está vigilando sobre el terreno y no escribirá en el chat. Ninguna actividad depende de encontrarlos, asistir a un espectáculo o fotografiarse con ellos.
+Al llegar, Capitán Pico vuelve a conectar desde el parque y exige que conste que su orientación fue «impecable», aunque América tuvo el mapa. América sigue vigilando sobre el terreno y no escribe. Ninguna actividad depende de encontrarlos, asistir a un espectáculo o fotografiarse con ellos.
 
 Capitán Pico explica la magia de forma concreta: Isla Mágica no es una isla oceánica, sino un recinto rodeado de agua e imaginación dentro de Sevilla. Sus seis zonas permiten viajar con la imaginación a los siglos XVI y XVII. Sevilla, Puerto de Indias representa la ciudad conectada con América; Puerta de América, las carabelas, el lago y los cambios de ambientación permiten reconocer lo aprendido en Tavira y Sevilla.
 
@@ -36,7 +36,7 @@ Las doce ventanas se abren y el Corrector queda desconectado. Borrón, Eco y Nie
 [
   { "from": "topotino", "time": "auto", "text": "Buenos días, Paula y Hugo. Hoy necesito que tengamos clarísimo qué estamos haciendo." },
   { "from": "topotino", "time": "auto", "text": "Durante el eclipse, Topoloco robó gran parte de mi memoria. Después utilizó cada lugar para copiar cómo observabais, elegíais y recordabais." },
-  { "from": "topotina", "time": "auto", "text": "Ayer Tecla confirmó el último paso: Topoloco quiere guardar una sola versión del viaje, ponerse como capitán y borrar las demás voces." },
+  { "from": "topotina", "time": "auto", "text": "Ayer recuperasteis once testigos de Sevilla. Después Tecla confirmó que Topoloco quiere guardar una sola versión, ponerse como capitán y borrar las demás voces." },
   { "from": "topotino", "time": "auto", "text": "La pista señala una isla de barcos y exploradores escondida dentro de Sevilla. Cuando lleguemos, no empezará una visita normal. Empezará la última expedición." }
 ]
 ```
@@ -108,7 +108,7 @@ Las doce ventanas se abren y el Corrector queda desconectado. Borrón, Eco y Nie
 
 ## Contexto para IA
 
-Final único en Isla Mágica durante la tarde del 25. La mañana resume el conflicto antes de llegar. La expedición solo aparece tras confirmar físicamente Isla Mágica. Capitán Pico entra con avatar, se presenta con humor aventurero y presenta a América como compañera presente que no escribe. No atribuir a los niños haberlos visto ni exigir espectáculo, fotografía o atracción. Topotina presenta a Niebla con una explicación concreta antes de usar su nombre. No introducir a Krim, Corvinho, Marga o Rufino. Topoloco llama Cuaderno de Bitácora Único al módulo final y explica exactamente qué hará. El Cuaderno de la Memoria nunca se fotografía, transcribe ni envía. La victoria es inequívoca incluso si la Sombra fue alta: puede costar más ordenar recuerdos, pero el museo y el Corrector quedan derrotados. Tras el cierre no se abre otra misión ni se menciona Granada.
+Final único en Isla Mágica durante la tarde del 25. La mañana resume el conflicto antes de llegar y recuerda los once testigos sevillanos. La expedición solo aparece tras confirmar físicamente Isla Mágica. Capitán Pico y América ya fueron presentados el 24: Pico vuelve con avatar y humor aventurero; América permanece sobre el terreno y no escribe. No repetir su presentación como desconocidos ni exigir espectáculo, fotografía o atracción. Topotina presenta a Niebla con una explicación concreta antes de usar su nombre. No introducir a Krim, Corvinho, Marga o Rufino. Topoloco llama Cuaderno de Bitácora Único al módulo final y explica exactamente qué hará. El Cuaderno de la Memoria nunca se fotografía, transcribe ni envía. La victoria es inequívoca incluso si la Sombra fue alta: puede costar más ordenar recuerdos, pero el museo y el Corrector quedan derrotados. Tras el cierre no se abre otra misión ni se menciona Granada.
 
 ## Fuentes documentales
 

@@ -1,6 +1,6 @@
 # Guía maestra de coherencia narrativa · Las Doce Aguas
 
-**Versión canónica:** 24 de agosto de 2026 · edición T-24A0
+**Versión canónica:** 24 de agosto de 2026 · edición T-24A1
 **Final único:** lago de Isla Mágica, Sevilla, tarde del 25 de agosto
 **Después del final:** no se abre otra misión ni otra amenaza
 
@@ -170,7 +170,7 @@ Sus apariciones deben dejar rastros coherentes. No son monstruos terroríficos; 
 - **Capitán Pico y América:** exploradores de Isla Mágica. Reclutan a Paula y Hugo como pequeños exploradores y recuperan piezas de la pista final.
 - **Krim:** duende del Mundo de los Colores. Existe en Isla Mágica, pero no participa en el chat ni en el desenlace de esta versión para no introducir demasiados personajes al final.
 
-Capitán Pico entra en el chat con la imagen facilitada por la familia. Se presenta por su nombre y presenta a América como su compañera de exploraciones, presente en Isla Mágica. América no escribe en el chat ni aparece como remitente. Ninguna prueba depende de encontrarlos físicamente, de una fotografía o del horario de su espectáculo.
+Capitán Pico entra en el chat con la imagen facilitada por la familia durante el recorrido sevillano del 24. Topotina verifica primero una señal con plumas en Plaza del Triunfo; él se presenta por su nombre y presenta a América como su compañera, que investiga sobre el terreno y no escribe. Pico no conoce el plan completo: América interceptó un fragmento sobre «tres testigos alrededor de un triunfo» y ambos ayudan a seguirlo. El 25 vuelve a conectar desde Isla Mágica. Ninguna prueba depende de encontrarlos físicamente, de una fotografía o del horario de su espectáculo.
 
 ### Louri: arco principal cerrado y dos excepciones controladas
 
@@ -203,9 +203,11 @@ Cada desplazamiento posterior responde a una pieza concreta de la máquina y a u
 - **Ponta da Piedade y Albufeira:** Eco queda explicado como un Oscurno imitador, no como un concepto abstracto. En Ponta intenta sustituir observaciones reales de la costa. Su transmisión conduce al centro antiguo de Albufeira, donde repite que el terremoto y el maremoto de 1755 solo destruyeron Lisboa. Paula y Hugo comprueban físicamente que Albufeira también fue destruida y reconstruida, rompen esa versión recortada y recuperan la expresión `Porto d’Abrigo`. Algar Seco es una recomendación opcional de Topotina durante el trayecto: puede ayudar a contrastar otra ventana natural, pero no contiene pruebas ni bloquea el progreso.
 - **Refugio de Lona:** al destruir la repetición de Eco, Topoloco intenta seguir la señal. Louri entrega las coordenadas verificadas de un refugio cerca de Albufeira. Allí Topotino confunde cómicamente el puerto pesquero con Porto d’Abrigo; Vasco aclara que la pista apunta al centro de rehabilitación de Zoomarine.
 - **Zoomarine:** el cuidado real y la devolución al mar desmontan la mentira «si lo cuidas, te pertenece» y se compara con los delfines salvajes observados desde Lagos. Al unir motivo, método y resultado, Topotino concluye que Topoloco provocó su amnesia. Borrón altera entonces la etiqueta del puente de Tavira.
-- **Tavira y Sevilla:** nadie da por conocido a Borrón. Primero aparece la palabra falsa «romano»; Topotina identifica entonces la firma y explica que Borrón es un Oscurno que cambia etiquetas y elimina detalles hasta dejar una sola versión. Paula y Hugo comprueban el puente, el Gilão, la posición del castillo y la salida hacia el mar. Entienden que el mar era una gran vía para viajeros y mercancías. La frase interceptada por Louri permite deducir Sevilla, ciudad conectada con el Atlántico por el Guadalquivir y gran centro de los viajes a América. La tarde del 24 queda libre. Ver el río, la Torre del Oro, la Giralda o el Archivo de Indias es opcional y nunca bloquea la historia.
+- **Tavira y Sevilla:** nadie da por conocido a Borrón. Primero aparece la palabra falsa «romano»; Topotina identifica entonces la firma y explica que Borrón es un Oscurno que cambia etiquetas y elimina detalles hasta dejar una sola versión. Paula y Hugo comprueban el puente, el Gilão, la posición del castillo y la salida hacia el mar. La frase interceptada por Louri permite deducir Sevilla. Allí Topotina descubre que Borrón ha dividido la memoria urbana en once testigos para que parezcan lugares inconexos. Paula y Hugo los recuperan de uno en uno: Setas; Sierpes; San Francisco; Plaza Nueva; Avenida de la Constitución; Catedral y Giralda; Archivo y Alcázar desde Plaza del Triunfo; Santa Cruz; Fábrica de Tabacos; Parque de María Luisa; Plaza de España. El recorrido demuestra con objetos visibles que Sevilla conserva épocas, usos y voces diferentes. No se anuncia la lista: cada conversación deja una única pista hacia el siguiente tramo.
+- **Sorpresa de Plaza del Triunfo:** una señal con plumas resulta ser Capitán Pico. Topotina verifica su procedencia antes de admitirlo. Pico se concede varios títulos navales que nadie le ha otorgado, presenta a América —presente sobre el terreno pero ausente del chat— y aporta el fragmento «tres testigos alrededor de un triunfo». Catedral, Alcázar y Archivo representan funciones distintas y ninguna puede contar sola toda Sevilla. Pico continúa como apoyo cómico, pero Paula y Hugo observan y deciden.
+- **Cierre del recorrido sevillano:** Santa Cruz muestra un trazado medieval adaptado al calor; la antigua Fábrica de Tabacos demuestra un cambio real de función al convertirse en Universidad; María Luisa y Plaza de España conducen a la Exposición Iberoamericana de 1929 y a una ciudad que volvió a mirar hacia América. Al recuperar los once testigos, Borrón pierde la alteración. La noche permanece reservada para Tecla y la deducción de Isla Mágica.
 - **Noche del 24:** Tecla busca el módulo que Topoloco le robó. Su discusión explica con claridad el peligro del Cuaderno de Bitácora Único y deja, antes de cualquier opción, las pistas de una isla dentro de Sevilla, barcos, América y la firma gemela de Magikland. Paula y Hugo deducen Isla Mágica y reciben preparación práctica.
-- **Isla Mágica:** el parque convierte en escenario el mundo que Tavira y Sevilla ayudaron a comprender. Topotina presenta a Niebla como un Oscurno que usa ruido y prisa para hacer elegir sin comprobar. Capitán Pico entra y presenta a América, que no escribe. Paula y Hugo reconocen Puerto de Indias, barcos, el lago y cambios de ambientación; preparan una decisión falsa y reversible que hace que Niebla exponga el Corrector. Topoloco conecta al lago el Cuaderno de Bitácora Único. Escenario, reflejo, dos recuerdos distintos y Cuaderno privado hacen fallar su versión. La aventura termina definitivamente en Sevilla durante la tarde del 25.
+- **Isla Mágica:** el parque convierte en escenario el mundo que Tavira y Sevilla ayudaron a comprender. Capitán Pico vuelve a conectar y confirma que América vigila fuera del chat. Topotina presenta a Niebla como un Oscurno que usa ruido y prisa para hacer elegir sin comprobar. Paula y Hugo reconocen Puerto de Indias, barcos, el lago y cambios de ambientación; preparan una decisión falsa y reversible que hace que Niebla exponga el Corrector. Topoloco conecta al lago el Cuaderno de Bitácora Único. Escenario, reflejo, dos recuerdos distintos y Cuaderno privado hacen fallar su versión. La aventura termina definitivamente en Sevilla durante la tarde del 25.
 
 Esta cadena sustituye cualquier transición basada únicamente en una imagen bonita, una palabra abstracta o una adivinanza sin causa. La pista de salida de cada lugar debe mostrar qué hizo Topoloco, qué consiguieron Paula y Hugo y por qué el único movimiento lógico es el siguiente.
 
@@ -314,8 +316,8 @@ Aprender mucho no significa recibir un discurso largo. Cada lugar reparte el con
 | 21 | Barco desde Lagos, regreso al puerto, tarde de playa | Aplicar Protocolo Azul sin cobertura; bloquear el calibrador marino; recuperar la orden de Eco | Ponta da Piedade y una voz que intenta copiar patrones |
 | 22 | Ponta da Piedade, centro antiguo de Albufeira, Refugio de Lona | Identificar formas reales; devolver Albufeira a la historia de 1755; romper la voz recortada de Eco | `Porto d’Abrigo` y Zoomarine |
 | 23 | Zoomarine | Comparar delfines salvajes, rescate, rehabilitación y devolución; romper la falsa propiedad | Concluir que Topoloco causó la amnesia; puente mal nombrado |
-| 24 | Tavira, llegada a Sevilla y conversación nocturna | Presentar y derrotar la alteración de Borrón; comprender el mar como vía; Louri permite deducir Sevilla; Tecla revela el Cuaderno de Bitácora Único sin ocupar la tarde | Una isla mágica dentro de Sevilla y la estación gemela |
-| 25 | Isla Mágica y lago | Pico presenta a América y dirige la contratrampa; destruir el Corrector mediante representación, reflejo, recuerdos distintos y Cuaderno privado | Derrota del museo; memorias devueltas; final definitivo |
+| 24 | Tavira, once testigos de Sevilla y conversación nocturna | Presentar y derrotar a Borrón; unir agua, comercio y memoria urbana; Pico y América entran en la investigación; Tecla revela el Cuaderno de Bitácora Único | Una isla mágica dentro de Sevilla y la estación gemela |
+| 25 | Isla Mágica y lago | Pico regresa y dirige la contratrampa; destruir el Corrector mediante representación, reflejo, recuerdos distintos y Cuaderno privado | Derrota del museo; memorias devueltas; final definitivo |
 
 ## 14. El final de Sevilla
 
@@ -407,6 +409,17 @@ Antes de publicar un cambio:
 - [ ] El final ocurre junto al lago de Isla Mágica durante la tarde del 25 y no se menciona Granada.
 
 ## 19. Registro de decisiones
+
+### 24 de agosto de 2026 · T-24A1
+
+- La tarde sevillana deja de estar vacía. Borrón divide la memoria de la ciudad en once testigos; Paula y Hugo los recuperan mediante cinco tramos físicos que avanzan de norte a sur y nunca se anuncian como un itinerario completo.
+- El recorrido sigue el orden Setas; Sierpes, San Francisco y Plaza Nueva; Constitución, Catedral, Giralda y Plaza del Triunfo; Santa Cruz y Fábrica de Tabacos; Parque de María Luisa y Plaza de España. Cada tramo se descubre mediante una conversación anterior, incluye observaciones físicas y termina con una decisión breve.
+- La llegada a Las Setas se confirma por ubicación. Desde allí todo forma un paseo continuo: no se exige un nuevo permiso GPS en cada esquina. El orden del motor y las preguntas basadas en detalles visibles garantizan el recorrido físico sin convertir el móvil en una barrera.
+- La dificultad consiste en reconocer épocas y cambios de uso: restos antiguos bajo una estructura contemporánea, dos fachadas de un Ayuntamiento ampliado, tres monumentos con funciones distintas, calles medievales adaptadas al calor, una fábrica convertida en universidad y una plaza de 1929 orientada simbólicamente hacia América.
+- Capitán Pico aparece por sorpresa en Plaza del Triunfo tras una señal de plumas verificada por Topotina. Presenta a América, que trabaja fuera del canal y nunca escribe. Pico aporta humor y una pista parcial; no resuelve las decisiones.
+- El humor aumenta mediante discusiones cortas entre Topotino, Topotina y Pico, pero cada broma deja intacta la explicación necesaria. No entran Krim, Marga, Rufino ni otros aliados nuevos.
+- El cierre nocturno de Tecla y el final del 25 se conservan. El arranque de Isla Mágica reconoce que Pico y América ya fueron presentados el día anterior y evita repetir la escena como si fueran desconocidos.
+- Se conservan los IDs, flags, Memoria, Sombra, ventanas y estado anterior. Los nuevos pasos se insertan antes de la conversación nocturna; una partida que ya descubrió Sevilla continúa desde el primer testigo sin repetir Tavira.
 
 ### 24 de agosto de 2026 · T-24A0
 

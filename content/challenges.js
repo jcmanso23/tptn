@@ -17,6 +17,7 @@ const ARRIVAL_LOCATIONS = Object.freeze({
   algar: { lat: 37.0966, lng: -8.4719, radiusMeters: 700, label: 'Algar Seco, Carvoeiro' },
   albufeira: { lat: 37.0888, lng: -8.2524, radiusMeters: 1600, label: 'Centro antiguo de Albufeira' },
   jaima: { lat: 37.106434, lng: -8.25335, radiusMeters: 1800, label: 'Refugio de Lona, Albufeira' },
+  setasSevilla: { lat: 37.3933, lng: -5.9918, radiusMeters: 650, label: 'Setas de Sevilla, Plaza de la Encarnación' },
   sevillaPlaza: { lat: 37.3772, lng: -5.9869, radiusMeters: 700, label: 'Plaza de España, Sevilla' },
   catedralSevilla: { lat: 37.3858, lng: -5.9931, radiusMeters: 450, label: 'Catedral de Sevilla' },
   alhambra: { lat: 37.1761, lng: -3.5881, radiusMeters: 700, label: 'Alhambra, Granada' }
@@ -970,9 +971,194 @@ packs['016-tavira-sevilla'] = {
     ),
     nextStop('dia24-pista-sevilla', 'Louri oyó «autopista de agua», «viajes a América» y «una ciudad que guardaba sus documentos». ¿Qué ciudad atravesada por el Guadalquivir encaja?', ['Sevilla', 'Lisboa', 'Coimbra'], 0, [
       { from: 'topotino', text: 'Sevilla. El Guadalquivir conectaba la ciudad con el Atlántico. Por allí pasaron barcos, mercancías, mapas y noticias de América.' },
-      { from: 'topotina', text: 'El Archivo de Indias conserva muchísimos documentos de aquellos viajes. La Torre del Oro vigilaba una entrada estratégica del río; la Catedral y la Giralda muestran la importancia que alcanzó la ciudad.' },
-      { from: 'topotina', text: 'Esta tarde no hay misión. Llegad, descansad y estad con la familia. Si veis alguno de esos lugares desde fuera, estupendo; si no, la historia continuará igualmente.' }
+      { from: 'topotina', text: 'Un momento. La señal de Borrón no termina en el río. Ha cortado el mapa de Sevilla en once testigos para que parezcan lugares sin relación.' },
+      { from: 'topotino', text: 'Once. Estupendo. Yo habría preferido que su maldad tuviera formato de siesta, pero sigamos.' }
     ]),
+    Object.assign(conversation('dialogo-sevilla-arranque', 'Llegada a Sevilla · primer corte', [
+      { from: 'topotina', text: 'No mostraré los once puntos a la vez. Borrón podría seguir nuestro recorrido y, además, Topotino intentaría numerarlos con dibujos de bocadillos.' },
+      { from: 'topotino', text: 'Era un sistema visual excelente. Paula, Hugo: antes de empezar, ¿qué es lo primero que os ha llamado la atención de Sevilla?' }
+    ], [
+      { from: 'topotino', text: 'Me lo guardo. Una ciudad empieza a contarse por lo que ven quienes llegan, no por lo que decide un mapa saboteado.' },
+      { from: 'topotina', text: 'Primer corte: una enorme estructura moderna de madera, con forma de hongos, protege un mercado y se levanta sobre restos mucho más antiguos.' },
+      { from: 'topotino', text: 'Hongos gigantes en el centro. Por fin una pista redactada por alguien que entiende la importancia de la merienda.' }
+    ]), { allowedSpeakers: ['topotino', 'topotina'] }),
+    nextStop('sevilla-ruta-setas', '¿Qué lugar de Sevilla encaja con una estructura moderna de madera, un mercado y restos arqueológicos debajo?', ['Las Setas de Sevilla', 'Torre del Oro', 'Puente de Triana'], 0, [
+      'Las Setas. Id a la Plaza de la Encarnación.',
+      'No subáis al mirador si no os apetece. La investigación se resuelve desde los espacios públicos del conjunto.'
+    ]),
+    onArrival(expedition('sevilla-setas-expedicion', 'Las Setas', 'El edificio con tres tiempos', 'Buscad tres usos en el mismo lugar. No hace falta comprar entrada.', [
+      'Mirad la gran cubierta moderna de madera y su forma.',
+      'Localizad el Mercado de la Encarnación o una señal que indique su uso actual.',
+      'Buscad una referencia al Antiquarium y a los restos romanos y andalusíes hallados debajo.'
+    ], [
+      { from: 'topotina', text: 'Borrón quería una sola edad. Aquí conviven restos antiguos, mercado actual y una estructura inaugurada en 2011.' },
+      { from: 'topotino', text: 'Tres tiempos bajo el mismo sombrero. Yo tengo uno y apenas consigo guardar las orejas.' }
+    ]), ARRIVAL_LOCATIONS.setasSevilla, [
+      { from: 'topotina', text: 'Primer testigo localizado. Borrón ha dejado una etiqueta: «Sevilla moderna. Nada anterior debajo».' },
+      { from: 'topotino', text: 'Qué casualidad: estamos justo encima de la prueba de que miente.' }
+    ], 'llegada-setas-sevilla-t24a1'),
+    question('sevilla-setas-q1', 'Las Setas', '¿Qué observación desmonta mejor la etiqueta de Borrón?', [
+      'Que hay una obra moderna, un mercado actual y restos de épocas antiguas en el mismo lugar',
+      'Que toda Sevilla se construyó en 2011',
+      'Que los restos arqueológicos son decorados del mercado'
+    ], 0, 'Exacto. Un mismo lugar puede conservar tiempos y funciones diferentes.', 'Las obras de las Setas permitieron encontrar restos romanos y andalusíes. Lo nuevo no obliga a borrar lo antiguo.', 'Elegid la opción que conserve las tres pruebas visibles.'),
+    Object.assign(conversation('dialogo-sevilla-setas', 'Las Setas · rastro recuperado', [
+      { from: 'topotina', text: 'Primer testigo recuperado. Borrón ha huido por una calle peatonal famosa por sus tiendas y por una leyenda sobre una serpiente.' },
+      { from: 'topotino', text: '¿Serpiente real o nombre con leyenda? Antes de perseguir nada con colmillos: ¿qué parte de las Setas os sorprendió más?' }
+    ], [
+      { from: 'topotino', text: 'Buena observación. Y confirmo que no perseguiremos serpientes. Mi seguro de madriguera excluye reptiles con biografía.' },
+      { from: 'topotina', text: 'La pista dice calle comercial, peatonal, junto al Ayuntamiento. Su nombre es el siguiente dato que debéis deducir.' }
+    ]), { allowedSpeakers: ['topotino', 'topotina'] }),
+    nextStop('sevilla-ruta-sierpes', '¿Qué calle comercial y peatonal de Sevilla lleva un nombre relacionado con una leyenda de serpiente?', ['Calle Sierpes', 'Calle Betis', 'Calle San Fernando'], 0, [
+      'Calle Sierpes. Recorredla hacia la Plaza de San Francisco.',
+      'Borrón se mueve entre comercios y las dos caras del Ayuntamiento.'
+    ]),
+    expedition('sevilla-centro-expedicion', 'Sierpes, San Francisco y Plaza Nueva', 'Las dos caras del Ayuntamiento', 'Seguid el orden del rastro y caminad siempre con los adultos.', [
+      'Recorred Sierpes y localizad una tienda o comercio que muestre su función actual.',
+      'En Plaza de San Francisco, mirad la fachada detallada del Ayuntamiento y buscad alguna piedra sin terminar de tallar.',
+      'Rodead el Ayuntamiento hasta Plaza Nueva y comparad su fachada más regular y sencilla.',
+      'Localizad la estatua de San Fernando o el inicio del tranvía en Plaza Nueva.'
+    ], [
+      { from: 'topotina', text: 'Sierpes conserva su función comercial. El Ayuntamiento muestra una fachada plateresca hacia San Francisco y otra neoclásica hacia Plaza Nueva.' },
+      { from: 'topotino', text: 'Mismo edificio, dos caras. Yo también tengo cara de héroe y cara de «Topotina ha encontrado otro fallo». La segunda aparece bastante.' }
+    ]),
+    question('sevilla-centro-q1', 'Ayuntamiento de Sevilla', '¿Por qué el Ayuntamiento tiene dos fachadas tan distintas?', [
+      'Porque una pertenece al siglo XVI y la otra a una ampliación del XIX hacia Plaza Nueva',
+      'Porque Borrón cambió una por la noche',
+      'Porque son dos ayuntamientos pegados sin relación'
+    ], 0, 'Correcto. El edificio creció cuando también cambió la ciudad.', 'La cara de San Francisco conserva decoración plateresca; la ampliación del XIX se abrió a la nueva plaza con estilo neoclásico.', 'Comparad las dos plazas y pensad si el edificio pudo ampliarse.'),
+    Object.assign(conversation('dialogo-sevilla-centro', 'Plaza Nueva · siguiente corte', [
+      { from: 'topotina', text: 'Segundo, tercero y cuarto testigos recuperados. El rastro sigue por una avenida con tranvía que conduce hacia una torre que antes fue minarete y después campanario.' },
+      { from: 'topotino', text: 'Yo también he cambiado de función: antes investigaba y ahora procuro que nadie sea atropellado. Mirad el tranvía. ¿Listos para seguir?' }
+    ], [
+      { from: 'topotino', text: 'Vamos. Sin correr y sin auriculares: un tranvía es silencioso, pero no tanto como Topoloco cuando le toca bajar la basura.' },
+      { from: 'topotina', text: 'La avenida lleva el nombre de la norma principal que organiza un país. Al final esperan la Catedral y la Giralda.' }
+    ]), { allowedSpeakers: ['topotino', 'topotina'] }),
+    nextStop('sevilla-ruta-constitucion', '¿Qué avenida con tranvía conduce desde Plaza Nueva hasta la Catedral y la Giralda?', ['Avenida de la Constitución', 'Avenida de Kansas City', 'Paseo de Colón'], 0, [
+      'Avenida de la Constitución. Seguidla atentos al tranvía.',
+      'Borrón ha dejado tres señales alrededor de una plaza llamada del Triunfo.'
+    ]),
+    expedition('sevilla-monumental-expedicion', 'Constitución y Plaza del Triunfo', 'Tres testigos que no cuentan lo mismo', 'Todo se observa desde el exterior y los espacios públicos.', [
+      'Recorred un tramo de la Avenida de la Constitución y fijaos por dónde circula el tranvía.',
+      'Mirad la Giralda: distinguid la parte inferior de la torre y el cuerpo superior de campanas.',
+      'En Plaza del Triunfo, localizad Catedral, Alcázar y Archivo de Indias.',
+      'Asignad una función a cada uno: templo, palacio-fortaleza y archivo de documentos.'
+    ], [
+      { from: 'topotina', text: 'La Giralda conserva el antiguo minarete almohade y una parte cristiana posterior con campanas. El edificio hace visible el paso de distintas épocas.' },
+      { from: 'topotino', text: 'Tres monumentos, tres funciones y una plaza. Borrón debe de estar rechinando los dientes. Si tiene dientes. Nunca se los conté.' }
+    ]),
+    Object.assign(conversation('dialogo-capitan-pico-sevilla', 'Plaza del Triunfo · señal con plumas', [
+      { from: 'system', text: 'Señal desconocida detectada: patrón de plumas y sal marina.' },
+      { from: 'topotino', text: '¿Sal marina en Sevilla? ¿Y plumas? Topotina, dime que no ha entrado una gaviota con contraseña.' },
+      { from: 'topotina', text: 'Firma verificada. Procede de una isla dentro de la ciudad. Le doy acceso durante dos minutos.' },
+      { from: 'system', text: 'Capitán Pico se ha unido al canal.' },
+      { from: 'capitan_pico', text: '¡Capitán Pico! Navegante, explorador y Almirante Provisional de Todo lo que Pueda Verse desde un Poste.' },
+      { from: 'capitan_pico', text: 'América es mi compañera y trabaja fuera del chat. Ha interceptado esto: «tres testigos alrededor de un triunfo». ¿Cuál os parece más peligroso para Borrón?' }
+    ], [
+      { from: 'capitan_pico', text: '¡Respuesta digna de tripulación! Los tres son peligrosos: uno conserva formas, otro usos y otro documentos.' },
+      { from: 'topotina', text: 'Catedral, Alcázar y Archivo no cuentan lo mismo. Al compararlos, Borrón ya no puede sustituir Sevilla por una sola frase.' },
+      { from: 'topotino', text: 'Pico, ¿quién te concedió tantos títulos?' },
+      { from: 'capitan_pico', text: 'Yo. La ceremonia fue breve, solemne y muy bien organizada.' }
+    ]), { allowedSpeakers: ['topotino', 'topotina', 'capitan_pico'] }),
+    question('sevilla-monumental-q1', 'Plaza del Triunfo', '¿Por qué el Archivo de Indias es especialmente peligroso para la mentira de Borrón?', [
+      'Porque conserva documentos que permiten comprobar relatos sobre viajes y América',
+      'Porque convierte cualquier leyenda en verdad',
+      'Porque fue construido como parque de atracciones'
+    ], 0, 'Exacto. Un documento no cuenta todo, pero permite comprobar fechas, decisiones y viajes.', 'El edificio fue una lonja antes de ser archivo. También él cambió de función sin perder su historia.', 'Pensad cuál de los tres edificios guarda documentos.'),
+    Object.assign(conversation('dialogo-sevilla-triunfo', 'Plaza del Triunfo · la sombra escapa', [
+      { from: 'capitan_pico', text: 'América ve a Borrón entrar en un laberinto de calles estrechas, casas blancas y naranjos.' },
+      { from: 'topotino', text: 'Perfecto. Soy un topo. Los laberintos son prácticamente oficinas con mala señal. ¿Qué detalle de esta plaza recordaríais?' }
+    ], [
+      { from: 'capitan_pico', text: 'Anotado en mi Bitácora Oficial de Cosas que No Debo Adjudicarme.' },
+      { from: 'topotina', text: 'El barrio siguiente fue judería medieval. Sus calles estrechas daban sombra y reducían el calor. Debéis encontrarlo por esos rasgos.' }
+    ]), { allowedSpeakers: ['topotino', 'topotina', 'capitan_pico'] }),
+    nextStop('sevilla-ruta-santa-cruz', '¿Qué barrio junto al Alcázar conserva calles estrechas, plazas con naranjos y parte del trazado de la antigua judería?', ['Santa Cruz', 'Triana', 'La Cartuja'], 0, [
+      'Santa Cruz. Dad un paseo breve, sin necesidad de seguir una calle exacta.',
+      'Buscad cómo la forma del barrio ayudaba a vivir con el calor.'
+    ]),
+    expedition('sevilla-santa-cruz-expedicion', 'Barrio de Santa Cruz', 'El laberinto que da sombra', 'Elegid calles tranquilas y respetad a quienes viven allí.', [
+      'Comparad una calle estrecha con una plaza algo más abierta.',
+      'Buscad sombra, naranjos, patios, rejas o fuentes.',
+      'Si pasáis por el Callejón del Agua, observad su cercanía a la muralla del Alcázar.'
+    ], [
+      'El trazado estrecho e irregular procede de la ciudad medieval. Las calles reducían el sol directo y favorecían zonas más frescas.',
+      { from: 'capitan_pico', text: 'He intentado abrir las alas en una calle estrecha. La calle ha ganado. No constará en el informe.' }
+    ]),
+    question('sevilla-santa-cruz-q1', 'Santa Cruz', '¿Qué ventaja práctica podían tener muchas calles estrechas en Sevilla?', [
+      'Crear sombra y reducir el impacto del sol entre las casas',
+      'Permitir que navegaran barcos grandes',
+      'Evitar que existieran plazas y patios'
+    ], 0, 'Correcto. La forma de una calle también responde al clima y a la vida cotidiana.', 'El barrio conserva parte de su trazado medieval. No es un laberinto construido para turistas.', 'Comparad el sol de una calle ancha con la sombra entre dos fachadas cercanas.'),
+    Object.assign(conversation('dialogo-sevilla-santa-cruz', 'Santa Cruz · edificio cambiado', [
+      { from: 'topotina', text: 'Borrón sale del barrio y entra en un edificio enorme del siglo XVIII. Antes fabricaba tabaco; hoy fabrica discusiones, exámenes y carreras.' },
+      { from: 'topotino', text: 'Eso suena a universidad. Aunque yo pensaba que los exámenes se cultivaban en macetas oscuras. ¿Habéis conseguido orientaros en Santa Cruz?' }
+    ], [
+      { from: 'topotino', text: 'Entonces seguís cualificados. Yo he girado tres veces y ahora estoy técnicamente detrás de mí mismo.' },
+      { from: 'topotina', text: 'Buscad la antigua Real Fábrica de Tabacos, hoy sede de la Universidad de Sevilla.' }
+    ]), { allowedSpeakers: ['topotino', 'topotina', 'capitan_pico'] }),
+    nextStop('sevilla-ruta-fabrica', '¿Qué gran edificio cambió de fabricar tabaco a albergar aulas y el Rectorado de la Universidad?', ['Antigua Real Fábrica de Tabacos', 'Archivo de Indias', 'Palacio de San Telmo'], 0, [
+      'Antigua Real Fábrica de Tabacos. Observadla desde el exterior.',
+      'Borrón afirma que un edificio solo puede tener el uso con el que nació. Vamos a corregirlo.'
+    ]),
+    expedition('sevilla-fabrica-expedicion', 'Antigua Fábrica de Tabacos · Universidad', 'Una fortaleza que cambió de trabajo', 'No hace falta entrar. Investigad su tamaño y su aspecto exterior.', [
+      'Recorred parte de la fachada y comprobad la enorme escala del edificio.',
+      'Buscad el foso, una garita, la portada o algún detalle que recuerde a una fortaleza.',
+      'Localizad un rótulo o símbolo que confirme su uso universitario actual.'
+    ], [
+      { from: 'topotina', text: 'Funcionó como fábrica desde 1758. Su aspecto cerrado ayudaba a controlar una industria valiosa. En el siglo XX pasó a ser Universidad.' },
+      { from: 'topotino', text: 'De tabaco a libros. Es el cambio de uso más saludable de toda la aventura y pienso defenderlo con firmeza.' }
+    ]),
+    question('sevilla-fabrica-q1', 'Antigua Fábrica de Tabacos', '¿Qué demuestra este edificio contra la versión de Borrón?', [
+      'Que puede conservar rasgos de fábrica y fortaleza mientras cumple una función universitaria nueva',
+      'Que todo edificio debe mantener para siempre su primer uso',
+      'Que la Universidad fabrica hojas de tabaco'
+    ], 0, 'Correcto. Cambiar de función no obliga a borrar el pasado del edificio.', 'Su arquitectura recuerda la industria y el control del siglo XVIII; las aulas muestran su vida actual.', 'Buscad una opción que conserve el antes y el ahora.'),
+    Object.assign(conversation('dialogo-sevilla-fabrica', 'Universidad · último tramo', [
+      { from: 'capitan_pico', text: 'América ha encontrado los dos últimos cortes al sur: un parque público y una plaza semicircular que mira hacia América.' },
+      { from: 'topotino', text: 'Pico, ¿«al sur» es una dirección comprobada o uno de tus títulos?' },
+      { from: 'capitan_pico', text: 'Comprobada por América. Yo estaba ocupado señalando el sur correcto con enorme autoridad.' },
+      { from: 'topotina', text: 'El parque lleva el nombre de una infanta que cedió sus jardines a la ciudad. ¿Sabéis cuál puede ser?' }
+    ], [
+      { from: 'topotina', text: 'Buscamos el Parque de María Luisa. Allí la Sevilla de 1929 preparó una gran exposición relacionada con países de América.' },
+      { from: 'topotino', text: 'Último tramo. Agua, árboles y una plaza enorme. Borrón ha elegido un escondite bastante poco discreto.' }
+    ]), { allowedSpeakers: ['topotino', 'topotina', 'capitan_pico'] }),
+    nextStop('sevilla-ruta-parque', '¿Qué parque público conduce a la Plaza de España y conserva espacios preparados para la Exposición de 1929?', ['Parque de María Luisa', 'Jardines de Murillo', 'Alameda de Hércules'], 0, [
+      'Parque de María Luisa. Cruzadlo con calma hacia Plaza de España.',
+      'Buscad naturaleza, fuentes o glorietas antes de entrar en la gran plaza.'
+    ]),
+    expedition('sevilla-parque-expedicion', 'María Luisa y Plaza de España', 'Los dos últimos testigos', 'Caminad a vuestro ritmo. La investigación termina en el espacio central de la plaza.', [
+      'En el parque, localizad árboles, una fuente, un estanque o una glorieta.',
+      'Al llegar a Plaza de España, observad su forma semicircular.',
+      'Buscad el canal, los puentes y los bancos con mapas o azulejos de provincias.',
+      'Localizad un elemento que muestre que el edificio y el jardín forman un conjunto planeado.'
+    ], [
+      { from: 'topotina', text: 'El parque procede de jardines cedidos a la ciudad. Plaza de España se construyó para la Exposición Iberoamericana de 1929.' },
+      { from: 'capitan_pico', text: 'Semicírculo, canal, puentes y cerámica. Magnífico puerto para un capitán. Pequeño inconveniente: los barcos son diminutos.' },
+      { from: 'topotino', text: 'No conviertas los patos en tripulación.' },
+      { from: 'capitan_pico', text: 'Demasiado tarde. Uno ya es contramaestre.' }
+    ]),
+    question('sevilla-parque-q1', 'Plaza de España', '¿Para qué gran acontecimiento se construyó Plaza de España?', [
+      'Para la Exposición Iberoamericana de 1929',
+      'Para guardar los fósiles de Dino Parque',
+      'Para sustituir al Ayuntamiento medieval'
+    ], 0, 'Correcto. La plaza formó parte de una exposición que reunió a España con países americanos.', 'Su arquitectura regionalista emplea ladrillo, cerámica, azulejos y hierro. La forma semicircular se interpreta como apertura hacia América.', 'Fijaos en los bancos, mapas y referencias a territorios.'),
+    question('sevilla-parque-q2', 'Plaza de España', '¿Qué han demostrado juntos los once testigos de Sevilla?', [
+      'Que una ciudad puede conservar muchas épocas y usos sin reducirse a una sola versión',
+      'Que solo los edificios más nuevos merecen recordarse',
+      'Que Borrón tenía razón al separar todos los lugares'
+    ], 0, 'Exacto. Habéis vuelto a unir comercio, gobierno, religión, documentos, calles, industria, universidad, naturaleza y viajes.', 'Borrón necesitaba que cada lugar pareciera aislado. Al recorrerlos en orden, la ciudad vuelve a contar una historia con muchas voces.', 'Elegid la opción que no borre ninguno de los lugares observados.'),
+    Object.assign(conversation('dialogo-sevilla-cierre', 'Plaza de España · once de once', [
+      { from: 'system', text: 'Once testigos recuperados. Alteración de Borrón deshecha.' },
+      { from: 'capitan_pico', text: '¡Doce testigos!' },
+      { from: 'topotina', text: 'Son once.' },
+      { from: 'capitan_pico', text: 'Me había contado a mí. Acepto la corrección con una dignidad naval extraordinaria.' },
+      { from: 'topotino', text: 'Paula, Hugo: antes de cerrar el recorrido, ¿qué lugar escogeríais para explicar que Sevilla ha cambiado muchas veces?' }
+    ], [
+      { from: 'topotino', text: 'Buena elección. No hay un único edificio capaz de contar toda Sevilla; por eso vuestra respuesta también forma parte de la investigación.' },
+      { from: 'topotina', text: 'Borrón ha perdido el rastro. Pero uno de los cortes contenía la firma de Magikland y una referencia a barcos y América.' },
+      { from: 'capitan_pico', text: 'América y yo volveremos a nuestra isla. No puedo revelar dónde está. Reglamento de Misterio, artículo que acabo de inventar.' },
+      { from: 'topotino', text: 'Descansad un poco. Esta noche revisaremos la señal sin anunciar nada que todavía no sepamos.' }
+    ]), { allowedSpeakers: ['topotino', 'topotina', 'capitan_pico'], effects: { setFlags: ['sevilla_once_testigos_t24a1'] } }),
     recovery('recuperacion-dia24', '¿Qué hace una memoria honesta cuando aparece mejor evidencia?', ['Se corrige sin fingir que nunca se equivocó', 'Se aferra al nombre más popular', 'Borra el lugar completo'], 0, 'Sombra retirada. Borrón ha perdido su etiqueta falsa.', 'La palabra de Borrón sigue visible, pero ahora funciona como ejemplo de una corrección.'),
     Object.assign(route('ruta-dia25', 'Tecla ha descrito una isla dentro de Sevilla, llena de barcos, exploradores y viajes a América, con la misma firma que Magikland. ¿Dónde está Topoloco?', ['Isla Mágica', 'Dino Parque', 'Oceanário de Lisboa'], 0, [
       'Exacto: Isla Mágica. Una isla de agua, barcos e imaginación escondida dentro de una ciudad.',
@@ -990,8 +1176,10 @@ packs['017-isla-magica'] = {
   openingMessages: [
     'Buenos días, Paula y Hugo. Hoy necesito que tengamos clarísimo qué estamos haciendo.',
     'Durante el eclipse, Topoloco robó gran parte de mi memoria. Después utilizó cada lugar para copiar cómo observabais, elegíais y recordabais.',
-    { from: 'topotina', text: 'Ayer Tecla confirmó el último paso: Topoloco quiere guardar una sola versión del viaje, ponerse como capitán y borrar las demás voces.' },
-    'La pista señala una isla de barcos y exploradores escondida dentro de Sevilla. Cuando lleguemos, no empezará una visita normal. Empezará la última expedición.'
+    { from: 'topotina', text: 'Ayer recuperasteis once testigos de Sevilla. Después Tecla confirmó el último paso: Topoloco quiere guardar una sola versión y ponerse como capitán.' },
+    'La pista señala una isla de barcos y exploradores escondida dentro de Sevilla.',
+    'Cuando lleguemos no empezará una visita normal. Empezará la última expedición.',
+    { from: 'topotino', text: 'Y si Pico vuelve a nombrarse Gran Almirante del Mobiliario Urbano, fingiremos que se ha cortado la señal.' }
   ],
   steps: [
     ...withOrder(
@@ -1005,13 +1193,13 @@ packs['017-isla-magica'] = {
         'Los barcos, el puerto y el lago permiten imaginar aquel mundo. Son escenarios actuales: ayudan a aprender, pero no son documentos originales del siglo XVI.',
         { from: 'capitan_pico', text: '¡Exploradores de Primera Clase confirmados! América asiente. Yo también, pero con una inclinación de pico mucho más oficial.' }
       ]), { lat: 37.4077506, lng: -5.9998062, radiusMeters: 1600, label: 'Isla Mágica, Sevilla' }, [
-        { from: 'topotina', text: 'La señal está dentro del recinto. También hay una transmisión desconocida intentando entrar.' },
-        { from: 'topotino', text: '¿Otra? Este chat secreto tiene más visitas que una estación de tren.' },
-        { from: 'system', text: 'Capitán Pico se ha unido al canal.' },
-        { from: 'capitan_pico', text: '¡Capitán Pico! Ave navegante, aventurero de primer orden y propietario de este magnífico pico. América es mi compañera y vigila sobre el terreno; hoy escribiré yo por los dos.' },
+        { from: 'topotina', text: 'La señal está dentro del recinto. Capitán Pico solicita acceso con catorce títulos nuevos.' },
+        { from: 'topotino', text: 'Aprueba solo los dos primeros. Este chat tiene un límite de vanidad por burbuja.' },
+        { from: 'system', text: 'Capitán Pico ha vuelto al canal.' },
+        { from: 'capitan_pico', text: '¡Tripulación reunida! América encontró la entrada y yo la crucé con una seguridad impecable. El reparto de tareas ha sido perfecto.' },
         { from: 'capitan_pico', text: 'Bienvenidos a una isla imposible: está dentro de Sevilla, pero el agua, los barcos y la imaginación permiten viajar a otros mundos sin salir de la ciudad.' },
         { from: 'topotina', text: 'Identifico otra señal: Niebla, un Oscurno que conocimos en Francia. Llena las decisiones de ruido y prisa para que elijamos sin comprobar.' },
-        { from: 'topotino', text: 'Perfecto. Un topo sin memoria, un ave capitana y una sombra metiendo prisa. Día completamente normal.' }
+        { from: 'topotino', text: 'Perfecto. Un topo sin memoria, un ave con catorce cargos y una sombra metiendo prisa. Día completamente normal.' }
       ], 'llegada-isla-final-t24a0'),
       [
         question('isla-q1', 'Isla Mágica', '¿Qué podemos aprender de Sevilla, Puerto de Indias sin confundir escenario e historia?', ['Cómo se representa hoy una ciudad de barcos y comercio del siglo XVI', 'Que cada edificio del parque estuvo allí durante los viajes a América', 'Que los decorados sustituyen al Archivo de Indias'], 0, 'Correcto. La imaginación ayuda a entrar en otra época si sabemos qué es representación y qué es prueba histórica.', 'Como en Portugal dos Pequenitos y Dino Parque, un modelo selecciona detalles para explicar. No se convierte por eso en el original.', 'Buscad la opción que permite aprender sin fingir que el parque tiene quinientos años.'),

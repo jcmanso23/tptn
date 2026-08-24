@@ -100,6 +100,13 @@ test('el asalto del día 20 aísla personajes y Louri solo usa transmisiones esc
   assert.match(api, /estadoNarrativoEspecial/);
   assert.match(api, /tres transmisiones excepcionales ya escritas/i);
   assert.match(api, /una última pista verificada del 24/i);
+  for (const dialogueId of [
+    'dialogo-sevilla-arranque', 'dialogo-sevilla-setas', 'dialogo-sevilla-centro',
+    'dialogo-capitan-pico-sevilla', 'dialogo-sevilla-triunfo',
+    'dialogo-sevilla-santa-cruz', 'dialogo-sevilla-fabrica', 'dialogo-sevilla-cierre'
+  ]) {
+    assert.match(api, new RegExp(dialogueId));
+  }
   assert.match(app, /TOPOLOCO_SCENE_ID/);
   assert.match(app, /function initializeTopolocoScene/);
   assert.match(app, /function runNarrativeScene/);

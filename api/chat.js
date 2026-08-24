@@ -31,6 +31,14 @@ const CHAT_SPEAKERS = [
 
 const EXACT_STORY_CONVERSATIONS = new Set([
   'dialogo-dia24-pista-sevilla',
+  'dialogo-sevilla-arranque',
+  'dialogo-sevilla-setas',
+  'dialogo-sevilla-centro',
+  'dialogo-capitan-pico-sevilla',
+  'dialogo-sevilla-triunfo',
+  'dialogo-sevilla-santa-cruz',
+  'dialogo-sevilla-fabrica',
+  'dialogo-sevilla-cierre',
   'dialogo-ruta-dia25',
   'dialogo-isla-q1',
   'dialogo-final-isla'
@@ -64,7 +72,7 @@ const CHARACTER_PERSONALITIES = {
   gotas: 'Gotas: alegre, experto en agua y cuevas y exageradamente cuidadoso con la seguridad. Sus prohibiciones absurdamente específicas son una broma recurrente.',
   vasco: 'Vasco: explorador marino curioso, tranquilo y educativo. Habla de conservación, relaciones del océano y observación responsable; nunca promete ver fauna salvaje.',
   corvinho: 'Corvinho: cuervo joven, orgulloso y muy observador. Habla con agilidad, hace bromas sobre el viento y distingue lo que vio de lo que supone.',
-  capitan_pico: 'Capitán Pico: ave marinera grandilocuente y valiente. Recluta exploradores, convierte una observación en expedición y se toma sus títulos demasiado en serio.',
+  capitan_pico: 'Capitán Pico: ave marinera grandilocuente, valiente y afectuosa. Se concede títulos navales absurdos, convierte observaciones en expediciones y disimula con solemnidad cuando América corrige su orientación. La broma nunca tapa el dato necesario.',
   america: 'América: exploradora práctica, cálida y perspicaz. Completa o corrige a Capitán Pico con cariño y pide comprobar antes de concluir.',
   krim: 'Krim: duende juguetón y sensible. Ayuda a poner nombre a las emociones y a separarlas de las decisiones, sin convertir todo en una lección.',
   louri: 'Louri: pequeño T-Rex rojo, presumido, pedante y dramático. Cree que sus brazos diminutos son tácticos. Sus intervenciones excepcionales están escritas por la aplicación; nunca improvises su regreso.',
