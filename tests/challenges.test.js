@@ -494,6 +494,8 @@ test('los diálogos críticos del final reaccionan con IA y conservan después s
     'dialogo-dia24-pista-sevilla', 'dialogo-ruta-dia25', 'dialogo-isla-cartuja-pista',
     'dialogo-zona-isla-hallazgo', 'dialogo-zona-isla-hallazgo-2',
     'dialogo-pico-puerto', 'dialogo-niebla-senuelo', 'dialogo-final-isla', 'dialogo-topoloco-momento',
+    'dialogo-silencio-rescate', 'dialogo-silencio-momento',
+    'dialogo-silencio-dos-miradas', 'dialogo-silencio-topoloco',
     'dialogo-corral-rey', 'dialogo-corral-recuerdos'
   ]) {
     const dialogue = byId.get(id);
@@ -505,6 +507,8 @@ test('los diálogos críticos del final reaccionan con IA y conservan después s
 
   assert.equal(byId.get('dialogo-dia24-pista-sevilla').allowClosedSpeaker, 'louri');
   assert.deepEqual(byId.get('dialogo-isla-cartuja-pista').allowedSpeakers, ['topotino', 'topotina']);
+  assert.deepEqual(byId.get('dialogo-silencio-rescate').allowedSpeakers, ['topotino', 'topotina', 'capitan_pico', 'america']);
+  assert.deepEqual(byId.get('dialogo-silencio-topoloco').allowedSpeakers, ['topotino', 'topotina', 'capitan_pico', 'topoloco']);
   assert.deepEqual(byId.get('dialogo-corral-rey').allowedSpeakers, ['topotino', 'topotina', 'capitan_pico']);
 
   const visibleMessages = [...day24.steps, ...day25.steps].flatMap((step) => [
@@ -610,7 +614,9 @@ test('el día 25 retoma siete testigos y culmina después de la recepción del R
     'dialogo-zona-isla-siguiente', 'dialogo-zona-isla-hallazgo-2',
     'isla-q2', 'dialogo-niebla-senuelo',
     'dialogo-final-isla', 'dialogo-topoloco-momento', 'sevilla-lago-pista',
-    'sevilla-lago-expedicion', 'sevilla-lago-q2', 'dialogo-corral-rey',
+    'sevilla-lago-expedicion', 'sevilla-lago-q2', 'dialogo-silencio-rescate',
+    'dialogo-silencio-momento', 'dialogo-silencio-dos-miradas',
+    'dialogo-silencio-topoloco', 'dialogo-corral-rey',
     'corral-rey-expedicion', 'corral-rey-q1', 'corral-rey-q2',
     'dialogo-corral-recuerdos', 'final-sevilla-noche'
   ];
@@ -641,6 +647,9 @@ test('el día 25 retoma siete testigos y culmina después de la recepción del R
   for (const counter of ['1/4', '2/4', '3/4', '4/4']) assert.match(progressText, new RegExp(counter.replace('/', '\\/')));
   assert.match(progressText, /Ministra Suprema de Mapas/i);
   assert.match(progressText, /llegue el Rey.*20:00/is);
+  assert.match(progressText, /Agua Mágica/i);
+  assert.match(progressText, /No tendréis que repetir ninguna misión/i);
+  assert.match(progressText, /¿Estáis los dos ahí\?/i);
 });
 
 test('la app conserva Memoria, Sombra y tres variantes de victoria', async () => {

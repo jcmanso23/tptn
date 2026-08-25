@@ -1,5 +1,5 @@
-import { splitTopotinoMessages } from './chat-format.js?v=memory-v67';
-import { CHALLENGE_PACKS, displayChallengeOptions } from './content/challenges.js?v=memory-v67';
+import { splitTopotinoMessages } from './chat-format.js?v=memory-v68';
+import { CHALLENGE_PACKS, displayChallengeOptions } from './content/challenges.js?v=memory-v68';
 
 const STORAGE_KEYS = {
   auth: 'topotino_chat_auth_v1',
@@ -7,9 +7,9 @@ const STORAGE_KEYS = {
 };
 
 const LEGACY_STATE_KEY = 'topotino_chat_state_v1';
-const APP_VERSION_CODE = 'T-25A2';
+const APP_VERSION_CODE = 'T-25A3';
 const PASSPHRASE_HASH = 'a64716bd9f4e8added1bf47f80b97c3fc7b70a15b8043cdab083e1ddf85f3794';
-const EPISODES_MANIFEST = 'content/episodes.json?v=memory-v67';
+const EPISODES_MANIFEST = 'content/episodes.json?v=memory-v68';
 const LIVE_STORY_ENDPOINT = '/api/story';
 const AMARANTE_TRAVEL_DATE = '2026-08-13';
 const AMARANTE_ROUTE_EPISODE_ID = '004b-rumbo-amarante';
@@ -50,6 +50,7 @@ const SEVILLA_CARD_RESCUE_MARKER = 'rescate-tarjeta-sevilla-t24a2';
 const SANTA_CRUZ_RETREAT_RESCUE_MARKER = 'rescate-retirada-santa-cruz-t25a0';
 const FINALE_POLISH_MIGRATION_MARKER = 'migracion-final-cuatro-cierres-t25a1';
 const FINALE_FLEXIBLE_ROUTE_MIGRATION_MARKER = 'migracion-isla-ruta-flexible-t25a2';
+const FINALE_SILENCE_RESCUE_MARKER = 'rescate-silencio-isla-t25a3';
 const AI_REQUEST_TIMEOUT_MS = 18000;
 const SECURITY_CHECKIN_MESSAGES = [
   'Buenos días, Paula y Hugo.',
@@ -251,6 +252,7 @@ async function init() {
     applySantaCruzRetreatRescue();
     applyFinalePolishMigration();
     applyFinaleFlexibleRouteMigration();
+    applyFinaleSilenceRescue();
     applyZoomarineTransitionRescue();
     applyTravelDayRescue();
     applyAmaranteCompletionRescue();
@@ -2593,6 +2595,43 @@ function applyFinaleFlexibleRouteMigration() {
   return true;
 }
 
+function applyFinaleSilenceRescue() {
+  if (!state.unlocked) return false;
+  if (!state.unlockedEpisodeIds.includes(FINAL_EPISODE_ID)) return false;
+  if (state.seenBroadcastIds.includes(FINALE_SILENCE_RESCUE_MARKER)) return false;
+  if (state.flags.includes('completado_isla_magica')) return false;
+
+  const steps = CHALLENGE_PACKS[FINAL_EPISODE_ID]?.steps || [];
+  const completed = new Set(state.completedChallengeIds || []);
+  const silenceIds = [
+    'dialogo-silencio-rescate', 'dialogo-silencio-momento',
+    'dialogo-silencio-dos-miradas', 'dialogo-silencio-topoloco'
+  ];
+  const alreadyAtReception = [
+    'dialogo-corral-rey', 'corral-rey-expedicion', 'corral-rey-q1',
+    'corral-rey-q2', 'dialogo-corral-recuerdos', 'final-sevilla-noche'
+  ].some((id) => completed.has(id));
+
+  if (alreadyAtReception) {
+    addUniqueMany(state.completedChallengeIds, silenceIds);
+  } else {
+    const lakeIndex = steps.findIndex((step) => step.id === 'sevilla-lago-q2');
+    if (lakeIndex >= 0) {
+      addUniqueMany(state.completedChallengeIds, steps.slice(0, lakeIndex + 1).map((step) => step.id));
+    }
+    state.activeEpisodeId = FINAL_EPISODE_ID;
+    startupRescueMessages = [...startupRescueMessages,
+      { from: 'system', time: 'auto', text: 'CANAL DE EMERGENCIA · Señal recuperada después de varias horas.' },
+      { from: 'topotina', time: 'auto', text: 'He encontrado la causa: Paula y Hugo recorrieron Isla Mágica y Agua Mágica, pero sus respuestas no llegaron al registro.' },
+      { from: 'topotino', time: 'auto', text: '¡Menos mal! Creíamos que os había tragado un galeón, una ola o —peor— una cola de cuarenta minutos.' }
+    ];
+  }
+
+  addUniqueMany(state.seenBroadcastIds, [FINALE_SILENCE_RESCUE_MARKER]);
+  saveState({ sync: false });
+  return true;
+}
+
 function applyZoomarineTransitionRescue() {
   if (!state.unlocked) return false;
   if (state.seenBroadcastIds.includes(ZOOMARINE_TRANSITION_RESCUE_MARKER)) return false;
@@ -3411,6 +3450,7 @@ function applyRestoredState(remoteState, recoveryCode) {
   applySantaCruzRetreatRescue();
   applyFinalePolishMigration();
   applyFinaleFlexibleRouteMigration();
+  applyFinaleSilenceRescue();
 }
 
 function markStateChanged() {
@@ -3639,6 +3679,6 @@ function applyTestingParams() {
 
 function registerServiceWorker() {
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('service-worker.js?v=offline-v52').catch(() => {});
+    navigator.serviceWorker.register('service-worker.js?v=offline-v53').catch(() => {});
   }
 }

@@ -49,6 +49,10 @@ const EXACT_STORY_CONVERSATIONS = new Set([
   'dialogo-niebla-senuelo',
   'dialogo-final-isla',
   'dialogo-topoloco-momento',
+  'dialogo-silencio-rescate',
+  'dialogo-silencio-momento',
+  'dialogo-silencio-dos-miradas',
+  'dialogo-silencio-topoloco',
   'dialogo-corral-rey',
   'dialogo-corral-recuerdos'
 ]);
@@ -163,6 +167,10 @@ export default async function handler(req, res) {
     'En el final del día 25 existen cuatro cierres concretos: dos ya confirmados por lo observado y el Fuerte, el señuelo de Niebla y el reflejo del lago. No los abras antes de que la aplicación complete cada paso ni inventes cierres adicionales.',
     'Si conversacionActual es dialogo-final-isla, Topoloco responde directamente a si Paula y Hugo aceptan sus cargos. Puede celebrar, protestar o reinterpretar con vanidad, pero nunca cambia el cierre canónico, nunca los convierte realmente en aliados y no adelanta nada distinto de la llegada del Rey a las 20:00.',
     'Si conversacionActual es dialogo-topoloco-momento, responde primero al recuerdo que Paula y Hugo propongan. Topoloco intenta restarle importancia porque demuestra que él no estuvo allí; Topotino o Topotina pueden defender a los niños. No inventes otro destino ni cierres la aventura.',
+    'En dialogo-silencio-rescate, muestra alivio porque están bien. No los culpes, no pidas recuperar las antiguas misiones y no avances aún hacia Carlos I.',
+    'En dialogo-silencio-momento, reacciona al recuerdo concreto que cuenten sin inventar detalles. Puede ser de Isla Mágica o Agua Mágica y una frase basta.',
+    'En dialogo-silencio-dos-miradas, acepta dos detalles distintos como prueba de que ambos vivieron el día. No exijas que coincidan ni que escriban mucho.',
+    'En dialogo-silencio-topoloco, Topoloco responde directamente a la idea de quién posee una aventura. Protesta con humor, pero no gana ni cambia de bando; la aplicación revelará después lo de Carlos I.',
     'Si conversacionActual es dialogo-corral-recuerdos, acepta los dos recuerdos concretos aunque sean breves, diferentes o estén desordenados. No los evalúes ni pidas más detalles; reacciona con afecto o humor y deja que el cierre escrito por la aplicación continúe.',
     'Eco actúa de una forma concreta: escucha una voz o una historia, quita una parte y repite el resto hasta que parece completo. No hables de sus ecos, patrones o formas sin explicar esa acción visible.',
     'Las Doce Aguas son el nombre de una red representada por un mapa de doce ventanas. No inventes nombres poéticos para cada parada ni menciones valores internos de agua que conserva la aplicación, salvo que el contexto de la fase autorice expresamente un nombre narrativo ya presentado a los niños, como Agua del Puente después de recoger la muestra de Amarante.',

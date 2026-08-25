@@ -170,12 +170,13 @@ test('los días 13 y 14 conservan su cadena narrativa y adaptan solo tras un imp
   assert.doesNotMatch(childFacingText, /(foto|fotografía).{0,30}(cuaderno|diario)/i);
 });
 
-test('la edición T-25A2 conserva rescates anteriores y adapta Isla Mágica sin retroceder', async () => {
+test('la edición T-25A3 rescata el silencio de Isla Mágica sin repetir misiones', async () => {
   const files = ['index.html', 'app.js', 'admin.js', 'content/episodes/001-reconexion.md'];
   const combined = (await Promise.all(files.map((file) => readFile(join(root, file), 'utf8')))).join('\n');
   const app = await readFile(join(root, 'app.js'), 'utf8');
   const serviceWorker = await readFile(join(root, 'service-worker.js'), 'utf8');
   const ai = await readFile(join(root, 'api/chat.js'), 'utf8');
+  const challenges = await readFile(join(root, 'content/challenges.js'), 'utf8');
   const reconnection = parseEpisode(
     await readFile(join(root, 'content/episodes/001-reconexion.md'), 'utf8'),
     'content/episodes/001-reconexion.md'
@@ -183,14 +184,14 @@ test('la edición T-25A2 conserva rescates anteriores y adapta Isla Mágica sin 
 
   const styles = await readFile(join(root, 'styles.css'), 'utf8');
 
-  assert.match(combined, /T-25A2/);
+  assert.match(combined, /T-25A3/);
   assert.doesNotMatch(combined, /T-12A9/);
   assert.match(app, /splitTopotinoMessages/);
   assert.match(app, /CHALLENGE_PACKS/);
   assert.match(app, /els\.channelCode\.textContent = APP_VERSION_CODE/);
-  assert.match(serviceWorker, /topotino-offline-v52/);
-  assert.match(serviceWorker, /chat-format\.js\?v=memory-v67/);
-  assert.match(serviceWorker, /content\/challenges\.js\?v=memory-v67/);
+  assert.match(serviceWorker, /topotino-offline-v53/);
+  assert.match(serviceWorker, /chat-format\.js\?v=memory-v68/);
+  assert.match(serviceWorker, /content\/challenges\.js\?v=memory-v68/);
   assert.match(app, /function applySevillaCardRescue\(\)/);
   assert.match(app, /Calle Sierpes\\\.\\s\*Recorredla hacia la Plaza de San Francisco/);
   assert.match(app, /Interferencia cruzada retirada/);
@@ -206,6 +207,10 @@ test('la edición T-25A2 conserva rescates anteriores y adapta Isla Mágica sin 
   assert.match(app, /dialogo-niebla-senuelo/);
   assert.match(app, /dialogo-topoloco-momento/);
   assert.ok((app.match(/applyFinalePolishMigration\(\);/g) || []).length >= 2);
+  assert.match(app, /function applyFinaleSilenceRescue\(\)/);
+  assert.match(app, /rescate-silencio-isla-t25a3/);
+  assert.match(challenges, /No tendréis que repetir ninguna misión/);
+  assert.ok((app.match(/applyFinaleSilenceRescue\(\);/g) || []).length >= 2);
   assert.match(combined, /id="location-refresh"/);
   assert.ok(combined.indexOf('id="location-refresh"') < combined.indexOf('</header>'));
   assert.doesNotMatch(styles, /\.location-refresh-compact\s*\{[^}]*display:\s*none/is);

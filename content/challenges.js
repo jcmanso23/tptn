@@ -1339,8 +1339,47 @@ packs['017-isla-magica'] = {
       'Borrón y Topoloco borran la diferencia entre copia y original. Por eso sus cuatro cortes no han resistido vuestra comparación.',
       { from: 'topoloco', text: '¡Celebrad lo que queráis! El Rey llegará y mi versión será la oficial, perfecta y sin interrupciones.' }
     ], 'Una representación dice qué recrea. Topoloco pretende borrar el original y quedarse con su nombre.', 'Pensad cuál de las opciones reconoce sus límites.'),
+    Object.assign(conversation('dialogo-silencio-rescate', 'Isla Mágica · canal recuperado', [
+      { from: 'system', text: 'CONEXIÓN LOCALIZADA · DOS EXPLORADORES EN MOVIMIENTO' },
+      { from: 'topotino', text: '¡Paula! ¡Hugo! Llevamos horas llamando. ¿Estáis bien?' },
+      { from: 'america', text: 'Los he visto recorrer Isla Mágica y Agua Mágica. Están bien. El chat era lo que no respondía.' },
+      { from: 'capitan_pico', text: 'Yo preparé un rescate por tierra, agua y puesto de helados. América me quitó el flotador porque lo llevaba en la cabeza.' },
+      { from: 'topotina', text: 'Sin vuestras respuestas, el Corrector ha marcado el día como vacío. Topoloco intenta escribir su versión encima. Nos queda muy poco tiempo.' },
+      { from: 'topotino', text: 'No os regaño. Estaba preocupado. Pero esto está a punto de irse al traste. ¿Estáis los dos ahí? Responded solo «sí».' }
+    ], [
+      { from: 'topotino', text: '¡Uf! Estáis aquí. He envejecido siete años topo en una tarde.' },
+      { from: 'america', text: 'Y lo que habéis vivido sigue siendo vuestro aunque el chat no lo registrara.' },
+      { from: 'topotina', text: 'Podemos reconstruir la señal con recuerdos reales. No tendréis que repetir ninguna misión.' }
+    ]), { allowedSpeakers: ['topotino', 'topotina', 'capitan_pico', 'america'] }),
+    Object.assign(conversation('dialogo-silencio-momento', 'Isla Mágica · prueba de vida', [
+      { from: 'america', text: 'Necesito un detalle real de hoy que Topoloco no pudiera adivinar desde su laboratorio.' },
+      { from: 'capitan_pico', text: 'Puede ser de Isla Mágica o Agua Mágica: algo que visteis, hicisteis o que os hizo reír. Una frase basta.' }
+    ], [
+      { from: 'topotina', text: 'Recibido. Ese recuerdo tiene una persona, un lugar y un momento. No es un hueco que Topoloco pueda rellenar.' },
+      { from: 'topotino', text: 'Primera parte del día recuperada. Y sin formulario de diecisiete páginas. Estoy emocionado.' }
+    ]), { allowedSpeakers: ['america', 'capitan_pico', 'topotina', 'topotino'] }),
+    Object.assign(conversation('dialogo-silencio-dos-miradas', 'Isla Mágica · dos testigos', [
+      { from: 'topotina', text: 'Ahora necesito dos miradas. Paula y Hugo: decid cada uno un detalle distinto que recuerde de hoy. Podéis poner los dos en el mismo mensaje.' },
+      { from: 'topotino', text: 'No tienen que coincidir. Precisamente queremos demostrar que una aventura puede conservar dos recuerdos verdaderos.' }
+    ], [
+      { from: 'topotina', text: 'Dos miradas guardadas. El Corrector intenta elegir una y descartar la otra. No puede.' },
+      { from: 'capitan_pico', text: '¡Motín de recuerdos! Técnicamente no es un motín, pero suena mucho mejor si lo grito.' },
+      { from: 'america', text: 'Ya sabemos que recorristeis el parque. El silencio del chat no puede borrar lo que vivisteis.' }
+    ]), { allowedSpeakers: ['topotino', 'topotina', 'capitan_pico', 'america'] }),
+    Object.assign(conversation('dialogo-silencio-topoloco', 'Isla Mágica · canal intervenido', [
+      { from: 'topoloco', text: '¡Demasiado tarde! Como no contestasteis, declaré que la aventura fue mía. He firmado el acta con una letra enorme y científicamente elegante.' },
+      { from: 'topotino', text: 'Tú no recorriste el parque. Ni acabaste empapado. Ni llevaste un flotador en la cabeza.' },
+      { from: 'capitan_pico', text: 'Ese honor fue mío.' },
+      { from: 'topoloco', text: 'Elegid: ¿la historia pertenece a quien la vivió o al genio que llenó los huecos? Pensad bien. El genio soy yo.' }
+    ], [
+      { from: 'topoloco', text: '¡Respuesta rechazada por exceso de sentido común!' },
+      { from: 'topotina', text: 'Respuesta válida. El Corrector ha perdido la propiedad del día, pero Topoloco aún puede activar el núcleo.' },
+      { from: 'topoloco', text: 'Cuando llegue Carlos I, todos repetirán mi versión perfecta. ¡Ni una equivocación, ni una voz fuera de sitio!' },
+      { from: 'topotino', text: 'Acabas de decirnos cuándo y cómo detenerte.' },
+      { from: 'topoloco', text: 'Yo lo llamo discurso de victoria con información opcional.' }
+    ]), { allowedSpeakers: ['topotino', 'topotina', 'capitan_pico', 'topoloco'] }),
     Object.assign(conversation('dialogo-corral-rey', 'Isla Mágica · mensaje de palacio', [
-      { from: 'topotina', text: 'He seguido el núcleo. Termina en un corral del Siglo de Oro. A las 20:00 Sevilla recibirá a Carlos I.' },
+      { from: 'topotina', text: 'He seguido el núcleo. Termina en un corral del Siglo de Oro. Sevilla está a punto de recibir a Carlos I.' },
       { from: 'capitan_pico', text: 'Discursos, reverencias, bailes y un rey en camino. Al fin una misión adecuada para mi uniforme de gala número…' },
       { from: 'topotino', text: 'No tienes uniforme de gala.' },
       { from: 'capitan_pico', text: 'Por eso sigue impecable. Paula, Hugo: ¿qué creéis que puede salir mal cuando todos intentan que una recepción sea perfecta?' }
