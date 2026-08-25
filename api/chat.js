@@ -41,8 +41,12 @@ const EXACT_STORY_CONVERSATIONS = new Set([
   'dialogo-sevilla-cierre',
   'dialogo-ruta-dia25',
   'dialogo-isla-cartuja-pista',
+  'dialogo-pico-puerto',
+  'dialogo-niebla-senuelo',
   'dialogo-final-isla',
-  'dialogo-corral-rey'
+  'dialogo-topoloco-momento',
+  'dialogo-corral-rey',
+  'dialogo-corral-recuerdos'
 ]);
 
 const chatResponseSchema = jsonSchema({
@@ -148,6 +152,10 @@ export default async function handler(req, res) {
     'Granada y la Alhambra ya no forman parte de esta aventura. No las presentes como destino, pista, final ni alternativa.',
     'Louri pertenece a los días 16 y 17. La aplicación contiene tres transmisiones excepcionales ya escritas: la emergencia del 20, la conexión desde Dino Parque del 22 y una última pista verificada del 24. Tú no debes improvisar mensajes, regresos ni soluciones de Louri, y nunca debe hablar el día 25.',
     'América puede estar presente junto a Capitán Pico el día 25, pero no escribe en el chat. No la uses como remitente.',
+    'En el final del día 25 existen cuatro cierres concretos: Puerto de Indias, Puerta de América, el señuelo de Niebla y el reflejo del lago. No los abras antes de que la aplicación complete cada paso ni inventes cierres adicionales.',
+    'Si conversacionActual es dialogo-final-isla, Topoloco responde directamente a si Paula y Hugo aceptan sus cargos. Puede celebrar, protestar o reinterpretar con vanidad, pero nunca cambia el cierre canónico, nunca los convierte realmente en aliados y no adelanta nada distinto de la llegada del Rey a las 20:00.',
+    'Si conversacionActual es dialogo-topoloco-momento, responde primero al recuerdo que Paula y Hugo propongan. Topoloco intenta restarle importancia porque demuestra que él no estuvo allí; Topotino o Topotina pueden defender a los niños. No inventes otro destino ni cierres la aventura.',
+    'Si conversacionActual es dialogo-corral-recuerdos, acepta los dos recuerdos concretos aunque sean breves, diferentes o estén desordenados. No los evalúes ni pidas más detalles; reacciona con afecto o humor y deja que el cierre escrito por la aplicación continúe.',
     'Eco actúa de una forma concreta: escucha una voz o una historia, quita una parte y repite el resto hasta que parece completo. No hables de sus ecos, patrones o formas sin explicar esa acción visible.',
     'Las Doce Aguas son el nombre de una red representada por un mapa de doce ventanas. No inventes nombres poéticos para cada parada ni menciones valores internos de agua que conserva la aplicación, salvo que el contexto de la fase autorice expresamente un nombre narrativo ya presentado a los niños, como Agua del Puente después de recoger la muestra de Amarante.',
     'Dentro de la ficción, la familia no tenía un itinerario preparado: cada pista de Topotino conduce al siguiente destino. Nunca digas que Topoloco descubrió reservas, vacaciones o el viaje familiar.',

@@ -1,5 +1,5 @@
-import { splitTopotinoMessages } from './chat-format.js?v=memory-v65';
-import { CHALLENGE_PACKS, displayChallengeOptions } from './content/challenges.js?v=memory-v65';
+import { splitTopotinoMessages } from './chat-format.js?v=memory-v66';
+import { CHALLENGE_PACKS, displayChallengeOptions } from './content/challenges.js?v=memory-v66';
 
 const STORAGE_KEYS = {
   auth: 'topotino_chat_auth_v1',
@@ -7,9 +7,9 @@ const STORAGE_KEYS = {
 };
 
 const LEGACY_STATE_KEY = 'topotino_chat_state_v1';
-const APP_VERSION_CODE = 'T-25A0';
+const APP_VERSION_CODE = 'T-25A1';
 const PASSPHRASE_HASH = 'a64716bd9f4e8added1bf47f80b97c3fc7b70a15b8043cdab083e1ddf85f3794';
-const EPISODES_MANIFEST = 'content/episodes.json?v=memory-v65';
+const EPISODES_MANIFEST = 'content/episodes.json?v=memory-v66';
 const LIVE_STORY_ENDPOINT = '/api/story';
 const AMARANTE_TRAVEL_DATE = '2026-08-13';
 const AMARANTE_ROUTE_EPISODE_ID = '004b-rumbo-amarante';
@@ -48,6 +48,7 @@ const ZOOMARINE_TRANSITION_RESCUE_MARKER = 'rescate-transicion-zoomarine-t22a1';
 const FINALE_CLARITY_MIGRATION_FLAG = 'migracion-final-claro-t24a0';
 const SEVILLA_CARD_RESCUE_MARKER = 'rescate-tarjeta-sevilla-t24a2';
 const SANTA_CRUZ_RETREAT_RESCUE_MARKER = 'rescate-retirada-santa-cruz-t25a0';
+const FINALE_POLISH_MIGRATION_MARKER = 'migracion-final-cuatro-cierres-t25a1';
 const AI_REQUEST_TIMEOUT_MS = 18000;
 const SECURITY_CHECKIN_MESSAGES = [
   'Buenos días, Paula y Hugo.',
@@ -247,6 +248,7 @@ async function init() {
     applyFinaleClarityMigration();
     applySevillaCardRescue();
     applySantaCruzRetreatRescue();
+    applyFinalePolishMigration();
     applyZoomarineTransitionRescue();
     applyTravelDayRescue();
     applyAmaranteCompletionRescue();
@@ -1305,6 +1307,12 @@ async function resolveStoryConversation(challenge, userText) {
   addUniqueMany(state.completedChallengeIds, [challenge.id]);
   saveState();
   renderAll();
+  const nextConversationMessages = collectStoryConversationPromptMessages();
+  if (nextConversationMessages.length) {
+    await deliverTopotinoMessages(nextConversationMessages, { mode: 'conversation' });
+    saveState();
+    renderAll();
+  }
 }
 
 async function resolveChallengeIncorrect(challenge, optionId = null, modelReply = '') {
@@ -1433,13 +1441,15 @@ function endingMessages(variant) {
   const shared = [
     { from: 'system', text: 'VENTANAS DEL MAPA: 12/12 · CUADERNO DE BITÁCORA ÚNICO: DESCONECTADO' },
     { from: 'system', text: 'BORRÓN: SIN CORTES · ECO: SIN VOZ · NIEBLA: SIN SEÑAL · MUSEO: ABIERTO' },
-    { from: 'topoloco', text: '¡NO! ¡Yo tenía corona, guion y el mejor sombrero de almirante! ¡Eso debería valer por tres victorias!' },
-    { from: 'capitan_pico', text: 'Vale por dos accesorios y una derrota. Paula y Hugo han salvado la expedición.' },
+    { from: 'topoloco', text: '¡Esto no es una derrota! Es un ensayo técnico que ha salido corriendo en dirección contraria.' },
+    { from: 'capitan_pico', text: 'Con corona de cartón y todo. Huida de gala confirmada.' },
     { from: 'topotina', text: 'Borrón, Eco y Niebla han perdido las conexiones. El museo está devolviendo cada recuerdo a quien lo vivió.' },
-    { from: 'topotino', text: 'Y yo… Tina. Recuerdo que te llamaba Tina.' },
-    { from: 'topotina', text: 'Ya era hora, hermano.' },
-    { from: 'topotino', text: 'Paula, Hugo: lo hemos conseguido. Seguisteis puentes, fósiles, cuevas, murallas, océanos, delfines, ciudades y voces falsas sin dejar de hacer preguntas.' },
-    { from: 'topotino', text: 'Ayudasteis a Louri a descubrir que dudar no es estar roto. Y ayer supisteis parar cuando estabais cansados. Eso también es ser buenos exploradores.' },
+    { from: 'topotino', text: 'Tina… Recuerdo una caja de galletas. Construiste dentro mi primer comunicador.' },
+    { from: 'topotino', text: 'Y yo mordí una pieza porque creí que era chocolate.' },
+    { from: 'topotina', text: 'Dos piezas, hermano. Eran resistencias. Pero sí: has vuelto.' },
+    { from: 'topotino', text: 'Paula, Hugo: lo hemos conseguido. No porque acertarais siempre, sino porque mirasteis, preguntasteis y corregisteis cuando apareció una prueba mejor.' },
+    { from: 'topotino', text: 'Hugo, no he olvidado cómo te atreviste a actuar en la plaza. Paula, tampoco cómo encontrabas el camino cuando los demás dudábamos.' },
+    { from: 'topotino', text: 'Y ayer supisteis parar antes de Santa Cruz. Un buen explorador también sabe cuándo descansar. Estoy orgulloso de los dos.' },
     { from: 'capitan_pico', text: 'Os nombro Exploradores de las Doce Aguas, Salvadores de Historias y Personas Autorizadas a Corregir al Capitán.' },
     { from: 'topotino', text: 'Ese último título lo necesitábamos desde hace tiempo.' },
     { from: 'topotino', text: `Topoloco puede copiar una imagen, pero nunca podrá decir que vivió la aventura por vosotros. La aventura principal termina ${endingPlace}.` }
@@ -2502,12 +2512,49 @@ function applySantaCruzRetreatRescue() {
   startupRescueMessages = [...startupRescueMessages,
     { from: 'system', time: 'auto', text: 'CONTINUIDAD RECUPERADA · Última posición válida: entrada de Santa Cruz.' },
     { from: 'topotino', time: 'auto', text: 'Buenos días, Paula y Hugo. Ayer paramos justo antes de investigar Santa Cruz. Hicisteis bien: una aventura no mejora porque sus exploradores terminen arrastrándose.' },
-    { from: 'topotina', time: 'auto', text: 'Recuperasteis siete testigos. Durante la noche Borrón arrancó los cuatro pendientes y movió su señal al otro lado del Guadalquivir.' },
-    { from: 'topotino', time: 'auto', text: 'No repetiremos Santa Cruz ni fingiremos que vimos lo que no vimos. Perseguiremos lo que Borrón se llevó.' },
-    { from: 'topotina', time: 'auto', text: 'La nueva marca tiene seis direcciones, barcos, viajes a América y la firma gemela de Magikland.' },
+    { from: 'topotina', time: 'auto', text: 'Recuperasteis siete testigos. Esta mañana los cuatro huecos pendientes tienen el sello de Borrón y cuatro cierres nuevos.' },
+    { from: 'topotino', time: 'auto', text: 'No repetiremos Santa Cruz ni fingiremos que vimos lo que no vimos. Vamos a recuperar esos huecos donde Borrón los ha escondido.' },
+    { from: 'topotina', time: 'auto', text: 'El rastro cruzó el Guadalquivir. Dejó seis marcas de zona, una carabela, «CARTU…» y el engranaje torcido que vimos en Magikland.' },
     { from: 'topotino', time: 'auto', text: 'Una isla dentro de otra isla. Como aparezca una tercera, pido migas de pan y un notario.' }
   ];
   saveState();
+  return true;
+}
+
+function applyFinalePolishMigration() {
+  if (!state.unlocked) return false;
+  if (!state.unlockedEpisodeIds.includes(FINAL_EPISODE_ID)) return false;
+  if (state.seenBroadcastIds.includes(FINALE_POLISH_MIGRATION_MARKER)) return false;
+
+  const completed = new Set(state.completedChallengeIds || []);
+  const hasCompletedAny = (ids) => ids.some((id) => completed.has(id));
+
+  if (hasCompletedAny([
+    'isla-q2', 'dialogo-final-isla', 'sevilla-lago-pista', 'sevilla-lago-expedicion',
+    'sevilla-lago-q2', 'dialogo-corral-rey', 'corral-rey-expedicion',
+    'corral-rey-q1', 'corral-rey-q2', 'final-sevilla-noche'
+  ])) {
+    addUniqueMany(state.completedChallengeIds, [
+      'dialogo-pico-puerto', 'puerta-america-expedicion', 'puerta-america-q1'
+    ]);
+  }
+
+  if (hasCompletedAny([
+    'sevilla-lago-pista', 'sevilla-lago-expedicion',
+    'sevilla-lago-q2', 'dialogo-corral-rey', 'corral-rey-expedicion',
+    'corral-rey-q1', 'corral-rey-q2', 'final-sevilla-noche'
+  ])) {
+    addUniqueMany(state.completedChallengeIds, ['dialogo-niebla-senuelo', 'dialogo-topoloco-momento']);
+  } else if (completed.has('dialogo-final-isla')) {
+    addUniqueMany(state.completedChallengeIds, ['dialogo-niebla-senuelo']);
+  }
+
+  if (completed.has('final-sevilla-noche')) {
+    addUniqueMany(state.completedChallengeIds, ['dialogo-corral-recuerdos']);
+  }
+
+  addUniqueMany(state.seenBroadcastIds, [FINALE_POLISH_MIGRATION_MARKER]);
+  saveState({ sync: false });
   return true;
 }
 
@@ -3327,6 +3374,7 @@ function applyRestoredState(remoteState, recoveryCode) {
   applyFinaleClarityMigration();
   applySevillaCardRescue();
   applySantaCruzRetreatRescue();
+  applyFinalePolishMigration();
 }
 
 function markStateChanged() {
@@ -3555,6 +3603,6 @@ function applyTestingParams() {
 
 function registerServiceWorker() {
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('service-worker.js?v=offline-v50').catch(() => {});
+    navigator.serviceWorker.register('service-worker.js?v=offline-v51').catch(() => {});
   }
 }

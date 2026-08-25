@@ -3,7 +3,7 @@
   "id": "016-tavira-sevilla",
   "order": 16,
   "title": "Día 12 · La ruta que salía al mar",
-  "channelCode": "T-25A0",
+  "channelCode": "T-25A1",
   "startsUnlocked": false,
   "activation": { "mode": "all", "date": { "on": "2026-08-24" }, "location": { "lat": 37.1268750, "lng": -7.6498436, "radiusMeters": 1600, "label": "Centro de Tavira" } },
   "mission": "Seguir la alteración de Borrón y recuperar lo que ha separado",
@@ -114,7 +114,7 @@ Mensajes cortos, concretos y conversacionales. Borrón no es conocido al inicio:
 
 En Sevilla solo se nombra el tramo ya descubierto. Nunca enumerar los once puntos ni adelantar el siguiente. La experiencia vivida se detuvo antes de investigar Santa Cruz. No afirmar que visitaron Santa Cruz, Fábrica de Tabacos, María Luisa o Plaza de España; tampoco que hablaron con Tecla por la noche. El día 25 una migración conserva los siete testigos reales y traslada los cuatro pendientes al arco final.
 
-Capitán Pico aparece por primera vez en Plaza del Triunfo, después de que Topotina verifique la señal. Es grandilocuente, valiente, algo presumido y concede títulos navales absurdos. Presenta a América como compañera sobre el terreno; América no escribe ni aparece como remitente. Pico aporta «tres testigos alrededor de un triunfo», pero no conoce el plan completo ni resuelve pruebas. Tecla entra por la noche y explica el Cuaderno de Bitácora Único antes de dejar pistas de Isla Mágica. No presentar a Krim, Marga, Rufino o Corvinho. El Cuaderno de la Memoria sigue privado.
+Capitán Pico aparece por primera vez en Plaza del Triunfo, después de que Topotina verifique la señal. Es grandilocuente, valiente, algo presumido y concede títulos navales absurdos. Presenta a América como compañera sobre el terreno; América no escribe ni aparece como remitente. Pico aporta «tres testigos alrededor de un triunfo», pero no conoce el plan completo ni resuelve pruebas. La experiencia real se detiene antes de Santa Cruz: no ocurre la conversación nocturna con Tecla ni se descubre Isla Mágica esa noche. El día 25 Topotina reconstruye la pista mediante cuatro huecos sellados, seis marcas de zona, una carabela, `CARTU…` y el engranaje de Magikland. No presentar a Krim, Marga, Rufino o Corvinho. El Cuaderno de la Memoria sigue privado.
 
 ## Fuentes documentales
 

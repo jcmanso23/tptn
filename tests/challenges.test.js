@@ -373,7 +373,7 @@ test('el arco posterior encadena el Corrector de Topoloco y termina únicamente 
     ['014-piedade-algar-jaima', /Eco.*escucha.*recorta.*repite/is],
     ['015-zoomarine', /Albufeira.*Refugio de Lona|Refugio de Lona.*Albufeira/is],
     ['016-tavira-sevilla', /alguien.*ROMANO.*puente|alteración.*puente/is],
-    ['017-isla-magica', /Borrón.*cuatro pendientes|seis direcciones.*barcos.*Magikland/is]
+    ['017-isla-magica', /cuatro huecos pendientes.*Borrón|seis marcas.*carabela.*Magikland/is]
   ];
 
   for (const [id, pattern] of causalChecks) {
@@ -490,7 +490,11 @@ test('los diálogos críticos del final reaccionan con IA y conservan después s
   const day25 = CHALLENGE_PACKS['017-isla-magica'];
   const byId = new Map([...day24.steps, ...day25.steps].map((step) => [step.id, step]));
 
-  for (const id of ['dialogo-dia24-pista-sevilla', 'dialogo-ruta-dia25', 'dialogo-isla-cartuja-pista', 'dialogo-final-isla', 'dialogo-corral-rey']) {
+  for (const id of [
+    'dialogo-dia24-pista-sevilla', 'dialogo-ruta-dia25', 'dialogo-isla-cartuja-pista',
+    'dialogo-pico-puerto', 'dialogo-niebla-senuelo', 'dialogo-final-isla', 'dialogo-topoloco-momento',
+    'dialogo-corral-rey', 'dialogo-corral-recuerdos'
+  ]) {
     const dialogue = byId.get(id);
     assert.ok(dialogue, `falta ${id}`);
     assert.equal(dialogue.kind, 'conversation');
@@ -514,6 +518,7 @@ test('los diálogos críticos del final reaccionan con IA y conservan después s
   const app = await readFile(join(root, 'app.js'), 'utf8');
   const api = await readFile(join(root, 'api/chat.js'), 'utf8');
   assert.match(app, /hasScriptedReply[\s\S]*askAiFallback[\s\S]*deliverTopotinoMessages\(toTopotinoMessages\(challenge\.replyMessages\)/);
+  assert.match(app, /resolveStoryConversation[\s\S]*nextConversationMessages = collectStoryConversationPromptMessages\(\)/);
   assert.match(app, /speakerMode: options\.conversationChallenge\?\.allowedSpeakers \? 'exact'/);
   assert.match(api, /EXACT_STORY_CONVERSATIONS/);
   assert.match(api, /authorizedLouriReturn/);
@@ -592,9 +597,12 @@ test('el día 25 retoma siete testigos y culmina después de la recepción del R
   const ids = day25.steps.map((step) => step.id);
   const ordered = [
     'dialogo-isla-cartuja-pista', 'isla-cartuja-pista', 'isla-expedicion',
-    'isla-q1', 'isla-q2', 'dialogo-final-isla', 'sevilla-lago-pista',
+    'isla-q1', 'dialogo-pico-puerto', 'puerta-america-expedicion',
+    'puerta-america-q1', 'isla-q2', 'dialogo-niebla-senuelo',
+    'dialogo-final-isla', 'dialogo-topoloco-momento', 'sevilla-lago-pista',
     'sevilla-lago-expedicion', 'sevilla-lago-q2', 'dialogo-corral-rey',
-    'corral-rey-expedicion', 'corral-rey-q1', 'corral-rey-q2', 'final-sevilla-noche'
+    'corral-rey-expedicion', 'corral-rey-q1', 'corral-rey-q2',
+    'dialogo-corral-recuerdos', 'final-sevilla-noche'
   ];
 
   for (let index = 1; index < ordered.length; index += 1) {
@@ -602,7 +610,7 @@ test('el día 25 retoma siete testigos y culmina después de la recepción del R
   }
   const opening = day25.openingMessages.map(messageText).join(' ');
   assert.match(opening, /siete testigos/i);
-  assert.match(opening, /cuatro pendientes/i);
+  assert.match(opening, /cuatro huecos pendientes/i);
   assert.doesNotMatch(opening, /once testigos recuperados/i);
 
   const arrival = day25.steps.find((step) => step.id === 'isla-expedicion');
@@ -613,6 +621,16 @@ test('el día 25 retoma siete testigos y culmina después de la recepción del R
   assert.deepEqual(reception.notBefore, { date: '2026-08-25', time: '19:45' });
   assert.match(`${reception.intro} ${reception.actions.join(' ')}`, /guardad.*silenciad.*móvil/is);
   assert.match(day25.steps.find((step) => step.id === 'final-sevilla-noche').place, /Corral de Comedias/);
+
+  const progressText = day25.steps.flatMap((step) => [
+    ...(step.promptMessages || []).map(messageText),
+    ...(step.successMessages || []).map(messageText),
+    ...(step.replyMessages || []).map(messageText),
+    ...(step.doneMessages || []).map(messageText)
+  ]).join(' ');
+  for (const counter of ['1/4', '2/4', '3/4', '4/4']) assert.match(progressText, new RegExp(counter.replace('/', '\\/')));
+  assert.match(progressText, /Ministra Suprema de Mapas/i);
+  assert.match(progressText, /llegue el Rey.*20:00/is);
 });
 
 test('la app conserva Memoria, Sombra y tres variantes de victoria', async () => {

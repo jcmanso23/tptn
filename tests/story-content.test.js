@@ -170,7 +170,7 @@ test('los días 13 y 14 conservan su cadena narrativa y adaptan solo tras un imp
   assert.doesNotMatch(childFacingText, /(foto|fotografía).{0,30}(cuaderno|diario)/i);
 });
 
-test('la edición T-25A0 conserva rescates anteriores y retoma desde Santa Cruz', async () => {
+test('la edición T-25A1 conserva rescates anteriores y refuerza el final sin retroceder', async () => {
   const files = ['index.html', 'app.js', 'admin.js', 'content/episodes/001-reconexion.md'];
   const combined = (await Promise.all(files.map((file) => readFile(join(root, file), 'utf8')))).join('\n');
   const app = await readFile(join(root, 'app.js'), 'utf8');
@@ -183,14 +183,14 @@ test('la edición T-25A0 conserva rescates anteriores y retoma desde Santa Cruz'
 
   const styles = await readFile(join(root, 'styles.css'), 'utf8');
 
-  assert.match(combined, /T-25A0/);
+  assert.match(combined, /T-25A1/);
   assert.doesNotMatch(combined, /T-12A9/);
   assert.match(app, /splitTopotinoMessages/);
   assert.match(app, /CHALLENGE_PACKS/);
   assert.match(app, /els\.channelCode\.textContent = APP_VERSION_CODE/);
-  assert.match(serviceWorker, /topotino-offline-v50/);
-  assert.match(serviceWorker, /chat-format\.js\?v=memory-v65/);
-  assert.match(serviceWorker, /content\/challenges\.js\?v=memory-v65/);
+  assert.match(serviceWorker, /topotino-offline-v51/);
+  assert.match(serviceWorker, /chat-format\.js\?v=memory-v66/);
+  assert.match(serviceWorker, /content\/challenges\.js\?v=memory-v66/);
   assert.match(app, /function applySevillaCardRescue\(\)/);
   assert.match(app, /Calle Sierpes\\\.\\s\*Recorredla hacia la Plaza de San Francisco/);
   assert.match(app, /Interferencia cruzada retirada/);
@@ -200,6 +200,12 @@ test('la edición T-25A0 conserva rescates anteriores y retoma desde Santa Cruz'
   assert.match(app, /Última posición válida: entrada de Santa Cruz/);
   assert.match(app, /sevilla_siete_testigos_t25a0/);
   assert.ok((app.match(/applySantaCruzRetreatRescue\(\);/g) || []).length >= 2);
+  assert.match(app, /function applyFinalePolishMigration\(\)/);
+  assert.match(app, /migracion-final-cuatro-cierres-t25a1/);
+  assert.match(app, /dialogo-pico-puerto/);
+  assert.match(app, /dialogo-niebla-senuelo/);
+  assert.match(app, /dialogo-topoloco-momento/);
+  assert.ok((app.match(/applyFinalePolishMigration\(\);/g) || []).length >= 2);
   assert.match(combined, /id="location-refresh"/);
   assert.ok(combined.indexOf('id="location-refresh"') < combined.indexOf('</header>'));
   assert.doesNotMatch(styles, /\.location-refresh-compact\s*\{[^}]*display:\s*none/is);

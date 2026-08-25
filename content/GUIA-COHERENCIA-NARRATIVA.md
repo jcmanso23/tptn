@@ -1,6 +1,6 @@
 # Guía maestra de coherencia narrativa · Las Doce Aguas
 
-**Versión canónica:** 25 de agosto de 2026 · edición T-25A0
+**Versión canónica:** 25 de agosto de 2026 · edición T-25A1
 **Final único:** Corral de Comedias de Isla Mágica, después de la recepción de «¡Que viene el Rey!», tarde del 25 de agosto
 **Después del final:** no se abre otra misión ni otra amenaza
 
@@ -206,8 +206,9 @@ Cada desplazamiento posterior responde a una pieza concreta de la máquina y a u
 - **Tavira y Sevilla:** nadie da por conocido a Borrón. Primero aparece la palabra falsa «romano»; Topotina identifica entonces la firma y explica que Borrón es un Oscurno que cambia etiquetas y elimina detalles hasta dejar una sola versión. Paula y Hugo comprueban el puente, el Gilão, la posición del castillo y la salida hacia el mar. La frase interceptada por Louri permite deducir Sevilla. Allí Topotina descubre que Borrón ha dividido la memoria urbana en once testigos para que parezcan lugares inconexos. Paula y Hugo recuperan siete: Setas; Sierpes; San Francisco; Plaza Nueva; Avenida de la Constitución; Catedral y Giralda; Archivo y Alcázar desde Plaza del Triunfo. Después se retiran antes de Santa Cruz. No se finge que visitaron Santa Cruz, Fábrica de Tabacos, Parque de María Luisa o Plaza de España.
 - **Sorpresa de Plaza del Triunfo:** una señal con plumas resulta ser Capitán Pico. Topotina verifica su procedencia antes de admitirlo. Pico se concede varios títulos navales que nadie le ha otorgado, presenta a América —presente sobre el terreno pero ausente del chat— y aporta el fragmento «tres testigos alrededor de un triunfo». Catedral, Alcázar y Archivo representan funciones distintas y ninguna puede contar sola toda Sevilla. Pico continúa como apoyo cómico, pero Paula y Hugo observan y deciden.
 - **Retirada antes de Santa Cruz:** parar se reconoce como una buena decisión de exploradores. Durante la noche Borrón traslada los cuatro cortes pendientes hacia la Isla de la Cartuja porque cree que, dentro de una recreación, nadie podrá distinguir memoria y mentira. No ocurre ninguna conversación nocturna con Tecla.
-- **Isla Mágica:** las seis direcciones, los barcos, América y la firma gemela de Magikland permiten que Paula y Hugo deduzcan una isla mágica dentro de la Isla de la Cartuja. El parque convierte en escenario el mundo que Tavira y Sevilla ayudaron a comprender. Capitán Pico vuelve a conectar desde dentro y confirma que América vigila fuera del chat. Topotina presenta a Niebla como un Oscurno que usa ruido y prisa para hacer elegir sin comprobar. Puerto de Indias, Puerta de América y el lago permiten distinguir una representación honesta de una falsificación y recuperar los cuatro cortes sin fingir las visitas pendientes.
-- **Recepción de Carlos I:** el cable del Corrector conduce al Corral de Comedias a las 20:00. La recepción que debía ser perfecta se llena de errores, correcciones, participación y humor; demuestra que una historia puede mejorar gracias a varias personas y que no necesita un único dueño. Durante la representación el móvil permanece guardado y en silencio. Al salir, dos recuerdos distintos y el Cuaderno privado hacen fallar el Cuaderno de Bitácora Único. Topotino recuerda a «Tina», Topoloco es derrotado y la aventura termina definitivamente en Sevilla durante la tarde del 25.
+- **Isla Mágica:** las seis marcas de zona, una carabela, la palabra incompleta `CARTU…` y el engranaje torcido ya visto en Magikland permiten que Paula y Hugo deduzcan una isla mágica dentro de la Isla de la Cartuja. Borrón ha cerrado los cuatro cortes pendientes con cuatro cierres del Corrector. El parque convierte en escenario el mundo que Tavira y Sevilla ayudaron a comprender. Capitán Pico vuelve a conectar desde dentro y confirma que América vigila fuera del chat. Puerto de Indias rompe el primer cierre al distinguir puerto histórico y recreación actual; Puerta de América rompe el segundo al comparar funciones reales y representadas; una ruta falsa, pública y reversible engaña a Niebla y rompe el tercero; el reflejo del lago rompe el cuarto porque demuestra que una copia depende de algo real fuera de ella.
+- **Topoloco se expone:** después de perder a Niebla, Topoloco entra personalmente, ofrece a Paula y Hugo cargos ridículos en su versión de la aventura y les deja contestar. Su ego revela el plan de forma concreta: a las 20:00 pretende estampar su nombre sobre las doce ventanas durante la llegada de un rey y relegar a todos los demás a notas al pie. No parece un torpe: ha trasladado el núcleo cuando comprende que el lago está perdido, pero presume de la pista que permite seguirlo.
+- **Recepción de Carlos I:** el cable del Corrector conduce al Corral de Comedias a las 20:00. La recepción que debía ser perfecta se llena de errores, correcciones, participación y humor; demuestra que una historia puede mejorar gracias a varias personas y que no necesita un único dueño. Durante la representación el móvil permanece guardado y en silencio. Al salir, Paula y Hugo cuentan qué momentos distintos recuerdan y consultan el Cuaderno en privado. Topotino recupera primero «Tina» y después un recuerdo cómico de infancia compartido con su hermana. Topoloco es derrotado y la aventura termina definitivamente en Sevilla durante la tarde del 25.
 
 Esta cadena sustituye cualquier transición basada únicamente en una imagen bonita, una palabra abstracta o una adivinanza sin causa. La pista de salida de cada lugar debe mostrar qué hizo Topoloco, qué consiguieron Paula y Hugo y por qué el único movimiento lógico es el siguiente.
 
@@ -230,10 +231,10 @@ Son dos estaciones emparejadas.
 
 - En Magikland, Topoloco estudia movimiento, atención, ruido y la formación de un recuerdo significativo.
 - Topotina detecta una segunda firma técnica de parque, todavía sin destino.
-- En Isla Mágica, Topotina presenta primero a Niebla: es un Oscurno que combina ruido y urgencia para provocar una decisión sin comprobar.
+- En Isla Mágica, Topotina presenta a Niebla solo después de detectar tres órdenes urgentes y contradictorias: es un Oscurno que combina ruido y prisa para provocar una decisión sin comprobar.
 - Capitán Pico convierte la búsqueda en una expedición y presenta a América como su compañera; América no escribe en el canal.
 - Paula y Hugo alimentan la máquina con una decisión falsa y reversible; la trampa se vuelve contra Topoloco.
-- El fallo deja expuesto junto al lago el Cuaderno de Bitácora Único del Corrector: un reflejo o una copia no pueden convertirse en dueños del original.
+- La contratrampa deja expuesto junto al lago el Cuaderno de Bitácora Único del Corrector: un reflejo o una copia no pueden convertirse en dueños del original.
 
 ## 12. Regla de diseño de cada jornada
 
@@ -325,17 +326,19 @@ La retirada del 24 forma parte del canon: Paula y Hugo habían recuperado siete 
 
 El cierre en Isla Mágica se resuelve paso a paso:
 
-1. **Isla dentro de otra isla:** la señal de Pico conduce a una isla de imaginación dentro de la Isla de la Cartuja. Paula y Hugo deducen Isla Mágica mediante seis mundos, barcos y la firma gemela de Magikland.
-2. **Puerto representado:** en Sevilla, Puerto de Indias distinguen el parque actual de la ciudad histórica que representa. Localizan barcos, lago y elementos que ayudan a imaginar el siglo XVI sin tratarlos como documentos originales.
-3. **Contratrampa:** Niebla ofrece una orden urgente. Paula y Hugo envían una respuesta falsa, comprobable y reversible; el Oscurno la sigue y deja visible el cable del Corrector.
-4. **Reflejo y cortes recuperados:** junto al lago comprueban que una copia depende del original, la luz y el agua. Los cuatro fragmentos que Borrón desplazó reaparecen porque una representación honesta reconoce qué reconstruye y qué no puede demostrar.
-5. **La recepción real:** Topotina localiza la activación final a las 20:00 en el Corral de Comedias. No se presenta a los niños como espectáculo: Sevilla espera a Carlos I y los preparativos, discursos, reverencias y errores forman una recepción real caótica. Durante la representación el teléfono permanece guardado y en silencio.
-6. **El error de Topoloco:** el Corrector exige un guion único y perfecto. La recepción demuestra lo contrario: varias personas corrigen, improvisan y participan sin que una sola se convierta en dueña de la historia.
-7. **Dos recuerdos y Cuaderno:** al salir, Paula y Hugo recuerdan de manera distinta un momento real y consultan el Cuaderno en privado. Afirman que ambas miradas pueden construir una historia compartida que la máquina nunca pudo leer.
+1. **Isla dentro de otra isla:** el rastro contiene seis marcas de zona, una carabela, `CARTU…` y el engranaje torcido de Magikland. Paula y Hugo deducen Isla Mágica; Topotino no pronuncia el destino antes de que elijan.
+2. **Primer cierre, Puerto de Indias:** localizan el nombre de la zona, barcos y elementos de puerto. Distinguen el parque actual de la Sevilla histórica que representa. Una recreación puede enseñar sin fingir que es el original.
+3. **Segundo cierre, Puerta de América:** caminan hasta otra zona y comparan un fuerte representado con puertas, vigilancia y usos reales del parque. Comprueban que una misma construcción puede servir hoy para orientar y, dentro del relato, para imaginar la defensa de otro lugar.
+4. **Tercer cierre, contratrampa de Niebla:** aparecen tres órdenes urgentes y contradictorias. Topotina identifica entonces al Oscurno. Paula y Hugo eligen un punto público del mapa como señuelo reversible; Niebla lo sigue y deja expuesto el cable del Corrector.
+5. **Topoloco entra:** ofrece a Paula y Hugo cargos absurdos en su historia y espera su contestación. Después intenta reducirlos a notas al pie. Al comprender que pierde los cierres, mueve el núcleo, pero presume de que un rey legitimará su versión a las 20:00.
+6. **Cuarto cierre, reflejo:** junto al lago comprueban que una imagen reflejada cambia con el agua mientras el objeto real permanece fuera. Los cuatro cortes reaparecen como lugares pendientes, no como visitas inventadas.
+7. **La recepción real:** Topotina sigue el núcleo hasta el Corral de Comedias. No se presenta a los niños como espectáculo: Sevilla espera a Carlos I y los preparativos, discursos, reverencias y errores forman una recepción real caótica. Durante la representación el teléfono permanece guardado y en silencio.
+8. **El error de Topoloco:** el Corrector exige un guion único y perfecto. La recepción demuestra lo contrario: varias personas corrigen, improvisan y participan sin que una sola se convierta en dueña de la historia.
+9. **Dos recuerdos y Cuaderno:** al salir, Paula y Hugo cuentan qué detalles diferentes recuerdan y consultan el Cuaderno en privado. Afirman que ambas miradas pueden construir una historia compartida que la máquina nunca pudo leer.
 
 La máquina de Topoloco exige un único propietario y una única versión. No sabe procesar representación honesta, reflejos dependientes, diferencias, correcciones ni una memoria privada inaccesible. Las doce ventanas se conectan y el archivo libera los recuerdos.
 
-Topoloco huye. Borrón, Eco y Niebla pierden las conexiones. Las doce ventanas cambian de oscuras a abiertas y el museo devuelve los recuerdos robados. Topotino reconoce a Topotina: «Tina». Agradece a Paula y Hugo con hechos concretos de distintas etapas. Paula y Hugo reciben una confirmación inequívoca: **lo han conseguido**. La aventura termina definitivamente al salir del Corral de Comedias. Topotino recomienda seguir conociendo Sevilla sin pruebas ni persecuciones: Santa Cruz, la antigua Fábrica de Tabacos, María Luisa y Plaza de España quedan como lugares reales pendientes, no como una nueva misión.
+Topoloco huye. Borrón, Eco y Niebla pierden las conexiones. Las doce ventanas cambian de oscuras a abiertas y el museo devuelve los recuerdos robados. Topotino reconoce a Topotina: «Tina» y recuerda que ella construyó su primer comunicador dentro de una caja de galletas; él mordió una resistencia porque creyó que era chocolate. Topotina corrige que mordió dos. El recuerdo confirma su relación sin convertir el momento en un discurso. Topotino agradece a Hugo su valentía para actuar y a Paula su orientación, y a ambos que observaran, corrigieran y supieran retirarse. Paula y Hugo reciben una confirmación inequívoca: **lo han conseguido**. La aventura termina definitivamente al salir del Corral de Comedias. Topotino recomienda seguir conociendo Sevilla sin pruebas ni persecuciones: Santa Cruz, la antigua Fábrica de Tabacos, María Luisa y Plaza de España quedan como lugares reales pendientes, no como una nueva misión.
 
 ## 15. Voz de Topotino
 
@@ -413,6 +416,15 @@ Antes de publicar un cambio:
 - [ ] El lago prepara el desenlace y el final ocurre al salir del Corral de Comedias durante la tarde del 25; no se menciona Granada.
 
 ## 19. Registro de decisiones
+
+### 25 de agosto de 2026 · T-25A1
+
+- El final deja de agrupar todo el parque en una sola tarjeta. Cuatro avances visibles —Puerto de Indias, Puerta de América, contratrampa de Niebla y reflejo del lago— abren los cuatro cierres que protegen los cortes de Borrón.
+- Las pistas de Isla Mágica se vuelven concretas: seis marcas de zona, carabela, `CARTU…` y el engranaje torcido de Magikland. «Firma gemela» deja de funcionar como explicación infantil sin objeto visible.
+- Topoloco conserva inteligencia y agencia: detecta la contratrampa, mueve el núcleo y entra para intentar reclutar a Paula y Hugo. Su vanidad, no una torpeza gratuita, revela la llegada del Rey y permite seguirlo.
+- Paula y Hugo intervienen en tres conversaciones decisivas: recuerdan qué hacía Borrón, eligen el señuelo de Niebla y contestan a la oferta de Topoloco. En el Corral cuentan qué recuerdan antes de consultar el Cuaderno.
+- El desenlace emocional recupera un recuerdo concreto y cómico de infancia entre Topotino y Topotina, agradece rasgos reales de Hugo y Paula y mantiene una victoria inequívoca en las tres variantes de Sombra.
+- Una migración conserva cualquier avance ya realizado en T-25A0: los nuevos puentes anteriores al último paso completado se omiten y la partida nunca retrocede.
 
 ### 25 de agosto de 2026 · T-25A0
 

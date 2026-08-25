@@ -1175,9 +1175,9 @@ packs['017-isla-magica'] = {
   shadowActor: 'Niebla',
   openingMessages: [
     'Buenos días, Paula y Hugo. Ayer paramos justo antes de investigar Santa Cruz. Hicisteis bien: una aventura no mejora porque sus exploradores terminen arrastrándose.',
-    { from: 'topotina', text: 'Recuperasteis siete testigos. Durante la noche Borrón arrancó los cuatro pendientes y movió su señal al otro lado del Guadalquivir.' },
-    'No repetiremos Santa Cruz ni fingiremos que vimos lo que no vimos. Perseguiremos lo que Borrón se llevó.',
-    { from: 'topotina', text: 'La marca nueva tiene seis direcciones, barcos, viajes a América y la firma gemela de Magikland.' },
+    { from: 'topotina', text: 'Recuperasteis siete testigos. Esta mañana los cuatro huecos pendientes tienen el sello de Borrón y cuatro cierres nuevos.' },
+    'No repetiremos Santa Cruz ni fingiremos que vimos lo que no vimos. Vamos a recuperar esos huecos donde Borrón los ha escondido.',
+    { from: 'topotina', text: 'El rastro cruzó el Guadalquivir. Dejó seis marcas de zona, una carabela, «CARTU…» y el engranaje torcido que vimos en Magikland.' },
     { from: 'topotino', text: 'Una isla dentro de otra isla. Como aparezca una tercera, pido migas de pan y un notario.' }
   ],
   steps: [
@@ -1185,59 +1185,95 @@ packs['017-isla-magica'] = {
       { from: 'topotino', text: 'Antes de seguir: ¿qué recordáis que hacía Borrón con la historia de Sevilla? Decidlo a vuestra manera.' }
     ], [
       { from: 'topotino', text: 'Exacto: quitaba detalles y separaba lugares para que solo quedara una versión pobre.' },
-      { from: 'topotina', text: 'Los cuatro cortes han cruzado hacia una isla cuyo nombre viene de un monasterio. Dentro hay otra isla construida con agua e imaginación.' },
-      { from: 'topotino', text: 'Seis mundos, barcos y una firma de Magikland. Creo que el escondite pretende ser discreto con la elegancia de un elefante con campanas.' }
+      { from: 'topotina', text: 'Los cuatro cierres apuntan a la Isla de la Cartuja. Dentro hay un lugar dividido en seis mundos y relacionado con barcos y América.' },
+      { from: 'topotino', text: 'Borrón ha escondido la pista con la discreción de un elefante vestido de faro.' }
     ]), { allowedSpeakers: ['topotino', 'topotina'] }),
-    nextStop('isla-cartuja-pista', '¿Qué lugar de la Isla de la Cartuja reúne seis mundos, barcos y la firma gemela de Magikland?', ['Isla Mágica', 'Archivo de Indias', 'Parque de María Luisa'], 0, [
-      'Isla Mágica. Borrón ha escondido allí los cuatro cortes porque cree que una ciudad representada no puede demostrar nada.',
-      'Topotina ha encontrado además el módulo final: Topoloco quiere convertir toda la aventura en un Cuaderno de Bitácora Único con él como protagonista.',
+    nextStop('isla-cartuja-pista', '¿Qué lugar de la Isla de la Cartuja tiene seis mundos, carabelas y un vínculo con Magikland?', ['Isla Mágica', 'Archivo de Indias', 'Parque de María Luisa'], 0, [
+      'Isla Mágica. Borrón cree que, entre recreaciones, podrá hacer pasar una copia por el lugar real.',
+      'Los cuatro huecos de Sevilla están allí, cerrados por el Corrector de Topoloco. Tendremos que abrirlos uno a uno.',
       'Id con agua, protector solar y calzado cómodo. La primera misión aparecerá al llegar.'
     ]),
     ...withOrder(
-      onArrival(expedition('isla-expedicion', 'Isla Mágica', 'Exploradores de una isla imposible', 'No hace falta montar en ninguna atracción. Investigad desde caminos, carteles, zonas y puntos seguros junto al agua.', [
+      onArrival(expedition('isla-expedicion', 'Sevilla, Puerto de Indias', 'Primer cierre: el puerto representado', 'No hace falta montar en ninguna atracción. Empezad por la zona Sevilla, Puerto de Indias.', [
         'Localizad Sevilla, Puerto de Indias en el mapa o en un cartel y buscad barcos, carabelas o elementos del puerto.',
-        'Mirad el lago y localizad otro mundo del parque al otro lado del agua.',
-        'Entrad en Puerta de América y buscad el Fuerte o fachadas que representen Cartagena de Indias.',
-        'Elegid un detalle que sea una recreación histórica y otro que tenga una función real hoy.'
+        'Elegid un detalle que ayude a imaginar el comercio y los viajes del siglo XVI.',
+        'Buscad también algo que tenga una función real para las personas que visitan el parque hoy.'
       ], [
-        'El parque tiene seis mundos que representan los siglos XVI y XVII. Sevilla, Puerto de Indias imagina la ciudad que conectaba Europa y América.',
-        'Una recreación honesta no dice «yo soy el original». Enseña mediante edificios, barcos y personajes actuales qué mundo intenta representar.',
-        { from: 'capitan_pico', text: '¡Exploradores de Primera Clase confirmados! América asiente. Yo también, pero con una inclinación de pico mucho más oficial.' }
+        'Sevilla, Puerto de Indias recrea la ciudad que conectaba Europa y América. Los barcos ayudan a imaginarla, pero no son documentos del siglo XVI.',
+        { from: 'capitan_pico', text: '¡Primer reconocimiento completado! América asiente. Yo también, pero con una inclinación de pico más reglamentaria.' }
       ]), { lat: 37.4077506, lng: -5.9998062, radiusMeters: 1600, label: 'Isla Mágica, Sevilla' }, [
-        { from: 'topotina', text: 'Llegada confirmada. Los cuatro cortes de Borrón están repartidos dentro del recinto.' },
+        { from: 'topotina', text: 'Llegada confirmada. Detecto cuatro cierres. El primero está en la zona que representa el antiguo puerto de Sevilla.' },
         { from: 'topotina', text: 'Capitán Pico solicita acceso desde el interior con catorce títulos nuevos.' },
         { from: 'topotino', text: 'Aprueba solo los dos primeros. Este chat tiene un límite de vanidad por burbuja.' },
         { from: 'system', text: 'Capitán Pico ha vuelto al canal.' },
         { from: 'capitan_pico', text: '¡Tripulación reunida! América encontró el escondite y yo confirmé que, efectivamente, estaba donde ella señalaba. Navegación impecable.' },
-        { from: 'capitan_pico', text: 'Borrón cree que aquí todo es mentira porque está representado. Grave error de principiante sin plumas.' },
-        { from: 'topotino', text: 'Habla el ave que se concedió un doctorado dibujándolo en una servilleta.' },
-        { from: 'capitan_pico', text: 'Servilleta oficial.' }
+        { from: 'topotino', text: '¿Confirmaste una flecha dibujada por América?' },
+        { from: 'capitan_pico', text: 'Con enorme precisión.' }
       ], 'llegada-isla-final-t25a0'),
       [
-        question('isla-q1', 'Isla Mágica', '¿Qué podemos aprender de Sevilla, Puerto de Indias sin confundir escenario e historia?', ['Cómo se representa hoy una ciudad de barcos y comercio del siglo XVI', 'Que cada edificio del parque estuvo allí durante los viajes a América', 'Que los decorados sustituyen al Archivo de Indias'], 0, 'Correcto. La imaginación ayuda a entrar en otra época si sabemos qué es representación y qué es prueba histórica.', 'Como en Portugal dos Pequenitos y Dino Parque, un modelo selecciona detalles para explicar. No se convierte por eso en el original.', 'Buscad la opción que permite aprender sin fingir que el parque tiene quinientos años.'),
-        question('isla-q2', 'Isla Mágica', 'Niebla vigila el canal. ¿Qué contratrampa es más segura?', ['Enviar una ruta falsa a un lugar visible, comprobar que Niebla la sigue y poder volver atrás', 'Publicar nuestra posición real y correr', 'Inventar una salida imposible que tampoco podamos comprobar'], 0, [
-          'Exacto. La respuesta falsa es reversible, visible y no entrega vuestra posición real.',
-          { from: 'topotina', text: 'Identificado: era Niebla, el Oscurno que llena las decisiones de ruido y prisa para que elijamos sin comprobar.' },
-          { from: 'topotina', text: 'Envío el señuelo ahora. Niebla está siguiéndolo.' },
-          { from: 'capitan_pico', text: '¡Ha picado! Y puedo decirlo porque soy experto en picos. El cable principal del Corrector acaba de quedar visible junto al lago.' }
-        ], 'No se trata de elegir la ruta más valiente, sino la que permite comprobar y corregir sin revelar dónde estáis.', 'Elegid la opción que pueda deshacerse y comprobarse.')
+        question('isla-q1', 'Sevilla, Puerto de Indias', '¿Qué afirmación describe bien lo que estáis viendo?', ['Es una recreación actual que ayuda a imaginar el puerto histórico', 'Es el puerto original conservado exactamente igual', 'Sustituye a los documentos del Archivo de Indias'], 0, [
+          'Correcto. Una recreación enseña si reconoce que representa algo y no pretende reemplazarlo.',
+          { from: 'system', text: 'CIERRE DE BORRÓN: 1/4 ABIERTO' },
+          { from: 'topotina', text: 'Primer cierre fuera. Borrón apostó por que confundiríamos escenario y documento.' }
+        ], 'Como en Portugal dos Pequenitos y Dino Parque, un modelo selecciona detalles para explicar. No se convierte por eso en el original.', 'Buscad la opción que permite aprender sin fingir que el parque tiene quinientos años.')
       ],
       'expedition-first'
     ),
-    recovery('recuperacion-dia25', '¿Qué hace un buen explorador cuando alguien intenta meterle prisa?', ['Comprueba y mantiene una salida', 'Obedece la primera señal', 'Entrega su posición real'], 0, 'Sombra retirada. Niebla ha seguido una ruta vacía y comprobable.', 'Niebla mantiene una ventaja, pero el cable principal ya está localizado.'),
-    Object.assign(conversation('dialogo-final-isla', 'Isla Mágica · llamada de los exploradores', [
-      { from: 'capitan_pico', text: 'Antes del lago: ¿qué rincón os ha hecho sentir que viajabais a otra época? No hay respuesta correcta ni examen naval sorpresa.' }
+    Object.assign(conversation('dialogo-pico-puerto', 'Sevilla, Puerto de Indias · primer cierre abierto', [
+      { from: 'capitan_pico', text: 'Primer cierre abierto. ¿Qué detalle del puerto os ha hecho viajar más con la imaginación? Aquí no hay respuesta incorrecta.' }
     ], [
-      { from: 'capitan_pico', text: '¡Buena elección! La imaginación abre mundos. El problema empieza cuando alguien intenta declarar que su versión es la única verdadera.' },
-      { from: 'system', text: 'Doctor Topoloco se ha unido al canal.' },
-      { from: 'topoloco', text: '¡Bienvenidos al ensayo final de mi obra maestra: La Gran Expedición del Rey Almirante Topoloco Primero!' },
-      { from: 'topotino', text: '¿Primero? No hay otro Topoloco.' },
-      { from: 'topoloco', text: 'Precisamente. Voy ganando.' },
-      { from: 'topoloco', text: 'Mi Cuaderno Único guardará una sola historia. Yo seré capitán, descubridor, rey y héroe. Vosotros tendréis una nota al pie con letra razonablemente visible.' },
-      { from: 'topotino', text: '¡Tú no viviste este viaje! No puedes ponerte al mando de nuestros recuerdos.' },
-      { from: 'topoloco', text: 'Detalles administrativos. ¡Tecla, activa la copia final!' },
-      { from: 'system', text: 'Respuesta automática: «Su garantía no cubre coronas de cartón, golpes de ego ni módulos robados. Y baje la basura».' },
-      { from: 'topotina', text: 'Mientras presume, el Corrector ha quedado expuesto junto al lago. Recuperad primero los cuatro cortes de Borrón.' }
+      { from: 'capitan_pico', text: 'Buena elección. La imaginación nos lleva lejos; comprobar qué es real evita que Borrón conduzca el barco.' },
+      { from: 'topotina', text: 'El segundo cierre se ha movido a Puerta de América. Buscad el Fuerte y comprobad qué representa y para qué sirve hoy.' },
+      { from: 'topotino', text: 'Pico, tú detrás. La última vez que guiaste, América llevaba el mapa.' },
+      { from: 'capitan_pico', text: 'Delegación cartográfica de alto nivel.' }
+    ]), { allowedSpeakers: ['topotino', 'topotina', 'capitan_pico'] }),
+    expedition('puerta-america-expedicion', 'Puerta de América', 'Segundo cierre: el fuerte con dos trabajos', 'Caminad hasta Puerta de América y buscad el Fuerte o una fachada defensiva.', [
+      'Localizad una puerta, torre, muro o puesto desde el que se podría vigilar una entrada.',
+      'Comprobad qué hace ese elemento dentro de la historia representada.',
+      'Decid qué función real cumple hoy: orientar, separar espacios, dar acceso o crear ambiente.'
+    ], [
+      'Un mismo elemento puede representar una defensa antigua y servir hoy para organizar el parque. Reconocer las dos funciones evita confundir pasado y presente.',
+      { from: 'topotina', text: 'El cierre reacciona. Falta decidir qué explicación conserva las dos funciones.' }
+    ]),
+    question('puerta-america-q1', 'Puerta de América', '¿Por qué el Fuerte puede enseñar historia sin ser un fuerte histórico original?', ['Porque representa rasgos defensivos y además cumple una función actual en el parque', 'Porque todo edificio con torre tiene quinientos años', 'Porque una recreación borra la necesidad de conservar originales'], 0, [
+      'Exacto. Podemos aprender de lo representado y, a la vez, reconocer el edificio actual que tenemos delante.',
+      { from: 'system', text: 'CIERRE DE BORRÓN: 2/4 ABIERTOS' },
+      { from: 'capitan_pico', text: '¡Dos cierres! Mitad de operación. También mitad de mis títulos, por orden de Topotina.' }
+    ], 'Borrón quiere que elijáis entre «todo es mentira» y «todo es original». Las dos funciones pueden ser verdaderas a la vez.', 'Elegid la opción que distingue representación y uso actual.'),
+    question('isla-q2', 'Puerta de América · interferencia', 'Han aparecido tres órdenes urgentes y contradictorias. ¿Qué contratrampa es más segura?', ['Elegir un punto público del mapa como señuelo, vigilar la señal y poder corregir', 'Enviar nuestra posición real y correr', 'Inventar un lugar imposible que tampoco podamos comprobar'], 0, [
+      'Exacto. Un señuelo seguro debe ser público, comprobable y fácil de retirar.',
+      { from: 'topotina', text: 'Ya sé quién envía las órdenes: Niebla, el Oscurno que usa ruido y prisa para que elijamos sin comprobar.' },
+      { from: 'topotino', text: 'Pues se va a llevar una ruta falsa de primera calidad. Falsa, pero con excelentes acabados.' }
+    ], 'No gana la ruta más valiente, sino la que no revela dónde estáis y se puede corregir.', 'Elegid la opción que pueda deshacerse y comprobarse.'),
+    recovery('recuperacion-dia25', '¿Qué hace un buen explorador cuando alguien intenta meterle prisa?', ['Comprueba y mantiene una salida', 'Obedece la primera señal', 'Entrega su posición real'], 0, 'Sombra retirada. Niebla ha seguido una ruta vacía y comprobable.', 'Niebla mantiene una ventaja, pero el cable principal ya está localizado.'),
+    Object.assign(conversation('dialogo-niebla-senuelo', 'Puerta de América · preparar el señuelo', [
+      { from: 'topotina', text: 'Elegid un punto público del mapa para el señuelo. Decid solo el nombre; yo ocultaré vuestra posición real.' }
+    ], [
+      { from: 'topotina', text: 'Señuelo enviado. La marca de Niebla se ha separado de vosotros y corre hacia ese punto.' },
+      { from: 'capitan_pico', text: '¡Ha picado! Puedo decirlo porque soy especialista en picos y, desde hace siete segundos, en nieblas.' },
+      { from: 'system', text: 'CIERRE DE BORRÓN: 3/4 ABIERTOS' },
+      { from: 'topotina', text: 'Al perseguir la ruta falsa ha dejado visible el cable del último cierre. Termina junto al lago.' }
+    ]), { allowedSpeakers: ['topotino', 'topotina', 'capitan_pico'], effects: { setFlags: ['niebla_enganada_t25a1'] } }),
+    Object.assign(conversation('dialogo-final-isla', 'Isla Mágica · llamada de los exploradores', [
+      { from: 'system', text: 'Doctor Topoloco ha forzado la entrada al canal.' },
+      { from: 'topoloco', text: '¡Alto! Paula y Hugo, todavía podéis uniros a mi versión oficial.' },
+      { from: 'topoloco', text: 'Paula será Ministra Suprema de Mapas. Hugo, Director de Rugidos y Entradas Dramáticas. ¿Aceptáis?' }
+    ], [
+      { from: 'topoloco', text: '¡Excelente! O pésimo. No importa: en mi Cuaderno vuestra respuesta quedará escrita como un sí.' },
+      { from: 'topoloco', text: 'Mi Cuaderno guardará una sola historia: yo seré capitán, descubridor, rey y héroe. Vosotros saldréis en letra visible mediante lupa.' },
+      { from: 'topotino', text: 'No puedes decidir qué contestaron ni apropiarte de algo que no viviste.' }
+    ]), {
+      allowedSpeakers: ['topotino', 'topotina', 'capitan_pico', 'topoloco']
+    }),
+    Object.assign(conversation('dialogo-topoloco-momento', 'Isla Mágica · desafío de Topoloco', [
+      { from: 'topoloco', text: 'Muy bien, sabiondos. Decid un momento del viaje que yo jamás podría contar como si lo hubiera vivido.' }
+    ], [
+      { from: 'topoloco', text: 'Bah. Un detalle menor, emotivo y peligrosamente convincente.' },
+      { from: 'topotino', text: 'Precisamente. Tú conoces datos, pero no estuviste allí.' },
+      { from: 'topoloco', text: '¡Da igual! He movido el núcleo. Cuando llegue el Rey a las 20:00, mi nombre quedará estampado sobre las doce ventanas.' },
+      { from: 'topotina', text: 'Gracias por decir la hora.' },
+      { from: 'topoloco', text: '¡Era una amenaza, no una cita!' },
+      { from: 'topotina', text: 'El último cierre sigue junto al lago. El cable lee reflejos con la misma señal que apareció durante el eclipse.' }
     ]), {
       allowedSpeakers: ['topotino', 'topotina', 'capitan_pico', 'topoloco'],
       alwaysMessages: [{ from: 'topotino', text: 'Al lago, agentes. Sin correr. Un final épico con una caída tonta pierde bastante categoría.' }]
@@ -1247,21 +1283,23 @@ packs['017-isla-magica'] = {
       'Topoloco utilizó la sombra del eclipse y los reflejos para copiar y separar recuerdos. El agua en movimiento demuestra que una copia cambia aunque el objeto real siga fuera.',
       'Mirad qué existe fuera del agua y qué cambia en la superficie.'),
     expedition('sevilla-lago-expedicion', 'Isla Mágica · junto al lago', 'Recuperar los cuatro cortes', 'Buscad un punto seguro con vista al agua.', [
-      'Elegid un barco, edificio o escenario del parque que represente otra época.',
-      'Mirad su reflejo y comprobad qué cambia en el agua y qué permanece fuera.',
-      'Localizad cuatro detalles distintos: calle, trabajo, jardín y viaje.',
-      'Decid cuál pertenece al lugar real y cuál está representado aquí.'
+      'Elegid un barco, edificio o escenario del parque que se refleje en el agua.',
+      'Mirad qué cambia en el reflejo cuando se mueve el agua y qué permanece fuera.',
+      'Comparad el objeto real que veis con su imagen reflejada.',
+      'Decid cuál podría seguir existiendo si desapareciera el agua.'
     ], [
+      { from: 'system', text: 'CIERRE DE BORRÓN: 4/4 ABIERTOS' },
       { from: 'topotina', text: 'Cuatro cortes recuperados. Santa Cruz, la antigua Fábrica, María Luisa y Plaza de España vuelven al mapa como lugares pendientes, no como visitas inventadas.' },
       { from: 'capitan_pico', text: '¡Once testigos reunidos! Esta vez no me he contado a mí. América me confiscó el lápiz.' },
       'Borrón confundió representar con mentir. Habéis demostrado que una recreación puede enseñar sin hacerse pasar por el original.'
     ]),
-    question('sevilla-lago-q2', 'Isla Mágica · lago', '¿Qué diferencia una representación honesta de la falsificación de Topoloco?', ['Explica qué recrea y no pretende sustituir al original', 'Borra el original para quedarse con su nombre', 'Afirma que todo ocurrió exactamente como muestra'], 0,
+    question('sevilla-lago-q2', 'Isla Mágica · lago', '¿Qué diferencia una representación honesta de la falsificación de Topoloco?', ['Explica qué recrea y no pretende sustituir al original', 'Borra el original para quedarse con su nombre', 'Afirma que todo ocurrió exactamente como muestra'], 0, [
       'Correcto. Un escenario puede ayudar a imaginar otra época sin declarar que es el documento original.',
       'Borrón y Topoloco borran la diferencia entre copia y original. Por eso sus cuatro cortes no han resistido vuestra comparación.',
-      'Pensad cuál de las opciones reconoce sus límites.'),
+      { from: 'topoloco', text: '¡Celebrad lo que queráis! El Rey llegará y mi versión será la oficial, perfecta y sin interrupciones.' }
+    ], 'Una representación dice qué recrea. Topoloco pretende borrar el original y quedarse con su nombre.', 'Pensad cuál de las opciones reconoce sus límites.'),
     Object.assign(conversation('dialogo-corral-rey', 'Isla Mágica · mensaje de palacio', [
-      { from: 'topotina', text: 'El cable termina en un corral del Siglo de Oro. A las 20:00 Sevilla recibirá a Carlos I y Topoloco intentará sustituir la historia por su guion perfecto.' },
+      { from: 'topotina', text: 'He seguido el núcleo. Termina en un corral del Siglo de Oro. A las 20:00 Sevilla recibirá a Carlos I.' },
       { from: 'capitan_pico', text: 'Discursos, reverencias, bailes y un rey en camino. Al fin una misión adecuada para mi uniforme de gala número…' },
       { from: 'topotino', text: 'No tienes uniforme de gala.' },
       { from: 'capitan_pico', text: 'Por eso sigue impecable. Paula, Hugo: ¿qué creéis que puede salir mal cuando todos intentan que una recepción sea perfecta?' }
@@ -1273,8 +1311,7 @@ packs['017-isla-magica'] = {
     Object.assign(expedition('corral-rey-expedicion', 'Corral de Comedias', 'La recepción que debía ser perfecta', 'Entrad con tiempo. Durante la recepción, guardad y silenciad el móvil. Marcadla como hecha solo cuando salgáis.', [
       'Observad un error o equívoco que cambie lo preparado.',
       'Fijaos en cómo otra persona responde, corrige o improvisa.',
-      'Comprobad si participan varias voces y no una sola.',
-      'Al salir, decid qué hizo divertida y posible la recepción.'
+      'Comprobad si la recepción avanza gracias a varias personas y no a una sola.'
     ], [
       { from: 'system', text: 'Recepción real terminada. Corrector Definitivo: estabilidad crítica.' },
       { from: 'topoloco', text: '¡PROTESTO! ¡Había un guion! ¡Un guion precioso con mi nombre en todas las páginas!' },
@@ -1286,8 +1323,16 @@ packs['017-isla-magica'] = {
       'Elegid la opción que conserve la participación de todos.'),
     question('corral-rey-q2', 'Corral de Comedias', 'Paula y Hugo pueden recordar detalles distintos de esta recepción. ¿Qué debe conservar una memoria honesta?', ['Las dos miradas, sus coincidencias y sus diferencias', 'Solo la versión de quien conteste primero', 'La versión de Topoloco, aunque no estuviera allí'], 0,
       'Correcto. Dos recuerdos distintos pueden pertenecer al mismo momento sin que uno tenga que borrar al otro.',
-      'Ahora el Cuaderno privado contiene algo que la máquina no puede fabricar: una aventura vivida y recordada entre personas reales.',
+      'Topoloco solo sabe guardar una respuesta. Vuestra memoria puede conservar lo que vio cada uno.',
       'Pensad quién estuvo de verdad y qué aporta cada mirada.'),
+    Object.assign(conversation('dialogo-corral-recuerdos', 'Corral de Comedias · salida', [
+      { from: 'topotino', text: 'Ahora sí: decidme un momento que recuerde Paula y otro que recuerde Hugo. Pueden ser distintos. No enseñéis el Cuaderno.' }
+    ], [
+      { from: 'topotino', text: 'Eso es justo lo que no entiende el Corrector: dos recuerdos distintos pueden pertenecer a la misma aventura.' },
+      { from: 'topotina', text: 'El núcleo intenta elegir uno y borrar el otro. No puede. El Cuaderno confirma que vuestra historia existía fuera de su máquina.' },
+      { from: 'topoloco', text: '¡Elegid uno! ¡El más elegante! ¡Preferiblemente el que me incluya!' },
+      { from: 'capitan_pico', text: 'Decisión naval: conservamos los dos y expulsamos al señor de la corona de cartón.' }
+    ]), { allowedSpeakers: ['topotino', 'topotina', 'capitan_pico', 'topoloco'] }),
     {
       id: 'final-sevilla-noche',
       kind: 'ending',
@@ -1301,7 +1346,7 @@ packs['017-isla-magica'] = {
         'Cuando estéis preparados, abrid la última ventana.'
       ],
       completionLabel: '¡Abrir la última ventana!',
-      doneMessages: ['Las doce ventanas responden. El reflejo no puede declararse dueño del original y el Corrector pierde el control.'],
+      doneMessages: ['Las doce ventanas responden a la vez. El Corrector intenta elegir un único dueño, no puede hacerlo y pierde el control.'],
       effects: {
         setFlags: ['completado_isla_magica', 'completado_sevilla_alhambra_noche', 'topoloco_derrotado', 'doce_aguas_reunidas'],
         water: 'Agua Clara de la Noche',
@@ -1552,17 +1597,6 @@ const STORY_CONVERSATIONS = Object.freeze({
       { from: 'doctora_tecla', text: 'Yo me voy. Y no pienso repararte nada cuando lo rompas.' },
       { from: 'system', text: 'Doctora Tecla y Doctor Topoloco han salido del canal.' },
       { from: 'topotino', text: 'Bien. La discusión ha dejado todas las pistas. Ahora tenemos que descubrir el nombre de esa isla imposible.' }
-    ]
-  },
-  'isla-q1': {
-    place: 'Isla Mágica · seis mundos',
-    allowedSpeakers: ['topotino', 'topotina', 'capitan_pico'],
-    prompt: [
-      { from: 'capitan_pico', text: 'Habéis cruzado de un mundo a otro sin salir de Sevilla. ¿Qué detalle os hizo sentir más claramente ese cambio?' }
-    ],
-    reply: [
-      { from: 'capitan_pico', text: '¡Buen ojo! Un explorador no solo mira lo grande: detecta cuándo cambian los edificios, los sonidos, las plantas o las historias.' },
-      { from: 'topotina', text: 'Ese cambio está preparado para activar la imaginación. Ahora debemos distinguir qué representa el parque y qué puede demostrar sobre la historia real.' }
     ]
   }
 });
