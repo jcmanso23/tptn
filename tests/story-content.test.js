@@ -170,7 +170,7 @@ test('los días 13 y 14 conservan su cadena narrativa y adaptan solo tras un imp
   assert.doesNotMatch(childFacingText, /(foto|fotografía).{0,30}(cuaderno|diario)/i);
 });
 
-test('la edición T-24A2 conserva rescates anteriores y repara la tarjeta de Sevilla', async () => {
+test('la edición T-25A0 conserva rescates anteriores y retoma desde Santa Cruz', async () => {
   const files = ['index.html', 'app.js', 'admin.js', 'content/episodes/001-reconexion.md'];
   const combined = (await Promise.all(files.map((file) => readFile(join(root, file), 'utf8')))).join('\n');
   const app = await readFile(join(root, 'app.js'), 'utf8');
@@ -183,19 +183,23 @@ test('la edición T-24A2 conserva rescates anteriores y repara la tarjeta de Sev
 
   const styles = await readFile(join(root, 'styles.css'), 'utf8');
 
-  assert.match(combined, /T-24A2/);
+  assert.match(combined, /T-25A0/);
   assert.doesNotMatch(combined, /T-12A9/);
   assert.match(app, /splitTopotinoMessages/);
   assert.match(app, /CHALLENGE_PACKS/);
   assert.match(app, /els\.channelCode\.textContent = APP_VERSION_CODE/);
-  assert.match(serviceWorker, /topotino-offline-v49/);
-  assert.match(serviceWorker, /chat-format\.js\?v=memory-v64/);
-  assert.match(serviceWorker, /content\/challenges\.js\?v=memory-v64/);
+  assert.match(serviceWorker, /topotino-offline-v50/);
+  assert.match(serviceWorker, /chat-format\.js\?v=memory-v65/);
+  assert.match(serviceWorker, /content\/challenges\.js\?v=memory-v65/);
   assert.match(app, /function applySevillaCardRescue\(\)/);
   assert.match(app, /Calle Sierpes\\\.\\s\*Recorredla hacia la Plaza de San Francisco/);
   assert.match(app, /Interferencia cruzada retirada/);
   assert.match(app, /No repitáis Tavira: estamos en Sevilla/);
   assert.ok((app.match(/applySevillaCardRescue\(\);/g) || []).length >= 2);
+  assert.match(app, /function applySantaCruzRetreatRescue\(\)/);
+  assert.match(app, /Última posición válida: entrada de Santa Cruz/);
+  assert.match(app, /sevilla_siete_testigos_t25a0/);
+  assert.ok((app.match(/applySantaCruzRetreatRescue\(\);/g) || []).length >= 2);
   assert.match(combined, /id="location-refresh"/);
   assert.ok(combined.indexOf('id="location-refresh"') < combined.indexOf('</header>'));
   assert.doesNotMatch(styles, /\.location-refresh-compact\s*\{[^}]*display:\s*none/is);
@@ -381,7 +385,8 @@ test('el viaje completo del 15 al 25 está publicado, enlazado y termina por la 
   }
 
   const finalEpisode = await readFile(join(root, 'content/episodes/017-isla-magica.md'), 'utf8');
-  assert.match(finalEpisode, /junto al lago/i);
+  assert.match(finalEpisode, /Corral de Comedias/i);
+  assert.match(finalEpisode, /¡Que viene el Rey!|recepción.*Carlos I/is);
   assert.match(finalEpisode, /doce_aguas_reunidas/);
   assert.match(finalEpisode, /Corrector.*desconectado|Cuaderno de Bitácora.*desconectado/is);
   assert.match(finalEpisode, /final único/i);

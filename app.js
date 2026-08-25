@@ -1,5 +1,5 @@
-import { splitTopotinoMessages } from './chat-format.js?v=memory-v64';
-import { CHALLENGE_PACKS, displayChallengeOptions } from './content/challenges.js?v=memory-v64';
+import { splitTopotinoMessages } from './chat-format.js?v=memory-v65';
+import { CHALLENGE_PACKS, displayChallengeOptions } from './content/challenges.js?v=memory-v65';
 
 const STORAGE_KEYS = {
   auth: 'topotino_chat_auth_v1',
@@ -7,9 +7,9 @@ const STORAGE_KEYS = {
 };
 
 const LEGACY_STATE_KEY = 'topotino_chat_state_v1';
-const APP_VERSION_CODE = 'T-24A2';
+const APP_VERSION_CODE = 'T-25A0';
 const PASSPHRASE_HASH = 'a64716bd9f4e8added1bf47f80b97c3fc7b70a15b8043cdab083e1ddf85f3794';
-const EPISODES_MANIFEST = 'content/episodes.json?v=memory-v64';
+const EPISODES_MANIFEST = 'content/episodes.json?v=memory-v65';
 const LIVE_STORY_ENDPOINT = '/api/story';
 const AMARANTE_TRAVEL_DATE = '2026-08-13';
 const AMARANTE_ROUTE_EPISODE_ID = '004b-rumbo-amarante';
@@ -47,6 +47,7 @@ const EARLY_SEVILLA_FINAL_FLAG = 'final_sevilla_adelantado';
 const ZOOMARINE_TRANSITION_RESCUE_MARKER = 'rescate-transicion-zoomarine-t22a1';
 const FINALE_CLARITY_MIGRATION_FLAG = 'migracion-final-claro-t24a0';
 const SEVILLA_CARD_RESCUE_MARKER = 'rescate-tarjeta-sevilla-t24a2';
+const SANTA_CRUZ_RETREAT_RESCUE_MARKER = 'rescate-retirada-santa-cruz-t25a0';
 const AI_REQUEST_TIMEOUT_MS = 18000;
 const SECURITY_CHECKIN_MESSAGES = [
   'Buenos días, Paula y Hugo.',
@@ -245,6 +246,7 @@ async function init() {
     applyDay22FinaleMigration();
     applyFinaleClarityMigration();
     applySevillaCardRescue();
+    applySantaCruzRetreatRescue();
     applyZoomarineTransitionRescue();
     applyTravelDayRescue();
     applyAmaranteCompletionRescue();
@@ -1427,24 +1429,28 @@ function calculateEndingVariant() {
 }
 
 function endingMessages(variant) {
-  const endingPlace = 'aquí, junto al lago de Isla Mágica, esta tarde';
+  const endingPlace = 'aquí, al salir del Corral de Comedias de Isla Mágica';
   const shared = [
     { from: 'system', text: 'VENTANAS DEL MAPA: 12/12 · CUADERNO DE BITÁCORA ÚNICO: DESCONECTADO' },
-    { from: 'topoloco', text: '¡NO! ¡Yo tenía el mejor sombrero de almirante! ¡Eso debería contar para algo!' },
-    { from: 'capitan_pico', text: '¡Cuenta como sombrero! Como victoria, no. Paula y Hugo han salvado la expedición.' },
+    { from: 'system', text: 'BORRÓN: SIN CORTES · ECO: SIN VOZ · NIEBLA: SIN SEÑAL · MUSEO: ABIERTO' },
+    { from: 'topoloco', text: '¡NO! ¡Yo tenía corona, guion y el mejor sombrero de almirante! ¡Eso debería valer por tres victorias!' },
+    { from: 'capitan_pico', text: 'Vale por dos accesorios y una derrota. Paula y Hugo han salvado la expedición.' },
     { from: 'topotina', text: 'Borrón, Eco y Niebla han perdido las conexiones. El museo está devolviendo cada recuerdo a quien lo vivió.' },
     { from: 'topotino', text: 'Y yo… Tina. Recuerdo que te llamaba Tina.' },
     { from: 'topotina', text: 'Ya era hora, hermano.' },
-    { from: 'topotino', text: 'Paula, Hugo: lo hemos conseguido. Desde Amarante hasta este lago, habéis observado, preguntado, corregido y seguido juntos.' },
+    { from: 'topotino', text: 'Paula, Hugo: lo hemos conseguido. Seguisteis puentes, fósiles, cuevas, murallas, océanos, delfines, ciudades y voces falsas sin dejar de hacer preguntas.' },
+    { from: 'topotino', text: 'Ayudasteis a Louri a descubrir que dudar no es estar roto. Y ayer supisteis parar cuando estabais cansados. Eso también es ser buenos exploradores.' },
+    { from: 'capitan_pico', text: 'Os nombro Exploradores de las Doce Aguas, Salvadores de Historias y Personas Autorizadas a Corregir al Capitán.' },
+    { from: 'topotino', text: 'Ese último título lo necesitábamos desde hace tiempo.' },
     { from: 'topotino', text: `Topoloco puede copiar una imagen, pero nunca podrá decir que vivió la aventura por vosotros. La aventura principal termina ${endingPlace}.` }
   ];
   if (variant === 'clean') {
-    return [{ from: 'system', text: 'VICTORIA: LAS DOCE AGUAS RECUPERADAS' }, ...shared, { from: 'topotino', text: 'Mis recuerdos vuelven con mucha claridad. El Cuaderno queda con vosotros. No se abre otra misión.' }];
+    return [{ from: 'system', text: 'VICTORIA: LAS DOCE AGUAS RECUPERADAS' }, ...shared, { from: 'topotino', text: 'Mis recuerdos vuelven con mucha claridad. El Cuaderno queda con vosotros. No se abre otra misión.' }, { from: 'topotino', text: 'Pero Sevilla sigue ahí: Santa Cruz, la antigua Fábrica de Tabacos, María Luisa y Plaza de España os esperan sin pruebas, villanos ni formularios de Topotina.' }];
   }
   if (variant === 'close') {
-    return [{ from: 'system', text: 'VICTORIA: LAS DOCE AGUAS RECUPERADAS' }, ...shared, { from: 'topotino', text: 'Han vuelto los recuerdos importantes. Algunas esquinas siguen borrosas y las ordenaremos sin inventarlas.' }];
+    return [{ from: 'system', text: 'VICTORIA: LAS DOCE AGUAS RECUPERADAS' }, ...shared, { from: 'topotino', text: 'Han vuelto los recuerdos importantes. Algunas esquinas siguen borrosas y las ordenaremos sin inventarlas.' }, { from: 'topotino', text: 'Seguid conociendo Sevilla a vuestro ritmo. Lo que quedó pendiente ya no es una misión: es una ciudad que podéis disfrutar.' }];
   }
-  return [{ from: 'system', text: 'VICTORIA: LAS DOCE AGUAS RECUPERADAS' }, ...shared, { from: 'topotino', text: 'Topoloco ha perdido el museo. Algunos recuerdos tardarán más en ordenarse, pero ya no le pertenecen. No se abre otra amenaza.' }];
+  return [{ from: 'system', text: 'VICTORIA: LAS DOCE AGUAS RECUPERADAS' }, ...shared, { from: 'topotino', text: 'Topoloco ha perdido el museo. Algunos recuerdos tardarán más en ordenarse, pero ya no le pertenecen. No se abre otra amenaza.' }, { from: 'topotino', text: 'Cuando os apetezca, volved a mirar Sevilla sin perseguir a nadie. Por una vez, propongo turismo sin sabotajes.' }];
 }
 
 function toTopotinoMessages(texts) {
@@ -2470,6 +2476,41 @@ function applySevillaCardRescue() {
   return true;
 }
 
+function applySantaCruzRetreatRescue() {
+  if (!state.unlocked) return false;
+  if (formatDate(getRuntimeNow()) < '2026-08-25') return false;
+  if (state.seenBroadcastIds.includes(SANTA_CRUZ_RETREAT_RESCUE_MARKER)) return false;
+  if (!state.unlockedEpisodeIds.includes('016-tavira-sevilla')) return false;
+  if (state.flags.includes('completado_isla_magica')) return false;
+
+  const day24Steps = CHALLENGE_PACKS['016-tavira-sevilla']?.steps || [];
+  const day24Complete = day24Steps.every((step) => state.completedChallengeIds.includes(step.id));
+  const stoppedBeforeSantaCruz = state.completedChallengeIds.includes('sevilla-ruta-santa-cruz') &&
+    !state.completedChallengeIds.includes('sevilla-santa-cruz-expedicion');
+  const santaCruzPromptWasVisible = (state.messages || []).some((message) =>
+    /Santa Cruz|callejuelas.*estrechas|Callej[oó]n del Agua/i.test(message.text || ''));
+  if (day24Complete || (!stoppedBeforeSantaCruz && !santaCruzPromptWasVisible)) return false;
+
+  addUniqueMany(state.completedChallengeIds, day24Steps.map((step) => step.id));
+  addUniqueMany(state.flags, [
+    'completado_tavira_sevilla',
+    'sevilla_siete_testigos_t25a0'
+  ]);
+  addWater('Agua de las Dos Orillas');
+  addUniqueMany(state.seenBroadcastIds, [SANTA_CRUZ_RETREAT_RESCUE_MARKER]);
+  unlockEpisode(FINAL_EPISODE_ID);
+  startupRescueMessages = [...startupRescueMessages,
+    { from: 'system', time: 'auto', text: 'CONTINUIDAD RECUPERADA · Última posición válida: entrada de Santa Cruz.' },
+    { from: 'topotino', time: 'auto', text: 'Buenos días, Paula y Hugo. Ayer paramos justo antes de investigar Santa Cruz. Hicisteis bien: una aventura no mejora porque sus exploradores terminen arrastrándose.' },
+    { from: 'topotina', time: 'auto', text: 'Recuperasteis siete testigos. Durante la noche Borrón arrancó los cuatro pendientes y movió su señal al otro lado del Guadalquivir.' },
+    { from: 'topotino', time: 'auto', text: 'No repetiremos Santa Cruz ni fingiremos que vimos lo que no vimos. Perseguiremos lo que Borrón se llevó.' },
+    { from: 'topotina', time: 'auto', text: 'La nueva marca tiene seis direcciones, barcos, viajes a América y la firma gemela de Magikland.' },
+    { from: 'topotino', time: 'auto', text: 'Una isla dentro de otra isla. Como aparezca una tercera, pido migas de pan y un notario.' }
+  ];
+  saveState();
+  return true;
+}
+
 function applyZoomarineTransitionRescue() {
   if (!state.unlocked) return false;
   if (state.seenBroadcastIds.includes(ZOOMARINE_TRANSITION_RESCUE_MARKER)) return false;
@@ -3285,6 +3326,7 @@ function applyRestoredState(remoteState, recoveryCode) {
   applyDay22FinaleMigration();
   applyFinaleClarityMigration();
   applySevillaCardRescue();
+  applySantaCruzRetreatRescue();
 }
 
 function markStateChanged() {
@@ -3513,6 +3555,6 @@ function applyTestingParams() {
 
 function registerServiceWorker() {
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('service-worker.js?v=offline-v49').catch(() => {});
+    navigator.serviceWorker.register('service-worker.js?v=offline-v50').catch(() => {});
   }
 }

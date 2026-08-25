@@ -40,8 +40,9 @@ const EXACT_STORY_CONVERSATIONS = new Set([
   'dialogo-sevilla-fabrica',
   'dialogo-sevilla-cierre',
   'dialogo-ruta-dia25',
-  'dialogo-isla-q1',
-  'dialogo-final-isla'
+  'dialogo-isla-cartuja-pista',
+  'dialogo-final-isla',
+  'dialogo-corral-rey'
 ]);
 
 const chatResponseSchema = jsonSchema({

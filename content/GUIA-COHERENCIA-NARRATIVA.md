@@ -1,7 +1,7 @@
 # Guía maestra de coherencia narrativa · Las Doce Aguas
 
-**Versión canónica:** 24 de agosto de 2026 · edición T-24A2
-**Final único:** lago de Isla Mágica, Sevilla, tarde del 25 de agosto
+**Versión canónica:** 25 de agosto de 2026 · edición T-25A0
+**Final único:** Corral de Comedias de Isla Mágica, después de la recepción de «¡Que viene el Rey!», tarde del 25 de agosto
 **Después del final:** no se abre otra misión ni otra amenaza
 
 Esta guía manda sobre todos los capítulos y sobre el contexto enviado a Luna. Si una aventura contradice este documento, se corrige la aventura. Los identificadores técnicos antiguos —flags, nombres internos de aguas y palabras de fórmula— se conservan para no romper partidas, pero no determinan el vocabulario que oyen Paula y Hugo.
@@ -127,7 +127,7 @@ El cuaderno es privado:
 - La app no almacena su contenido.
 - Nunca se exige confirmar que han escrito una entrada.
 - En Tavira se consulta en privado para extraer un principio general de corrección.
-- En el lago de Isla Mágica sirve como prueba independiente: existe una historia que la máquina nunca pudo copiar. Solo se comunica una conclusión compartida.
+- En Isla Mágica sirve como prueba independiente: existe una historia que la máquina nunca pudo copiar. Solo se comunica una conclusión compartida después de la recepción del Corral de Comedias.
 
 Eco se delata en Albufeira precisamente porque, imitando a Topotino, pide romper la regla del Cuaderno o seguir una historia que borra hechos comprobables.
 
@@ -147,7 +147,7 @@ La tarde del 20 entra en el canal ocupado porque no encuentra a Topoloco por nin
 
 La mañana del 21 vuelve cuando Topotina activa una alarma de su código. Discuten con respeto técnico y pullas, Topoloco presume demasiado y Tecla revela la existencia del calibrador marino. Topotina localiza el aparato, Tecla se marcha y Topoloco es expulsado.
 
-Existe una última aparición controlada la noche del 24. Topoloco le ha robado un módulo que ella había bloqueado por peligroso y pretende utilizarlo como **Cuaderno de Bitácora Único** del Corrector. Tecla entra buscando su pieza, no para ayudar a los niños. Durante una conversación libre se enfada con Topoloco y explica con ejemplos qué ocurrirá: la máquina conservará una sola versión de la expedición, pondrá a Topoloco como capitán y borrará las demás voces. Su discusión deja tres pistas antes de la pregunta de destino: una isla dentro de una ciudad, barcos y viajes a América, y la firma gemela de Magikland. Después se niega a reparar el módulo, revoca su acceso y no interviene en el desenlace.
+La retirada real en Santa Cruz impidió que la última conversación del 24 llegara a producirse. El día 25 Topotina recupera del sabotaje la información imprescindible del módulo robado: Topoloco pretende utilizarlo como **Cuaderno de Bitácora Único** del Corrector. La aplicación no finge una discusión nocturna ni una visita que no ocurrieron. Tecla no interviene en el desenlace.
 
 ### Los Oscurnos
 
@@ -203,11 +203,11 @@ Cada desplazamiento posterior responde a una pieza concreta de la máquina y a u
 - **Ponta da Piedade y Albufeira:** Eco queda explicado como un Oscurno imitador, no como un concepto abstracto. En Ponta intenta sustituir observaciones reales de la costa. Su transmisión conduce al centro antiguo de Albufeira, donde repite que el terremoto y el maremoto de 1755 solo destruyeron Lisboa. Paula y Hugo comprueban físicamente que Albufeira también fue destruida y reconstruida, rompen esa versión recortada y recuperan la expresión `Porto d’Abrigo`. Algar Seco es una recomendación opcional de Topotina durante el trayecto: puede ayudar a contrastar otra ventana natural, pero no contiene pruebas ni bloquea el progreso.
 - **Refugio de Lona:** al destruir la repetición de Eco, Topoloco intenta seguir la señal. Louri entrega las coordenadas verificadas de un refugio cerca de Albufeira. Allí Topotino confunde cómicamente el puerto pesquero con Porto d’Abrigo; Vasco aclara que la pista apunta al centro de rehabilitación de Zoomarine.
 - **Zoomarine:** el cuidado real y la devolución al mar desmontan la mentira «si lo cuidas, te pertenece» y se compara con los delfines salvajes observados desde Lagos. Al unir motivo, método y resultado, Topotino concluye que Topoloco provocó su amnesia. Borrón altera entonces la etiqueta del puente de Tavira.
-- **Tavira y Sevilla:** nadie da por conocido a Borrón. Primero aparece la palabra falsa «romano»; Topotina identifica entonces la firma y explica que Borrón es un Oscurno que cambia etiquetas y elimina detalles hasta dejar una sola versión. Paula y Hugo comprueban el puente, el Gilão, la posición del castillo y la salida hacia el mar. La frase interceptada por Louri permite deducir Sevilla. Allí Topotina descubre que Borrón ha dividido la memoria urbana en once testigos para que parezcan lugares inconexos. Paula y Hugo los recuperan de uno en uno: Setas; Sierpes; San Francisco; Plaza Nueva; Avenida de la Constitución; Catedral y Giralda; Archivo y Alcázar desde Plaza del Triunfo; Santa Cruz; Fábrica de Tabacos; Parque de María Luisa; Plaza de España. El recorrido demuestra con objetos visibles que Sevilla conserva épocas, usos y voces diferentes. No se anuncia la lista: cada conversación deja una única pista hacia el siguiente tramo.
+- **Tavira y Sevilla:** nadie da por conocido a Borrón. Primero aparece la palabra falsa «romano»; Topotina identifica entonces la firma y explica que Borrón es un Oscurno que cambia etiquetas y elimina detalles hasta dejar una sola versión. Paula y Hugo comprueban el puente, el Gilão, la posición del castillo y la salida hacia el mar. La frase interceptada por Louri permite deducir Sevilla. Allí Topotina descubre que Borrón ha dividido la memoria urbana en once testigos para que parezcan lugares inconexos. Paula y Hugo recuperan siete: Setas; Sierpes; San Francisco; Plaza Nueva; Avenida de la Constitución; Catedral y Giralda; Archivo y Alcázar desde Plaza del Triunfo. Después se retiran antes de Santa Cruz. No se finge que visitaron Santa Cruz, Fábrica de Tabacos, Parque de María Luisa o Plaza de España.
 - **Sorpresa de Plaza del Triunfo:** una señal con plumas resulta ser Capitán Pico. Topotina verifica su procedencia antes de admitirlo. Pico se concede varios títulos navales que nadie le ha otorgado, presenta a América —presente sobre el terreno pero ausente del chat— y aporta el fragmento «tres testigos alrededor de un triunfo». Catedral, Alcázar y Archivo representan funciones distintas y ninguna puede contar sola toda Sevilla. Pico continúa como apoyo cómico, pero Paula y Hugo observan y deciden.
-- **Cierre del recorrido sevillano:** Santa Cruz muestra un trazado medieval adaptado al calor; la antigua Fábrica de Tabacos demuestra un cambio real de función al convertirse en Universidad; María Luisa y Plaza de España conducen a la Exposición Iberoamericana de 1929 y a una ciudad que volvió a mirar hacia América. Al recuperar los once testigos, Borrón pierde la alteración. La noche permanece reservada para Tecla y la deducción de Isla Mágica.
-- **Noche del 24:** Tecla busca el módulo que Topoloco le robó. Su discusión explica con claridad el peligro del Cuaderno de Bitácora Único y deja, antes de cualquier opción, las pistas de una isla dentro de Sevilla, barcos, América y la firma gemela de Magikland. Paula y Hugo deducen Isla Mágica y reciben preparación práctica.
-- **Isla Mágica:** el parque convierte en escenario el mundo que Tavira y Sevilla ayudaron a comprender. Capitán Pico vuelve a conectar y confirma que América vigila fuera del chat. Topotina presenta a Niebla como un Oscurno que usa ruido y prisa para hacer elegir sin comprobar. Paula y Hugo reconocen Puerto de Indias, barcos, el lago y cambios de ambientación; preparan una decisión falsa y reversible que hace que Niebla exponga el Corrector. Topoloco conecta al lago el Cuaderno de Bitácora Único. Escenario, reflejo, dos recuerdos distintos y Cuaderno privado hacen fallar su versión. La aventura termina definitivamente en Sevilla durante la tarde del 25.
+- **Retirada antes de Santa Cruz:** parar se reconoce como una buena decisión de exploradores. Durante la noche Borrón traslada los cuatro cortes pendientes hacia la Isla de la Cartuja porque cree que, dentro de una recreación, nadie podrá distinguir memoria y mentira. No ocurre ninguna conversación nocturna con Tecla.
+- **Isla Mágica:** las seis direcciones, los barcos, América y la firma gemela de Magikland permiten que Paula y Hugo deduzcan una isla mágica dentro de la Isla de la Cartuja. El parque convierte en escenario el mundo que Tavira y Sevilla ayudaron a comprender. Capitán Pico vuelve a conectar desde dentro y confirma que América vigila fuera del chat. Topotina presenta a Niebla como un Oscurno que usa ruido y prisa para hacer elegir sin comprobar. Puerto de Indias, Puerta de América y el lago permiten distinguir una representación honesta de una falsificación y recuperar los cuatro cortes sin fingir las visitas pendientes.
+- **Recepción de Carlos I:** el cable del Corrector conduce al Corral de Comedias a las 20:00. La recepción que debía ser perfecta se llena de errores, correcciones, participación y humor; demuestra que una historia puede mejorar gracias a varias personas y que no necesita un único dueño. Durante la representación el móvil permanece guardado y en silencio. Al salir, dos recuerdos distintos y el Cuaderno privado hacen fallar el Cuaderno de Bitácora Único. Topotino recuerda a «Tina», Topoloco es derrotado y la aventura termina definitivamente en Sevilla durante la tarde del 25.
 
 Esta cadena sustituye cualquier transición basada únicamente en una imagen bonita, una palabra abstracta o una adivinanza sin causa. La pista de salida de cada lugar debe mostrar qué hizo Topoloco, qué consiguieron Paula y Hugo y por qué el único movimiento lógico es el siguiente.
 
@@ -316,22 +316,26 @@ Aprender mucho no significa recibir un discurso largo. Cada lugar reparte el con
 | 21 | Barco desde Lagos, regreso al puerto, tarde de playa | Aplicar Protocolo Azul sin cobertura; bloquear el calibrador marino; recuperar la orden de Eco | Ponta da Piedade y una voz que intenta copiar patrones |
 | 22 | Ponta da Piedade, centro antiguo de Albufeira, Refugio de Lona | Identificar formas reales; devolver Albufeira a la historia de 1755; romper la voz recortada de Eco | `Porto d’Abrigo` y Zoomarine |
 | 23 | Zoomarine | Comparar delfines salvajes, rescate, rehabilitación y devolución; romper la falsa propiedad | Concluir que Topoloco causó la amnesia; puente mal nombrado |
-| 24 | Tavira, once testigos de Sevilla y conversación nocturna | Presentar y derrotar a Borrón; unir agua, comercio y memoria urbana; Pico y América entran en la investigación; Tecla revela el Cuaderno de Bitácora Único | Una isla mágica dentro de Sevilla y la estación gemela |
-| 25 | Isla Mágica y lago | Pico regresa y dirige la contratrampa; destruir el Corrector mediante representación, reflejo, recuerdos distintos y Cuaderno privado | Derrota del museo; memorias devueltas; final definitivo |
+| 24 | Tavira y siete testigos de Sevilla, hasta la entrada de Santa Cruz | Presentar a Borrón; unir agua, comercio y memoria urbana; Pico y América entran en la investigación; retirarse con sensatez antes de terminar | Cuatro cortes pendientes y una señal desplazada hacia la Isla de la Cartuja |
+| 25 | Isla Mágica, lago y Corral de Comedias | Recuperar dentro de seis mundos los cortes que Borrón movió; Pico dirige la contratrampa; destruir el Corrector durante la recepción real mediante representación, errores corregidos, recuerdos distintos y Cuaderno privado | Derrota del museo; memorias devueltas; final definitivo |
 
 ## 14. El final de Sevilla
 
-El cierre junto al lago de Isla Mágica se resuelve paso a paso:
+La retirada del 24 forma parte del canon: Paula y Hugo habían recuperado siete testigos y se detuvieron cuando tocaba entrar en Santa Cruz. Topotino felicita esa decisión; no convierte el agotamiento en fracaso. Borrón aprovechó la noche para arrancar los cuatro cortes pendientes y esconderlos en una representación de Sevilla dentro de la Isla de la Cartuja. Su error es creer que toda representación es una mentira.
 
-1. **Puerto representado:** en Sevilla, Puerto de Indias distinguen el parque actual de la ciudad histórica que representa. Localizan barcos, lago y elementos que ayudan a imaginar el siglo XVI sin tratarlos como documentos originales.
-2. **Decisión:** Niebla ofrece una orden urgente. Paula y Hugo envían una respuesta falsa, comprobable y reversible; el Oscurno la sigue y deja visible el cable del Corrector.
-3. **Cuaderno de Bitácora Único:** Topoloco explica su plan sin metáforas: conservará una sola versión, se nombrará capitán y convertirá a todos los demás en acompañantes.
-4. **Reflejo:** Topoloco usa el lago como en el eclipse. Paula y Hugo comprueban que la imagen depende del objeto, la luz y el agua y no puede poseer lo que refleja.
-5. **Dos recuerdos y Cuaderno:** recuerdan de manera distinta un momento real y consultan el Cuaderno en privado. Afirman que ambas miradas pueden construir una historia compartida que la máquina nunca pudo leer.
+El cierre en Isla Mágica se resuelve paso a paso:
+
+1. **Isla dentro de otra isla:** la señal de Pico conduce a una isla de imaginación dentro de la Isla de la Cartuja. Paula y Hugo deducen Isla Mágica mediante seis mundos, barcos y la firma gemela de Magikland.
+2. **Puerto representado:** en Sevilla, Puerto de Indias distinguen el parque actual de la ciudad histórica que representa. Localizan barcos, lago y elementos que ayudan a imaginar el siglo XVI sin tratarlos como documentos originales.
+3. **Contratrampa:** Niebla ofrece una orden urgente. Paula y Hugo envían una respuesta falsa, comprobable y reversible; el Oscurno la sigue y deja visible el cable del Corrector.
+4. **Reflejo y cortes recuperados:** junto al lago comprueban que una copia depende del original, la luz y el agua. Los cuatro fragmentos que Borrón desplazó reaparecen porque una representación honesta reconoce qué reconstruye y qué no puede demostrar.
+5. **La recepción real:** Topotina localiza la activación final a las 20:00 en el Corral de Comedias. No se presenta a los niños como espectáculo: Sevilla espera a Carlos I y los preparativos, discursos, reverencias y errores forman una recepción real caótica. Durante la representación el teléfono permanece guardado y en silencio.
+6. **El error de Topoloco:** el Corrector exige un guion único y perfecto. La recepción demuestra lo contrario: varias personas corrigen, improvisan y participan sin que una sola se convierta en dueña de la historia.
+7. **Dos recuerdos y Cuaderno:** al salir, Paula y Hugo recuerdan de manera distinta un momento real y consultan el Cuaderno en privado. Afirman que ambas miradas pueden construir una historia compartida que la máquina nunca pudo leer.
 
 La máquina de Topoloco exige un único propietario y una única versión. No sabe procesar representación honesta, reflejos dependientes, diferencias, correcciones ni una memoria privada inaccesible. Las doce ventanas se conectan y el archivo libera los recuerdos.
 
-Topoloco huye. Borrón, Eco y Niebla pierden las conexiones. Las doce ventanas cambian de oscuras a abiertas y el museo devuelve los recuerdos robados. Topotino reconoce a Topotina: «Tina». Agradece a Paula y Hugo con hechos concretos de distintas etapas. Paula y Hugo reciben una confirmación inequívoca: **lo han conseguido**. La aventura termina definitivamente esa tarde y no se abre otra amenaza.
+Topoloco huye. Borrón, Eco y Niebla pierden las conexiones. Las doce ventanas cambian de oscuras a abiertas y el museo devuelve los recuerdos robados. Topotino reconoce a Topotina: «Tina». Agradece a Paula y Hugo con hechos concretos de distintas etapas. Paula y Hugo reciben una confirmación inequívoca: **lo han conseguido**. La aventura termina definitivamente al salir del Corral de Comedias. Topotino recomienda seguir conociendo Sevilla sin pruebas ni persecuciones: Santa Cruz, la antigua Fábrica de Tabacos, María Luisa y Plaza de España quedan como lugares reales pendientes, no como una nueva misión.
 
 ## 15. Voz de Topotino
 
@@ -406,9 +410,18 @@ Antes de publicar un cambio:
 - [ ] Los mensajes parecen conversación de WhatsApp.
 - [ ] Topotino no responde a un simple cierre si la conversación ya ha quedado resuelta.
 - [ ] Antes de responder hay una pausa natural y cada burbuja requiere un tiempo de escritura propio.
-- [ ] El final ocurre junto al lago de Isla Mágica durante la tarde del 25 y no se menciona Granada.
+- [ ] El lago prepara el desenlace y el final ocurre al salir del Corral de Comedias durante la tarde del 25; no se menciona Granada.
 
 ## 19. Registro de decisiones
+
+### 25 de agosto de 2026 · T-25A0
+
+- El hecho vivido manda sobre el plan anterior: el 24 Paula y Hugo se retiraron cuando la siguiente prueba era Santa Cruz. Recuperaron siete testigos, no once. La app no atribuye Santa Cruz, Fábrica de Tabacos, María Luisa, Plaza de España ni la conversación nocturna a los niños.
+- Retirarse se reconoce como una buena decisión. Durante la noche Borrón desplaza los cuatro cortes pendientes hacia una reconstrucción de Sevilla en la Isla de la Cartuja. La señal de Pico, seis mundos, barcos y la firma gemela de Magikland permiten deducir Isla Mágica sin presentar un itinerario familiar.
+- Una migración de progreso ejecutada el día 25 cierra únicamente las tarjetas antiguas del episodio 16, conserva todo lo vivido y abre el nuevo arranque. También se aplica al restaurar la copia segura para impedir que Santa Cruz reaparezca.
+- Dentro del parque se recuperan los cortes mediante Puerto de Indias, Puerta de América, el lago y el Corral de Comedias. La tesis final es concreta: una representación honesta reconoce que representa; una falsificación pretende sustituir al original.
+- El desenlace culmina en la recepción de «¡Que viene el Rey!» de las 20:00. El chat manda guardar y silenciar el teléfono durante la representación. Las preguntas y el cierre aparecen después, nunca durante.
+- Topotino felicita con recuerdos concretos de todo el viaje, recuerda a «Tina» y recomienda conocer la Sevilla pendiente sin convertirla en otra misión. El final es definitivo.
 
 ### 24 de agosto de 2026 · T-24A2
 

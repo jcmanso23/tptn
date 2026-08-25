@@ -3,7 +3,7 @@
   "id": "016-tavira-sevilla",
   "order": 16,
   "title": "Día 12 · La ruta que salía al mar",
-  "channelCode": "T-24A2",
+  "channelCode": "T-25A0",
   "startsUnlocked": false,
   "activation": { "mode": "all", "date": { "on": "2026-08-24" }, "location": { "lat": 37.1268750, "lng": -7.6498436, "radiusMeters": 1600, "label": "Centro de Tavira" } },
   "mission": "Seguir la alteración de Borrón y recuperar lo que ha separado",
@@ -27,7 +27,7 @@ El recorrido avanza en cinco tramos. Las Setas reúnen estructura contemporánea
 
 En Plaza del Triunfo aparece una señal con plumas. Topotina la verifica y entra Capitán Pico. Se presenta con varios títulos inventados y presenta a América, que investiga fuera del chat y nunca escribe. Ambos interceptaron «tres testigos alrededor de un triunfo». Pico ayuda con humor, pero Paula y Hugo siguen siendo quienes observan y deciden.
 
-Por la noche entra Tecla buscando un módulo que Topoloco le ha robado. Durante una conversación cómica explica que el **Cuaderno de Bitácora Único** guardará una sola versión de la aventura, nombrará a Topoloco capitán y reducirá a todos los demás a acompañantes. Antes de la pregunta aparecen tres pistas: una isla dentro de Sevilla, barcos y viajes a América, y la firma gemela de Magikland. Paula y Hugo deducen Isla Mágica. Tecla se niega a arreglar el módulo, se marcha y no participa mañana.
+La experiencia real termina cuando toca comenzar Santa Cruz. Paula y Hugo se retiran y hacen bien: han recuperado siete testigos y no se finge que visitaron los cuatro restantes. Durante la noche Borrón desplaza esos cortes. El día 25 Topotina descubre que la señal ha cruzado el Guadalquivir hacia la Isla de la Cartuja; la continuación pertenece ya al episodio final.
 
 ## Mensajes iniciales
 
@@ -112,7 +112,7 @@ Por la noche entra Tecla buscando un módulo que Topoloco le ha robado. Durante 
 
 Mensajes cortos, concretos y conversacionales. Borrón no es conocido al inicio: solo después de observar la alteración Topotina lo presenta como un Oscurno de Francia que cambia etiquetas y elimina detalles. No usar «perspectiva», «capas», «red» o «autoría» sin un ejemplo visible inmediato. Louri entra mediante una invitación verificada de un minuto, aporta una frase interceptada y desconoce la respuesta. La ruta a Sevilla solo se pregunta después de esa conversación.
 
-En Sevilla solo se nombra el tramo ya descubierto. Nunca enumerar los once puntos ni adelantar el siguiente. El objetivo es recuperar once testigos que Borrón separó: cada edificio, calle o plaza demuestra una época, función o voz distinta. El aprendizaje procede de observaciones exteriores y del espacio público. Vigilar el tranvía en la Avenida de la Constitución y caminar siempre con adultos.
+En Sevilla solo se nombra el tramo ya descubierto. Nunca enumerar los once puntos ni adelantar el siguiente. La experiencia vivida se detuvo antes de investigar Santa Cruz. No afirmar que visitaron Santa Cruz, Fábrica de Tabacos, María Luisa o Plaza de España; tampoco que hablaron con Tecla por la noche. El día 25 una migración conserva los siete testigos reales y traslada los cuatro pendientes al arco final.
 
 Capitán Pico aparece por primera vez en Plaza del Triunfo, después de que Topotina verifique la señal. Es grandilocuente, valiente, algo presumido y concede títulos navales absurdos. Presenta a América como compañera sobre el terreno; América no escribe ni aparece como remitente. Pico aporta «tres testigos alrededor de un triunfo», pero no conoce el plan completo ni resuelve pruebas. Tecla entra por la noche y explica el Cuaderno de Bitácora Único antes de dejar pistas de Isla Mágica. No presentar a Krim, Marga, Rufino o Corvinho. El Cuaderno de la Memoria sigue privado.
 

@@ -302,7 +302,7 @@ test('cada cambio de destino desde el día 17 tiene antes un diálogo narrativo'
     'ruta-dia19', 'dia19-pista-alfama', 'dia19-pista-belem', 'ruta-dia20',
     'dia20-pista-lagos', 'ruta-dia21', 'ruta-dia22',
     'dia22-pista-albufeira', 'ruta-dia23', 'ruta-dia24',
-    'dia24-pista-sevilla', 'ruta-dia25'
+    'dia24-pista-sevilla', 'ruta-dia25', 'isla-cartuja-pista'
   ]);
 
   for (const episodeId of futureEpisodeIds.slice(futureEpisodeIds.indexOf('009-dinoparque-lisboa'))) {
@@ -373,7 +373,7 @@ test('el arco posterior encadena el Corrector de Topoloco y termina únicamente 
     ['014-piedade-algar-jaima', /Eco.*escucha.*recorta.*repite/is],
     ['015-zoomarine', /Albufeira.*Refugio de Lona|Refugio de Lona.*Albufeira/is],
     ['016-tavira-sevilla', /alguien.*ROMANO.*puente|alteración.*puente/is],
-    ['017-isla-magica', /isla.*barcos.*Sevilla|Topoloco.*una sola versión/is]
+    ['017-isla-magica', /Borrón.*cuatro pendientes|seis direcciones.*barcos.*Magikland/is]
   ];
 
   for (const [id, pattern] of causalChecks) {
@@ -386,7 +386,7 @@ test('el arco posterior encadena el Corrector de Topoloco y termina únicamente 
   assert.match(app, /Delfines salvajes\. Cuevas marinas/);
 
   const sevilleFinal = CHALLENGE_PACKS['017-isla-magica'].steps.find((step) => step.id === 'final-sevilla-noche');
-  assert.match(sevilleFinal.place, /Isla Mágica.*lago/i);
+  assert.match(sevilleFinal.place, /Corral de Comedias.*salida/i);
   assert.deepEqual(sevilleFinal.effects.setFlags, [
     'completado_isla_magica', 'completado_sevilla_alhambra_noche', 'topoloco_derrotado', 'doce_aguas_reunidas'
   ]);
@@ -490,7 +490,7 @@ test('los diálogos críticos del final reaccionan con IA y conservan después s
   const day25 = CHALLENGE_PACKS['017-isla-magica'];
   const byId = new Map([...day24.steps, ...day25.steps].map((step) => [step.id, step]));
 
-  for (const id of ['dialogo-dia24-pista-sevilla', 'dialogo-ruta-dia25', 'dialogo-isla-q1', 'dialogo-final-isla']) {
+  for (const id of ['dialogo-dia24-pista-sevilla', 'dialogo-ruta-dia25', 'dialogo-isla-cartuja-pista', 'dialogo-final-isla', 'dialogo-corral-rey']) {
     const dialogue = byId.get(id);
     assert.ok(dialogue, `falta ${id}`);
     assert.equal(dialogue.kind, 'conversation');
@@ -499,7 +499,8 @@ test('los diálogos críticos del final reaccionan con IA y conservan después s
   }
 
   assert.equal(byId.get('dialogo-dia24-pista-sevilla').allowClosedSpeaker, 'louri');
-  assert.deepEqual(byId.get('dialogo-isla-q1').allowedSpeakers, ['topotino', 'topotina', 'capitan_pico']);
+  assert.deepEqual(byId.get('dialogo-isla-cartuja-pista').allowedSpeakers, ['topotino', 'topotina']);
+  assert.deepEqual(byId.get('dialogo-corral-rey').allowedSpeakers, ['topotino', 'topotina', 'capitan_pico']);
 
   const visibleMessages = [...day24.steps, ...day25.steps].flatMap((step) => [
     ...(step.promptMessages || []),
@@ -584,6 +585,34 @@ test('la reparación T-24A2 convierte la pantalla de Tavira en la misión de Sie
   assert.ok(rescued.has('sevilla-ruta-sierpes'));
   assert.equal(next?.id, 'sevilla-centro-expedicion');
   assert.equal(next?.place, 'Sierpes, San Francisco y Plaza Nueva');
+});
+
+test('el día 25 retoma siete testigos y culmina después de la recepción del Rey', () => {
+  const day25 = CHALLENGE_PACKS['017-isla-magica'];
+  const ids = day25.steps.map((step) => step.id);
+  const ordered = [
+    'dialogo-isla-cartuja-pista', 'isla-cartuja-pista', 'isla-expedicion',
+    'isla-q1', 'isla-q2', 'dialogo-final-isla', 'sevilla-lago-pista',
+    'sevilla-lago-expedicion', 'sevilla-lago-q2', 'dialogo-corral-rey',
+    'corral-rey-expedicion', 'corral-rey-q1', 'corral-rey-q2', 'final-sevilla-noche'
+  ];
+
+  for (let index = 1; index < ordered.length; index += 1) {
+    assert.ok(ids.indexOf(ordered[index - 1]) < ids.indexOf(ordered[index]), `${ordered[index]} aparece fuera de orden`);
+  }
+  const opening = day25.openingMessages.map(messageText).join(' ');
+  assert.match(opening, /siete testigos/i);
+  assert.match(opening, /cuatro pendientes/i);
+  assert.doesNotMatch(opening, /once testigos recuperados/i);
+
+  const arrival = day25.steps.find((step) => step.id === 'isla-expedicion');
+  assert.ok(arrival.location);
+  assert.match(arrival.arrivalMessages.map(messageText).join(' '), /Pico.*desde el interior/is);
+
+  const reception = day25.steps.find((step) => step.id === 'corral-rey-expedicion');
+  assert.deepEqual(reception.notBefore, { date: '2026-08-25', time: '19:45' });
+  assert.match(`${reception.intro} ${reception.actions.join(' ')}`, /guardad.*silenciad.*móvil/is);
+  assert.match(day25.steps.find((step) => step.id === 'final-sevilla-noche').place, /Corral de Comedias/);
 });
 
 test('la app conserva Memoria, Sombra y tres variantes de victoria', async () => {

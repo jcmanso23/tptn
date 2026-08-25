@@ -103,7 +103,8 @@ test('el asalto del día 20 aísla personajes y Louri solo usa transmisiones esc
   for (const dialogueId of [
     'dialogo-sevilla-arranque', 'dialogo-sevilla-setas', 'dialogo-sevilla-centro',
     'dialogo-capitan-pico-sevilla', 'dialogo-sevilla-triunfo',
-    'dialogo-sevilla-santa-cruz', 'dialogo-sevilla-fabrica', 'dialogo-sevilla-cierre'
+    'dialogo-sevilla-santa-cruz', 'dialogo-sevilla-fabrica', 'dialogo-sevilla-cierre',
+    'dialogo-isla-cartuja-pista', 'dialogo-final-isla', 'dialogo-corral-rey'
   ]) {
     assert.match(api, new RegExp(dialogueId));
   }
