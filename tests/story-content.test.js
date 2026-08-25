@@ -170,7 +170,7 @@ test('los días 13 y 14 conservan su cadena narrativa y adaptan solo tras un imp
   assert.doesNotMatch(childFacingText, /(foto|fotografía).{0,30}(cuaderno|diario)/i);
 });
 
-test('la edición T-25A1 conserva rescates anteriores y refuerza el final sin retroceder', async () => {
+test('la edición T-25A2 conserva rescates anteriores y adapta Isla Mágica sin retroceder', async () => {
   const files = ['index.html', 'app.js', 'admin.js', 'content/episodes/001-reconexion.md'];
   const combined = (await Promise.all(files.map((file) => readFile(join(root, file), 'utf8')))).join('\n');
   const app = await readFile(join(root, 'app.js'), 'utf8');
@@ -183,14 +183,14 @@ test('la edición T-25A1 conserva rescates anteriores y refuerza el final sin re
 
   const styles = await readFile(join(root, 'styles.css'), 'utf8');
 
-  assert.match(combined, /T-25A1/);
+  assert.match(combined, /T-25A2/);
   assert.doesNotMatch(combined, /T-12A9/);
   assert.match(app, /splitTopotinoMessages/);
   assert.match(app, /CHALLENGE_PACKS/);
   assert.match(app, /els\.channelCode\.textContent = APP_VERSION_CODE/);
-  assert.match(serviceWorker, /topotino-offline-v51/);
-  assert.match(serviceWorker, /chat-format\.js\?v=memory-v66/);
-  assert.match(serviceWorker, /content\/challenges\.js\?v=memory-v66/);
+  assert.match(serviceWorker, /topotino-offline-v52/);
+  assert.match(serviceWorker, /chat-format\.js\?v=memory-v67/);
+  assert.match(serviceWorker, /content\/challenges\.js\?v=memory-v67/);
   assert.match(app, /function applySevillaCardRescue\(\)/);
   assert.match(app, /Calle Sierpes\\\.\\s\*Recorredla hacia la Plaza de San Francisco/);
   assert.match(app, /Interferencia cruzada retirada/);
@@ -215,6 +215,7 @@ test('la edición T-25A1 conserva rescates anteriores y refuerza el final sin re
   assert.match(serviceWorker, /images\/topoloco\.jpg\?v=topoloco-v1/);
   assert.match(serviceWorker, /images\/doctora-tecla\.jpg\?v=tecla-v1/);
   assert.match(serviceWorker, /images\/capitan-pico\.jpg\?v=capitan-pico-v1/);
+  assert.match(serviceWorker, /images\/america\.png\?v=america-v1/);
   assert.match(app, /topotina: \{ name: 'Topotina'/);
   assert.match(app, /gotas: \{ name: 'Gotas'/);
   assert.match(app, /louri: \{ name: 'Louri'/);
@@ -284,6 +285,9 @@ test('la edición T-25A1 conserva rescates anteriores y refuerza el final sin re
   assert.match(app, /function applyFinaleClarityMigration\(\)/);
   assert.match(app, /migracion-final-claro-t24a0/);
   assert.match(app, /capitan_pico: \{ name: 'Capitán Pico', image:/);
+  assert.match(app, /america: \{ name: 'América', image: 'images\/america\.png/);
+  assert.match(app, /function applyFinaleFlexibleRouteMigration\(\)/);
+  assert.match(app, /migracion-isla-ruta-flexible-t25a2/);
   assert.match(app, /function fetchWithTimeout/);
   assert.match(app, /const AI_REQUEST_TIMEOUT_MS = 18000/);
   assert.match(app, /Conversación pendiente/);
@@ -567,7 +571,8 @@ test('los hilos de aliados y antagonistas llegan al desenlace sin adelantar el d
   assert.match(jaima, /Eco.*es un Oscurno/is);
   assert.match(isla, /Capitán Pico/);
   assert.match(isla, /América/);
-  assert.match(isla, /América.*no.*escribe|no escribirá.*chat/is);
+  assert.match(isla, /América entra.*avatar|América.*gobernadora.*chat/is);
+  assert.match(isla, /pregunta.*zona real|en qué zona están realmente/is);
   assert.match(isla, /Corrector.*desconectado|Cuaderno de Bitácora.*desconectado/is);
   assert.match(isla, /llamaba Tina/);
   assert.match(isla, /Niebla/);

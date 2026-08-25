@@ -1240,13 +1240,54 @@ packs['017-isla-magica'] = {
       { from: 'system', text: 'CIERRE DE BORRÓN: 2/4 ABIERTOS' },
       { from: 'capitan_pico', text: '¡Dos cierres! Mitad de operación. También mitad de mis títulos, por orden de Topotina.' }
     ], 'Borrón quiere que elijáis entre «todo es mentira» y «todo es original». Las dos funciones pueden ser verdaderas a la vez.', 'Elegid la opción que distingue representación y uso actual.'),
-    question('isla-q2', 'Puerta de América · interferencia', 'Han aparecido tres órdenes urgentes y contradictorias. ¿Qué contratrampa es más segura?', ['Elegir un punto público del mapa como señuelo, vigilar la señal y poder corregir', 'Enviar nuestra posición real y correr', 'Inventar un lugar imposible que tampoco podamos comprobar'], 0, [
+    Object.assign(conversation('dialogo-america-gobernadora', 'Isla Mágica · ruta libre', [
+      { from: 'system', text: 'América se ha unido al canal.' },
+      { from: 'america', text: 'Buenas, Paula y Hugo. Soy América, gobernadora de Isla Mágica. Aquí mando yo. Capitán Pico también manda, pero sobre todo manda mensajes.' },
+      { from: 'capitan_pico', text: '¡Os vi en el Fuerte! Fingí no conoceros para que Borrón no sospechara. Permanecí inmóvil, serio y completamente natural.' },
+      { from: 'america', text: 'Se quedó tieso mirando la cámara durante toda la foto.' },
+      { from: 'capitan_pico', text: 'Era una maniobra de contraespionaje. Y la foto me hizo muchísima ilusión. Mi pico salió por su lado bueno. Los dos lados.' },
+      { from: 'topotina', text: 'He recuperado el primer cierre de lo que ya observasteis. La visita y la foto del Fuerte confirman el segundo.' },
+      { from: 'system', text: 'CIERRE DE BORRÓN: 2/4 ABIERTOS' },
+      { from: 'america', text: 'No vais a seguir mi parque en un orden inventado. Decidme en qué zona estáis ahora. Escribid el nombre del cartel o describid lo que tenéis delante.' }
+    ], [
+      { from: 'america', text: 'La señal ha cortado el nombre. Mirad el cartel de la zona y elegid un objeto del escenario que también tenga una función real hoy. Decidme cuáles son esas dos funciones.' }
+    ]), {
+      scriptedReply: false,
+      allowedSpeakers: ['america', 'capitan_pico', 'topotina', 'topotino']
+    }),
+    Object.assign(conversation('dialogo-zona-isla-hallazgo', 'Isla Mágica · investigación adaptable', [
+      { from: 'america', text: 'Cuando encontréis lo que os acabo de pedir, contadme qué habéis visto. No hace falta una explicación larga.' }
+    ], [
+      { from: 'america', text: 'Eso sirve. Habéis separado lo que representa el decorado de lo que hace de verdad dentro del parque. Borrón ya no puede mezclar ambas cosas.' },
+      { from: 'capitan_pico', text: 'Confirmo el hallazgo como Inspector Naval de Lugares a los que América ya Había Llegado Primero.' },
+      { from: 'america', text: 'Seguid vuestro recorrido. Yo ajustaré la investigación a donde estéis, no al orden del mapa.' }
+    ]), {
+      allowedSpeakers: ['america', 'capitan_pico', 'topotina', 'topotino']
+    }),
+    Object.assign(conversation('dialogo-zona-isla-siguiente', 'Isla Mágica · nueva posición', [
+      { from: 'america', text: '¿En qué zona estáis ahora? Si seguís en la misma, decidlo también y buscaré otra pista distinta.' }
+    ], [
+      { from: 'america', text: 'Se ha cortado el nombre otra vez. Elegid otro detalle que represente una historia o una leyenda y decidme qué parte podéis comprobar de verdad allí.' }
+    ]), {
+      scriptedReply: false,
+      allowedSpeakers: ['america', 'capitan_pico', 'topotina', 'topotino']
+    }),
+    Object.assign(conversation('dialogo-zona-isla-hallazgo-2', 'Isla Mágica · segunda comprobación', [
+      { from: 'america', text: 'Cuando lo tengáis, contadme vuestra conclusión en un mensaje corto.' }
+    ], [
+      { from: 'america', text: 'Comprobado. El parque puede contar una historia sin fingir que su decorado es el objeto original.' },
+      { from: 'capitan_pico', text: 'Segunda comprobación aprobada. Para celebrarlo me concedo una medalla. América dice que una pegatina. Negociaciones abiertas.' },
+      { from: 'topotina', text: 'Un momento. Acaban de aparecer tres órdenes distintas sobre vuestra siguiente posición. Alguien intenta aprovechar que habéis cambiado el recorrido.' }
+    ]), {
+      allowedSpeakers: ['america', 'capitan_pico', 'topotina', 'topotino']
+    }),
+    question('isla-q2', 'Isla Mágica · interferencia', 'Han aparecido tres órdenes urgentes y contradictorias. ¿Qué contratrampa es más segura?', ['Elegir un punto público del mapa como señuelo, vigilar la señal y poder corregir', 'Enviar nuestra posición real y correr', 'Inventar un lugar imposible que tampoco podamos comprobar'], 0, [
       'Exacto. Un señuelo seguro debe ser público, comprobable y fácil de retirar.',
       { from: 'topotina', text: 'Ya sé quién envía las órdenes: Niebla, el Oscurno que usa ruido y prisa para que elijamos sin comprobar.' },
       { from: 'topotino', text: 'Pues se va a llevar una ruta falsa de primera calidad. Falsa, pero con excelentes acabados.' }
     ], 'No gana la ruta más valiente, sino la que no revela dónde estáis y se puede corregir.', 'Elegid la opción que pueda deshacerse y comprobarse.'),
     recovery('recuperacion-dia25', '¿Qué hace un buen explorador cuando alguien intenta meterle prisa?', ['Comprueba y mantiene una salida', 'Obedece la primera señal', 'Entrega su posición real'], 0, 'Sombra retirada. Niebla ha seguido una ruta vacía y comprobable.', 'Niebla mantiene una ventaja, pero el cable principal ya está localizado.'),
-    Object.assign(conversation('dialogo-niebla-senuelo', 'Puerta de América · preparar el señuelo', [
+    Object.assign(conversation('dialogo-niebla-senuelo', 'Isla Mágica · preparar el señuelo', [
       { from: 'topotina', text: 'Elegid un punto público del mapa para el señuelo. Decid solo el nombre; yo ocultaré vuestra posición real.' }
     ], [
       { from: 'topotina', text: 'Señuelo enviado. La marca de Niebla se ha separado de vosotros y corre hacia ese punto.' },

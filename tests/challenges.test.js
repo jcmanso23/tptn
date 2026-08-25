@@ -492,6 +492,7 @@ test('los diálogos críticos del final reaccionan con IA y conservan después s
 
   for (const id of [
     'dialogo-dia24-pista-sevilla', 'dialogo-ruta-dia25', 'dialogo-isla-cartuja-pista',
+    'dialogo-zona-isla-hallazgo', 'dialogo-zona-isla-hallazgo-2',
     'dialogo-pico-puerto', 'dialogo-niebla-senuelo', 'dialogo-final-isla', 'dialogo-topoloco-momento',
     'dialogo-corral-rey', 'dialogo-corral-recuerdos'
   ]) {
@@ -513,7 +514,13 @@ test('los diálogos críticos del final reaccionan con IA y conservan después s
     ...(step.doneMessages || []),
     ...(step.arrivalMessages || [])
   ]);
-  assert.equal(visibleMessages.some((message) => message?.from === 'america'), false);
+  assert.equal(visibleMessages.some((message) => message?.from === 'america'), true);
+  const americaEntrance = byId.get('dialogo-america-gobernadora');
+  assert.ok(americaEntrance);
+  assert.equal(americaEntrance.scriptedReply, false);
+  assert.deepEqual(americaEntrance.allowedSpeakers, ['america', 'capitan_pico', 'topotina', 'topotino']);
+  assert.match(americaEntrance.promptMessages.map(messageText).join(' '), /gobernadora.*Fuerte.*foto.*zona/is);
+  assert.equal(byId.get('dialogo-zona-isla-siguiente').scriptedReply, false);
 
   const app = await readFile(join(root, 'app.js'), 'utf8');
   const api = await readFile(join(root, 'api/chat.js'), 'utf8');
@@ -522,7 +529,8 @@ test('los diálogos críticos del final reaccionan con IA y conservan después s
   assert.match(app, /speakerMode: options\.conversationChallenge\?\.allowedSpeakers \? 'exact'/);
   assert.match(api, /EXACT_STORY_CONVERSATIONS/);
   assert.match(api, /authorizedLouriReturn/);
-  assert.match(api, /América puede estar presente[\s\S]*no escribe en el chat/);
+  assert.match(api, /América entra en el chat el día 25 como gobernadora/);
+  assert.match(api, /dialogo-america-gobernadora[\s\S]*una sola observación física/);
 });
 
 test('la tarde de Sevilla recupera once testigos en orden sin anunciar el recorrido completo', () => {
@@ -598,7 +606,9 @@ test('el día 25 retoma siete testigos y culmina después de la recepción del R
   const ordered = [
     'dialogo-isla-cartuja-pista', 'isla-cartuja-pista', 'isla-expedicion',
     'isla-q1', 'dialogo-pico-puerto', 'puerta-america-expedicion',
-    'puerta-america-q1', 'isla-q2', 'dialogo-niebla-senuelo',
+    'puerta-america-q1', 'dialogo-america-gobernadora', 'dialogo-zona-isla-hallazgo',
+    'dialogo-zona-isla-siguiente', 'dialogo-zona-isla-hallazgo-2',
+    'isla-q2', 'dialogo-niebla-senuelo',
     'dialogo-final-isla', 'dialogo-topoloco-momento', 'sevilla-lago-pista',
     'sevilla-lago-expedicion', 'sevilla-lago-q2', 'dialogo-corral-rey',
     'corral-rey-expedicion', 'corral-rey-q1', 'corral-rey-q2',

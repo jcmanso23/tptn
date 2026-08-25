@@ -1,5 +1,5 @@
-import { splitTopotinoMessages } from './chat-format.js?v=memory-v66';
-import { CHALLENGE_PACKS, displayChallengeOptions } from './content/challenges.js?v=memory-v66';
+import { splitTopotinoMessages } from './chat-format.js?v=memory-v67';
+import { CHALLENGE_PACKS, displayChallengeOptions } from './content/challenges.js?v=memory-v67';
 
 const STORAGE_KEYS = {
   auth: 'topotino_chat_auth_v1',
@@ -7,9 +7,9 @@ const STORAGE_KEYS = {
 };
 
 const LEGACY_STATE_KEY = 'topotino_chat_state_v1';
-const APP_VERSION_CODE = 'T-25A1';
+const APP_VERSION_CODE = 'T-25A2';
 const PASSPHRASE_HASH = 'a64716bd9f4e8added1bf47f80b97c3fc7b70a15b8043cdab083e1ddf85f3794';
-const EPISODES_MANIFEST = 'content/episodes.json?v=memory-v66';
+const EPISODES_MANIFEST = 'content/episodes.json?v=memory-v67';
 const LIVE_STORY_ENDPOINT = '/api/story';
 const AMARANTE_TRAVEL_DATE = '2026-08-13';
 const AMARANTE_ROUTE_EPISODE_ID = '004b-rumbo-amarante';
@@ -49,6 +49,7 @@ const FINALE_CLARITY_MIGRATION_FLAG = 'migracion-final-claro-t24a0';
 const SEVILLA_CARD_RESCUE_MARKER = 'rescate-tarjeta-sevilla-t24a2';
 const SANTA_CRUZ_RETREAT_RESCUE_MARKER = 'rescate-retirada-santa-cruz-t25a0';
 const FINALE_POLISH_MIGRATION_MARKER = 'migracion-final-cuatro-cierres-t25a1';
+const FINALE_FLEXIBLE_ROUTE_MIGRATION_MARKER = 'migracion-isla-ruta-flexible-t25a2';
 const AI_REQUEST_TIMEOUT_MS = 18000;
 const SECURITY_CHECKIN_MESSAGES = [
   'Buenos días, Paula y Hugo.',
@@ -84,7 +85,7 @@ const CHAT_SENDERS = {
   vasco: { name: 'Vasco', initial: 'V' },
   corvinho: { name: 'Corvinho', initial: 'C' },
   capitan_pico: { name: 'Capitán Pico', image: 'images/capitan-pico.jpg?v=capitan-pico-v1' },
-  america: { name: 'América', initial: 'A' },
+  america: { name: 'América', image: 'images/america.png?v=america-v1' },
   krim: { name: 'Krim', initial: 'K' }
 };
 const EPISODE_AI_SPEAKERS = Object.freeze({
@@ -99,7 +100,7 @@ const EPISODE_AI_SPEAKERS = Object.freeze({
   '014-piedade-algar-jaima': ['topotina', 'vasco'],
   '015-zoomarine': ['topotina', 'gotas', 'vasco'],
   '016-tavira-sevilla': ['topotina', 'louri', 'doctora_tecla', 'topoloco'],
-  '017-isla-magica': ['topotina', 'capitan_pico', 'topoloco']
+  '017-isla-magica': ['topotina', 'capitan_pico', 'america', 'topoloco']
 });
 const CHATTER_LIMIT_CHARS = 500;
 const CHATTER_LIMIT_MESSAGES = 8;
@@ -249,6 +250,7 @@ async function init() {
     applySevillaCardRescue();
     applySantaCruzRetreatRescue();
     applyFinalePolishMigration();
+    applyFinaleFlexibleRouteMigration();
     applyZoomarineTransitionRescue();
     applyTravelDayRescue();
     applyAmaranteCompletionRescue();
@@ -2558,6 +2560,39 @@ function applyFinalePolishMigration() {
   return true;
 }
 
+function applyFinaleFlexibleRouteMigration() {
+  if (!state.unlocked) return false;
+  if (!state.unlockedEpisodeIds.includes(FINAL_EPISODE_ID)) return false;
+  if (state.seenBroadcastIds.includes(FINALE_FLEXIBLE_ROUTE_MIGRATION_MARKER)) return false;
+  if (state.flags.includes('completado_isla_magica')) return false;
+
+  const steps = CHALLENGE_PACKS[FINAL_EPISODE_ID]?.steps || [];
+  const fuerteIndex = steps.findIndex((step) => step.id === 'puerta-america-q1');
+  if (fuerteIndex >= 0) {
+    addUniqueMany(state.completedChallengeIds, steps.slice(0, fuerteIndex + 1).map((step) => step.id));
+  }
+
+  const flexibleIds = [
+    'dialogo-america-gobernadora', 'dialogo-zona-isla-hallazgo',
+    'dialogo-zona-isla-siguiente', 'dialogo-zona-isla-hallazgo-2'
+  ];
+  const alreadyBeyondFlexibleRoute = [
+    'isla-q2', 'dialogo-niebla-senuelo', 'dialogo-final-isla',
+    'sevilla-lago-pista', 'sevilla-lago-expedicion', 'sevilla-lago-q2',
+    'dialogo-corral-rey', 'corral-rey-expedicion', 'final-sevilla-noche'
+  ].some((id) => state.completedChallengeIds.includes(id));
+  if (alreadyBeyondFlexibleRoute) addUniqueMany(state.completedChallengeIds, flexibleIds);
+
+  addUniqueMany(state.seenBroadcastIds, [FINALE_FLEXIBLE_ROUTE_MIGRATION_MARKER]);
+  startupRescueMessages = [...startupRescueMessages,
+    { from: 'system', time: 'auto', text: 'RUTA DEL PARQUE RECALCULADA · El recorrido ya no depende del orden del mapa.' },
+    { from: 'topotina', time: 'auto', text: 'He quitado la ruta fija. América preguntará dónde estáis de verdad y ajustará la investigación a esa zona.' },
+    { from: 'topotino', time: 'auto', text: 'Por fin. Mi mapa llevaba diez minutos intentando mandar un barco por una escalera.' }
+  ];
+  saveState({ sync: false });
+  return true;
+}
+
 function applyZoomarineTransitionRescue() {
   if (!state.unlocked) return false;
   if (state.seenBroadcastIds.includes(ZOOMARINE_TRANSITION_RESCUE_MARKER)) return false;
@@ -3375,6 +3410,7 @@ function applyRestoredState(remoteState, recoveryCode) {
   applySevillaCardRescue();
   applySantaCruzRetreatRescue();
   applyFinalePolishMigration();
+  applyFinaleFlexibleRouteMigration();
 }
 
 function markStateChanged() {
@@ -3603,6 +3639,6 @@ function applyTestingParams() {
 
 function registerServiceWorker() {
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('service-worker.js?v=offline-v51').catch(() => {});
+    navigator.serviceWorker.register('service-worker.js?v=offline-v52').catch(() => {});
   }
 }

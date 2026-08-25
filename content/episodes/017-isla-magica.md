@@ -3,7 +3,7 @@
   "id": "017-isla-magica",
   "order": 17,
   "title": "Día 13 · La isla dentro de la isla",
-  "channelCode": "T-25A1",
+  "channelCode": "T-25A2",
   "startsUnlocked": false,
   "finalRoutes": ["sevilla-night"],
   "activation": { "mode": "all", "required": ["completado_tavira_sevilla"], "date": { "on": "2026-08-25" } },
@@ -22,9 +22,9 @@ Durante la noche Borrón selló los cuatro cortes pendientes y cruzó su señal 
 
 La señal tiene seis marcas de zona, una carabela, la palabra incompleta `CARTU…` y el mismo engranaje torcido que apareció en Magikland. Una conversación breve permite que Paula y Hugo deduzcan una isla mágica dentro de la Isla de la Cartuja. La expedición permanece oculta hasta confirmar la llegada física.
 
-Al llegar, Capitán Pico vuelve a conectar desde dentro del parque y exige que conste que su orientación fue «impecable», aunque América tuvo el mapa. América sigue vigilando sobre el terreno y no escribe. Ninguna prueba depende de encontrarlos físicamente, fotografiarse o montar en una atracción.
+Al llegar, Capitán Pico y América vuelven al canal. América se presenta como gobernadora de Isla Mágica. Pico confiesa que vio a Paula y Hugo en el Fuerte y fingió no conocerlos para no alertar a Borrón, aunque le hizo mucha ilusión la foto. Esa visita ya cuenta: nadie debe pedirles que repitan el Fuerte.
 
-Capitán Pico explica la magia de forma concreta: Isla Mágica está en la Isla de la Cartuja y sus seis zonas permiten viajar con la imaginación a los siglos XVI y XVII. El primer cierre está en Sevilla, Puerto de Indias: barco, puerto y usos actuales permiten distinguir recreación y documento. El segundo está en Puerta de América: el Fuerte representa una defensa y a la vez cumple funciones reales dentro del parque.
+La ruta deja de ser lineal. América pregunta en qué zona están realmente y adapta una observación física a Sevilla, Puerto de Indias, Puerta de América, Amazonia, La Guarida de los Piratas, La Fuente de la Juventud o El Dorado. Después vuelve a preguntar dónde están y ofrece una segunda observación distinta, incluso si no han cambiado de zona. La dificultad consiste en distinguir qué representa un escenario y qué función real cumple hoy, no en seguir el mapa en un orden concreto. El primer cierre procede de lo ya observado y el Fuerte confirma el segundo.
 
 Después aparecen tres órdenes urgentes y contradictorias. Solo entonces Topotina identifica a Niebla: es un Oscurno de Francia que usa ruido y prisa para lograr que alguien elija sin comprobar. Paula y Hugo deciden la estrategia y eligen por chat un punto público del mapa. Topotina lo convierte en un señuelo que oculta su posición real. Niebla lo sigue, abre el tercer cierre y deja visible el cable del Corrector.
 
@@ -64,7 +64,7 @@ Las doce ventanas se abren y el Corrector queda desconectado. Borrón, Eco y Nie
     "blockedFlags": ["completado_isla_magica"],
     "containsAny": ["por qué no habla américa", "porque no habla america", "dónde está américa", "donde esta america", "que hable américa"],
     "messages": [
-      { "from": "capitan_pico", "time": "auto", "text": "América está conmigo sobre el terreno y ha preferido vigilar antes que pelearse con un teclado. Yo llevaré el canal; ella me avisará si ve algo importante." }
+      { "from": "america", "time": "auto", "text": "Aquí estoy. Soy la gobernadora de Isla Mágica y ahora también estoy dentro del chat. Decidme qué zona indica el cartel que tenéis más cerca y adaptaré la investigación." }
     ]
   },
   {
@@ -115,7 +115,7 @@ Las doce ventanas se abren y el Corrector queda desconectado. Borrón, Eco y Nie
 
 ## Contexto para IA
 
-Final único en Isla Mágica durante la tarde del 25. La mañana reconoce que ayer se retiraron antes de Santa Cruz: siete testigos recuperados y cuatro huecos sellados por Borrón. Nunca afirmar que visitaron Santa Cruz, Fábrica de Tabacos, María Luisa o Plaza de España. La expedición solo aparece tras confirmar físicamente Isla Mágica. Capitán Pico y América ya fueron presentados el 24: Pico vuelve con avatar y humor aventurero; América permanece sobre el terreno y no escribe. Los cuatro cierres se abren en Puerto de Indias, Puerta de América, contratrampa de Niebla y lago. Topotina no nombra a Niebla hasta detectar sus órdenes contradictorias. Topoloco entra y mantiene dos intercambios: ofrece cargos y después pide un momento que no pudiera haber vivido. Reacciona a cada respuesta antes del cierre canónico; no acepta realmente unirse a ellos ni cambia de bando. No introducir a Krim, Corvinho, Marga, Rufino o Louri. La culminación sucede después de la recepción de Carlos I en el Corral de Comedias de las 20:00. Antes de entrar se pide guardar y silenciar el móvil; no enviar mensajes durante la representación. Al salir Paula y Hugo cuentan dos recuerdos y consultan el Cuaderno sin mostrarlo. La victoria es inequívoca incluso si la Sombra fue alta. Después Topotino recomienda conocer la Sevilla pendiente sin abrir otra misión ni mencionar Granada.
+Final único en Isla Mágica durante la tarde del 25. La mañana reconoce que ayer se retiraron antes de Santa Cruz: siete testigos recuperados y cuatro huecos sellados por Borrón. Nunca afirmar que visitaron Santa Cruz, Fábrica de Tabacos, María Luisa o Plaza de España. La expedición solo aparece tras confirmar físicamente Isla Mágica. Capitán Pico vuelve con avatar y humor aventurero. América entra con su propio avatar, se presenta como gobernadora y dirige una investigación adaptable: pregunta la zona real, plantea una observación concreta y vuelve a preguntar después para adaptarse al movimiento real de Paula y Hugo. Si siguen en la misma zona, da una prueba distinta. Pico admite que los vio en el Fuerte, fingió no conocerlos para proteger la misión y se alegró mucho por la foto. No obligar a seguir las zonas en un orden fijo ni pedir repetir el Fuerte. Los cuatro cierres se completan con lo ya observado, el Fuerte, la contratrampa de Niebla y el lago. Topotina no nombra a Niebla hasta detectar sus órdenes contradictorias. Topoloco entra y mantiene dos intercambios: ofrece cargos y después pide un momento que no pudiera haber vivido. Reacciona a cada respuesta antes del cierre canónico; no acepta realmente unirse a ellos ni cambia de bando. No introducir a Krim, Corvinho, Marga, Rufino o Louri. La culminación sucede después de la recepción de Carlos I en el Corral de Comedias de las 20:00. Antes de entrar se pide guardar y silenciar el móvil; no enviar mensajes durante la representación. Al salir Paula y Hugo cuentan dos recuerdos y consultan el Cuaderno sin mostrarlo. La victoria es inequívoca incluso si la Sombra fue alta. Después Topotino recomienda conocer la Sevilla pendiente sin abrir otra misión ni mencionar Granada.
 
 ## Fuentes documentales
 
