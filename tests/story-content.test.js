@@ -170,7 +170,7 @@ test('los días 13 y 14 conservan su cadena narrativa y adaptan solo tras un imp
   assert.doesNotMatch(childFacingText, /(foto|fotografía).{0,30}(cuaderno|diario)/i);
 });
 
-test('la edición T-25A3 rescata el silencio de Isla Mágica sin repetir misiones', async () => {
+test('la edición T-26A0 conserva el rescate del final y abre el epílogo del viaje', async () => {
   const files = ['index.html', 'app.js', 'admin.js', 'content/episodes/001-reconexion.md'];
   const combined = (await Promise.all(files.map((file) => readFile(join(root, file), 'utf8')))).join('\n');
   const app = await readFile(join(root, 'app.js'), 'utf8');
@@ -184,14 +184,14 @@ test('la edición T-25A3 rescata el silencio de Isla Mágica sin repetir misione
 
   const styles = await readFile(join(root, 'styles.css'), 'utf8');
 
-  assert.match(combined, /T-25A3/);
+  assert.match(combined, /T-26A0/);
   assert.doesNotMatch(combined, /T-12A9/);
   assert.match(app, /splitTopotinoMessages/);
   assert.match(app, /CHALLENGE_PACKS/);
   assert.match(app, /els\.channelCode\.textContent = APP_VERSION_CODE/);
-  assert.match(serviceWorker, /topotino-offline-v53/);
-  assert.match(serviceWorker, /chat-format\.js\?v=memory-v68/);
-  assert.match(serviceWorker, /content\/challenges\.js\?v=memory-v68/);
+  assert.match(serviceWorker, /topotino-offline-v54/);
+  assert.match(serviceWorker, /chat-format\.js\?v=memory-v69/);
+  assert.match(serviceWorker, /content\/challenges\.js\?v=memory-v69/);
   assert.match(app, /function applySevillaCardRescue\(\)/);
   assert.match(app, /Calle Sierpes\\\.\\s\*Recorredla hacia la Plaza de San Francisco/);
   assert.match(app, /Interferencia cruzada retirada/);
@@ -211,6 +211,10 @@ test('la edición T-25A3 rescata el silencio de Isla Mágica sin repetir misione
   assert.match(app, /rescate-silencio-isla-t25a3/);
   assert.match(challenges, /No tendréis que repetir ninguna misión/);
   assert.ok((app.match(/applyFinaleSilenceRescue\(\);/g) || []).length >= 2);
+  assert.match(app, /function applyDay26Epilogue\(\)/);
+  assert.match(app, /epilogo-viaje-t26a0/);
+  assert.match(app, /Canal abierto · sin misión activa/);
+  assert.ok((app.match(/applyDay26Epilogue\(\);/g) || []).length >= 3);
   assert.match(combined, /id="location-refresh"/);
   assert.ok(combined.indexOf('id="location-refresh"') < combined.indexOf('</header>'));
   assert.doesNotMatch(styles, /\.location-refresh-compact\s*\{[^}]*display:\s*none/is);
@@ -582,4 +586,33 @@ test('los hilos de aliados y antagonistas llegan al desenlace sin adelantar el d
   assert.match(isla, /llamaba Tina/);
   assert.match(isla, /Niebla/);
   assert.doesNotMatch(isla, /destino.*Granada|Alhambra nocturna/i);
+});
+
+test('el epílogo del 26 repasa solo el viaje vivido, expulsa a Topoloco y deja abierto el canal', async () => {
+  const app = await readFile(join(root, 'app.js'), 'utf8');
+  const start = app.indexOf('function day26EpilogueMessages()');
+  const end = app.indexOf('function applyDay26Epilogue()', start);
+  assert.ok(start >= 0 && end > start, 'falta el guion aislado del epílogo');
+  const epilogue = app.slice(start, end);
+
+  for (const place of [
+    'Amarante', 'Magikland', 'Curia', 'Hotel do Parque', 'Buçaco',
+    'Portugal dos Pequenitos', 'Batalha', 'Fátima', 'Mira de Aire', 'Óbidos',
+    'Dino Parque', 'Lisboa', 'Pavilhão', 'Lagos', 'Ponta da Piedade',
+    'Albufeira', 'Zoomarine', 'Tavira', 'Sevilla', 'Isla Mágica', 'Agua Mágica'
+  ]) assert.match(epilogue, new RegExp(place, 'i'), `falta ${place}`);
+
+  assert.match(epilogue, /Tecla pulsó «expulsar usuario»[\s\S]*TOPOLOCO EXPULSADO[\s\S]*TECLA HA SALIDO/);
+  assert.match(epilogue, /supisteis parar antes de Santa Cruz/);
+  assert.doesNotMatch(epilogue, /Badoca|Sagres|Granada|Alhambra|Fábrica de Tabacos|María Luisa|Plaza de España/);
+  assert.match(epilogue, /Gracias, Paula y Hugo/);
+  assert.match(epilogue, /canal secreto seguirá abierto/);
+  assert.match(epilogue, /Paula, Hugo… os necesito/);
+
+  const applyStart = app.indexOf('function applyDay26Epilogue()');
+  const applyEnd = app.indexOf('function applyZoomarineTransitionRescue()', applyStart);
+  const activation = app.slice(applyStart, applyEnd);
+  assert.match(activation, /2026-08-26|DAY26_EPILOGUE_DATE/);
+  assert.match(activation, /completado_isla_magica/);
+  assert.match(activation, /final-sevilla-noche/);
 });

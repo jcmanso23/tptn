@@ -1,5 +1,5 @@
-import { splitTopotinoMessages } from './chat-format.js?v=memory-v68';
-import { CHALLENGE_PACKS, displayChallengeOptions } from './content/challenges.js?v=memory-v68';
+import { splitTopotinoMessages } from './chat-format.js?v=memory-v69';
+import { CHALLENGE_PACKS, displayChallengeOptions } from './content/challenges.js?v=memory-v69';
 
 const STORAGE_KEYS = {
   auth: 'topotino_chat_auth_v1',
@@ -7,9 +7,9 @@ const STORAGE_KEYS = {
 };
 
 const LEGACY_STATE_KEY = 'topotino_chat_state_v1';
-const APP_VERSION_CODE = 'T-25A3';
+const APP_VERSION_CODE = 'T-26A0';
 const PASSPHRASE_HASH = 'a64716bd9f4e8added1bf47f80b97c3fc7b70a15b8043cdab083e1ddf85f3794';
-const EPISODES_MANIFEST = 'content/episodes.json?v=memory-v68';
+const EPISODES_MANIFEST = 'content/episodes.json?v=memory-v69';
 const LIVE_STORY_ENDPOINT = '/api/story';
 const AMARANTE_TRAVEL_DATE = '2026-08-13';
 const AMARANTE_ROUTE_EPISODE_ID = '004b-rumbo-amarante';
@@ -51,6 +51,8 @@ const SANTA_CRUZ_RETREAT_RESCUE_MARKER = 'rescate-retirada-santa-cruz-t25a0';
 const FINALE_POLISH_MIGRATION_MARKER = 'migracion-final-cuatro-cierres-t25a1';
 const FINALE_FLEXIBLE_ROUTE_MIGRATION_MARKER = 'migracion-isla-ruta-flexible-t25a2';
 const FINALE_SILENCE_RESCUE_MARKER = 'rescate-silencio-isla-t25a3';
+const DAY26_EPILOGUE_MARKER = 'epilogo-viaje-t26a0';
+const DAY26_EPILOGUE_DATE = '2026-08-26';
 const AI_REQUEST_TIMEOUT_MS = 18000;
 const SECURITY_CHECKIN_MESSAGES = [
   'Buenos días, Paula y Hugo.',
@@ -223,6 +225,7 @@ let activationInterval = null;
 let adultLaunchTimer = null;
 let locationRefreshInFlight = false;
 let startupRescueMessages = [];
+let startupEpiloguePending = false;
 let challengePanelCollapsed = false;
 let renderedChallengeId = null;
 let activeConversationTurnId = null;
@@ -253,6 +256,7 @@ async function init() {
     applyFinalePolishMigration();
     applyFinaleFlexibleRouteMigration();
     applyFinaleSilenceRescue();
+    applyDay26Epilogue();
     applyZoomarineTransitionRescue();
     applyTravelDayRescue();
     applyAmaranteCompletionRescue();
@@ -411,13 +415,16 @@ async function enterChat() {
   const incomingMessages = [...startupRescueMessages, ...liveMessages, ...activationMessages, ...challengeArrivalMessages, ...conversationMessages];
   startupRescueMessages = [];
   if (incomingMessages.length) {
-    await deliverTopotinoMessages(incomingMessages, { mode: 'activation' });
+    const deliveryMode = startupEpiloguePending ? 'epilogue' : 'activation';
+    startupEpiloguePending = false;
+    await deliverTopotinoMessages(incomingMessages, { mode: deliveryMode });
   }
   window.setTimeout(() => syncStateNow({ force: state.syncStatus !== 'synced' }), 1000);
   setTimeout(() => els.chatInput.focus(), 50);
 }
 
 async function runActivationCheck(reason) {
+  applyDay26Epilogue();
   initializeTopolocoScene();
   if (await runNarrativeScene()) {
     renderAll();
@@ -440,7 +447,9 @@ async function runActivationCheck(reason) {
   startupRescueMessages = [];
   const incomingMessages = [...rescueMessages, ...liveMessages, ...activationMessages, ...challengeArrivalMessages, ...conversationMessages];
   if (incomingMessages.length) {
-    await deliverTopotinoMessages(incomingMessages, { mode: 'activation' });
+    const deliveryMode = startupEpiloguePending ? 'epilogue' : 'activation';
+    startupEpiloguePending = false;
+    await deliverTopotinoMessages(incomingMessages, { mode: deliveryMode });
   }
 }
 
@@ -1910,6 +1919,19 @@ function getReplyTiming(mode) {
     };
   }
 
+  if (mode === 'epilogue') {
+    return {
+      silenceMin: 1200,
+      silenceMax: 2800,
+      typingMin: 800,
+      typingMax: 2200,
+      staggerMin: 450,
+      staggerMax: 1000,
+      nextTypingMin: 700,
+      nextTypingMax: 1900
+    };
+  }
+
   if (mode === 'challenge') {
     return {
       silenceMin: 2000,
@@ -2109,7 +2131,9 @@ function renderProgress() {
   const activeEpisode = getActiveEpisode();
   const meta = activeEpisode ? activeEpisode.meta : {};
   els.channelCode.textContent = APP_VERSION_CODE;
-  els.missionActive.textContent = isTopolocoSceneActive()
+  els.missionActive.textContent = state.seenBroadcastIds.includes(DAY26_EPILOGUE_MARKER)
+    ? 'Canal abierto · sin misión activa'
+    : isTopolocoSceneActive()
     ? 'Recuperar el chat secreto'
     : meta.mission || meta.title || 'Reconexión';
   els.watersCount.textContent = `${state.waters.length}/12`;
@@ -2628,6 +2652,58 @@ function applyFinaleSilenceRescue() {
   }
 
   addUniqueMany(state.seenBroadcastIds, [FINALE_SILENCE_RESCUE_MARKER]);
+  saveState({ sync: false });
+  return true;
+}
+
+function day26EpilogueMessages() {
+  return [
+    { from: 'system', time: 'auto', text: '26 DE AGOSTO · CONEXIÓN DESPUÉS DE LA VICTORIA' },
+    { from: 'topoloco', time: 'auto', text: '¡Exijo una rectificación! Yo no perdí. Realicé una retirada científica en dirección opuesta al triunfo.' },
+    { from: 'topotino', time: 'auto', text: '¡¿Cómo sigues dentro del chat?! Tina, dijiste que habías cerrado su acceso.' },
+    { from: 'doctora_tecla', time: 'auto', text: 'Lo cerré. Este genio dejó abierta su sesión en mi portátil.' },
+    { from: 'topoloco', time: 'auto', text: 'Se llama estrategia de permanencia digital.' },
+    { from: 'doctora_tecla', time: 'auto', text: 'Se llama no saber cerrar una pestaña. Y la basura sigue esperando desde Lagos.' },
+    { from: 'topoloco', time: 'auto', text: '¡Estoy redactando mis memorias! Capítulo uno: cómo casi vencí doce veces.' },
+    { from: 'doctora_tecla', time: 'auto', text: 'Capítulo dos: cómo Tecla pulsó «expulsar usuario».' },
+    { from: 'system', time: 'auto', text: 'DOCTOR TOPOLOCO EXPULSADO DEL CANAL' },
+    { from: 'doctora_tecla', time: 'auto', text: 'Listo. No soy de vuestro equipo; solo quiero mi portátil y que baje la basura. Adiós.' },
+    { from: 'system', time: 'auto', text: 'DOCTORA TECLA HA SALIDO DEL CANAL' },
+    { from: 'topotina', time: 'auto', text: 'Canal limpio. He revisado el registro para recordar únicamente los lugares que recorristeis de verdad.' },
+    { from: 'topotino', time: 'auto', text: 'Todo empezó con el eclipse. Yo desperté sin casi memoria y vosotros aceptasteis ayudarme con el Cuaderno de la Memoria.' },
+    { from: 'topotino', time: 'auto', text: 'En Amarante seguisteis el Tâmega y el puente de São Gonçalo. Después llegaron Magikland, Curia, los jardines del Hotel do Parque y el bosque de Buçaco.' },
+    { from: 'topotina', time: 'auto', text: 'En Portugal dos Pequenitos encontrasteis una Batalha diminuta. Fuisteis al monasterio real y después seguisteis la pista de los tres niños hasta Fátima.' },
+    { from: 'gotas', time: 'auto', text: 'Luego investigasteis huellas de dinosaurio, bajasteis a las Grutas de Mira de Aire y convertisteis las murallas de Óbidos en vuestro refugio. Cero murciélagos adoptados. Excelente.' },
+    { from: 'louri', time: 'auto', text: 'Grabación de Louri: en Dino Parque descubristeis al espía más peligroso, inteligente y compacto de la historia. Era yo. También descubrí que hacer preguntas no es estar roto.' },
+    { from: 'topotina', time: 'auto', text: 'En Lisboa recorristeis Baixa y Rossio, experimentasteis en el Pavilhão y observasteis el océano con Vasco.' },
+    { from: 'topotino', time: 'auto', text: 'También caminasteis por Alfama y Mouraria y seguisteis el río hasta Belém: los Jerónimos, la torre y el monumento a los navegantes.' },
+    { from: 'vasco', time: 'auto', text: 'Desde Lagos buscasteis delfines salvajes y cuevas marinas. Después leísteis las rocas de Ponta da Piedade y aprendisteis en Zoomarine que ayudar no significa poseer.' },
+    { from: 'topotino', time: 'auto', text: 'En Albufeira recuperasteis la parte de 1755 que Eco había borrado y dormisteis en el Refugio de Lona. En Tavira seguisteis el Gilão hasta la última pista portuguesa.' },
+    { from: 'america', time: 'auto', text: 'En Sevilla perseguisteis a Borrón desde las Setas y Sierpes por las plazas del centro, la Catedral, la Giralda y la Plaza del Triunfo. Y supisteis parar antes de Santa Cruz.' },
+    { from: 'capitan_pico', time: 'auto', text: 'Después recorristeis Isla Mágica y Agua Mágica sin contestar al chat. Casi organizo un rescate con un flotador en la cabeza. Era un plan naval avanzado.' },
+    { from: 'america', time: 'auto', text: 'Terminasteis junto a nosotros cuando llegó Carlos I. Muchas voces, errores y ayuda demostraron que ninguna historia verdadera necesita un único dueño.' },
+    { from: 'topotina', time: 'auto', text: 'El Corrector cayó, las doce ventanas se abrieron y cada recuerdo volvió a quien lo había vivido. Resultado técnico: victoria completa.' },
+    { from: 'gotas', time: 'auto', text: 'Gracias por mirar el agua, la roca y los lugares con paciencia. Hasta yo he aprendido que una gota pequeña puede acabar metida en una aventura enorme.' },
+    { from: 'vasco', time: 'auto', text: 'Gracias por observar a los animales sin creer que os pertenecían y por aceptar que no verlo todo también forma parte de investigar.' },
+    { from: 'capitan_pico', time: 'auto', text: 'Gracias, exploradores. Conservo mi título de capitán gracias a que América se negó a revisar la documentación.' },
+    { from: 'america', time: 'auto', text: 'La revisé. Está dibujada con lápiz de colores. Gracias, Paula y Hugo, por traer imaginación sin dejar de comprobar lo que veíais.' },
+    { from: 'topotino', time: 'auto', text: 'Hugo, gracias por tu valor, tus preguntas y tus ganas de entrar en cada aventura. Paula, gracias por orientarnos, pensar con calma y descubrir detalles que a los demás se nos escapaban.' },
+    { from: 'topotino', time: 'auto', text: 'Y gracias a toda la familia por llevarnos de un lugar a otro cuando nosotros solo enviábamos pistas bastante sospechosas.' },
+    { from: 'topotino', time: 'auto', text: 'Hoy no hay misión. Guardad el Cuaderno de la Memoria: esta aventura termina, pero el canal secreto seguirá abierto.' },
+    { from: 'topotino', time: 'auto', text: 'Porque algún día puede aparecer otra carta, una coordenada imposible o un ruido debajo de una maceta. Y entonces espero poder volver a decir: Paula, Hugo… os necesito.' }
+  ];
+}
+
+function applyDay26Epilogue() {
+  if (!state.unlocked) return false;
+  if (formatDate(getRuntimeNow()) < DAY26_EPILOGUE_DATE) return false;
+  if (!state.flags.includes('completado_isla_magica')) return false;
+  if (!state.completedChallengeIds.includes('final-sevilla-noche')) return false;
+  if (state.seenBroadcastIds.includes(DAY26_EPILOGUE_MARKER)) return false;
+
+  addUniqueMany(state.seenBroadcastIds, [DAY26_EPILOGUE_MARKER]);
+  startupRescueMessages = [...startupRescueMessages, ...day26EpilogueMessages()];
+  startupEpiloguePending = true;
   saveState({ sync: false });
   return true;
 }
@@ -3451,6 +3527,7 @@ function applyRestoredState(remoteState, recoveryCode) {
   applyFinalePolishMigration();
   applyFinaleFlexibleRouteMigration();
   applyFinaleSilenceRescue();
+  applyDay26Epilogue();
 }
 
 function markStateChanged() {
@@ -3679,6 +3756,6 @@ function applyTestingParams() {
 
 function registerServiceWorker() {
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('service-worker.js?v=offline-v53').catch(() => {});
+    navigator.serviceWorker.register('service-worker.js?v=offline-v54').catch(() => {});
   }
 }

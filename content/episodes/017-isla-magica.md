@@ -3,7 +3,7 @@
   "id": "017-isla-magica",
   "order": 17,
   "title": "Día 13 · La isla dentro de la isla",
-  "channelCode": "T-25A3",
+  "channelCode": "T-26A0",
   "startsUnlocked": false,
   "finalRoutes": ["sevilla-night"],
   "activation": { "mode": "all", "required": ["completado_tavira_sevilla"], "date": { "on": "2026-08-25" } },
@@ -37,6 +37,8 @@ Si Paula y Hugo recorren Isla Mágica y Agua Mágica sin responder al canal, ese
 Al salir, el desenlace utiliza cuatro ideas comprensibles: un escenario representa una época pero no es el pasado real; un reflejo depende del objeto, la luz y el agua; una historia puede mejorar cuando varias personas corrigen errores; y dos recuerdos diferentes pueden formar una historia compartida. Paula y Hugo cuentan por chat dos momentos que recuerdan, sin enseñarlos ni someterlos a examen, y después consultan el Cuaderno de la Memoria en privado. La máquina no puede copiarlo ni decidir quién es dueño de una aventura construida entre ambos.
 
 Las doce ventanas se abren y el Corrector queda desconectado. Borrón, Eco y Niebla pierden sus conexiones. El Museo Topoloco devuelve los recuerdos robados. Topotino recuerda «Tina» y la caja de galletas en la que ella construyó su primer comunicador; él mordió dos resistencias creyendo que eran chocolate. Después agradece a Hugo su valentía para actuar, a Paula su orientación y a ambos que observaran, corrigieran y supieran parar. Paula y Hugo reciben una confirmación inequívoca de que lo han conseguido. Después Topotino recomienda ver la Sevilla pendiente, ya sin pruebas. Este es el final único y no abre otra amenaza.
+
+El 26 de agosto, solo después de haber abierto la última ventana, llega un epílogo. Topoloco intenta colarse para corregir su derrota; Tecla descubre que dejó abierta una sesión, lo expulsa para obligarlo a bajar la basura y abandona también el canal. Los amigos repasan únicamente los lugares realmente recorridos. No convierten en recuerdos los destinos descartados ni la parte de Sevilla que quedó pendiente. Después agradecen a Paula, Hugo y la familia lo vivido. No existe una nueva misión, pero Topotino mantiene abierto el canal para una posible aventura futura.
 
 ## Mensajes iniciales
 
