@@ -1,3 +1,7 @@
+## Campaña Samaín · T-30O1
+
+La campaña de octubre usa episodios Markdown y un reductor de progreso separado en `samain.js`. Véanse `SAMAIN-2026.md` (revisión y pruebas) y `PERSONAJES.md`. El chat conserva la partida de agosto. Las reglas de retos con opciones, Memoria/Sombra y doce ventanas de abajo se aplican a Las Doce Aguas; no a la campaña conversacional nueva. Las llegadas de octubre se confirman explícitamente, sin validación por GPS. El código no consulta ni controla el mapa externo de los Flopis.
+
 # Cómo escribir capítulos de Topotino
 
 Antes de crear, corregir o publicar cualquier misión, lee y actualiza [`GUIA-COHERENCIA-NARRATIVA.md`](GUIA-COHERENCIA-NARRATIVA.md). Es el documento maestro del canon, los secretos, el recorrido y la propagación de cambios hacia todas las misiones futuras.

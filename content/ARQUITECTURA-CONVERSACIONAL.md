@@ -143,3 +143,11 @@ El registro de Upstash seguirá siendo la fuente de verdad aunque el SDK incorpo
 - [Sesiones en OpenAI Agents SDK](https://openai.github.io/openai-agents-js/guides/sessions/)
 - [Guardrails en OpenAI Agents SDK](https://openai.github.io/openai-agents-js/guides/guardrails/)
 - [Agentes en Vercel AI SDK](https://ai-sdk.dev/docs/agents/overview)
+
+## Campaña de octubre · aislamiento y progreso
+
+Samaín conserva esta arquitectura híbrida sin migración de proveedor ni SDK. `content/samain.js` decide el avance según fase, respuesta y acción explícita. Cada fase tiene un episodio Markdown propio: su contexto excluye secretos futuros y sus pistas solo se entregan a petición. El modelo conversa y nunca concede rescates o visitas. Las voces se limitan por fase también en el servidor; Tecla interviene solo en una entrada escrita. El resultado externo de Flopis se acepta únicamente al informar los niños; existe un rescate alternativo con una acción explícita desde el chat.
+
+El estado `campaign` guarda fase, pasos anteriores, pistas y una cola de entrada. Cada burbuja de entrada tiene un identificador persistente; una recarga entrega únicamente lo pendiente. El calendario usa Europe/Madrid y permite continuar después de las fechas. No modifica puntuaciones ni estados de agosto; las reparaciones heredadas no se ejecutan sobre la campaña nueva.
+
+El guardado separa la revisión local de la revisión confirmada del servidor. La comparación y escritura de Redis son atómicas, y cada operación tiene identificador para reintentos. Si dos dispositivos compiten se conserva la partida local y se informa del conflicto; nunca se restaura la remota automáticamente sobre cambios locales.

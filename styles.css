@@ -1449,3 +1449,6 @@ input {
     font-size: 24px;
   }
 }
+
+/* Campaign controls use the chat layout; legacy meters stay in saved history. */
+.adventure-meter[hidden], .challenge-panel[hidden] { display: none; }

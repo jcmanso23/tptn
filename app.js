@@ -1,5 +1,7 @@
-import { splitTopotinoMessages } from './chat-format.js?v=memory-v69';
-import { CHALLENGE_PACKS, displayChallengeOptions } from './content/challenges.js?v=memory-v69';
+import { splitTopotinoMessages } from './chat-format.js?v=samain-v1';
+import { CHALLENGE_PACKS, displayChallengeOptions } from './content/challenges.js?v=samain-v1';
+
+import { SAMAIN_ID, SAMAIN_STAGES, newSamain, normalizeSamain, samainStage, samainStageForEpisode, samainCanStart, samainSpeakers, reduceSamain } from './content/samain.js?v=samain-v1';
 
 const STORAGE_KEYS = {
   auth: 'topotino_chat_auth_v1',
@@ -7,9 +9,9 @@ const STORAGE_KEYS = {
 };
 
 const LEGACY_STATE_KEY = 'topotino_chat_state_v1';
-const APP_VERSION_CODE = 'T-26A0';
+const APP_VERSION_CODE = 'T-30O1';
 const PASSPHRASE_HASH = 'a64716bd9f4e8added1bf47f80b97c3fc7b70a15b8043cdab083e1ddf85f3794';
-const EPISODES_MANIFEST = 'content/episodes.json?v=memory-v69';
+const EPISODES_MANIFEST = 'content/episodes.json?v=samain-v1';
 const LIVE_STORY_ENDPOINT = '/api/story';
 const AMARANTE_TRAVEL_DATE = '2026-08-13';
 const AMARANTE_ROUTE_EPISODE_ID = '004b-rumbo-amarante';
@@ -93,7 +95,7 @@ const CHAT_SENDERS = {
 };
 const EPISODE_AI_SPEAKERS = Object.freeze({
   '006-magikland-curia': ['topotina'],
-  '007-bucaco-coimbra-batalha-fatima': ['topotina'],
+  '007-bucaco-batalha-fatima': ['topotina'],
   '008-huellas-mira-obidos': ['topotina', 'gotas'],
   '009-dinoparque-lisboa': ['topotina', 'louri'],
   '010-lisboa-ciencia-oceanario': ['topotina', 'vasco'],
@@ -195,6 +197,9 @@ const state = {
   finalRoute: DEFAULT_FINAL_ROUTE,
   finalRouteLocked: false,
   narrativeScene: null,
+  campaign: null,
+  serverRevision: 0,
+  syncConflict: null,
   softResponseCursor: {},
   hintMissCursor: {},
   chatterWarningCursor: 0,
@@ -221,6 +226,8 @@ let liveStoryVersion = null;
 let busy = false;
 let syncTimer = null;
 let syncInFlight = false;
+let pendingSyncRequest = null;
+let samainDeliveryInFlight = false;
 let activationInterval = null;
 let adultLaunchTimer = null;
 let locationRefreshInFlight = false;
@@ -237,6 +244,129 @@ const isAdultMode = params.get('topoadulto') === '1' || params.get('adult') === 
 
 document.addEventListener('DOMContentLoaded', init);
 
+function ensureSamainCampaign() {
+  if (!state.unlocked) return false;
+  if (!state.campaign && samainCanStart(getRuntimeNow())) state.campaign = newSamain();
+  if (state.campaign?.id !== SAMAIN_ID) return false;
+  const stage = samainStage(state.campaign.stage);
+  if (!stage || !getEpisode(stage.episodeId)) return false;
+  unlockEpisode(stage.episodeId);
+  if (state.campaign.entryDelivered !== stage.key) queueSamainEntry();
+  return true;
+}
+
+function queueSamainEntry(prefix = '') {
+  const campaign = state.campaign;
+  const stage = samainStage(campaign.stage);
+  const episode = getEpisode(stage.episodeId);
+  const messages = prefix ? [{ from: 'topotino', text: prefix }, ...episode.initialMessages] : episode.initialMessages;
+  campaign.entrySequence = (campaign.entrySequence || 0) + 1;
+  campaign.outbox = splitTopotinoMessages(messages).map((message, index) => ({
+    ...message, episodeId: stage.episodeId,
+    id: `samain-${stage.key}-${campaign.entrySequence}-${index}`
+  }));
+  campaign.entryDelivered = stage.key;
+  saveState();
+}
+
+function enterSamainStage(key, { adult = false, prefix = '' } = {}) {
+  const next = samainStage(key);
+  if (!next) return;
+  state.campaign ||= newSamain();
+  if (!adult) {
+    addUniqueMany(state.campaign.completed, [state.campaign.stage]);
+    addUniqueMany(state.flags, [`samain_${state.campaign.stage}_completado`]);
+  }
+  state.campaign.stage = key;
+  activeConversationTurnId = null;
+  if (key === 'victoria') addUniqueMany(state.flags, ['completado_samain']);
+  unlockEpisode(next.episodeId);
+  queueSamainEntry(prefix);
+}
+
+async function deliverSamainPending() {
+  if (samainDeliveryInFlight || busy || state.campaign?.id !== SAMAIN_ID) return;
+  const pending = (state.campaign.outbox || []).filter((message) => !state.messages.some((m) => m.deliveryId === message.id));
+  if (!pending.length) return;
+  samainDeliveryInFlight = true;
+  try {
+    await deliverTopotinoMessages(pending.map(({ id, ...m }) => ({ ...m, deliveryId: id })), { mode: 'scene' });
+    state.campaign.outbox = [];
+    saveState();
+  } finally {
+    samainDeliveryInFlight = false;
+  }
+}
+
+function samainAiContext(episode) {
+  if (state.campaign?.id !== SAMAIN_ID) return episode.aiContext;
+  const hints = (episode.progressiveHints || []).slice(0, state.campaign.hints[state.campaign.stage] || 0);
+  return episode.aiContext + (hints.length
+    ? '\n\nPistas ya entregadas en esta fase: ' + JSON.stringify(hints) + '\nPuedes comentar y explicar estos datos ya comunicados, sin añadir pistas posteriores.'
+    : '');
+}
+
+async function handleSamainMessage(text, action = '') {
+  const campaign = state.campaign;
+  const result = reduceSamain(campaign, text, action, getRuntimeNow());
+  if (result.kind === 'hint') {
+    const hints = getActiveEpisode()?.progressiveHints || [];
+    const index = campaign.hints[campaign.stage] || 0;
+    const hint = hints[Math.min(index, hints.length - 1)] || 'Contadme qué parte os está costando y lo miramos juntos.';
+    campaign.hints[campaign.stage] = index + 1;
+    saveState();
+    await deliverTopotinoMessages([{ from: 'topotino', text: hint }], { mode: 'scene' });
+  } else if (result.kind === 'advance') {
+    state.storyMemory.push({
+      id: `samain-${campaign.stage}-${Date.now()}`, episodeId: samainStage(campaign.stage).episodeId,
+      episodeTitle: getActiveEpisode().meta.title, kind: 'observation', label: 'Lo que nos contasteis',
+      text, createdAt: Date.now()
+    });
+    state.storyMemory = state.storyMemory.slice(-MAX_STORY_MEMORY_ITEMS);
+    enterSamainStage(result.next, { prefix: result.prefix });
+    await deliverSamainPending();
+  } else if (result.kind === 'reply') {
+    if (/\b(algunos|faltan|falta|solo uno|solo dos)\b/i.test(text)) campaign.partialRescue = true;
+    saveState();
+    await deliverTopotinoMessages([{ from: 'topotino', text: result.text }], { mode: 'scene' });
+  } else {
+    await askAiFallback(text, { fallbackMessages: [{
+      from: 'topotino', text: 'Mi receptor ha cortado esa frase. No voy a dar por hecho ningún descubrimiento. Podéis repetirla, pedir una pista o usar la confirmación cuando corresponda.'
+    }] });
+  }
+  saveState();
+  renderAll();
+}
+
+function renderSamainActions() {
+  els.challengePanel.innerHTML = '';
+  const stage = samainStage(state.campaign.stage);
+  const hints = getActiveEpisode()?.progressiveHints || [];
+  const actions = [...(stage?.actions || [])];
+  if (hints.length && !['busqueda', 'dificultad', 'victoria'].includes(stage.key)) actions.push({ id: 'pista', text: 'Pedir una pista' });
+  els.challengePanel.hidden = busy || !actions.length;
+  if (els.challengePanel.hidden) return;
+  const card = document.createElement('section');
+  card.className = 'challenge-card';
+  const options = document.createElement('div');
+  options.className = 'challenge-options';
+  for (const action of actions) {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.textContent = action.text;
+    button.addEventListener('click', async () => {
+      if (busy) return;
+      appendMessage({ from: 'user', text: action.text });
+      saveState();
+      renderAll();
+      await handleSamainMessage(action.id === 'pista' ? 'Una pista, por favor' : action.text, action.id === 'pista' ? '' : action.id);
+    });
+    options.appendChild(button);
+  }
+  card.appendChild(options);
+  els.challengePanel.appendChild(card);
+}
+
 async function init() {
   bindElements();
   bindEvents();
@@ -249,21 +379,23 @@ async function init() {
     baseEpisodes = await Promise.all(manifest.map((item) => fetchEpisode(item.file)));
     episodes = baseEpisodes.slice().sort((a, b) => (a.meta.order || 0) - (b.meta.order || 0));
     await refreshLiveStory();
-    applyDay22FinaleMigration();
-    applyFinaleClarityMigration();
-    applySevillaCardRescue();
-    applySantaCruzRetreatRescue();
-    applyFinalePolishMigration();
-    applyFinaleFlexibleRouteMigration();
-    applyFinaleSilenceRescue();
-    applyDay26Epilogue();
-    applyZoomarineTransitionRescue();
-    applyTravelDayRescue();
-    applyAmaranteCompletionRescue();
-    applyDay14SecurityCheckIn();
-    applyDay14MachineClarification();
-    applyObidosArrivalRescue();
-    initializeTopolocoScene();
+    if (!ensureSamainCampaign()) {
+      applyDay22FinaleMigration();
+      applyFinaleClarityMigration();
+      applySevillaCardRescue();
+      applySantaCruzRetreatRescue();
+      applyFinalePolishMigration();
+      applyFinaleFlexibleRouteMigration();
+      applyFinaleSilenceRescue();
+      applyDay26Epilogue();
+      applyZoomarineTransitionRescue();
+      applyTravelDayRescue();
+      applyAmaranteCompletionRescue();
+      applyDay14SecurityCheckIn();
+      applyDay14MachineClarification();
+      applyObidosArrivalRescue();
+      initializeTopolocoScene();
+    }
   } catch (error) {
     console.error(error);
     showUnlockError('No se pudo cargar el comunicador. Revisad la conexión.');
@@ -385,6 +517,16 @@ function bindEvents() {
 
 async function enterChat() {
   showScreen('chat');
+  if (ensureSamainCampaign()) {
+    const liveMessages = await refreshLiveStory({ collectBroadcasts: true });
+    if (liveMessages.length) await deliverTopotinoMessages(liveMessages, { mode: 'scene' });
+    renderAll();
+    if (!activationInterval) activationInterval = setInterval(() => runActivationCheck('tick'), ACTIVATION_TICK_MS);
+    await deliverSamainPending();
+    scheduleNextAdultLaunchTimer();
+    scheduleStateSync();
+    return;
+  }
   if (params.get('debug') === '1') {
     els.internalProgress.hidden = false;
     els.internalProgress.setAttribute('aria-hidden', 'false');
@@ -424,6 +566,15 @@ async function enterChat() {
 }
 
 async function runActivationCheck(reason) {
+  if (busy) return;
+  if (ensureSamainCampaign()) {
+    const liveMessages = await refreshLiveStory({ collectBroadcasts: true });
+    if (liveMessages.length) await deliverTopotinoMessages(liveMessages, { mode: 'scene' });
+    await evaluateActivations({ reason });
+    await deliverSamainPending();
+    renderAll();
+    return;
+  }
   applyDay26Epilogue();
   initializeTopolocoScene();
   if (await runNarrativeScene()) {
@@ -509,6 +660,7 @@ function showScreen(name) {
 }
 
 function initializeTopolocoScene() {
+  if (state.campaign?.id === SAMAIN_ID) return;
   if (!state.unlocked) return;
   const today = formatDate(getRuntimeNow());
   if (today === TOPOLOCO_RECOVERY_DATE && !state.flags.includes(TOPOLOCO_RECOVERY_TECLA_FLAG)) {
@@ -775,12 +927,25 @@ async function revealLouriEmergency() {
 }
 
 async function evaluateActivations({ reason, collectMessages = false } = {}) {
+  if (ensureSamainCampaign()) {
+    for (const launch of collectDueAdultLaunches()) {
+      const target = samainStageForEpisode(launch.episodeId);
+      if (target) enterSamainStage(target.key, { adult: true });
+    }
+    if (!collectMessages) await deliverSamainPending();
+    return [];
+  }
   let changed = false;
   const queuedMessages = [];
   const dueLaunches = collectDueAdultLaunches();
   if (dueLaunches.length) changed = true;
 
   dueLaunches.forEach((launch) => {
+    const samainTarget = samainStageForEpisode(launch.episodeId);
+    if (samainTarget) {
+      enterSamainStage(samainTarget.key, { adult: true });
+      return;
+    }
     if (isEpisodeUnlocked(launch.episodeId)) return;
     const episode = getEpisode(launch.episodeId);
     if (!episode) return;
@@ -792,6 +957,11 @@ async function evaluateActivations({ reason, collectMessages = false } = {}) {
     }
     changed = true;
   });
+
+  if (state.campaign?.id === SAMAIN_ID) {
+    await deliverSamainPending();
+    return [];
+  }
 
   for (const episode of episodes) {
     if (isEpisodeUnlocked(episode.meta.id)) continue;
@@ -824,6 +994,7 @@ function episodeOpeningMessages(episode) {
 
 function episodeCanActivate(episode) {
   if (!state.unlocked) return false;
+  if (episode.meta.campaign) return false;
   if (episode.meta.startsUnlocked) return true;
   if (Array.isArray(episode.meta.finalRoutes) && !episode.meta.finalRoutes.includes(state.finalRoute || DEFAULT_FINAL_ROUTE)) {
     return false;
@@ -878,6 +1049,7 @@ function collectDueAdultLaunches() {
 
   state.scheduledAdultLaunches.forEach((launch) => {
     if (!launch || !launch.episodeId || !launch.unlockAt) return;
+    if (state.campaign?.id === SAMAIN_ID && !samainStageForEpisode(launch.episodeId)) { pending.push(launch); return; }
     if (Number(launch.unlockAt) <= now) {
       due.push(launch);
     } else {
@@ -898,7 +1070,7 @@ function scheduleNextAdultLaunchTimer() {
   if (!state.unlocked || !Array.isArray(state.scheduledAdultLaunches)) return;
 
   const nextLaunch = state.scheduledAdultLaunches
-    .filter((launch) => launch && launch.unlockAt)
+    .filter((launch) => launch && launch.unlockAt && (state.campaign?.id !== SAMAIN_ID || samainStageForEpisode(launch.episodeId)))
     .sort((a, b) => Number(a.unlockAt) - Number(b.unlockAt))[0];
 
   if (!nextLaunch) return;
@@ -994,6 +1166,11 @@ async function handleUserMessage(text) {
   appendMessage({ from: 'user', time: nowTime(), text });
   saveState();
   renderAll();
+
+  if (state.campaign?.id === SAMAIN_ID) {
+    await handleSamainMessage(text);
+    return;
+  }
 
   const sceneStage = state.narrativeScene?.id === TOPOLOCO_SCENE_ID
     ? state.narrativeScene.stage
@@ -1116,6 +1293,7 @@ function getChallengePack(episodeId = getActiveEpisode()?.meta?.id) {
 }
 
 function getNextChallengeStep() {
+  if (state.campaign?.id === SAMAIN_ID) return null;
   const episode = getActiveEpisode();
   const pack = getChallengePack(episode?.meta?.id);
   if (!pack) return null;
@@ -1150,6 +1328,7 @@ function getPendingArrivalChallenge() {
 }
 
 function getActiveChallenge() {
+  if (state.campaign?.id === SAMAIN_ID) return null;
   const sceneChallenge = getTopolocoRouteChallenge();
   if (sceneChallenge) return sceneChallenge;
   if (isTopolocoSceneActive()) return null;
@@ -1555,6 +1734,9 @@ async function askAiFallback(text, options = {}) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         message: text,
+        campaignId: state.campaign?.id,
+        phaseId: state.campaign?.stage,
+        campaignProgress: state.campaign ? { partialRescue: state.campaign.partialRescue === true } : undefined,
         turnId,
         activeEpisodeId: activeEpisode.meta.id,
         activeEpisodeTitle: activeEpisode.meta.title,
@@ -1562,13 +1744,13 @@ async function askAiFallback(text, options = {}) {
           id: episode.meta.id,
           title: episode.meta.title,
           mission: episode.meta.mission,
-          aiContext: episode.aiContext
+          aiContext: samainAiContext(episode)
         })),
         runtime: getRuntimeContext(),
-        flags: state.flags,
-        waters: state.waters,
-        formulaWords: state.formulaWords,
-        storyMemory: state.storyMemory.slice(-36),
+        flags: state.campaign?.id === SAMAIN_ID ? state.flags.filter((f) => f.startsWith('samain_')) : state.flags,
+        waters: state.campaign?.id === SAMAIN_ID ? [] : state.waters,
+        formulaWords: state.campaign?.id === SAMAIN_ID ? [] : state.formulaWords,
+        storyMemory: state.storyMemory.slice(-36).filter((m) => state.campaign?.id !== SAMAIN_ID || samainStageForEpisode(m.episodeId)),
         currentChallenge: summarizeChallengeForAi(getActiveChallenge()),
         pendingArrival: summarizeArrivalForAi(getPendingArrivalChallenge()),
         conversation: summarizeConversationForAi(options.conversationChallenge),
@@ -1695,6 +1877,7 @@ function summarizeConversationForAi(challenge) {
 }
 
 function getAllowedAiSpeakers(episode, challenge = null) {
+  if (state.campaign?.id === SAMAIN_ID) return samainSpeakers(state.campaign.stage);
   const explicitSpeakers = Array.isArray(challenge?.allowedSpeakers)
     ? challenge.allowedSpeakers
     : null;
@@ -1985,7 +2168,7 @@ function getReplyTiming(mode) {
 
 function getInitialReplyDelay(timing, mode) {
   const ordinaryDelay = randomInt(timing.silenceMin, timing.silenceMax);
-  if (mode !== 'conversation' || Math.random() >= LONG_REPLY_CHANCE) return ordinaryDelay;
+  if (params.get('fastReply') === '1' || mode !== 'conversation' || Math.random() >= LONG_REPLY_CHANCE) return ordinaryDelay;
   return randomInt(LONG_REPLY_MIN_MS, LONG_REPLY_MAX_MS);
 }
 
@@ -2128,6 +2311,15 @@ function renderMessages() {
 }
 
 function renderProgress() {
+  const isSamain = state.campaign?.id === SAMAIN_ID;
+  document.querySelector('.adventure-meter').hidden = isSamain;
+  if (isSamain) {
+    els.internalProgress.hidden = true;
+    els.internalProgress.setAttribute('aria-hidden', 'true');
+    els.channelCode.textContent = APP_VERSION_CODE;
+    els.missionActive.textContent = getActiveEpisode()?.meta?.mission || 'Canal abierto';
+    return;
+  }
   const activeEpisode = getActiveEpisode();
   const meta = activeEpisode ? activeEpisode.meta : {};
   els.channelCode.textContent = APP_VERSION_CODE;
@@ -2156,6 +2348,7 @@ function renderProgress() {
 
 function renderChallenge() {
   if (!els.challengePanel) return;
+  if (state.campaign?.id === SAMAIN_ID) { renderSamainActions(); return; }
   if (busy) {
     els.challengePanel.innerHTML = '';
     els.challengePanel.hidden = true;
@@ -2358,13 +2551,15 @@ function appendMessages(messages) {
 }
 
 function appendMessage(message) {
+  if (message.deliveryId && state.messages.some((m) => m.deliveryId === message.deliveryId)) return;
   const createdAt = message.createdAt || Date.now();
   state.messages.push({
     from: message.from || 'topotino',
     time: formatRealTime(new Date(createdAt)),
     text: message.text || '',
     createdAt,
-    episodeId: message.episodeId || getActiveEpisode()?.meta?.id || null
+    episodeId: message.episodeId || getActiveEpisode()?.meta?.id || null,
+    ...(message.deliveryId ? { deliveryId: message.deliveryId } : {})
   });
 }
 
@@ -2373,6 +2568,7 @@ function getEpisode(episodeId) {
 }
 
 function getActiveEpisode() {
+  if (state.campaign?.id === SAMAIN_ID) return getEpisode(samainStage(state.campaign.stage)?.episodeId);
   const unlocked = getUnlockedEpisodes();
   return getEpisode(state.activeEpisodeId) || unlocked[unlocked.length - 1] || episodes[0];
 }
@@ -3234,6 +3430,7 @@ function renderAdultPanel() {
 }
 
 function adultSyncLabel() {
+  if (state.syncStatus === 'conflict') return 'Conflicto: copia local conservada';
   if (state.syncStatus === 'synced') return 'Copia segura';
   if (state.syncStatus === 'syncing') return 'Sincronizando...';
   if (state.syncStatus === 'pending') return 'Pendiente de copia';
@@ -3270,7 +3467,7 @@ function renderAdultPhaseLauncher() {
   els.adultPhaseSelect.innerHTML = '';
 
   episodes
-    .filter((episode) => !episode.meta.startsUnlocked)
+    .filter((episode) => !episode.meta.startsUnlocked && (!state.campaign || episode.meta.campaign === state.campaign.id))
     .forEach((episode) => {
       const option = document.createElement('option');
       option.value = episode.meta.id;
@@ -3296,6 +3493,9 @@ function renderAdultFinalRoute() {
   if (!els.adultFinalRoute || !els.adultFinalRouteStatus) return;
   els.adultFinalRoute.value = DEFAULT_FINAL_ROUTE;
   els.adultFinalRoute.disabled = true;
+  els.adultFinalRoute.closest('.adult-launch').hidden = state.campaign?.id === SAMAIN_ID;
+  const printLink = document.querySelector('a[href="/paquete-inicial.html"]');
+  if (printLink) printLink.hidden = state.campaign?.id === SAMAIN_ID;
   els.adultFinalRouteStatus.textContent = state.finalRouteLocked
     ? 'Final completado en Isla Mágica.'
     : state.flags.includes(EARLY_SEVILLA_FINAL_FLAG)
@@ -3331,7 +3531,7 @@ function scheduleAdultPhaseLaunch() {
     showAdultMessage('Elige una fase válida.');
     return;
   }
-  if (isEpisodeUnlocked(episodeId)) {
+  if (isEpisodeUnlocked(episodeId) && !episode.meta.campaign) {
     showAdultMessage('Esa fase ya está activa en este móvil.');
     return;
   }
@@ -3455,6 +3655,9 @@ function buildLocalState() {
     finalRoute: state.finalRoute,
     finalRouteLocked: state.finalRouteLocked,
     narrativeScene: state.narrativeScene,
+    campaign: state.campaign,
+    serverRevision: state.serverRevision,
+    syncConflict: state.syncConflict,
     softResponseCursor: state.softResponseCursor,
     hintMissCursor: state.hintMissCursor,
     chatterWarningCursor: state.chatterWarningCursor,
@@ -3480,10 +3683,13 @@ function buildRemoteState() {
   delete remote.recoveryCode;
   delete remote.syncStatus;
   delete remote.syncError;
+  delete remote.syncConflict;
+  delete remote.serverRevision;
   return remote;
 }
 
 function applyRestoredState(remoteState, recoveryCode) {
+  pendingSyncRequest = null;
   Object.assign(state, {
     activeEpisodeId: remoteState.activeEpisodeId || state.activeEpisodeId,
     unlockedEpisodeIds: remoteState.unlockedEpisodeIds || [],
@@ -3503,6 +3709,9 @@ function applyRestoredState(remoteState, recoveryCode) {
     finalRoute: DEFAULT_FINAL_ROUTE,
     finalRouteLocked: Boolean(remoteState.finalRouteLocked || (remoteState.flags || []).includes('completado_isla_magica')),
     narrativeScene: remoteState.narrativeScene || null,
+    campaign: normalizeSamain(remoteState.campaign),
+    serverRevision: Number(remoteState.serverRevision ?? remoteState.revision) || 0,
+    syncConflict: null,
     softResponseCursor: remoteState.softResponseCursor || {},
     chatterWarningCursor: remoteState.chatterWarningCursor || 0,
     lastChatterWarningAt: remoteState.lastChatterWarningAt || 0,
@@ -3520,6 +3729,7 @@ function applyRestoredState(remoteState, recoveryCode) {
     syncStatus: 'synced',
     syncError: null
   });
+  if (ensureSamainCampaign()) return;
   applyDay22FinaleMigration();
   applyFinaleClarityMigration();
   applySevillaCardRescue();
@@ -3532,8 +3742,8 @@ function applyRestoredState(remoteState, recoveryCode) {
 
 function markStateChanged() {
   state.revision = (Number(state.revision) || 0) + 1;
-  state.syncStatus = state.channelId ? 'pending' : 'local';
-  state.syncError = null;
+  state.syncStatus = state.syncConflict ? 'conflict' : state.channelId ? 'pending' : 'local';
+  if (!state.syncConflict) state.syncError = null;
 }
 
 function scheduleStateSync() {
@@ -3544,6 +3754,7 @@ function scheduleStateSync() {
 
 async function ensureBackupChannel() {
   if (!state.unlocked || state.channelId || state.recoveryCode) return;
+  const sentRevision = state.revision;
   try {
     const data = await callStateApi({
       action: 'init',
@@ -3552,9 +3763,9 @@ async function ensureBackupChannel() {
     });
     state.channelId = data.channelId;
     state.recoveryCode = data.recoveryCode;
-    state.revision = Number(data.revision) || state.revision || 1;
+    state.serverRevision = Number(data.revision) || 1;
     state.lastSyncedAt = data.updatedAt || new Date().toISOString();
-    state.syncStatus = 'synced';
+    state.syncStatus = state.revision === sentRevision ? 'synced' : 'pending';
     state.syncError = null;
     saveState({ sync: false });
     renderAdultPanel();
@@ -3567,54 +3778,53 @@ async function ensureBackupChannel() {
 }
 
 async function syncStateNow({ force = false } = {}) {
-  if (syncInFlight) return;
-  if (!state.unlocked) return;
-
+  if (syncInFlight || !state.unlocked) return;
+  if (state.syncStatus === 'conflict') {
+    showAdultMessage('Hay otra copia del canal. La partida local sigue intacta. Exportadla antes de restaurar deliberadamente otra copia.');
+    return;
+  }
   syncInFlight = true;
+  let retryPending = false;
   try {
     if (!state.channelId || !state.recoveryCode) {
       await ensureBackupChannel();
-      showAdultMessage(state.channelId ? 'Canal seguro creado.' : state.syncError);
+      retryPending = state.syncStatus === 'pending';
       return;
     }
-
     if (!force && state.syncStatus === 'synced') return;
-
+    pendingSyncRequest ||= {
+      action: 'sync', channelId: state.channelId, recoveryCode: state.recoveryCode,
+      baseRevision: state.serverRevision, revision: state.revision,
+      operationId: crypto.randomUUID(), state: structuredClone(buildRemoteState())
+    };
+    const sentRevision = pendingSyncRequest.revision;
     state.syncStatus = 'syncing';
     renderAdultPanel();
-    const data = await callStateApi({
-      action: 'sync',
-      channelId: state.channelId,
-      recoveryCode: state.recoveryCode,
-      state: buildRemoteState(),
-      revision: Number(state.revision) || 1
-    });
-    state.revision = Number(data.revision) || state.revision;
+    const data = await callStateApi(pendingSyncRequest);
+    pendingSyncRequest = null;
+    state.serverRevision = Number(data.revision);
     state.lastSyncedAt = data.updatedAt || new Date().toISOString();
-    state.syncStatus = 'synced';
+    state.syncStatus = state.revision === sentRevision ? 'synced' : 'pending';
+    retryPending = state.syncStatus === 'pending';
     state.syncError = null;
     saveState({ sync: false });
-    showAdultMessage('Copia segura actualizada.');
+    showAdultMessage(retryPending ? 'Copia recibida; guardando los mensajes posteriores.' : 'Copia segura actualizada.');
   } catch (error) {
-    if (error.status === 409 && error.data?.remote?.state) {
-      applyRestoredState({
-        ...error.data.remote.state,
-        channelId: error.data.remote.channelId,
-        revision: error.data.remote.revision,
-        lastSyncedAt: error.data.remote.updatedAt
-      }, state.recoveryCode);
-      saveState({ sync: false });
-      renderAll();
-      showAdultMessage('Se restauró la copia más reciente.');
+    if (error.status === 409) {
+      pendingSyncRequest = null;
+      state.syncConflict = error.data?.remote || { needsRefresh: true };
+      state.syncStatus = 'conflict';
+      state.syncError = 'Otra copia ha cambiado. La partida local se conserva sin sustituirla.';
     } else {
       state.syncStatus = 'offline';
       state.syncError = friendlySyncError(error);
-      saveState({ sync: false });
-      showAdultMessage(state.syncError);
     }
+    saveState({ sync: false });
+    showAdultMessage(state.syncError);
   } finally {
     syncInFlight = false;
     renderAdultPanel();
+    if (retryPending) scheduleStateSync();
   }
 }
 
@@ -3626,6 +3836,7 @@ async function restoreFromRecoveryCode(recoveryCode) {
     ...data.state,
     channelId: data.channelId,
     revision: data.revision,
+    serverRevision: data.revision,
     lastSyncedAt: data.updatedAt
   }, code);
   state.unlocked = true;
@@ -3716,6 +3927,9 @@ function loadState() {
       finalRoute: DEFAULT_FINAL_ROUTE,
       finalRouteLocked: Boolean(saved.finalRouteLocked || (saved.flags || []).includes('completado_isla_magica')),
       narrativeScene: saved.narrativeScene || null,
+      campaign: normalizeSamain(saved.campaign),
+      serverRevision: Number(saved.serverRevision ?? saved.revision) || 0,
+      syncConflict: saved.syncConflict || null,
       softResponseCursor: saved.softResponseCursor || {},
       hintMissCursor: saved.hintMissCursor || {},
       chatterWarningCursor: saved.chatterWarningCursor || 0,
@@ -3740,9 +3954,10 @@ function loadState() {
 }
 
 function applyTestingParams() {
+  if (!params.has('testLat') || !params.has('testLng') || !params.get('testLat').trim() || !params.get('testLng').trim()) return;
   const testLat = Number(params.get('testLat'));
   const testLng = Number(params.get('testLng'));
-  if (Number.isFinite(testLat) && Number.isFinite(testLng)) {
+  if (Number.isFinite(testLat) && Number.isFinite(testLng) && Math.abs(testLat) <= 90 && Math.abs(testLng) <= 180) {
     state.lastKnownPosition = {
       lat: testLat,
       lng: testLng,
@@ -3756,6 +3971,6 @@ function applyTestingParams() {
 
 function registerServiceWorker() {
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('service-worker.js?v=offline-v54').catch(() => {});
+    navigator.serviceWorker.register('service-worker.js?v=offline-samain-v1').catch(() => {});
   }
 }

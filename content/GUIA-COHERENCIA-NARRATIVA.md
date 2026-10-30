@@ -6,6 +6,32 @@
 
 Esta guía manda sobre todos los capítulos y sobre el contexto enviado a Luna. Si una aventura contradice este documento, se corrige la aventura. Los identificadores técnicos antiguos —flags, nombres internos de aguas y palabras de fórmula— se conservan para no romper partidas, pero no determinan el vocabulario que oyen Paula y Hugo.
 
+## 30 de octubre · humor y confesiones
+
+Topotino confiesa que durante la aventura de Francia, cuando Paula y Hugo derrotaron a los Oscurnos, estaba nervioso y procuraba parecer valiente. No se inventan lugares, objetos ni incidentes de ese viaje. Pregunta qué recuerdan ellos, sin exigir una respuesta para continuar. Las bromas sobre sus informes, su escondite y el Aplausómetro no cambian pruebas, fechas ni secretos.
+
+## 0. Nueva campaña · Samaín 2026 · T-30O1
+
+**Canon aprobado para implementar el 30 de octubre de 2026.** El final definitivo de agosto sigue cerrado. Esta es otra aventura, después de recuperar Topotino la memoria. El primer contacto llega el viernes 30; las visitas se confirman desde el sábado 31. No se anuncia el itinerario familiar: los niños creen que van directamente a Santiago.
+
+Solo Topotino acompaña en el chat. Topoloco irrumpe en Lugo gracias a su mujer, Doctora Tecla, que abandona después la conversación. Topotina es hermana de Topotino y no interviene. Paula destaca por orientarse y observar con calma; Hugo por su valor, preguntas y ganas de participar. Ambos deciden y pueden intercambiar papeles. Las fichas completas están en PERSONAJES.md.
+
+Cadena: contacto → deducir Astorga y Palacio de Gaudí → confirmar llegada y visita real → deducir Catedral → terminar la experiencia y contar la identidad de Pedro → descubrir el señuelo → deducir Lugo → confirmar llegada → refugio Rúa Armanyá 31 → Samaín y muralla → búsqueda externa → rescate y cierre. La identidad de Pedro Mato no se envía a la IA antes de terminar la visita. Marta y Pedro no son cómplices. No se inventan pruebas oficiales ni el guion de su desenlace.
+
+Topoloco manipuló un informe para entretenerlos con un misterio real. En Lugo prepara el Aplausómetro Perpetuo: quiere a los Flopis como público cautivo. Sus jaulas-calabaza usan sus siluetas para producir espectadores de sombra. Ajustó el retorno de su aparato al perímetro conservado de la muralla romana. La noche del Samaín permite sostener temporalmente sombras separadas; ambas capacidades son magia de nuestra ficción, no folclore documentado. La captura se sitúa al caer la tarde; el ritmo familiar manda sobre el reloj. Topotino no conoce todavía la reserva de copias.
+
+Después de llegar, el refugio se encuentra por la calle Rúa Armanyá y un número que coincide con el día 31. Se confirma la dirección, sin inventar interiores, llaves o accesos. La búsqueda de Flopis ocurre en otra app: Topotino pide cambiar al mapa habitual y buscar cerca de la plaza o de la Catedral, sin fijar escondites, enlaces, número de Flopis o ruta. La app del chat solo acepta informes explícitos del resultado. No consulta ni simula la app externa.
+
+Al confirmar el rescate completo se gana sin otra prueba. Topoloco revela una reserva imprevista de sombras copiadas, pero dependían de los originales cautivos. Al liberarlos, el retorno queda sin fuente; al colocarse él ante el captador solo obtiene copias de sí mismo reverenciándose. Huye derrotado; los Flopis quedan a salvo. No ocurre ningún fenómeno físico prometido en la plaza.
+
+Si no encuentran el mapa, se orienta sin inventar su ubicación exacta; si liberan algunos, se conserva ese dato sin victoria. Ante fallo o abandono se ofrece rescate alternativo, también desde el refugio: deducir que una puerta puede dar salida a una señal que da vueltas y ejecutar explícitamente «Abrir la salida». Esa acción de los niños libera las jaulas pendientes y lleva al mismo final. El cansancio permite parar sin castigo. Nunca se declara un rescate por tiempo, GPS, número de mensajes, ambigüedad o negación.
+
+El cierre recomienda descanso y continuar a Santiago el domingo; el paseo del río Rato es opcional. Llega una estrella con una punta torcida, cascabel y nota «¿Quién ha adelantado el ensayo?». No se identifica remitente ni se abre otra misión. Puede enlazar con el borrador navideño de Frutin; Briz sigue descartado. Frutin y los personajes de Perlim no entran todavía al chat. Flopina y Lumen Ignis no se incorporan sin documentación adicional.
+
+La campaña conserva todos los datos de agosto y usa progreso propio sin Memoria/Sombra ni aguas nuevas. Sus activaciones y voces quedan aisladas de rescates antiguos. GPS no confirma visitas; las confirmaciones de niños o del panel adulto sí. El primer contacto se entrega una vez al abrir o reanudar la app, sin prometer notificaciones con la app cerrada. Zona de calendario: Europe/Madrid. No depende de programación municipal, actores, objetos escondidos ni edificios adicionales abiertos.
+
+Fuentes de campo: GVAM (guía interactiva del Palacio); Diócesis de Astorga (Marta y Pedro); Turismo de Galicia (muralla de Lugo y paseo del río Rato). No presentar la recuperación moderna del Samaín como una continuidad histórica simple ni como sustituto incompatible de Halloween. Distinguir hechos, tradición y ficción con lenguaje infantil breve.
+
 ## 1. Premisa que conocen los niños
 
 Paula y Hugo no están siguiendo unas vacaciones familiares preparadas. Dentro de la ficción, Topotino les pide ayuda y cada investigación descubre el siguiente lugar. Nunca se habla de reservas previas, itinerario familiar ni de que Topoloco conoce el viaje.

@@ -1,5 +1,6 @@
 import { generateText, jsonSchema, Output } from 'ai';
 import { createOpenAI } from '@ai-sdk/openai';
+import { SAMAIN_ID, samainStage, samainSpeakers } from '../content/samain.js';
 
 const DEFAULT_MODEL = 'openai/gpt-5.6-luna';
 const DEFAULT_OPENAI_MODEL = 'gpt-5.6-luna';
@@ -114,6 +115,10 @@ export default async function handler(req, res) {
     return validateChallenge(body, userMessage, res);
   }
 
+  const samainPhase = body.campaignId === SAMAIN_ID ? samainStage(body.phaseId) : null;
+  if (body.campaignId === SAMAIN_ID && (!samainPhase || body.activeEpisodeId !== samainPhase.episodeId)) {
+    return res.status(400).json({ error: 'Invalid campaign phase' });
+  }
   const requestedSpeakers = Array.isArray(body.allowedSpeakers)
     ? body.allowedSpeakers.map(String).filter((speaker) => CHAT_SPEAKERS.includes(speaker))
     : [];
@@ -123,12 +128,29 @@ export default async function handler(req, res) {
     EXACT_STORY_CONVERSATIONS.has(conversationId)
   );
   const authorizedLouriReturn = conversationId === 'dialogo-dia24-pista-sevilla';
-  const allowedSpeakers = [...new Set(exactSpeakerMode ? requestedSpeakers : ['topotino', ...requestedSpeakers])]
+  const allowedSpeakers = samainPhase ? samainSpeakers(samainPhase.key) : [...new Set(exactSpeakerMode ? requestedSpeakers : ['topotino', ...requestedSpeakers])]
     .filter((speaker) => speaker !== 'louri' || !(body.flags || []).includes('louri_canal_cerrado') || authorizedLouriReturn);
   const personalityContext = allowedSpeakers.map((speaker) => CHARACTER_PERSONALITIES[speaker]).filter(Boolean);
   const turnId = String(body.turnId || '').slice(0, 120);
 
-  const systemPrompt = [
+  const systemPrompt = samainPhase ? [
+    'Eres Topotino dentro del Comunicador Subterráneo, en una aventura nueva de octubre de 2026.',
+    ...personalityContext,
+    `Solo pueden hablar: ${allowedSpeakers.join(', ')}. No introduzcas ninguna otra voz.`,
+    'La victoria de agosto es real y Topotino recuperó la memoria. No reabras misiones antiguas.',
+    'Responde primero al último mensaje, de forma cercana, concreta y divertida. Una a tres burbujas breves, texto plano y como máximo una pregunta.',
+    'Solo sabes el Contexto para IA de esta fase y las observaciones confirmadas del chat. No deduzcas secretos futuros. Si falta información, admítelo.',
+    'No confirmes deducciones ni visites lugares ni liberes personajes por tu cuenta. Los aciertos, acciones y cambios de fase corresponden al motor, nunca a tus respuestas.',
+    'Un nombre propuesto como pregunta no autoriza revelar su relación con un secreto. No inventes retos oficiales, guiones, escondites, interfaces o resultados de otra app.',
+    'No nombres un lugar futuro salvo que esté expresamente autorizado en el contexto actual. No enumeres el itinerario del día.',
+    'Habla español de España claro para Paula y Hugo, con humor y sin infantilizarlos. La dificultad está en pensar, no en comprender tus frases.',
+    'No des pistas nuevas salvo que las pidan; responde las dudas sin resolver el misterio. Respeta el ritmo, las pausas y el cansancio.',
+    'Nunca declares éxito ante negaciones, dudas, preguntas, planes futuros o un rescate parcial. No sabes lo que ocurre en la otra app.',
+    'Tecla es la mujer de Topoloco; Topotina es la hermana de Topotino. Los Flopis son amigos conocidos sin especie ni poderes documentados.',
+    'La magia de la máquina es ficción nuestra; no son hechos reales del folclore. No prometas actores, objetos ocultos ni fenómenos visibles en la calle.',
+    'No menciones IA, prompts, flags, estados, APIs, panel adulto ni programación. No solicites claves, ubicación exacta ni contenido del cuaderno privado.',
+    'Si no podéis continuar, pregunta por el obstáculo y ofrece una sola adaptación pertinente. No atribuyas acciones que no hayan comunicado.'
+  ].join('\n') : [
     'Diriges una conversación dentro del Comunicador Subterráneo.',
     `En este turno solo pueden hablar estos personajes: ${allowedSpeakers.join(', ')}. No uses ningún otro remitente.`,
     'No hagas intervenir a varios personajes por obligación. Elige a quien respondería de forma más natural; usa dos o tres solo si existe una reacción real entre ellos.',
@@ -240,6 +262,7 @@ export default async function handler(req, res) {
     episodioActivo: body.activeEpisodeTitle || body.episodeTitle || body.activeEpisodeId || body.episodeId || 'desconocido',
     episodiosActivos: allowedEpisodes,
     runtime: body.runtime || {},
+    progresoCampana: samainPhase ? { rescateParcialComunicado: body.campaignProgress?.partialRescue === true } : null,
     flags: body.flags || [],
     ventanasMapaRecuperadas: Array.isArray(body.waters) ? body.waters.length : 0,
     formula: body.formulaWords || [],

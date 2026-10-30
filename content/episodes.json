@@ -1,21 +1,162 @@
 [
-  { "id": "001-reconexion", "file": "content/episodes/001-reconexion.md?v=memory-v32" },
-  { "id": "002-luanco-llegada", "file": "content/episodes/002-luanco-primera-gota.md?v=memory-v32" },
-  { "id": "003-luanco-agua-norte", "file": "content/episodes/003-luanco-agua-norte.md?v=memory-v32" },
-  { "id": "004a-eclipse-espera", "file": "content/episodes/003b-eclipse-espera.md?v=memory-v32" },
-  { "id": "004c-eclipse-amnesia", "file": "content/episodes/003-eclipse-amnesia.md?v=memory-v32" },
-  { "id": "004b-rumbo-amarante", "file": "content/episodes/004b-rumbo-amarante.md?v=memory-v32" },
-  { "id": "005-amarante-puente", "file": "content/episodes/005-amarante-puente.md?v=memory-v34" },
-  { "id": "006-magikland-curia", "file": "content/episodes/006-magikland-curia.md?v=memory-v46" },
-  { "id": "007-bucaco-batalha-fatima", "file": "content/episodes/007-bucaco-batalha-fatima.md?v=memory-v49" },
-  { "id": "008-huellas-mira-obidos", "file": "content/episodes/008-huellas-mira-obidos.md?v=memory-v51" },
-  { "id": "009-dinoparque-lisboa", "file": "content/episodes/009-dinoparque-lisboa.md?v=memory-v53" },
-  { "id": "010-lisboa-ciencia-oceanario", "file": "content/episodes/010-lisboa-ciencia-oceanario.md?v=memory-v56" },
-  { "id": "011-lisboa-historia-belem", "file": "content/episodes/011-lisboa-historia-belem.md?v=memory-v56" },
-  { "id": "012-badoca-lagos", "file": "content/episodes/012-badoca-lagos.md?v=memory-v58" },
-  { "id": "013-delfines-benagil-sagres", "file": "content/episodes/013-delfines-benagil-sagres.md?v=memory-v59" },
-  { "id": "014-piedade-algar-jaima", "file": "content/episodes/014-piedade-algar-jaima.md?v=memory-v60" },
-  { "id": "015-zoomarine", "file": "content/episodes/015-zoomarine.md?v=memory-v60" },
-  { "id": "016-tavira-sevilla", "file": "content/episodes/016-tavira-sevilla.md?v=memory-v66" },
-  { "id": "017-isla-magica", "file": "content/episodes/017-isla-magica.md?v=memory-v66" }
+  {
+    "id": "001-reconexion",
+    "file": "content/episodes/001-reconexion.md?v=memory-v32"
+  },
+  {
+    "id": "002-luanco-llegada",
+    "file": "content/episodes/002-luanco-primera-gota.md?v=memory-v32"
+  },
+  {
+    "id": "003-luanco-agua-norte",
+    "file": "content/episodes/003-luanco-agua-norte.md?v=memory-v32"
+  },
+  {
+    "id": "004a-eclipse-espera",
+    "file": "content/episodes/003b-eclipse-espera.md?v=memory-v32"
+  },
+  {
+    "id": "004c-eclipse-amnesia",
+    "file": "content/episodes/003-eclipse-amnesia.md?v=memory-v32"
+  },
+  {
+    "id": "004b-rumbo-amarante",
+    "file": "content/episodes/004b-rumbo-amarante.md?v=memory-v32"
+  },
+  {
+    "id": "005-amarante-puente",
+    "file": "content/episodes/005-amarante-puente.md?v=memory-v34"
+  },
+  {
+    "id": "006-magikland-curia",
+    "file": "content/episodes/006-magikland-curia.md?v=memory-v46"
+  },
+  {
+    "id": "007-bucaco-batalha-fatima",
+    "file": "content/episodes/007-bucaco-batalha-fatima.md?v=memory-v49"
+  },
+  {
+    "id": "008-huellas-mira-obidos",
+    "file": "content/episodes/008-huellas-mira-obidos.md?v=memory-v51"
+  },
+  {
+    "id": "009-dinoparque-lisboa",
+    "file": "content/episodes/009-dinoparque-lisboa.md?v=memory-v53"
+  },
+  {
+    "id": "010-lisboa-ciencia-oceanario",
+    "file": "content/episodes/010-lisboa-ciencia-oceanario.md?v=memory-v56"
+  },
+  {
+    "id": "011-lisboa-historia-belem",
+    "file": "content/episodes/011-lisboa-historia-belem.md?v=memory-v56"
+  },
+  {
+    "id": "012-badoca-lagos",
+    "file": "content/episodes/012-badoca-lagos.md?v=memory-v58"
+  },
+  {
+    "id": "013-delfines-benagil-sagres",
+    "file": "content/episodes/013-delfines-benagil-sagres.md?v=memory-v59"
+  },
+  {
+    "id": "014-piedade-algar-jaima",
+    "file": "content/episodes/014-piedade-algar-jaima.md?v=memory-v60"
+  },
+  {
+    "id": "015-zoomarine",
+    "file": "content/episodes/015-zoomarine.md?v=memory-v60"
+  },
+  {
+    "id": "016-tavira-sevilla",
+    "file": "content/episodes/016-tavira-sevilla.md?v=memory-v66"
+  },
+  {
+    "id": "017-isla-magica",
+    "file": "content/episodes/017-isla-magica.md?v=memory-v66"
+  },
+  {
+    "id": "020-samain-contacto",
+    "file": "content/episodes/020-samain-contacto.md?v=samain-v1"
+  },
+  {
+    "id": "021-samain-astorga",
+    "file": "content/episodes/021-samain-astorga.md?v=samain-v1"
+  },
+  {
+    "id": "022-samain-palacio",
+    "file": "content/episodes/022-samain-palacio.md?v=samain-v1"
+  },
+  {
+    "id": "023-samain-llegada-palacio",
+    "file": "content/episodes/023-samain-llegada-palacio.md?v=samain-v1"
+  },
+  {
+    "id": "024-samain-visita-palacio",
+    "file": "content/episodes/024-samain-visita-palacio.md?v=samain-v1"
+  },
+  {
+    "id": "025-samain-catedral",
+    "file": "content/episodes/025-samain-catedral.md?v=samain-v1"
+  },
+  {
+    "id": "026-samain-llegada-catedral",
+    "file": "content/episodes/026-samain-llegada-catedral.md?v=samain-v1"
+  },
+  {
+    "id": "027-samain-visita-catedral",
+    "file": "content/episodes/027-samain-visita-catedral.md?v=samain-v1"
+  },
+  {
+    "id": "028-samain-pedro",
+    "file": "content/episodes/028-samain-pedro.md?v=samain-v1"
+  },
+  {
+    "id": "029-samain-trampa",
+    "file": "content/episodes/029-samain-trampa.md?v=samain-v1"
+  },
+  {
+    "id": "030-samain-lugo",
+    "file": "content/episodes/030-samain-lugo.md?v=samain-v1"
+  },
+  {
+    "id": "031-samain-llegada-lugo",
+    "file": "content/episodes/031-samain-llegada-lugo.md?v=samain-v1"
+  },
+  {
+    "id": "032-samain-refugio",
+    "file": "content/episodes/032-samain-refugio.md?v=samain-v1"
+  },
+  {
+    "id": "033-samain-llegada-refugio",
+    "file": "content/episodes/033-samain-llegada-refugio.md?v=samain-v1"
+  },
+  {
+    "id": "034-samain-samain",
+    "file": "content/episodes/034-samain-samain.md?v=samain-v1"
+  },
+  {
+    "id": "035-samain-muralla",
+    "file": "content/episodes/035-samain-muralla.md?v=samain-v1"
+  },
+  {
+    "id": "036-samain-busqueda",
+    "file": "content/episodes/036-samain-busqueda.md?v=samain-v1"
+  },
+  {
+    "id": "037-samain-dificultad",
+    "file": "content/episodes/037-samain-dificultad.md?v=samain-v1"
+  },
+  {
+    "id": "038-samain-alternativa",
+    "file": "content/episodes/038-samain-alternativa.md?v=samain-v1"
+  },
+  {
+    "id": "039-samain-enviar-salida",
+    "file": "content/episodes/039-samain-enviar-salida.md?v=samain-v1"
+  },
+  {
+    "id": "040-samain-victoria",
+    "file": "content/episodes/040-samain-victoria.md?v=samain-v1"
+  }
 ]

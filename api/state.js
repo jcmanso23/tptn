@@ -61,37 +61,49 @@ async function initChannel(body, res) {
   });
 }
 
+// Compare and update in one Redis operation for REST and direct connections.
+const SYNC_SCRIPT = `
+local raw = redis.call('GET', KEYS[1])
+if not raw then return cjson.encode({status=403}) end
+local record = cjson.decode(raw)
+if record.recoveryHash ~= ARGV[1] then return cjson.encode({status=403}) end
+if record.lastOperationId == ARGV[3] and record.lastOperationHash == ARGV[4] then
+  return cjson.encode({status=200,recordJSON=raw})
+end
+if tonumber(record.revision) ~= tonumber(ARGV[2]) then
+  return cjson.encode({status=409,recordJSON=raw})
+end
+-- Keep the JS-serialized record verbatim: cjson would turn empty arrays into
+-- objects, corrupting messages, flags and the campaign outbox on restore.
+redis.call('SET', KEYS[1], ARGV[5])
+return cjson.encode({status=200,recordJSON=ARGV[5]})
+`;
+
 async function syncChannel(body, res) {
   const channelId = String(body.channelId || '');
   const recoveryCode = String(body.recoveryCode || '').trim().toUpperCase();
-  const revision = Number(body.revision) || 0;
-
-  if (!channelId || !recoveryCode || !revision) {
-    return res.status(400).json({ error: 'Missing sync fields' });
+  const baseRevision = Number(body.baseRevision);
+  const operationId = String(body.operationId || '');
+  if (!channelId || !recoveryCode) return res.status(400).json({ error: 'Missing sync fields' });
+  // Older clients must refresh rather than overwrite a newer device silently.
+  if (body.baseRevision == null || !Number.isSafeInteger(baseRevision) || baseRevision < 1 || !operationId || operationId.length > 120) {
+    return res.status(409).json({ error: 'Refresh the app before synchronizing' });
   }
-
   const record = await getChannel(channelId);
-  if (!record || record.recoveryHash !== sha256(recoveryCode)) {
-    return res.status(403).json({ error: 'Invalid recovery code' });
-  }
-
-  if (Number(record.revision || 0) > revision) {
-    return res.status(409).json({
-      error: 'Remote state is newer',
-      remote: publicRecord(record)
-    });
-  }
-
-  const updatedRecord = {
-    ...record,
-    state: sanitizeState(body.state || {}),
-    revision,
-    updatedAt: new Date().toISOString()
-  };
-
-  await redisCommand('SET', channelKey(channelId), JSON.stringify(updatedRecord));
-
-  return res.status(200).json(publicRecord(updatedRecord));
+  if (!record) return res.status(403).json({ error: 'Invalid recovery code' });
+  const payload = JSON.stringify(sanitizeState(body.state || {}));
+  const operationHash = sha256(`${baseRevision}:${payload}`);
+  const candidate = JSON.stringify({
+    ...record, state: JSON.parse(payload), revision: baseRevision + 1,
+    updatedAt: new Date().toISOString(), lastOperationId: operationId, lastOperationHash: operationHash
+  });
+  const resultRaw = await redisCommand('EVAL', SYNC_SCRIPT, '1', channelKey(channelId),
+    sha256(recoveryCode), String(baseRevision), operationId, operationHash, candidate);
+  const result = typeof resultRaw === 'string' ? JSON.parse(resultRaw) : resultRaw;
+  if (result.status === 403) return res.status(403).json({ error: 'Invalid recovery code' });
+  const savedRecord = JSON.parse(result.recordJSON);
+  if (result.status === 409) return res.status(409).json({ error: 'Remote state changed', remote: publicRecord(savedRecord) });
+  return res.status(200).json(publicRecord(savedRecord));
 }
 
 async function restoreChannel(body, res) {
@@ -134,6 +146,8 @@ function sanitizeState(value) {
   delete state.recoveryCode;
   delete state.syncStatus;
   delete state.syncError;
+  delete state.syncConflict;
+  delete state.serverRevision;
   return state;
 }
 

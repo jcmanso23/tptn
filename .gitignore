@@ -5,3 +5,8 @@ node_modules/
 .DS_Store
 npm-debug.log*
 graphify-out/
+
+# Unit tests stay local; never stage them.
+tests/
+**/*.test.*
+**/*.spec.*
