@@ -1,19 +1,21 @@
-const CACHE_NAME = 'topotino-offline-samain-v11';
+const CACHE_NAME = 'topotino-offline-samain-v12';
 const CORE_ASSETS = [
   '/',
   '/index.html',
-  '/styles.css?v=samain-v11',
-  '/app.js?v=samain-v11',
-  '/chat-format.js?v=samain-v11',
-  '/content/challenges.js?v=samain-v11',
-  '/content/samain.js?v=samain-v11',
-  '/content/santiago-gift.js?v=santiago-v1',
+  '/styles.css?v=samain-v12',
+  '/app.js?v=samain-v12',
+  '/chat-format.js?v=samain-v12',
+  '/content/challenges.js?v=samain-v12',
+  '/content/samain.js?v=samain-v12',
+  '/content/santiago-gift.js?v=santiago-v2',
   '/chat-format.js',
   '/santiago/',
   '/santiago/index.html',
-  '/santiago/style.css?v=santiago-v1',
-  '/santiago/game.js?v=santiago-v1',
-  '/santiago/secrets.js?v=santiago-v1',
+  '/santiago/style.css?v=santiago-v2',
+  '/santiago/game.js?v=santiago-v2',
+  '/santiago/secrets.js?v=santiago-v2',
+  '/santiago/progress.js?v=santiago-v2',
+  '/santiago/case.js?v=santiago-v2',
   '/santiago/vendor/leaflet.js',
   '/santiago/vendor/leaflet.css',
   '/manifest.json',
@@ -28,7 +30,7 @@ const CORE_ASSETS = [
   '/images/doctora-tecla.jpg?v=tecla-v1',
   '/images/capitan-pico.jpg?v=capitan-pico-v1',
   '/images/america.png?v=america-v1',
-  '/content/episodes.json?v=samain-v11'
+  '/content/episodes.json?v=samain-v12'
 ];
 
 self.addEventListener('install', (event) => {
@@ -63,10 +65,10 @@ async function precacheStory() {
   await Promise.allSettled(CORE_ASSETS.map((asset) => cacheOne(cache, asset)));
 
   try {
-    const response = await fetch('/content/episodes.json?v=samain-v11', { cache: 'no-store' });
+    const response = await fetch('/content/episodes.json?v=samain-v12', { cache: 'no-store' });
     if (!response.ok) return;
     const manifest = await response.clone().json();
-    await cache.put('/content/episodes.json?v=samain-v11', response);
+    await cache.put('/content/episodes.json?v=samain-v12', response);
     await Promise.allSettled(
       manifest.map((episode) => cacheOne(cache, `/${episode.file}`))
     );

@@ -1,8 +1,8 @@
-import { pendingSantiagoGift, SANTIAGO_GIFT_LINK_ID } from './content/santiago-gift.js?v=santiago-v1';
-import { splitTopotinoMessages } from './chat-format.js?v=samain-v11';
-import { CHALLENGE_PACKS, displayChallengeOptions } from './content/challenges.js?v=samain-v11';
+import { readSantiagoReport, SANTIAGO_PROGRESS_KEY } from './santiago/progress.js?v=santiago-v2';
+import { splitTopotinoMessages } from './chat-format.js?v=samain-v12';
+import { CHALLENGE_PACKS, displayChallengeOptions } from './content/challenges.js?v=samain-v12';
 
-import { SAMAIN_ID, SAMAIN_STAGES, newSamain, normalizeSamain, samainStage, samainStageForEpisode, samainCanStart, madridDay, samainSpeakers, reduceSamain } from './content/samain.js?v=samain-v11';
+import { SAMAIN_ID, SAMAIN_STAGES, newSamain, normalizeSamain, samainStage, samainStageForEpisode, samainCanStart, madridDay, samainSpeakers, reduceSamain } from './content/samain.js?v=samain-v12';
 
 const STORAGE_KEYS = {
   auth: 'topotino_chat_auth_v1',
@@ -12,7 +12,7 @@ const STORAGE_KEYS = {
 const LEGACY_STATE_KEY = 'topotino_chat_state_v1';
 const APP_VERSION_CODE = 'T-30O1';
 const PASSPHRASE_HASH = 'a64716bd9f4e8added1bf47f80b97c3fc7b70a15b8043cdab083e1ddf85f3794';
-const EPISODES_MANIFEST = 'content/episodes.json?v=samain-v11';
+const EPISODES_MANIFEST = 'content/episodes.json?v=samain-v12';
 const LIVE_STORY_ENDPOINT = '/api/story';
 const AMARANTE_TRAVEL_DATE = '2026-08-13';
 const AMARANTE_ROUTE_EPISODE_ID = '004b-rumbo-amarante';
@@ -251,6 +251,22 @@ function ensureSamainCampaign() {
   if (state.campaign?.id !== SAMAIN_ID) return false;
   const stage = samainStage(state.campaign.stage);
   if (!stage || !getEpisode(stage.episodeId)) return false;
+  // T-01N3: recuperar una sola vez el final antiguo sin fingir llegada a Santiago.
+  if (state.campaign.santiagoRevision !== 1) {
+    state.campaign.santiagoRevision = 1;
+    if (['irrupcion', 'replica', 'expulsion', 'victoria'].includes(stage.key)) {
+      const hadGift = state.messages.some(m => m.deliveryId?.startsWith('samain-regalo-santiago-v1-'));
+      state.campaign.morningRescueChecked = true;
+      state.campaign.lugoRecoveryChecked = true;
+      state.campaign.pedroRecoveryChecked = true;
+      state.campaign.mapNoticeChecked = true;
+      enterSamainStage('llegada-santiago', {adult:true, prefix: hadGift
+        ? '¡Cambio de planes, equipo! Topoloco ha escuchado que queríais ir a Santiago y ha huido allí. El mapa que os había preparado nos servirá para investigar si sus alardes son ciertos.'
+        : '¡Equipo! Los Flopis están libres. He seguido el rastro de Topoloco: ha descubierto que queríais ir a Santiago y ha huido allí. Presume de volver la ciudad loca. ¡Habrá que ver si es verdad!'});
+      return true;
+    }
+    saveState();
+  }
   // Canon familiar del 1 de noviembre: mapa entregado, rescate pendiente.
   // No se marcan visitas ficticias ni se retrocede desde el desenlace o victoria.
   if (!state.campaign.morningRescueChecked && madridDay(getRuntimeNow()) >= '2026-11-01') {
@@ -258,7 +274,7 @@ function ensureSamainCampaign() {
     state.campaign.lugoRecoveryChecked = true;
     state.campaign.pedroRecoveryChecked = true;
     state.campaign.mapNoticeChecked = true;
-    if (!['irrupcion', 'replica', 'expulsion', 'victoria'].includes(stage.key)) {
+    if (!['irrupcion', 'replica', 'llegada-santiago', 'investigacion-santiago', 'paula-santiago', 'hugo-santiago', 'expulsion', 'victoria'].includes(stage.key)) {
       state.campaign.waitingRomanVisit = false;
       // Una alternativa en curso conserva su fase y sus mensajes pendientes.
       if (!['alternativa', 'enviar-salida'].includes(stage.key)) {
@@ -329,7 +345,7 @@ function enterSamainStage(key, { adult = false, prefix = '' } = {}) {
   }
   state.campaign.stage = key;
   activeConversationTurnId = null;
-  if (key === 'victoria') addUniqueMany(state.flags, ['completado_samain']);
+  if (key === 'victoria') addUniqueMany(state.flags, ['completado_samain', ...(state.campaign.santiagoConfirmed ? ['santiago_finalizado'] : [])]);
   unlockEpisode(next.episodeId);
   queueSamainEntry(prefix);
 }
@@ -341,12 +357,16 @@ async function deliverSamainPending() {
     while (true) {
       let pending = (state.campaign.outbox || []).filter((message) => !state.messages.some((m) => m.deliveryId === message.id));
       if (!pending.length) {
-        // El regalo va después de toda la despedida, incluso tras una recarga.
         const hadOutbox = Boolean(state.campaign.outbox?.length);
-        pending = pendingSantiagoGift(state.campaign, state.messages);
-        state.campaign.outbox = pending;
-        if (!pending.length) { if (hadOutbox) saveState(); break; }
-        saveState();
+        state.campaign.outbox = [];
+        if (state.campaign.stage === 'investigacion-santiago' && readSantiagoReport(localStorage).complete) {
+          state.campaign.santiagoConfirmed = true;
+          enterSamainStage('paula-santiago');
+          pending = state.campaign.outbox;
+        } else {
+          if (hadOutbox) saveState();
+          break;
+        }
       }
       await deliverTopotinoMessages(pending.map(({ id, ...m }) => ({ ...m, deliveryId: id })), { mode: 'scene' });
       state.campaign.outbox = [];
@@ -362,16 +382,14 @@ function samainAiContext(episode) {
   if (state.campaign?.id !== SAMAIN_ID) return episode.aiContext;
   if (state.campaign.waitingRomanVisit) return 'Topotino habla con Paula y Hugo durante su visita a la muralla de Lugo. Ya les preguntó qué descubrieron sobre las cloacas romanas. Responde con humor a lo que cuenten, sin inventar detalles de su visita; espera a que confirmen que han terminado. No anuncies otra misión ni adelantes acontecimientos.';
   const hints = (episode.progressiveHints || []).slice(0, state.campaign.hints[state.campaign.stage] || 0);
-  const giftContext = state.messages.some(m => m.deliveryId === SANTIAGO_GIFT_LINK_ID)
-    ? '\nTopotino ya entregó el regalo opcional Los 12 secretos de Santiago. El botón Abrir nuestro regalo está en su mensaje del final; también pueden abrir /santiago/. El progreso es independiente y no conoces sus hallazgos. No inventes resultados ni reabras misiones.' : '';
-  return episode.aiContext + giftContext + (hints.length
+  return episode.aiContext + (hints.length
     ? '\n\nPistas ya entregadas en esta fase: ' + JSON.stringify(hints) + '\nPuedes comentar y explicar estos datos ya comunicados, sin añadir pistas posteriores.'
     : '');
 }
 
 async function handleSamainMessage(text, action = '') {
   const campaign = state.campaign;
-  const result = reduceSamain(campaign, text, action, getRuntimeNow());
+  const result = reduceSamain({...campaign, santiagoMapCount: readSantiagoReport(localStorage).count}, text, action, getRuntimeNow());
   if (result.kind === 'hint') {
     const hints = getActiveEpisode()?.progressiveHints || [];
     const index = campaign.hints[campaign.stage] || 0;
@@ -390,12 +408,13 @@ async function handleSamainMessage(text, action = '') {
     if (result.conversation && !action) {
       await askAiFallback(text, { fallbackMessages: [{ from: 'topotino', text: '¡Mensaje recibido! Topoloco pedía silencio para su discurso y le ha salido una conversación. ¡Me gusta mucho más así!' }] });
     }
+    if (result.santiagoCompleted) campaign.santiagoConfirmed = true;
     if (result.rescued) addUniqueMany(state.flags, ['samain_flopis_rescatados']);
     enterSamainStage(result.next, { prefix: result.prefix });
     await deliverSamainPending();
   } else if (result.kind === 'reply') {
     if (result.romanVisitStarted) campaign.waitingRomanVisit = true;
-    if (/\b(algunos|faltan|falta|solo uno|solo dos)\b/i.test(text)) campaign.partialRescue = true;
+    if (['busqueda', 'dificultad'].includes(campaign.stage) && /\b(algunos|faltan|falta|solo uno|solo dos)\b/i.test(text)) campaign.partialRescue = true;
     saveState();
     await deliverTopotinoMessages([{ from: 'topotino', text: result.text }], { mode: 'scene' });
   } else {
@@ -442,6 +461,13 @@ function renderSamainActions() {
     options.appendChild(button);
   });
   card.appendChild(options);
+  if (stage.key === 'investigacion-santiago') {
+    const mapLink = document.createElement('a');
+    mapLink.href = '/santiago/';
+    mapLink.className = 'santiago-gift-link';
+    mapLink.textContent = 'Investigar Santiago';
+    card.appendChild(mapLink);
+  }
   els.challengePanel.appendChild(card);
 }
 
@@ -571,6 +597,9 @@ function bindEvents() {
   els.locationButton.addEventListener('click', refreshLocation);
   window.addEventListener('online', () => syncStateNow({ force: true }));
   window.addEventListener('focus', () => runActivationCheck('focus'));
+  window.addEventListener('storage', (event) => {
+    if (event.key === SANTIAGO_PROGRESS_KEY && state.campaign?.stage === 'investigacion-santiago') runActivationCheck('santiago-progress');
+  });
   document.addEventListener('visibilitychange', () => {
     if (document.visibilityState === 'visible') runActivationCheck('visible');
   });
@@ -2380,11 +2409,11 @@ function renderMessages() {
     text.className = 'message-text';
     text.textContent = message.text;
     bubble.appendChild(text);
-    if (message.from === 'topotino' && message.deliveryId === SANTIAGO_GIFT_LINK_ID && message.episodeId === '040-samain-victoria') {
+    if (message.from === 'topotino' && message.episodeId === '045-samain-investigacion-santiago' && message.text.includes('Abrid «Investigar Santiago»')) {
       const giftLink = document.createElement('a');
       giftLink.href = '/santiago/';
       giftLink.className = 'santiago-gift-link';
-      giftLink.textContent = 'Abrir nuestro regalo';
+      giftLink.textContent = 'Investigar Santiago';
       bubble.appendChild(giftLink);
     }
 
@@ -4062,6 +4091,6 @@ function applyTestingParams() {
 
 function registerServiceWorker() {
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('service-worker.js?v=offline-samain-v11').catch(() => {});
+    navigator.serviceWorker.register('service-worker.js?v=offline-samain-v12').catch(() => {});
   }
 }

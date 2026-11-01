@@ -1,5 +1,7 @@
-import { SECRETS } from './secrets.js?v=santiago-v1';
-const KEY = 'topotino_santiago_secrets_v1';
+import { SECRETS } from './secrets.js?v=santiago-v2';
+import { CASES } from './case.js?v=santiago-v2';
+import { SANTIAGO_PROGRESS_KEY } from './progress.js?v=santiago-v2';
+const KEY = SANTIAGO_PROGRESS_KEY;
 const $ = (id) => document.getElementById(id);
 const ids = SECRETS.map(s => s.id);
 const defaults = () => ({version:1, started:false, found:[], hints:[], deferred:[], selected:1, walkEnded:false});
@@ -27,7 +29,7 @@ const groupLabel = group => group.length > 2 ? `${group[0].id}–${group.at(-1).
 function node(tag, text, className) {const e=document.createElement(tag);if(text!==undefined)e.textContent=text;if(className)e.className=className;return e;}
 function button(label, action, className='') {const b=node('button',label,className);b.type='button';b.addEventListener('click',action);return b;}
 function status(id) {return game.found.includes(id)?'found':game.deferred.includes(id)?'deferred':'pending';}
-function statusLabel(id) {return {found:'✓ Encontrado',deferred:'◷ Para después',pending:'Por descubrir'}[status(id)];}
+function statusLabel(id) {return {found:'✓ Comprobado',deferred:'◷ Para después',pending:'Por comprobar'}[status(id)];}
 function save() {
   try {localStorage.setItem(KEY,JSON.stringify(game));} catch {storageFailed=true;}
   if(storageFailed){$('notice').hidden=false;$('notice').textContent='Podéis seguir jugando, pero este navegador no está guardando el paseo. Mantened esta página abierta para conservar lo que lleváis.';}
@@ -60,6 +62,7 @@ function renderDetail() {
   if(s.inside)root.append(node('p','Este secreto está dentro de la iglesia. Entrad solo si está abierta y se permite la visita; respetad las celebraciones.','condition'));
   if(s.night)root.append(node('p','Para después de oscurecer, si la iluminación forma la sombra. De día podéis guardarlo para otra ocasión.','condition night'));
   if(!done){
+    const claim=node('aside',undefined,'villain-claim');claim.append(node('strong','Topoloco presume…'),node('p',CASES[s.id-1].claim));root.append(claim);
     root.append(node('p',s.clue,'clue'));
     if(game.hints.includes(s.id))root.append(node('p',s.hint,'hint'));
     const actions=node('div',undefined,'actions');
@@ -69,7 +72,7 @@ function renderDetail() {
     actions.append(button(s.inside?'Está cerrado; seguir':s.night?'Volver después':'Dejar para después',defer,'defer'));
     root.append(actions);
   }else{
-    root.append(node('p',s.solution,'clue'),node('h3','La historia que guarda'),node('p',s.story));
+    root.append(node('p',s.solution,'clue'),node('h3','Una mentira desmontada'),node('p',CASES[s.id-1].correction,'correction'),node('h3','La historia que guarda'),node('p',s.story));
     if(s.bonus)root.append(node('p',s.bonus,'hint'));
     const q=node('div',undefined,'question');q.append(node('h3','Para hablar entre los dos'),node('p',s.question));root.append(q);
     const note=node('div',undefined,'topo-note');const img=node('img');img.src='/images/topotino.png?v=marco-v1';img.alt='Topotino';note.append(img,node('p',s.joke));root.append(note);
@@ -141,11 +144,12 @@ function begin(){
 }
 function celebrate(){
   game.walkEnded=true;save();const count=game.found.length;
-  $('celebration-title').textContent=count===12?'¡Los doce secretos son vuestros!':'¡Un paseo para recordar!';
-  $('celebration-copy').textContent=count===12?'Habéis descubierto doce rincones y doce historias de Santiago. ¡Equipo de exploradores al completo!':`Habéis descubierto ${count} de los 12 secretos. Cada detalle encontrado cuenta; el paseo podéis continuarlo otro día.`;
+  $('celebration-title').textContent=count===12?'¡Doce mentiras desmontadas!':'Informe guardado, equipo.';
+  $('celebration-copy').textContent=count===12?'Habéis comprobado los doce detalles y recuperado sus historias. Volved al comunicador: Topotino y Topotina necesitan vuestro informe para enfrentarse a Topoloco.':`Lleváis ${count} de las 12 comprobaciones. Podéis descansar y continuar cuando queráis; el plan de Topoloco todavía no está detenido.`;
   $('stamp-book').replaceChildren();SECRETS.forEach(s=>{const stamp=node('span',String(s.id),`stamp ${status(s.id)==='found'?'found':''}`);stamp.setAttribute('aria-label',`${s.id}: ${statusLabel(s.id)}`);$('stamp-book').append(stamp);});
-  $('celebration-pending').textContent=count<12?'Los secretos que faltan siguen guardados en el mapa. La iglesia y el peregrino nocturno también pueden esperar.':'¡Guardad vuestras fotos y vuestros recuerdos!';
-  $('resume').textContent=count===12?'Revisar nuestros secretos':'Seguir explorando';
+  $('celebration-pending').textContent=count<12?'Las comprobaciones pendientes siguen en el mapa. La iglesia y el peregrino nocturno pueden esperar; nadie los dará por encontrados.':'El comunicador reconocerá las doce comprobaciones en este navegador. Si usáis otro móvil, contadle que habéis completado las doce.';
+  $('return-report').hidden=count!==12;
+  $('resume').textContent=count===12?'Revisar las comprobaciones':'Seguir investigando';
   if(!$('celebration').open)$('celebration').showModal();
 }
 $('start').addEventListener('click',begin);
@@ -172,4 +176,4 @@ window.addEventListener('offline',()=>useSimple(true));
 render();
 if(game.started){begin();if(game.walkEnded)celebrate();}
 if(storageFailed)save();
-if('serviceWorker' in navigator)navigator.serviceWorker.register('/service-worker.js?v=santiago-v1').catch(()=>{});
+if('serviceWorker' in navigator)navigator.serviceWorker.register('/service-worker.js?v=santiago-v2').catch(()=>{});

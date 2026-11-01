@@ -2,27 +2,27 @@
 <html lang="es">
 <head>
   <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#08263f"><meta name="description" content="El regalo de Topotino para Paula y Hugo: doce secretos para descubrir juntos por Santiago de Compostela.">
-  <title>Los 12 secretos de Santiago · Un regalo de Topotino</title>
+  <meta name="theme-color" content="#08263f"><meta name="description" content="Topoloco ha vuelto Santiago patas arriba. Doce comprobaciones para desmontar sus mentiras con Paula, Hugo y Topotino.">
+  <title>Santiago patas arriba · Los 12 secretos</title>
   <link rel="icon" href="/icons/icon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="vendor/leaflet.css"><link rel="stylesheet" href="style.css?v=santiago-v1">
-  <script src="vendor/leaflet.js" defer></script><script src="game.js?v=santiago-v1" type="module"></script>
+  <link rel="stylesheet" href="vendor/leaflet.css"><link rel="stylesheet" href="style.css?v=santiago-v2">
+  <script src="vendor/leaflet.js" defer></script><script src="game.js?v=santiago-v2" type="module"></script>
 </head>
 <body>
-  <header class="masthead"><a class="brand" href="./" aria-label="Los 12 secretos de Santiago, inicio"><span class="shell" aria-hidden="true">✺</span><span>El cuaderno de<br><strong>Paula y Hugo</strong></span></a><span class="gift-tag">Un regalo de Topotino</span></header>
+  <header class="masthead"><a class="brand" href="./" aria-label="Los 12 secretos de Santiago, inicio"><span class="shell" aria-hidden="true">✺</span><span>El cuaderno de<br><strong>Paula y Hugo</strong></span></a><span class="gift-tag">Operación Santiago</span></header>
   <main>
     <section id="welcome" class="welcome" aria-labelledby="welcome-title">
-      <div class="welcome-copy"><div class="postcard"><img src="/images/topotino.png?v=marco-v1" alt="Topotino"><span>¡Esta vez invito yo a la aventura!</span></div>
-      <h1 id="welcome-title">Santiago guarda<br>doce secretos.</h1>
-      <p class="lead">Un ángel con gafas, una casa con truco y un peregrino que solo sale de noche. ¿Los descubrimos juntos?</p>
-      <p>Os he preparado un mapa para mirar la ciudad con ojos de exploradores. Buscad, sacad alguna foto si os apetece y descubrid la historia de cada hallazgo.</p>
+      <div class="welcome-copy"><div class="postcard"><img src="/images/topotino.png?v=marco-v1" alt="Topotino"><span>¡Equipo, necesito vuestros ojos!</span></div>
+      <h1 id="welcome-title">Santiago está<br>patas arriba.</h1>
+      <p class="lead">Topoloco presume de haber cambiado la ciudad. Hay doce enredos que solo podremos desmontar mirando lo que existe de verdad.</p>
+      <p>Su Desquiciador de Rótulos está soltando disparates por Santiago. Buscad los doce detalles, comprobad cada mentira y descubrid la historia que intenta trastocar.</p>
       <button id="start" class="primary">Abrir nuestro mapa</button>
       <p class="small">A vuestro ritmo, con los adultos. Podéis parar y volver cuando queráis.</p></div>
-      <div class="cover-art" aria-hidden="true"><svg viewBox="0 0 400 420"><rect x="28" y="25" width="340" height="365" rx="12" fill="#d9edf0" transform="rotate(4 200 210)"/><path d="M65 310 Q125 285 125 222 T210 165 T330 75" fill="none" stroke="#00858a" stroke-width="4" stroke-dasharray="8 10"/><path d="M67 255V132h30V97h14v35h29v123m130 0V132h30V97h14v35h28v123M126 255V172h156v83M175 255v-42a24 24 0 0 1 48 0v42M137 172l67-45 67 45" fill="#f5f9fc" stroke="#08263f" stroke-width="5" stroke-linejoin="round"/><path d="M89 97l17-38 17 38m161 0 17-38 17 38" fill="#e6a01a" stroke="#08263f" stroke-width="4"/><circle cx="206" cy="179" r="12" fill="#e6a01a"/><circle cx="85" cy="318" r="29" fill="#08263f"/><text x="85" y="327" text-anchor="middle" fill="white" font-size="27" font-family="Trebuchet MS">1</text><circle cx="321" cy="63" r="30" fill="#e6a01a"/><text x="321" y="72" text-anchor="middle" fill="#08263f" font-size="25" font-family="Trebuchet MS">12</text><path d="M252 315l21-36 21 36-21-10z" fill="#00858a"/><text x="200" y="368" text-anchor="middle" fill="#08263f" font-size="21" font-family="Trebuchet MS">Mirar. Encontrar. Sorprenderse.</text></svg></div>
+      <div class="cover-art" aria-hidden="true"><svg viewBox="0 0 400 420"><rect x="28" y="25" width="340" height="365" rx="12" fill="#d9edf0" transform="rotate(4 200 210)"/><path d="M65 310 Q125 285 125 222 T210 165 T330 75" fill="none" stroke="#00858a" stroke-width="4" stroke-dasharray="8 10"/><path d="M67 255V132h30V97h14v35h29v123m130 0V132h30V97h14v35h28v123M126 255V172h156v83M175 255v-42a24 24 0 0 1 48 0v42M137 172l67-45 67 45" fill="#f5f9fc" stroke="#08263f" stroke-width="5" stroke-linejoin="round"/><path d="M89 97l17-38 17 38m161 0 17-38 17 38" fill="#e6a01a" stroke="#08263f" stroke-width="4"/><circle cx="206" cy="179" r="12" fill="#e6a01a"/><circle cx="85" cy="318" r="29" fill="#08263f"/><text x="85" y="327" text-anchor="middle" fill="white" font-size="27" font-family="Trebuchet MS">1</text><circle cx="321" cy="63" r="30" fill="#e6a01a"/><text x="321" y="72" text-anchor="middle" fill="#08263f" font-size="25" font-family="Trebuchet MS">12</text><path d="M252 315l21-36 21 36-21-10z" fill="#00858a"/><text x="200" y="368" text-anchor="middle" fill="#08263f" font-size="21" font-family="Trebuchet MS">Mirar. Comprobar. Desbaratar.</text></svg></div>
     </section>
     <section id="adventure" hidden aria-label="Nuestro juego">
-      <div class="game-heading"><div><p class="small">Los 12 secretos de Santiago</p><h1>Ojos bien abiertos.</h1></div><div class="score"><strong id="count">0 / 12</strong><span>descubiertos</span></div></div>
-      <progress id="progress" max="12" value="0" aria-label="Secretos descubiertos"></progress>
+      <div class="game-heading"><div><p class="small">Operación Santiago</p><h1>Desmontad sus enredos.</h1></div><div class="score"><strong id="count">0 / 12</strong><span>comprobados</span></div></div>
+      <progress id="progress" max="12" value="0" aria-label="Enredos comprobados"></progress>
       <p id="notice" class="notice" role="status" hidden></p>
       <div class="workspace">
         <section class="explore" aria-label="Mapa y lista de secretos">
@@ -31,14 +31,14 @@
           <div class="map-tools"><button id="locate">Ver mi posición</button><button id="map-mode">Usar plano sencillo</button></div>
           <p id="map-status" class="small" role="status">Los puntos indican la zona. El detalle lo encontráis vosotros.</p></div>
           <div id="list-view" hidden><p class="small">Podéis elegir cualquier secreto. El número sugiere un paseo.</p><div id="secret-list" class="secret-list"></div></div>
-          <div class="legend"><span>○ Por descubrir</span><span>✓ Encontrado</span><span>◷ Para después</span></div>
+          <div class="legend"><span>○ Por comprobar</span><span>✓ Comprobado</span><span>◷ Para después</span></div>
         </section>
         <section id="detail" class="detail" aria-live="polite" aria-label="Secreto elegido"></section>
       </div>
-      <footer class="walk-footer"><p>Mirad y fotografiad sin tocar ni trepar. Las fotos se quedan en vuestra cámara.</p><button id="finish" class="secondary">Terminar nuestro paseo</button></footer>
+      <footer class="walk-footer"><p>Mirad y fotografiad sin tocar ni trepar. Las fotos se quedan en vuestra cámara.</p><button id="finish" class="secondary">Guardar y descansar</button></footer>
     </section>
   </main>
-  <footer class="site-footer"><a href="/">Volver al comunicador</a><span>Hecho para explorar juntos.</span><button id="reset" class="text-button">Reiniciar este paseo</button></footer>
-  <dialog id="celebration" aria-labelledby="celebration-title"><span class="medal" aria-hidden="true">✺</span><h2 id="celebration-title"></h2><p id="celebration-copy"></p><div id="stamp-book" class="stamp-book" aria-label="Sellos conseguidos"></div><p id="celebration-pending"></p><div class="topo-note"><img src="/images/topotino.png?v=marco-v1" alt=""><p>«¡Gracias por mirar donde otros solo pasan! Mis bigotes y yo estamos orgullosos de vuestro equipo.»<br><strong>Topotino</strong></p></div><button id="resume" class="primary">Seguir explorando</button></dialog>
+  <footer class="site-footer"><a href="/">Volver al comunicador</a><span>Mirar, comprobar y devolverle la historia a Santiago.</span><button id="reset" class="text-button">Reiniciar este paseo</button></footer>
+  <dialog id="celebration" aria-labelledby="celebration-title"><span class="medal" aria-hidden="true">✺</span><h2 id="celebration-title"></h2><p id="celebration-copy"></p><a id="return-report" class="primary report-link" href="/" hidden>Volver al comunicador</a><div id="stamp-book" class="stamp-book" aria-label="Sellos conseguidos"></div><p id="celebration-pending"></p><div class="topo-note"><img src="/images/topotino.png?v=marco-v1" alt=""><p>«Cada detalle que comprobáis deja al doctor con un disparate menos. Seguimos juntos, equipo.»<br><strong>Topotino</strong></p></div><button id="resume" class="primary">Seguir investigando</button></dialog>
 </body>
 </html>

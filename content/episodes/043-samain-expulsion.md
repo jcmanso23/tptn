@@ -2,12 +2,12 @@
 {
   "id": "043-samain-expulsion",
   "order": 43,
-  "title": "La amenaza y la puerta",
+  "title": "La venganza tendrá que esperar",
   "campaign": "samain-2026",
   "phase": "expulsion",
   "channelCode": "T-30O1",
   "startsUnlocked": false,
-  "mission": "La amenaza y la puerta",
+  "mission": "La venganza tendrá que esperar",
   "formulaWord": null,
   "water": null,
   "ai": {
@@ -19,7 +19,7 @@
 
 # Contexto narrativo
 
-Continuidad T-01N1: rescate de los Flopis.
+Continuación de Samaín: Santiago patas arriba · T-01N3.
 
 ## Mensajes iniciales
 
@@ -31,23 +31,23 @@ Continuidad T-01N1: rescate de los Flopis.
   },
   {
     "from": "topotino",
-    "text": "Vale, pero si son otras cuarenta fotos tuyas, las pongo en la carpeta «Topoloco haciendo cosas de Topoloco»."
+    "text": "Vale, pero pon asunto en el mensaje: «Otra pataleta del doctor». Así sé dónde archivarlo."
   },
   {
     "from": "topoloco",
-    "text": "¡No son fotos! ¡Son retratos oficiales de una mente superior!"
+    "text": "¡No es una pataleta! ¡Es una declaración científica de revancha!"
   },
   {
     "from": "topotina",
-    "text": "Y ocupan muchísimo. Tu ego necesita un disco aparte."
+    "text": "Le he hecho una carpeta. Dentro de «Pataletas»."
   },
   {
     "from": "topotino",
-    "text": "Paula, Hugo: ¿le enseñamos la salida? Por una vez una puerta nos va a ahorrar una conferencia."
+    "text": "Paula, Hugo, ¿le enseñamos la salida? Santiago ya tiene sus historias; no necesita un señor contando sus victorias imaginarias."
   },
   {
     "from": "topotina",
-    "text": "Cuando digáis «fuera» o pulséis el botón, cierro el acceso que abrió Tecla. La orden es vuestra."
+    "text": "Cuando digáis «fuera» o pulséis el botón, cierro la línea de reclamaciones que abrió Tecla. La orden es vuestra."
   }
 ]
 ```
@@ -72,4 +72,4 @@ Continuidad T-01N1: rescate de los Flopis.
 
 ## Contexto para IA
 
-Topotino recuperó la memoria en agosto. Paula y Hugo son quienes escriben: nunca inventes mensajes ni acciones suyas. Habla con humor, en burbujas breves. Respeta únicamente las voces autorizadas. No concedas progreso por tu cuenta. No inventes escondites, pruebas oficiales, especie o número de Flopis ni resultados del mapa. Tecla es la mujer de Topoloco; Topotina es la hermana de Topotino. La amenaza verbal ya ocurrió: se vengará y pronto tendrán noticias suyas. No añadas peligro, daño, fechas ni otra misión. Topotino bromea sin tomarlo en serio. Los niños deben ordenar expresamente expulsarlo; no interpretes una negación, pregunta o plan como orden. Tecla salió y Topotina puede cerrar su acceso. El rescate está terminado, falta solo despedir al intruso.
+Topotino tiene memoria. Paula y Hugo escriben sus propias intervenciones; no inventes sus acciones ni sus palabras. Tecla es mujer de Topoloco, Topotina es hermana de Topotino. Solo hablan las voces autorizadas. Los Flopis están libres. No reabras las Doce Aguas ni el Corrector de agosto. No concedas progreso ni visitas por tu cuenta. Esta amenaza llega después de las doce comprobaciones y de los turnos de Paula y Hugo. Topoloco anuncia venganza y noticias próximas; Topotino no se lo toma en serio. No añadas daño, plazos ni nueva tarea. Topotina controla la nueva línea limitada abierta por Tecla, que ya salió. Espera orden explícita o botón de expulsión; negaciones, planes y preguntas no la ejecutan.

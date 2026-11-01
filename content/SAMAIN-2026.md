@@ -2,15 +2,16 @@
 
 Implementación local T-30O1. No se ha publicado ni enviado ningún mensaje al canal familiar. La historia completa y sus secretos están en la sección 0 de GUIA-COHERENCIA-NARRATIVA.md; las personalidades están en PERSONAJES.md.
 
-## Recorrido vigente · 1 de noviembre · T-01N1
+## Recorrido vigente · T-01N3 · Santiago patas arriba
 
-El recorrido de Astorga y Lugo queda como historia vivida. La familia ya tiene el mapa entregado por Topotina. La actualización recupera partidas atascadas en la búsqueda y saluda una vez con buenos días. No modifica el historial ni afirma visitas no registradas; conserva una alternativa en curso y una victoria cerrada.
+1. El rescate de los Flopis se confirma sin cambiar sus doce pruebas del mapa.
+2. Tecla deja protestar a Topoloco; fallan las copias. Él escucha que querían ir a Santiago, huye allí y presume de cambiarla. Topotino es escéptico y espera aviso de llegada.
+3. Botón o afirmación explícita confirma la llegada a Santiago. Topotino detecta el Desquiciador de Rótulos y entrega /santiago/.
+4. Doce disparates del villano se contrastan con los doce hallazgos reales del documento familiar. Mapa, pistas, historias y progreso anteriores se conservan. Guardar o aplazar no detiene al villano.
+5. Al volver al mismo navegador con doce hallazgos, el chat reconoce el informe. Desde otro móvil, pueden confirmar expresamente que completaron las doce comprobaciones.
+6. Tecla abre una línea limitada de reclamaciones, Topotina la controla y Paula y Hugo intervienen. Luego llegan la amenaza de venganza, las bromas, la expulsión y el agradecimiento final.
 
-1. Rescate hoy mediante las doce pruebas del mapa que ya tienen. No son doce Flopis. Texto libre y botones de confirmación visibles; los resultados parciales y las negaciones no completan el rescate.
-2. Se mantiene la alternativa desde el chat para quien encuentre dificultades. Ejecutarla libera las jaulas pendientes; no afirma que hayan hecho las doce pruebas.
-3. Rescate confirmado: Tecla abre un acceso para la reclamación de Topoloco. Topotina detecta el acceso y entra; Tecla se marcha. Fallan las reservas de sombras porque sus originales ya están libres. Solo quedan copias de Topoloco haciéndose reverencias.
-4. Paula tiene una invitación a responder y después Hugo. Las respuestas son suyas y no se evalúan. Pueden hablar por ambos o pasar con botón. Topotino y Topotina se burlan del ego del villano.
-5. Topoloco promete vengarse y que pronto tendrán noticias suyas. Los niños ordenan expulsarlo y Topotina cierra el acceso. Topotino agradece a ambos y promete avisar si ocurre algo. Sin tarea adicional ni señal navideña.
+Las partidas de la versión del regalo que ya estaban en el desenlace se recuperan una vez en la espera de Santiago. No se borra historia ni se presupone la llegada. La guía maestra recoge la explicación de continuidad. El final de agosto permanece intacto.
 
 ## Prueba y controles
 

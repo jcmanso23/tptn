@@ -31,15 +31,19 @@ export const SAMAIN_STAGES = Object.freeze([
   ]),
   step('alternativa', '038', 'Encontrar una salida'),
   step('enviar-salida', '039', 'Enviar la señal de salida', [['abrir', 'Abrir la salida']]),
-  step('irrupcion', '041', 'Topoloco pide una reclamación', [['responder', 'Dar paso a Hugo']]),
-  step('replica', '042', 'La respuesta de Hugo', [['responder', 'Vamos a despedir a Topoloco']]),
+  step('irrupcion', '041', 'Topoloco huye a Santiago', [['responder', 'Seguiremos su rastro'], ['llegada', 'Ya estamos en Santiago']]),
+  step('replica', '042', 'El rastro hacia Santiago', [['responder', 'Seguiremos su rastro']]),
+  step('llegada-santiago', '044', 'Avisadme al llegar a Santiago', [['llegada', 'Ya estamos en Santiago']]),
+  step('investigacion-santiago', '045', 'Investigar Santiago', [['comprobar', 'Comprobar nuestro avance']]),
+  step('paula-santiago', '046', 'La respuesta de Paula', [['responder', 'Dar paso a Hugo']]),
+  step('hugo-santiago', '047', 'La respuesta de Hugo', [['responder', 'Vamos a despedir a Topoloco']]),
   step('expulsion', '043', 'Cerrar el acceso de Topoloco', [['expulsar', '¡Fuera del canal, Topoloco!']]),
   step('victoria', '040', 'Victoria y descanso')
 ]);
 
 export const samainStage = (key) => SAMAIN_STAGES.find((s) => s.key === key);
 export const samainStageForEpisode = (id) => SAMAIN_STAGES.find((s) => s.episodeId === id);
-export const newSamain = () => ({ id: SAMAIN_ID, stage: 'contacto', completed: [], hints: {}, partialRescue: false, entrySequence: 0, pedroRecoveryChecked: true, lugoRecoveryChecked: true, mapNoticeChecked: true });
+export const newSamain = () => ({ id: SAMAIN_ID, stage: 'contacto', completed: [], hints: {}, partialRescue: false, entrySequence: 0, pedroRecoveryChecked: true, lugoRecoveryChecked: true, mapNoticeChecked: true, santiagoRevision: 1, santiagoConfirmed: false });
 
 export function normalizeSamain(value) {
   if (value?.id !== SAMAIN_ID || !samainStage(value.stage)) return null;
@@ -47,6 +51,8 @@ export function normalizeSamain(value) {
     ...newSamain(), stage: value.stage,
     completed: [...new Set((Array.isArray(value.completed) ? value.completed : []).filter((s) => samainStage(s)))],
     hints: Object.fromEntries(Object.entries(value.hints || {}).filter(([k, v]) => samainStage(k) && Number.isSafeInteger(v) && v >= 0)),
+    santiagoRevision: value.santiagoRevision === 1 ? 1 : 0,
+    santiagoConfirmed: value.santiagoConfirmed === true,
     morningRescueChecked: value.morningRescueChecked === true,
     partialRescue: value.partialRescue === true,
     pedroRecoveryChecked: value.pedroRecoveryChecked === true,
@@ -69,7 +75,7 @@ export function samainCanStart(now) {
 }
 
 export function samainSpeakers(key) {
-  return ['irrupcion', 'replica', 'expulsion'].includes(key) ? ['topotino', 'topotina', 'topoloco'] : ['topotino'];
+  return ['irrupcion', 'paula-santiago', 'hugo-santiago', 'expulsion'].includes(key) ? ['topotino', 'topotina', 'topoloco'] : ['topotino'];
 }
 
 const normalize = (s) => String(s || '').normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().replace(/[^a-z0-9ñ\s]/g, ' ').replace(/\s+/g, ' ').trim();
@@ -102,7 +108,7 @@ export function reduceSamain(campaign, raw = '', action = '', now = new Date()) 
     if (!campaign.waitingRomanVisit && !samainIsUncertain(raw) && /\bmuralla\b/.test(t) && /\b(hemos encontrado|encontramos|hemos visto|ya estamos|estamos en|hemos llegado|estamos junto|estamos viendo)\b/.test(t)) return { kind: 'reply', romanVisitStarted: true, text: '¡¡Habéis encontrado la muralla!! ¡Mis bigotes están dando volteretas romanas! ¿Habéis descubierto algo sobre las cloacas romanas? Contadme lo que veáis o aprendáis. Seguid vuestra aventura y avisadme cuando terminéis; yo mientras vigilo a Topoloco… y procuro no caer en ninguna alcantarilla.' };
   }
   if (action && !stage.actions.some((a) => a.id === action)) return { kind: 'chat' };
-  if (!action && /\b(pista|ayuda con la pista|otra pista|no sabemos|no se|no entiendo|no entendemos)\b/.test(t) && !['busqueda', 'dificultad', 'irrupcion', 'replica', 'expulsion', 'victoria'].includes(stage.key)) return { kind: 'hint' };
+  if (!action && /\b(pista|ayuda con la pista|otra pista|no sabemos|no se|no entiendo|no entendemos)\b/.test(t) && !['busqueda', 'dificultad', 'irrupcion', 'replica', 'llegada-santiago', 'investigacion-santiago', 'paula-santiago', 'hugo-santiago', 'expulsion', 'victoria'].includes(stage.key)) return { kind: 'hint' };
 
   if (['busqueda', 'dificultad'].includes(stage.key)) {
     if (action === 'rescatados' || samainRescueSucceeded(raw)) return go('irrupcion', { rescued: true });
@@ -119,9 +125,27 @@ export function reduceSamain(campaign, raw = '', action = '', now = new Date()) 
     return { kind: 'chat' };
   }
 
+  if (['irrupcion', 'replica', 'llegada-santiago'].includes(stage.key)) {
+    const arrivalHere = arrived(t) && (/\bsantiago\b/.test(t) || /^(si )?(ya )?(hemos llegado|estamos aqui|estamos|llegamos|acabamos de llegar)$/.test(t));
+    if (action === 'llegada' || (arrivalHere && !samainIsUncertain(raw))) return go('investigacion-santiago');
+  }
   if (['irrupcion', 'replica'].includes(stage.key)) {
-    if (action === 'responder' || (t && !/[¿?]/.test(raw))) return go(stage.key === 'irrupcion' ? 'replica' : 'expulsion', { conversation: true });
+    if (action === 'responder' || (t && !/[¿?]/.test(raw))) return go('llegada-santiago', { conversation: true });
     return { kind: 'chat' };
+  }
+  if (stage.key === 'llegada-santiago') return {kind:'chat'};
+  if (stage.key === 'investigacion-santiago') {
+    if (action === 'comprobar') return campaign.santiagoMapCount === 12
+      ? go('paula-santiago', {santiagoCompleted:true})
+      : say(`Tengo ${campaign.santiagoMapCount || 0} de las doce comprobaciones guardadas aquí. Las pendientes siguen en el mapa. Si completasteis las doce en otro móvil, contádmelo expresamente y recogeré vuestro informe.`);
+    const allTwelve = /\b(hemos (completado|terminado|superado|hecho|acabado) (las )?(12|doce) (pruebas|comprobaciones|retos|secretos)|(las )?(12|doce) (pruebas|comprobaciones|retos|secretos) (completadas|completados|terminadas|terminados|comprobados)|hemos comprobado (los )?(12|doce) (secretos|puntos))\b/.test(t);
+    if (allTwelve && !/\bflopis\b/.test(t) && !samainIsUncertain(raw) && !/\b(faltan|falta|quedan|casi|menos|excepto|pendientes)\b/.test(t)) return go('paula-santiago', {santiagoCompleted:true});
+    if (finished(t) || /\b(lo hemos conseguido|todos)\b/.test(t)) return say('¿Están completas las doce comprobaciones de Santiago? Pulsad «Comprobar nuestro avance» o contadme expresamente que habéis terminado las doce. No daré por hecha una que siga pendiente.');
+    return { kind: 'chat' };
+  }
+  if (['paula-santiago', 'hugo-santiago'].includes(stage.key)) {
+    if (action === 'responder' || (t && !/[¿?]/.test(raw))) return go(stage.key === 'paula-santiago' ? 'hugo-santiago' : 'expulsion', {conversation:true});
+    return {kind:'chat'};
   }
   if (stage.key === 'expulsion' && (action === 'expulsar' || (!samainIsUncertain(raw) && /\b(fuera|expulsar|expulsalo|echalo|echadle|expulsadlo|cerrar el acceso|adios topoloco)\b/.test(t)))) return go('victoria');
 

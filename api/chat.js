@@ -338,6 +338,8 @@ export default async function handler(req, res) {
       if (phase < 11) banned.push(/\blugo\b/i);
       if (phase < 5) banned.push(/\bcatedral\b/i);
       if (phase < 2) banned.push(/\bastorga\b/i);
+      if (phase < order.indexOf('irrupcion')) banned.push(/\b(santiago|desquiciador)\b/i);
+      if (phase < order.indexOf('investigacion-santiago')) banned.push(/\bdesquiciador\b/i);
       if (phase < order.indexOf('irrupcion')) banned.push(/\b(cascabel|estrella torcida|copias de (las )?sombras)\b/i);
       if (messages.some(m => banned.some(re => re.test(m.text)))) messages = [{from:'topotino',text:'Todavía no tengo esa parte clara. Contadme qué pensáis vosotros y seguimos investigando juntos.'}];
     }

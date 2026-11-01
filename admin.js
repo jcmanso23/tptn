@@ -1,5 +1,5 @@
 const API = '/api/story';
-const MANIFEST = '/content/episodes.json?v=samain-v11';
+const MANIFEST = '/content/episodes.json?v=samain-v12';
 
 const els = {};
 const publishedEpisodes = new Map();

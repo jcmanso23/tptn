@@ -2,12 +2,12 @@
 {
   "id": "041-samain-irrupcion",
   "order": 41,
-  "title": "Reclamación de un genio incomprendido",
+  "title": "La huida de Topoloco",
   "campaign": "samain-2026",
   "phase": "irrupcion",
   "channelCode": "T-30O1",
   "startsUnlocked": false,
-  "mission": "Reclamación de un genio incomprendido",
+  "mission": "La huida de Topoloco",
   "formulaWord": null,
   "water": null,
   "ai": {
@@ -19,7 +19,7 @@
 
 # Contexto narrativo
 
-Continuidad T-01N1: rescate de los Flopis.
+Continuación de Samaín: Santiago patas arriba · T-01N3.
 
 ## Mensajes iniciales
 
@@ -27,55 +27,35 @@ Continuidad T-01N1: rescate de los Flopis.
 [
   {
     "from": "topotino",
-    "text": "¡¡Todos los Flopis a salvo!! El Aplausómetro se ha quedado sin sus originales. ¡Se acabó el público cautivo!"
-  },
-  {
-    "from": "system",
-    "text": "Una conexión ajena intenta abrirse en el canal."
+    "text": "¡¡Flopis a salvo!! El Aplausómetro se ha quedado sin público cautivo. ¡Menuda ovación de silencio!"
   },
   {
     "from": "doctora_tecla",
-    "text": "Soy la doctora Tecla. He abierto este acceso para que mi marido presente una reclamación. Una. No una conferencia con retrato suyo."
+    "text": "Soy la doctora Tecla. He abierto una línea para que mi marido reclame. Le he quitado el botón de dar conferencias."
   },
   {
     "from": "topoloco",
-    "text": "¡Gracias a MI extraordinario talento he vuelto a entrar!"
-  },
-  {
-    "from": "doctora_tecla",
-    "text": "Gracias a mi código. Tú has escrito «entrar» en la calculadora."
+    "text": "¡Mi reserva de sombras os derrotará! ¡Todo estaba previsto!"
   },
   {
     "from": "topotina",
-    "text": "Detecto tu acceso, Tecla. Soy Topotina, la hermana de Topotino. El mapa ya lo tienen; ahora me ocupo de esta puerta."
-  },
-  {
-    "from": "topotino",
-    "text": "¡Tina! Vigila también la calculadora: igual intenta invadirnos con un siete."
+    "text": "Tus copias necesitaban a los originales atrapados. Paula y Hugo los han liberado. La reserva también se ha quedado sin fuente."
   },
   {
     "from": "topoloco",
-    "text": "¡Silencio! Conservaba una reserva de sombras de los Flopis. ¡Mi ovación será eterna!"
-  },
-  {
-    "from": "topotina",
-    "text": "Las copias dependían de los originales atrapados. Al liberarlos, Paula y Hugo han cortado también esa fuente. Tu reserva no puede aplaudir."
-  },
-  {
-    "from": "doctora_tecla",
-    "text": "Te lo puse en el manual. Debajo de «no usar la capa para limpiar la pantalla»."
-  },
-  {
-    "from": "topoloco",
-    "text": "¡Entonces usaré MI silueta! ¡Por fin un público a mi altura!"
+    "text": "¡Usaré mi propia silueta! ¡Qué público tan distinguido!"
   },
   {
     "from": "topotino",
-    "text": "En su pantalla solo salen Topolocos haciéndose reverencias. ¡Tiene lleno total de sí mismo!"
+    "text": "En su pantalla solo hay Topolocos haciéndose reverencias. ¡Todos han venido a verse a sí mismos!"
+  },
+  {
+    "from": "topoloco",
+    "text": "¡Basta! Os he oído hablar de ir a Santiago. ¡Pues allí me voy! ¡Voy a volver esa ciudad completamente loca!"
   },
   {
     "from": "doctora_tecla",
-    "text": "Mi acceso ya lo conocéis, Topotina. Ahora defiéndelo tú. Yo no pienso escuchar cómo se pide un bis a sí mismo."
+    "text": "Llévate el cargador. La última ciudad que intentaste dominar se quedó al dos por ciento."
   },
   {
     "from": "system",
@@ -83,7 +63,15 @@ Continuidad T-01N1: rescate de los Flopis.
   },
   {
     "from": "topotino",
-    "text": "Paula, te cedo la palabra: ¿qué le dirías al director de este aplauso solitario? Hugo, prepara tu réplica. ¡Aquí se escucha a los dos!"
+    "text": "Sí, sí, claro… Santiago patas arriba. También dijo que inventó el desayuno y solo había puesto una cuchara encima de un yogur."
+  },
+  {
+    "from": "topotina",
+    "text": "Su señal se está alejando. Vigilaré el rastro; todavía no sabemos qué está haciendo."
+  },
+  {
+    "from": "topotino",
+    "text": "Paula, Hugo, los Flopis ya están libres. Cuando lleguéis a Santiago, avisadme por aquí o con el botón. Vigilaré a ese genio del yogur."
   }
 ]
 ```
@@ -108,4 +96,4 @@ Continuidad T-01N1: rescate de los Flopis.
 
 ## Contexto para IA
 
-Topotino recuperó la memoria en agosto. Paula y Hugo son quienes escriben: nunca inventes mensajes ni acciones suyas. Habla con humor, en burbujas breves. Respeta únicamente las voces autorizadas. No concedas progreso por tu cuenta. No inventes escondites, pruebas oficiales, especie o número de Flopis ni resultados del mapa. Tecla es la mujer de Topoloco; Topotina es la hermana de Topotino. El rescate ya está confirmado y no necesita otra prueba. Tecla abrió un acceso para su marido y ya salió; no vuelve a hablar. Topotina está presente y vigila esa puerta. Las reservas han fallado; la máquina solo reproduce reverencias del propio villano, sin poder recapturar a los Flopis. Se invita a Paula a responder libremente; cualquiera puede escribir por ambos o pasar. Responde a su ocurrencia sin corregirla ni evaluarla. Todavía no expulses al villano.
+Topotino tiene memoria. Paula y Hugo escriben sus propias intervenciones; no inventes sus acciones ni sus palabras. Tecla es mujer de Topoloco, Topotina es hermana de Topotino. Solo hablan las voces autorizadas. Los Flopis están libres. No reabras las Doce Aguas ni el Corrector de agosto. No concedas progreso ni visitas por tu cuenta. Topoloco acaba de descubrir por el comunicador que querían ir a Santiago. Huye allí y presume de cambiar la ciudad. Topotino no se lo cree; no confirma cambios ni conoce aún su nueva máquina. Tecla salió. Escucha una reacción libre de los niños antes de pedir aviso de llegada. No entregues mapa ni desvíes a otro destino. No anuncies venganza todavía.

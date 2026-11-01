@@ -1,6 +1,22 @@
 # Guía maestra de coherencia narrativa · Las Doce Aguas
 
-## 1 de noviembre · regalo de Santiago · T-01N2
+## 1 de noviembre · Santiago patas arriba · T-01N3 · canon vigente
+
+Por petición expresa de la familia, el antiguo regalo se convierte en continuación de la aventura. Esta revisión sustituye las instrucciones T-01N1/T-01N2 sobre regalo, amenaza y cierre. Las doce pruebas y sus hechos reales se conservan. Los doce Flopis no se inventan: siguen siendo doce pruebas de rescate en Lugo y doce comprobaciones distintas en Santiago.
+
+Cadena vigente: rescatar Flopis → Tecla permite la reclamación y fallan las sombras de reserva → Topoloco descubre que los niños querían ir a Santiago, huye allí y presume de volverla loca → Topotino no se lo cree y pide aviso de llegada → confirmación explícita de llegada a Santiago → Topotino comprueba las emisiones del villano, admite las trastadas y entrega el mapa → doce hallazgos comprobados → confrontación con intervención de Paula y Hugo → anuncio de venganza, bromas de Topotino y expulsión → agradecimiento y promesa de avisar.
+
+Topoloco no conoce reservas ni un itinerario secreto: se enteró de la intención de ir a Santiago al escuchar el comunicador. En Sevilla intentó borrar la memoria de la ciudad con los Oscurnos; ahora usa una máquina nueva, el Desquiciador de Rótulos, para imponer versiones disparatadas de sus lugares. El Corrector de agosto sigue destruido. Cada mentira de su máquina se ancla a un detalle histórico auténtico; contrastarlo corta ese engaño. Las esculturas, edificios y fenómenos del documento ya existían: Topoloco NO creó el ángel con gafas ni la sombra del peregrino. No se promete que se muevan estatuas o aparezcan carteles físicos en las calles. Se comprueba lo que existe, se distingue de lo que él dice y se restituye su historia. El humor no atribuye al villano el patrimonio ni convierte el significado religioso en magia.
+
+Antes de llegar, Topotino solo sabe lo que presume el villano; no confirma daños ni entrega el mapa. La llegada se comunica mediante botón o afirmación explícita, nunca por GPS, planes o preguntas. Después reconoce el ataque e introduce la máquina. Al completar las doce comprobaciones en el mismo navegador, el comunicador reconoce el avance al volver; también admite un informe explícito de las doce desde otro dispositivo. Una frase genérica o un informe parcial no cierra la misión. Iglesia cerrada, falta de oscuridad o cansancio permiten guardar y continuar, pero no cuentan como hallazgos ni desatan el desenlace.
+
+La interfaz, claves y los doce IDs del juego se conservan, incluidos descubrimientos previos del antiguo regalo. La subweb no escribe la partida del chat; el comunicador lee el progreso local compartido y solo lo aplica en la fase de investigación de Santiago. Su acceso directo no salta la llegada ni las fases. Se conservan los códigos de recuperación y el historial. Las partidas T-01N2 que ya estaban en reclamación, réplica, expulsión o victoria se recuperan una sola vez en la espera de Santiago; no se rehacen visitas ni se finge haber llegado. Si ya se entregó el regalo, Topotino explica que aquel mapa servirá para investigar. No se borran mensajes vividos ni flags históricos.
+
+La antigua expulsión ya narrada no autoriza acceso ilimitado: en el final de Santiago Tecla vuelve a abrir solo una línea de reclamaciones; Topotina la controla y la cierra por orden de los niños. La amenaza de venganza pertenece al final nuevo. Paula y Hugo responden de verdad, sin frases inventadas y sin examen. El mapa celebra doce mentiras desmontadas e invita a volver al comunicador; el agradecimiento definitivo llega después de la expulsión.
+
+Impacto: se revisan 041/042/043/040, se añaden llegada, investigación y dos turnos finales, se retira la entrega automática del regalo, y se adapta la subweb manteniendo íntegros sus retos, localStorage y mapa. El final de agosto no cambia.
+
+## 1 de noviembre · regalo de Santiago · T-01N2 · sustituido por T-01N3
 
 Después de la expulsión y de la despedida completa de Samaín, Topotino entrega una sola vez un regalo de agradecimiento a Paula y Hugo: «Los 12 secretos de Santiago». Es un paseo lúdico opcional por curiosidades reales, no una amenaza ni otra tarea del rescate. Sus doce secretos no son las doce pruebas de los Flopis ni las doce aguas. No se anuncia antes de cerrar la aventura. Las partidas ya en victoria reciben también el regalo sin repetir la expulsión. Los mensajes pendientes se recuperan con identificadores fijos tras recargar.
 
