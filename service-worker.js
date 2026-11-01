@@ -1,12 +1,12 @@
-const CACHE_NAME = 'topotino-offline-samain-v12';
+const CACHE_NAME = 'topotino-offline-samain-v13';
 const CORE_ASSETS = [
   '/',
   '/index.html',
-  '/styles.css?v=samain-v12',
-  '/app.js?v=samain-v12',
-  '/chat-format.js?v=samain-v12',
-  '/content/challenges.js?v=samain-v12',
-  '/content/samain.js?v=samain-v12',
+  '/styles.css?v=samain-v13',
+  '/app.js?v=samain-v13',
+  '/chat-format.js?v=samain-v13',
+  '/content/challenges.js?v=samain-v13',
+  '/content/samain.js?v=samain-v13',
   '/content/santiago-gift.js?v=santiago-v2',
   '/chat-format.js',
   '/santiago/',
@@ -30,7 +30,7 @@ const CORE_ASSETS = [
   '/images/doctora-tecla.jpg?v=tecla-v1',
   '/images/capitan-pico.jpg?v=capitan-pico-v1',
   '/images/america.png?v=america-v1',
-  '/content/episodes.json?v=samain-v12'
+  '/content/episodes.json?v=samain-v13'
 ];
 
 self.addEventListener('install', (event) => {
@@ -65,10 +65,10 @@ async function precacheStory() {
   await Promise.allSettled(CORE_ASSETS.map((asset) => cacheOne(cache, asset)));
 
   try {
-    const response = await fetch('/content/episodes.json?v=samain-v12', { cache: 'no-store' });
+    const response = await fetch('/content/episodes.json?v=samain-v13', { cache: 'no-store' });
     if (!response.ok) return;
     const manifest = await response.clone().json();
-    await cache.put('/content/episodes.json?v=samain-v12', response);
+    await cache.put('/content/episodes.json?v=samain-v13', response);
     await Promise.allSettled(
       manifest.map((episode) => cacheOne(cache, `/${episode.file}`))
     );

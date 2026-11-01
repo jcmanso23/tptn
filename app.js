@@ -1,8 +1,8 @@
 import { readSantiagoReport, SANTIAGO_PROGRESS_KEY } from './santiago/progress.js?v=santiago-v2';
-import { splitTopotinoMessages } from './chat-format.js?v=samain-v12';
-import { CHALLENGE_PACKS, displayChallengeOptions } from './content/challenges.js?v=samain-v12';
+import { splitTopotinoMessages } from './chat-format.js?v=samain-v13';
+import { CHALLENGE_PACKS, displayChallengeOptions } from './content/challenges.js?v=samain-v13';
 
-import { SAMAIN_ID, SAMAIN_STAGES, newSamain, normalizeSamain, samainStage, samainStageForEpisode, samainCanStart, madridDay, samainSpeakers, reduceSamain } from './content/samain.js?v=samain-v12';
+import { SAMAIN_ID, SAMAIN_STAGES, newSamain, normalizeSamain, samainStage, samainStageForEpisode, samainCanStart, madridDay, samainSpeakers, reduceSamain } from './content/samain.js?v=samain-v13';
 
 const STORAGE_KEYS = {
   auth: 'topotino_chat_auth_v1',
@@ -12,7 +12,7 @@ const STORAGE_KEYS = {
 const LEGACY_STATE_KEY = 'topotino_chat_state_v1';
 const APP_VERSION_CODE = 'T-30O1';
 const PASSPHRASE_HASH = 'a64716bd9f4e8added1bf47f80b97c3fc7b70a15b8043cdab083e1ddf85f3794';
-const EPISODES_MANIFEST = 'content/episodes.json?v=samain-v12';
+const EPISODES_MANIFEST = 'content/episodes.json?v=samain-v13';
 const LIVE_STORY_ENDPOINT = '/api/story';
 const AMARANTE_TRAVEL_DATE = '2026-08-13';
 const AMARANTE_ROUTE_EPISODE_ID = '004b-rumbo-amarante';
@@ -225,6 +225,52 @@ let baseEpisodes = [];
 let episodes = [];
 let liveStoryVersion = null;
 let busy = false;
+let processingUserTurn = false;
+let drainingUserTurns = false;
+let actionsReadyAt = 0;
+let actionsTimer = null;
+let renderedMessageCount = 0;
+let renderedLastMessage = null;
+let renderedLastDateKey = '';
+
+function conversationIsDelivering() {
+  return busy || processingUserTurn || samainDeliveryInFlight || Boolean(state.campaign?.outbox?.some(m => !state.messages.some(done => done.deliveryId === m.id)));
+}
+function hideConversationActions() {
+  if (!els.challengePanel) return;
+  els.challengePanel.hidden = true;
+  els.challengePanel.replaceChildren();
+}
+function scheduleConversationActions() {
+  window.clearTimeout(actionsTimer);
+  actionsReadyAt = Date.now() + (params.get('fastReply') === '1' ? 150 : 3000);
+  hideConversationActions();
+  actionsTimer = window.setTimeout(() => {
+    renderChallenge();
+    drainUserTurns();
+  }, Math.max(0, actionsReadyAt - Date.now()) + 10);
+}
+async function drainUserTurns() {
+  if (drainingUserTurns || conversationIsDelivering() || Date.now() < actionsReadyAt) return;
+  drainingUserTurns = true;
+  try {
+    while (!conversationIsDelivering() && Date.now() >= actionsReadyAt) {
+      const queued = state.messages.find(m => m.from === 'user' && m.pendingReply);
+      if (!queued) break;
+      processingUserTurn = true;
+      try {
+        // A reply sent to an earlier scene must not confirm a different milestone.
+        if (queued.episodeId !== getActiveEpisode()?.meta?.id) await askAiFallback(queued.text);
+        else await processUserMessage(queued.text);
+      } finally {
+        queued.pendingReply = false;
+        saveState();
+        processingUserTurn = false;
+        scheduleConversationActions();
+      }
+    }
+  } finally { drainingUserTurns = false; }
+}
 let syncTimer = null;
 let syncInFlight = false;
 let pendingSyncRequest = null;
@@ -374,6 +420,7 @@ async function deliverSamainPending() {
     }
   } finally {
     samainDeliveryInFlight = false;
+    scheduleConversationActions();
     renderAll();
   }
 }
@@ -427,6 +474,7 @@ async function handleSamainMessage(text, action = '') {
 }
 
 function renderSamainActions() {
+  if (conversationIsDelivering() || Date.now() < actionsReadyAt) { hideConversationActions(); return; }
   els.challengePanel.replaceChildren();
   const campaign = state.campaign;
   const stage = samainStage(campaign.stage);
@@ -583,7 +631,7 @@ function bindEvents() {
   els.chatForm.addEventListener('submit', async (event) => {
     event.preventDefault();
     const text = els.chatInput.value.trim();
-    if (!text || busy) return;
+    if (!text) return;
     els.chatInput.value = '';
     await handleUserMessage(text);
   });
@@ -630,6 +678,7 @@ async function enterChat() {
     renderAll();
     if (!activationInterval) activationInterval = setInterval(() => runActivationCheck('tick'), ACTIVATION_TICK_MS);
     await deliverSamainPending();
+    scheduleConversationActions();
     scheduleNextAdultLaunchTimer();
     scheduleStateSync();
     return;
@@ -673,7 +722,7 @@ async function enterChat() {
 }
 
 async function runActivationCheck(reason) {
-  if (busy) return;
+  if (busy || processingUserTurn || drainingUserTurns) return;
   if (ensureSamainCampaign()) {
     const liveMessages = await refreshLiveStory({ collectBroadcasts: true });
     if (liveMessages.length) await deliverTopotinoMessages(liveMessages, { mode: 'scene' });
@@ -1276,10 +1325,18 @@ function unlockEpisode(episodeId) {
 }
 
 async function handleUserMessage(text, action = '') {
-  appendMessage({ from: 'user', time: nowTime(), text });
+  if (action && (conversationIsDelivering() || Date.now() < actionsReadyAt)) return;
+  const queued = conversationIsDelivering() || Date.now() < actionsReadyAt;
+  appendMessage({from:'user', time:nowTime(), text, pendingReply:queued});
   saveState();
-  renderAll();
+  renderMessages();
+  if (queued) return;
+  processingUserTurn = true;
+  try { await processUserMessage(text, action); }
+  finally { processingUserTurn = false; scheduleConversationActions(); }
+}
 
+async function processUserMessage(text, action = '') {
   if (state.campaign?.id === SAMAIN_ID) {
     await handleSamainMessage(text, action);
     return;
@@ -2161,29 +2218,29 @@ async function deliverTopotinoMessages(messagesOrPromise, options = {}) {
     const messagesPromise = Promise.resolve(messagesOrPromise);
     const timing = getReplyTiming(options.mode);
     await wait(getInitialReplyDelay(timing, options.mode));
+    setBusy(true, true, Array.isArray(messagesOrPromise) ? messagesOrPromise[0]?.from : 'topotino');
     const messages = await messagesPromise;
-    const firstSender = Array.isArray(messages)
-      ? messages.find(Boolean)?.from
-      : 'topotino';
-    setBusy(true, true, firstSender);
-    await wait(randomInt(timing.typingMin, timing.typingMax));
-
     const normalizedMessages = splitTopotinoMessages(
       Array.isArray(messages) ? messages.filter(Boolean) : []
     );
     for (let index = 0; index < normalizedMessages.length; index += 1) {
-      appendMessage(normalizedMessages[index]);
+      const message = normalizedMessages[index];
+      setBusy(true, message.from !== 'system', message.from);
+      // Yield a paint before the typing pause: the indicator must actually be visible.
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      const typingMs = params.get('fastReply') === '1' ? 70
+        : message.from === 'system' ? 450 : Math.min(4200, 900 + message.text.length * 18);
+      await wait(typingMs);
+      appendMessage(message);
       saveState();
-      renderAll();
-      if (index < normalizedMessages.length - 1) {
-        setBusy(true, false);
-        await wait(randomInt(timing.staggerMin, timing.staggerMax));
-        setBusy(true, true, normalizedMessages[index + 1]?.from);
-        await wait(randomInt(timing.nextTypingMin, timing.nextTypingMax));
-      }
+      renderMessages();
+      await new Promise(resolve => requestAnimationFrame(resolve));
+      setBusy(true, false);
+      if (index < normalizedMessages.length - 1) await wait(params.get('fastReply') === '1' ? 40 : 850);
     }
   } finally {
     setBusy(false, false);
+    scheduleConversationActions();
     renderChallenge();
   }
 }
@@ -2280,9 +2337,7 @@ function getReplyTiming(mode) {
 }
 
 function getInitialReplyDelay(timing, mode) {
-  const ordinaryDelay = randomInt(timing.silenceMin, timing.silenceMax);
-  if (params.get('fastReply') === '1' || mode !== 'conversation' || Math.random() >= LONG_REPLY_CHANCE) return ordinaryDelay;
-  return randomInt(LONG_REPLY_MIN_MS, LONG_REPLY_MAX_MS);
+  return Math.min(1800, randomInt(timing.silenceMin, timing.silenceMax));
 }
 
 function wait(ms) {
@@ -2349,11 +2404,16 @@ function renderAll() {
 }
 
 function renderMessages() {
-  els.messages.innerHTML = '';
+  const appendOnly = renderedMessageCount <= state.messages.length &&
+    (renderedMessageCount === 0 || state.messages[renderedMessageCount - 1] === renderedLastMessage);
+  if (appendOnly && renderedMessageCount === state.messages.length) return;
+  const wasNearBottom = els.messages.scrollHeight - els.messages.scrollTop - els.messages.clientHeight < 100;
+  if (!appendOnly) { els.messages.replaceChildren(); renderedMessageCount = 0; renderedLastDateKey = ''; }
+  const firstRender = renderedMessageCount === 0;
   const fragment = document.createDocumentFragment();
-  let lastDateKey = '';
+  let lastDateKey = renderedLastDateKey;
 
-  splitTopotinoMessages(state.messages).forEach((message) => {
+  splitTopotinoMessages(state.messages.slice(renderedMessageCount)).forEach((message) => {
     const messageDate = message.createdAt ? new Date(message.createdAt) : new Date();
     const dateKey = formatDate(messageDate);
     if (dateKey !== lastDateKey) {
@@ -2413,6 +2473,7 @@ function renderMessages() {
       const giftLink = document.createElement('a');
       giftLink.href = '/santiago/';
       giftLink.className = 'santiago-gift-link';
+      giftLink.hidden = conversationIsDelivering() || Date.now() < actionsReadyAt;
       giftLink.textContent = 'Investigar Santiago';
       bubble.appendChild(giftLink);
     }
@@ -2427,7 +2488,10 @@ function renderMessages() {
   });
 
   els.messages.appendChild(fragment);
-  els.messages.scrollTop = els.messages.scrollHeight;
+  renderedMessageCount = state.messages.length;
+  renderedLastMessage = state.messages.at(-1);
+  renderedLastDateKey = lastDateKey;
+  if (firstRender || wasNearBottom) els.messages.scrollTop = els.messages.scrollHeight;
 }
 
 function renderProgress() {
@@ -2468,6 +2532,8 @@ function renderProgress() {
 
 function renderChallenge() {
   if (!els.challengePanel) return;
+  els.messages?.querySelectorAll('.santiago-gift-link').forEach(link => { link.hidden = conversationIsDelivering() || Date.now() < actionsReadyAt; });
+  if (conversationIsDelivering() || Date.now() < actionsReadyAt) { hideConversationActions(); return; }
   if (state.campaign?.id === SAMAIN_ID) { renderSamainActions(); return; }
   if (busy) {
     els.challengePanel.innerHTML = '';
@@ -2679,6 +2745,7 @@ function appendMessage(message) {
     text: message.text || '',
     createdAt,
     episodeId: message.episodeId || getActiveEpisode()?.meta?.id || null,
+    ...(message.pendingReply ? { pendingReply: true } : {}),
     ...(message.deliveryId ? { deliveryId: message.deliveryId } : {})
   });
 }
@@ -3500,8 +3567,8 @@ function setBusy(nextBusy, showTyping = nextBusy, senderId = 'topotino') {
                 : 'Alguien está escribiendo...';
   }
   els.typing.hidden = !showTyping;
-  els.sendButton.disabled = nextBusy;
-  els.chatInput.disabled = nextBusy;
+  els.sendButton.disabled = false;
+  els.chatInput.disabled = false;
   els.challengePanel?.querySelectorAll('button').forEach((button) => {
     button.disabled = nextBusy || button.classList.contains('was-wrong');
   });
@@ -3869,7 +3936,10 @@ function markStateChanged() {
 function scheduleStateSync() {
   if (!state.unlocked) return;
   window.clearTimeout(syncTimer);
-  syncTimer = window.setTimeout(() => syncStateNow(), SYNC_DEBOUNCE_MS);
+  syncTimer = window.setTimeout(() => {
+    if (conversationIsDelivering()) { scheduleStateSync(); return; }
+    syncStateNow();
+  }, SYNC_DEBOUNCE_MS);
 }
 
 async function ensureBackupChannel() {
@@ -4091,6 +4161,6 @@ function applyTestingParams() {
 
 function registerServiceWorker() {
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('service-worker.js?v=offline-samain-v12').catch(() => {});
+    navigator.serviceWorker.register('service-worker.js?v=offline-samain-v13').catch(() => {});
   }
 }
