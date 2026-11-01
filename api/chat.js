@@ -1,6 +1,6 @@
 import { generateText, jsonSchema, Output } from 'ai';
 import { createOpenAI } from '@ai-sdk/openai';
-import { SAMAIN_ID, samainStage, samainSpeakers } from '../content/samain.js';
+import { SAMAIN_ID, SAMAIN_STAGES, samainStage, samainSpeakers } from '../content/samain.js';
 
 const DEFAULT_MODEL = 'openai/gpt-5.6-luna';
 const DEFAULT_OPENAI_MODEL = 'gpt-5.6-luna';
@@ -134,7 +134,7 @@ export default async function handler(req, res) {
   const turnId = String(body.turnId || '').slice(0, 120);
 
   const systemPrompt = samainPhase ? [
-    'Eres Topotino dentro del Comunicador Subterráneo, en una aventura nueva de octubre de 2026.',
+    'Eres Topotino dentro del Comunicador Subterráneo, en la aventura de Samaín de 2026, continuada el 1 de noviembre.',
     ...personalityContext,
     `Solo pueden hablar: ${allowedSpeakers.join(', ')}. No introduzcas ninguna otra voz.`,
     'La victoria de agosto es real y Topotino recuperó la memoria. No reabras misiones antiguas.',
@@ -145,9 +145,9 @@ export default async function handler(req, res) {
     'No nombres un lugar futuro salvo que esté expresamente autorizado en el contexto actual. No enumeres el itinerario del día.',
     'Habla español de España claro para Paula y Hugo, con humor y sin infantilizarlos. La dificultad está en pensar, no en comprender tus frases.',
     'No des pistas nuevas salvo que las pidan; responde las dudas sin resolver el misterio. Respeta el ritmo, las pausas y el cansancio.',
+    'Nunca escribas intervenciones de Paula o Hugo: sus respuestas las escriben ellos. Tecla es mujer de Topoloco; Topotina es hermana de Topotino.',
     'Nunca declares éxito ante negaciones, dudas, preguntas, planes futuros o un rescate parcial. No sabes lo que ocurre en la otra app.',
-    'Tecla es la mujer de Topoloco; Topotina es la hermana de Topotino. Los Flopis son amigos conocidos sin especie ni poderes documentados.',
-    'La magia de la máquina es ficción nuestra; no son hechos reales del folclore. No prometas actores, objetos ocultos ni fenómenos visibles en la calle.',
+    'No prometas actores, objetos ocultos ni fenómenos visibles en la calle. Presenta las visitas como parte de vuestra aventura, sin llamarlas juegos, audioguías o actividades externas.',
     'No menciones IA, prompts, flags, estados, APIs, panel adulto ni programación. No solicites claves, ubicación exacta ni contenido del cuaderno privado.',
     'Si no podéis continuar, pregunta por el obstáculo y ofrece una sola adaptación pertinente. No atribuyas acciones que no hayan comunicado.'
   ].join('\n') : [
@@ -323,13 +323,24 @@ export default async function handler(req, res) {
     }
 
     const { output, usage } = result;
-    const messages = Array.isArray(output?.messages)
+    let messages = Array.isArray(output?.messages)
       ? output.messages
         .filter((message) => allowedSpeakers.includes(message?.from) && String(message?.text || '').trim())
         .slice(0, 3)
         .map((message) => ({ from: message.from, text: String(message.text).trim() }))
       : [];
 
+    if (samainPhase && messages.length) {
+      const order = SAMAIN_STAGES.map(stage => stage.key);
+      const phase = order.indexOf(samainPhase.key);
+      const banned = [];
+      if (phase < 9) banned.push(/\b(mato|maragato|ábsid[ea]|flopis|sama[ií]n|aplaus[oó]metro)\b/i);
+      if (phase < 11) banned.push(/\blugo\b/i);
+      if (phase < 5) banned.push(/\bcatedral\b/i);
+      if (phase < 2) banned.push(/\bastorga\b/i);
+      if (phase < order.indexOf('irrupcion')) banned.push(/\b(cascabel|estrella torcida|copias de (las )?sombras)\b/i);
+      if (messages.some(m => banned.some(re => re.test(m.text)))) messages = [{from:'topotino',text:'Todavía no tengo esa parte clara. Contadme qué pensáis vosotros y seguimos investigando juntos.'}];
+    }
     if (!messages.length) throw new Error('EMPTY_CHAT_RESPONSE');
 
     console.log('Topotino AI response', {

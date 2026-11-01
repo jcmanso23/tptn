@@ -1,7 +1,7 @@
-import { splitTopotinoMessages } from './chat-format.js?v=samain-v1';
-import { CHALLENGE_PACKS, displayChallengeOptions } from './content/challenges.js?v=samain-v1';
+import { splitTopotinoMessages } from './chat-format.js?v=samain-v10';
+import { CHALLENGE_PACKS, displayChallengeOptions } from './content/challenges.js?v=samain-v10';
 
-import { SAMAIN_ID, SAMAIN_STAGES, newSamain, normalizeSamain, samainStage, samainStageForEpisode, samainCanStart, samainSpeakers, reduceSamain } from './content/samain.js?v=samain-v1';
+import { SAMAIN_ID, SAMAIN_STAGES, newSamain, normalizeSamain, samainStage, samainStageForEpisode, samainCanStart, madridDay, samainSpeakers, reduceSamain } from './content/samain.js?v=samain-v10';
 
 const STORAGE_KEYS = {
   auth: 'topotino_chat_auth_v1',
@@ -11,7 +11,7 @@ const STORAGE_KEYS = {
 const LEGACY_STATE_KEY = 'topotino_chat_state_v1';
 const APP_VERSION_CODE = 'T-30O1';
 const PASSPHRASE_HASH = 'a64716bd9f4e8added1bf47f80b97c3fc7b70a15b8043cdab083e1ddf85f3794';
-const EPISODES_MANIFEST = 'content/episodes.json?v=samain-v1';
+const EPISODES_MANIFEST = 'content/episodes.json?v=samain-v10';
 const LIVE_STORY_ENDPOINT = '/api/story';
 const AMARANTE_TRAVEL_DATE = '2026-08-13';
 const AMARANTE_ROUTE_EPISODE_ID = '004b-rumbo-amarante';
@@ -250,8 +250,57 @@ function ensureSamainCampaign() {
   if (state.campaign?.id !== SAMAIN_ID) return false;
   const stage = samainStage(state.campaign.stage);
   if (!stage || !getEpisode(stage.episodeId)) return false;
+  // Canon familiar del 1 de noviembre: mapa entregado, rescate pendiente.
+  // No se marcan visitas ficticias ni se retrocede desde el desenlace o victoria.
+  if (!state.campaign.morningRescueChecked && madridDay(getRuntimeNow()) >= '2026-11-01') {
+    state.campaign.morningRescueChecked = true;
+    state.campaign.lugoRecoveryChecked = true;
+    state.campaign.pedroRecoveryChecked = true;
+    state.campaign.mapNoticeChecked = true;
+    if (!['irrupcion', 'replica', 'expulsion', 'victoria'].includes(stage.key)) {
+      state.campaign.waitingRomanVisit = false;
+      // Una alternativa en curso conserva su fase y sus mensajes pendientes.
+      if (!['alternativa', 'enviar-salida'].includes(stage.key)) {
+        enterSamainStage('busqueda', { adult: true, prefix: '¡¡BUENOS DÍAS, PAULA Y HUGO!! Hoy hay que rescatar a los Flopis. El mapa ya está con vosotros. Yo me he puesto las gafas de investigar… encima de las de desayunar. ¡Veo el doble de tostadas!' });
+      } else {
+        if (state.campaign.entryDelivered !== stage.key) queueSamainEntry();
+        state.campaign.outbox ||= [];
+        state.campaign.outbox.unshift({ id: 'samain-buenos-dias-01N1', episodeId: stage.episodeId, from: 'topotino', text: '¡Buenos días, Paula y Hugo! Hoy rescatamos a los Flopis. Seguimos con la salida que estabais preparando; vuestro avance está guardado. ¡Mis bigotes ya están de guardia!' });
+        saveState();
+      }
+      return true;
+    }
+    saveState();
+  }
+  // La familia ya identificó Lugo y ha autorizado revelar el refugio.
+  if (!state.campaign.lugoRecoveryChecked) {
+    state.campaign.lugoRecoveryChecked = true;
+    state.campaign.pedroRecoveryChecked = true;
+    if (['contacto', 'astorga', 'palacio', 'llegada-palacio', 'visita-palacio', 'catedral', 'llegada-catedral', 'visita-catedral', 'pedro', 'trampa', 'lugo', 'llegada-lugo', 'refugio', 'llegada-refugio'].includes(stage.key)) {
+      enterSamainStage('llegada-refugio', { prefix: '¡¡SÍ, PAULA Y HUGO!! ¡Es LUGO! ¡Lo habéis descubierto! Mis topos han conseguido un refugio para vosotros dentro de las murallas. ¡Y prometo que esta vez han apuntado bien la dirección!' });
+      return true;
+    }
+    saveState();
+  }
+  // La familia confirmó que ya descubrió a Pedro; recuperar solo partidas anteriores.
+  if (!state.campaign.pedroRecoveryChecked) {
+    state.campaign.pedroRecoveryChecked = true;
+    if (['astorga', 'palacio', 'llegada-palacio', 'visita-palacio', 'catedral', 'llegada-catedral', 'visita-catedral', 'pedro'].includes(stage.key)) {
+      enterSamainStage('trampa');
+      return true;
+    }
+    saveState();
+  }
   unlockEpisode(stage.episodeId);
   if (state.campaign.entryDelivered !== stage.key) queueSamainEntry();
+  if (!state.campaign.mapNoticeChecked && ['busqueda', 'dificultad'].includes(stage.key)) {
+    state.campaign.mapNoticeChecked = true;
+    if (['busqueda', 'dificultad'].includes(stage.key)) {
+      state.campaign.outbox ||= [];
+      state.campaign.outbox.push({ id: 'samain-mapa-hasta-manana', episodeId: stage.episodeId, from: 'topotino', text: '¡¡PAULA Y HUGO!! ¡Topotina acaba de dejaros el mapa de los Flopis! Yo también me uno a la búsqueda. Buscadlo donde lo usáis siempre: os ayudará a encontrarlos y rescatarlos. Tenéis hasta mañana, así que podéis descansar y continuar la búsqueda cuando os venga bien. ¡Mis bigotes y yo estaremos pendientes de vuestras noticias!' });
+    }
+    saveState();
+  }
   return true;
 }
 
@@ -295,11 +344,13 @@ async function deliverSamainPending() {
     saveState();
   } finally {
     samainDeliveryInFlight = false;
+    renderAll();
   }
 }
 
 function samainAiContext(episode) {
   if (state.campaign?.id !== SAMAIN_ID) return episode.aiContext;
+  if (state.campaign.waitingRomanVisit) return 'Topotino habla con Paula y Hugo durante su visita a la muralla de Lugo. Ya les preguntó qué descubrieron sobre las cloacas romanas. Responde con humor a lo que cuenten, sin inventar detalles de su visita; espera a que confirmen que han terminado. No anuncies otra misión ni adelantes acontecimientos.';
   const hints = (episode.progressiveHints || []).slice(0, state.campaign.hints[state.campaign.stage] || 0);
   return episode.aiContext + (hints.length
     ? '\n\nPistas ya entregadas en esta fase: ' + JSON.stringify(hints) + '\nPuedes comentar y explicar estos datos ya comunicados, sin añadir pistas posteriores.'
@@ -317,21 +368,27 @@ async function handleSamainMessage(text, action = '') {
     saveState();
     await deliverTopotinoMessages([{ from: 'topotino', text: hint }], { mode: 'scene' });
   } else if (result.kind === 'advance') {
+    if (result.romanVisitFinished) campaign.waitingRomanVisit = false;
     state.storyMemory.push({
       id: `samain-${campaign.stage}-${Date.now()}`, episodeId: samainStage(campaign.stage).episodeId,
       episodeTitle: getActiveEpisode().meta.title, kind: 'observation', label: 'Lo que nos contasteis',
       text, createdAt: Date.now()
     });
     state.storyMemory = state.storyMemory.slice(-MAX_STORY_MEMORY_ITEMS);
+    if (result.conversation && !action) {
+      await askAiFallback(text, { fallbackMessages: [{ from: 'topotino', text: '¡Mensaje recibido! Topoloco pedía silencio para su discurso y le ha salido una conversación. ¡Me gusta mucho más así!' }] });
+    }
+    if (result.rescued) addUniqueMany(state.flags, ['samain_flopis_rescatados']);
     enterSamainStage(result.next, { prefix: result.prefix });
     await deliverSamainPending();
   } else if (result.kind === 'reply') {
+    if (result.romanVisitStarted) campaign.waitingRomanVisit = true;
     if (/\b(algunos|faltan|falta|solo uno|solo dos)\b/i.test(text)) campaign.partialRescue = true;
     saveState();
     await deliverTopotinoMessages([{ from: 'topotino', text: result.text }], { mode: 'scene' });
   } else {
     await askAiFallback(text, { fallbackMessages: [{
-      from: 'topotino', text: 'Mi receptor ha cortado esa frase. No voy a dar por hecho ningún descubrimiento. Podéis repetirla, pedir una pista o usar la confirmación cuando corresponda.'
+      from: 'topotino', text: 'Mi receptor ha cortado esa frase. No voy a dar por hecho ningún descubrimiento. Podéis repetirla o pedirme una pista.'
     }] });
   }
   saveState();
@@ -339,30 +396,39 @@ async function handleSamainMessage(text, action = '') {
 }
 
 function renderSamainActions() {
-  els.challengePanel.innerHTML = '';
-  const stage = samainStage(state.campaign.stage);
-  const hints = getActiveEpisode()?.progressiveHints || [];
-  const actions = [...(stage?.actions || [])];
-  if (hints.length && !['busqueda', 'dificultad', 'victoria'].includes(stage.key)) actions.push({ id: 'pista', text: 'Pedir una pista' });
-  els.challengePanel.hidden = busy || !actions.length;
-  if (els.challengePanel.hidden) return;
+  els.challengePanel.replaceChildren();
+  const campaign = state.campaign;
+  const stage = samainStage(campaign.stage);
+  const actions = campaign.waitingRomanVisit
+    ? [{ id: 'visita-romana-terminada', text: 'Hemos terminado la visita romana' }]
+    : [...(stage?.actions || [])];
+  if (!campaign.waitingRomanVisit && getActiveEpisode()?.progressiveHints?.length && !['busqueda', 'dificultad', 'irrupcion', 'replica', 'expulsion', 'victoria'].includes(stage.key)) {
+    actions.push({ id: 'pista', text: 'Pedir una pista' });
+  }
+  els.challengePanel.hidden = !actions.length;
+  if (!actions.length) return;
   const card = document.createElement('section');
   card.className = 'challenge-card';
+  const title = document.createElement('h3');
+  title.textContent = campaign.waitingRomanVisit ? 'La visita romana' : stage.label;
+  card.appendChild(title);
   const options = document.createElement('div');
   options.className = 'challenge-options';
-  for (const action of actions) {
+  actions.forEach((action) => {
     const button = document.createElement('button');
     button.type = 'button';
+    button.className = 'challenge-complete';
+    button.dataset.samainAction = action.id;
     button.textContent = action.text;
+    button.disabled = busy || samainDeliveryInFlight;
     button.addEventListener('click', async () => {
-      if (busy) return;
-      appendMessage({ from: 'user', text: action.text });
-      saveState();
-      renderAll();
-      await handleSamainMessage(action.id === 'pista' ? 'Una pista, por favor' : action.text, action.id === 'pista' ? '' : action.id);
+      // Un clic antiguo o repetido no confirma el hito de otra fase.
+      if (busy || samainDeliveryInFlight || campaign !== state.campaign || state.campaign.stage !== stage.key) return;
+      button.disabled = true;
+      await handleUserMessage(action.text, ['visita-romana-terminada', 'pista'].includes(action.id) ? '' : action.id);
     });
     options.appendChild(button);
-  }
+  });
   card.appendChild(options);
   els.challengePanel.appendChild(card);
 }
@@ -617,6 +683,12 @@ async function refreshLiveStory({ collectBroadcasts = false } = {}) {
     }
 
     if (!collectBroadcasts || !state.unlocked) return [];
+    // El aviso del 31 decía «hasta mañana»: no reenviarlo tras el saludo del día 1.
+    const yesterdayMapNotice = '07b2f3c0-7d75-404e-b3ee-e15ac3e23b73';
+    if (state.campaign?.id === SAMAIN_ID && madridDay(getRuntimeNow()) >= '2026-11-01' && !state.seenBroadcastIds.includes(yesterdayMapNotice)) {
+      addUniqueMany(state.seenBroadcastIds, [yesterdayMapNotice]);
+      saveState();
+    }
     const unseen = (live.broadcasts || []).filter((broadcast) =>
       broadcast?.id &&
       broadcast?.text &&
@@ -1162,13 +1234,13 @@ function unlockEpisode(episodeId) {
   state.activeEpisodeId = episodeId;
 }
 
-async function handleUserMessage(text) {
+async function handleUserMessage(text, action = '') {
   appendMessage({ from: 'user', time: nowTime(), text });
   saveState();
   renderAll();
 
   if (state.campaign?.id === SAMAIN_ID) {
-    await handleSamainMessage(text);
+    await handleSamainMessage(text, action);
     return;
   }
 
@@ -3971,6 +4043,6 @@ function applyTestingParams() {
 
 function registerServiceWorker() {
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('service-worker.js?v=offline-samain-v1').catch(() => {});
+    navigator.serviceWorker.register('service-worker.js?v=offline-samain-v10').catch(() => {});
   }
 }

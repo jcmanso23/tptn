@@ -77,86 +77,98 @@
   },
   {
     "id": "020-samain-contacto",
-    "file": "content/episodes/020-samain-contacto.md?v=samain-v1"
+    "file": "content/episodes/020-samain-contacto.md?v=samain-v10"
   },
   {
     "id": "021-samain-astorga",
-    "file": "content/episodes/021-samain-astorga.md?v=samain-v1"
+    "file": "content/episodes/021-samain-astorga.md?v=samain-v10"
   },
   {
     "id": "022-samain-palacio",
-    "file": "content/episodes/022-samain-palacio.md?v=samain-v1"
+    "file": "content/episodes/022-samain-palacio.md?v=samain-v10"
   },
   {
     "id": "023-samain-llegada-palacio",
-    "file": "content/episodes/023-samain-llegada-palacio.md?v=samain-v1"
+    "file": "content/episodes/023-samain-llegada-palacio.md?v=samain-v10"
   },
   {
     "id": "024-samain-visita-palacio",
-    "file": "content/episodes/024-samain-visita-palacio.md?v=samain-v1"
+    "file": "content/episodes/024-samain-visita-palacio.md?v=samain-v10"
   },
   {
     "id": "025-samain-catedral",
-    "file": "content/episodes/025-samain-catedral.md?v=samain-v1"
+    "file": "content/episodes/025-samain-catedral.md?v=samain-v10"
   },
   {
     "id": "026-samain-llegada-catedral",
-    "file": "content/episodes/026-samain-llegada-catedral.md?v=samain-v1"
+    "file": "content/episodes/026-samain-llegada-catedral.md?v=samain-v10"
   },
   {
     "id": "027-samain-visita-catedral",
-    "file": "content/episodes/027-samain-visita-catedral.md?v=samain-v1"
+    "file": "content/episodes/027-samain-visita-catedral.md?v=samain-v10"
   },
   {
     "id": "028-samain-pedro",
-    "file": "content/episodes/028-samain-pedro.md?v=samain-v1"
+    "file": "content/episodes/028-samain-pedro.md?v=samain-v10"
   },
   {
     "id": "029-samain-trampa",
-    "file": "content/episodes/029-samain-trampa.md?v=samain-v1"
+    "file": "content/episodes/029-samain-trampa.md?v=samain-v10"
   },
   {
     "id": "030-samain-lugo",
-    "file": "content/episodes/030-samain-lugo.md?v=samain-v1"
+    "file": "content/episodes/030-samain-lugo.md?v=samain-v10"
   },
   {
     "id": "031-samain-llegada-lugo",
-    "file": "content/episodes/031-samain-llegada-lugo.md?v=samain-v1"
+    "file": "content/episodes/031-samain-llegada-lugo.md?v=samain-v10"
   },
   {
     "id": "032-samain-refugio",
-    "file": "content/episodes/032-samain-refugio.md?v=samain-v1"
+    "file": "content/episodes/032-samain-refugio.md?v=samain-v10"
   },
   {
     "id": "033-samain-llegada-refugio",
-    "file": "content/episodes/033-samain-llegada-refugio.md?v=samain-v1"
+    "file": "content/episodes/033-samain-llegada-refugio.md?v=samain-v10"
   },
   {
     "id": "034-samain-samain",
-    "file": "content/episodes/034-samain-samain.md?v=samain-v1"
+    "file": "content/episodes/034-samain-samain.md?v=samain-v10"
   },
   {
     "id": "035-samain-muralla",
-    "file": "content/episodes/035-samain-muralla.md?v=samain-v1"
+    "file": "content/episodes/035-samain-muralla.md?v=samain-v10"
   },
   {
     "id": "036-samain-busqueda",
-    "file": "content/episodes/036-samain-busqueda.md?v=samain-v1"
+    "file": "content/episodes/036-samain-busqueda.md?v=samain-v10"
   },
   {
     "id": "037-samain-dificultad",
-    "file": "content/episodes/037-samain-dificultad.md?v=samain-v1"
+    "file": "content/episodes/037-samain-dificultad.md?v=samain-v10"
   },
   {
     "id": "038-samain-alternativa",
-    "file": "content/episodes/038-samain-alternativa.md?v=samain-v1"
+    "file": "content/episodes/038-samain-alternativa.md?v=samain-v10"
   },
   {
     "id": "039-samain-enviar-salida",
-    "file": "content/episodes/039-samain-enviar-salida.md?v=samain-v1"
+    "file": "content/episodes/039-samain-enviar-salida.md?v=samain-v10"
   },
   {
     "id": "040-samain-victoria",
-    "file": "content/episodes/040-samain-victoria.md?v=samain-v1"
+    "file": "content/episodes/040-samain-victoria.md?v=samain-v10"
+  },
+  {
+    "id": "041-samain-irrupcion",
+    "file": "content/episodes/041-samain-irrupcion.md?v=samain-v10"
+  },
+  {
+    "id": "042-samain-replica",
+    "file": "content/episodes/042-samain-replica.md?v=samain-v10"
+  },
+  {
+    "id": "043-samain-expulsion",
+    "file": "content/episodes/043-samain-expulsion.md?v=samain-v10"
   }
 ]

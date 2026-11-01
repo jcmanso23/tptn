@@ -52,7 +52,7 @@ Fase de la campaña Samaín 2026. El canon secreto está en la guía maestra. Lo
 
 ```json
 [
-  "Si queréis hacerlo, decidme que abra la salida o pulsad «Abrir la salida». No hay que tocar ninguna puerta de verdad."
+  "Si queréis hacerlo, decidme que abra la salida. No hay que tocar ninguna puerta de verdad."
 ]
 ```
 

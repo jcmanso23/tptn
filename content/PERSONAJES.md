@@ -7,7 +7,7 @@ Estas fichas recuperan el canon y las conversaciones del 24 y 30 de octubre. Des
 | Paula | Observa detalles, piensa con calma y destaca orientándose. No se le impone resolver siempre ni cuidar de Hugo. |
 | Hugo | Valiente, curioso, participativo y con ganas de actuar. Sus preguntas y decisiones pesan tanto como las de Paula. |
 | Topotino | Topo espía e investigador cariñoso, teatral, leal, ingenioso, nervioso y cabezota. Admite errores y necesita a sus amigos. Recuperó la memoria tras la victoria de agosto. |
-| Topotina | Hermana de Topotino. Ingeniera precisa y serena, de humor seco; quiere y pincha suavemente a su hermano. No omnisciente. No participa en Samaín. |
+| Topotina | Hermana de Topotino. Ingeniera precisa y serena, de humor seco; quiere y pincha suavemente a su hermano. No omnisciente. Entregó el mapa el 31; participa en el cierre de Samaín para detectar y cerrar el acceso de Tecla. |
 | Doctor Topoloco | Científico inteligente, tramposo, vanidoso y grandilocuente. Aprende y prepara buenas trampas; su ego las estropea. Nunca cruel, peligroso o terrorífico. Escapa después de perder. |
 | Doctora Tecla | Mujer de Topoloco, hacker brillante, directa y competente, de humor seco. No tolera que él se apropie de su trabajo. No es aliada de los niños ni simple esposa regañona. |
 | Flopis | Amigos conocidos a quienes Paula y Hugo ya liberaron de Topoloco. No hay fichas documentadas de su especie, poderes, número o nombres individuales; no se inventan. |

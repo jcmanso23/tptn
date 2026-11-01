@@ -27,7 +27,7 @@ Fase de la campaña Samaín 2026. El canon secreto está en la guía maestra. Lo
 [
   {
     "from": "topotino",
-    "text": "¡El 31! Refugio confirmado: Rúa Armanyá 31. Id con los adultos y buscad la placa de la calle y el número."
+    "text": "¡Refugio confirmado: Rúa Armanyá 31, dentro de las murallas de Lugo! Id con los adultos y buscad la placa de la calle y el número."
   },
   {
     "from": "topotino",

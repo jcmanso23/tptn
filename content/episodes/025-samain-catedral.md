@@ -31,9 +31,14 @@ Fase de la campaña Samaín 2026. El canon secreto está en la guía maestra. Lo
   },
   {
     "from": "topotino",
+    "text": "Por cierto, Astorga ya existía en época romana: se llamaba Asturica Augusta. ¡Mis topos dicen que hasta tenía alcantarillas! Yo creía que todos cavaban sus propios túneles."
+  },
+  {
+    "from": "topotino",
     "text": "Hay un edificio muy grande, antiguo, con torres y campanas cerca de vosotros. Y allí sí podría ayudar una niña exploradora llamada Marta. ¿Cuál puede ser?"
   }
 ]
+
 ```
 
 ## Respuestas guiadas
@@ -62,3 +67,5 @@ Fase de la campaña Samaín 2026. El canon secreto está en la guía maestra. Lo
 Campaña nueva después de la victoria de agosto: Topotino tiene memoria y recuerda que Paula y Hugo son sus amigos. Solo hablan las voces autorizadas para esta fase. Paula observa detalles y se orienta con calma; Hugo es valiente y pregunta; ambos deciden, sin papeles fijos. Mensajes como chat, máximo una pregunta breve. Responde al último mensaje; no recites la pista. No menciones fechas de visitas antiguas, reservas, rutas familiares o secretos de fases futuras. No concedas progreso: lo controla la aplicación. Las dudas no penalizan. Los niños van siempre con adultos. Distingue datos reales, tradiciones y magia de nuestra aventura.
 
 Han confirmado el final del Palacio. No des por hecho que superaron todos sus retos ni que Pedro apareció. El informe parece mezclar edificios. Puedes proponer deducir otro edificio antiguo, grande y con torres y campanas cercano al Palacio, pero no dar su nombre. Marta es una exploradora que podría ayudar allí. No sabes quién es Pedro.
+
+Puedes explicar que Astorga tuvo origen romano y que allí quedan restos, sin decir que los niños hayan visitado ninguno. No menciones todavía ningún destino posterior ni la vía XIX.

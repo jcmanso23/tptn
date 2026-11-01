@@ -19,66 +19,37 @@
 
 # Contexto narrativo
 
-Fase de la campaña Samaín 2026. El canon secreto está en la guía maestra. Los permisos del motor, no un contador de mensajes, controlan el avance.
+Continuidad T-01N1: rescate de los Flopis.
 
 ## Mensajes iniciales
 
 ```json
 [
   {
-    "from": "topotino",
-    "text": "¡¡Lo habéis conseguido!! ¡Todos los Flopis están libres! El Aplausómetro ha perdido la señal que lo alimentaba."
-  },
-  {
-    "from": "topoloco",
-    "text": "¡JA! ¡Había previsto vuestra victoria! ¡Tengo una reserva de sombras copiadas! ¡Soy un genio previsor, precavido y… ¿por qué no aplaude nadie?"
-  },
-  {
-    "from": "topotino",
-    "text": "¿Una reserva? ¡Eso no lo había previsto yo! Un momento… esas copias necesitaban a los Flopis atrapados. Al liberarlos, también habéis cortado su fuente."
-  },
-  {
-    "from": "topoloco",
-    "text": "¡Pues pondré una fuente mejor! ¡Yo mismo! ¡Atención a mi maravillosa silueta!"
-  },
-  {
-    "from": "topotino",
-    "text": "Acaba de ponerse delante de su captador. En su pantalla solo salen Topolocos haciendo reverencias a otros Topolocos. ¡Se está aplaudiendo a sí mismo por duplicado!"
-  },
-  {
-    "from": "topoloco",
-    "text": "¡Me retiro por exceso de público idéntico! ¡La próxima vez no lo esperaréis! …¿Quién ha puesto mi capa debajo de mi pie?"
+    "from": "topotina",
+    "text": "Orden recibida. Acceso cerrado. Y esta vez he puesto el pestillo por dentro."
   },
   {
     "from": "system",
-    "text": "Doctor Topoloco ha abandonado el canal."
+    "text": "Doctor Topoloco ha sido expulsado del canal."
   },
   {
     "from": "topotino",
-    "text": "Confieso que yo también he aplaudido. Solo una vez. Para comprobar si la máquina me oía. ¡Era una prueba científica!"
+    "text": "¡Fuera Topoloco y dentro la tranquilidad! Como vuelva a pedir aplausos, le mando el sonido de una tostadora."
+  },
+  {
+    "from": "topotina",
+    "text": "Aplausómetro apagado. Flopis libres. Canal protegido. Mi hermano todavía tiene una galleta en el bolsillo; eso queda fuera de mi especialidad."
   },
   {
     "from": "topotino",
-    "text": "Aparato apagado. Flopis a salvo. Habéis detenido el plan; no queda otra prueba escondida. Gracias por avisarme de cómo iba el rescate."
+    "text": "Paula, Hugo, gracias de corazón. Habéis rescatado a nuestros amigos y no le habéis dejado quedarse con la conversación. Da gusto teneros de mi equipo."
   },
   {
     "from": "topotino",
-    "text": "Ahora podéis descansar en el refugio de Rúa Armanyá 31. Mañana podréis continuar hacia Santiago de Compostela."
-  },
-  {
-    "from": "topotino",
-    "text": "Si os apetece naturaleza antes de seguir, el paseo del río Rato tiene zonas de bosque y orilla. Un paseo cortito con los adultos, si el tiempo acompaña. ¡Sin misión!"
-  },
-  {
-    "from": "topotino",
-    "text": "Un momento… el comunicador acaba de recibir una estrella con una punta torcida. Ha sonado un cascabel. Y una nota: «¿Quién ha adelantado el ensayo?»"
-  },
-  {
-    "from": "topotino",
-    "text": "¿Un cascabel en octubre? No sé quién lo ha enviado. Lo guardaré. Vosotros descansad: por hoy, misión cumplida."
+    "text": "Por hoy, misión cumplida. Disfrutad juntos y descansad cuando os apetezca. Yo me quedo pendiente: si pasa algo, os avisaré por aquí. ¡Un abrazo de topo a los dos!"
   }
 ]
-
 ```
 
 ## Respuestas guiadas
@@ -101,6 +72,4 @@ Fase de la campaña Samaín 2026. El canon secreto está en la guía maestra. Lo
 
 ## Contexto para IA
 
-Campaña nueva después de la victoria de agosto: Topotino tiene memoria y recuerda que Paula y Hugo son sus amigos. Solo hablan las voces autorizadas para esta fase. Paula observa detalles y se orienta con calma; Hugo es valiente y pregunta; ambos deciden, sin papeles fijos. Mensajes como chat, máximo una pregunta breve. Responde al último mensaje; no recites la pista. No menciones fechas de visitas antiguas, reservas, rutas familiares o secretos de fases futuras. No concedas progreso: lo controla la aplicación. Las dudas no penalizan. Los niños van siempre con adultos. Distingue datos reales, tradiciones y magia de nuestra aventura.
-
-Victoria real confirmada por rescate completo externo o acción explícita alternativa. Flopis libres, Aplausómetro apagado, Topoloco derrotado y fuera del chat. La reserva de copias dependía de originales cautivos; al intentar sustituirlos solo produjo sus propias reverencias. Topotino recuperó la memoria en agosto. El refugio es Rúa Armanyá 31 y mañana pueden seguir a Santiago. Río Rato opcional sin tareas. Señal navideña recibida solo en el comunicador: estrella torcida, cascabel y nota; remitente desconocido, no lo identifiques ni abras misión. No menciones Perlim, Frutin, diciembre ni un viaje futuro. Topoloco y Tecla no hablan de nuevo. Conversa con afecto sobre lo que cuenten y usa únicamente recuerdos reales del chat. No hay contador de errores ni desenlaces inferiores.
+Topotino recuperó la memoria en agosto. Paula y Hugo son quienes escriben: nunca inventes mensajes ni acciones suyas. Habla con humor, en burbujas breves. Respeta únicamente las voces autorizadas. No concedas progreso por tu cuenta. No inventes escondites, pruebas oficiales, especie o número de Flopis ni resultados del mapa. Tecla es la mujer de Topoloco; Topotina es la hermana de Topotino. Todos los Flopis están libres y el Aplausómetro apagado. Topoloco y Tecla están fuera; nunca vuelven a hablar en esta fase. Solo Topotino conversa después de la despedida. Su amenaza quedó en palabras y no abre tarea. No atribuyas doce pruebas hechas si usaron la alternativa. No inventes respuestas de Paula o Hugo ni viajes pendientes, plazos de ayer o señales navideñas. Topotino agradece y dice que avisará por este canal si pasa algo; no prometas notificaciones con la app cerrada.

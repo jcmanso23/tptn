@@ -2,18 +2,15 @@
 
 Implementación local T-30O1. No se ha publicado ni enviado ningún mensaje al canal familiar. La historia completa y sus secretos están en la sección 0 de GUIA-COHERENCIA-NARRATIVA.md; las personalidades están en PERSONAJES.md.
 
-## Recorrido
+## Recorrido vigente · 1 de noviembre · T-01N1
 
-1. Viernes 30: Topotino inicia el contacto al abrir o reanudar el chat. Espera respuesta, presenta a Pedro y propone deducir Astorga y el Palacio de Gaudí. Las pistas se piden de una en una.
-2. Sábado 31: confirmar llegada al Palacio y terminar su experiencia real. Deducir Catedral, confirmar llegada y terminar con Marta y Pedro. Solo después se acepta la identidad de Pedro Mato.
-3. Topotino descubre la distracción, pide ayuda y propone deducir Lugo. No anticipa el destino ni revela reservas familiares.
-4. Confirmar llegada a Lugo. Refugio: Rúa Armanyá; el número coincide con el sábado 31. Confirmar llegada al refugio.
-5. Conversación sobre Halloween, Samaín y el plan del Aplausómetro. Mirar una puerta de la muralla desde el suelo, sin recorrido obligatorio ni subida.
-6. Tecla cuela a su marido y se marcha. Topotino pide cambiar al mapa habitual de los Flopis y buscar cerca de la plaza o de la Catedral. Todo escondite y funcionamiento de esa búsqueda queda fuera del chat.
-7. Volver y contar el resultado. «Lo hemos conseguido» o «Ya están todos libres» da victoria inmediata, sin otra prueba. Si faltan algunos no se cierra el rescate.
-8. Fallo o abandono: opción de rescate desde el chat, también en el refugio. Deducir que una puerta permite sacar del recinto la señal y ejecutar «Abrir la salida» libera las jaulas pendientes.
-9. Topoloco revela copias de reserva; dependían de los originales cautivos y fallan. Al sustituirlos por su silueta solo obtiene versiones de sí mismo haciendo reverencias. Huye. Flopis libres y aparato apagado.
-10. Descanso, Santiago mañana y recomendación opcional del paseo del río Rato. Estrella torcida, cascabel y «¿Quién ha adelantado el ensayo?» en el comunicador: ningún personaje navideño aparece ni se abre otra tarea.
+El recorrido de Astorga y Lugo queda como historia vivida. La familia ya tiene el mapa entregado por Topotina. La actualización recupera partidas atascadas en la búsqueda y saluda una vez con buenos días. No modifica el historial ni afirma visitas no registradas; conserva una alternativa en curso y una victoria cerrada.
+
+1. Rescate hoy mediante las doce pruebas del mapa que ya tienen. No son doce Flopis. Texto libre y botones de confirmación visibles; los resultados parciales y las negaciones no completan el rescate.
+2. Se mantiene la alternativa desde el chat para quien encuentre dificultades. Ejecutarla libera las jaulas pendientes; no afirma que hayan hecho las doce pruebas.
+3. Rescate confirmado: Tecla abre un acceso para la reclamación de Topoloco. Topotina detecta el acceso y entra; Tecla se marcha. Fallan las reservas de sombras porque sus originales ya están libres. Solo quedan copias de Topoloco haciéndose reverencias.
+4. Paula tiene una invitación a responder y después Hugo. Las respuestas son suyas y no se evalúan. Pueden hablar por ambos o pasar con botón. Topotino y Topotina se burlan del ego del villano.
+5. Topoloco promete vengarse y que pronto tendrán noticias suyas. Los niños ordenan expulsarlo y Topotina cierra el acceso. Topotino agradece a ambos y promete avisar si ocurre algo. Sin tarea adicional ni señal navideña.
 
 ## Prueba y controles
 

@@ -1,5 +1,37 @@
 # Guía maestra de coherencia narrativa · Las Doce Aguas
 
+## 1 de noviembre · rescate de hoy y despedida de Topoloco · T-01N1
+
+Esta revisión prevalece sobre el plan del 30 y las indicaciones nocturnas del 31. Paula y Hugo ya tienen el mapa entregado por Topotina. Son doce pruebas del mapa, no doce Flopis ni las doce aguas. La noche de Samaín permitió arrancar el aparato; los originales cautivos mantienen sus jaulas y su señal a la mañana siguiente. El amanecer no los libera automáticamente. El aviso en vivo del 31 que decía «hasta mañana» se marca visto si seguía pendiente; no se reenvía el día 1 ni se borra de quienes ya lo leyeron. Al abrir el comunicador reciben una sola vez «buenos días» y el encargo de rescatar hoy a los Flopis. Se recuperan partidas atascadas anteriores a la búsqueda sin inventar visitas, deducciones o rescates; no se toca una victoria ni un desenlace en curso. Se conservan mensajes, identificadores, pistas, flags y códigos de recuperación.
+
+Vuelven los botones de confirmación de hitos, además del texto libre. No se puede deducir el estado de otra app: un informe explícito de las doce pruebas completadas o de todos los Flopis libres confirma el rescate; un resultado parcial, una duda o una negación no. Una frase ambigua pide confirmación y ofrece el botón correspondiente. El rescate alternativo sigue disponible y conduce al mismo desenlace, sin atribuir doce pruebas hechas a quien usó esa alternativa.
+
+Tras el rescate, Tecla abre un nuevo acceso para que su marido Topoloco proteste. Si entró la víspera, esta es su reconexión, no su primera aparición. Topotina vuelve como hermana e ingeniera: ya entregó el mapa y ahora detecta el acceso de Tecla. No rescata a los Flopis por los niños. Tecla defiende su autoría con humor y se marcha antes del cierre. Las copias de reserva fallan porque dependían de los originales; el intento de Topoloco solo produce sus propias reverencias.
+
+Paula y Hugo tienen sendas invitaciones a intervenir de verdad; cualquiera puede escribir por ambos o pasar mediante botón. No se inventan sus palabras. Sus intervenciones son conversación libre, sin respuesta correcta ni pruebas añadidas al rescate. Topotino se ríe de las ínfulas del villano. Topoloco anuncia que se vengará y que pronto tendrán noticias suyas, sin daño ni nueva tarea. Los niños ordenan expulsarlo; Topotina cierra el acceso y el canal confirma la expulsión. Topotino agradece a ambos, declara el rescate terminado y promete avisar si ocurre algo. No se reabre el canal del villano al conversar después.
+
+Impacto: se revisan búsqueda, ayuda, alternativa y cierre; se añaden tres escenas conversacionales entre rescate y victoria, manteniendo el ID 040 de victoria. Se eliminan de este cierre el cascabel navideño, los plazos nocturnos y el Santiago de «mañana»: hoy ya es domingo. El final de agosto permanece intacto.
+
+## 31 de octubre · mapa entregado
+
+Topotina acaba de dejarles el mapa de los Flopis; Topotino se une a la búsqueda. Tienen hasta mañana para buscarlos; no se da por completado el rescate ni se exige que lo hagan esta noche.
+
+## 31 de octubre · después de la visita romana
+
+Cuando los niños confirman que han terminado la visita, Topotino les pide directamente buscar el mapa que ya conocen para rescatar a los Flopis. La visita se considera terminada únicamente cuando ellos lo dicen; no se presupone el resultado del rescate.
+
+## 31 de octubre · muralla y cloacas
+
+La familia cuenta que ya han encontrado la muralla y están haciendo sus pruebas. Cuando lo comuniquen, Topotino pregunta qué han descubierto sobre las cloacas romanas y les pide que avisen al terminar. No inventa pruebas ni da por terminada la visita. Después retoma la misión de los Flopis.
+
+## 31 de octubre · Lugo y refugio confirmados
+
+Paula y Hugo ya han identificado Lugo. Por indicación de la familia, Topotino confirma Lugo y comunica directamente que el refugio está en Rúa Armanyá 31, dentro de las murallas. No presupone que hayan llegado todavía. Las partidas existentes anteriores a la llegada al refugio se recuperan una vez en esa fase; se conserva el historial y no se retrocede desde etapas posteriores. La aventura prosigue cuando confirmen que están en el refugio.
+
+## 31 de octubre · recuperación tras descubrir a Pedro
+
+La familia confirma que ya ha terminado la investigación y ha encontrado a Pedro. Las partidas existentes que se hayan quedado en una fase anterior de Astorga se recuperan una sola vez en «La distracción», conservando mensajes y progreso. Topotino retoma desde el informe sobre Topoloco; Lugo se descubre conversando y el refugio aparece después de confirmar la llegada. No se adelantan ni el plan completo ni la búsqueda de los Flopis.
+
 **Versión canónica:** 25 de agosto de 2026 · edición T-25A1
 **Final único:** Corral de Comedias de Isla Mágica, después de la recepción de «¡Que viene el Rey!», tarde del 25 de agosto
 **Después del final:** no se abre otra misión ni otra amenaza
@@ -9,6 +41,14 @@ Esta guía manda sobre todos los capítulos y sobre el contexto enviado a Luna. 
 ## 30 de octubre · humor y confesiones
 
 Topotino confiesa que durante la aventura de Francia, cuando Paula y Hugo derrotaron a los Oscurnos, estaba nervioso y procuraba parecer valiente. No se inventan lugares, objetos ni incidentes de ese viaje. Pregunta qué recuerdan ellos, sin exigir una respuesta para continuar. Las bromas sobre sus informes, su escondite y el Aplausómetro no cambian pruebas, fechas ni secretos.
+
+## 31 de octubre · Astorga y Lugo romanas
+
+Los niños supieron antes de tiempo que en el Palacio había juegos. No se insiste, corrige ni adelanta ninguna actividad concreta; todo forma parte de su investigación. Astorga fue Asturica Augusta; su origen fue romano. Una vía romana, la XIX, comunicaba Asturica Augusta y Lucus Augusti, actual Lugo. La conexión se menciona después de que hayan deducido Lugo, nunca antes. No se finge haber visitado restos ni se exige seguir la antigua vía. Los datos se ofrecen en mensajes breves, preguntas opcionales y humor; el progreso y las sorpresas se conservan. Fuentes: https://turismoastorga.es/ruta-romana/ y https://www.turismo.gal/localizador-de-recursos/-/sit/que-visitar/patrimonio-cultural/conjunto-historico-artistico/xermade .
+
+## 30 de octubre · conversación y secretos
+
+Desde la revisión del 1 de noviembre, la aventura admite mensajes escritos y botones explícitos para confirmar hitos. Las experiencias oficiales se viven como aventuras dentro de la misión, sin presentar sus pruebas como juegos externos. La IA conoce únicamente la fase y sus pistas ya entregadas; una comprobación final bloquea secretos futuros. Las confirmaciones se piden conversando, sin deducir visitas o rescates por mensajes ambiguos.
 
 ## 0. Nueva campaña · Samaín 2026 · T-30O1
 
