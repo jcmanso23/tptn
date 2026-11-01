@@ -1,21 +1,21 @@
-const CACHE_NAME = 'topotino-offline-samain-v13';
+const CACHE_NAME = 'topotino-offline-samain-v14';
 const CORE_ASSETS = [
   '/',
   '/index.html',
-  '/styles.css?v=samain-v13',
-  '/app.js?v=samain-v13',
-  '/chat-format.js?v=samain-v13',
-  '/content/challenges.js?v=samain-v13',
-  '/content/samain.js?v=samain-v13',
-  '/content/santiago-gift.js?v=santiago-v2',
+  '/styles.css?v=samain-v14',
+  '/app.js?v=samain-v14',
+  '/chat-format.js?v=samain-v14',
+  '/content/challenges.js?v=samain-v14',
+  '/content/samain.js?v=samain-v14',
+  '/content/santiago-gift.js?v=santiago-v3',
   '/chat-format.js',
   '/santiago/',
   '/santiago/index.html',
-  '/santiago/style.css?v=santiago-v2',
-  '/santiago/game.js?v=santiago-v2',
-  '/santiago/secrets.js?v=santiago-v2',
-  '/santiago/progress.js?v=santiago-v2',
-  '/santiago/case.js?v=santiago-v2',
+  '/santiago/style.css?v=santiago-v3',
+  '/santiago/game.js?v=santiago-v3',
+  '/santiago/secrets.js?v=santiago-v3',
+  '/santiago/progress.js?v=santiago-v3',
+  '/santiago/case.js?v=santiago-v3',
   '/santiago/vendor/leaflet.js',
   '/santiago/vendor/leaflet.css',
   '/manifest.json',
@@ -30,7 +30,7 @@ const CORE_ASSETS = [
   '/images/doctora-tecla.jpg?v=tecla-v1',
   '/images/capitan-pico.jpg?v=capitan-pico-v1',
   '/images/america.png?v=america-v1',
-  '/content/episodes.json?v=samain-v13'
+  '/content/episodes.json?v=samain-v14'
 ];
 
 self.addEventListener('install', (event) => {
@@ -65,10 +65,10 @@ async function precacheStory() {
   await Promise.allSettled(CORE_ASSETS.map((asset) => cacheOne(cache, asset)));
 
   try {
-    const response = await fetch('/content/episodes.json?v=samain-v13', { cache: 'no-store' });
+    const response = await fetch('/content/episodes.json?v=samain-v14', { cache: 'no-store' });
     if (!response.ok) return;
     const manifest = await response.clone().json();
-    await cache.put('/content/episodes.json?v=samain-v13', response);
+    await cache.put('/content/episodes.json?v=samain-v14', response);
     await Promise.allSettled(
       manifest.map((episode) => cacheOne(cache, `/${episode.file}`))
     );

@@ -1,5 +1,9 @@
 # Guía maestra de coherencia narrativa · Las Doce Aguas
 
+## Cuadro de mando de Santiago
+
+La subweb se abre directamente como cuadro de mando de la misión: comprobaciones realizadas, pendientes y aplazadas, continuación y acceso al comunicador. Los comentarios breves de Topotino dependen exclusivamente de ese progreso y no inventan hallazgos ni incidentes nuevos. Doce comprobaciones equivalen a informe completo, no a expulsión anticipada: la confrontación final sigue en el chat. La introducción queda como recordatorio desplegable. Se conserva el mismo almacenamiento e IDs de pruebas.
+
 ## 1 de noviembre · Santiago patas arriba · T-01N3 · canon vigente
 
 Por petición expresa de la familia, el antiguo regalo se convierte en continuación de la aventura. Esta revisión sustituye las instrucciones T-01N1/T-01N2 sobre regalo, amenaza y cierre. Las doce pruebas y sus hechos reales se conservan. Los doce Flopis no se inventan: siguen siendo doce pruebas de rescate en Lugo y doce comprobaciones distintas en Santiago.

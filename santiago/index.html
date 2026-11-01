@@ -5,24 +5,24 @@
   <meta name="theme-color" content="#08263f"><meta name="description" content="Topoloco ha vuelto Santiago patas arriba. Doce comprobaciones para desmontar sus mentiras con Paula, Hugo y Topotino.">
   <title>Santiago patas arriba · Los 12 secretos</title>
   <link rel="icon" href="/icons/icon.svg" type="image/svg+xml">
-  <link rel="stylesheet" href="vendor/leaflet.css"><link rel="stylesheet" href="style.css?v=santiago-v2">
-  <script src="vendor/leaflet.js" defer></script><script src="game.js?v=santiago-v2" type="module"></script>
+  <link rel="stylesheet" href="vendor/leaflet.css"><link rel="stylesheet" href="style.css?v=santiago-v3">
+  <script src="vendor/leaflet.js" defer></script><script src="game.js?v=santiago-v3" type="module"></script>
 </head>
 <body>
   <header class="masthead"><a class="brand" href="./" aria-label="Los 12 secretos de Santiago, inicio"><span class="shell" aria-hidden="true">✺</span><span>El cuaderno de<br><strong>Paula y Hugo</strong></span></a><span class="gift-tag">Operación Santiago</span></header>
   <main>
-    <section id="welcome" class="welcome" aria-labelledby="welcome-title">
-      <div class="welcome-copy"><div class="postcard"><img src="/images/topotino.png?v=marco-v1" alt="Topotino"><span>¡Equipo, necesito vuestros ojos!</span></div>
-      <h1 id="welcome-title">Santiago está<br>patas arriba.</h1>
-      <p class="lead">Topoloco presume de haber cambiado la ciudad. Hay doce enredos que solo podremos desmontar mirando lo que existe de verdad.</p>
-      <p>Su Desquiciador de Rótulos está soltando disparates por Santiago. Buscad los doce detalles, comprobad cada mentira y descubrid la historia que intenta trastocar.</p>
-      <button id="start" class="primary">Abrir nuestro mapa</button>
-      <p class="small">A vuestro ritmo, con los adultos. Podéis parar y volver cuando queráis.</p></div>
-      <div class="cover-art" aria-hidden="true"><svg viewBox="0 0 400 420"><rect x="28" y="25" width="340" height="365" rx="12" fill="#d9edf0" transform="rotate(4 200 210)"/><path d="M65 310 Q125 285 125 222 T210 165 T330 75" fill="none" stroke="#00858a" stroke-width="4" stroke-dasharray="8 10"/><path d="M67 255V132h30V97h14v35h29v123m130 0V132h30V97h14v35h28v123M126 255V172h156v83M175 255v-42a24 24 0 0 1 48 0v42M137 172l67-45 67 45" fill="#f5f9fc" stroke="#08263f" stroke-width="5" stroke-linejoin="round"/><path d="M89 97l17-38 17 38m161 0 17-38 17 38" fill="#e6a01a" stroke="#08263f" stroke-width="4"/><circle cx="206" cy="179" r="12" fill="#e6a01a"/><circle cx="85" cy="318" r="29" fill="#08263f"/><text x="85" y="327" text-anchor="middle" fill="white" font-size="27" font-family="Trebuchet MS">1</text><circle cx="321" cy="63" r="30" fill="#e6a01a"/><text x="321" y="72" text-anchor="middle" fill="#08263f" font-size="25" font-family="Trebuchet MS">12</text><path d="M252 315l21-36 21 36-21-10z" fill="#00858a"/><text x="200" y="368" text-anchor="middle" fill="#08263f" font-size="21" font-family="Trebuchet MS">Mirar. Comprobar. Desbaratar.</text></svg></div>
-    </section>
-    <section id="adventure" hidden aria-label="Nuestro juego">
-      <div class="game-heading"><div><p class="small">Operación Santiago</p><h1>Desmontad sus enredos.</h1></div><div class="score"><strong id="count">0 / 12</strong><span>comprobados</span></div></div>
+    <section id="adventure" aria-label="Cuadro de mando de la misión">
+      <div class="game-heading"><div><p class="small">Cuadro de mando</p><h1>Operación Santiago.</h1></div><div class="score"><strong id="count">0 / 12</strong><span>comprobados</span></div></div>
       <progress id="progress" max="12" value="0" aria-label="Enredos comprobados"></progress>
+      <section class="mission-control" aria-label="Estado de la misión">
+        <div class="mission-status"><strong id="mission-state">Investigación en marcha</strong><span>Paula y Hugo, equipo de campo</span></div>
+        <p id="mission-brief">Topoloco está llenando Santiago de disparates. Comprobad los doce detalles reales para dejar su Desquiciador sin mentiras.</p>
+        <dl class="mission-counts"><div><dt>Comprobadas</dt><dd id="done-count">0</dd></div><div><dt>Por comprobar</dt><dd id="todo-count">12</dd></div><div><dt>Para después</dt><dd id="later-count">0</dd></div></dl>
+        <div class="command-note"><img src="/images/topotino.png?v=marco-v1" alt="Topotino"><p id="command-joke"></p></div>
+        <p id="deferred-summary" class="small" hidden></p>
+        <div class="mission-controls"><button id="continue-mission" class="primary">Continuar la misión</button><a id="command-chat" class="secondary" href="/">Hablar con Topotino</a></div>
+        <details class="mission-reminder"><summary>Recordar la misión</summary><p>Mirad el disparate de Topoloco, buscad el detalle y pulsad «¡Lo encontramos!» cuando lo hayáis comprobado. Después conoceréis su historia. Podéis pedir una pista, dejarlo para después o guardar y descansar.</p><p>La iglesia puede estar cerrada y la sombra necesita oscuridad e iluminación adecuada. Nadie cuenta esas pruebas como hechas hasta que las comprobéis. Con las doce, volved al comunicador para el enfrentamiento final.</p></details>
+      </section>
       <p id="notice" class="notice" role="status" hidden></p>
       <div class="workspace">
         <section class="explore" aria-label="Mapa y lista de secretos">

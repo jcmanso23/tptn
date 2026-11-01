@@ -1,6 +1,6 @@
-import { SECRETS } from './secrets.js?v=santiago-v2';
-import { CASES } from './case.js?v=santiago-v2';
-import { SANTIAGO_PROGRESS_KEY } from './progress.js?v=santiago-v2';
+import { SECRETS } from './secrets.js?v=santiago-v3';
+import { CASES } from './case.js?v=santiago-v3';
+import { SANTIAGO_PROGRESS_KEY } from './progress.js?v=santiago-v3';
 const KEY = SANTIAGO_PROGRESS_KEY;
 const $ = (id) => document.getElementById(id);
 const ids = SECRETS.map(s => s.id);
@@ -114,7 +114,39 @@ function renderSimple(){
   });
   host.append(svg);
 }
+function renderCommandCenter(){
+  const done=game.found.length, later=game.deferred.length, todo=12-done-later;
+  let missionFinished=false;
+  try { missionFinished=done===12 && JSON.parse(localStorage.getItem('topotino_chat_state_v2')||'null')?.flags?.includes('santiago_finalizado')===true; } catch {}
+  $('mission-brief').textContent=missionFinished
+    ? 'Santiago conserva sus historias y Topoloco está fuera del canal. Aquí quedan vuestras doce comprobaciones para recordarlas juntos.'
+    : done===12
+      ? 'Las doce comprobaciones están completas. Volved al comunicador para entregar el informe y enfrentaros a Topoloco con Topotino.'
+      : 'Topoloco está llenando Santiago de disparates. Comprobad los doce detalles reales para dejar su Desquiciador sin mentiras.';
+  $('done-count').textContent=done;
+  $('todo-count').textContent=todo;
+  $('later-count').textContent=later;
+  $('mission-state').textContent=missionFinished?'Misión cumplida · Santiago en su sitio':done===12?'Informe completo · Volved al comunicador':game.walkEnded?'Avance guardado · Podéis continuar':'Investigación en marcha';
+  $('command-joke').textContent=missionFinished
+    ? '«Topoloco está fuera del micrófono y Santiago conserva sus historias. He archivado su discurso en “Pataletas con vistas a la Catedral”.»'
+    : done===12
+    ? '«Doce mentiras desmontadas. Topoloco está ensayando una excusa de doce pisos. ¡Volved al comunicador y la escuchamos juntos!»'
+    : done===0
+      ? '«Cuadro de mando listo. Mapa, equipo y bigotes preparados. He quitado el botón de dominar el mundo: Topoloco lo pulsaba con el codo.»'
+      : todo===0
+        ? '«Lo que falta está guardado para después. Mis bigotes seguirán de guardia; yo aprovecho para buscar la galleta de emergencia.»'
+        : done<6
+          ? '«Cada detalle comprobado, una tontería menos del doctor. Si sigue así, tendrá que inventarse una excusa para sus propias excusas.»'
+          : '«Lleváis más pruebas que Topoloco argumentos. Seguid mirando con calma: su ego hace ruido, pero no sirve de brújula.»';
+  $('deferred-summary').hidden=later===0;
+  $('deferred-summary').textContent=later?'Para después: '+SECRETS.filter(s=>game.deferred.includes(s.id)).map(s=>`${s.id}. ${s.title}`).join('; ')+'.':'';
+  const target=SECRETS.find(s=>s.id===game.selected&&status(s.id)==='pending')||SECRETS.find(s=>status(s.id)==='pending')||SECRETS.find(s=>status(s.id)==='deferred');
+  $('continue-mission').textContent=target?`Continuar: ${target.id}. ${target.title}`:'Revisar las doce comprobaciones';
+  $('continue-mission').onclick=()=>select(target?.id||game.selected);
+  $('command-chat').textContent=missionFinished?'Volver al comunicador':done===12?'Entregar el informe a Topotino':'Hablar con Topotino';
+}
 function render(){
+  renderCommandCenter();
   $('count').textContent=`${game.found.length} / 12`;$('progress').value=game.found.length;
   renderDetail();renderList();renderMarkers();renderSimple();
 }
@@ -139,11 +171,13 @@ function initMap(){
   if(!navigator.onLine)useSimple(true);
 }
 function begin(){
-  game.started=true;save();$('welcome').hidden=true;$('adventure').hidden=false;
-  if(!map)initMap();else requestAnimationFrame(()=>map.invalidateSize());render();$('start').textContent='Continuar nuestro paseo';
+  game.started=true;save();
+  if(!map)initMap();else requestAnimationFrame(()=>map.invalidateSize());
+  render();
 }
+
 function celebrate(){
-  game.walkEnded=true;save();const count=game.found.length;
+  game.walkEnded=true;save();renderCommandCenter();const count=game.found.length;
   $('celebration-title').textContent=count===12?'¡Doce mentiras desmontadas!':'Informe guardado, equipo.';
   $('celebration-copy').textContent=count===12?'Habéis comprobado los doce detalles y recuperado sus historias. Volved al comunicador: Topotino y Topotina necesitan vuestro informe para enfrentarse a Topoloco.':`Lleváis ${count} de las 12 comprobaciones. Podéis descansar y continuar cuando queráis; el plan de Topoloco todavía no está detenido.`;
   $('stamp-book').replaceChildren();SECRETS.forEach(s=>{const stamp=node('span',String(s.id),`stamp ${status(s.id)==='found'?'found':''}`);stamp.setAttribute('aria-label',`${s.id}: ${statusLabel(s.id)}`);$('stamp-book').append(stamp);});
@@ -152,16 +186,15 @@ function celebrate(){
   $('resume').textContent=count===12?'Revisar las comprobaciones':'Seguir investigando';
   if(!$('celebration').open)$('celebration').showModal();
 }
-$('start').addEventListener('click',begin);
 $('map-tab').addEventListener('click',()=>showView('map'));
 $('list-tab').addEventListener('click',()=>showView('list'));
 $('map-mode').addEventListener('click',()=>{if(!map){$('map-status').textContent='El mapa de calles no está disponible. El plano y las pistas siguen aquí.';return;}useSimple(!simple);});
 $('finish').addEventListener('click',celebrate);
-$('resume').addEventListener('click',()=>{$('celebration').close();game.walkEnded=false;save();});
-$('celebration').addEventListener('cancel',()=>{game.walkEnded=false;save();});
+$('resume').addEventListener('click',()=>{$('celebration').close();game.walkEnded=false;save();renderCommandCenter();});
+$('celebration').addEventListener('cancel',()=>{game.walkEnded=false;save();renderCommandCenter();});
 $('reset').addEventListener('click',()=>{
   if(!window.confirm('¿Reiniciar solo el paseo de Santiago? Se borrarán sus hallazgos y pistas. La partida del comunicador se conserva.'))return;
-  game=defaults();save();$('celebration').close();$('adventure').hidden=true;$('welcome').hidden=false;$('start').textContent='Abrir nuestro mapa';render();window.scrollTo(0,0);
+  game=defaults();$('celebration').close();begin();window.scrollTo(0,0);
 });
 $('locate').addEventListener('click',()=>{
   if(!navigator.geolocation){$('map-status').textContent='No hay ubicación disponible. Podéis orientaros con las zonas y las pistas.';return;}
@@ -173,7 +206,7 @@ $('locate').addEventListener('click',()=>{
   },()=>{$('locate').disabled=false;$('map-status').textContent='Podéis seguir sin ubicación. El mapa y las pistas no necesitan permiso.';},{enableHighAccuracy:false,timeout:10000,maximumAge:60000});
 });
 window.addEventListener('offline',()=>useSimple(true));
-render();
-if(game.started){begin();if(game.walkEnded)celebrate();}
+window.addEventListener('storage',event=>{if(event.key==='topotino_chat_state_v2')renderCommandCenter();});
+begin();
 if(storageFailed)save();
-if('serviceWorker' in navigator)navigator.serviceWorker.register('/service-worker.js?v=santiago-v2').catch(()=>{});
+if('serviceWorker' in navigator)navigator.serviceWorker.register('/service-worker.js?v=santiago-v3').catch(()=>{});

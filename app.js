@@ -1,8 +1,8 @@
 import { readSantiagoReport, SANTIAGO_PROGRESS_KEY } from './santiago/progress.js?v=santiago-v2';
-import { splitTopotinoMessages } from './chat-format.js?v=samain-v13';
-import { CHALLENGE_PACKS, displayChallengeOptions } from './content/challenges.js?v=samain-v13';
+import { splitTopotinoMessages } from './chat-format.js?v=samain-v14';
+import { CHALLENGE_PACKS, displayChallengeOptions } from './content/challenges.js?v=samain-v14';
 
-import { SAMAIN_ID, SAMAIN_STAGES, newSamain, normalizeSamain, samainStage, samainStageForEpisode, samainCanStart, madridDay, samainSpeakers, reduceSamain } from './content/samain.js?v=samain-v13';
+import { SAMAIN_ID, SAMAIN_STAGES, newSamain, normalizeSamain, samainStage, samainStageForEpisode, samainCanStart, madridDay, samainSpeakers, reduceSamain } from './content/samain.js?v=samain-v14';
 
 const STORAGE_KEYS = {
   auth: 'topotino_chat_auth_v1',
@@ -12,7 +12,7 @@ const STORAGE_KEYS = {
 const LEGACY_STATE_KEY = 'topotino_chat_state_v1';
 const APP_VERSION_CODE = 'T-30O1';
 const PASSPHRASE_HASH = 'a64716bd9f4e8added1bf47f80b97c3fc7b70a15b8043cdab083e1ddf85f3794';
-const EPISODES_MANIFEST = 'content/episodes.json?v=samain-v13';
+const EPISODES_MANIFEST = 'content/episodes.json?v=samain-v14';
 const LIVE_STORY_ENDPOINT = '/api/story';
 const AMARANTE_TRAVEL_DATE = '2026-08-13';
 const AMARANTE_ROUTE_EPISODE_ID = '004b-rumbo-amarante';
@@ -4161,6 +4161,6 @@ function applyTestingParams() {
 
 function registerServiceWorker() {
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('service-worker.js?v=offline-samain-v13').catch(() => {});
+    navigator.serviceWorker.register('service-worker.js?v=offline-samain-v14').catch(() => {});
   }
 }
