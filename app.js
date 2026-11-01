@@ -1,7 +1,8 @@
-import { splitTopotinoMessages } from './chat-format.js?v=samain-v10';
-import { CHALLENGE_PACKS, displayChallengeOptions } from './content/challenges.js?v=samain-v10';
+import { pendingSantiagoGift, SANTIAGO_GIFT_LINK_ID } from './content/santiago-gift.js?v=santiago-v1';
+import { splitTopotinoMessages } from './chat-format.js?v=samain-v11';
+import { CHALLENGE_PACKS, displayChallengeOptions } from './content/challenges.js?v=samain-v11';
 
-import { SAMAIN_ID, SAMAIN_STAGES, newSamain, normalizeSamain, samainStage, samainStageForEpisode, samainCanStart, madridDay, samainSpeakers, reduceSamain } from './content/samain.js?v=samain-v10';
+import { SAMAIN_ID, SAMAIN_STAGES, newSamain, normalizeSamain, samainStage, samainStageForEpisode, samainCanStart, madridDay, samainSpeakers, reduceSamain } from './content/samain.js?v=samain-v11';
 
 const STORAGE_KEYS = {
   auth: 'topotino_chat_auth_v1',
@@ -11,7 +12,7 @@ const STORAGE_KEYS = {
 const LEGACY_STATE_KEY = 'topotino_chat_state_v1';
 const APP_VERSION_CODE = 'T-30O1';
 const PASSPHRASE_HASH = 'a64716bd9f4e8added1bf47f80b97c3fc7b70a15b8043cdab083e1ddf85f3794';
-const EPISODES_MANIFEST = 'content/episodes.json?v=samain-v10';
+const EPISODES_MANIFEST = 'content/episodes.json?v=samain-v11';
 const LIVE_STORY_ENDPOINT = '/api/story';
 const AMARANTE_TRAVEL_DATE = '2026-08-13';
 const AMARANTE_ROUTE_EPISODE_ID = '004b-rumbo-amarante';
@@ -335,13 +336,22 @@ function enterSamainStage(key, { adult = false, prefix = '' } = {}) {
 
 async function deliverSamainPending() {
   if (samainDeliveryInFlight || busy || state.campaign?.id !== SAMAIN_ID) return;
-  const pending = (state.campaign.outbox || []).filter((message) => !state.messages.some((m) => m.deliveryId === message.id));
-  if (!pending.length) return;
   samainDeliveryInFlight = true;
   try {
-    await deliverTopotinoMessages(pending.map(({ id, ...m }) => ({ ...m, deliveryId: id })), { mode: 'scene' });
-    state.campaign.outbox = [];
-    saveState();
+    while (true) {
+      let pending = (state.campaign.outbox || []).filter((message) => !state.messages.some((m) => m.deliveryId === message.id));
+      if (!pending.length) {
+        // El regalo va después de toda la despedida, incluso tras una recarga.
+        const hadOutbox = Boolean(state.campaign.outbox?.length);
+        pending = pendingSantiagoGift(state.campaign, state.messages);
+        state.campaign.outbox = pending;
+        if (!pending.length) { if (hadOutbox) saveState(); break; }
+        saveState();
+      }
+      await deliverTopotinoMessages(pending.map(({ id, ...m }) => ({ ...m, deliveryId: id })), { mode: 'scene' });
+      state.campaign.outbox = [];
+      saveState();
+    }
   } finally {
     samainDeliveryInFlight = false;
     renderAll();
@@ -352,7 +362,9 @@ function samainAiContext(episode) {
   if (state.campaign?.id !== SAMAIN_ID) return episode.aiContext;
   if (state.campaign.waitingRomanVisit) return 'Topotino habla con Paula y Hugo durante su visita a la muralla de Lugo. Ya les preguntó qué descubrieron sobre las cloacas romanas. Responde con humor a lo que cuenten, sin inventar detalles de su visita; espera a que confirmen que han terminado. No anuncies otra misión ni adelantes acontecimientos.';
   const hints = (episode.progressiveHints || []).slice(0, state.campaign.hints[state.campaign.stage] || 0);
-  return episode.aiContext + (hints.length
+  const giftContext = state.messages.some(m => m.deliveryId === SANTIAGO_GIFT_LINK_ID)
+    ? '\nTopotino ya entregó el regalo opcional Los 12 secretos de Santiago. El botón Abrir nuestro regalo está en su mensaje del final; también pueden abrir /santiago/. El progreso es independiente y no conoces sus hallazgos. No inventes resultados ni reabras misiones.' : '';
+  return episode.aiContext + giftContext + (hints.length
     ? '\n\nPistas ya entregadas en esta fase: ' + JSON.stringify(hints) + '\nPuedes comentar y explicar estos datos ya comunicados, sin añadir pistas posteriores.'
     : '');
 }
@@ -2368,6 +2380,13 @@ function renderMessages() {
     text.className = 'message-text';
     text.textContent = message.text;
     bubble.appendChild(text);
+    if (message.from === 'topotino' && message.deliveryId === SANTIAGO_GIFT_LINK_ID && message.episodeId === '040-samain-victoria') {
+      const giftLink = document.createElement('a');
+      giftLink.href = '/santiago/';
+      giftLink.className = 'santiago-gift-link';
+      giftLink.textContent = 'Abrir nuestro regalo';
+      bubble.appendChild(giftLink);
+    }
 
     const meta = document.createElement('div');
     meta.className = 'message-meta';
@@ -4043,6 +4062,6 @@ function applyTestingParams() {
 
 function registerServiceWorker() {
   if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('service-worker.js?v=offline-samain-v10').catch(() => {});
+    navigator.serviceWorker.register('service-worker.js?v=offline-samain-v11').catch(() => {});
   }
 }

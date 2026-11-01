@@ -1,5 +1,15 @@
 # Guía maestra de coherencia narrativa · Las Doce Aguas
 
+## 1 de noviembre · regalo de Santiago · T-01N2
+
+Después de la expulsión y de la despedida completa de Samaín, Topotino entrega una sola vez un regalo de agradecimiento a Paula y Hugo: «Los 12 secretos de Santiago». Es un paseo lúdico opcional por curiosidades reales, no una amenaza ni otra tarea del rescate. Sus doce secretos no son las doce pruebas de los Flopis ni las doce aguas. No se anuncia antes de cerrar la aventura. Las partidas ya en victoria reciben también el regalo sin repetir la expulsión. Los mensajes pendientes se recuperan con identificadores fijos tras recargar.
+
+El regalo abre /santiago/, sin contraseña y con progreso local independiente. El chat solo presenta y enlaza el regalo; no conoce sus hallazgos ni recibe resultados. No cambia códigos de recuperación, flags, aguas ni el progreso de la campaña. Topotino puede recordar cómo acceder únicamente después de la entrega. El villano no vuelve. Se mantiene el agradecimiento y la promesa de avisar si pasa algo.
+
+Las doce pruebas siguen el documento familiar «Los 12 secretos de Santiago de Compostela». Se confirma mediante botón, no mediante GPS, fotos o respuestas exactas. Fotografías opcionales con la cámara habitual, sin subir imágenes. Una iglesia cerrada o la falta de oscuridad permiten aplazar; se celebra lo explorado sin inventar hallazgos. Leyendas, tradición religiosa e historia se distinguen. No se reproducen fotografías de referencia sin permiso. Cualquier felicitación indica el número real encontrado.
+
+Impacto: solo el cierre de Samaín admite la presentación del regalo; escenas anteriores y final de agosto permanecen cerrados. No se modifican las pruebas del rescate ni se abre una nueva campaña desde el paseo.
+
 ## 1 de noviembre · rescate de hoy y despedida de Topoloco · T-01N1
 
 Esta revisión prevalece sobre el plan del 30 y las indicaciones nocturnas del 31. Paula y Hugo ya tienen el mapa entregado por Topotina. Son doce pruebas del mapa, no doce Flopis ni las doce aguas. La noche de Samaín permitió arrancar el aparato; los originales cautivos mantienen sus jaulas y su señal a la mañana siguiente. El amanecer no los libera automáticamente. El aviso en vivo del 31 que decía «hasta mañana» se marca visto si seguía pendiente; no se reenvía el día 1 ni se borra de quienes ya lo leyeron. Al abrir el comunicador reciben una sola vez «buenos días» y el encargo de rescatar hoy a los Flopis. Se recuperan partidas atascadas anteriores a la búsqueda sin inventar visitas, deducciones o rescates; no se toca una victoria ni un desenlace en curso. Se conservan mensajes, identificadores, pistas, flags y códigos de recuperación.
